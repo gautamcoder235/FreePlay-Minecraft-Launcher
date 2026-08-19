@@ -1,3 +1,9 @@
+pub mod account;
 pub mod app;
+pub mod instance;
+pub mod metadata;
 
-pub use app::{get_app_status, AppStatusResponse};
+pub use account::*;
+pub use app::*;
+pub use instance::*;
+pub use metadata::*;

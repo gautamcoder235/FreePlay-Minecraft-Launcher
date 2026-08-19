@@ -8,6 +8,9 @@ license = "GPL-3.0"
 [dependencies]
 freeplay-domain = { path = "../core/domain" }
 freeplay-application = { path = "../core/application" }
+freeplay-storage-sqlite = { path = "../adapters/storage-sqlite" }
+freeplay-keyring-vault = { path = "../adapters/keyring-vault" }
+freeplay-minecraft-engine = { path = "../adapters/minecraft-engine" }
 serde = { version = "1.0", features = ["derive"] }
 specta = { version = "=2.0.0-rc.20", features = ["derive", "function", "chrono", "uuid"] }
 thiserror = "2.0"
