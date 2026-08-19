@@ -75,7 +75,7 @@
     "message": "Не удалось установить Minecraft"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Не удалось подключиться к Modrinth"
+    "message": "Не удалось подключиться к FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Нет разрешения на запись"
@@ -132,7 +132,7 @@
     "message": "Принять всё"
   },
   "app.ads-consent.body": {
-    "message": "Реклама обеспечивает работу Modrinth и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки."
+    "message": "Реклама обеспечивает работу FreePlay и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки."
   },
   "app.ads-consent.manage": {
     "message": "Настроить"
@@ -141,7 +141,7 @@
     "message": "Отклонить всё"
   },
   "app.ads-consent.title": {
-    "message": "Конфиденциальность и реклама на Modrinth"
+    "message": "Конфиденциальность и реклама на FreePlay"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Использовать эффекты вроде размытия фона. Без аппаратного ускорения возможна потеря производительности."
@@ -150,7 +150,7 @@
     "message": "Расширенные эффекты"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Выберите тему для Modrinth App."
+    "message": "Выберите тему для FreePlay App."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "Тема"
@@ -174,7 +174,7 @@
     "message": "Миры на главной"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Сворачивать окно Modrinth App при запуске Minecraft."
+    "message": "Сворачивать окно FreePlay App при запуске Minecraft."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Сворачивание приложения"
@@ -204,7 +204,7 @@
     "message": "Скрытие панели справа"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Предупреждать о рисках перед установкой файлов .mrpack, не размещённых на Modrinth."
+    "message": "Предупреждать о рисках перед установкой файлов .mrpack, не размещённых на FreePlay."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Предупреждение о сторонних сборках"
@@ -525,13 +525,13 @@
     "message": "Войти как"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Необходимо войти в Modrinth"
+    "message": "Необходимо войти в FreePlay"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "для получения обновлений сборки."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Вы используете неправильную учетную запись Modrinth"
+    "message": "Вы используете неправильную учетную запись FreePlay"
   },
   "app.instance.worlds.add-server": {
     "message": "Добавить сервер"
@@ -657,7 +657,7 @@
     "message": "Установить"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Это приглашение создано другим пользователем Modrinth. Принимайте приглашения только от тех, кому доверяете."
+    "message": "Это приглашение создано другим пользователем FreePlay. Принимайте приглашения только от тех, кому доверяете."
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
     "message": "Это приглашение создано <creator>{username}</creator>. Принимайте приглашения только от тех, кому доверяете."
@@ -690,7 +690,7 @@
     "message": "Для запросов в поддержку обращайтесь в нашу <support-link>службу поддержки</support-link>. Для сообщений об ошибках открывайте запросы в <github-link>GitHub </github-link>."
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "Файл проверяется только если он опубликован на Modrinth, независимо от его формата (включая .mrpack)."
+    "message": "Файл проверяется только если он опубликован на FreePlay, независимо от его формата (включая .mrpack)."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "Сборка"
@@ -699,10 +699,10 @@
     "message": "Контент"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "Сборка содержит файлы, которые не опубликованы на Modrinth. Рекомендуется скачивать файлы только из надёжных источников."
+    "message": "Сборка содержит файлы, которые не опубликованы на FreePlay. Рекомендуется скачивать файлы только из надёжных источников."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Сборка этого сервера содержит файлы, которые не опубликованы на Modrinth. Рекомендуется скачивать файлы только из надёжных источников."
+    "message": "Сборка этого сервера содержит файлы, которые не опубликованы на FreePlay. Рекомендуется скачивать файлы только из надёжных источников."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Предупреждение о неизвестных файлах"
@@ -723,7 +723,7 @@
     "message": "Удалён"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "Обновление сборки этого сервера содержит файлы, которые не опубликованы на Modrinth. Рекомендуется скачивать файлы только из надёжных источников."
+    "message": "Обновление сборки этого сервера содержит файлы, которые не опубликованы на FreePlay. Рекомендуется скачивать файлы только из надёжных источников."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Добавлен"
@@ -732,7 +732,7 @@
     "message": "Удалён"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "Это обновление для общего экземпляра содержит файлы, которые не опубликованные на Modrinth. Мы настоятельно рекомендуем устанавливать файлы только из источников, которым вы доверяете."
+    "message": "Это обновление для общего экземпляра содержит файлы, которые не опубликованные на FreePlay. Мы настоятельно рекомендуем устанавливать файлы только из источников, которым вы доверяете."
   },
   "app.modal.update-to-play.update-required": {
     "message": "Требуется обновление"
@@ -747,19 +747,19 @@
     "message": "Главная"
   },
   "app.nav.modrinth-account": {
-    "message": "Аккаунт Modrinth"
+    "message": "Аккаунт FreePlay"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Войти в аккаунт Modrinth"
+    "message": "Войти в аккаунт FreePlay"
   },
   "app.nav.signed-in-as": {
     "message": "Текущий аккаунт: <user>{username}</user>"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Перейти на Modrinth+"
+    "message": "Перейти на FreePlay+"
   },
   "app.news.title": {
     "message": "Новости"
@@ -801,7 +801,7 @@
     "message": "Перезапуск..."
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FreePlay Launcher {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Переменные среды при запуске игры."
@@ -894,16 +894,16 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "Реклама обеспечивает работу Modrinth и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки. Отказаться и настроить куки можно ниже."
+    "message": "Реклама обеспечивает работу FreePlay и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки. Отказаться и настроить куки можно ниже."
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "Показывать Modrinth App в текущей активности Discord. Не влияет на Rich Presence модов. Требуется перезапуск."
+    "message": "Показывать FreePlay App в текущей активности Discord. Не влияет на Rich Presence модов. Требуется перезапуск."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinth собирает анонимные данные об использовании для персонализации и улучшения сервиса. Отключите этот параметр, чтобы отказаться от сбора данных."
+    "message": "FreePlay собирает анонимные данные об использовании для персонализации и улучшения сервиса. Отключите этот параметр, чтобы отказаться от сбора данных."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "Телеметрия"
@@ -921,7 +921,7 @@
     "message": "Очистить кеш приложения?"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "Удаляет кешированные данные и повторно скачивает их с Modrinth. Приложение может замедлиться, пока кеш не восстановится."
+    "message": "Удаляет кешированные данные и повторно скачивает их с FreePlay. Приложение может замедлиться, пока кеш не восстановится."
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "Очистить кеш"
@@ -942,7 +942,7 @@
     "message": "Выбрать каталог приложения"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Здесь Modrinth App хранит сборки и другие файлы. Изменения вступят в силу после перезапуска."
+    "message": "Здесь FreePlay App хранит сборки и другие файлы. Изменения вступят в силу после перезапуска."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "Выбор нового каталога приложения"
@@ -1101,13 +1101,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Эти скины получены за участие в сборе средств Modrinth Pride в месяц гордости."
+    "message": "Эти скины получены за участие в сборе средств FreePlay Pride в месяц гордости."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -1140,10 +1140,10 @@
     "message": "Включить"
   },
   "app.survey.body": {
-    "message": "Не хотите ответить на несколько вопросов о вашем опыте с Modrinth App?"
+    "message": "Не хотите ответить на несколько вопросов о вашем опыте с FreePlay Launcher?"
   },
   "app.survey.footer": {
-    "message": "Этот отзыв будет доставлен напрямую команде Modrinth и поможет разрабатывать будущие обновления!"
+    "message": "Этот отзыв будет доставлен напрямую команде FreePlay и поможет разрабатывать будущие обновления!"
   },
   "app.survey.no-thanks": {
     "message": "Нет, спасибо"
@@ -1152,16 +1152,16 @@
     "message": "Пройти опрос"
   },
   "app.survey.title": {
-    "message": "Привет, пользователь Modrinth!"
+    "message": "Привет, пользователь FreePlay!"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Скачивание версии Modrinth App {version} завершено. Перезапустите приложение, чтобы обновить его, или оно обновится автоматически после закрытия."
+    "message": "Скачивание версии FreePlay App {version} завершено. Перезапустите приложение, чтобы обновить его, или оно обновится автоматически после закрытия."
   },
   "app.update-popup.body.linux": {
-    "message": "Доступна версия Modrinth App {version}. Обновите приложение через менеджер пакетов, чтобы получить последние улучшения и исправления!"
+    "message": "Доступна версия FreePlay App {version}. Обновите приложение через менеджер пакетов, чтобы получить последние улучшения и исправления!"
   },
   "app.update-popup.body.metered": {
-    "message": "Версия Modrinth App {version} доступна для скачивания! Используется сеть с лимитным тарифным планом, поэтому скачивание не началось автоматически."
+    "message": "Версия FreePlay App {version} доступна для скачивания! Используется сеть с лимитным тарифным планом, поэтому скачивание не началось автоматически."
   },
   "app.update-popup.changelog": {
     "message": "Список изменений"
@@ -1188,7 +1188,7 @@
     "message": "Установить в сборку"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Выберите вариант"
@@ -1251,10 +1251,10 @@
     "message": "Оно может быть не таким, как в Minecraft!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Введите имя с Modrinth..."
+    "message": "Введите имя с FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "Какое имя у друга на Modrinth?"
+    "message": "Какое имя у друга на FreePlay?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Добавьте друзей</link> и следите за ними!"
@@ -1296,7 +1296,7 @@
     "message": "{title} — {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Войдите в аккаунт Modrinth</link>, чтобы добавлять друзей и следить за ними!"
+    "message": "<link>Войдите в аккаунт FreePlay</link>, чтобы добавлять друзей и следить за ними!"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "Связанная сборка"
@@ -1317,7 +1317,7 @@
     "message": "Закрыть доступ к сборке"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "Удаляет сборку с серверов Modrinth и прекращает отправку обновлений. Локальная копия сборки останется нетронутой."
+    "message": "Удаляет сборку с серверов FreePlay и прекращает отправку обновлений. Локальная копия сборки останется нетронутой."
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "Закрытие доступа..."
@@ -1332,7 +1332,7 @@
     "message": "Отвязка сборки"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "Сборка будет удалена с серверов Modrinth. Локальная копия и её контент останутся на устройстве, а другие участники перестанут получать обновления."
+    "message": "Сборка будет удалена с серверов FreePlay. Локальная копия и её контент останутся на устройстве, а другие участники перестанут получать обновления."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "Закрытие доступа к сборке"
@@ -1824,7 +1824,7 @@
     "message": "Создать аккаунт"
   },
   "modal.modrinth-account-required.description": {
-    "message": "Войдите в аккаунт Modrinth, чтобы использовать эту функцию."
+    "message": "Войдите в аккаунт FreePlay, чтобы использовать эту функцию."
   },
   "modal.modrinth-account-required.header": {
     "message": "Требуется аккаунт"
@@ -1833,10 +1833,10 @@
     "message": "Открыть браузер снова"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Войти в Modrinth"
+    "message": "Войти в FreePlay"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Войдите в аккаунт Modrinth"
+    "message": "Войдите в аккаунт FreePlay"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Вход"

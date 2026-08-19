@@ -264,7 +264,7 @@ function handleDecline() {
 
 function handleReport() {
 	if (project.value?.id) {
-		openUrl(`https://modrinth.com/report?item=project&itemID=${project.value.id}`)
+		openUrl(`https://freeplay.app/report?item=project&itemID=${project.value.id}`)
 	}
 }
 
@@ -372,7 +372,7 @@ const messages = defineMessages({
 	inviteWarning: {
 		id: 'app.modal.install-to-play.invite-warning',
 		defaultMessage:
-			'This invite was created by another Modrinth user, not Modrinth. Only accept invites from people you trust.',
+			'This invite was created by another FreePlay user, not Modrinth. Only accept invites from people you trust.',
 	},
 	sharedInstance: {
 		id: 'app.modal.install-to-play.shared-instance',

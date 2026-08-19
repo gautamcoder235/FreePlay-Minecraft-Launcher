@@ -30,7 +30,7 @@
 			<ProjectSidebarCreators
 				:organization="organization"
 				:members="members"
-				:org-link="(slug) => `https://modrinth.com/organization/${slug}`"
+				:org-link="(slug) => `https://freeplay.app/organization/${slug}`"
 				:user-link="(username) => `/user/${encodeURIComponent(username)}`"
 				link-target="_blank"
 				:user-link-target="null"
@@ -693,12 +693,12 @@ function handleAddServerToInstance() {
 function openProjectInBrowser() {
 	if (!data.value) return
 	const type = isServerProject.value ? 'project' : data.value.project_type
-	void openUrl(`https://modrinth.com/${type}/${data.value.slug}`)
+	void openUrl(`https://freeplay.app/${type}/${data.value.slug}`)
 }
 
 function reportProject() {
 	if (!data.value) return
-	void openUrl(`https://modrinth.com/report?item=project&itemID=${data.value.id}`)
+	void openUrl(`https://freeplay.app/report?item=project&itemID=${data.value.id}`)
 }
 
 async function fetchProjectData() {
@@ -936,11 +936,11 @@ const handleOptionsClick = (args) => {
 			install(null)
 			break
 		case 'open_link':
-			openUrl(`https://modrinth.com/${args.item.project_type}/${args.item.slug}`)
+			openUrl(`https://freeplay.app/${args.item.project_type}/${args.item.slug}`)
 			break
 		case 'copy_link':
 			navigator.clipboard.writeText(
-				`https://modrinth.com/${args.item.project_type}/${args.item.slug}`,
+				`https://freeplay.app/${args.item.project_type}/${args.item.slug}`,
 			)
 			break
 	}

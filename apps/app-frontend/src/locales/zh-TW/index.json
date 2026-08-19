@@ -75,7 +75,7 @@
     "message": "無法設定 Minecraft"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "無法連線到 Modrinth"
+    "message": "無法連線到 FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "沒有寫入權限"
@@ -132,7 +132,7 @@
     "message": "全部接受"
   },
   "app.ads-consent.body": {
-    "message": "廣告使 Modrinth 得以營運，並為創作者提供收益。我們的合作夥伴可能會在應用程式中儲存或存取 Cookie，以實現個人化廣告並衡量廣告成效。"
+    "message": "廣告使 FreePlay 得以營運，並為創作者提供收益。我們的合作夥伴可能會在應用程式中儲存或存取 Cookie，以實現個人化廣告並衡量廣告成效。"
   },
   "app.ads-consent.manage": {
     "message": "管理偏好設定"
@@ -141,7 +141,7 @@
     "message": "全部拒絕"
   },
   "app.ads-consent.title": {
-    "message": "關於你的隱私，以及廣告如何幫助 Modrinth"
+    "message": "關於你的隱私，以及廣告如何幫助 FreePlay"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "啟用視覺效果（如背景模糊），若無硬體加速可能會降低效能。"
@@ -150,7 +150,7 @@
     "message": "進階繪製"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "選擇 Modrinth App 使用的色彩主題。"
+    "message": "選擇 FreePlay Launcher 使用的色彩主題。"
   },
   "app.appearance-settings.color-theme.title": {
     "message": "色彩主題"
@@ -174,7 +174,7 @@
     "message": "繼續遊玩世界"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "當 Minecraft 啟動時將 Modrinth App 最小化。"
+    "message": "當 Minecraft 啟動時將 FreePlay Launcher 最小化。"
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "最小化應用程式"
@@ -204,7 +204,7 @@
     "message": "隱藏右側邊欄"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "在安裝非託管於 Modrinth 的 Modrinth Pack（.mrpack）之前，顯示安全警告。"
+    "message": "在安裝非託管於 FreePlay 的 FreePlay Pack（.mrpack）之前，顯示安全警告。"
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "在安裝未知模組包前發出警告"
@@ -531,13 +531,13 @@
     "message": "你需要以"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "你需要登入 Modrinth"
+    "message": "你需要登入 FreePlay"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "登入才能收到這個共用實例的更新。"
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "你目前使用的 Modrinth 帳號不正確"
+    "message": "你目前使用的 FreePlay 帳號不正確"
   },
   "app.instance.worlds.add-server": {
     "message": "新增伺服器"
@@ -666,10 +666,10 @@
     "message": "安裝"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "這份邀請是由另一位 Modrinth 使用者建立，並非由 Modrinth 官方建立。請僅接受來自你信任的人的邀請。"
+    "message": "這份邀請是由另一位 FreePlay 使用者建立，並非由 FreePlay 官方建立。請僅接受來自你信任的人的邀請。"
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "這份邀請是由 <creator>{username}</creator> 建立，並非由 Modrinth 官方建立。請僅接受來自你信任的人的邀請。"
+    "message": "這份邀請是由 <creator>{username}</creator> 建立，並非由 FreePlay 官方建立。請僅接受來自你信任的人的邀請。"
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count, plural, other {# 個模組}}"
@@ -699,7 +699,7 @@
     "message": "如需客服支援，請聯絡我們的<support-link>客服團隊</support-link>。如需回報錯誤，請<github-link>在 GitHub 上提交 issue</github-link>。"
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "只有在 Modrinth 上發布的檔案才會經過審查，無論其檔案格式為何（包含 .mrpack）。"
+    "message": "只有在 FreePlay 上發布的檔案才會經過審查，無論其檔案格式為何（包含 .mrpack）。"
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "共用實例"
@@ -708,10 +708,10 @@
     "message": "共用實例的內容"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "這個共用實例包含未在 Modrinth 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
+    "message": "這個共用實例包含未在 FreePlay 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "這個伺服器模組包中包含未在 Modrinth 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
+    "message": "這個伺服器模組包中包含未在 FreePlay 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "未知檔案警告"
@@ -732,7 +732,7 @@
     "message": "已移除"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "這個伺服器模組包更新包含未在 Modrinth 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
+    "message": "這個伺服器模組包更新包含未在 FreePlay 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "已新增"
@@ -741,7 +741,7 @@
     "message": "已移除"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "這個共用實例更新包含未在 Modrinth 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
+    "message": "這個共用實例更新包含未在 FreePlay 上發布的檔案。強烈建議你僅安裝來自信任來源的檔案。"
   },
   "app.modal.update-to-play.update-required": {
     "message": "需要更新"
@@ -756,19 +756,19 @@
     "message": "首頁"
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth 帳號"
+    "message": "FreePlay 帳號"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "登入 Modrinth 帳號"
+    "message": "登入 FreePlay 帳號"
   },
   "app.nav.signed-in-as": {
     "message": "以 <user>{username}</user> 登入"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "升級至 Modrinth+"
+    "message": "升級至 FreePlay+"
   },
   "app.news.title": {
     "message": "新聞"
@@ -810,7 +810,7 @@
     "message": "正在重新啟動..."
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FreePlay Launcher {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "啟動實例時設定的環境變數。"
@@ -903,16 +903,16 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "廣告使 Modrinth 得以營運，並為創作者提供收益。我們的合作夥伴可能會在應用程式中儲存或存取 Cookie，以實現個人化廣告並衡量廣告成效。你可以在下方選擇退出或管理偏好設定。"
+    "message": "廣告使 FreePlay 得以營運，並為創作者提供收益。我們的合作夥伴可能會在應用程式中儲存或存取 Cookie，以實現個人化廣告並衡量廣告成效。你可以在下方選擇退出或管理偏好設定。"
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "在 Discord 上將 Modrinth App 顯示為目前活動。這不會影響模組為實例新增的豐富狀態。需要重新啟動應用程式。"
+    "message": "在 Discord 上將 FreePlay Launcher 顯示為目前活動。這不會影響模組為實例新增的豐富狀態。需要重新啟動應用程式。"
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord 豐富狀態"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinth 會收集匿名化的分析與使用資料，以提升使用者體驗並提供客製化服務。若停用此選項，即表示你選擇退出，你的資料將不再被收集。"
+    "message": "FreePlay 會收集匿名化的分析與使用資料，以提升使用者體驗並提供客製化服務。若停用此選項，即表示你選擇退出，你的資料將不再被收集。"
   },
   "app.settings.privacy.telemetry.title": {
     "message": "遙測"
@@ -930,7 +930,7 @@
     "message": "要清除應用程式快取嗎？"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "清除快取資料，並從 Modrinth 重新下載。在快取完成重建前，應用程式的載入速度可能會比較慢。"
+    "message": "清除快取資料，並從 FreePlay 重新下載。在快取完成重建前，應用程式的載入速度可能會比較慢。"
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "清除快取"
@@ -951,7 +951,7 @@
     "message": "瀏覽應用程式資料夾"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Modrinth App 儲存實例及其他檔案的位置。變更將於重新啟動應用程式後生效。"
+    "message": "FreePlay Launcher 儲存實例及其他檔案的位置。變更將於重新啟動應用程式後生效。"
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "選擇新的應用程式資料夾"
@@ -1110,13 +1110,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth 驕傲"
+    "message": "FreePlay 驕傲"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "這些外觀是你在驕傲月期間捐款給 Modrinth 驕傲月籌款活動所獲得的。"
+    "message": "這些外觀是你在驕傲月期間捐款給 FreePlay 驕傲月籌款活動所獲得的。"
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "群騎紛爭"
@@ -1149,10 +1149,10 @@
     "message": "開啟"
   },
   "app.survey.body": {
-    "message": "你方便回答幾個關於 Modrinth App 使用體驗的問題嗎？"
+    "message": "你方便回答幾個關於 FreePlay Launcher 使用體驗的問題嗎？"
   },
   "app.survey.footer": {
-    "message": "你的回覆將直接傳送給 Modrinth 團隊，作為未來更新方向的指引！"
+    "message": "你的回覆將直接傳送給 FreePlay 團隊，作為未來更新方向的指引！"
   },
   "app.survey.no-thanks": {
     "message": "不用了，謝謝"
@@ -1161,16 +1161,16 @@
     "message": "填寫問卷調查"
   },
   "app.survey.title": {
-    "message": "你好啊，Modrinth 使用者！"
+    "message": "你好啊，FreePlay 使用者！"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} 已完成下載！立即重新載入以更新，或在關閉 Modrinth App 時自動更新。"
+    "message": "FreePlay Launcher v{version} 已完成下載！立即重新載入以更新，或在關閉 FreePlay Launcher 時自動更新。"
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} 現已推出。請使用軟體包管理員進行更新，以取得最新的功能與修正！"
+    "message": "FreePlay Launcher v{version} 現已推出。請使用軟體包管理員進行更新，以取得最新的功能與修正！"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} 現已推出！由於你目前使用的是計量付費網路，我們並未自動下載更新。"
+    "message": "FreePlay Launcher v{version} 現已推出！由於你目前使用的是計量付費網路，我們並未自動下載更新。"
   },
   "app.update-popup.changelog": {
     "message": "更新日誌"
@@ -1197,7 +1197,7 @@
     "message": "安裝至實例"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "選擇選項"
@@ -1260,10 +1260,10 @@
     "message": "這可能與對方的 Minecraft 使用者名稱不同！"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "輸入 Modrinth 使用者名稱..."
+    "message": "輸入 FreePlay 使用者名稱..."
   },
   "friends.add-friend.username.title": {
-    "message": "你好友的 Modrinth 使用者名稱是什麼？"
+    "message": "你好友的 FreePlay 使用者名稱是什麼？"
   },
   "friends.add-friends-to-share": {
     "message": "<link>新增好友</link>即可查看他們正在玩什麼！"
@@ -1305,7 +1305,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>登入 Modrinth 帳號</link>即可新增好友並查看他們正在玩什麼！"
+    "message": "<link>登入 FreePlay 帳號</link>即可新增好友並查看他們正在玩什麼！"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "已連結的共用實例"
@@ -1326,7 +1326,7 @@
     "message": "取消發布共用實例"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "在 Modrinth 上移除這個共用實例，並停止向任何使用者推送更新。你的本機實例不會受到影響。"
+    "message": "在 FreePlay 上移除這個共用實例，並停止向任何使用者推送更新。你的本機實例不會受到影響。"
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "正在取消發布..."
@@ -1341,7 +1341,7 @@
     "message": "取消連結共用實例"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "這會從 Modrinth 的伺服器刪除共用實例。在 Modrinth App 使用該實例的使用者將不再收到更新，但本機實例及其內容仍會保留在此裝置上。"
+    "message": "這會從 FreePlay 的伺服器刪除共用實例。在 FreePlay Launcher 使用該實例的使用者將不再收到更新，但本機實例及其內容仍會保留在此裝置上。"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "即將取消發布共用實例"
@@ -1836,7 +1836,7 @@
     "message": "建立帳號"
   },
   "modal.modrinth-account-required.description": {
-    "message": "你必須登入 Modrinth 帳號才能使用這個功能。"
+    "message": "你必須登入 FreePlay 帳號才能使用這個功能。"
   },
   "modal.modrinth-account-required.header": {
     "message": "需要帳號"
@@ -1845,10 +1845,10 @@
     "message": "再次開啟瀏覽器"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "登入 Modrinth"
+    "message": "登入 FreePlay"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "登入 Modrinth 帳號"
+    "message": "登入 FreePlay 帳號"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "登入"

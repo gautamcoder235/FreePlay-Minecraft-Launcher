@@ -423,13 +423,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Orgullo Modrinth"
+    "message": "Orgullo FreePlay"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Has recibido estas skins por donar a la fundación Orgullo Modrinth durante el Mes del Orgullo."
+    "message": "Has recibido estas skins por donar a la fundación Orgullo FreePlay durante el Mes del Orgullo."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Monturas del Caos"
@@ -456,13 +456,13 @@
     "message": "Selector de Skin"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} se ha descargado. Actualiza la página ahora o espera a que se actualice automáticamente al cerrar Modrinth App."
+    "message": "FreePlay Launcher v{version} se ha descargado. Actualiza la página ahora o espera a que se actualice automáticamente al cerrar FreePlay Launcher."
   },
   "app.update-popup.body.linux": {
-    "message": "Ya está disponible Modrinth App v{version}. ¡Utiliza tu gestor de paquetes para actualizarla y disfrutar de las últimas funciones y correcciones!"
+    "message": "Ya está disponible FreePlay Launcher v{version}. ¡Utiliza tu gestor de paquetes para actualizarla y disfrutar de las últimas funciones y correcciones!"
   },
   "app.update-popup.body.metered": {
-    "message": "¡Modrinth App v{version} ya está disponible! Como estás conectado a una red con tarifa por datos, no la hemos descargado automáticamente."
+    "message": "¡FreePlay Launcher v{version} ya está disponible! Como estás conectado a una red con tarifa por datos, no la hemos descargado automáticamente."
   },
   "app.update-popup.changelog": {
     "message": "Registro de cambios"
@@ -486,7 +486,7 @@
     "message": "¡La versión {version} se ha instalado correctamente!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "ejemplo.modrinth.gg"
+    "message": "ejemplo.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Selecciona una opción"
@@ -516,10 +516,10 @@
     "message": "¡Puede ser diferente de su apodo en Minecraft!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Escribe su apodo en Modrinth..."
+    "message": "Escribe su apodo en FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "¿Cuál es el apodo de tu amigo en Modrinth?"
+    "message": "¿Cuál es el apodo de tu amigo en FreePlay?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Añade amigos</link> para ver a qué están jugando!"
@@ -561,7 +561,7 @@
     "message": "{title}: {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Inicia sesión en una cuenta Modrinth</link> para añadir amigos y ver a qué están jugando!"
+    "message": "<link>Inicia sesión en una cuenta FreePlay</link> para añadir amigos y ver a qué están jugando!"
   },
   "instance.add-server.add-and-play": {
     "message": "Añadir y jugar"

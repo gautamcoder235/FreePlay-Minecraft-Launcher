@@ -23,7 +23,7 @@
 					:src="
 						expandedGalleryItem.raw_url
 							? expandedGalleryItem.raw_url
-							: 'https://cdn.modrinth.com/placeholder-banner.svg'
+							: 'https://cdn.freeplay.app/placeholder-banner.svg'
 					"
 					:alt="expandedGalleryItem.title ? expandedGalleryItem.title : 'gallery-image'"
 					@click.stop="() => {}"
@@ -49,7 +49,7 @@
 								:href="
 									expandedGalleryItem.raw_url
 										? expandedGalleryItem.raw_url
-										: 'https://cdn.modrinth.com/placeholder-banner.svg'
+										: 'https://cdn.freeplay.app/placeholder-banner.svg'
 								"
 							>
 								<ExternalIcon aria-hidden="true" />

@@ -72,7 +72,7 @@
     "message": "Zobrazit logy"
   },
   "app.ads-consent.title": {
-    "message": "Vaše soukromí a způsob, jakým reklamy podporují Modrinth"
+    "message": "Vaše soukromí a způsob, jakým reklamy podporují FreePlay"
   },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "Pokročilé vykreslování"
@@ -507,13 +507,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Tyto skiny jsi obdržel za přispění do sbírky Modrinth Pride behěm Pride měsíce."
+    "message": "Tyto skiny jsi obdržel za přispění do sbírky FreePlay Pride behěm Pride měsíce."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -540,13 +540,13 @@
     "message": "Výběr skinu"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Stahování Modrinth App v{version} bylo dokončeno. Aktualizujte ji znovunačtením nebo se automaticky aktualizuje po zavření."
+    "message": "Stahování FreePlay Launcher v{version} bylo dokončeno. Aktualizujte ji znovunačtením nebo se automaticky aktualizuje po zavření."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} je k dispozici. Aktualizujte ji pomocí svého správce balíčků, abyste získali nejnovější funkce a opravy!"
+    "message": "FreePlay Launcher v{version} je k dispozici. Aktualizujte ji pomocí svého správce balíčků, abyste získali nejnovější funkce a opravy!"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} je nyní k dispozici! Protože jste v měřené síti, nebyla stažena automaticky."
+    "message": "FreePlay Launcher v{version} je nyní k dispozici! Protože jste v měřené síti, nebyla stažena automaticky."
   },
   "app.update-popup.changelog": {
     "message": "Seznam změn"
@@ -570,7 +570,7 @@
     "message": "Verze {version} byla úspěšně nainstalována!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "priklad.modrinth.gg"
+    "message": "priklad.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Vybrat možnost"
@@ -600,10 +600,10 @@
     "message": "Může se lišit od jejich Minecraft přezdívky!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Zadej přezdívku na Modrinthu..."
+    "message": "Zadej přezdívku na FreePlayu..."
   },
   "friends.add-friend.username.title": {
-    "message": "Jaká je přezdívka tvého přítele na Modrinthu?"
+    "message": "Jaká je přezdívka tvého přítele na FreePlayu?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Přidej si přátele</link>, abys viděl, co hrají!"
@@ -645,7 +645,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Přihlas se k Modrinth účtu</link>, abys mohl přidávat přátele a vidět, co hrají!"
+    "message": "<link>Přihlas se k FreePlay účtu</link>, abys mohl přidávat přátele a vidět, co hrají!"
   },
   "instance.add-server.add-and-play": {
     "message": "Přidat a hrát"

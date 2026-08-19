@@ -141,7 +141,7 @@ const messages = defineMessages({
 	},
 	usernameTitle: {
 		id: 'friends.add-friend.username.title',
-		defaultMessage: "What's your friend's Modrinth username?",
+		defaultMessage: "What's your friend's FreePlay username?",
 	},
 	usernameDescription: {
 		id: 'friends.add-friend.username.description',
@@ -149,7 +149,7 @@ const messages = defineMessages({
 	},
 	usernamePlaceholder: {
 		id: 'friends.add-friend.username.placeholder',
-		defaultMessage: 'Enter Modrinth username...',
+		defaultMessage: 'Enter FreePlay username...',
 	},
 	sendFriendRequest: {
 		id: 'friends.add-friend.submit',

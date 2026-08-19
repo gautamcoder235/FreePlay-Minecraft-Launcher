@@ -75,7 +75,7 @@
     "message": "A Minecraft telepítése meghiúsult"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Nem sikerült elérni Modrinthot"
+    "message": "Nem sikerült elérni FreePlayot"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Nincs írási jogosultság"
@@ -132,7 +132,7 @@
     "message": "Összes elfogadása"
   },
   "app.ads-consent.body": {
-    "message": "A hirdetések teszik lehetővé a Modrinth működését, és biztosítják a tartalomkészítők juttatásait. Partnereink sütiket tárolhatnak vagy érhetnek el az alkalmazásban a hirdetések személyre szabása és a teljesítmény mérése céljából."
+    "message": "A hirdetések teszik lehetővé a FreePlay működését, és biztosítják a tartalomkészítők juttatásait. Partnereink sütiket tárolhatnak vagy érhetnek el az alkalmazásban a hirdetések személyre szabása és a teljesítmény mérése céljából."
   },
   "app.ads-consent.manage": {
     "message": "Beállítások kezelése"
@@ -141,7 +141,7 @@
     "message": "Összes elutasítása"
   },
   "app.ads-consent.title": {
-    "message": "Adataid védelme és a hirdetések szerepe a Modrinth működésében"
+    "message": "Adataid védelme és a hirdetések szerepe a FreePlay működésében"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Engedélyezi a vizuális effektusokat, például a háttér elmosását. Hardveres gyorsítás nélkül ez ronthatja a rendszer teljesítményét."
@@ -150,7 +150,7 @@
     "message": "Haladó megjelenítési beállítások"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Válaszd ki a Modrinth App által használt színsémát."
+    "message": "Válaszd ki a FreePlay Launcher által használt színsémát."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "Téma"
@@ -174,7 +174,7 @@
     "message": "Ugorj vissza a világokba"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "A Modrinth App bezáródik a Minecraft indításakor"
+    "message": "A FreePlay Launcher bezáródik a Minecraft indításakor"
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Alkalmazás bezárása"
@@ -204,7 +204,7 @@
     "message": "Jobb oldalsáv elrejtése"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Biztonsági figyelmeztetést jelenít meg, mielőtt olyan Modrinth Csomagfájlt (.mrpack) telepítenél, amely nem a Modrinthról származik."
+    "message": "Biztonsági figyelmeztetést jelenít meg, mielőtt olyan FreePlay Csomagfájlt (.mrpack) telepítenél, amely nem a FreePlayról származik."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Figyelmeztetés ismeretlen modcsomagok telepítése előtt"
@@ -531,13 +531,13 @@
     "message": "Jelentkezz be mint"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Be kell jelentkezned a Modrinthba"
+    "message": "Be kell jelentkezned a FreePlayba"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": ", hogy frissítéseket kapj ehhez a megosztott példányhoz."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Nem a megfelelő Modrinth-fiókot használod"
+    "message": "Nem a megfelelő FreePlay-fiókot használod"
   },
   "app.instance.worlds.add-server": {
     "message": "Szerver hozzáadása"
@@ -666,10 +666,10 @@
     "message": "Telepítés"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Ezt a meghívót nem a Modrinth, hanem egy másik Modrinth-felhasználó hozta létre. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
+    "message": "Ezt a meghívót nem a FreePlay, hanem egy másik FreePlay-felhasználó hozta létre. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "Ezt a meghívót <creator>{username}</creator> készítette, nem pedig a Modrinth. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
+    "message": "Ezt a meghívót <creator>{username}</creator> készítette, nem pedig a FreePlay. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count} mod"
@@ -699,7 +699,7 @@
     "message": "Ha segítségre van szükséged, vedd fel a kapcsolatot a <support-link>támogatási csapatunkkal</support-link>. Hibajelentésekhez nyiss egy <github-link>GitHub-issue-t</github-link>."
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "Egy fájlt csak akkor vizsgálnak át, ha azt a Modrinthen közzétették, függetlenül a fájlformátumtól (beleértve az `.mrpack` formátumot is)."
+    "message": "Egy fájlt csak akkor vizsgálnak át, ha azt a FreePlayen közzétették, függetlenül a fájlformátumtól (beleértve az `.mrpack` formátumot is)."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "Megosztott példány"
@@ -708,10 +708,10 @@
     "message": "Megosztott példány tartalma"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "Ez a megosztott példány olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a Modrinth-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
+    "message": "Ez a megosztott példány olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a FreePlay-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Ez a szervermodcsomag olyan fájlokat tartalmaz, amelyeket nem tettek közzé a Modrinthen. Nyomatékosan javasoljuk, hogy csak megbízható forrásból származó fájlokat telepíts."
+    "message": "Ez a szervermodcsomag olyan fájlokat tartalmaz, amelyeket nem tettek közzé a FreePlayen. Nyomatékosan javasoljuk, hogy csak megbízható forrásból származó fájlokat telepíts."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Figyelmeztetés ismeretlen fájlokról"
@@ -732,7 +732,7 @@
     "message": "Eltávolítva"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "Ez a szervermodcsomag-frissítés olyan fájlokat tartalmaz, amelyek nem találhatók meg a Modrinthen. Erősen javasoljuk, hogy csak megbízható forrásokból telepíts fájlokat."
+    "message": "Ez a szervermodcsomag-frissítés olyan fájlokat tartalmaz, amelyek nem találhatók meg a FreePlayen. Erősen javasoljuk, hogy csak megbízható forrásokból telepíts fájlokat."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Hozzáadva"
@@ -741,7 +741,7 @@
     "message": "Eltávolítva"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "Ez a megosztott példányfrissítés olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a Modrinth-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
+    "message": "Ez a megosztott példányfrissítés olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a FreePlay-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
   },
   "app.modal.update-to-play.update-required": {
     "message": "Frissítés szükséges"
@@ -756,19 +756,19 @@
     "message": "Kezdőlap"
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth fiók"
+    "message": "FreePlay fiók"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Bejelentkezés egy Modrinth-fiókba"
+    "message": "Bejelentkezés egy FreePlay-fiókba"
   },
   "app.nav.signed-in-as": {
     "message": "Bejelentkezve mint <user>{username}</user>"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Frissíts a Modrinth+-ra"
+    "message": "Frissíts a FreePlay+-ra"
   },
   "app.news.title": {
     "message": "Hírek"
@@ -810,7 +810,7 @@
     "message": "Újraindítás..."
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FreePlay Launcher {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "A példány indításakor beállított környezeti változók."
@@ -903,16 +903,16 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "A hirdetések teszik lehetővé a Modrinth működését, és biztosítják a tartalomkészítők juttatásait. Partnereink sütiket tárolhatnak vagy érhetnek el az alkalmazásban a hirdetések személyre szabása és a teljesítmény mérése céljából. Alább leiratkozhatsz erről, illetve beállíthatod a preferenciáidat."
+    "message": "A hirdetések teszik lehetővé a FreePlay működését, és biztosítják a tartalomkészítők juttatásait. Partnereink sütiket tárolhatnak vagy érhetnek el az alkalmazásban a hirdetések személyre szabása és a teljesítmény mérése céljából. Alább leiratkozhatsz erről, illetve beállíthatod a preferenciáidat."
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "A Modrinth App megjelenítése aktuális tevékenységként a Discordon. Ez nem érinti a modok által a példányokhoz hozzáadott Rich Presence-t. Az alkalmazás újraindítását igényli."
+    "message": "A FreePlay Launcher megjelenítése aktuális tevékenységként a Discordon. Ez nem érinti a modok által a példányokhoz hozzáadott Rich Presence-t. Az alkalmazás újraindítását igényli."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "A Modrinth névtelen használati és telemetriai adatokat gyűjt a felhasználói élmény javítása és személyre szabása érdekében. Ha kikapcsolod ezt a beállítást, leiratkozol erről, és a rendszer többé nem gyűjti az adataidat."
+    "message": "A FreePlay névtelen használati és telemetriai adatokat gyűjt a felhasználói élmény javítása és személyre szabása érdekében. Ha kikapcsolod ezt a beállítást, leiratkozol erről, és a rendszer többé nem gyűjti az adataidat."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "Telemetria"
@@ -930,7 +930,7 @@
     "message": "Törlöd az alkalmazás gyorsítótárát?"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "Letörli a gyorsítótárban tárolt adatokat, majd újra letölti azokat a Modrinthról. Az alkalmazás betöltése lassabb lehet, amíg a gyorsítótár újra nem települ."
+    "message": "Letörli a gyorsítótárban tárolt adatokat, majd újra letölti azokat a FreePlayról. Az alkalmazás betöltése lassabb lehet, amíg a gyorsítótár újra nem települ."
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "Gyorsítótár törlése"
@@ -951,7 +951,7 @@
     "message": "Alkalmazáskönyvtár tallózása"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "A Modrinth App ebben a mappában tárolja a példányokat és az egyéb fájlokat. A módosítások az alkalmazás újraindítása után lépnek érvénybe."
+    "message": "A FreePlay Launcher ebben a mappában tárolja a példányokat és az egyéb fájlokat. A módosítások az alkalmazás újraindítása után lépnek érvénybe."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "Új alkalmazáskönyvtár kiválasztása"
@@ -1110,13 +1110,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Ezeket a kinézeteket azért kaptad, mert a Pride-hónap során adományoztál a Modrinth Pride jótékonysági gyűjtéséhez."
+    "message": "Ezeket a kinézeteket azért kaptad, mert a Pride-hónap során adományoztál a FreePlay Pride jótékonysági gyűjtéséhez."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -1149,10 +1149,10 @@
     "message": "Bekapcsolás"
   },
   "app.survey.body": {
-    "message": "Megosztanád velünk a tapasztalataidat a Modrinth App használatáról néhány kérdés megválaszolásával?"
+    "message": "Megosztanád velünk a tapasztalataidat a FreePlay Launcher használatáról néhány kérdés megválaszolásával?"
   },
   "app.survey.footer": {
-    "message": "A visszajelzésed közvetlenül a Modrinth csapatához kerül, és segít a jövőbeli frissítések alakításában!"
+    "message": "A visszajelzésed közvetlenül a FreePlay csapatához kerül, és segít a jövőbeli frissítések alakításában!"
   },
   "app.survey.no-thanks": {
     "message": "Nem, köszönöm"
@@ -1161,16 +1161,16 @@
     "message": "Kérdőív kitöltése"
   },
   "app.survey.title": {
-    "message": "Hali, Modrinth-felhasználó!"
+    "message": "Hali, FreePlay-felhasználó!"
   },
   "app.update-popup.body.download-complete": {
-    "message": "A Modrinth App v{version} letöltése befejeződött. Válaszd a Frissítés lehetőséget a frissítéshez, vagy az alkalmazás bezárásakor automatikusan frissül."
+    "message": "A FreePlay Launcher v{version} letöltése befejeződött. Válaszd a Frissítés lehetőséget a frissítéshez, vagy az alkalmazás bezárásakor automatikusan frissül."
   },
   "app.update-popup.body.linux": {
-    "message": "A Modrinth App v{version} elérhető. A legújabb funkciókért és javításokért frissíts a csomagkezelőddel!"
+    "message": "A FreePlay Launcher v{version} elérhető. A legújabb funkciókért és javításokért frissíts a csomagkezelőddel!"
   },
   "app.update-popup.body.metered": {
-    "message": "A Modrinth App v{version} már elérhető! Mivel korlátozott adatforgalmú hálózaton vagy, nem töltöttük le automatikusan."
+    "message": "A FreePlay Launcher v{version} már elérhető! Mivel korlátozott adatforgalmú hálózaton vagy, nem töltöttük le automatikusan."
   },
   "app.update-popup.changelog": {
     "message": "Változásnapló"
@@ -1197,7 +1197,7 @@
     "message": "Telepítés a példányba"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "pelda.modrinth.gg"
+    "message": "pelda.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Válassz egy lehetőséget"
@@ -1260,10 +1260,10 @@
     "message": "Más is lehet, mint a Minecraft felhasználóneve!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Barát Modrinth felhasználóneve..."
+    "message": "Barát FreePlay felhasználóneve..."
   },
   "friends.add-friend.username.title": {
-    "message": "Mi a barátod Modrinth felhasználóneve?"
+    "message": "Mi a barátod FreePlay felhasználóneve?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Vegyél fel barátokat</link>, hogy lásd mivel játszanak!"
@@ -1305,7 +1305,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Lépj be Modrinth fiókodba</link>, hogy felvehess barátokat és lásd mivel játszanak!"
+    "message": "<link>Lépj be FreePlay fiókodba</link>, hogy felvehess barátokat és lásd mivel játszanak!"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "Összekapcsolt megosztott példány"
@@ -1326,7 +1326,7 @@
     "message": "Megosztott példány megosztásának visszavonása"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "Eltávolítja ezt a megosztott példányt a Modrinthból, és nem küld többé frissítéseket azoknak, akik használják. A helyi példányodat ez nem érinti."
+    "message": "Eltávolítja ezt a megosztott példányt a FreePlayból, és nem küld többé frissítéseket azoknak, akik használják. A helyi példányodat ez nem érinti."
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "Közzététel visszavonása..."
@@ -1341,7 +1341,7 @@
     "message": "Megosztott példány leválasztása"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "Ezzel a megosztott példány törlődik a Modrinth szervereiről. A Modrinth Appban az ezt használók többé nem kapnak frissítéseket, de a helyipéldány és annak tartalma továbbra is ezen az eszközön marad."
+    "message": "Ezzel a megosztott példány törlődik a FreePlay szervereiről. A FreePlay Launcherban az ezt használók többé nem kapnak frissítéseket, de a helyipéldány és annak tartalma továbbra is ezen az eszközön marad."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "Visszavonod a megosztott példány megosztását"
@@ -1821,7 +1821,7 @@
     "message": "Fiók létrehozása"
   },
   "modal.modrinth-account-required.description": {
-    "message": "Ahhoz, hogy ezt a funkciót használhas, be kell jelentkeznie a Modrinth-fiókjába."
+    "message": "Ahhoz, hogy ezt a funkciót használhas, be kell jelentkeznie a FreePlay-fiókjába."
   },
   "modal.modrinth-account-required.header": {
     "message": "Fiók szükséges"
@@ -1830,10 +1830,10 @@
     "message": "Böngésző megnyitása újra"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Jelentkezz be a Modrinthbe"
+    "message": "Jelentkezz be a FreePlaybe"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Jelentkezz be egy Modrinth-fiókba"
+    "message": "Jelentkezz be egy FreePlay-fiókba"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Bejelentkezés"

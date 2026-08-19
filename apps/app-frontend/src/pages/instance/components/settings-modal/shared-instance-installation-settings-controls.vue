@@ -144,7 +144,7 @@ const messages = defineMessages({
 	unpublishDescription: {
 		id: 'installation-settings.shared-instance.unpublish-description',
 		defaultMessage:
-			'Remove this shared instance from Modrinth and stop sending updates to anyone using it. Your local instance will not be affected.',
+			'Remove this shared instance from FreePlay and stop sending updates to anyone using it. Your local instance will not be affected.',
 	},
 	unlinkButton: {
 		id: 'installation-settings.shared-instance.unlink-button',
@@ -169,7 +169,7 @@ const messages = defineMessages({
 	unpublishModalBody: {
 		id: 'installation-settings.unpublish-shared-instance.modal.admonition-body',
 		defaultMessage:
-			"This deletes the shared instance from Modrinth's servers. People using it in the Modrinth App will stop receiving updates, but your local instance and its content will stay on this device.",
+			"This deletes the shared instance from FreePlay's servers. People using it in the FreePlay Launcher will stop receiving updates, but your local instance and its content will stay on this device.",
 	},
 	unlinkModalHeader: {
 		id: 'installation-settings.unlink-shared-instance.modal.header',

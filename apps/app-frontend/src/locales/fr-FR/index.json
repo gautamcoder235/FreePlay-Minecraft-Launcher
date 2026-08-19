@@ -75,7 +75,7 @@
     "message": "La mise en place de Minecraft a échoué"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Impossible d'atteindre les serveurs Modrinth"
+    "message": "Impossible d'atteindre les serveurs FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Aucune permission d'écriture"
@@ -132,7 +132,7 @@
     "message": "Tout accepter"
   },
   "app.ads-consent.body": {
-    "message": "Les publicités rendent Modrinth possible et financent la rémunération des créateurs. Nos partenaires peuvent stocker des cookies ou y accéder au sein de l'application afin de personnaliser les publicités et de mesurer les performances."
+    "message": "Les publicités rendent FreePlay possible et financent la rémunération des créateurs. Nos partenaires peuvent stocker des cookies ou y accéder au sein de l'application afin de personnaliser les publicités et de mesurer les performances."
   },
   "app.ads-consent.manage": {
     "message": "Gérer les préférences"
@@ -141,7 +141,7 @@
     "message": "Tout refuser"
   },
   "app.ads-consent.title": {
-    "message": "Votre vie privée et comment les publicités soutiennent Modrinth"
+    "message": "Votre vie privée et comment les publicités soutiennent FreePlay"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Activer les effets visuels tel que le flou d'arrière-plan. Ceci peut réduire les performances sans accélération matérielle."
@@ -150,7 +150,7 @@
     "message": "Rendu avancé"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Choisir la couleur de thème utilisée par Modrinth App."
+    "message": "Choisir la couleur de thème utilisée par FreePlay Launcher."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "Couleur du thème"
@@ -174,7 +174,7 @@
     "message": "Mondes sur partie rapide"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minimiser Modrinth App quand Minecraft se lance."
+    "message": "Minimiser FreePlay Launcher quand Minecraft se lance."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Minimiser l'application"
@@ -204,7 +204,7 @@
     "message": "Cache la barre latérale droite"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Montre un avertissement de sécurité avant d'installer un Modrinth Pack (.mrpack) qui n'est pas sur Modrinth."
+    "message": "Montre un avertissement de sécurité avant d'installer un FreePlay Pack (.mrpack) qui n'est pas sur FreePlay."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "M'avertir avant d'installer des modpacks inconnus"
@@ -531,13 +531,13 @@
     "message": "Se connecter en tant que"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Vous devez vous connecter à Modrinth"
+    "message": "Vous devez vous connecter à FreePlay"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "pour recevoir des mises à jour pour cette instance partagée."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Vous utilisez le mauvais compte Modrinth"
+    "message": "Vous utilisez le mauvais compte FreePlay"
   },
   "app.instance.worlds.add-server": {
     "message": "Ajouter un serveur"
@@ -666,10 +666,10 @@
     "message": "Installer"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Cette invitation a été crée par un autre utilisateur Modrinth, pas par Modrinth. N'acceptez seulement les invitations de personnes en qui vous avez confiance."
+    "message": "Cette invitation a été crée par un autre utilisateur FreePlay, pas par FreePlay. N'acceptez seulement les invitations de personnes en qui vous avez confiance."
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "Cette invitation a été crée par <creator>{username}</creator>, pas par Modrinth. N'acceptez seulement les invitations de personnes en qui vous avez confiance."
+    "message": "Cette invitation a été crée par <creator>{username}</creator>, pas par FreePlay. N'acceptez seulement les invitations de personnes en qui vous avez confiance."
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count, plural, one {# mod} other {# mods}}"
@@ -699,7 +699,7 @@
     "message": "Pour des demandes de support, contactez notre <support-link>équipe de support</support-link>. Pour signaler des bugs, ouvrez <github-link>une issue Github</github-link>."
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "Un fichier est seulement examiné s'il est publié sur Modrinth, peu importe son extension (y compris .mrpack)."
+    "message": "Un fichier est seulement examiné s'il est publié sur FreePlay, peu importe son extension (y compris .mrpack)."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "Instance partagée"
@@ -708,10 +708,10 @@
     "message": "Contenu de l'instance partagée"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "Cette instance partagée contient des fichiers qui ne sont pas publiés sur Modrinth. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
+    "message": "Cette instance partagée contient des fichiers qui ne sont pas publiés sur FreePlay. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Ce modpack de serveur contient des fichiers qui ne sont pas publiés sur Modrinth. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
+    "message": "Ce modpack de serveur contient des fichiers qui ne sont pas publiés sur FreePlay. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Avertissement de fichiers inconnus"
@@ -732,7 +732,7 @@
     "message": "Supprimé"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "Cette mise à jour du modpack de ce serveur contient des fichiers qui ne sont pas publiés sur Modrinth. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
+    "message": "Cette mise à jour du modpack de ce serveur contient des fichiers qui ne sont pas publiés sur FreePlay. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Ajouté"
@@ -741,7 +741,7 @@
     "message": "Supprimé"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "Cette mise à jour d'instance partagée contient des fichiers qui ne sont pas publiés sur Modrinth. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
+    "message": "Cette mise à jour d'instance partagée contient des fichiers qui ne sont pas publiés sur FreePlay. Nous recommandons fortement de seulement installer des fichiers de sources en qui vous avez confiance."
   },
   "app.modal.update-to-play.update-required": {
     "message": "Mise à jour requise"
@@ -756,19 +756,19 @@
     "message": "Accueil"
   },
   "app.nav.modrinth-account": {
-    "message": "Compte Modrinth"
+    "message": "Compte FreePlay"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Se connecter à un compte Modrinth"
+    "message": "Se connecter à un compte FreePlay"
   },
   "app.nav.signed-in-as": {
     "message": "Connecté en tant que <user>{username}</user>"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Passer à Modrinth+"
+    "message": "Passer à FreePlay+"
   },
   "app.news.title": {
     "message": "Nouveautés"
@@ -810,7 +810,7 @@
     "message": "Redémarrage..."
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FreePlay Launcher {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Variables d'environnement définies lors du lancement d'une instance."
@@ -903,16 +903,16 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "Les publicités rendent Modrinth possible et financent les rémunérations des créateurs. Nos partenaires peuvent stocker des cookies ou y accéder au sein de l'application afin de personnaliser les publicités et de mesurer les performances. Vous pouvez refuser ou gérer vos préférences ci-dessous."
+    "message": "Les publicités rendent FreePlay possible et financent les rémunérations des créateurs. Nos partenaires peuvent stocker des cookies ou y accéder au sein de l'application afin de personnaliser les publicités et de mesurer les performances. Vous pouvez refuser ou gérer vos préférences ci-dessous."
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "Affiche Modrinth App en tant que votre activité actuelle sur Discord. Cela n'affecte pas Rich Presence ajouté à l'instance par les mods. Nécessite un redémarrage de l'application."
+    "message": "Affiche FreePlay Launcher en tant que votre activité actuelle sur Discord. Cela n'affecte pas Rich Presence ajouté à l'instance par les mods. Nécessite un redémarrage de l'application."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinth collecte des données d'analyse et d'utilisation anonymes afin d'améliorer l'expérience utilisateur et de personnaliser votre expérience. En désactivant cette option, vous choisissez de ne plus participer et vos données ne seront plus collectées."
+    "message": "FreePlay collecte des données d'analyse et d'utilisation anonymes afin d'améliorer l'expérience utilisateur et de personnaliser votre expérience. En désactivant cette option, vous choisissez de ne plus participer et vos données ne seront plus collectées."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "Télémétrie"
@@ -930,7 +930,7 @@
     "message": "Purger le cache de l'application ?"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "Nettoyer des données cachées et les télécharger de nouveau depuis Modrinth. L'application peut charger plus lentement jusqu'à ce que le cache soit de nouveau reconstitué."
+    "message": "Nettoyer des données cachées et les télécharger de nouveau depuis FreePlay. L'application peut charger plus lentement jusqu'à ce que le cache soit de nouveau reconstitué."
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "Purger le cache"
@@ -951,7 +951,7 @@
     "message": "Parcourir pour le répertoire de l'application"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Où Modrinth App stocke les instances et les autres fichiers. Changer prend effet après avoir redémarré l'application."
+    "message": "Où FreePlay Launcher stocke les instances et les autres fichiers. Changer prend effet après avoir redémarré l'application."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "Sélectionner un nouveau répertoire pour l'application"
@@ -1110,13 +1110,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Vous avez reçu ces skins pour avoir fait un don à une collecte de fonds Modrinth Pride pendant le mois de la fierté."
+    "message": "Vous avez reçu ces skins pour avoir fait un don à une collecte de fonds FreePlay Pride pendant le mois de la fierté."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Montures en pagaille"
@@ -1149,10 +1149,10 @@
     "message": "Activer"
   },
   "app.survey.body": {
-    "message": "Cela vous dérangerait-il de répondre à quelques questions sur votre expérience avec l'application Modrinth ?"
+    "message": "Cela vous dérangerait-il de répondre à quelques questions sur votre expérience avec l'application FreePlay ?"
   },
   "app.survey.footer": {
-    "message": "Ces retours seront transmis directement à l'équipe de Modrinth et aideront à orienter les futures mises à jour !"
+    "message": "Ces retours seront transmis directement à l'équipe de FreePlay et aideront à orienter les futures mises à jour !"
   },
   "app.survey.no-thanks": {
     "message": "Non merci"
@@ -1161,16 +1161,16 @@
     "message": "Répondre au sondage"
   },
   "app.survey.title": {
-    "message": "Salut, utilisateur de Modrinth !"
+    "message": "Salut, utilisateur de FreePlay !"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} a finie d'être téléchargée. Rechargez pour mettre à jour maintenant, ou automatiquement quand vous fermez Modrinth App."
+    "message": "FreePlay Launcher v{version} a finie d'être téléchargée. Rechargez pour mettre à jour maintenant, ou automatiquement quand vous fermez FreePlay Launcher."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} est disponible. Utilisez votre gestionnaire de paquets pour mettre à jour les dernières fonctionnalités et corrections de bogues !"
+    "message": "FreePlay Launcher v{version} est disponible. Utilisez votre gestionnaire de paquets pour mettre à jour les dernières fonctionnalités et corrections de bogues !"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} est disponible maintenant ! Puisque vous êtes sur un réseau métré, nous ne l'avons pas téléchargé automatiquement."
+    "message": "FreePlay Launcher v{version} est disponible maintenant ! Puisque vous êtes sur un réseau métré, nous ne l'avons pas téléchargé automatiquement."
   },
   "app.update-popup.changelog": {
     "message": "Journal des modifications"
@@ -1197,7 +1197,7 @@
     "message": "Installer dans l'instance"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "exemple.modrinth.gg"
+    "message": "exemple.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Sélectionner une option"
@@ -1260,10 +1260,10 @@
     "message": "Peut être différent de leur pseudo Minecraft !"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Entrez un pseudo Modrinth..."
+    "message": "Entrez un pseudo FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "Quel est le pseudo Modrinth de votre ami ?"
+    "message": "Quel est le pseudo FreePlay de votre ami ?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Ajoutez des amis</link> pour voir à quoi ils jouent !"
@@ -1305,7 +1305,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Créer un compte Modrinth</link> pour ajouter des amis et voir à quoi ils jouent !"
+    "message": "<link>Créer un compte FreePlay</link> pour ajouter des amis et voir à quoi ils jouent !"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "Instance partagée liée"
@@ -1326,7 +1326,7 @@
     "message": "Dépublier l'instance partagée"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "Supprime cette instance partagée de Modrinth et arrête d'envoyer des mises à jour à toute personne l'utilisant. Votre copie locale ne sera pas affectée."
+    "message": "Supprime cette instance partagée de FreePlay et arrête d'envoyer des mises à jour à toute personne l'utilisant. Votre copie locale ne sera pas affectée."
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "Dépublication..."
@@ -1341,7 +1341,7 @@
     "message": "Dissocier l'instance partagée"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "Cela supprime l'instance partagée des serveurs de Modrinth. Les personnes l'utilisant dans Modrinth App vont cesser de recevoir des mises à jour, mais votre instance locale et son contenu resteront sur cet appareil."
+    "message": "Cela supprime l'instance partagée des serveurs de FreePlay. Les personnes l'utilisant dans FreePlay Launcher vont cesser de recevoir des mises à jour, mais votre instance locale et son contenu resteront sur cet appareil."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "Dépublication de l'instance partagée"
@@ -1836,7 +1836,7 @@
     "message": "Créer un compte"
   },
   "modal.modrinth-account-required.description": {
-    "message": "Vous aurez besoin de vous connecter à votre compte Modrinth avant de pouvoir utiliser cette fonctionnalité."
+    "message": "Vous aurez besoin de vous connecter à votre compte FreePlay avant de pouvoir utiliser cette fonctionnalité."
   },
   "modal.modrinth-account-required.header": {
     "message": "Compte requis"
@@ -1845,10 +1845,10 @@
     "message": "Ouvrir de nouveau le navigateur"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Se connecter à Modrinth"
+    "message": "Se connecter à FreePlay"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Se connecter à un compte Modrinth"
+    "message": "Se connecter à un compte FreePlay"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Connexion"

@@ -222,7 +222,7 @@ let savedModalState: ManagedContentModalState | null = null
 function contentOwnerLink(owner: ContentOwner): NonNullable<ContentOwner['link']> {
 	if (owner.type === 'user') return `/user/${encodeURIComponent(owner.id)}`
 	return () => {
-		void openUrl(`https://modrinth.com/organization/${owner.id}`)
+		void openUrl(`https://freeplay.app/organization/${owner.id}`)
 	}
 }
 
@@ -1456,7 +1456,7 @@ async function handleShareItems(
 		case 'urls':
 			text = source
 				.filter((x) => x.project?.slug)
-				.map((x) => `https://modrinth.com/${x.project_type}/${x.project?.slug}`)
+				.map((x) => `https://freeplay.app/${x.project_type}/${x.project?.slug}`)
 				.join('\n')
 			break
 		case 'markdown':
@@ -1464,7 +1464,7 @@ async function handleShareItems(
 				.map((x) => {
 					const name = x.project?.title ?? x.file_name
 					if (x.project?.slug) {
-						return `[${name}](https://modrinth.com/${x.project_type}/${x.project.slug})`
+						return `[${name}](https://freeplay.app/${x.project_type}/${x.project.slug})`
 					}
 					return name
 				})
@@ -1491,7 +1491,7 @@ function getOverflowOptions(item: ContentItem): OverflowMenuOption[] {
 			icon: ClipboardCopyIcon,
 			action: async () => {
 				await navigator.clipboard.writeText(
-					`https://modrinth.com/${item.project_type}/${item.project?.slug}`,
+					`https://freeplay.app/${item.project_type}/${item.project?.slug}`,
 				)
 			},
 		})

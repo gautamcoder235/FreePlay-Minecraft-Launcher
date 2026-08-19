@@ -554,6 +554,16 @@ impl PlayitTunnelSupervisor {
 
         // 2. Update status to Starting
         *self.status.write().await = PlayitAgentStatus::Starting;
+        let init_log = "[playit.gg] Initializing freeplay tunnel...".to_string();
+        tracing::info!("{init_log}");
+        {
+            let mut lg = self.logs.write().await;
+            if lg.len() >= 1000 {
+                lg.pop_front();
+            }
+            lg.push_back(init_log.clone());
+        }
+        let _ = self.log_broadcaster.send(init_log);
 
         // 3. Spawn process
         let mut cmd = Command::new(&binary_path);

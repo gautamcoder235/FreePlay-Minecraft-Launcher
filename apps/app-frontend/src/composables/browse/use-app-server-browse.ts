@@ -320,5 +320,5 @@ export function useAppServerBrowse(options: UseAppServerBrowseOptions) {
 
 function getProjectUrl(item: Labrinth.Search.v3.ResultSearchProject) {
 	const projectType = item.project_types?.[0]
-	return `https://modrinth.com/${projectType ?? 'project'}/${item.slug ?? item.project_id}`
+	return `https://freeplay.app/${projectType ?? 'project'}/${item.slug ?? item.project_id}`
 }

@@ -26,7 +26,7 @@
 					Play as Offline User (Free / No Purchase)
 				</Button>
 				<div class="grid grid-cols-2 gap-2 mt-1">
-					<ButtonLink href="https://support.modrinth.com" @click="modal?.hide()">
+					<ButtonLink href="https://support.freeplay.app" @click="modal?.hide()">
 						<MessagesSquareIcon />
 						{{ formatMessage(messages.getSupport) }}
 					</ButtonLink>

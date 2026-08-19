@@ -366,13 +366,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Anda mendapat rupa ini karena telah berdonasi ke penggalangan dana Modrinth Pride saat Pride Month."
+    "message": "Anda mendapat rupa ini karena telah berdonasi ke penggalangan dana FreePlay Pride saat Pride Month."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -399,13 +399,13 @@
     "message": "Pemilih rupa"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} telah selesai mengunduh. Muat ulang untuk memperbarui sekarang, atau secara otomatis saat Anda menutup Modrinth App."
+    "message": "FreePlay Launcher v{version} telah selesai mengunduh. Muat ulang untuk memperbarui sekarang, atau secara otomatis saat Anda menutup FreePlay Launcher."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} tersedia. Gunakan pengelola paket Anda untuk memperbarui dan mendapatkan fitur-fitur dan perbaikan terbaru!"
+    "message": "FreePlay Launcher v{version} tersedia. Gunakan pengelola paket Anda untuk memperbarui dan mendapatkan fitur-fitur dan perbaikan terbaru!"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} sudah tersedia! Karena Anda saat ini sedang berada dalam jaringan terukur, kami tidak mengunduhnya secara otomatis."
+    "message": "FreePlay Launcher v{version} sudah tersedia! Karena Anda saat ini sedang berada dalam jaringan terukur, kami tidak mengunduhnya secara otomatis."
   },
   "app.update-popup.changelog": {
     "message": "Catatan perubahan"
@@ -429,7 +429,7 @@
     "message": "Versi {version} berhasil dipasang!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Pilih opsi"
@@ -459,10 +459,10 @@
     "message": "Ia mungkin memiliki nama yang berbeda dari nama pengguna Minecraft!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Masukkan nama pengguna Modrinth..."
+    "message": "Masukkan nama pengguna FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "Apa nama pengguna Modrinth teman Anda?"
+    "message": "Apa nama pengguna FreePlay teman Anda?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Tambah teman</link> untuk melihat apa yang mereka mainkan!"
@@ -504,7 +504,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Masuk ke akun Modrinth</link> untuk menambah teman dan melihat apa yang mereka mainkan!"
+    "message": "<link>Masuk ke akun FreePlay</link> untuk menambah teman dan melihat apa yang mereka mainkan!"
   },
   "instance.add-server.add-and-play": {
     "message": "Tambah dan mainkan"

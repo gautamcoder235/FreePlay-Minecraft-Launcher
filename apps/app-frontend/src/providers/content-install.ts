@@ -458,7 +458,7 @@ export function createContentInstall(opts: {
 									name: org.name,
 									iconUrl: org.icon_url,
 									circle: false,
-									link: () => openUrl(`https://modrinth.com/organization/${orgSlug}`),
+									link: () => openUrl(`https://freeplay.app/organization/${orgSlug}`),
 								},
 							}
 						}

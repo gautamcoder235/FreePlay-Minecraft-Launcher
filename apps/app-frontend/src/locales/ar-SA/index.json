@@ -75,7 +75,7 @@
     "message": "فشل إعداد Minecraft"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "لم أتمكن من الوصول إلى Modrinth"
+    "message": "لم أتمكن من الوصول إلى FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "لا يوجد إذن للكتابة"
@@ -420,7 +420,7 @@
     "message": "{count, plural, one {# تعديل} other {# تعديلات}}"
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "لا يتم مراجعة الملف إلا إذا تم نشره على Modrinth، بغض النظر عن صيغته (بما في ذلك .mrpack)."
+    "message": "لا يتم مراجعة الملف إلا إذا تم نشره على FreePlay، بغض النظر عن صيغته (بما في ذلك .mrpack)."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "النماذج المشتركة"
@@ -588,13 +588,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "فخر Modrinth"
+    "message": "فخر FreePlay"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "لقد حصلت على هذه أشكال الشخصيات مقابل تبرعك لحملة جمع التبرعات التي نظمتها Modrinth Pride خلال شهر الفخر."
+    "message": "لقد حصلت على هذه أشكال الشخصيات مقابل تبرعك لحملة جمع التبرعات التي نظمتها FreePlay Pride خلال شهر الفخر."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "جبال الفوضى"
@@ -627,13 +627,13 @@
     "message": "تشغيل"
   },
   "app.update-popup.body.download-complete": {
-    "message": "انتهى تنزيل تطبيق Modrinth v{version}. أعد التحميل للتحديث الآن، أو تلقائيًا عند إغلاق تطبيق Modrinth."
+    "message": "انتهى تنزيل تطبيق FreePlay v{version}. أعد التحميل للتحديث الآن، أو تلقائيًا عند إغلاق تطبيق FreePlay."
   },
   "app.update-popup.body.linux": {
-    "message": "تطبيق Modrinth v {version} متاح. استخدم مدير الحزم الخاص بك للتحديث للحصول على أحدث الميزات والإصلاحات!"
+    "message": "تطبيق FreePlay v {version} متاح. استخدم مدير الحزم الخاص بك للتحديث للحصول على أحدث الميزات والإصلاحات!"
   },
   "app.update-popup.body.metered": {
-    "message": "تطبيق Modrinth v{version} متاح الآن! وبما أنك متصل بشبكة مقيّدة، لم نقم بتنزيله تلقائيًا."
+    "message": "تطبيق FreePlay v{version} متاح الآن! وبما أنك متصل بشبكة مقيّدة، لم نقم بتنزيله تلقائيًا."
   },
   "app.update-popup.changelog": {
     "message": "سجل التغيير"
@@ -657,7 +657,7 @@
     "message": "تم تثبيت الإصدار {version} بنجاح!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "مثال (example.modrinth.gg)"
+    "message": "مثال (example.freeplay.app)"
   },
   "app.world.server-modal.select-an-option": {
     "message": "حدد خيارا"
@@ -687,10 +687,10 @@
     "message": "قد يختلف عن اسم المستخدم الخاص بهم في ماينكرافت!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "أدخل اسم مستخدم Modrinth..."
+    "message": "أدخل اسم مستخدم FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "ما اسم مستخدم صديقك في Modrinth؟"
+    "message": "ما اسم مستخدم صديقك في FreePlay؟"
   },
   "friends.add-friends-to-share": {
     "message": "<link>أضف أصدقاء</link> لمعرفة ما الذي يلعبونه!"
@@ -732,7 +732,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>سجّل الدخول إلى حساب Modrinth</link> لإضافة الأصدقاء ومعرفة ما الذي يلعبونه!"
+    "message": "<link>سجّل الدخول إلى حساب FreePlay</link> لإضافة الأصدقاء ومعرفة ما الذي يلعبونه!"
   },
   "instance.action.create-shortcut": {
     "message": "إنشاء اختصار"

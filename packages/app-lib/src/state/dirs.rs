@@ -50,7 +50,7 @@ impl DirectoryInfo {
 
         fs::create_dir_all(&settings_dir).await.map_err(|err| {
             crate::ErrorKind::FSError(format!(
-                "Error creating Theseus config directory: {err}"
+                "Error creating FreePlay config directory: {err}"
             ))
         })?;
 

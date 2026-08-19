@@ -58,7 +58,7 @@ async function onLocaleChange(newLocale: string) {
 			:values="{ platform }"
 		>
 			<template #~crowdin-link="{ children }">
-				<AutoLink to="https://translate.modrinth.com">
+				<AutoLink to="https://translate.freeplay.app">
 					<component :is="() => children" />
 				</AutoLink>
 			</template>

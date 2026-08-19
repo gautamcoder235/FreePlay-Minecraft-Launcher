@@ -19,12 +19,12 @@
 					<p class="m-0">
 						<IntlFormatted :message-id="messages.reportDescription">
 							<template #rules-link="{ children }">
-								<AutoLink class="text-link hover:underline" to="https://modrinth.com/legal/rules">
+								<AutoLink class="text-link hover:underline" to="https://freeplay.app/legal/rules">
 									<component :is="() => children" />
 								</AutoLink>
 							</template>
 							<template #terms-link="{ children }">
-								<AutoLink class="text-link hover:underline" to="https://modrinth.com/legal/terms">
+								<AutoLink class="text-link hover:underline" to="https://freeplay.app/legal/terms">
 									<component :is="() => children" />
 								</AutoLink>
 							</template>
@@ -34,7 +34,7 @@
 						<li>
 							<IntlFormatted :message-id="messages.supportAndBugReports">
 								<template #support-link="{ children }">
-									<AutoLink class="text-link hover:underline" to="https://support.modrinth.com">
+									<AutoLink class="text-link hover:underline" to="https://support.freeplay.app">
 										<component :is="() => children" />
 									</AutoLink>
 								</template>
@@ -53,7 +53,7 @@
 								<template #copyright-link="{ children }">
 									<AutoLink
 										class="text-link hover:underline"
-										to="https://modrinth.com/legal/copyright"
+										to="https://freeplay.app/legal/copyright"
 									>
 										<component :is="() => children" />
 									</AutoLink>
@@ -511,7 +511,7 @@ const messages = defineMessages({
 	inviteWarning: {
 		id: 'app.modal.install-to-play.invite-warning',
 		defaultMessage:
-			'This invite was created by another Modrinth user, not Modrinth. Only accept invites from people you trust.',
+			'This invite was created by another FreePlay user, not Modrinth. Only accept invites from people you trust.',
 	},
 	inviteWarningWithCreator: {
 		id: 'app.modal.install-to-play.invite-warning-with-creator',

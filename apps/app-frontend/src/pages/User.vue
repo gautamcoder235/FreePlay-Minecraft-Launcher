@@ -4,7 +4,7 @@
 			:user-id="userId"
 			:project-type="projectType"
 			variant="app"
-			site-url="https://modrinth.com"
+			site-url="https://freeplay.app"
 			project-link-mode="app"
 			:edit-profile-link="openProfileSettings"
 			external-navigation

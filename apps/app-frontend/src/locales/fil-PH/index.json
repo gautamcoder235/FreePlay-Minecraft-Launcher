@@ -90,7 +90,7 @@
     "message": "I-toggle ang sidebar"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Kung susubukan mong mag-install ng Modrinth Pack file (.mrpack) na hindi naka-host sa Modrinth, titiyakin namin na nakaaalam ka sa mga panganib bago ito ma-install."
+    "message": "Kung susubukan mong mag-install ng FreePlay Pack file (.mrpack) na hindi naka-host sa FreePlay, titiyakin namin na nakaaalam ka sa mga panganib bago ito ma-install."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Pakipaalala bago ko ma-install ang mga di-kilalang modpack"
@@ -291,19 +291,19 @@
     "message": "Texture"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Tapos nang ma-download ang Modrinth App v{version}. Mag-reload upang ma-update ngayon, o awtomatiko sa pagsara ng Modrinth App."
+    "message": "Tapos nang ma-download ang FreePlay Launcher v{version}. Mag-reload upang ma-update ngayon, o awtomatiko sa pagsara ng FreePlay Launcher."
   },
   "app.update-popup.body.linux": {
-    "message": "Magagamit na ngayon ang Modrinth App v{version}. Gamitin ang iyong package manager upang i-update sa pinabagong tampok at pag-aayos!"
+    "message": "Magagamit na ngayon ang FreePlay Launcher v{version}. Gamitin ang iyong package manager upang i-update sa pinabagong tampok at pag-aayos!"
   },
   "app.update-popup.body.metered": {
-    "message": "Magagamit na ngayon ang Modrinth App v{version}! Hindi namin dinanload kaagad dahil naka-metro ang inyong network."
+    "message": "Magagamit na ngayon ang FreePlay Launcher v{version}! Hindi namin dinanload kaagad dahil naka-metro ang inyong network."
   },
   "app.update-popup.changelog": {
     "message": "Changelog"
@@ -324,7 +324,7 @@
     "message": "Tagumpay na na-install ang bersiyong {version}!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Pumili ng opsiyon"
@@ -354,10 +354,10 @@
     "message": "Maaaraing hindi pareho sa kanilang pangalan sa Minecraft!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Ilagay ang username sa Modrinth..."
+    "message": "Ilagay ang username sa FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "Ano ang pangalan ng iyong kaibigan sa Modrinth?"
+    "message": "Ano ang pangalan ng iyong kaibigan sa FreePlay?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Magdagdag ng mga kaibigan</link> upang makita ang kanilang nilalaro!"
@@ -399,7 +399,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Mag-sign in sa Modrinth account</link> upang maidagdag ang mga kaibigan at malaman ang kanilang nilalaro!"
+    "message": "<link>Mag-sign in sa FreePlay account</link> upang maidagdag ang mga kaibigan at malaman ang kanilang nilalaro!"
   },
   "instance.add-server.add-and-play": {
     "message": "Idagdag at laruin"

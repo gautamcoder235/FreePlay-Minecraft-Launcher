@@ -72,7 +72,7 @@
     "message": "Minecraft setup fejlede"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Kunne ikke få forbindelse til Modrinth"
+    "message": "Kunne ikke få forbindelse til FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Ingen adgang til at skrive"
@@ -129,13 +129,13 @@
     "message": "Tillad alle"
   },
   "app.ads-consent.body": {
-    "message": "Reklamer gør Modrinth muligt og finansiere skaber udbetalinger. Vores partnere må gemme og tilgå cookies i appen for at personliggøre reklamer og måle effektivitet."
+    "message": "Reklamer gør FreePlay muligt og finansiere skaber udbetalinger. Vores partnere må gemme og tilgå cookies i appen for at personliggøre reklamer og måle effektivitet."
   },
   "app.ads-consent.reject": {
     "message": "Afvis alle"
   },
   "app.ads-consent.title": {
-    "message": "Dit privatliv og hvordan reklamer hjælper Modrinth"
+    "message": "Dit privatliv og hvordan reklamer hjælper FreePlay"
   },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "Avanceret rendering"
@@ -621,13 +621,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Du modtog disse skins for at donere til en Modrinth Pride indsamling imens der er Pride Month."
+    "message": "Du modtog disse skins for at donere til en FreePlay Pride indsamling imens der er Pride Month."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -660,13 +660,13 @@
     "message": "Slå til"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} er færdig med at download. Genindlæs for at opdatere nu, eller automatisk når du lukker Modrinth App."
+    "message": "FreePlay Launcher v{version} er færdig med at download. Genindlæs for at opdatere nu, eller automatisk når du lukker FreePlay Launcher."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} er nu tilgængelig. Brug din pakke-manager til at opdatere for de nyeste features og fejlrettelser!"
+    "message": "FreePlay Launcher v{version} er nu tilgængelig. Brug din pakke-manager til at opdatere for de nyeste features og fejlrettelser!"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} er nu tilgængelig! Siden du er på et begrænset netværk, vi downloadede den ikke automatisk."
+    "message": "FreePlay Launcher v{version} er nu tilgængelig! Siden du er på et begrænset netværk, vi downloadede den ikke automatisk."
   },
   "app.update-popup.changelog": {
     "message": "Ændringslog"
@@ -690,7 +690,7 @@
     "message": "Version {version} var installeret med succes!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "eksemple.modrinth.gg"
+    "message": "eksemple.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Vælg en mulighed"
@@ -723,10 +723,10 @@
     "message": "Det er muligvis anderledes end deres Minecraft brugernavn!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Indskriv Modrinth brugernavn..."
+    "message": "Indskriv FreePlay brugernavn..."
   },
   "friends.add-friend.username.title": {
-    "message": "Hvad er din vens Modrinth brugernavn?"
+    "message": "Hvad er din vens FreePlay brugernavn?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Tilføj venner</link> for at se hvad de spiller!"
@@ -768,7 +768,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Log ind på en Modrinth konto</link> for at tilføje venner og se hvad de spiller!"
+    "message": "<link>Log ind på en FreePlay konto</link> for at tilføje venner og se hvad de spiller!"
   },
   "instance.action.create-shortcut": {
     "message": "Opret genvej"
@@ -1122,10 +1122,10 @@
     "message": "Åbn browser igen"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Log ind på Modrinth"
+    "message": "Log ind på FreePlay"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Log ind med en Modrinth konto"
+    "message": "Log ind med en FreePlay konto"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Logger ind"

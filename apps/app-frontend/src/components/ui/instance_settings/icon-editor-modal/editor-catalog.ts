@@ -194,7 +194,7 @@ const names = defineMessages({
 	wrench: { id: 'instance.icon-editor.symbol.create-wrench', defaultMessage: 'Wrench' },
 	wrenchRinth: {
 		id: 'instance.icon-editor.symbol.wrenth-rinth',
-		defaultMessage: 'Modrinth Wrench',
+		defaultMessage: 'FreePlay Wrench',
 	},
 	zombie: { id: 'instance.icon-editor.symbol.zombie', defaultMessage: 'Zombie' },
 })
@@ -390,7 +390,7 @@ export const symbolOptions = [
 	{ id: 'gizmo', name: names.gizmo, asset: gizmo, category: 'modded' },
 	{ id: 'terminal', name: names.terminal, asset: terminal, category: 'modded' },
 
-	// Miscellaneous: Modrinth Wrench, Mr Pack
+	// Miscellaneous: FreePlay Wrench, Mr Pack
 	{ id: 'wrenth_rinth', name: names.wrenchRinth, asset: wrenchRinth, category: 'modded' },
 	{ id: 'mr_pack', name: names.mrPack, asset: mrPack, category: 'modded' },
 

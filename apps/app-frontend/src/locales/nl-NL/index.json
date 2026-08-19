@@ -75,7 +75,7 @@
     "message": "Instellen van Minecraft is mislukt"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Modrinth kon niet bereikt worden"
+    "message": "FreePlay kon niet bereikt worden"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Geen schrijfrechten"
@@ -132,7 +132,7 @@
     "message": "Alles accepteren"
   },
   "app.ads-consent.body": {
-    "message": "Advertenties maken Modrinth mogelijk en financieren de uitbetalingen aan makers. Onze partners kunnen cookies in de app opslaan of gebruiken om advertenties te personaliseren en de prestaties te meten."
+    "message": "Advertenties maken FreePlay mogelijk en financieren de uitbetalingen aan makers. Onze partners kunnen cookies in de app opslaan of gebruiken om advertenties te personaliseren en de prestaties te meten."
   },
   "app.ads-consent.manage": {
     "message": "Voorkeuren beheren"
@@ -141,7 +141,7 @@
     "message": "Alles afwijzen"
   },
   "app.ads-consent.title": {
-    "message": "Je privacy en hoe advertenties Modrinth ondersteunen"
+    "message": "Je privacy en hoe advertenties FreePlay ondersteunen"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Schakel visuele effecten zoals achtergrondvervaging in. Zonder hardwareversnelling kan dit ten koste gaan van de prestaties."
@@ -150,7 +150,7 @@
     "message": "Geavanceerde weergave"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Kies het kleurenthema dat door de Modrinth-app wordt gebruikt."
+    "message": "Kies het kleurenthema dat door de FreePlay-app wordt gebruikt."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "Kleurenthema"
@@ -174,7 +174,7 @@
     "message": "Ga terug in werelden"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minimaliseer de Modrinth-app zodra Minecraft opstart."
+    "message": "Minimaliseer de FreePlay-app zodra Minecraft opstart."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "App minimaliseren"
@@ -204,7 +204,7 @@
     "message": "Rechterzijbalk verbergen"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Geef een veiligheidswaarschuwing weer voordat een Modrinth-pakket (.mrpack) wordt geïnstalleerd dat niet op Modrinth wordt gehost."
+    "message": "Geef een veiligheidswaarschuwing weer voordat een FreePlay-pakket (.mrpack) wordt geïnstalleerd dat niet op FreePlay wordt gehost."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Waarschuw mij voordat ik onbekende modpacks installeer"
@@ -531,13 +531,13 @@
     "message": "Log in als"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Je moet je aanmelden bij Modrinth"
+    "message": "Je moet je aanmelden bij FreePlay"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "om updates voor deze gedeelde instantie te ontvangen."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Je gebruikt het verkeerde Modrinth-account"
+    "message": "Je gebruikt het verkeerde FreePlay-account"
   },
   "app.instance.worlds.add-server": {
     "message": "Voeg server toe"
@@ -666,10 +666,10 @@
     "message": "Installeer"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Deze uitnodiging is aangemaakt door een andere Modrinth-gebruiker, niet door Modrinth zelf. Accepteer alleen uitnodigingen van mensen die je vertrouwt."
+    "message": "Deze uitnodiging is aangemaakt door een andere FreePlay-gebruiker, niet door FreePlay zelf. Accepteer alleen uitnodigingen van mensen die je vertrouwt."
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "Deze uitnodiging is aangemaakt door <creator>{username}</creator>, niet door Modrinth. Accepteer alleen uitnodigingen van mensen die je vertrouwt."
+    "message": "Deze uitnodiging is aangemaakt door <creator>{username}</creator>, niet door FreePlay. Accepteer alleen uitnodigingen van mensen die je vertrouwt."
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count, plural,one {# mod}other {# mods}}"
@@ -699,7 +699,7 @@
     "message": "Neem voor ondersteuningsverzoeken contact op met ons <support-link>ondersteuningsteam</support-link>. Voor bugmeldingen kun je een <github-link>GitHub-issue</github-link> aanmaken."
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "Een bestand wordt alleen beoordeeld als het op Modrinth wordt gepubliceerd, ongeacht het bestandsformaat (inclusief .mrpack)."
+    "message": "Een bestand wordt alleen beoordeeld als het op FreePlay wordt gepubliceerd, ongeacht het bestandsformaat (inclusief .mrpack)."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "Gedeelde instantie"
@@ -708,10 +708,10 @@
     "message": "Inhoud van de gedeelde instantie"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "Deze gedeelde instantie bevat bestanden die niet op Modrinth zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
+    "message": "Deze gedeelde instantie bevat bestanden die niet op FreePlay zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Dit server-modpack bevat bestanden die niet op Modrinth zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
+    "message": "Dit server-modpack bevat bestanden die niet op FreePlay zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Waarschuwing voor onbekende bestanden"
@@ -732,7 +732,7 @@
     "message": "Verwijderde"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "Deze update voor de server-modpack bevat bestanden die niet op Modrinth zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
+    "message": "Deze update voor de server-modpack bevat bestanden die niet op FreePlay zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Toegevoegd"
@@ -741,7 +741,7 @@
     "message": "Verwijderd"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "Deze update voor de gedeelde instantie bevat bestanden die niet op Modrinth zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
+    "message": "Deze update voor de gedeelde instantie bevat bestanden die niet op FreePlay zijn gepubliceerd. We raden je ten zeerste aan om alleen bestanden te installeren uit bronnen die je vertrouwt."
   },
   "app.modal.update-to-play.update-required": {
     "message": "Update vereist"
@@ -756,19 +756,19 @@
     "message": "Start"
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth-account"
+    "message": "FreePlay-account"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Meld je aan bij een Modrinth-account"
+    "message": "Meld je aan bij een FreePlay-account"
   },
   "app.nav.signed-in-as": {
     "message": "Aangemeld als <user>{username}</user>"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Upgrade naar Modrinth+"
+    "message": "Upgrade naar FreePlay+"
   },
   "app.news.title": {
     "message": "Nieuws"
@@ -810,7 +810,7 @@
     "message": "Opnieuw opstarten..."
   },
   "app.settings.app-version": {
-    "message": "Modrinth-app {version}"
+    "message": "FreePlay-app {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Omgevingsvariabelen die bij het opstarten van een instantie worden ingesteld."
@@ -903,16 +903,16 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "Advertenties maken Modrinth mogelijk en financieren de uitbetalingen aan makers. Onze partners kunnen cookies in de app opslaan of gebruiken om advertenties te personaliseren en de prestaties te meten. Je kunt je hieronder afmelden of je voorkeuren beheren."
+    "message": "Advertenties maken FreePlay mogelijk en financieren de uitbetalingen aan makers. Onze partners kunnen cookies in de app opslaan of gebruiken om advertenties te personaliseren en de prestaties te meten. Je kunt je hieronder afmelden of je voorkeuren beheren."
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "Laat Modrinth als jouw activiteit op Discord. Dit verandert niet activiteiten toegevoegd door mods."
+    "message": "Laat FreePlay als jouw activiteit op Discord. Dit verandert niet activiteiten toegevoegd door mods."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinth verzamelt geanonimiseerde analyse- en gebruiksgegevens om de gebruikerservaring te verbeteren en uw ervaring te personaliseren. Door deze optie uit te schakelen, meldt u zich af en worden uw gegevens niet langer verzameld."
+    "message": "FreePlay verzamelt geanonimiseerde analyse- en gebruiksgegevens om de gebruikerservaring te verbeteren en uw ervaring te personaliseren. Door deze optie uit te schakelen, meldt u zich af en worden uw gegevens niet langer verzameld."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "Telemetrie"
@@ -930,7 +930,7 @@
     "message": "De cache van de app wissen?"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "Wis de gegevens in de cache en download ze opnieuw via Modrinth. De app kan wat trager laden totdat de cache opnieuw is opgebouwd."
+    "message": "Wis de gegevens in de cache en download ze opnieuw via FreePlay. De app kan wat trager laden totdat de cache opnieuw is opgebouwd."
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "Cache leegmaken"
@@ -951,7 +951,7 @@
     "message": "Zoek naar een app-folder"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Hier slaat de Modrinth-app instanties en andere bestanden op. Wijzigingen worden pas van kracht nadat de app opnieuw is opgestart."
+    "message": "Hier slaat de FreePlay-app instanties en andere bestanden op. Wijzigingen worden pas van kracht nadat de app opnieuw is opgestart."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "Kies een nieuwe app-folder"
@@ -1110,13 +1110,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Je hebt deze skins ontvangen omdat je tijdens Pride Month een donatie hebt gedaan aan een inzamelingsactie van Modrinth Pride."
+    "message": "Je hebt deze skins ontvangen omdat je tijdens Pride Month een donatie hebt gedaan aan een inzamelingsactie van FreePlay Pride."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -1149,10 +1149,10 @@
     "message": "Inschakelen"
   },
   "app.survey.body": {
-    "message": "Zou je een paar vragen willen beantwoorden over je ervaringen met de Modrinth-app?"
+    "message": "Zou je een paar vragen willen beantwoorden over je ervaringen met de FreePlay-app?"
   },
   "app.survey.footer": {
-    "message": "Deze feedback wordt rechtstreeks doorgestuurd naar het Modrinth-team en zal als leidraad dienen voor toekomstige updates!"
+    "message": "Deze feedback wordt rechtstreeks doorgestuurd naar het FreePlay-team en zal als leidraad dienen voor toekomstige updates!"
   },
   "app.survey.no-thanks": {
     "message": "Nee, bedankt"
@@ -1161,16 +1161,16 @@
     "message": "Aan enquête meedoen"
   },
   "app.survey.title": {
-    "message": "Hoi, Modrinth-gebruiker!"
+    "message": "Hoi, FreePlay-gebruiker!"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} is klaar met downloaden. Herlaad om nu te updaten, of automatisch wanneer je de Modrinth App afsluit."
+    "message": "FreePlay Launcher v{version} is klaar met downloaden. Herlaad om nu te updaten, of automatisch wanneer je de FreePlay Launcher afsluit."
   },
   "app.update-popup.body.linux": {
-    "message": "De Modrinth-app v{version} is beschikbaar. Gebruik je pakketbeheerder om bij te werken en zo de nieuwste functies en verbeteringen te krijgen!"
+    "message": "De FreePlay-app v{version} is beschikbaar. Gebruik je pakketbeheerder om bij te werken en zo de nieuwste functies en verbeteringen te krijgen!"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} is nu beschikbaar! Omdat je nu op een netwerk met datalimiet zit, is de download niet automatisch gestart."
+    "message": "FreePlay Launcher v{version} is nu beschikbaar! Omdat je nu op een netwerk met datalimiet zit, is de download niet automatisch gestart."
   },
   "app.update-popup.changelog": {
     "message": "Wijzigingen"
@@ -1197,7 +1197,7 @@
     "message": "Op instantie installeren"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "voorbeeld.modrinth.gg"
+    "message": "voorbeeld.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Kies een keuze"
@@ -1260,10 +1260,10 @@
     "message": "Het kan verschillen van hun Minecraft gebruikersnaam!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Voer Modrinth gebruikersnaam in..."
+    "message": "Voer FreePlay gebruikersnaam in..."
   },
   "friends.add-friend.username.title": {
-    "message": "Wat is de Modrinth-gebruikersnaam van je vriend(in)?"
+    "message": "Wat is de FreePlay-gebruikersnaam van je vriend(in)?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Voeg vrienden toe</link> om te zien wat zij spelen!"
@@ -1305,7 +1305,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Log in op een Modrinth-account</link> om vrienden toe te voegen en te zien wat zij spelen!"
+    "message": "<link>Log in op een FreePlay-account</link> om vrienden toe te voegen en te zien wat zij spelen!"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "Gekoppelde gedeelde instantie"
@@ -1326,7 +1326,7 @@
     "message": "Gedeelde instantie terugtrekken"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "Verwijder deze gedeelde instantie uit Modrinth en stuur geen updates meer naar gebruikers ervan. Je lokale instantie merkt hier geen gevolgen van."
+    "message": "Verwijder deze gedeelde instantie uit FreePlay en stuur geen updates meer naar gebruikers ervan. Je lokale instantie merkt hier geen gevolgen van."
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "Terugtrekken..."
@@ -1341,7 +1341,7 @@
     "message": "Gedeelde instantie ontkoppelen"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "Hiermee wordt de gedeelde instantie van de servers van Modrinth verwijderd. Gebruikers die deze instantie in de Modrinth-app gebruiken, ontvangen geen updates meer, maar je lokale instantie en de inhoud daarvan blijven op dit apparaat staan."
+    "message": "Hiermee wordt de gedeelde instantie van de servers van FreePlay verwijderd. Gebruikers die deze instantie in de FreePlay-app gebruiken, ontvangen geen updates meer, maar je lokale instantie en de inhoud daarvan blijven op dit apparaat staan."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "Gedeelde instantie terugtrekken"
@@ -1836,7 +1836,7 @@
     "message": "Een account aanmaken"
   },
   "modal.modrinth-account-required.description": {
-    "message": "Je moet je aanmelden bij je Modrinth-account voordat je deze functie kunt gebruiken."
+    "message": "Je moet je aanmelden bij je FreePlay-account voordat je deze functie kunt gebruiken."
   },
   "modal.modrinth-account-required.header": {
     "message": "Account vereist"
@@ -1845,10 +1845,10 @@
     "message": "Opnieuw de browser openen"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Bij Modrinth aanmelden"
+    "message": "Bij FreePlay aanmelden"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Meld je aan bij een Modrinth-account"
+    "message": "Meld je aan bij een FreePlay-account"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Aanmelden"

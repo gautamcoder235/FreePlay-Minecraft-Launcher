@@ -381,13 +381,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "คุณได้รับสกินเหล่านี้จากการร่วมบริจาคให้กับกิจกรรมระดมทุน Modrinth Pride ในช่วงเดือน Pride Month"
+    "message": "คุณได้รับสกินเหล่านี้จากการร่วมบริจาคให้กับกิจกรรมระดมทุน FreePlay Pride ในช่วงเดือน Pride Month"
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -411,13 +411,13 @@
     "message": "ลงชื่อเข้าใช้"
   },
   "app.update-popup.body.download-complete": {
-    "message": "ดาวน์โหลด Modrinth v{version} สำเร็จแล้ว เปิดโปรแกรมใหม่อีกครั้งเพื่ออัปเดตตอนนี้ หรือจะรออัปเดตอัตโนมัติ ซึ่งจะเกิดขึ้นเมื่อคุณกดปิดโปรแกรม Modrinth"
+    "message": "ดาวน์โหลด FreePlay v{version} สำเร็จแล้ว เปิดโปรแกรมใหม่อีกครั้งเพื่ออัปเดตตอนนี้ หรือจะรออัปเดตอัตโนมัติ ซึ่งจะเกิดขึ้นเมื่อคุณกดปิดโปรแกรม FreePlay"
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth v{version} พร้อมให้อัปเดตแล้ว โปรดไปที่การจัดการแพ็กเกจของคุณสำหรับการอัปเดตคุณสมบัติใหม่และการแก้ไขต่าง ๆ"
+    "message": "FreePlay v{version} พร้อมให้อัปเดตแล้ว โปรดไปที่การจัดการแพ็กเกจของคุณสำหรับการอัปเดตคุณสมบัติใหม่และการแก้ไขต่าง ๆ"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth v{version} พร้อมให้บริการแล้ว! แต่เนื่องจากคุณเปิดโหมดจำกัดปริมาณการใช้ข้อมูลเครือข่าย เราจึงไม่ได้อัปเดตเนื้อหาโดยอัตโนมัติ"
+    "message": "FreePlay v{version} พร้อมให้บริการแล้ว! แต่เนื่องจากคุณเปิดโหมดจำกัดปริมาณการใช้ข้อมูลเครือข่าย เราจึงไม่ได้อัปเดตเนื้อหาโดยอัตโนมัติ"
   },
   "app.update-popup.changelog": {
     "message": "บันทึกการเปลี่ยนแปลง"
@@ -438,7 +438,7 @@
     "message": "เวอร์ชั่น {version} ถูกติดตั้งแล้ว"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "เลือกตัวเลือก"
@@ -468,10 +468,10 @@
     "message": "มันอาจแตกต่างจากชื่อในเกม Minecraft ของพวกเขา!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "กรอกชื่อผู้ใช้ Modrinth..."
+    "message": "กรอกชื่อผู้ใช้ FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "เพื่อนของคุณมีชื่อผู้ใช้ Modrinth ว่าอะไร?"
+    "message": "เพื่อนของคุณมีชื่อผู้ใช้ FreePlay ว่าอะไร?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>เพิ่มเพื่อน</link> เพื่อเห็นว่าพวกเขากำลังเล่นอะไรอยู่!"
@@ -513,7 +513,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>ล็อกอินเข้าบัญชี Modrinth</link> เพื่อเพิ่มเพื่อนและเห็นว่าพวกเขากำลังเล่นอะไรอยู่!"
+    "message": "<link>ล็อกอินเข้าบัญชี FreePlay</link> เพื่อเพิ่มเพื่อนและเห็นว่าพวกเขากำลังเล่นอะไรอยู่!"
   },
   "instance.add-server.add-and-play": {
     "message": "เพิ่มและเล่นทันที"

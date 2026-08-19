@@ -96,7 +96,7 @@
     "message": "Togol bar sisi"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Jika anda cuba memasang fail Modrinth Pack (.mrpack) yang tidak dihoskan pada Modrinth, kami akan memastikan anda memahami risikonya sebelum memasangnya."
+    "message": "Jika anda cuba memasang fail FreePlay Pack (.mrpack) yang tidak dihoskan pada FreePlay, kami akan memastikan anda memahami risikonya sebelum memasangnya."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Beri saya amaran sebelum memasang pek mod yang tidak diketahui"
@@ -384,13 +384,13 @@
     "message": "Perlahanlah sikit!"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Anda menerima kekulit ini kerana menderma kepada acara pengumpulan dana Modrinth Pride semasa Pride Month."
+    "message": "Anda menerima kekulit ini kerana menderma kepada acara pengumpulan dana FreePlay Pride semasa Pride Month."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -417,13 +417,13 @@
     "message": "Pemilih kekulit"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} sudah selesai dimuat turun! Muat semula untuk kemas kini sekarang, atau kemas kini secara automatik apabila anda menutup Modrinth App."
+    "message": "FreePlay Launcher v{version} sudah selesai dimuat turun! Muat semula untuk kemas kini sekarang, atau kemas kini secara automatik apabila anda menutup FreePlay Launcher."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} tersedia. Gunakan pengurus pakej anda untuk mengemas kini dan mendapatkan ciri-ciri dan pembetulan terkini!"
+    "message": "FreePlay Launcher v{version} tersedia. Gunakan pengurus pakej anda untuk mengemas kini dan mendapatkan ciri-ciri dan pembetulan terkini!"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} kini tersedia! Memandangkan anda sedang menggunakan rangkaian bermeter, kami tidak memuat turunnya secara automatik."
+    "message": "FreePlay Launcher v{version} kini tersedia! Memandangkan anda sedang menggunakan rangkaian bermeter, kami tidak memuat turunnya secara automatik."
   },
   "app.update-popup.changelog": {
     "message": "Log perubahan"
@@ -444,7 +444,7 @@
     "message": "Versi {version} telah berjaya dipasang!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Pilih pilihan anda"
@@ -474,10 +474,10 @@
     "message": "Ia mungkin berbeza daripada nama pengguna Minecraft mereka!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Masukkan nama pengguna Modrinth..."
+    "message": "Masukkan nama pengguna FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "Apakah nama pengguna Modrinth rakan anda?"
+    "message": "Apakah nama pengguna FreePlay rakan anda?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Tambah rakan</link> untuk melihat apa yang mereka mainkan!"
@@ -519,7 +519,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Log masuk ke akaun Modrinth</link> untuk menambah rakan dan melihat apa yang mereka mainkan!"
+    "message": "<link>Log masuk ke akaun FreePlay</link> untuk menambah rakan dan melihat apa yang mereka mainkan!"
   },
   "instance.add-server.add-and-play": {
     "message": "Tambah dan main"

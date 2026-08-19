@@ -75,7 +75,7 @@
     "message": "Minecraft kurulumu başarısız oldu"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Modrinth'e erişilemiyor"
+    "message": "FreePlay'e erişilemiyor"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Yazmak için yetkiniz yok"
@@ -132,7 +132,7 @@
     "message": "Hepsini kabul et"
   },
   "app.ads-consent.body": {
-    "message": "Reklamlar, Modrinth'i mümkün kılıyor ve içerik üreticilerine yapılan ödemeleri finanse ediyor. Partnerlerimiz, reklamları kişiselleştirmek ve performansı ölçmek amacıyla uygulama içinde çerez depolayabilir veya bunlara erişebilir."
+    "message": "Reklamlar, FreePlay'i mümkün kılıyor ve içerik üreticilerine yapılan ödemeleri finanse ediyor. Partnerlerimiz, reklamları kişiselleştirmek ve performansı ölçmek amacıyla uygulama içinde çerez depolayabilir veya bunlara erişebilir."
   },
   "app.ads-consent.manage": {
     "message": "Tercihleri yönet"
@@ -141,7 +141,7 @@
     "message": "Hepsini reddet"
   },
   "app.ads-consent.title": {
-    "message": "Sizin mahremiyetiniz ve reklamlar Modrinth'i nasıl destekler"
+    "message": "Sizin mahremiyetiniz ve reklamlar FreePlay'i nasıl destekler"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Arka plan bulanıklığı gibi görsel efektleri etkinleştirin. Bu, donanım ivmelendirme yokken performansı etkileyebilir."
@@ -150,7 +150,7 @@
     "message": "Gelişmiş işleme"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Modrinth App tarafından kullanılacak renk şemasını seçin."
+    "message": "FreePlay Launcher tarafından kullanılacak renk şemasını seçin."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "Renk teması"
@@ -174,7 +174,7 @@
     "message": "Dünyalara hızlıca geri dön"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minecraft başladığında Modrinth uygulamasını küçült."
+    "message": "Minecraft başladığında FreePlay uygulamasını küçült."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Uygulamayı küçült"
@@ -204,7 +204,7 @@
     "message": "Sağ kenar çubuğunu gizle"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Modrinth'te yayınlanmayan bir Modrinth Pack (.mrpack) kurulmadan önce bir güvenlik uyarısı göster."
+    "message": "FreePlay'te yayınlanmayan bir FreePlay Pack (.mrpack) kurulmadan önce bir güvenlik uyarısı göster."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Bilinmeyen mod paketlerini indirmeden önce beni uyar"
@@ -513,10 +513,10 @@
     "message": "bağlı hesap"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Modrinth'e giriş yapmanız gerek"
+    "message": "FreePlay'e giriş yapmanız gerek"
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Yanlış Modrinth hesabını kullanıyorsunuz"
+    "message": "Yanlış FreePlay hesabını kullanıyorsunuz"
   },
   "app.instance.worlds.add-server": {
     "message": "Sunucu Ekle"
@@ -639,7 +639,7 @@
     "message": "Yükle"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Bu davetiye Modrinth tarafından değil, başka bir Modrinth kullanıcısı tarafından oluşturulmuştur. Sadece güvendiğiniz kişilerden gelen davetleri kabul edin."
+    "message": "Bu davetiye FreePlay tarafından değil, başka bir FreePlay kullanıcısı tarafından oluşturulmuştur. Sadece güvendiğiniz kişilerden gelen davetleri kabul edin."
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count, plural, one {#mod} other {#mods}}"
@@ -654,7 +654,7 @@
     "message": "Rapor sunuldu"
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "Dosya formatı ne olursa olsun (.mrpack dahil), bir dosya yalnızca Modrinth'e yüklendiğinde denetlenir."
+    "message": "Dosya formatı ne olursa olsun (.mrpack dahil), bir dosya yalnızca FreePlay'e yüklendiğinde denetlenir."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "Paylaşılan Kurulum"
@@ -663,7 +663,7 @@
     "message": "Paylaşılan kurulum içeriği"
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Bu sunucunun mod paketi Modrinth'te yayınlanmamış doysaları mevcut. Yalnızca güvendiğiniz kaynaklardan dosya indirmenizi önemle tavsiye ederiz."
+    "message": "Bu sunucunun mod paketi FreePlay'te yayınlanmamış doysaları mevcut. Yalnızca güvendiğiniz kaynaklardan dosya indirmenizi önemle tavsiye ederiz."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Bilinmeyen dosya uyarısı"
@@ -696,19 +696,19 @@
     "message": "Ana Sayfa"
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth hesabı"
+    "message": "FreePlay hesabı"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Bir Modrinth hesabıyla oturum açın"
+    "message": "Bir FreePlay hesabıyla oturum açın"
   },
   "app.nav.signed-in-as": {
     "message": "<user>{username}</user> olarak oturum açıldı"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Modrinth+'a yükselt"
+    "message": "FreePlay+'a yükselt"
   },
   "app.news.title": {
     "message": "Haberler"
@@ -744,7 +744,7 @@
     "message": "Yeniden Başlatılıyor..."
   },
   "app.settings.app-version": {
-    "message": "Modrinth Uygulaması {version}"
+    "message": "FreePlay Uygulaması {version}"
   },
   "app.settings.default-instance-options.height.title": {
     "message": "Yükseklik"
@@ -771,7 +771,7 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "Reklamlar, Modrinth'i mümkün kılıyor ve içerik üreticilerine yapılan ödemeleri finanse ediyor. Partnerlerimiz, reklamları kişiselleştirmek ve performansı ölçmek amacıyla uygulama içinde çerez depolayabilir veya bunlara erişebilir. Aşağıdan tercihinizi yönetebilir veya vazgeçebilirsiniz."
+    "message": "Reklamlar, FreePlay'i mümkün kılıyor ve içerik üreticilerine yapılan ödemeleri finanse ediyor. Partnerlerimiz, reklamları kişiselleştirmek ve performansı ölçmek amacıyla uygulama içinde çerez depolayabilir veya bunlara erişebilir. Aşağıdan tercihinizi yönetebilir veya vazgeçebilirsiniz."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "Telemetri"
@@ -906,13 +906,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Onuru"
+    "message": "FreePlay Onuru"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Bu skinleri, Onur Ayı boyunca Modrinth'in düzenlediği bir bağış kampanyasına yaptığınız bağış karşılığında aldınız."
+    "message": "Bu skinleri, Onur Ayı boyunca FreePlay'in düzenlediği bir bağış kampanyasına yaptığınız bağış karşılığında aldınız."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Kaos Dağları"
@@ -948,13 +948,13 @@
     "message": "Hayır teşekkürler"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} indirildi. Güncellemek için yeniden başlatın veya Modrinth App’i kapattığınızda otomatik olarak güncellenecektir."
+    "message": "FreePlay Launcher v{version} indirildi. Güncellemek için yeniden başlatın veya FreePlay Launcher’i kapattığınızda otomatik olarak güncellenecektir."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} yayımlandı. En yeni özellikler ve hata düzeltmeleri için paket yöneticin üzerinden güncelle!"
+    "message": "FreePlay Launcher v{version} yayımlandı. En yeni özellikler ve hata düzeltmeleri için paket yöneticin üzerinden güncelle!"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} mevcut! Kısıtlı bağlantıda olduğunuzdan otomatik olarak indirmedik."
+    "message": "FreePlay Launcher v{version} mevcut! Kısıtlı bağlantıda olduğunuzdan otomatik olarak indirmedik."
   },
   "app.update-popup.changelog": {
     "message": "Yama Notları"
@@ -978,7 +978,7 @@
     "message": "{version} sürümü başarıyla kuruldu!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Bir seçenek seçin"
@@ -1008,10 +1008,10 @@
     "message": "Minecraft kullanıcı adıyla aynı olmayabilir!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Modrinth kullanıcı adını girin..."
+    "message": "FreePlay kullanıcı adını girin..."
   },
   "friends.add-friend.username.title": {
-    "message": "Arkadaşının Modrinth kullanıcı adı nedir?"
+    "message": "Arkadaşının FreePlay kullanıcı adı nedir?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Arkadaş ekleyerek</link> ne oynadıklarını gör!"
@@ -1053,7 +1053,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "Arkadaş eklemek ve ne oynadıklarını görmek için bir <link>Modrinth hesabına giriş yap</link>!"
+    "message": "Arkadaş eklemek ve ne oynadıklarını görmek için bir <link>FreePlay hesabına giriş yap</link>!"
   },
   "instance.action.create-shortcut": {
     "message": "Kısayol oluştur"

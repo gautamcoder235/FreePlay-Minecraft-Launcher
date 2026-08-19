@@ -34,17 +34,17 @@ const availableSurvey = ref<Survey | null>(null)
 const messages = defineMessages({
 	surveyTitle: {
 		id: 'app.survey.title',
-		defaultMessage: 'Hey there Modrinth user!',
+		defaultMessage: 'Hey there FreePlay user!',
 	},
 	surveyBody: {
 		id: 'app.survey.body',
 		defaultMessage:
-			'Would you mind answering a few questions about your experience with Modrinth App?',
+			'Would you mind answering a few questions about your experience with FreePlay Launcher?',
 	},
 	surveyFooter: {
 		id: 'app.survey.footer',
 		defaultMessage:
-			'This feedback will go directly to the Modrinth team and help guide future updates!',
+			'This feedback will go directly to the FreePlay team and help guide future updates!',
 	},
 	takeSurvey: {
 		id: 'app.survey.take-survey',
@@ -159,7 +159,7 @@ async function processPendingSurveys() {
 
 	let surveys: Survey[] = []
 	try {
-		surveys = await $fetch('https://api.modrinth.com/v2/surveys')
+		surveys = await $fetch('https://api.freeplay.app/v2/surveys')
 	} catch (e) {
 		console.error('Error fetching surveys:', e)
 	}

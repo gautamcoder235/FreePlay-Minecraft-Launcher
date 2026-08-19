@@ -23,7 +23,7 @@ const shouldShowBanner = computed(
 )
 
 async function openPrideFundraiser() {
-	await openUrl('https://modrinth.com/pride?from=app')
+	await openUrl('https://freeplay.app/pride?from=app')
 }
 
 function dismissBanner() {

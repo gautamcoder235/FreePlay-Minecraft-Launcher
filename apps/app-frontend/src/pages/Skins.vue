@@ -76,21 +76,21 @@ type VirtualSkinSectionListExpose = {
 }
 
 const PENDING_SKIN_REFRESH_DELAY_MS = 11_000
-const DEFAULT_SKIN_SECTION_SORT_ORDER = ['Default skins', 'Modrinth Pride']
+const DEFAULT_SKIN_SECTION_SORT_ORDER = ['Default skins', 'FreePlay Pride']
 const EARS_NOTICE_PLACEHOLDER = '__EARS_MOD_NAME__'
 const messages = defineMessages({
 	modrinthPrideSection: {
 		id: 'app.skins.section.modrinth-pride',
-		defaultMessage: 'Modrinth Pride',
+		defaultMessage: 'FreePlay Pride',
 	},
 	modrinthPrideTooltip: {
 		id: 'app.skins.section.modrinth-pride.tooltip',
 		defaultMessage:
-			'You received these skins for donating to a Modrinth Pride fundraiser during Pride Month.',
+			'You received these skins for donating to a FreePlay Pride fundraiser during Pride Month.',
 	},
 	modrinthSection: {
 		id: 'app.skins.section.modrinth',
-		defaultMessage: 'Modrinth',
+		defaultMessage: 'FreePlay',
 	},
 	defaultSkinsSection: {
 		id: 'app.skins.section.default-skins',
@@ -283,7 +283,7 @@ const hasModrinthPrideCampaign = computed(
 )
 const defaultSkins = computed(() =>
 	filterDefaultSkins(skins.value).filter(
-		(skin) => skin.section !== 'Modrinth Pride' || hasModrinthPrideCampaign.value,
+		(skin) => skin.section !== 'FreePlay Pride' || hasModrinthPrideCampaign.value,
 	),
 )
 const defaultSkinSections = computed(() => {
@@ -480,7 +480,7 @@ function isMinecraftSkinRateLimitError(error: unknown) {
 
 function getDefaultSkinSectionTitle(section?: string) {
 	switch (section) {
-		case 'Modrinth Pride':
+		case 'FreePlay Pride':
 			return formatMessage(messages.modrinthPrideSection)
 		case 'Modrinth':
 			return formatMessage(messages.modrinthSection)
@@ -511,7 +511,7 @@ function getDefaultSkinSectionTitle(section?: string) {
 
 function getDefaultSkinSectionInfoTooltip(section: string) {
 	switch (section) {
-		case 'Modrinth Pride':
+		case 'FreePlay Pride':
 			return formatMessage(messages.modrinthPrideTooltip)
 		default:
 			return undefined

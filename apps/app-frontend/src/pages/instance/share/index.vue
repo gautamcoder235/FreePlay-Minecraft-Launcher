@@ -1,6 +1,6 @@
 <template>
 	<div v-if="!instance.quarantined" class="flex flex-col gap-4">
-		<ModrinthAccountRequiredModal ref="accountRequiredModal" :request-auth="requestAuth" />
+		<FreePlayAccountRequiredModal ref="accountRequiredModal" :request-auth="requestAuth" />
 		<InvitePlayersModal
 			ref="invitePlayersModal"
 			:header="formatMessage(messages.shareModalHeader, { name: instance.name })"
@@ -144,7 +144,7 @@ import {
 import { useQueryClient } from '@tanstack/vue-query'
 import { computed, ref, watch } from 'vue'
 
-import ModrinthAccountRequiredModal from '@/components/ui/modal/ModrinthAccountRequiredModal.vue'
+import FreePlayAccountRequiredModal from '@/components/ui/modal/FreePlayAccountRequiredModal.vue'
 import SharedInstancePublishModal from '@/components/ui/shared-instances/SharedInstancePublishModal.vue'
 import {
 	getSharedInstanceUnavailableReason,
@@ -186,7 +186,7 @@ const sharedInstanceActionsLocked = actionsLocked
 const currentUserId = computed(() => auth.user.value?.id ?? null)
 const isSignedIn = computed(() => !!auth.session_token.value)
 const sharedInstancesApiUnavailable = ref(false)
-const accountRequiredModal = ref<InstanceType<typeof ModrinthAccountRequiredModal>>()
+const accountRequiredModal = ref<InstanceType<typeof FreePlayAccountRequiredModal>>()
 const invitePlayersModal = ref<InstanceType<typeof InvitePlayersModal>>()
 const unlinkModal = ref<InstanceType<typeof ConfirmUnlinkModal>>()
 const removeMemberModal = ref<InstanceType<typeof SharedInstanceRemoveMemberModal>>()

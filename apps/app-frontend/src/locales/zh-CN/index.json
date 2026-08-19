@@ -75,7 +75,7 @@
     "message": "Minecraft 配置失败"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "无法连接 Modrinth"
+    "message": "无法连接 FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "没有写入权限"
@@ -132,7 +132,7 @@
     "message": "全部接受"
   },
   "app.ads-consent.body": {
-    "message": "广告使 Modrinth 得以运营，并为创作者报酬提供资金支持。我们的合作伙伴可能会在应用中存储或访问 Cookie，以便实现广告个性化和效果衡量。"
+    "message": "广告使 FreePlay 得以运营，并为创作者报酬提供资金支持。我们的合作伙伴可能会在应用中存储或访问 Cookie，以便实现广告个性化和效果衡量。"
   },
   "app.ads-consent.manage": {
     "message": "管理偏好设置"
@@ -141,7 +141,7 @@
     "message": "全部拒绝"
   },
   "app.ads-consent.title": {
-    "message": "您的隐私以及广告如何支持 Modrinth"
+    "message": "您的隐私以及广告如何支持 FreePlay"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "启用模糊效果等高级渲染。可能会在没有硬件加速渲染的情况下造成性能问题。"
@@ -150,7 +150,7 @@
     "message": "高级渲染"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "为 Modrinth App 选择偏好的色彩主题。"
+    "message": "为 FreePlay Launcher 选择偏好的色彩主题。"
   },
   "app.appearance-settings.color-theme.title": {
     "message": "色彩主题"
@@ -174,7 +174,7 @@
     "message": "快速回到世界"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "当 Minecraft 进程启动时，将 Modrinth App 最小化。"
+    "message": "当 Minecraft 进程启动时，将 FreePlay Launcher 最小化。"
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "最小化 App"
@@ -204,7 +204,7 @@
     "message": "隐藏右侧边栏"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "在安装非 Modrinth 托管的 Modrinth 整合包文件 (.mrpack) 前显示安全警告。"
+    "message": "在安装非 FreePlay 托管的 FreePlay 整合包文件 (.mrpack) 前显示安全警告。"
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "安装未知整合包前提醒我"
@@ -531,13 +531,13 @@
     "message": "登录账户"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "你需要登录 Modrinth"
+    "message": "你需要登录 FreePlay"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "才能接收此共享实例的更新。"
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "你当前使用的 Modrinth 账户不正确"
+    "message": "你当前使用的 FreePlay 账户不正确"
   },
   "app.instance.worlds.add-server": {
     "message": "添加服务器"
@@ -666,10 +666,10 @@
     "message": "安装"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "这个邀请是由另一位 Modrinth 用户创建的，而不是 Modrinth 官方。只接受你信任的人的邀请。"
+    "message": "这个邀请是由另一位 FreePlay 用户创建的，而不是 FreePlay 官方。只接受你信任的人的邀请。"
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "此邀请由 <creator>{username}</creator> 创建，而非 Modrinth。只接受您信任的人发出的邀请。"
+    "message": "此邀请由 <creator>{username}</creator> 创建，而非 FreePlay。只接受您信任的人发出的邀请。"
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count} 个模组"
@@ -699,7 +699,7 @@
     "message": "为了寻求支持，请咨询我们的<support-link>支持团队</support-link>为了发漏洞请进开启我们的一个<github-link>github-漏洞报告</github-link>。"
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "只有上传到 Modrinth 的文件才会经过审核，无论其文件格式如何（包括 .mrpack）。"
+    "message": "只有上传到 FreePlay 的文件才会经过审核，无论其文件格式如何（包括 .mrpack）。"
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "共享实例"
@@ -711,7 +711,7 @@
     "message": "这实例里面有东西没有在modrinth。我们真的建议只安装你信任的文件源。"
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "这个整合包包含一些未在 Modrinth 发布的文件。我们强烈建议只从你信任的来源安装文件。"
+    "message": "这个整合包包含一些未在 FreePlay 发布的文件。我们强烈建议只从你信任的来源安装文件。"
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "未知文件警告"
@@ -756,19 +756,19 @@
     "message": "首页"
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth账户"
+    "message": "FreePlay账户"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "登录Modrinth账户"
+    "message": "登录FreePlay账户"
   },
   "app.nav.signed-in-as": {
     "message": "以<user>{username}</user>身份登录"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "升级至Modrinth+"
+    "message": "升级至FreePlay+"
   },
   "app.news.title": {
     "message": "新闻"
@@ -810,7 +810,7 @@
     "message": "正在重启…"
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FreePlay Launcher {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "启动实例时设置的环境变量。"
@@ -903,16 +903,16 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "广告使 Modrinth 得以运营，并为创作者报酬提供资金支持。我们的合作伙伴可能会在应用中存储或访问 Cookie，以便实现广告个性化和效果衡量。您可以在下方选择退出或管理您的偏好设置。"
+    "message": "广告使 FreePlay 得以运营，并为创作者报酬提供资金支持。我们的合作伙伴可能会在应用中存储或访问 Cookie，以便实现广告个性化和效果衡量。您可以在下方选择退出或管理您的偏好设置。"
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "在 Discord 上将 Modrinth App 显示为您当前的活动。这不会影响模组为游戏实例添加的 Rich Presence。需要重启应用生效。"
+    "message": "在 Discord 上将 FreePlay Launcher 显示为您当前的活动。这不会影响模组为游戏实例添加的 Rich Presence。需要重启应用生效。"
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinth 收集匿名分析和使用数据，以提升用户体验并为您提供个性化服务。若禁用此选项，即表示您选择退出，您的数据将不再被收集。"
+    "message": "FreePlay 收集匿名分析和使用数据，以提升用户体验并为您提供个性化服务。若禁用此选项，即表示您选择退出，您的数据将不再被收集。"
   },
   "app.settings.privacy.telemetry.title": {
     "message": "遥测"
@@ -930,7 +930,7 @@
     "message": "清除App缓存？"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "清除缓存数据，然后从Modrinth重新下载。在缓存重建之前，应用加载可能会更慢。"
+    "message": "清除缓存数据，然后从FreePlay重新下载。在缓存重建之前，应用加载可能会更慢。"
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "清除缓存"
@@ -951,7 +951,7 @@
     "message": "浏览应用目录"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Modrinth App存储实例和其他文件的位置。更改会在重启程序后生效。"
+    "message": "FreePlay Launcher存储实例和其他文件的位置。更改会在重启程序后生效。"
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "选择新的应用目录"
@@ -1110,13 +1110,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth 精选"
+    "message": "FreePlay 精选"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "你在骄傲月期间为 Modrinth 的骄傲月筹款活动捐款，因此获得了这些皮肤。"
+    "message": "你在骄傲月期间为 FreePlay 的骄傲月筹款活动捐款，因此获得了这些皮肤。"
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "群骑纷争"
@@ -1149,10 +1149,10 @@
     "message": "切换至开"
   },
   "app.survey.body": {
-    "message": "您是否介意回答一些关于使用 Modrinth App 的问题？"
+    "message": "您是否介意回答一些关于使用 FreePlay Launcher 的问题？"
   },
   "app.survey.footer": {
-    "message": "此反馈将直接发送给Modrinth团队，为今后的更新提供指导！"
+    "message": "此反馈将直接发送给FreePlay团队，为今后的更新提供指导！"
   },
   "app.survey.no-thanks": {
     "message": "不，谢谢"
@@ -1161,16 +1161,16 @@
     "message": "参与调研"
   },
   "app.survey.title": {
-    "message": "嗨，Modrinth用户！"
+    "message": "嗨，FreePlay用户！"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} 更新已下载完成！立即重启更新，或退出时自动安装。"
+    "message": "FreePlay Launcher v{version} 更新已下载完成！立即重启更新，或退出时自动安装。"
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} 现已发布。请使用你的软件包管理器进行更新，获取最新功能与修复！"
+    "message": "FreePlay Launcher v{version} 现已发布。请使用你的软件包管理器进行更新，获取最新功能与修复！"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} 现已发布！由于你正在使用按流量计费的网络，该更新未自动下载。"
+    "message": "FreePlay Launcher v{version} 现已发布！由于你正在使用按流量计费的网络，该更新未自动下载。"
   },
   "app.update-popup.changelog": {
     "message": "更新日志"
@@ -1197,7 +1197,7 @@
     "message": "在实例上安装"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "选择一个选项"
@@ -1260,10 +1260,10 @@
     "message": "这可能与对方的 Minecraft 用户名不同！"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "输入 Modrinth 用户名……"
+    "message": "输入 FreePlay 用户名……"
   },
   "friends.add-friend.username.title": {
-    "message": "你好友的 Modrinth 用户名是什么？"
+    "message": "你好友的 FreePlay 用户名是什么？"
   },
   "friends.add-friends-to-share": {
     "message": "<link>添加好友</link> 来看看他们都在玩什么！"
@@ -1305,7 +1305,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "登录你的 <link>Modrinth 账号</link>，添加好友，看看他们在玩什么！"
+    "message": "登录你的 <link>FreePlay 账号</link>，添加好友，看看他们在玩什么！"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "已关联的共享实例"
@@ -1326,7 +1326,7 @@
     "message": "取消发布共享实例"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "从Modrinth移除这个分享实例，同时停止发送新的更新到正在使用它的人，你的本地实例不会被影响。"
+    "message": "从FreePlay移除这个分享实例，同时停止发送新的更新到正在使用它的人，你的本地实例不会被影响。"
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "取消发布中……"
@@ -1341,7 +1341,7 @@
     "message": "解除共享实例关联"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "这将从 Modrinth 服务器上删除该共享实例。在 Modrinth App 中使用它的用户将停止接收更新，但你的本地实例及其内容仍会保留在此设备上。"
+    "message": "这将从 FreePlay 服务器上删除该共享实例。在 FreePlay Launcher 中使用它的用户将停止接收更新，但你的本地实例及其内容仍会保留在此设备上。"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "取消发布共享实例"
@@ -1827,7 +1827,7 @@
     "message": "登录 Microsoft 账户"
   },
   "modal.modrinth-account-required.browser-description": {
-    "message": "一个新的标签页已打开，你需要在那里完成登录，然后回到Modrinth app。"
+    "message": "一个新的标签页已打开，你需要在那里完成登录，然后回到FreePlay app。"
   },
   "modal.modrinth-account-required.continue-in-browser-heading": {
     "message": "请在你的浏览器中继续"
@@ -1836,7 +1836,7 @@
     "message": "新建账户"
   },
   "modal.modrinth-account-required.description": {
-    "message": "在使用这个功能之前，你需要登入你的Modrinth账户。"
+    "message": "在使用这个功能之前，你需要登入你的FreePlay账户。"
   },
   "modal.modrinth-account-required.header": {
     "message": "需要账户"
@@ -1845,10 +1845,10 @@
     "message": "再次开启浏览器"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "登录 Modrinth"
+    "message": "登录 FreePlay"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "登录 Modrinth 账号"
+    "message": "登录 FreePlay 账号"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "正在登录"

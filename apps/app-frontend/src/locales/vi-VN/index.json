@@ -69,7 +69,7 @@
     "message": "Cài đặt Minecraft thất bại"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Không thể kết nối được với Modrinth"
+    "message": "Không thể kết nối được với FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Không có quyền để viết"
@@ -123,7 +123,7 @@
     "message": "Chấp nhận tất cả"
   },
   "app.ads-consent.body": {
-    "message": "Quảng cáo giúp Modrinth hoạt động và tài trợ cho việc thanh toán cho người sáng tạo nội dung. Các đối tác của chúng tôi có thể lưu trữ hoặc truy cập cookie trong ứng dụng để cá nhân hóa quảng cáo và đo lường hiệu suất."
+    "message": "Quảng cáo giúp FreePlay hoạt động và tài trợ cho việc thanh toán cho người sáng tạo nội dung. Các đối tác của chúng tôi có thể lưu trữ hoặc truy cập cookie trong ứng dụng để cá nhân hóa quảng cáo và đo lường hiệu suất."
   },
   "app.ads-consent.manage": {
     "message": "Quản lý tùy chọn"
@@ -132,7 +132,7 @@
     "message": "Từ chối tất cả"
   },
   "app.ads-consent.title": {
-    "message": "Quyền riêng tư của bạn và cách quảng cáo hỗ trợ Modrinth"
+    "message": "Quyền riêng tư của bạn và cách quảng cáo hỗ trợ FreePlay"
   },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "Dựng hình nâng cao"
@@ -540,13 +540,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FreePlay Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Bạn đã được tặng những skin này sau khi quyên góp cho Modrinth trong tháng tự hào LGBT thế giới."
+    "message": "Bạn đã được tặng những skin này sau khi quyên góp cho FreePlay trong tháng tự hào LGBT thế giới."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -573,13 +573,13 @@
     "message": "Đổi skin"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Phiên bản v{version} của Modrinth đã sẵn sàng để có thể cài đặt. Khởi động lại ứng dụng để cập nhật ngay bây giờ, hoặc tự động cập nhật sau khi bạn tắt Modrinth."
+    "message": "Phiên bản v{version} của FreePlay đã sẵn sàng để có thể cài đặt. Khởi động lại ứng dụng để cập nhật ngay bây giờ, hoặc tự động cập nhật sau khi bạn tắt FreePlay."
   },
   "app.update-popup.body.linux": {
-    "message": "Phiên bản v{version} của Modrinth hiện đang khả dụng. Hãy sử dụng trình quản lý gói của bạn để cập nhật các tính năng và bản vá lỗi mới nhất!"
+    "message": "Phiên bản v{version} của FreePlay hiện đang khả dụng. Hãy sử dụng trình quản lý gói của bạn để cập nhật các tính năng và bản vá lỗi mới nhất!"
   },
   "app.update-popup.body.metered": {
-    "message": "Phiên bản v{version} của Modrinth hiện đang khả dụng ngay bây giờ! Vì bạn đang sử dụng mạng có tính phí theo dung lượng nên chúng tôi không tự động tải xuống."
+    "message": "Phiên bản v{version} của FreePlay hiện đang khả dụng ngay bây giờ! Vì bạn đang sử dụng mạng có tính phí theo dung lượng nên chúng tôi không tự động tải xuống."
   },
   "app.update-popup.changelog": {
     "message": "Nhật ký thay đổi"
@@ -603,7 +603,7 @@
     "message": "Phiên bản {version} đã được cài đặt thành công!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Chọn một tuỳ chọn"
@@ -633,10 +633,10 @@
     "message": "Nó có thể khác với tên người dùng Minecraft của họ!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Nhập tên người dùng Modrinth..."
+    "message": "Nhập tên người dùng FreePlay..."
   },
   "friends.add-friend.username.title": {
-    "message": "Tên người dùng Modrinth của bạn của bạn là gì?"
+    "message": "Tên người dùng FreePlay của bạn của bạn là gì?"
   },
   "friends.add-friends-to-share": {
     "message": "Hãy <link>thêm bạn bè</link> để biết họ đang chơi gì!"
@@ -678,7 +678,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Đăng nhập bằng tài khoản Modrinth</link> để kết bạn và xem họ đang chơi gì!"
+    "message": "<link>Đăng nhập bằng tài khoản FreePlay</link> để kết bạn và xem họ đang chơi gì!"
   },
   "instance.add-server.add-and-play": {
     "message": "Thêm và chơi"

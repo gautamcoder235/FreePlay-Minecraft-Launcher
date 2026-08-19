@@ -75,7 +75,7 @@
     "message": "Minecraft 설치에 실패했습니다"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Modrinth에 연결할 수 없습니다"
+    "message": "FreePlay에 연결할 수 없습니다"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "쓰기 권한이 없습니다"
@@ -132,7 +132,7 @@
     "message": "모두 수락"
   },
   "app.ads-consent.body": {
-    "message": "광고는 Modrinth가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 우리의 파트너는 앱에서 광고를 개인 맞춤으로 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다."
+    "message": "광고는 FreePlay가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 우리의 파트너는 앱에서 광고를 개인 맞춤으로 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다."
   },
   "app.ads-consent.manage": {
     "message": "환경 설정 관리"
@@ -141,7 +141,7 @@
     "message": "모두 거절"
   },
   "app.ads-consent.title": {
-    "message": "개인정보와 광고가 Modrinth를 지원하는 방식"
+    "message": "개인정보와 광고가 FreePlay를 지원하는 방식"
   },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "배경 흐림 효과와 같은 시각 효과를 활성화합니다. 하드웨어 가속이 지원되지 않는 경우 성능이 저하될 수 있습니다."
@@ -150,7 +150,7 @@
     "message": "고급 렌더링"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Modrinth 앱에서 사용할 색상 테마를 선택하세요."
+    "message": "FreePlay 앱에서 사용할 색상 테마를 선택하세요."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "색상 테마"
@@ -174,7 +174,7 @@
     "message": "세계로 바로 입장"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "마인크래프트가 시작되면 Modrinth 앱을 최소화 합니다."
+    "message": "마인크래프트가 시작되면 FreePlay 앱을 최소화 합니다."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "앱 최소화"
@@ -204,7 +204,7 @@
     "message": "오른쪽 사이드바 숨기기"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Modrinth에 호스팅되지 않은 Modrinth Pack(.mrpack)을 설치하기 전에 안전 경고를 표시합니다."
+    "message": "FreePlay에 호스팅되지 않은 FreePlay Pack(.mrpack)을 설치하기 전에 안전 경고를 표시합니다."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "출처를 알 수 없는 모드팩 설치 전 경고"
@@ -531,13 +531,13 @@
     "message": "계정 로그인:"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Modrinth 로그인 필요"
+    "message": "FreePlay 로그인 필요"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "이 공유 인스턴스의 업데이트를 받으려면 로그인하세요."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "잘못된 Modrinth 계정을 사용하고 있습니다"
+    "message": "잘못된 FreePlay 계정을 사용하고 있습니다"
   },
   "app.instance.worlds.add-server": {
     "message": "서버 추가"
@@ -663,10 +663,10 @@
     "message": "설치"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "이 초대장은 다른 Modrinth 사용자가 생성했으며, Modrinth에서 생성하지 않았습니다. 신뢰할 수 있는 초대장만 수락하십시오."
+    "message": "이 초대장은 다른 FreePlay 사용자가 생성했으며, FreePlay에서 생성하지 않았습니다. 신뢰할 수 있는 초대장만 수락하십시오."
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "이 초대장은 Modrinth가 아닌 <creator>{username}</creator> 님이 생성했습니다. 신뢰할 수 있는 사람의 초대만 수락하세요."
+    "message": "이 초대장은 FreePlay가 아닌 <creator>{username}</creator> 님이 생성했습니다. 신뢰할 수 있는 사람의 초대만 수락하세요."
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count, plural, one {모드 #개} other {모드 #개}}"
@@ -696,7 +696,7 @@
     "message": "지원 요청은 <support-link>지원 팀</support-link> 문의를 이용해 주세요. 버그 제보는 <github-link>GitHub 이슈</github-link>를 등록하세요."
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "모든 파일은 형식(.mrpack 포함)에 무관하게 Modrinth에 게시되어야만 검수를 거칩니다."
+    "message": "모든 파일은 형식(.mrpack 포함)에 무관하게 FreePlay에 게시되어야만 검수를 거칩니다."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "인스턴스 공유됨"
@@ -705,10 +705,10 @@
     "message": "공유 인스턴스 콘텐츠"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "이 공유 인스턴스에는 Modrinth에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
+    "message": "이 공유 인스턴스에는 FreePlay에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "이 서버의 모드팩은 Modrinth에 게시되지 않은 파일을 포함하고 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
+    "message": "이 서버의 모드팩은 FreePlay에 게시되지 않은 파일을 포함하고 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "출처를 알 수 없는 파일"
@@ -729,7 +729,7 @@
     "message": "제거됨"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "이 서버 모드팩 업데이트에는 Modrinth에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
+    "message": "이 서버 모드팩 업데이트에는 FreePlay에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "추가됨"
@@ -738,7 +738,7 @@
     "message": "제거됨"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "이 공유 인스턴스 업데이트에는 Modrinth에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
+    "message": "이 공유 인스턴스 업데이트에는 FreePlay에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
   },
   "app.modal.update-to-play.update-required": {
     "message": "업데이트 필요"
@@ -753,19 +753,19 @@
     "message": "홈"
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth 계정"
+    "message": "FreePlay 계정"
   },
   "app.nav.modrinth-hosting": {
-    "message": "Modrinth 호스팅"
+    "message": "FreePlay 호스팅"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Modrinth 계정으로 로그인"
+    "message": "FreePlay 계정으로 로그인"
   },
   "app.nav.signed-in-as": {
     "message": "<user>{username}</user> 으로 로그인됨"
   },
   "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Modrinth+ 로 업그레이드"
+    "message": "FreePlay+ 로 업그레이드"
   },
   "app.news.title": {
     "message": "뉴스"
@@ -807,7 +807,7 @@
     "message": "재시작 중..."
   },
   "app.settings.app-version": {
-    "message": "Modrinth 앱 {version}"
+    "message": "FreePlay 앱 {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "인스턴스를 실행할 때 설정되는 환경 변수입니다."
@@ -900,16 +900,16 @@
     "message": "macOS"
   },
   "app.settings.privacy.ads-consent.intro": {
-    "message": "광고는 Modrinth가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 우리의 파트너는 앱에서 광고를 개인 맞춤으로 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다. 아래에서 거부하거나 환경 설정을 관리할 수 있습니다."
+    "message": "광고는 FreePlay가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 우리의 파트너는 앱에서 광고를 개인 맞춤으로 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다. 아래에서 거부하거나 환경 설정을 관리할 수 있습니다."
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "Discord의 현재 활동 상태에 Modrinth App을 표시합니다. 모드가 인스턴스에 추가한 Rich Presence에는 영향을 미치지 않습니다. 앱 재시작이 필요합니다."
+    "message": "Discord의 현재 활동 상태에 FreePlay Launcher을 표시합니다. 모드가 인스턴스에 추가한 Rich Presence에는 영향을 미치지 않습니다. 앱 재시작이 필요합니다."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord 활동 상태"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinth는 사용자 경험 향상 및 맞춤 설정을 위해 익명화된 분석 데이터와 사용 데이터를 수집합니다. 이 옵션을 비활성화하면 데이터 수집을 거부하게 되며, 더 이상 데이터가 수집되지 않습니다."
+    "message": "FreePlay는 사용자 경험 향상 및 맞춤 설정을 위해 익명화된 분석 데이터와 사용 데이터를 수집합니다. 이 옵션을 비활성화하면 데이터 수집을 거부하게 되며, 더 이상 데이터가 수집되지 않습니다."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "원격 분석"
@@ -927,7 +927,7 @@
     "message": "앱 캐시를 비우시겠습니까?"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "캐시 데이터를 삭제하고 Modrinth에서 다시 다운로드합니다. 캐시가 재구축될 때까지 앱 로딩이 느려질 수 있습니다."
+    "message": "캐시 데이터를 삭제하고 FreePlay에서 다시 다운로드합니다. 캐시가 재구축될 때까지 앱 로딩이 느려질 수 있습니다."
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "캐시 비우기"
@@ -948,7 +948,7 @@
     "message": "앱 디렉터리 찾아보기"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Modrinth App이 인스턴스 및 기타 파일을 저장하는 위치입니다. 변경 사항은 앱을 재시작한 후 적용됩니다."
+    "message": "FreePlay Launcher이 인스턴스 및 기타 파일을 저장하는 위치입니다. 변경 사항은 앱을 재시작한 후 적용됩니다."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "새 앱 디렉터리 선택"
@@ -1107,13 +1107,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FreePlay"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth 프라이드"
+    "message": "FreePlay 프라이드"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "프라이드 월간 동안 Modrinth 프라이드 모금 행사에 기부하여 이 스킨들을 받았습니다."
+    "message": "프라이드 월간 동안 FreePlay 프라이드 모금 행사에 기부하여 이 스킨들을 받았습니다."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -1146,10 +1146,10 @@
     "message": "켜기"
   },
   "app.survey.body": {
-    "message": "Modrinth 앱 이용 경험에 대한 몇 가지 질문에 답변해 주시겠습니까?"
+    "message": "FreePlay 앱 이용 경험에 대한 몇 가지 질문에 답변해 주시겠습니까?"
   },
   "app.survey.footer": {
-    "message": "이 피드백은 Modrinth 팀에 직접 전달되어 향후 업데이트에 반영됩니다!"
+    "message": "이 피드백은 FreePlay 팀에 직접 전달되어 향후 업데이트에 반영됩니다!"
   },
   "app.survey.no-thanks": {
     "message": "괜찮습니다"
@@ -1158,16 +1158,16 @@
     "message": "설문 참여하기"
   },
   "app.survey.title": {
-    "message": "안녕하세요, Modrinth 사용자님!"
+    "message": "안녕하세요, FreePlay 사용자님!"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} 다운로드가 완료되었습니다. 새로고침하거나 Modrinth App을 종료하면 자동으로 업데이트됩니다."
+    "message": "FreePlay Launcher v{version} 다운로드가 완료되었습니다. 새로고침하거나 FreePlay Launcher을 종료하면 자동으로 업데이트됩니다."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth 앱 v{version}을 사용할 수 있습니다. 최신 기능과 오류 수정을 적용하려면 패키지 관리자를 통해 업데이트하세요!"
+    "message": "FreePlay 앱 v{version}을 사용할 수 있습니다. 최신 기능과 오류 수정을 적용하려면 패키지 관리자를 통해 업데이트하세요!"
   },
   "app.update-popup.body.metered": {
-    "message": "Modrinth 앱 v{version}을 지금 사용할 수 있습니다! 데이터 통신 연결을 사용 중이므로, 자동으로 다운로드하지 않았습니다."
+    "message": "FreePlay 앱 v{version}을 지금 사용할 수 있습니다! 데이터 통신 연결을 사용 중이므로, 자동으로 다운로드하지 않았습니다."
   },
   "app.update-popup.changelog": {
     "message": "변경 내역"
@@ -1191,7 +1191,7 @@
     "message": "{version} 버전이 성공적으로 설치되었습니다!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.freeplay.app"
   },
   "app.world.server-modal.select-an-option": {
     "message": "옵션 선택"
@@ -1254,10 +1254,10 @@
     "message": "Minecraft 사용자명과 다를 수 있습니다!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Modrinth 사용자명 입력..."
+    "message": "FreePlay 사용자명 입력..."
   },
   "friends.add-friend.username.title": {
-    "message": "친구의 Modrinth 사용자명이 무엇인가요?"
+    "message": "친구의 FreePlay 사용자명이 무엇인가요?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>친구 추가</link>를 통해 친구들이 무엇을 하는지 확인해 보세요!"
@@ -1299,7 +1299,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Modrinth 계정으로 로그인</link>하여 친구를 추가하고 무엇을 플레이 중인지 확인하세요!"
+    "message": "<link>FreePlay 계정으로 로그인</link>하여 친구를 추가하고 무엇을 플레이 중인지 확인하세요!"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "연동된 공유 인스턴스"
@@ -1320,7 +1320,7 @@
     "message": "공유 인스턴스 게시 취소"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "Modrinth에서 이 공유 인스턴스를 삭제하고 이용자에게 업데이트 전송을 중단합니다. 본인의 로컬 인스턴스는 영향을 받지 않습니다."
+    "message": "FreePlay에서 이 공유 인스턴스를 삭제하고 이용자에게 업데이트 전송을 중단합니다. 본인의 로컬 인스턴스는 영향을 받지 않습니다."
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "게시 취소 중..."
@@ -1335,7 +1335,7 @@
     "message": "공유 인스턴스 연동 해제"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "이 작업은 Modrinth 서버에서 공유 인스턴스를 삭제합니다. Modrinth 앱에서 이를 이용 중인 사용자는 더 이상 업데이트를 받지 않지만, 본인의 로컬 인스턴스 및 콘텐츠는 이 기기에 유지됩니다."
+    "message": "이 작업은 FreePlay 서버에서 공유 인스턴스를 삭제합니다. FreePlay 앱에서 이를 이용 중인 사용자는 더 이상 업데이트를 받지 않지만, 본인의 로컬 인스턴스 및 콘텐츠는 이 기기에 유지됩니다."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "공유 인스턴스 게시 취소 중"
@@ -1809,7 +1809,7 @@
     "message": "계정 생성"
   },
   "modal.modrinth-account-required.description": {
-    "message": "이 기능을 사용하려면 Modrinth 계정에 로그인해야 합니다."
+    "message": "이 기능을 사용하려면 FreePlay 계정에 로그인해야 합니다."
   },
   "modal.modrinth-account-required.header": {
     "message": "계정 필요"
@@ -1818,10 +1818,10 @@
     "message": "브라우저 다시 열기"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Modrinth 로그인"
+    "message": "FreePlay 로그인"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Modrinth 계정 로그인"
+    "message": "FreePlay 계정 로그인"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "로그인 중"

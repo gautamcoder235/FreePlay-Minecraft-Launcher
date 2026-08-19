@@ -48,7 +48,7 @@
 							id: 'open-in-browser',
 							label: formatMessage(commonMessages.openInBrowserButton),
 							type: 'link',
-							href: `https://modrinth.com/${project.project_type}/${project.slug}/version/${version.id}`,
+							href: `https://freeplay.app/${project.project_type}/${project.slug}/version/${version.id}`,
 							target: '_blank',
 						},
 						{
@@ -56,7 +56,7 @@
 							label: formatMessage(commonMessages.reportButton),
 							type: 'link',
 							tone: 'red',
-							href: `https://modrinth.com/report?item=version&itemID=${version.id}`,
+							href: `https://freeplay.app/report?item=version&itemID=${version.id}`,
 							target: '_blank',
 						},
 					]"
