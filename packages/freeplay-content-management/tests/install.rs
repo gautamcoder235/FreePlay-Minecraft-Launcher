@@ -4,7 +4,7 @@ mod tests {
 
     use async_trait::async_trait;
     use chrono::{DateTime, Utc};
-    use modrinth_content_management::{
+    use freeplay_content_management::{
         ContentMetadataProvider, ContentType, Dependency, DependencyType,
         Error, ResolutionPreferences, ResolveContentRequest, SkippedReason,
         Version, resolve_content,
@@ -568,7 +568,7 @@ mod tests {
         assert_eq!(plan.skipped.len(), 1);
         assert_eq!(
             plan.skipped[0].reason,
-            modrinth_content_management::SkippedReason::DuplicateProject
+            freeplay_content_management::SkippedReason::DuplicateProject
         );
         assert_eq!(plan.skipped[0].project_id, "LNytGWDc");
     }

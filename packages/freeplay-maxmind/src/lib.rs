@@ -12,7 +12,7 @@ pub use maxminddb::{self, geoip2};
 
 use bytes::Bytes;
 use eyre::{Result, bail, eyre};
-use modrinth_util::{Context, env_var};
+use freeplay_util::{Context, env_var};
 use tokio::fs;
 use tracing::{debug, info, warn};
 

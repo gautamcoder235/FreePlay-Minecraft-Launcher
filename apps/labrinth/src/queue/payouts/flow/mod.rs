@@ -3,7 +3,7 @@
 
 use crate::util::error::ApiContext as _;
 use eyre::eyre;
-use modrinth_util::decimal::Decimal2dp;
+use freeplay_util::decimal::Decimal2dp;
 use rust_decimal::Decimal;
 use thiserror::Error;
 

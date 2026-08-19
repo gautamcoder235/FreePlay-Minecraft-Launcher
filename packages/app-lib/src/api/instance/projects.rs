@@ -5,7 +5,7 @@ use crate::state::{
     CacheBehaviour, CachedEntry, ContentSourceKind, ProjectType, State,
 };
 use crate::util::fetch;
-use modrinth_content_management::{
+use freeplay_content_management::{
     ContentType, ResolutionPreferences, ResolveContentPlan,
 };
 use std::collections::HashMap;

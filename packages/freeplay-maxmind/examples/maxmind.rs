@@ -5,7 +5,7 @@ use std::net::IpAddr;
 
 use eyre::Result;
 use maxminddb::geoip2;
-use modrinth_util::Context;
+use freeplay_util::Context;
 use tracing::info;
 
 /// Looks up country details for an IP using the MaxMind database
@@ -20,7 +20,7 @@ async fn main() -> Result<()> {
     let args = <Args as clap::Parser>::parse();
     tracing_subscriber::fmt().init();
 
-    let maxmind = modrinth_maxmind::init_reader()
+    let maxmind = freeplay_maxmind::init_reader()
         .await
         .wrap_err("failed to create reader")?;
 

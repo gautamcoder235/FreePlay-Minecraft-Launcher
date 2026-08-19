@@ -60,7 +60,7 @@ struct Args {
 
 fn main() -> std::io::Result<()> {
     color_eyre::install().expect("failed to install `color-eyre`");
-    modrinth_util::log::init().expect("failed to initialize logging");
+    freeplay_util::log::init().expect("failed to initialize logging");
     env::init().expect("failed to initialize environment variables");
 
     // Sentry must be set up before the async runtime is started

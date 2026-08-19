@@ -1,5 +1,5 @@
 [package]
-name = "modrinth-util"
+name = "freeplay-util"
 edition.workspace = true
 rust-version.workspace = true
 repository.workspace = true
@@ -9,7 +9,7 @@ actix-web = { workspace = true }
 derive_more = { workspace = true, features = ["display", "error", "from"] }
 dotenvy = { workspace = true }
 eyre = { workspace = true }
-modrinth-log = { workspace = true }
+freeplay-log = { workspace = true }
 rust_decimal = { workspace = true, features = ["macros"], optional = true }
 serde = { workspace = true, features = ["derive"] }
 utoipa = { workspace = true, optional = true }
@@ -19,7 +19,7 @@ serde_json = { workspace = true }
 
 [features]
 decimal = ["dep:rust_decimal", "utoipa?/decimal"]
-sentry = ["modrinth-log/sentry"]
+sentry = ["freeplay-log/sentry"]
 utoipa = ["dep:utoipa"]
 
 [lints]

@@ -1,5 +1,5 @@
 use chrono::Utc;
-use modrinth_util::decimal::Decimal2dp;
+use freeplay_util::decimal::Decimal2dp;
 use reqwest::Method;
 use rust_decimal::{Decimal, RoundingStrategy, dec};
 use serde::Deserialize;
