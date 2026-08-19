@@ -74,6 +74,12 @@ impl PlayitAgent {
             cmd.arg("--claim");
         }
 
+        #[cfg(windows)]
+        {
+            // CREATE_NO_WINDOW (0x08000000) ensures zero console window pops up (100% headless)
+            cmd.creation_flags(0x08000000);
+        }
+
         cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
 
         let mut child = cmd.spawn().map_err(|e| format!("Failed to spawn playit agent: {e}"))?;
