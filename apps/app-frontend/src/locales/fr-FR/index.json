@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "La mise en place de Minecraft a échoué"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Impossible d'atteindre les serveurs FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -755,19 +755,19 @@
   "app.nav.home": {
     "message": "Accueil"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "Compte FreePlay"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "Se connecter à un compte FreePlay"
   },
   "app.nav.signed-in-as": {
     "message": "Connecté en tant que <user>{username}</user>"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "Passer à FreePlay+"
   },
   "app.news.title": {
@@ -1109,13 +1109,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Vous avez reçu ces skins pour avoir fait un don à une collecte de fonds FreePlay Pride pendant le mois de la fierté."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1826,37 +1826,37 @@
   "minecraft-required.sign-in": {
     "message": "Se connecter à Microsoft"
   },
-  "modal.modrinth-account-required.browser-description": {
+  "modal.freeplay-account-required.browser-description": {
     "message": "A nouvel onglet a été ouvert pour vous connecter. Finissez la connexion, puis retournez dans l'application."
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "Continuer dans votre navigateur"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "Créer un compte"
   },
-  "modal.modrinth-account-required.description": {
+  "modal.freeplay-account-required.description": {
     "message": "Vous aurez besoin de vous connecter à votre compte FreePlay avant de pouvoir utiliser cette fonctionnalité."
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "Compte requis"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "Ouvrir de nouveau le navigateur"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "Se connecter à FreePlay"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "Se connecter à un compte FreePlay"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "Connexion"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "Vous avez des problèmes à vous connecter ? <support>Obtenez de l'aide</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "En attente de la confirmation du navigateur..."
   },
   "search.filter.locked.instance": {

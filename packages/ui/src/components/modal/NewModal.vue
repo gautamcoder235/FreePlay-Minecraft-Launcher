@@ -484,7 +484,7 @@ defineOptions({
 	}
 }
 
-.modrinth-parent__no-modal-blurs {
+.freeplay-parent__no-modal-blurs {
 	.modal-overlay {
 		backdrop-filter: none;
 	}

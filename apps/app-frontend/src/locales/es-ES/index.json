@@ -422,13 +422,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "Orgullo FreePlay"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Has recibido estas skins por donar a la fundación Orgullo FreePlay durante el Mes del Orgullo."
   },
   "app.skins.section.mounts-of-mayhem": {

@@ -23,7 +23,7 @@ withDefaults(
 			<span>
 				Ask questions for us to answer in our
 				<a
-					href="https://discord.modrinth.com"
+					href="https://discord.freeplay.app"
 					target="_blank"
 					class="text-brand font-semibold hover:underline"
 					>Discord server</a

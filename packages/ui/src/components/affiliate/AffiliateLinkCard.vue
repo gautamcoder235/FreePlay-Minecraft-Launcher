@@ -30,7 +30,7 @@
 				</Button>
 			</div>
 		</div>
-		<CopyCode :text="`https://modrinth.gg?afl=${affiliate.id}`" />
+		<CopyCode :text="`https://freeplay.gg?afl=${affiliate.id}`" />
 	</div>
 </template>
 

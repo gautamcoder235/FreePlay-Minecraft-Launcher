@@ -284,7 +284,7 @@
 			>
 				<div class="flex flex-col justify-between gap-4">
 					<div class="flex flex-col gap-4">
-						<ModrinthServersIcon class="flex h-8 w-fit" />
+						<FreePlayServersIcon class="flex h-8 w-fit" />
 						<div class="flex flex-col gap-6">
 							<ServerListing
 								v-if="subscription.serverInfo"
@@ -721,7 +721,7 @@ import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useIntervalFn } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 
-import ModrinthServersIcon from '~/components/brand/ModrinthServersIcon.vue'
+import FreePlayServersIcon from '~/components/brand/FreePlayServersIcon.vue'
 import ServersUpgradeModalWrapper from '~/components/ui/servers/ServersUpgradeModalWrapper.vue'
 import { products } from '~/generated/state.json'
 

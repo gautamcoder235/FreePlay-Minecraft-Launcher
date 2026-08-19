@@ -93,7 +93,7 @@
     "defaultMessage": "A keresésre nem találtunk találatot!"
   },
   "browse.offline": {
-    "defaultMessage": "Jelenleg nincs internetkapcsolatod. Csatlakozz az internethez, hogy böngészhess a Modrinthon!"
+    "defaultMessage": "Jelenleg nincs internetkapcsolatod. Csatlakozz az internethez, hogy böngészhess a FreePlayon!"
   },
   "browse.selected-projects-floating-bar.aria-label": {
     "defaultMessage": "Kiválasztott projektek"
@@ -218,8 +218,8 @@
   "button.open-in-folder": {
     "defaultMessage": "Megnyitás mappában"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "Megnyitás Modrinthban"
+  "button.open-in-freeplay": {
+    "defaultMessage": "Megnyitás FreePlayban"
   },
   "button.play": {
     "defaultMessage": "Játék"
@@ -435,13 +435,13 @@
     "defaultMessage": "{count} eltávolítva"
   },
   "content.diff-modal.reviewed-files": {
-    "defaultMessage": "Egy fájlt csak akkor vizsgálnak meg, ha azt a Modrinthon közzétették, függetlenül a fájlformátumtól (beleértve a .mrpack formátumot is)."
+    "defaultMessage": "Egy fájlt csak akkor vizsgálnak meg, ha azt a FreePlayon közzétették, függetlenül a fájlformátumtól (beleértve a .mrpack formátumot is)."
   },
   "content.diff-modal.unknown-content-body": {
     "defaultMessage": "A szerverén található egyes tartalmakat nem sikerült elemezni, ezért előfordulhat, hogy ez a változás hatással lesz rájuk."
   },
   "content.diff-modal.unknown-files-description": {
-    "defaultMessage": "Ez a frissítés olyan fájlokat tartalmaz, amelyek nem szerepelnek a Modrinthon. Határozottan javasoljuk, hogy kizárólag olyan forrásokból származó fájlokat telepíts, amelyekben megbízol."
+    "defaultMessage": "Ez a frissítés olyan fájlokat tartalmaz, amelyek nem szerepelnek a FreePlayon. Határozottan javasoljuk, hogy kizárólag olyan forrásokból származó fájlokat telepíts, amelyekben megbízol."
   },
   "content.diff-modal.unknown-files-warning": {
     "defaultMessage": "Ismeretlen fájlok"
@@ -807,7 +807,7 @@
     "defaultMessage": "Játékprofil importálása"
   },
   "creation-flow.modal.setup-type.option.modpack-base.description": {
-    "defaultMessage": "Böngéssz modcsomagokat a Modrinthon, vagy tölts be egyet fájlból."
+    "defaultMessage": "Böngéssz modcsomagokat a FreePlayon, vagy tölts be egyet fájlból."
   },
   "creation-flow.modal.setup-type.option.modpack-base.title": {
     "defaultMessage": "Modcsomag letöltése"
@@ -2280,16 +2280,16 @@
     "defaultMessage": "Tartsd naprakészen a fájlokat, amikor a szerver változik"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Szerezd meg a Modrinth Appot"
+    "defaultMessage": "Szerezd meg a FreePlay Appot"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "A Modrinth App automatikusan megnyílik..."
+    "defaultMessage": "A FreePlay App automatikusan megnyílik..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "A Modrinth App megnyitása"
+    "defaultMessage": "A FreePlay App megnyitása"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "Miért használd a Modrinth Appot?"
+    "defaultMessage": "Miért használd a FreePlay Appot?"
   },
   "notification.error.title": {
     "defaultMessage": "Hiba történt"
@@ -2321,8 +2321,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Moderátor"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Modrinth Csapat"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlay Csapat"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "Függőben"
@@ -2439,13 +2439,13 @@
     "defaultMessage": "Visa"
   },
   "profile.bio.fallback.creator": {
-    "defaultMessage": "Egy Modrinth fejlesztő."
+    "defaultMessage": "Egy FreePlay fejlesztő."
   },
   "profile.bio.fallback.user": {
-    "defaultMessage": "Egy Modrinth felhasználó."
+    "defaultMessage": "Egy FreePlay felhasználó."
   },
   "profile.block-user.admonition-body": {
-    "defaultMessage": "{username} nem fog tudni neked barátkérelmet küldeni, meghívni téged megosztott játékprofilokba, illetve meghívni téged a Modrinth Hosting szervereire."
+    "defaultMessage": "{username} nem fog tudni neked barátkérelmet küldeni, meghívni téged megosztott játékprofilokba, illetve meghívni téged a FreePlay Hosting szervereire."
   },
   "profile.block-user.admonition-title": {
     "defaultMessage": "Biztosan le szeretnéd tiltani ezt a felhasználót?"
@@ -2550,10 +2550,10 @@
     "defaultMessage": "projekt"
   },
   "profile.official-account": {
-    "defaultMessage": "Hivatalos Modrinth-fiók"
+    "defaultMessage": "Hivatalos FreePlay-fiók"
   },
   "profile.official-account.bio": {
-    "defaultMessage": "A Modrinth hivatalos felhasználói fiókja. Támogatás a <support-link></support-link> oldalon kaphatsz vagy e-mailben a <email></email> címen."
+    "defaultMessage": "A FreePlay hivatalos felhasználói fiókja. Támogatás a <support-link></support-link> oldalon kaphatsz vagy e-mailben a <email></email> címen."
   },
   "profile.unblock-user.error-description": {
     "defaultMessage": "Hiba történt a felhasználó letiltásának feloldása közben. Kérlek próbáld meg újra."
@@ -2862,7 +2862,7 @@
     "defaultMessage": "{count} {countPlural, plural,one {jelenleg játszott} other {jelenleg játszottak}}"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "{count} {countPlural, plural,one {jelenleg játszott} other {jelenleg játszottak}} Modrinth-től az elmúlt 2 hétben"
+    "defaultMessage": "{count} {countPlural, plural,one {jelenleg játszott} other {jelenleg játszottak}} FreePlay-től az elmúlt 2 hétben"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "Ez a projekt egy egyedi modcsomagot használ"
@@ -3168,7 +3168,7 @@
     "defaultMessage": "A projektednek több környezete van"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "Nemrégiben átalakítottuk a Modrinth környezetrendszerét, és mostantól új beállítási lehetőségek állnak rendelkezésre. Kérjük, győződj meg arról, hogy az alábbiak közül a megfelelő opciót választottad ki, majd ha kész vagy, kattints az „Ellenőrzés” gombra!"
+    "defaultMessage": "Nemrégiben átalakítottuk a FreePlay környezetrendszerét, és mostantól új beállítási lehetőségek állnak rendelkezésre. Kérjük, győződj meg arról, hogy az alábbiak közül a megfelelő opciót választottad ki, majd ha kész vagy, kattints az „Ellenőrzés” gombra!"
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "Kérjük, tekintsd át az alábbi lehetőségeket"
@@ -3864,13 +3864,13 @@
     "defaultMessage": "Ne használd a Minecraft felhasználó nevűket."
   },
   "servers.grant-access-modal.target.label": {
-    "defaultMessage": "Modrinth felhasználónév"
+    "defaultMessage": "FreePlay felhasználónév"
   },
   "servers.grant-access-modal.target.no-suggestions": {
     "defaultMessage": "Nem található a keresésnek megfelelő felhasználó."
   },
   "servers.grant-access-modal.target.placeholder": {
-    "defaultMessage": "Modrinth felhasználónév megadása"
+    "defaultMessage": "FreePlay felhasználónév megadása"
   },
   "servers.grant-access-modal.target.searching": {
     "defaultMessage": "Keresés..."
@@ -3885,16 +3885,16 @@
     "defaultMessage": "Már van egy szervered?"
   },
   "servers.list-empty.learn-more-link": {
-    "defaultMessage": "Tudj meg többet a Modrinth Hostingról"
+    "defaultMessage": "Tudj meg többet a FreePlay Hostingról"
   },
-  "servers.list-empty.modrinth-hosting-label": {
-    "defaultMessage": "Modrinth Hosting"
+  "servers.list-empty.freeplay-hosting-label": {
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.list-empty.new-server-button": {
     "defaultMessage": "Új szerver"
   },
   "servers.list-empty.no-servers-description": {
-    "defaultMessage": "Telepíts modokat, hívd meg a barátaidat, és játsszatok együtt, mindezt a Modrinth Appban."
+    "defaultMessage": "Telepíts modokat, hívd meg a barátaidat, és játsszatok együtt, mindezt a FreePlay Appban."
   },
   "servers.list-empty.one-click-mod-installs-description": {
     "defaultMessage": "Válaszd ki a kedvenc modjaidat, a többit bízd ránk!"
@@ -3903,7 +3903,7 @@
     "defaultMessage": "Modok telepítése egy kattintással"
   },
   "servers.list-empty.play-with-friends-description": {
-    "defaultMessage": "Hívd meg a barátaidat, és állítsd be őket közvetlenül a Modrinth Appban."
+    "defaultMessage": "Hívd meg a barátaidat, és állítsd be őket közvetlenül a FreePlay Appban."
   },
   "servers.list-empty.play-with-friends-title": {
     "defaultMessage": "Játssz a barátaiddal"
@@ -3969,16 +3969,16 @@
     "defaultMessage": "Feltöltés folyamatban"
   },
   "servers.manage.contact-support-button": {
-    "defaultMessage": "Kapcsolatfelvétel a Modrinth ügyfélszolgálatával"
+    "defaultMessage": "Kapcsolatfelvétel a FreePlay ügyfélszolgálatával"
   },
   "servers.manage.error.details": {
     "defaultMessage": "A hiba részletei:"
   },
   "servers.manage.error.queue-notice": {
-    "defaultMessage": "Ha nemrég vásároltál Modrinth Hosting szervert, az jelenleg a várólistán van, és amint készen áll, itt fog megjelenni. <warning>Ne próbálj új szervert vásárolni.</warning>"
+    "defaultMessage": "Ha nemrég vásároltál FreePlay Hosting szervert, az jelenleg a várólistán van, és amint készen áll, itt fog megjelenni. <warning>Ne próbálj új szervert vásárolni.</warning>"
   },
   "servers.manage.error.support-notice": {
-    "defaultMessage": "Ha személyre szabott segítségre van szükséged a szervered állapotával kapcsolatban, kérlek, vedd fel a kapcsolatot a Modrinth ügyfélszolgálatával."
+    "defaultMessage": "Ha személyre szabott segítségre van szükséged a szervered állapotával kapcsolatban, kérlek, vedd fel a kapcsolatot a FreePlay ügyfélszolgálatával."
   },
   "servers.manage.error.title": {
     "defaultMessage": "A szerverek betöltése nem sikerült"
@@ -4005,7 +4005,7 @@
     "defaultMessage": "Keresés {count} szerver között..."
   },
   "servers.manage.servers-title": {
-    "defaultMessage": "Modrinth Hosting"
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.manage.settings-hint.description": {
     "defaultMessage": "Mostantól itt található!"
@@ -4029,10 +4029,10 @@
     "defaultMessage": "A Medal szerver próbaidőszaka lejárt, és a szerveredet felfüggesztettük. Kérlek, frissítsd a szolgáltatást, ha továbbra is használni szeretnéd a szervert."
   },
   "servers.medal-listing.notice.suspended": {
-    "defaultMessage": "A szerveredet felfüggesztettük. Kérlek, frissítsd a számlázási adataidat, vagy további információkért vedd fel a kapcsolatot a Modrinth ügyfélszolgálatával."
+    "defaultMessage": "A szerveredet felfüggesztettük. Kérlek, frissítsd a számlázási adataidat, vagy további információkért vedd fel a kapcsolatot a FreePlay ügyfélszolgálatával."
   },
   "servers.medal-listing.notice.suspended-with-reason": {
-    "defaultMessage": "A szerveredet felfüggesztettük: {reason}. Kérlek, frissítsd a számlázási adataidat, vagy további információkért vedd fel a kapcsolatot a Modrinth ügyfélszolgálatával."
+    "defaultMessage": "A szerveredet felfüggesztettük: {reason}. Kérlek, frissítsd a számlázási adataidat, vagy további információkért vedd fel a kapcsolatot a FreePlay ügyfélszolgálatával."
   },
   "servers.medal-listing.owner-avatar-alt": {
     "defaultMessage": "{username} avatárja"
@@ -4074,7 +4074,7 @@
     "defaultMessage": "Elutasíthatatlan"
   },
   "servers.purchase.notification.success.text": {
-    "defaultMessage": "A Modrinth Hosting szolgáltatás megvásárlása sikeresen lezárult."
+    "defaultMessage": "A FreePlay Hosting szolgáltatás megvásárlása sikeresen lezárult."
   },
   "servers.purchase.notification.success.title": {
     "defaultMessage": "A vásárlás sikeresen lezárult"
@@ -4158,7 +4158,7 @@
     "defaultMessage": "Hol szeretnéd elhelyezni a szerveredet?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "Nincs a listán a régiód? <link>Jelezd nekünk, hogy hol szeretnéd látni legközelebb a Modrinth Hostingot!</link>"
+    "defaultMessage": "Nincs a listán a régiód? <link>Jelezd nekünk, hogy hol szeretnéd látni legközelebb a FreePlay Hostingot!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "Délkelet-Ázsia"
@@ -4185,7 +4185,7 @@
     "defaultMessage": "A szerver beállítása"
   },
   "servers.setup.onboarding.step.choose.description": {
-    "defaultMessage": "Válaszd ki a kedvenc modcsomagodat a Modrinthról, vagy válassz egy betöltőt, és add hozzá a kívánt modokat."
+    "defaultMessage": "Válaszd ki a kedvenc modcsomagodat a FreePlayról, vagy válassz egy betöltőt, és add hozzá a kívánt modokat."
   },
   "servers.setup.onboarding.step.choose.title": {
     "defaultMessage": "Válaszd ki, mit szeretnél játszani"
@@ -4212,7 +4212,7 @@
     "defaultMessage": "A szervered készen áll. Íme, mit kell tenned a játék elkezdéséhez!"
   },
   "servers.setup.onboarding.welcome.title": {
-    "defaultMessage": "Üdvözlünk a Modrinth Hostingnál"
+    "defaultMessage": "Üdvözlünk a FreePlay Hostingnál"
   },
   "servers.setup.rate-limit.text": {
     "defaultMessage": "A rendszer korlátozza a lekérdezések számát. Kérlek próbáld újra később."
@@ -4251,7 +4251,7 @@
     "defaultMessage": "Sötét"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "Válaszd ki a Modrinth számára a kívánt színsémát ezen az eszközön."
+    "defaultMessage": "Válaszd ki a FreePlay számára a kívánt színsémát ezen az eszközön."
   },
   "settings.display.theme.light": {
     "defaultMessage": "Világos"
@@ -4323,7 +4323,7 @@
     "defaultMessage": "Profilkép"
   },
   "settings.profile.public-information.description": {
-    "defaultMessage": "A profiladataid nyilvánosan <profile-link>megtekinthetők a Modrinthon</profile-link> és a <docs-link>Modrinth API</docs-link>-n keresztül."
+    "defaultMessage": "A profiladataid nyilvánosan <profile-link>megtekinthetők a FreePlayon</profile-link> és a <docs-link>FreePlay API</docs-link>-n keresztül."
   },
   "settings.profile.save-error": {
     "defaultMessage": "A profil frissítése nem sikerült"
@@ -4332,10 +4332,10 @@
     "defaultMessage": "Hiba történt a profilod frissítése közben. Kérlek, próbáld meg újra."
   },
   "settings.profile.sign-in-required.description": {
-    "defaultMessage": "Jelentkezz be egy Modrinth-fiókkal, hogy személyre szabhasd a nyilvános profilodat."
+    "defaultMessage": "Jelentkezz be egy FreePlay-fiókkal, hogy személyre szabhasd a nyilvános profilodat."
   },
   "settings.profile.sign-in-required.title": {
-    "defaultMessage": "Modrinth-fiók szükséges"
+    "defaultMessage": "FreePlay-fiók szükséges"
   },
   "settings.profile.username.description": {
     "defaultMessage": "Egyedi, kis- és nagybetűktől független név a profilod azonosításához."
@@ -4350,7 +4350,7 @@
     "defaultMessage": "Felhasználó"
   },
   "settings.social.blocked-users.description": {
-    "defaultMessage": "Ezek azok a felhasználók, akiket a Modrinthon letiltottál. Ők nem tudnak:"
+    "defaultMessage": "Ezek azok a felhasználók, akiket a FreePlayon letiltottál. Ők nem tudnak:"
   },
   "settings.social.blocked-users.empty": {
     "defaultMessage": "Nem tiltottál le senkit."
@@ -4365,7 +4365,7 @@
     "defaultMessage": "Barátkérelmeket küldeni neked"
   },
   "settings.social.blocked-users.restriction.hosting": {
-    "defaultMessage": "Meghívni téged, hogy kezelj egy Modrinth Hosting szervert."
+    "defaultMessage": "Meghívni téged, hogy kezelj egy FreePlay Hosting szervert."
   },
   "settings.social.blocked-users.restriction.shared-instances": {
     "defaultMessage": "Meghívni téged megosztott játékprofilokba"
@@ -4389,7 +4389,7 @@
     "defaultMessage": "{username} avatárja"
   },
   "settings.social.friend-requests.description": {
-    "defaultMessage": "Állítsd be, hogy ki küldhet neked barátkérelmeket a Modrinthon."
+    "defaultMessage": "Állítsd be, hogy ki küldhet neked barátkérelmeket a FreePlayon."
   },
   "settings.social.friend-requests.title": {
     "defaultMessage": "Barátkérelmek"
@@ -4410,16 +4410,16 @@
     "defaultMessage": "Senki"
   },
   "settings.social.shared-instance-invites.description": {
-    "defaultMessage": "Állítsd be, hogy kik küldhetnek neked meghívókat a megosztott játékprofilokhoz és a Modrinth Hosting vezérlőpultjaihoz."
+    "defaultMessage": "Állítsd be, hogy kik küldhetnek neked meghívókat a megosztott játékprofilokhoz és a FreePlay Hosting vezérlőpultjaihoz."
   },
   "settings.social.shared-instance-invites.title": {
     "defaultMessage": "Meghívók"
   },
   "settings.social.sign-in-required.description": {
-    "defaultMessage": "A Modrinth-fiókod segítségével beállíthatod, hogy kik léphetnek veled kapcsolatba, és kezelheted a letiltott felhasználókat"
+    "defaultMessage": "A FreePlay-fiókod segítségével beállíthatod, hogy kik léphetnek veled kapcsolatba, és kezelheted a letiltott felhasználókat"
   },
   "settings.social.sign-in-required.title": {
-    "defaultMessage": "Modrinth-fiók szükséges"
+    "defaultMessage": "FreePlay-fiók szükséges"
   },
   "settings.social.title": {
     "defaultMessage": "Közösségi"
@@ -4485,7 +4485,7 @@
     "defaultMessage": "Mentés"
   },
   "sharing.invite-players-modal.search-placeholder": {
-    "defaultMessage": "Modrinth felhasználónév megadása"
+    "defaultMessage": "FreePlay felhasználónév megadása"
   },
   "sharing.invite-players-modal.searching": {
     "defaultMessage": "Keresés..."
@@ -5007,16 +5007,16 @@
     "defaultMessage": "Ismeretlen fájlok"
   },
   "user.profile.badge.alpha.about.1": {
-    "defaultMessage": "Ez a felhasználó már a Modrinth Alpha óta aktív, amely 2020 novemberében ért véget."
+    "defaultMessage": "Ez a felhasználó már a FreePlay Alpha óta aktív, amely 2020 novemberében ért véget."
   },
   "user.profile.badge.alpha.name": {
     "defaultMessage": "Alfa-tesztelő"
   },
   "user.profile.badge.beta.about.1": {
-    "defaultMessage": "Ez a felhasználó már a Modrinth Beta óta aktív, amely 2022 februárjában ért véget."
+    "defaultMessage": "Ez a felhasználó már a FreePlay Beta óta aktív, amely 2022 februárjában ért véget."
   },
   "user.profile.badge.beta.link": {
-    "defaultMessage": "Kattints ide, hogy elolvasd a Modrinth Beta elindításáról szóló hírt."
+    "defaultMessage": "Kattints ide, hogy elolvasd a FreePlay Beta elindításáról szóló hírt."
   },
   "user.profile.badge.beta.name": {
     "defaultMessage": "Béta-tesztelő"
@@ -5028,67 +5028,67 @@
     "defaultMessage": "{download_sum} letöltés"
   },
   "user.profile.badge.early-datapack-adopter.about.1": {
-    "defaultMessage": "Ez a felhasználó segített nekünk az adatcsomag-projektek tesztelésében a Modrinthon, mielőtt azokat 2023 januárjában elindítottuk."
+    "defaultMessage": "Ez a felhasználó segített nekünk az adatcsomag-projektek tesztelésében a FreePlayon, mielőtt azokat 2023 januárjában elindítottuk."
   },
   "user.profile.badge.early-datapack-adopter.name": {
     "defaultMessage": "Az adatcsomagok korai tesztelője"
   },
   "user.profile.badge.early-modpack-adopter.about.1": {
-    "defaultMessage": "Ez a felhasználó segített nekünk a modcsomag-projektek tesztelésében a Modrinthon, mielőtt azokat 2022 májusában elindítottuk."
+    "defaultMessage": "Ez a felhasználó segített nekünk a modcsomag-projektek tesztelésében a FreePlayon, mielőtt azokat 2022 májusában elindítottuk."
   },
   "user.profile.badge.early-modpack-adopter.name": {
     "defaultMessage": "A modcsomagok korai tesztelője"
   },
   "user.profile.badge.early-plugin-adopter.about.1": {
-    "defaultMessage": "Ez a felhasználó segített nekünk a bővítményprojektek tesztelésében a Modrinthon, mielőtt azokat 2022 augusztusában elindítottuk."
+    "defaultMessage": "Ez a felhasználó segített nekünk a bővítményprojektek tesztelésében a FreePlayon, mielőtt azokat 2022 augusztusában elindítottuk."
   },
   "user.profile.badge.early-plugin-adopter.name": {
     "defaultMessage": "A bővítmények korai tesztelője"
   },
   "user.profile.badge.early-resourcepack-adopter.about.1": {
-    "defaultMessage": "Ez a felhasználó segített nekünk a forráscsomag-projektek tesztelésében a Modrinthon, mielőtt azokat 2022 augusztusában elindítottuk."
+    "defaultMessage": "Ez a felhasználó segített nekünk a forráscsomag-projektek tesztelésében a FreePlayon, mielőtt azokat 2022 augusztusában elindítottuk."
   },
   "user.profile.badge.early-resourcepack-adopter.name": {
     "defaultMessage": "A forráscsomagok korai tesztelője"
   },
   "user.profile.badge.early-server-adopter.about.1": {
-    "defaultMessage": "Ez a felhasználó segített nekünk a szerverprojektek tesztelésében a Modrinthon, mielőtt azokat 2026 márciusában elindítottuk."
+    "defaultMessage": "Ez a felhasználó segített nekünk a szerverprojektek tesztelésében a FreePlayon, mielőtt azokat 2026 márciusában elindítottuk."
   },
   "user.profile.badge.early-server-adopter.name": {
     "defaultMessage": "A szerverek korai tesztelője"
   },
   "user.profile.badge.early-shader-adopter.about.1": {
-    "defaultMessage": "Ez a felhasználó segített nekünk a shaderprojektek tesztelésében a Modrinthon, mielőtt azokat 2023 januárjában elindítottuk."
+    "defaultMessage": "Ez a felhasználó segített nekünk a shaderprojektek tesztelésében a FreePlayon, mielőtt azokat 2023 januárjában elindítottuk."
   },
   "user.profile.badge.early-shader-adopter.name": {
     "defaultMessage": "A shaderek korai tesztelője"
   },
   "user.profile.badge.hosting-alpha.about.1": {
-    "defaultMessage": "Ez a felhasználó részt vett a Modrinth Hosting zárt alfa-tesztjén, mielőtt 2024 novemberében elindítottuk a Modrinth Hosting bétaverzióját."
+    "defaultMessage": "Ez a felhasználó részt vett a FreePlay Hosting zárt alfa-tesztjén, mielőtt 2024 novemberében elindítottuk a FreePlay Hosting bétaverzióját."
   },
   "user.profile.badge.hosting-alpha.name": {
-    "defaultMessage": "Modrinth Hosting alfa-tesztelő"
+    "defaultMessage": "FreePlay Hosting alfa-tesztelő"
   },
   "user.profile.badge.moderator.about.1": {
-    "defaultMessage": "Ez a felhasználó a Modrinthnál tartalommoderátorként dolgozik."
+    "defaultMessage": "Ez a felhasználó a FreePlaynál tartalommoderátorként dolgozik."
   },
   "user.profile.badge.moderator.about.2": {
-    "defaultMessage": "A Modrinth tartalommoderátorai áttekintik a projekteket, feldolgozzák a bejelentéseket, és hozzájárulnak a Modrinth biztonságának fenntartásához."
+    "defaultMessage": "A FreePlay tartalommoderátorai áttekintik a projekteket, feldolgozzák a bejelentéseket, és hozzájárulnak a FreePlay biztonságának fenntartásához."
   },
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Tartalommoderátor"
   },
   "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Ez a felhasználó minden tőle telhetőt megtesz, hogy támogassa a Modrinthot és a platformon tevékenykedő alkotókat."
+    "defaultMessage": "Ez a felhasználó minden tőle telhetőt megtesz, hogy támogassa a FreePlayot és a platformon tevékenykedő alkotókat."
   },
   "user.profile.badge.plus.link": {
     "defaultMessage": "Kattints ide, ha többet szeretnél megtudni arról, hogy hogyan válhatsz taggá."
   },
   "user.profile.badge.plus.name": {
-    "defaultMessage": "Modrinth+ tag"
+    "defaultMessage": "FreePlay+ tag"
   },
   "user.profile.badge.pride.about.1": {
-    "defaultMessage": "Ez a felhasználó részt vett a Modrinth’s Pride legalább egy, az LGBTQ+ közösség javára szervezett adománygyűjtő akciójában."
+    "defaultMessage": "Ez a felhasználó részt vett a FreePlay’s Pride legalább egy, az LGBTQ+ közösség javára szervezett adománygyűjtő akciójában."
   },
   "user.profile.badge.pride.link": {
     "defaultMessage": "Kattints ide, hogy megtekintsd legújabb Pride-jótékonysági akciónkat."
@@ -5097,10 +5097,10 @@
     "defaultMessage": "A Pride jótékonysági akció támogatója"
   },
   "user.profile.badge.staff.about.1": {
-    "defaultMessage": "Ez a felhasználó a Modrinthnál dolgozik."
+    "defaultMessage": "Ez a felhasználó a FreePlaynál dolgozik."
   },
   "user.profile.badge.staff.name": {
-    "defaultMessage": "A Modrinth-csapat"
+    "defaultMessage": "A FreePlay-csapat"
   },
   "version.section.content": {
     "defaultMessage": "Tartalom"

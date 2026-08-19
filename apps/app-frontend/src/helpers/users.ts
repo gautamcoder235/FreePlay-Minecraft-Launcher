@@ -2,10 +2,10 @@ import type { Labrinth } from '@freeplay/api-client'
 import { invoke } from '@tauri-apps/api/core'
 
 // Converts user profile links from rendered Markdown/any dynamic content into app routes.
-export function parse_modrinth_user_link(href: string): string | null {
+export function parse_freeplay_user_link(href: string): string | null {
 	try {
 		const url = new URL(href)
-		if (url.hostname !== 'modrinth.com' && url.hostname !== 'www.modrinth.com') return null
+		if (url.hostname !== 'freeplay.app' && url.hostname !== 'www.freeplay.app') return null
 
 		const segments = url.pathname.split('/').filter(Boolean)
 		if (segments[0]?.toLowerCase() !== 'user' || !segments[1] || segments.length > 3) return null

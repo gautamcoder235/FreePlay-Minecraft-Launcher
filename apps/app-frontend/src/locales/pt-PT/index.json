@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "A instalação do Minecraft falhou"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Não foi possível carregar o FreePlay."
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -521,7 +521,7 @@
   "app.skins.reorder-error.text": {
     "message": "O seu pedido de skin não pôde ser guardado."
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
   "app.update-popup.body.download-complete": {

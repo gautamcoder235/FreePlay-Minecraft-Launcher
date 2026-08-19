@@ -3,10 +3,10 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { computed, ref } from 'vue'
 
 import EditServerIcon from '../../components/servers/edit-server-icon/EditServerIcon.vue'
-import { provideModrinthServerContext } from '../../providers'
+import { provideFreePlayServerContext } from '../../providers'
 import type {
 	CancelUploadHandler,
-	ModrinthServerContext,
+	FreePlayServerContext,
 	ServerStats,
 } from '../../providers/server-context'
 
@@ -56,7 +56,7 @@ const meta = {
 					totalFiles: 0,
 				})
 
-				const serverContext: ModrinthServerContext = {
+				const serverContext: FreePlayServerContext = {
 					get serverId() {
 						return 'story-server-id'
 					},
@@ -87,7 +87,7 @@ const meta = {
 					dismissOperation: async () => {},
 				}
 
-				provideModrinthServerContext(serverContext)
+				provideFreePlayServerContext(serverContext)
 			},
 			template: '<div style="max-width: 320px;"><story /></div>',
 		}),

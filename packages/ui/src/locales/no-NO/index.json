@@ -75,7 +75,7 @@
     "defaultMessage": "Ingen resultater funnet for ditt søk!"
   },
   "browse.offline": {
-    "defaultMessage": "Du er offline akkurat nå. Koble til internett for å surfe på Modrinth!"
+    "defaultMessage": "Du er offline akkurat nå. Koble til internett for å surfe på FreePlay!"
   },
   "browse.search.placeholder": {
     "defaultMessage": "Søk etter {projectType}..."
@@ -182,8 +182,8 @@
   "button.open-folder": {
     "defaultMessage": "Åpne mappe"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "Åpne i Modrinth"
+  "button.open-in-freeplay": {
+    "defaultMessage": "Åpne i FreePlay"
   },
   "button.play": {
     "defaultMessage": "Spill"
@@ -1122,16 +1122,16 @@
     "defaultMessage": "Hold filer oppdatert når serveren endres"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Skaff Modrinth App-en"
+    "defaultMessage": "Skaff FreePlay App-en"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Modrinth App-en kommer til å åpne seg automatisk..."
+    "defaultMessage": "FreePlay App-en kommer til å åpne seg automatisk..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "Åpner Modrinth App-en"
+    "defaultMessage": "Åpner FreePlay App-en"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "Hvorfor bruke modrinth App-en"
+    "defaultMessage": "Hvorfor bruke freeplay App-en"
   },
   "notification.error.title": {
     "defaultMessage": "En feil oppstod"
@@ -1160,8 +1160,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Moderator"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Modrinth Team"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlay Team"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "Venter"
@@ -1734,7 +1734,7 @@
     "defaultMessage": "Prosjektet ditt har flere miljøer"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "Vi har nettopp oppdatert miljøsystemet på Modrinth, og nye valg er nå tilgjengelige. Pass på at riktig alternativ er valgt nedenfor, og klikk deretter «Verifiser» når du er ferdig."
+    "defaultMessage": "Vi har nettopp oppdatert miljøsystemet på FreePlay, og nye valg er nå tilgjengelige. Pass på at riktig alternativ er valgt nedenfor, og klikk deretter «Verifiser» når du er ferdig."
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "Gå gjennom valgene nedenfor"
@@ -2301,7 +2301,7 @@
     "defaultMessage": "Hvor vil du at serveren din skal være plassert?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "Region ikke oppført? <link>Gi oss beskjed om hvor du ønsker å se Modrinth Hosting neste gang!</link>"
+    "defaultMessage": "Region ikke oppført? <link>Gi oss beskjed om hvor du ønsker å se FreePlay Hosting neste gang!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "Sørøst-Asia"
@@ -2328,7 +2328,7 @@
     "defaultMessage": "Mørk"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "Velg ditt foretrukne fargetema for Modrinth på denne enheten."
+    "defaultMessage": "Velg ditt foretrukne fargetema for FreePlay på denne enheten."
   },
   "settings.display.theme.light": {
     "defaultMessage": "Lys"

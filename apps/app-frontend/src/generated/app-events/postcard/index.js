@@ -404,7 +404,7 @@ function deserialize_ONBOARDING_CHECKLIST(d) {
     return {
         has_created_instance: d.deserialize_bool(),
         has_logged_into_minecraft: d.deserialize_bool(),
-        has_logged_into_modrinth: d.deserialize_bool(),
+        has_logged_into_freeplay: d.deserialize_bool(),
         show_checklist: d.deserialize_bool()
     };
 }

@@ -3,8 +3,8 @@ import { computed, type Ref } from 'vue'
 import { useVIntl } from '#ui/composables/i18n'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 
@@ -12,8 +12,8 @@ export type PowerAction = 'Start' | 'Stop' | 'Restart' | 'Kill'
 
 export function useServerPowerAction(options?: { disabled?: Ref<boolean> }) {
 	const { formatMessage } = useVIntl()
-	const client = injectModrinthClient()
-	const { serverId, powerState, busyReasons } = injectModrinthServerContext()
+	const client = injectFreePlayClient()
+	const { serverId, powerState, busyReasons } = injectFreePlayServerContext()
 	const { addNotification } = injectNotificationManager()
 	const { canUsePowerActions, permissionDeniedMessage } = useServerPermissions()
 

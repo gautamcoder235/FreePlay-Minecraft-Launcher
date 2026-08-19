@@ -5,7 +5,7 @@ import { NotificationToast } from '../../components/notifications'
 import type { PopupNotificationButton } from '../../providers'
 
 const avatarUrl =
-	'https://cdn.modrinth.com/user/6Qo4A5QT/9d81be1a9fb1afd163b7f2f05a791955e7693c90.png'
+	'https://cdn.freeplay.app/user/6Qo4A5QT/9d81be1a9fb1afd163b7f2f05a791955e7693c90.png'
 
 const meta = {
 	title: 'Notifications/Toasts',
@@ -50,7 +50,7 @@ export const FigmaExamples: Story = {
 					type="server-invite"
 					actor-name="Fetch"
 					:actor-avatar-url="avatarUrl"
-					entity-name="Modrinth SMP"
+					entity-name="FreePlay SMP"
 					@accept="noop"
 					@decline="noop"
 					@dismiss="noop"
@@ -105,7 +105,7 @@ export const ServerInvite: Story = {
 				type="server-invite"
 				actor-name="Fetch"
 				:actor-avatar-url="avatarUrl"
-				entity-name="Modrinth SMP"
+				entity-name="FreePlay SMP"
 				@accept="noop"
 				@decline="noop"
 				@dismiss="noop"
@@ -128,7 +128,7 @@ export const MissingAvatarFallback: Story = {
 			<NotificationToast
 				type="server-invite"
 				actor-name="Fetch"
-				entity-name="Modrinth SMP"
+				entity-name="FreePlay SMP"
 				@accept="noop"
 				@decline="noop"
 				@dismiss="noop"

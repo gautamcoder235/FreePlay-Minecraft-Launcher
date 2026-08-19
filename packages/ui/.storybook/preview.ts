@@ -9,7 +9,7 @@ import '../../../apps/app-frontend/src/assets/stylesheets/global.scss'
 import './preview.scss'
 
 import type { Labrinth } from '@freeplay/api-client'
-import { GenericModrinthClient } from '@freeplay/api-client'
+import { GenericFreePlayClient } from '@freeplay/api-client'
 import { withThemeByClassName } from '@storybook/addon-themes'
 import type { Preview } from '@storybook/vue3-vite'
 import { setup } from '@storybook/vue3-vite'
@@ -34,7 +34,7 @@ import {
 	type NotificationPanelLocation,
 	type PopupNotification,
 	provideFilePicker,
-	provideModrinthClient,
+	provideFreePlayClient,
 	provideNotificationManager,
 	providePopupNotificationManager,
 	provideTags,
@@ -217,14 +217,14 @@ const StorybookProvider = defineComponent({
 		provideNotificationManager(new StorybookNotificationManager())
 		providePopupNotificationManager(new StorybookPopupNotificationManager())
 
-		const modrinthClient = new GenericModrinthClient({
-			userAgent: 'modrinth-storybook/1.0.0',
+		const freeplayClient = new GenericFreePlayClient({
+			userAgent: 'freeplay-storybook/1.0.0',
 		})
-		provideModrinthClient(modrinthClient)
+		provideFreePlayClient(freeplayClient)
 
 		const gameVersions = ref<Labrinth.Tags.v2.GameVersion[]>([])
 		const loaders = ref<Labrinth.Tags.v2.Loader[]>([])
-		modrinthClient.labrinth.state.build().then((state) => {
+		freeplayClient.labrinth.state.build().then((state) => {
 			gameVersions.value = state.gameVersions
 			loaders.value = state.loaders
 		})

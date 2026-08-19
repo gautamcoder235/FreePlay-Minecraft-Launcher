@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>
 const creator: Archon.BackupsQueue.v1.UserInfo = {
 	id: 'traben',
 	username: 'Traben',
-	avatar_url: 'https://cdn.modrinth.com/user/6Qo4A5QT/9d81be1a9fb1afd163b7f2f05a791955e7693c90.png',
+	avatar_url: 'https://cdn.freeplay.app/user/6Qo4A5QT/9d81be1a9fb1afd163b7f2f05a791955e7693c90.png',
 }
 
 const supportCreator: Archon.BackupsQueue.v1.UserInfo = {

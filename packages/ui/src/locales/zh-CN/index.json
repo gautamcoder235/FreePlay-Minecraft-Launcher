@@ -99,7 +99,7 @@
     "defaultMessage": "找不到你查询的结果！"
   },
   "browse.offline": {
-    "defaultMessage": "你目前处于离线状态。连接互联网来浏览Modrinth！"
+    "defaultMessage": "你目前处于离线状态。连接互联网来浏览FreePlay！"
   },
   "browse.search.placeholder": {
     "defaultMessage": "搜索 {projectType}..."
@@ -227,8 +227,8 @@
   "button.open-in-folder": {
     "defaultMessage": "在文件夹中打开"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "在 Modrinth 中打开"
+  "button.open-in-freeplay": {
+    "defaultMessage": "在 FreePlay 中打开"
   },
   "button.play": {
     "defaultMessage": "开始游戏"
@@ -507,13 +507,13 @@
     "defaultMessage": "已移除（已禁用） {count} 项"
   },
   "content.diff-modal.reviewed-files": {
-    "defaultMessage": "只有上传到 Modrinth 的文件才会经过审核，无论其文件格式如何（包括 .mrpack）。"
+    "defaultMessage": "只有上传到 FreePlay 的文件才会经过审核，无论其文件格式如何（包括 .mrpack）。"
   },
   "content.diff-modal.unknown-content-body": {
     "defaultMessage": "你服务器上的部分内容未能完成分析，可能受此变更影响。"
   },
   "content.diff-modal.unknown-files-description": {
-    "defaultMessage": "这个更新包含一些未在 Modrinth 发布的文件。我们强烈建议只从你信任的来源安装文件。"
+    "defaultMessage": "这个更新包含一些未在 FreePlay 发布的文件。我们强烈建议只从你信任的来源安装文件。"
   },
   "content.diff-modal.unknown-files-warning": {
     "defaultMessage": "未知文件警告"
@@ -882,7 +882,7 @@
     "defaultMessage": "导入实例"
   },
   "creation-flow.modal.setup-type.option.modpack-base.description": {
-    "defaultMessage": "在 Modrinth 上浏览整合包或从文件中导入一个。"
+    "defaultMessage": "在 FreePlay 上浏览整合包或从文件中导入一个。"
   },
   "creation-flow.modal.setup-type.option.modpack-base.title": {
     "defaultMessage": "安装整合包"
@@ -1010,8 +1010,8 @@
   "external-files.permissions-card.editor.link-to-work-url-placeholder": {
     "defaultMessage": "作品链接"
   },
-  "external-files.permissions-card.editor.modrinth-link-to-work": {
-    "defaultMessage": "这看起来像是一个Modrinth链接，如果这个内容存在于Modrinrh平台上，你的包很可能导出不正确。如果你是从其他网站下载的，尝试下载Modrinth版本的文件，有时它们不是相同文件。"
+  "external-files.permissions-card.editor.freeplay-link-to-work": {
+    "defaultMessage": "这看起来像是一个FreePlay链接，如果这个内容存在于FreePlay平台上，你的包很可能导出不正确。如果你是从其他网站下载的，尝试下载FreePlay版本的文件，有时它们不是相同文件。"
   },
   "external-files.permissions-card.editor.notes-label": {
     "defaultMessage": "笔记"
@@ -1035,7 +1035,7 @@
     "defaultMessage": "如果您被发现造假或者篡改上传的图像，您的项目和帐户可能会被终止。"
   },
   "external-files.permissions-card.editor.proof-warning.title": {
-    "defaultMessage": "Modrinth 工作人员可能核验上传的证据"
+    "defaultMessage": "FreePlay 工作人员可能核验上传的证据"
   },
   "external-files.permissions-card.editor.save": {
     "defaultMessage": "保存归属信息"
@@ -1122,7 +1122,7 @@
     "defaultMessage": "已自动署名"
   },
   "external-files.permissions-card.reason.globally-allowed.description": {
-    "defaultMessage": "我们之前已经见过这个文件，并为您准备好了署名信息。如果有什么地方看起来不对劲，请通过帮助中心联系 Modrinth"
+    "defaultMessage": "我们之前已经见过这个文件，并为您准备好了署名信息。如果有什么地方看起来不对劲，请通过帮助中心联系 FreePlay"
   },
   "external-files.permissions-card.reason.license": {
     "defaultMessage": "许可协议"
@@ -2622,16 +2622,16 @@
     "defaultMessage": "服务器更改时保持文件更新"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "获取 Modrinth App"
+    "defaultMessage": "获取 FreePlay App"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Modrinth App 将自动打开……"
+    "defaultMessage": "FreePlay App 将自动打开……"
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "正在打开 Modrinth App"
+    "defaultMessage": "正在打开 FreePlay App"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "为何使用 Modrinth App"
+    "defaultMessage": "为何使用 FreePlay App"
   },
   "notification.error.title": {
     "defaultMessage": "发生错误"
@@ -2663,8 +2663,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "管理员"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Modrinth 团队"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlay 团队"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "待确认"
@@ -2784,13 +2784,13 @@
     "defaultMessage": "Visa"
   },
   "profile.bio.fallback.creator": {
-    "defaultMessage": "一位 Modrinth 创作者。"
+    "defaultMessage": "一位 FreePlay 创作者。"
   },
   "profile.bio.fallback.user": {
-    "defaultMessage": "一位 Modrinth 用户。"
+    "defaultMessage": "一位 FreePlay 用户。"
   },
   "profile.block-user.admonition-body": {
-    "defaultMessage": "{username} 将无法向你发送好友请求、将你邀请到共享实例或 Modrinth Hosting 服务器。"
+    "defaultMessage": "{username} 将无法向你发送好友请求、将你邀请到共享实例或 FreePlay Hosting 服务器。"
   },
   "profile.block-user.admonition-title": {
     "defaultMessage": "你确定要屏蔽该用户吗？"
@@ -2844,7 +2844,7 @@
     "defaultMessage": "{count, plural, other {# 个项目}}"
   },
   "profile.details.error.github-popup-blocked": {
-    "defaultMessage": "请在来自 Modrinth 的弹出窗口中选择允许，然后重试。"
+    "defaultMessage": "请在来自 FreePlay 的弹出窗口中选择允许，然后重试。"
   },
   "profile.details.error.github-profile-message": {
     "defaultMessage": "无法获取 GitHub 个人资料。请重试。"
@@ -2922,10 +2922,10 @@
     "defaultMessage": "{count, plural, other {项目}}"
   },
   "profile.official-account": {
-    "defaultMessage": "官方 Modrinth 账户"
+    "defaultMessage": "官方 FreePlay 账户"
   },
   "profile.official-account.bio": {
-    "defaultMessage": "Modrinth 的官方用户账号。可通过 <support-link></support-link> 或电子邮件 <email></email> 获取支持"
+    "defaultMessage": "FreePlay 的官方用户账号。可通过 <support-link></support-link> 或电子邮件 <email></email> 获取支持"
   },
   "profile.unblock-user.error-description": {
     "defaultMessage": "解除屏蔽该用户时发生了错误。请重试。"
@@ -3258,7 +3258,7 @@
     "defaultMessage": "{count} {countPlural, plural, other {人最近游玩}}"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "在过去两周内共有 {count} {countPlural, plural, other {人}}通过 Modrinth 游玩"
+    "defaultMessage": "在过去两周内共有 {count} {countPlural, plural, other {人}}通过 FreePlay 游玩"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "这个项目使用了自定义整合包"
@@ -3570,7 +3570,7 @@
     "defaultMessage": "你的项目包含多个运行环境"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "我们最近升级了 Modrinth 的运行环境系统，引入了一些新选项。请确保在下方选择正确的选项，然后点击“验证”！"
+    "defaultMessage": "我们最近升级了 FreePlay 的运行环境系统，引入了一些新选项。请确保在下方选择正确的选项，然后点击“验证”！"
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "请复核以下选项"
@@ -4569,13 +4569,13 @@
     "defaultMessage": "不要使用他们的 Minecraft 用户名。"
   },
   "servers.grant-access-modal.target.label": {
-    "defaultMessage": "Modrinth 用户名"
+    "defaultMessage": "FreePlay 用户名"
   },
   "servers.grant-access-modal.target.no-suggestions": {
     "defaultMessage": "未找到匹配的用户。"
   },
   "servers.grant-access-modal.target.placeholder": {
-    "defaultMessage": "输入 Modrinth 用户名"
+    "defaultMessage": "输入 FreePlay 用户名"
   },
   "servers.grant-access-modal.target.searching": {
     "defaultMessage": "正在搜索…"
@@ -4592,14 +4592,14 @@
   "servers.list-empty.already-have-server-label": {
     "defaultMessage": "已经有服务器了吗？"
   },
-  "servers.list-empty.modrinth-hosting-label": {
-    "defaultMessage": "Modrinth Hosting"
+  "servers.list-empty.freeplay-hosting-label": {
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.list-empty.new-server-button": {
     "defaultMessage": "添加服务器"
   },
   "servers.list-empty.no-servers-description": {
-    "defaultMessage": "安装模组、邀请好友并一起畅玩，这一切都能在 Modrinth App 中轻松完成。"
+    "defaultMessage": "安装模组、邀请好友并一起畅玩，这一切都能在 FreePlay App 中轻松完成。"
   },
   "servers.list-empty.one-click-mod-installs-description": {
     "defaultMessage": "选出你最喜欢的模组，其余的交给我们来处理。"
@@ -4608,7 +4608,7 @@
     "defaultMessage": "一键安装模组"
   },
   "servers.list-empty.play-with-friends-description": {
-    "defaultMessage": "邀请好友并直接在 Modrinth App 中为他们完成设置。"
+    "defaultMessage": "邀请好友并直接在 FreePlay App 中为他们完成设置。"
   },
   "servers.list-empty.play-with-friends-title": {
     "defaultMessage": "与好友同乐"
@@ -4668,7 +4668,7 @@
     "defaultMessage": "你的订阅将于 <date>{formattedDate}</date> 取消。"
   },
   "servers.listing.notice.suspended": {
-    "defaultMessage": "你的服务器已被停用。请联系 Modrinth 支持以获取更多信息。"
+    "defaultMessage": "你的服务器已被停用。请联系 FreePlay 支持以获取更多信息。"
   },
   "servers.listing.notice.upgrading": {
     "defaultMessage": "你的服务器硬件正在升级，很快就会重新上线。"
@@ -4701,7 +4701,7 @@
     "defaultMessage": "正在上传"
   },
   "servers.manage.contact-support-button": {
-    "defaultMessage": "联系 Modrinth 支持"
+    "defaultMessage": "联系 FreePlay 支持"
   },
   "servers.manage.error.alert-notice": {
     "defaultMessage": "当出现问题时，我们的系统会自动提醒团队。我们已在努力让服务器恢复上线。"
@@ -4713,10 +4713,10 @@
     "defaultMessage": "错误详情："
   },
   "servers.manage.error.queue-notice": {
-    "defaultMessage": "如果你最近购买了 Modrinth 托管服务器，它当前正在队列中，一旦准备就绪就会显示在此处。<warning>不要尝试购买新服务器。</warning>"
+    "defaultMessage": "如果你最近购买了 FreePlay 托管服务器，它当前正在队列中，一旦准备就绪就会显示在此处。<warning>不要尝试购买新服务器。</warning>"
   },
   "servers.manage.error.support-notice": {
-    "defaultMessage": "如果你需要关于服务器状态的个性化支持，请联系 Modrinth 支持团队。"
+    "defaultMessage": "如果你需要关于服务器状态的个性化支持，请联系 FreePlay 支持团队。"
   },
   "servers.manage.error.title": {
     "defaultMessage": "服务器无法加载"
@@ -4746,7 +4746,7 @@
     "defaultMessage": "重新启动"
   },
   "servers.manage.resubscribe-error.text": {
-    "defaultMessage": "在重新订阅你的 Modrinth 服务器时发生了错误。"
+    "defaultMessage": "在重新订阅你的 FreePlay 服务器时发生了错误。"
   },
   "servers.manage.resubscribe-error.title": {
     "defaultMessage": "重新订阅时出错"
@@ -4767,7 +4767,7 @@
     "defaultMessage": "搜索 {count} {count, plural, other {个服务器}}..."
   },
   "servers.manage.servers-title": {
-    "defaultMessage": "Modrinth Hosting"
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.manage.settings-hint.description": {
     "defaultMessage": "他们现在可以在这里找到！"
@@ -4794,10 +4794,10 @@
     "defaultMessage": "你的 Medal 服务器试用期已结束，服务器已被停用。请升级以继续使用你的服务器。"
   },
   "servers.medal-listing.notice.suspended": {
-    "defaultMessage": "你的服务器已被停用。请更新你的账单信息，或联系 Modrinth 支持以获取更多信息。"
+    "defaultMessage": "你的服务器已被停用。请更新你的账单信息，或联系 FreePlay 支持以获取更多信息。"
   },
   "servers.medal-listing.notice.suspended-with-reason": {
-    "defaultMessage": "你的服务器已被停用：{reason}。请更新你的账单信息，或联系 Modrinth 支持以获取更多信息。"
+    "defaultMessage": "你的服务器已被停用：{reason}。请更新你的账单信息，或联系 FreePlay 支持以获取更多信息。"
   },
   "servers.medal-listing.notice.upgrading": {
     "defaultMessage": "你的服务器硬件正在升级，很快就会重新上线。"
@@ -4845,7 +4845,7 @@
     "defaultMessage": "不可隐藏"
   },
   "servers.purchase.notification.success.text": {
-    "defaultMessage": "你的 Modrinth Hosting 购买已完成。"
+    "defaultMessage": "你的 FreePlay Hosting 购买已完成。"
   },
   "servers.purchase.notification.success.title": {
     "defaultMessage": "购买成功"
@@ -4935,7 +4935,7 @@
     "defaultMessage": "你希望服务器位于何处？"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "没有想要的地区？<link>推荐 Modrinth Hosting 的下一个服务区域！</link>"
+    "defaultMessage": "没有想要的地区？<link>推荐 FreePlay Hosting 的下一个服务区域！</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "东南亚"
@@ -5007,7 +5007,7 @@
     "defaultMessage": "初始化服务器"
   },
   "servers.setup.onboarding.step.choose.description": {
-    "defaultMessage": "从 Modrinth 选择你喜爱的整合包，或者选择一个加载器并添加你想要的模组。"
+    "defaultMessage": "从 FreePlay 选择你喜爱的整合包，或者选择一个加载器并添加你想要的模组。"
   },
   "servers.setup.onboarding.step.choose.title": {
     "defaultMessage": "选择要游玩的内容"
@@ -5034,7 +5034,7 @@
     "defaultMessage": "你的服务器已准备就绪。以下是开始游戏需要做的操作！"
   },
   "servers.setup.onboarding.welcome.title": {
-    "defaultMessage": "欢迎来到 Modrinth Hosting"
+    "defaultMessage": "欢迎来到 FreePlay Hosting"
   },
   "servers.setup.rate-limit.text": {
     "defaultMessage": "你已达到速率限制。请稍后再试。"
@@ -5145,7 +5145,7 @@
     "defaultMessage": "头像"
   },
   "settings.profile.public-information.description": {
-    "defaultMessage": "您的个人资料信息可以在 <profile-link>Modrinth 上公开查看</profile-link>，也可通过 <docs-link>Modrinth API</docs-link> 获取。"
+    "defaultMessage": "您的个人资料信息可以在 <profile-link>FreePlay 上公开查看</profile-link>，也可通过 <docs-link>FreePlay API</docs-link> 获取。"
   },
   "settings.profile.save-error": {
     "defaultMessage": "更新档案失败"
@@ -5154,10 +5154,10 @@
     "defaultMessage": "更新个人资料失败，请稍后重试。"
   },
   "settings.profile.sign-in-required.description": {
-    "defaultMessage": "登录 Modrinth 账号以自定义您的公开资料。"
+    "defaultMessage": "登录 FreePlay 账号以自定义您的公开资料。"
   },
   "settings.profile.sign-in-required.title": {
-    "defaultMessage": "需要 Modrinth 账户"
+    "defaultMessage": "需要 FreePlay 账户"
   },
   "settings.profile.username.description": {
     "defaultMessage": "用于识别您个人资料的唯一名称。"
@@ -5172,7 +5172,7 @@
     "defaultMessage": "用户"
   },
   "settings.social.blocked-users.description": {
-    "defaultMessage": "这些是你在 Modrinth 中屏蔽的用户。他们无法："
+    "defaultMessage": "这些是你在 FreePlay 中屏蔽的用户。他们无法："
   },
   "settings.social.blocked-users.empty": {
     "defaultMessage": "你还没有屏蔽任何人。"
@@ -5187,7 +5187,7 @@
     "defaultMessage": "给你发送好友邀请"
   },
   "settings.social.blocked-users.restriction.hosting": {
-    "defaultMessage": "邀请你管理 Modrinth 托管服务器。"
+    "defaultMessage": "邀请你管理 FreePlay 托管服务器。"
   },
   "settings.social.blocked-users.restriction.shared-instances": {
     "defaultMessage": "邀请你加入共享实例"
@@ -5211,7 +5211,7 @@
     "defaultMessage": "{username} 的头像"
   },
   "settings.social.friend-requests.description": {
-    "defaultMessage": "控制谁可以在 Modrinth 上向你发送好友申请。"
+    "defaultMessage": "控制谁可以在 FreePlay 上向你发送好友申请。"
   },
   "settings.social.friend-requests.title": {
     "defaultMessage": "好友邀请"
@@ -5232,16 +5232,16 @@
     "defaultMessage": "无"
   },
   "settings.social.shared-instance-invites.description": {
-    "defaultMessage": "控制谁可以向您发送共享实例和 Modrinth 托管面板的邀请。"
+    "defaultMessage": "控制谁可以向您发送共享实例和 FreePlay 托管面板的邀请。"
   },
   "settings.social.shared-instance-invites.title": {
     "defaultMessage": "邀请"
   },
   "settings.social.sign-in-required.description": {
-    "defaultMessage": "使用 Modrinth 账号，你可以控制谁能与你互动，并管理黑名单用户"
+    "defaultMessage": "使用 FreePlay 账号，你可以控制谁能与你互动，并管理黑名单用户"
   },
   "settings.social.sign-in-required.title": {
-    "defaultMessage": "需要登录 Modrinth 账号"
+    "defaultMessage": "需要登录 FreePlay 账号"
   },
   "settings.social.title": {
     "defaultMessage": "社交"
@@ -5334,7 +5334,7 @@
     "defaultMessage": "保存"
   },
   "sharing.invite-players-modal.search-placeholder": {
-    "defaultMessage": "输入 Modrinth 用户名"
+    "defaultMessage": "输入 FreePlay 用户名"
   },
   "sharing.invite-players-modal.searching": {
     "defaultMessage": "搜索中……"
@@ -5892,34 +5892,34 @@
     "defaultMessage": "恶意软件经常通过在像 Discord 这样的平台上分享的 mod 文件传播。"
   },
   "unknown-file-warning-modal.mod-warning-body": {
-    "defaultMessage": "没有在 Modrinth 上发布。我们强烈建议只安装你信任来源的文件。"
+    "defaultMessage": "没有在 FreePlay 上发布。我们强烈建议只安装你信任来源的文件。"
   },
   "unknown-file-warning-modal.mod-warning-title": {
     "defaultMessage": "未知文件警告"
   },
   "unknown-file-warning-modal.modpack-warning-body": {
-    "defaultMessage": "包含一些未在 Modrinth 发布的文件。我们强烈建议只从你信任的来源安装文件。"
+    "defaultMessage": "包含一些未在 FreePlay 发布的文件。我们强烈建议只从你信任的来源安装文件。"
   },
   "unknown-file-warning-modal.modpack-warning-title": {
     "defaultMessage": "未知文件警告"
   },
   "unknown-file-warning-modal.reviewed-files": {
-    "defaultMessage": "只有上传到 Modrinth 的文件才会经过审核，无论其文件格式如何（包括 .mrpack）。"
+    "defaultMessage": "只有上传到 FreePlay 的文件才会经过审核，无论其文件格式如何（包括 .mrpack）。"
   },
   "unknown-file-warning-modal.unrecognized-files": {
     "defaultMessage": "未识别文件"
   },
   "user.profile.badge.alpha.about.1": {
-    "defaultMessage": "该用户自 Modrinth 内测时期便已加入平台，该测试版于 2020 年 11 月收官。"
+    "defaultMessage": "该用户自 FreePlay 内测时期便已加入平台，该测试版于 2020 年 11 月收官。"
   },
   "user.profile.badge.alpha.name": {
     "defaultMessage": "内测用户"
   },
   "user.profile.badge.beta.about.1": {
-    "defaultMessage": "该用户自 Modrinth 公测时期便已加入平台，该测试版于 2022 年 2 月收官。"
+    "defaultMessage": "该用户自 FreePlay 公测时期便已加入平台，该测试版于 2022 年 2 月收官。"
   },
   "user.profile.badge.beta.link": {
-    "defaultMessage": "点击阅读关于 Modrinth 公测版本发布的信息。"
+    "defaultMessage": "点击阅读关于 FreePlay 公测版本发布的信息。"
   },
   "user.profile.badge.beta.name": {
     "defaultMessage": "公测用户"
@@ -5931,67 +5931,67 @@
     "defaultMessage": "{download_sum} 次下载"
   },
   "user.profile.badge.early-datapack-adopter.about.1": {
-    "defaultMessage": "该用户在数据包功能于 2023 年 1 月正式上线前，协助我们在 Modrinth 平台完成了数据包项目的测试工作。"
+    "defaultMessage": "该用户在数据包功能于 2023 年 1 月正式上线前，协助我们在 FreePlay 平台完成了数据包项目的测试工作。"
   },
   "user.profile.badge.early-datapack-adopter.name": {
     "defaultMessage": "数据包功能首发体验者"
   },
   "user.profile.badge.early-modpack-adopter.about.1": {
-    "defaultMessage": "该用户在整合包功能于 2022 年 5 月正式上线前，协助我们在 Modrinth 平台参与了整合包项目的测试工作。"
+    "defaultMessage": "该用户在整合包功能于 2022 年 5 月正式上线前，协助我们在 FreePlay 平台参与了整合包项目的测试工作。"
   },
   "user.profile.badge.early-modpack-adopter.name": {
     "defaultMessage": "整合包功能首发体验者"
   },
   "user.profile.badge.early-plugin-adopter.about.1": {
-    "defaultMessage": "该用户在插件功能于 2022 年 8 月正式上线前，协助我们在 Modrinth 平台测试插件相关项目。"
+    "defaultMessage": "该用户在插件功能于 2022 年 8 月正式上线前，协助我们在 FreePlay 平台测试插件相关项目。"
   },
   "user.profile.badge.early-plugin-adopter.name": {
     "defaultMessage": "插件功能首发体验者"
   },
   "user.profile.badge.early-resourcepack-adopter.about.1": {
-    "defaultMessage": "该用户在资源包功能于 2022 年 8 月上线前，协助我们在 Modrinth 平台测试资源包相关项目。"
+    "defaultMessage": "该用户在资源包功能于 2022 年 8 月上线前，协助我们在 FreePlay 平台测试资源包相关项目。"
   },
   "user.profile.badge.early-resourcepack-adopter.name": {
     "defaultMessage": "资源包功能首发体验者"
   },
   "user.profile.badge.early-server-adopter.about.1": {
-    "defaultMessage": "该用户在服务器项目于 2026 年 3 月正式上线前，协助我们在 Modrinth 平台测试服务器相关项目。"
+    "defaultMessage": "该用户在服务器项目于 2026 年 3 月正式上线前，协助我们在 FreePlay 平台测试服务器相关项目。"
   },
   "user.profile.badge.early-server-adopter.name": {
     "defaultMessage": "服务器功能首发体验者"
   },
   "user.profile.badge.early-shader-adopter.about.1": {
-    "defaultMessage": "该用户在光影包项目于 2023 年 1 月正式上线前，协助我们在 Modrinth 平台参与光影包项目测试。"
+    "defaultMessage": "该用户在光影包项目于 2023 年 1 月正式上线前，协助我们在 FreePlay 平台参与光影包项目测试。"
   },
   "user.profile.badge.early-shader-adopter.name": {
     "defaultMessage": "光影包功能首发体验者"
   },
   "user.profile.badge.hosting-alpha.about.1": {
-    "defaultMessage": "该用户在 Modrinth Hosting 服务 2024 年 11 月开启公测前，参与了此项功能的封闭内测。"
+    "defaultMessage": "该用户在 FreePlay Hosting 服务 2024 年 11 月开启公测前，参与了此项功能的封闭内测。"
   },
   "user.profile.badge.hosting-alpha.name": {
     "defaultMessage": "托管服务内测用户"
   },
   "user.profile.badge.moderator.about.1": {
-    "defaultMessage": "该用户任职于 Modrinth，担任内容审核员。"
+    "defaultMessage": "该用户任职于 FreePlay，担任内容审核员。"
   },
   "user.profile.badge.moderator.about.2": {
-    "defaultMessage": "Modrinth 的内容审核员负责审核各类项目、处理用户举报，维护平台安全环境。"
+    "defaultMessage": "FreePlay 的内容审核员负责审核各类项目、处理用户举报，维护平台安全环境。"
   },
   "user.profile.badge.moderator.name": {
     "defaultMessage": "内容审核员"
   },
   "user.profile.badge.plus.about.1": {
-    "defaultMessage": "该用户尽心尽力支持 Modrinth 平台与站内创作者。"
+    "defaultMessage": "该用户尽心尽力支持 FreePlay 平台与站内创作者。"
   },
   "user.profile.badge.plus.link": {
     "defaultMessage": "点击了解如何成为会员。"
   },
   "user.profile.badge.plus.name": {
-    "defaultMessage": "Modrinth+ 会员成员"
+    "defaultMessage": "FreePlay+ 会员成员"
   },
   "user.profile.badge.pride.about.1": {
-    "defaultMessage": "该用户至少参与过一次 Modrinth 为 LGBTQ+ 群体举办的骄傲月公益募捐活动。"
+    "defaultMessage": "该用户至少参与过一次 FreePlay 为 LGBTQ+ 群体举办的骄傲月公益募捐活动。"
   },
   "user.profile.badge.pride.link": {
     "defaultMessage": "点击访问我们最新的骄傲月筹款活动。"
@@ -6000,10 +6000,10 @@
     "defaultMessage": "骄傲月活动筹款支持者"
   },
   "user.profile.badge.staff.about.1": {
-    "defaultMessage": "该用户任职于 Modrinth 。"
+    "defaultMessage": "该用户任职于 FreePlay 。"
   },
   "user.profile.badge.staff.name": {
-    "defaultMessage": "Modrinth 团队"
+    "defaultMessage": "FreePlay 团队"
   },
   "version.content.name": {
     "defaultMessage": "名称"

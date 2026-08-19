@@ -1,10 +1,10 @@
 import type { Archon } from '@freeplay/api-client'
 
-import { injectModrinthClient } from '../providers/api-client'
+import { injectFreePlayClient } from '../providers/api-client'
 import { injectNotificationManager } from '../providers/web-notifications'
 
 export function useServerBackupDownload() {
-	const client = injectModrinthClient()
+	const client = injectFreePlayClient()
 	const { addNotification } = injectNotificationManager()
 
 	function getLatestBackupDownload(
@@ -37,7 +37,7 @@ export function useServerBackupDownload() {
 				}
 
 				window.open(
-					`https://${kyrosUrl}/modrinth/v0/backups/${latestBackup.id}/download?auth=${jwt}`,
+					`https://${kyrosUrl}/freeplay/v0/backups/${latestBackup.id}/download?auth=${jwt}`,
 					'_blank',
 				)
 			} catch {

@@ -113,7 +113,7 @@ const overflowMenuOptions = computed<OverflowMenuOption[]>(() => {
 		id: 'download',
 		label: formatMessage(commonMessages.downloadButton),
 		type: 'link',
-		href: `https://${props.kyrosUrl}/modrinth/v0/backups/${props.backup.id}/download?auth=${props.jwt}`,
+		href: `https://${props.kyrosUrl}/freeplay/v0/backups/${props.backup.id}/download?auth=${props.jwt}`,
 		disabled: !props.kyrosUrl || !props.jwt,
 	})
 

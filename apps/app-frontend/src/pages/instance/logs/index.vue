@@ -7,7 +7,7 @@
 <script setup>
 import {
 	ConsolePageLayout,
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	provideConsoleManager,
 } from '@freeplay/ui'
@@ -21,7 +21,7 @@ import { delete_logs_by_filename, get_output_by_filename } from '@/helpers/logs.
 import { injectInstancePage } from '../instance-context'
 import { instanceKeys } from '../query-options'
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const { handleError } = injectNotificationManager()
 const instancePage = injectInstancePage()
 const instanceId = instancePage.instanceId

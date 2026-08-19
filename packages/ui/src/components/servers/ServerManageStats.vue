@@ -65,7 +65,7 @@ import { computed, defineAsyncComponent, onMounted, ref, shallowRef, watch } fro
 import { RouterLink } from 'vue-router'
 
 import { useFormatBytes } from '#ui/composables'
-import { injectModrinthServerContext, injectPageContext } from '#ui/providers'
+import { injectFreePlayServerContext, injectPageContext } from '#ui/providers'
 import type { ServerStats } from '#ui/providers/server-context'
 
 const VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
@@ -77,7 +77,7 @@ onMounted(() => {
 	isClient.value = true
 })
 
-const { serverId } = injectModrinthServerContext()
+const { serverId } = injectFreePlayServerContext()
 const { featureFlags } = injectPageContext()
 
 const props = withDefaults(

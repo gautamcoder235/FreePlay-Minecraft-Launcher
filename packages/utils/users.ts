@@ -14,16 +14,21 @@ export const isAdmin = (user) => {
 
 export const STAFF_ROLES = ['moderator', 'admin']
 
-export const MODRINTH_USER_ID = '2REoufqX'
+export const FREEPLAY_USER_ID = '2REoufqX'
+export const MODRINTH_USER_ID = FREEPLAY_USER_ID
 export const AUTOMOD_USER_ID = ''
-export const MODRINTH_ARCHIVES_USER_ID = 'GVFjtWTf'
+export const FREEPLAY_ARCHIVES_USER_ID = 'GVFjtWTf'
+export const MODRINTH_ARCHIVES_USER_ID = FREEPLAY_ARCHIVES_USER_ID
 
-export const OFFICIAL_ACCOUNT_IDS = [MODRINTH_USER_ID, AUTOMOD_USER_ID, MODRINTH_ARCHIVES_USER_ID]
+export const OFFICIAL_ACCOUNT_IDS = [FREEPLAY_USER_ID, AUTOMOD_USER_ID, FREEPLAY_ARCHIVES_USER_ID]
 
-export const isModrinthUser = (userId) => {
-	return userId === MODRINTH_USER_ID
+export const isFreePlayUser = (userId) => {
+	return userId === FREEPLAY_USER_ID
 }
+
+export const isModrinthUser = isFreePlayUser
 
 export const isOfficialAccount = (userId) => {
 	return OFFICIAL_ACCOUNT_IDS.includes(userId)
 }
+

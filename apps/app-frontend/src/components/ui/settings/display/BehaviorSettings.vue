@@ -83,7 +83,7 @@ const messages = defineMessages({
 	unknownPackWarningDescription: {
 		id: 'app.appearance-settings.unknown-pack-warning.description',
 		defaultMessage:
-			"Show a safety warning before installing a FreePlay Pack (.mrpack) that isn't hosted on Modrinth.",
+			"Show a safety warning before installing a FreePlay Pack (.mrpack) that isn't hosted on FreePlay.",
 	},
 	skipNonEssentialWarningsTitle: {
 		id: 'app.appearance-settings.skip-non-essential-warnings.title',

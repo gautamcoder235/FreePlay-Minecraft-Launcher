@@ -23,7 +23,7 @@
 					show-search-icon
 					:show-chevron="false"
 					search-type="search"
-					search-name="modrinth-server-access-member-search"
+					search-name="freeplay-server-access-member-search"
 					search-inputmode="search"
 					search-autocomplete="new-password"
 					search-autocorrect="off"
@@ -213,11 +213,11 @@ const messages = defineMessages({
 	},
 	targetLabel: {
 		id: 'servers.grant-access-modal.target.label',
-		defaultMessage: 'Modrinth username',
+		defaultMessage: 'FreePlay username',
 	},
 	targetPlaceholder: {
 		id: 'servers.grant-access-modal.target.placeholder',
-		defaultMessage: 'Enter Modrinth username',
+		defaultMessage: 'Enter FreePlay username',
 	},
 	noSuggestions: {
 		id: 'servers.grant-access-modal.target.no-suggestions',

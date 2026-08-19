@@ -20,7 +20,7 @@ import { Button, IconButton } from '#ui/components/base/buttons'
 import { commonMessages } from '#ui/utils'
 
 import { defineMessage, defineMessages, useVIntl } from '../../composables/i18n'
-import { injectModrinthClient } from '../../providers'
+import { injectFreePlayClient } from '../../providers'
 import {
 	attributionLinkToWork,
 	attributionProofValidationError,
@@ -47,7 +47,7 @@ const emit = defineEmits<{
 }>()
 
 const { formatMessage } = useVIntl()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const queryClient = useQueryClient()
 
 const initialAttribution = computed<Labrinth.Attribution.Internal.AttributionResolution | null>(
@@ -91,7 +91,7 @@ const messages = defineMessages({
 	},
 	proofWarningTitle: {
 		id: 'external-files.permissions-card.editor.proof-warning.title',
-		defaultMessage: 'Modrinth staff may verify submitted proof',
+		defaultMessage: 'FreePlay staff may verify submitted proof',
 	},
 	proofWarningBody: {
 		id: 'external-files.permissions-card.editor.proof-warning.body',
@@ -142,9 +142,9 @@ const messages = defineMessages({
 		id: 'external-files.permissions-card.editor.proof-image-remove',
 		defaultMessage: 'Remove image',
 	},
-	modrinthLinkToWork: {
-		id: 'external-files.permissions-card.editor.modrinth-link-to-work',
-		defaultMessage: `This appears to be a Modrinth link. If this content is available on Modrinth, your pack was likely exported incorrectly. If you downloaded it from another site, try downloading the Modrinth version instead; sometimes they are not identical files.`,
+	freeplayLinkToWork: {
+		id: 'external-files.permissions-card.editor.freeplay-link-to-work',
+		defaultMessage: `This appears to be a FreePlay link. If this content is available on FreePlay, your pack was likely exported incorrectly. If you downloaded it from another site, try downloading the FreePlay version instead; sometimes they are not identical files.`,
 	},
 	arrLabel: {
 		id: 'external-files.permissions-card.editor.all-rights-reserved',
@@ -483,12 +483,12 @@ function cancelEditing() {
 			/>
 			<span
 				v-if="
-					linkInput.startsWith('https://modrinth.com/') ||
-					linkInput.startsWith('https://www.modrinth.com/')
+					linkInput.startsWith('https://freeplay.app/') ||
+					linkInput.startsWith('https://www.freeplay.app/')
 				"
 				class="flex text-orange gap-2 font-medium mt-2"
 			>
-				<IssuesIcon class="shrink-0 mt-0.5" /> {{ formatMessage(messages.modrinthLinkToWork) }}
+				<IssuesIcon class="shrink-0 mt-0.5" /> {{ formatMessage(messages.freeplayLinkToWork) }}
 			</span>
 		</div>
 		<div v-if="permissionReasonFields.includes('license_id')" class="flex flex-col gap-2">

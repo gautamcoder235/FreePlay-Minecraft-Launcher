@@ -10,8 +10,8 @@ The use of Modrinth branding elements, including but not limited to the wrench-i
 
 This includes, but may not be limited to, the following files:
 
-- src/components/brand/\*
-- src/components/servers/ModrinthServersIcon.vue
+- src/components/brand/*
+- src/components/servers/FreePlayServersIcon.vue
 
 ## External logos
 

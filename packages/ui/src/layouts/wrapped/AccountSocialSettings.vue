@@ -338,7 +338,7 @@ const messages = defineMessages({
 	},
 	friendRequestsDescription: {
 		id: 'settings.social.friend-requests.description',
-		defaultMessage: 'Control who can send you friend requests on Modrinth.',
+		defaultMessage: 'Control who can send you friend requests on FreePlay.',
 	},
 	sharedInstanceInvitesTitle: {
 		id: 'settings.social.shared-instance-invites.title',
@@ -347,7 +347,7 @@ const messages = defineMessages({
 	sharedInstanceInvitesDescription: {
 		id: 'settings.social.shared-instance-invites.description',
 		defaultMessage:
-			'Control who can send you invites to shared instances and Modrinth Hosting panels.',
+			'Control who can send you invites to shared instances and FreePlay Hosting panels.',
 	},
 	everyone: {
 		id: 'settings.social.interaction-source.everyone',
@@ -375,7 +375,7 @@ const messages = defineMessages({
 	},
 	blockedUsersDescription: {
 		id: 'settings.social.blocked-users.description',
-		defaultMessage: 'These are the users you have blocked on Modrinth. They cannot:',
+		defaultMessage: 'These are the users you have blocked on FreePlay. They cannot:',
 	},
 	friendRequestsRestriction: {
 		id: 'settings.social.blocked-users.restriction.friend-requests',
@@ -387,7 +387,7 @@ const messages = defineMessages({
 	},
 	hostingRestriction: {
 		id: 'settings.social.blocked-users.restriction.hosting',
-		defaultMessage: 'Invite you to manage a Modrinth Hosting server.',
+		defaultMessage: 'Invite you to manage a FreePlay Hosting server.',
 	},
 	userColumn: {
 		id: 'settings.social.blocked-users.column.user',
@@ -415,12 +415,12 @@ const messages = defineMessages({
 	},
 	signInRequiredTitle: {
 		id: 'settings.social.sign-in-required.title',
-		defaultMessage: 'Modrinth account required',
+		defaultMessage: 'FreePlay account required',
 	},
 	signInRequiredDescription: {
 		id: 'settings.social.sign-in-required.description',
 		defaultMessage:
-			'You can control who can interact with you, and manage blocked users with a Modrinth Account',
+			'You can control who can interact with you, and manage blocked users with a FreePlay Account',
 	},
 	loadError: {
 		id: 'settings.social.blocked-users.load-error',

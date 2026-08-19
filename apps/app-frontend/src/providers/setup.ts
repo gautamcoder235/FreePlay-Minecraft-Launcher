@@ -1,4 +1,4 @@
-import type { AbstractModrinthClient } from '@freeplay/api-client'
+import type { AbstractFreePlayClient } from '@freeplay/api-client'
 import type { AbstractPopupNotificationManager, AbstractWebNotificationManager } from '@freeplay/ui'
 
 import type { InstanceIconConfig } from '@/helpers/types'
@@ -13,7 +13,7 @@ import { setupTagsProvider } from './setup/tags'
 import { setupUserCountryProvider } from './setup/user-country'
 
 export function setupProviders(
-	client: AbstractModrinthClient,
+	client: AbstractFreePlayClient,
 	notificationManager: AbstractWebNotificationManager,
 	_popupNotificationManager: AbstractPopupNotificationManager,
 	appEvents: AppEvents,

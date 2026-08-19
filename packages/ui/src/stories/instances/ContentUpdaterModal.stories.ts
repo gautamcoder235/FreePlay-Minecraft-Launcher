@@ -6,7 +6,7 @@ import { ref } from 'vue'
 import { Button } from '../../components/base/buttons'
 import ContentUpdaterModal from '../../layouts/shared/content-tab/components/modals/content-updater-modal/index.vue'
 
-// Real version data from Modrinth API - Sodium (mod)
+// Real version data from FreePlay API - Sodium (mod)
 const sodiumVersions: Labrinth.Versions.v2.Version[] = [
 	{
 		id: '59wygFUQ',
@@ -117,7 +117,7 @@ const sodiumVersions: Labrinth.Versions.v2.Version[] = [
 	},
 ]
 
-// Real version data from Modrinth API - Cobblemon modpack
+// Real version data from FreePlay API - Cobblemon modpack
 const cobblemonVersions: Labrinth.Versions.v2.Version[] = [
 	{
 		id: 'DbQNxSJ0',

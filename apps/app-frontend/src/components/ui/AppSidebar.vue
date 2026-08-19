@@ -170,11 +170,11 @@ const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
 	home: { id: 'app.nav.home', defaultMessage: 'FreePlay Home' },
-	hosting: { id: 'app.nav.modrinth-hosting', defaultMessage: 'FreePlay Server Hosting' },
+	hosting: { id: 'app.nav.freeplay-hosting', defaultMessage: 'FreePlay Server Hosting' },
 	createNewInstance: { id: 'app.nav.create-new-instance', defaultMessage: 'Create new instance' },
-	account: { id: 'app.nav.modrinth-account', defaultMessage: 'FreePlay account' },
+	account: { id: 'app.nav.freeplay-account', defaultMessage: 'FreePlay account' },
 	signedInAs: { id: 'app.nav.signed-in-as', defaultMessage: 'Signed in as <user>{username}</user>' },
-	signIn: { id: 'app.nav.sign-in-to-modrinth-account', defaultMessage: 'Sign in to a FreePlay account' },
+	signIn: { id: 'app.nav.sign-in-to-freeplay-account', defaultMessage: 'Sign in to a FreePlay account' },
 	moreOptions: { id: 'app.navigation.more-options', defaultMessage: 'More options' },
 })
 </script>

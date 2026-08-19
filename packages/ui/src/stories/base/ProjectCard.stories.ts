@@ -21,10 +21,10 @@ export const Default: Story = {
 		link: '/mod/example-mod',
 		layout: 'grid',
 		title: 'Example Mod',
-		author: { name: 'Prospector', link: 'https://modrinth.com/user/Prospector' },
+		author: { name: 'Prospector', link: 'https://freeplay.app/user/Prospector' },
 		summary:
 			'An example mod that demonstrates the ProjectCard component with a detailed description.',
-		iconUrl: 'https://cdn.modrinth.com/data/AANobbMI/icon.png',
+		iconUrl: 'https://cdn.freeplay.app/data/AANobbMI/icon.png',
 		downloads: 1234567,
 		followers: 12345,
 		dateUpdated: '2024-01-15T00:00:00Z',
@@ -133,7 +133,7 @@ export const ServerProject: Story = {
 		title: 'Example Server',
 		author: { name: 'ServerAdmin', link: '/user/ServerAdmin' },
 		summary: 'A live multiplayer server with required content and regional metadata.',
-		iconUrl: 'https://cdn.modrinth.com/data/AANobbMI/icon.png',
+		iconUrl: 'https://cdn.freeplay.app/data/AANobbMI/icon.png',
 		isServerProject: true,
 		serverOnlinePlayers: 128,
 		serverStatusOnline: true,
@@ -142,7 +142,7 @@ export const ServerProject: Story = {
 		serverRegion: 'us',
 		serverModpackContent: {
 			name: 'Example Modpack',
-			icon: 'https://cdn.modrinth.com/data/AANobbMI/icon.png',
+			icon: 'https://cdn.freeplay.app/data/AANobbMI/icon.png',
 			showCustomModpackTooltip: true,
 		},
 		tags: ['adventure', 'multiplayer', 'quests'],
@@ -205,7 +205,7 @@ export const DisplayModes: StoryObj = {
 							date-updated="2023-01-15T00:00:00Z"
 							:tags="['technology', 'magic']"
 							:environment="{ clientSide: 'required', serverSide: 'optional' }"
-							banner="https://cdn.modrinth.com/data/AANobbMI/images/be1cc1abc9cd9c2f52bb6a39be0b4b05af24d813.png"
+							banner="https://cdn.freeplay.app/data/AANobbMI/images/be1cc1abc9cd9c2f52bb6a39be0b4b05af24d813.png"
 						/>
 					</div>
 				</div>

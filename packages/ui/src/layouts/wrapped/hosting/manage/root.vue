@@ -59,7 +59,7 @@
 	>
 		<ErrorInformationCard
 			title="An error occured."
-			description="Please contact Modrinth Support."
+			description="Please contact FreePlay Support."
 			:icon="TransferIcon"
 			icon-color="orange"
 			:error-details="generalErrorDetails"
@@ -80,7 +80,7 @@
 			<template #description>
 				<div class="text-md space-y-4">
 					<p class="leading-[170%] text-secondary">
-						Your server's node, where your Modrinth Server is physically hosted, is not accessible
+						Your server's node, where your FreePlay Server is physically hosted, is not accessible
 						at the moment. We are working to resolve the issue as quickly as possible.
 					</p>
 					<p class="leading-[170%] text-secondary">
@@ -88,7 +88,7 @@
 						the issue is resolved.
 					</p>
 					<p class="leading-[170%] text-secondary">
-						If reloading does not work initially, please contact Modrinth Support via the chat
+						If reloading does not work initially, please contact FreePlay Support via the chat
 						bubble in the bottom right corner and we'll be happy to help.
 					</p>
 				</div>
@@ -153,7 +153,7 @@
 									tooltip="Copy server address"
 									:action="copyServerAddress"
 								>
-									{{ serverData.net.domain }}.modrinth.gg
+									{{ serverData.net.domain }}.freeplay.gg
 								</PageHeaderMetadataItem>
 								<PageHeaderMetadataItem v-if="showServerUptime" :icon="TimerIcon">
 									{{ formattedUptime }}
@@ -305,7 +305,7 @@
 
 <script setup lang="ts">
 import type { Archon, Labrinth } from '@freeplay/api-client'
-import { ModrinthApiError, NuxtModrinthClient } from '@freeplay/api-client'
+import { FreePlayApiError, NuxtFreePlayClient } from '@freeplay/api-client'
 import {
 	BoxesIcon,
 	CopyIcon,
@@ -352,7 +352,7 @@ import {
 	hasServerPermission,
 	useDebugLogger,
 	useLoadingBarToken,
-	useModrinthServersConsole,
+	useFreePlayServersConsole,
 	useReadyState,
 	useServerImage,
 	useServerProject,
@@ -368,7 +368,7 @@ import { useServerPanelSync } from '#ui/composables/server-panel-sync'
 import type { LogLine } from '#ui/layouts/shared/console'
 import type { ServerSettingsTabId } from '#ui/layouts/shared/server-settings'
 import {
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	provideServerSettingsModal,
 } from '#ui/providers'
@@ -463,10 +463,10 @@ const settingsHintMessages = defineMessages({
 const DISABLE_LOADING_ANIM = true
 
 const { addNotification } = injectNotificationManager()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const constrainWidth = computed(() => props.constrainWidth)
 const containedLayout = computed(() => props.layoutMode === 'contained')
-const isNuxt = computed(() => client instanceof NuxtModrinthClient)
+const isNuxt = computed(() => client instanceof NuxtFreePlayClient)
 const queryClient = useQueryClient()
 const route = useRoute()
 const router = useRouter()
@@ -513,8 +513,8 @@ function updateServerData(patch: Partial<Archon.Servers.v0.Server>) {
 
 const serverError = computed(() => {
 	const err = serverQueryError.value
-	if (err instanceof ModrinthApiError) return err
-	return err ? ModrinthApiError.fromUnknown(err) : null
+	if (err instanceof FreePlayApiError) return err
+	return err ? FreePlayApiError.fromUnknown(err) : null
 })
 
 const { data: serverFull } = useQuery({
@@ -591,7 +591,7 @@ const {
 })
 
 const serverHeaderImage = computed(() =>
-	serverData.value?.is_medal ? 'https://cdn-raw.modrinth.com/medal_icon.webp' : serverImage.value,
+	serverData.value?.is_medal ? 'https://cdn-raw.freeplay.app/medal_icon.webp' : serverImage.value,
 )
 
 const showServerUptime = computed(() => props.showUptime && serverPowerState.value === 'running')
@@ -636,7 +636,7 @@ function copyServerAddress() {
 	const domain = serverData.value?.net?.domain
 	if (!domain) return
 
-	void navigator.clipboard.writeText(`${domain}.modrinth.gg`)
+	void navigator.clipboard.writeText(`${domain}.freeplay.gg`)
 	addNotification({
 		title: 'Server address copied',
 		text: "Your server's address has been copied to your clipboard.",
@@ -698,7 +698,7 @@ type CachedWsState = {
 	consoleLines: LogLine[]
 }
 
-const modrinthServersConsole = useModrinthServersConsole()
+const freeplayServersConsole = useFreePlayServersConsole()
 const wsStateCacheKey = ['servers', 'ws-state', props.serverId] as const
 const cachedWsState = queryClient.getQueryData<CachedWsState>(wsStateCacheKey)
 if (cachedWsState) {
@@ -727,7 +727,7 @@ const saveWsStateToCache = () => {
 		ramData: ramData.value,
 		powerState: serverPowerState.value,
 		uptimeSeconds: uptimeSeconds.value,
-		consoleLines: modrinthServersConsole.output.value,
+		consoleLines: freeplayServersConsole.output.value,
 	} satisfies CachedWsState)
 }
 
@@ -1055,7 +1055,7 @@ const onReinstall = async (
 		}
 	}
 
-	modrinthServersConsole.clear()
+	freeplayServersConsole.clear()
 }
 
 const onReinstallFailed = () => {
@@ -1172,12 +1172,12 @@ const nodeUnavailableDetails = computed(() => [
 
 const suspendedDescription = computed(() => {
 	if (serverData.value?.suspension_reason === 'cancelled') {
-		return 'Your subscription has been cancelled.\nContact Modrinth Support if you believe this is an error.'
+		return 'Your subscription has been cancelled.\nContact FreePlay Support if you believe this is an error.'
 	}
 	if (serverData.value?.suspension_reason) {
-		return `Your server has been suspended: ${serverData.value.suspension_reason}\nContact Modrinth Support if you believe this is an error.`
+		return `Your server has been suspended: ${serverData.value.suspension_reason}\nContact FreePlay Support if you believe this is an error.`
 	}
-	return 'Your server has been suspended.\nContact Modrinth Support if you believe this is an error.'
+	return 'Your server has been suspended.\nContact FreePlay Support if you believe this is an error.'
 })
 
 const generalErrorDetails = computed(() => [
@@ -1307,8 +1307,8 @@ function initializeServer() {
 			.then((connected) => {
 				nodeAccessible.value = connected
 				if (connected && cachedWsState?.consoleLines?.length) {
-					modrinthServersConsole.clear()
-					modrinthServersConsole.addLines(cachedWsState.consoleLines)
+					freeplayServersConsole.clear()
+					freeplayServersConsole.addLines(cachedWsState.consoleLines)
 				}
 			})
 			.finally(() => {

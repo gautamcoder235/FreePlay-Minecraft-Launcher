@@ -2,7 +2,7 @@ import type { Archon } from '@freeplay/api-client'
 import {
 	CardIcon,
 	ListIcon,
-	ModrinthIcon,
+	FreePlayIcon,
 	SettingsIcon,
 	TextQuoteIcon,
 	VersionIcon,
@@ -74,7 +74,7 @@ export const serverSettingsTabDefinitions: ServerSettingsTabDefinition[] = [
 	{
 		id: 'admin-billing',
 		label: 'Admin Billing',
-		icon: ModrinthIcon,
+		icon: FreePlayIcon,
 		href: ({ ownerId }) => `/admin/billing/${ownerId}`,
 		external: true,
 		shown: ({ isAdmin }) => isAdmin,

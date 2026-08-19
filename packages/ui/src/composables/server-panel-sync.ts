@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/vue-query'
 import type { ComputedRef, Ref } from 'vue'
 import { onMounted, onUnmounted, watch } from 'vue'
 
-import { injectModrinthClient } from '#ui/providers'
+import { injectFreePlayClient } from '#ui/providers'
 
 import {
 	retainServerContextRuntime,
@@ -21,7 +21,7 @@ type UseServerPanelSyncOptions = {
 const ACTION_LOG_INVALIDATE_DELAY_MS = 500
 
 export function useServerPanelSync(options: UseServerPanelSyncOptions) {
-	const client = injectModrinthClient()
+	const client = injectFreePlayClient()
 	const queryClient = useQueryClient()
 
 	let activeServerId: string | null = null
@@ -264,11 +264,11 @@ export function useServerPanelSync(options: UseServerPanelSyncOptions) {
 		if (!modpack || modpack.spec === 'CurseForge') return null
 
 		const spec: Archon.Content.v1.ModpackSpec =
-			'Modrinth' in modpack.spec
+			'FreePlay' in modpack.spec
 				? {
-						platform: 'modrinth',
-						project_id: modpack.spec.Modrinth.project_id,
-						version_id: modpack.spec.Modrinth.version_id,
+						platform: 'freeplay',
+						project_id: modpack.spec.FreePlay.project_id,
+						version_id: modpack.spec.FreePlay.version_id,
 					}
 				: {
 						platform: 'local_file',

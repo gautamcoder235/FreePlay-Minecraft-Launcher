@@ -107,7 +107,7 @@ import Combobox from '#ui/components/base/Combobox.vue'
 import StyledInput from '#ui/components/base/StyledInput.vue'
 import NewModal from '#ui/components/modal/NewModal.vue'
 import ShareModal from '#ui/components/modal/ShareModal.vue'
-import { injectModrinthClient } from '#ui/providers'
+import { injectFreePlayClient } from '#ui/providers'
 import { injectModalBehavior } from '#ui/providers/modal-behavior'
 import { injectPageContext } from '#ui/providers/page-context'
 import { injectNotificationManager } from '#ui/providers/web-notifications.ts'
@@ -127,7 +127,7 @@ import { injectConsoleManager } from './providers'
 import type { LogLevel, LogLine } from './types'
 
 const ctx = injectConsoleManager()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const modalBehavior = injectModalBehavior()
 const pageContext = injectPageContext(null)
 const { addNotification } = injectNotificationManager()
@@ -152,7 +152,7 @@ const deleteModal = ref<InstanceType<typeof NewModal> | null>(null)
 const isDeleting = ref(false)
 const searchQuery = ref('')
 const isFullscreen = ref(false)
-const fullscreenBodyClass = 'modrinth-console-fullscreen-active'
+const fullscreenBodyClass = 'freeplay-console-fullscreen-active'
 const fullscreenIntercomPadding = 20
 const fullscreenIntercomPaddingRequestId = Symbol('console-fullscreen')
 const isApp =
@@ -444,25 +444,25 @@ async function handleShare() {
 </script>
 
 <style>
-.modrinth-console-fullscreen-active .intercom-lightweight-app,
-.modrinth-console-fullscreen-active .intercom-lightweight-app-launcher,
-.modrinth-console-fullscreen-active .intercom-lightweight-app-messenger,
-.modrinth-console-fullscreen-active .intercom-launcher-frame,
-.modrinth-console-fullscreen-active .intercom-messenger-frame,
-.modrinth-console-fullscreen-active #intercom-container,
-.modrinth-console-fullscreen-active #intercom-frame,
-.modrinth-console-fullscreen-active iframe[name='intercom-launcher-frame'],
-.modrinth-console-fullscreen-active iframe[name='intercom-messenger-frame'] {
+.freeplay-console-fullscreen-active .intercom-lightweight-app,
+.freeplay-console-fullscreen-active .intercom-lightweight-app-launcher,
+.freeplay-console-fullscreen-active .intercom-lightweight-app-messenger,
+.freeplay-console-fullscreen-active .intercom-launcher-frame,
+.freeplay-console-fullscreen-active .intercom-messenger-frame,
+.freeplay-console-fullscreen-active #intercom-container,
+.freeplay-console-fullscreen-active #intercom-frame,
+.freeplay-console-fullscreen-active iframe[name='intercom-launcher-frame'],
+.freeplay-console-fullscreen-active iframe[name='intercom-messenger-frame'] {
 	z-index: 14 !important;
 }
 
-.modrinth-console-fullscreen-active .loading-indicator-container,
-.modrinth-console-fullscreen-active .app-contents::before {
+.freeplay-console-fullscreen-active .loading-indicator-container,
+.freeplay-console-fullscreen-active .app-contents::before {
 	z-index: 14 !important;
 }
 
-.modrinth-console-fullscreen-active .app-grid-navbar,
-.modrinth-console-fullscreen-active .app-grid-statusbar {
+.freeplay-console-fullscreen-active .app-grid-navbar,
+.freeplay-console-fullscreen-active .app-grid-statusbar {
 	z-index: 0 !important;
 }
 </style>

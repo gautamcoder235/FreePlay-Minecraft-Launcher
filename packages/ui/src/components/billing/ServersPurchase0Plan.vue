@@ -9,7 +9,7 @@ import { useFormatPrice } from '../../composables'
 import { defineMessages, useVIntl } from '../../composables/i18n'
 import { getPriceForInterval, monthsInInterval } from '../../utils/product-utils'
 import OptionGroup from '../base/OptionGroup.vue'
-import type { ServerBillingInterval } from './ModrinthServersPurchaseModal.vue'
+import type { ServerBillingInterval } from './FreePlayServersPurchaseModal.vue'
 import ServersSpecs from './ServersSpecs.vue'
 
 const { formatMessage } = useVIntl()

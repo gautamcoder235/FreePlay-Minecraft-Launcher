@@ -19,7 +19,7 @@ import { useDebounceFn } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { defineAsyncComponent, h, markRaw, ref, watch } from 'vue'
 
-import { injectModrinthClient, injectNotificationManager } from '../../providers'
+import { injectFreePlayClient, injectNotificationManager } from '../../providers'
 import type { ComboboxOption } from '../base/Combobox.vue'
 import Combobox from '../base/Combobox.vue'
 
@@ -81,7 +81,7 @@ const options = ref<ComboboxOption<string>[]>([])
 const selectedProject = ref<SearchHit | null>(null)
 const searchResultsCache = ref<Map<string, SearchHit>>(new Map())
 
-const { labrinth } = injectModrinthClient()
+const { labrinth } = injectFreePlayClient()
 
 const userProjectHits = ref<SearchHit[]>([])
 const userProjectsFuse = ref<Fuse<SearchHit> | null>(null)

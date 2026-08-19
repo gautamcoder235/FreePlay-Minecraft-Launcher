@@ -15,7 +15,7 @@
 				:class="props.subdomain ? 'hover:underline' : ''"
 				@click="copySubdomain"
 			>
-				{{ subdomain }}.modrinth.gg
+				{{ subdomain }}.freeplay.gg
 			</div>
 		</div>
 	</div>
@@ -39,7 +39,7 @@ const props = defineProps<{
 }>()
 
 const copySubdomain = () => {
-	navigator.clipboard.writeText(props.subdomain + '.modrinth.gg')
+	navigator.clipboard.writeText(props.subdomain + '.freeplay.gg')
 	addNotification({
 		title: 'Custom URL copied',
 		text: "Your server's URL has been copied to your clipboard.",

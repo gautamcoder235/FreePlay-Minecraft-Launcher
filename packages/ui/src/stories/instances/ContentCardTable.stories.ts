@@ -15,7 +15,7 @@ const sodiumItem: ContentCardTableItem = {
 		slug: 'sodium',
 		title: 'Sodium',
 		icon_url:
-			'https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
+			'https://cdn.freeplay.app/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
 	},
 	version: {
 		id: '59wygFUQ',
@@ -37,7 +37,7 @@ const modMenuItem: ContentCardTableItem = {
 		id: 'mOgUt4GM',
 		slug: 'modmenu',
 		title: 'Mod Menu',
-		icon_url: 'https://cdn.modrinth.com/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
+		icon_url: 'https://cdn.freeplay.app/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
 	},
 	version: {
 		id: 'QuU0ciaR',
@@ -58,7 +58,7 @@ const fabricApiItem: ContentCardTableItem = {
 		id: 'P7dR8mSH',
 		slug: 'fabric-api',
 		title: 'Fabric API',
-		icon_url: 'https://cdn.modrinth.com/data/P7dR8mSH/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/P7dR8mSH/icon.png',
 	},
 	version: {
 		id: 'Lwa1Q6e4',
@@ -68,7 +68,7 @@ const fabricApiItem: ContentCardTableItem = {
 	owner: {
 		id: 'BZoBsPo6',
 		name: 'FabricMC',
-		avatar_url: 'https://cdn.modrinth.com/data/P7dR8mSH/icon.png',
+		avatar_url: 'https://cdn.freeplay.app/data/P7dR8mSH/icon.png',
 		type: 'organization',
 	},
 	enabled: false,
@@ -81,7 +81,7 @@ const emfItem: ContentCardTableItem = {
 		slug: 'entity-model-features',
 		title: '[EMF] Entity Model Features',
 		icon_url:
-			'https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
+			'https://cdn.freeplay.app/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
 	},
 	version: {
 		id: 'v1',
@@ -102,7 +102,7 @@ const etfItem: ContentCardTableItem = {
 		id: 'etf456',
 		slug: 'entity-texture-features',
 		title: '[ETF] Entity Texture Features',
-		icon_url: 'https://cdn.modrinth.com/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
+		icon_url: 'https://cdn.freeplay.app/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
 	},
 	version: {
 		id: 'v2',
@@ -557,7 +557,7 @@ export const WithCustomItemButtons: Story = {
 					</IconButton>
 				</template>
 				<template #itemButtonsRight="{ item }">
-					<IconButton type="quiet" label="View on Modrinth" v-tooltip="'View on Modrinth'" @click="console.log('View', item.id)">
+					<IconButton type="quiet" label="View on FreePlay" v-tooltip="'View on FreePlay'" @click="console.log('View', item.id)">
 						<EyeIcon class="size-5 text-secondary" />
 					</IconButton>
 					<IconButton type="quiet" label="Open folder" v-tooltip="'Open folder'" @click="console.log('Open folder', item.id)">
@@ -760,7 +760,7 @@ export const WithOverflowMenu: Story = {
 				@update:enabled="(id, val) => console.log('Toggle', id, val)"
 				@delete="(id) => console.log('Delete', id)"
 			>
-				<template #view>View on Modrinth</template>
+				<template #view>View on FreePlay</template>
 				<template #folder>Open folder</template>
 				<template #remove>Remove</template>
 			</ContentCardTable>

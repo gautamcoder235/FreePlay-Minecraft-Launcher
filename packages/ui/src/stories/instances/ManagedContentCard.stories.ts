@@ -5,10 +5,10 @@ import ManagedContentCard from '../../layouts/shared/content-tab/components/mana
 import type { ManagedContentCardData } from '../../layouts/shared/content-tab/types'
 
 const cobblemonIcon =
-	'https://cdn.modrinth.com/data/5FFgwNNP/e7f9ee2e9d361623847853fe2ddce42f519ee64f.png'
+	'https://cdn.freeplay.app/data/5FFgwNNP/e7f9ee2e9d361623847853fe2ddce42f519ee64f.png'
 const serverIcon =
-	'https://cdn.modrinth.com/data/PEMTFQFO/f4140c3a9042e4a825d47dbb64889dad9fdc066c.png'
-const userAvatar = 'https://cdn.modrinth.com/user/LnK8MbX7/icon.png'
+	'https://cdn.freeplay.app/data/PEMTFQFO/f4140c3a9042e4a825d47dbb64889dad9fdc066c.png'
+const userAvatar = 'https://cdn.freeplay.app/user/LnK8MbX7/icon.png'
 
 const figmaSummary = [
 	{ type: 'mod', count: 52 },
@@ -35,9 +35,9 @@ const modpackCard = {
 const serverCard = {
 	kind: 'server',
 	manager: {
-		name: 'Modrinth SMP',
+		name: 'FreePlay SMP',
 		iconUrl: serverIcon,
-		link: '/server/modrinth-smp',
+		link: '/server/freeplay-smp',
 	},
 	summary: figmaSummary,
 	syncedAt: fiveMinutesAgo,
@@ -131,7 +131,7 @@ export const MissingManagerIcon: Story = {
 		data: {
 			...serverCard,
 			manager: {
-				name: 'Modrinth SMP',
+				name: 'FreePlay SMP',
 			},
 		},
 	},

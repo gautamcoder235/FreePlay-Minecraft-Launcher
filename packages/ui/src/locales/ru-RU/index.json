@@ -96,7 +96,7 @@
     "defaultMessage": "Ничего не найдено по вашему запросу."
   },
   "browse.offline": {
-    "defaultMessage": "Вы не в сети. Подключитесь к интернету, чтобы искать на Modrinth."
+    "defaultMessage": "Вы не в сети. Подключитесь к интернету, чтобы искать на FreePlay."
   },
   "browse.search.placeholder": {
     "defaultMessage": "Искать {projectType}..."
@@ -224,8 +224,8 @@
   "button.open-in-folder": {
     "defaultMessage": "Открыть в папке"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "Открыть в Modrinth"
+  "button.open-in-freeplay": {
+    "defaultMessage": "Открыть в FreePlay"
   },
   "button.play": {
     "defaultMessage": "Играть"
@@ -483,13 +483,13 @@
     "defaultMessage": "Без изменений"
   },
   "content.diff-modal.reviewed-files": {
-    "defaultMessage": "Файл проверяется только если он опубликован на Modrinth, независимо от его формата (включая .mrpack)."
+    "defaultMessage": "Файл проверяется только если он опубликован на FreePlay, независимо от его формата (включая .mrpack)."
   },
   "content.diff-modal.unknown-content-body": {
     "defaultMessage": "Некоторые файлы на вашем сервере распознать не удалось. Это может повлиять на их работу."
   },
   "content.diff-modal.unknown-files-description": {
-    "defaultMessage": "Это обновление содержит файлы, которые не опубликованы на Modrinth. Рекомендуется скачивать файлы только из надёжных источников."
+    "defaultMessage": "Это обновление содержит файлы, которые не опубликованы на FreePlay. Рекомендуется скачивать файлы только из надёжных источников."
   },
   "content.diff-modal.unknown-files-warning": {
     "defaultMessage": "Предупреждение о неизвестных файлах"
@@ -822,7 +822,7 @@
     "defaultMessage": "Импортировать сборку"
   },
   "creation-flow.modal.setup-type.option.modpack-base.description": {
-    "defaultMessage": "Найти сборку на Modrinth или импортировать из файла."
+    "defaultMessage": "Найти сборку на FreePlay или импортировать из файла."
   },
   "creation-flow.modal.setup-type.option.modpack-base.title": {
     "defaultMessage": "Установить сборку"
@@ -950,8 +950,8 @@
   "external-files.permissions-card.editor.link-to-work-url-placeholder": {
     "defaultMessage": "ссылка-на-работу"
   },
-  "external-files.permissions-card.editor.modrinth-link-to-work": {
-    "defaultMessage": "Похоже, это ссылка на Modrinth. Если этот контент доступен на Modrinth, вероятно, ваш набор был экспортирован неправильно. Если вы скачали его с другого сайта, попробуйте скачать версию с Modrinth; иногда эти файлы различаются."
+  "external-files.permissions-card.editor.freeplay-link-to-work": {
+    "defaultMessage": "Похоже, это ссылка на FreePlay. Если этот контент доступен на FreePlay, вероятно, ваш набор был экспортирован неправильно. Если вы скачали его с другого сайта, попробуйте скачать версию с FreePlay; иногда эти файлы различаются."
   },
   "external-files.permissions-card.editor.notes-label": {
     "defaultMessage": "Примечания"
@@ -1062,7 +1062,7 @@
     "defaultMessage": "Атрибутировано автоматически"
   },
   "external-files.permissions-card.reason.globally-allowed.description": {
-    "defaultMessage": "Мы уже видели этот файл и подготовили для вас ссылку на источник. Если что-то не так, пожалуйста, обратитесь в службу поддержки Modrinth через справочный центр"
+    "defaultMessage": "Мы уже видели этот файл и подготовили для вас ссылку на источник. Если что-то не так, пожалуйста, обратитесь в службу поддержки FreePlay через справочный центр"
   },
   "external-files.permissions-card.reason.license": {
     "defaultMessage": "Лицензия"
@@ -2535,16 +2535,16 @@
     "defaultMessage": "Обновление сборки при изменениях на сервере"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Скачать Modrinth App"
+    "defaultMessage": "Скачать FreePlay App"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Modrinth App откроется автоматически..."
+    "defaultMessage": "FreePlay App откроется автоматически..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "Открытие Modrinth App"
+    "defaultMessage": "Открытие FreePlay App"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "Преимущества Modrinth App"
+    "defaultMessage": "Преимущества FreePlay App"
   },
   "notification.error.title": {
     "defaultMessage": "Произошла ошибка"
@@ -2576,8 +2576,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Модератор"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Команда Modrinth"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "Команда FreePlay"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "В ожидании"
@@ -2697,13 +2697,13 @@
     "defaultMessage": "Visa"
   },
   "profile.bio.fallback.creator": {
-    "defaultMessage": "Автор на Modrinth."
+    "defaultMessage": "Автор на FreePlay."
   },
   "profile.bio.fallback.user": {
-    "defaultMessage": "Пользователь Modrinth."
+    "defaultMessage": "Пользователь FreePlay."
   },
   "profile.block-user.admonition-body": {
-    "defaultMessage": "{username} не сможет отправлять вам запросы в друзья, приглашать вас в сборки или приглашать вас управлять сервером Modrinth Hosting."
+    "defaultMessage": "{username} не сможет отправлять вам запросы в друзья, приглашать вас в сборки или приглашать вас управлять сервером FreePlay Hosting."
   },
   "profile.block-user.admonition-title": {
     "defaultMessage": "Вы действительно хотите заблокировать этого пользователя?"
@@ -2757,7 +2757,7 @@
     "defaultMessage": "{count, plural, one {# проект} few {# проекта} other {# проектов}}"
   },
   "profile.details.error.github-popup-blocked": {
-    "defaultMessage": "Разрешите всплывающие окна для Modrinth и повторите попытку."
+    "defaultMessage": "Разрешите всплывающие окна для FreePlay и повторите попытку."
   },
   "profile.details.error.github-profile-message": {
     "defaultMessage": "Не удалось получить профиль GitHub. Повторите попытку."
@@ -2835,10 +2835,10 @@
     "defaultMessage": "{count, plural, one {проект} few {проекта} other {проектов}}"
   },
   "profile.official-account": {
-    "defaultMessage": "Официальный аккаунт Modrinth"
+    "defaultMessage": "Официальный аккаунт FreePlay"
   },
   "profile.official-account.bio": {
-    "defaultMessage": "Официальный аккаунт Modrinth. Связь с поддержкой: <support-link></support-link> или по почте <email></email>"
+    "defaultMessage": "Официальный аккаунт FreePlay. Связь с поддержкой: <support-link></support-link> или по почте <email></email>"
   },
   "profile.unblock-user.error-description": {
     "defaultMessage": "Произошла ошибка при разблокировке пользователя. Попробуйте снова."
@@ -3171,7 +3171,7 @@
     "defaultMessage": "{count} {countPlural, plural, one {недавний запуск} few {недавних запуска} other {недавних запусков}}"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "{count} {countPlural, plural, one {запуск} few {запуска} other {запусков}} через Modrinth за последние 2 недели"
+    "defaultMessage": "{count} {countPlural, plural, one {запуск} few {запуска} other {запусков}} через FreePlay за последние 2 недели"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "Используется собственная сборка"
@@ -3483,7 +3483,7 @@
     "defaultMessage": "У проекта несколько сред"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "На Modrinth изменилась система сред и появились новые варианты. Убедитесь в верности выбранного варианта и подтвердите его."
+    "defaultMessage": "На FreePlay изменилась система сред и появились новые варианты. Убедитесь в верности выбранного варианта и подтвердите его."
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "Подтвердите выбранный вариант"
@@ -4482,13 +4482,13 @@
     "defaultMessage": "Не используйте имя из Minecraft."
   },
   "servers.grant-access-modal.target.label": {
-    "defaultMessage": "Имя пользователя Modrinth"
+    "defaultMessage": "Имя пользователя FreePlay"
   },
   "servers.grant-access-modal.target.no-suggestions": {
     "defaultMessage": "Пользователи не найдены."
   },
   "servers.grant-access-modal.target.placeholder": {
-    "defaultMessage": "Введите имя пользователя Modrinth"
+    "defaultMessage": "Введите имя пользователя FreePlay"
   },
   "servers.grant-access-modal.target.searching": {
     "defaultMessage": "Поиск..."
@@ -4505,14 +4505,14 @@
   "servers.list-empty.already-have-server-label": {
     "defaultMessage": "Уже есть сервер?"
   },
-  "servers.list-empty.modrinth-hosting-label": {
-    "defaultMessage": "Modrinth Hosting"
+  "servers.list-empty.freeplay-hosting-label": {
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.list-empty.new-server-button": {
     "defaultMessage": "Новый сервер"
   },
   "servers.list-empty.no-servers-description": {
-    "defaultMessage": "Играйте в сборки вместе с друзьями через Modrinth App."
+    "defaultMessage": "Играйте в сборки вместе с друзьями через FreePlay App."
   },
   "servers.list-empty.one-click-mod-installs-description": {
     "defaultMessage": "Выбирайте любимые моды, а мы сделаем всё остальное."
@@ -4521,7 +4521,7 @@
     "defaultMessage": "Установка модов в один клик"
   },
   "servers.list-empty.play-with-friends-description": {
-    "defaultMessage": "Зовите друзей и настраивайте им игру через Modrinth App."
+    "defaultMessage": "Зовите друзей и настраивайте им игру через FreePlay App."
   },
   "servers.list-empty.play-with-friends-title": {
     "defaultMessage": "Совместная игра"
@@ -4581,7 +4581,7 @@
     "defaultMessage": "Ваша подписка будет отменена <date>{formattedDate}</date>. "
   },
   "servers.listing.notice.suspended": {
-    "defaultMessage": "Ваш сервер был приостановлен. Пожалуйста, свяжитесь с поддержкой Modrinth для получения большей информации."
+    "defaultMessage": "Ваш сервер был приостановлен. Пожалуйста, свяжитесь с поддержкой FreePlay для получения большей информации."
   },
   "servers.listing.notice.upgrading": {
     "defaultMessage": "Аппаратное обеспечение вашего сервера в настоящее время обновляется и вскоре будет снова подключено к сети."
@@ -4614,7 +4614,7 @@
     "defaultMessage": "Выполняется добавление"
   },
   "servers.manage.contact-support-button": {
-    "defaultMessage": "Связаться с поддержкой Modrinth"
+    "defaultMessage": "Связаться с поддержкой FreePlay"
   },
   "servers.manage.error.alert-notice": {
     "defaultMessage": "Наши системы автоматически оповещают о проблемах. Мы уже работаем над исправлением ошибки."
@@ -4626,10 +4626,10 @@
     "defaultMessage": "Сведения об ошибке:"
   },
   "servers.manage.error.queue-notice": {
-    "defaultMessage": "Если сервер Modrinth Hosting куплен недавно, он сейчас в очереди и скоро появится здесь. <warning>Не покупайте новый сервер.</warning>"
+    "defaultMessage": "Если сервер FreePlay Hosting куплен недавно, он сейчас в очереди и скоро появится здесь. <warning>Не покупайте новый сервер.</warning>"
   },
   "servers.manage.error.support-notice": {
-    "defaultMessage": "Если нужна помощь по конкретному серверу, обратитесь в поддержку Modrinth."
+    "defaultMessage": "Если нужна помощь по конкретному серверу, обратитесь в поддержку FreePlay."
   },
   "servers.manage.error.title": {
     "defaultMessage": "Серверы не загрузились"
@@ -4659,7 +4659,7 @@
     "defaultMessage": "Перезагрузить"
   },
   "servers.manage.resubscribe-error.text": {
-    "defaultMessage": "Произошла ошибка при возобновлении подписки на сервер Modrinth."
+    "defaultMessage": "Произошла ошибка при возобновлении подписки на сервер FreePlay."
   },
   "servers.manage.resubscribe-error.title": {
     "defaultMessage": "Не удалось возобновить подписку"
@@ -4680,7 +4680,7 @@
     "defaultMessage": "Поиск по {count, plural, one {# серверу} other {# серверам}}..."
   },
   "servers.manage.servers-title": {
-    "defaultMessage": "Modrinth Hosting"
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.manage.settings-hint.description": {
     "defaultMessage": "Теперь они находятся здесь!"
@@ -4707,10 +4707,10 @@
     "defaultMessage": "Ваша пробная версия Medal server закончилась, и работа вашего сервера была приостановлена. Пожалуйста, улучшите его, чтобы продолжить пользоваться вашим сервером."
   },
   "servers.medal-listing.notice.suspended": {
-    "defaultMessage": "Ваш сервер был приостановлен. Пожалуйста, обновите вашу платежную информацию и свяжитесь с поддержкой Modrinth для получения большей информации."
+    "defaultMessage": "Ваш сервер был приостановлен. Пожалуйста, обновите вашу платежную информацию и свяжитесь с поддержкой FreePlay для получения большей информации."
   },
   "servers.medal-listing.notice.suspended-with-reason": {
-    "defaultMessage": "Ваш сервер был приостановлен: {reason}. Пожалуйста, обновите вашу платежную информацию и свяжитесь с поддержкой Modrinth для получения большей информации."
+    "defaultMessage": "Ваш сервер был приостановлен: {reason}. Пожалуйста, обновите вашу платежную информацию и свяжитесь с поддержкой FreePlay для получения большей информации."
   },
   "servers.medal-listing.notice.upgrading": {
     "defaultMessage": "Аппаратное обеспечение вашего сервера в настоящее время обновляется и вскоре будет снова подключено к сети."
@@ -4758,7 +4758,7 @@
     "defaultMessage": "Незакрываемое"
   },
   "servers.purchase.notification.success.text": {
-    "defaultMessage": "Ваша покупка Modrinth Hosting успешно завершена."
+    "defaultMessage": "Ваша покупка FreePlay Hosting успешно завершена."
   },
   "servers.purchase.notification.success.title": {
     "defaultMessage": "Успешная покупка"
@@ -4848,7 +4848,7 @@
     "defaultMessage": "Где вы хотите разместить свой сервер?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "Нет нужного региона? <link>Сообщите, где запустить Modrinth Hosting дальше!</link>"
+    "defaultMessage": "Нет нужного региона? <link>Сообщите, где запустить FreePlay Hosting дальше!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "Юго-Восточная Азия"
@@ -4920,7 +4920,7 @@
     "defaultMessage": "Установить сервер"
   },
   "servers.setup.onboarding.step.choose.description": {
-    "defaultMessage": "Выберите вашу любимую сборку из Modrinth, или выберите загрузчик и добавьте нужные моды."
+    "defaultMessage": "Выберите вашу любимую сборку из FreePlay, или выберите загрузчик и добавьте нужные моды."
   },
   "servers.setup.onboarding.step.choose.title": {
     "defaultMessage": "Выберите во что поиграть"
@@ -4947,7 +4947,7 @@
     "defaultMessage": "Ваш сервер готов. Вот что вам нужно сделать до начала игры!"
   },
   "servers.setup.onboarding.welcome.title": {
-    "defaultMessage": "Добро пожаловать в Modrinth Hosting"
+    "defaultMessage": "Добро пожаловать в FreePlay Hosting"
   },
   "servers.setup.rate-limit.text": {
     "defaultMessage": "Слишком много запросов. Пожалуйста, попробуйте позже."
@@ -4986,7 +4986,7 @@
     "defaultMessage": "Тёмная"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "Выберите тему для Modrinth на этом устройстве."
+    "defaultMessage": "Выберите тему для FreePlay на этом устройстве."
   },
   "settings.display.theme.light": {
     "defaultMessage": "Светлая"
@@ -5058,7 +5058,7 @@
     "defaultMessage": "Изображение профиля"
   },
   "settings.profile.public-information.description": {
-    "defaultMessage": "Информация в вашем профиле <profile-link>доступна публично на Modrinth</profile-link> и через <docs-link>API Modrinth</docs-link>."
+    "defaultMessage": "Информация в вашем профиле <profile-link>доступна публично на FreePlay</profile-link> и через <docs-link>API FreePlay</docs-link>."
   },
   "settings.profile.save-error": {
     "defaultMessage": "Не удалось обновить профиль"
@@ -5067,10 +5067,10 @@
     "defaultMessage": "Произошла ошибка при обновлении профиля. Попробуйте снова."
   },
   "settings.profile.sign-in-required.description": {
-    "defaultMessage": "Войдите в аккаунт Modrinth для кастомизации вашего публичного профиля."
+    "defaultMessage": "Войдите в аккаунт FreePlay для кастомизации вашего публичного профиля."
   },
   "settings.profile.sign-in-required.title": {
-    "defaultMessage": "Требуется аккаунт Modrinth"
+    "defaultMessage": "Требуется аккаунт FreePlay"
   },
   "settings.profile.username.description": {
     "defaultMessage": "Уникальное имя для идентификации профиля."
@@ -5085,7 +5085,7 @@
     "defaultMessage": "Пользователь"
   },
   "settings.social.blocked-users.description": {
-    "defaultMessage": "Это пользователи, которых вы заблокировали на Modrinth. Они не могут:"
+    "defaultMessage": "Это пользователи, которых вы заблокировали на FreePlay. Они не могут:"
   },
   "settings.social.blocked-users.empty": {
     "defaultMessage": "Вы никого не заблокировали."
@@ -5100,7 +5100,7 @@
     "defaultMessage": "Отправлять вам запросы в друзья"
   },
   "settings.social.blocked-users.restriction.hosting": {
-    "defaultMessage": "Приглашать вас управлять сервером Modrinth Hosting."
+    "defaultMessage": "Приглашать вас управлять сервером FreePlay Hosting."
   },
   "settings.social.blocked-users.restriction.shared-instances": {
     "defaultMessage": "Приглашать вас в сборки"
@@ -5124,7 +5124,7 @@
     "defaultMessage": "Аватар {username}"
   },
   "settings.social.friend-requests.description": {
-    "defaultMessage": "Настройте, кто может отправить вам заявку в друзья на Modrinth."
+    "defaultMessage": "Настройте, кто может отправить вам заявку в друзья на FreePlay."
   },
   "settings.social.friend-requests.title": {
     "defaultMessage": "Запросы в друзья"
@@ -5145,16 +5145,16 @@
     "defaultMessage": "Никто"
   },
   "settings.social.shared-instance-invites.description": {
-    "defaultMessage": "Настройте, кто вам может отправить заявку на общие сборки и панели Modrinth Hosting."
+    "defaultMessage": "Настройте, кто вам может отправить заявку на общие сборки и панели FreePlay Hosting."
   },
   "settings.social.shared-instance-invites.title": {
     "defaultMessage": "Приглашения"
   },
   "settings.social.sign-in-required.description": {
-    "defaultMessage": "С помощью аккаунта Modrinth, вы можете настраивать кто может взаимодействовать с вами, а также управлять заблокированными пользователями"
+    "defaultMessage": "С помощью аккаунта FreePlay, вы можете настраивать кто может взаимодействовать с вами, а также управлять заблокированными пользователями"
   },
   "settings.social.sign-in-required.title": {
-    "defaultMessage": "Требуется аккаунт Modrinth"
+    "defaultMessage": "Требуется аккаунт FreePlay"
   },
   "settings.social.title": {
     "defaultMessage": "Общение"
@@ -5244,7 +5244,7 @@
     "defaultMessage": "Сохранить"
   },
   "sharing.invite-players-modal.search-placeholder": {
-    "defaultMessage": "Введите имя пользователя Modrinth"
+    "defaultMessage": "Введите имя пользователя FreePlay"
   },
   "sharing.invite-players-modal.searching": {
     "defaultMessage": "Поиск..."
@@ -5802,34 +5802,34 @@
     "defaultMessage": "Вредоносное ПО часто распространяется через моды на таких платформах, как Discord."
   },
   "unknown-file-warning-modal.mod-warning-body": {
-    "defaultMessage": " не опубликован на Modrinth. Рекомендуется скачивать файлы только из надёжных источников."
+    "defaultMessage": " не опубликован на FreePlay. Рекомендуется скачивать файлы только из надёжных источников."
   },
   "unknown-file-warning-modal.mod-warning-title": {
     "defaultMessage": "Предупреждение о неизвестном файле"
   },
   "unknown-file-warning-modal.modpack-warning-body": {
-    "defaultMessage": " содержит файлы, которые не опубликованы на Modrinth. Рекомендуется скачивать файлы только из надёжных источников."
+    "defaultMessage": " содержит файлы, которые не опубликованы на FreePlay. Рекомендуется скачивать файлы только из надёжных источников."
   },
   "unknown-file-warning-modal.modpack-warning-title": {
     "defaultMessage": "Предупреждение о неизвестных файлах"
   },
   "unknown-file-warning-modal.reviewed-files": {
-    "defaultMessage": "Файл проверяется только если он опубликован на Modrinth, независимо от его формата (включая .mrpack)."
+    "defaultMessage": "Файл проверяется только если он опубликован на FreePlay, независимо от его формата (включая .mrpack)."
   },
   "unknown-file-warning-modal.unrecognized-files": {
     "defaultMessage": "Нераспознанные файлы"
   },
   "user.profile.badge.alpha.about.1": {
-    "defaultMessage": "Этот пользователь присоединился к Modrinth до завершения альфа‑тестирования в ноябре 2020 года."
+    "defaultMessage": "Этот пользователь присоединился к FreePlay до завершения альфа‑тестирования в ноябре 2020 года."
   },
   "user.profile.badge.alpha.name": {
     "defaultMessage": "Участник альфы"
   },
   "user.profile.badge.beta.about.1": {
-    "defaultMessage": "Этот пользователь присоединился к Modrinth до завершения бета‑тестирования в феврале 2022 года."
+    "defaultMessage": "Этот пользователь присоединился к FreePlay до завершения бета‑тестирования в феврале 2022 года."
   },
   "user.profile.badge.beta.link": {
-    "defaultMessage": "Нажмите, чтобы узнать о запуске бета‑версии Modrinth."
+    "defaultMessage": "Нажмите, чтобы узнать о запуске бета‑версии FreePlay."
   },
   "user.profile.badge.beta.name": {
     "defaultMessage": "Участник беты"
@@ -5877,13 +5877,13 @@
     "defaultMessage": "В числе первых: шейдеры"
   },
   "user.profile.badge.hosting-alpha.about.1": {
-    "defaultMessage": "Этот пользователь участвовал в закрытом альфа‑тестировании Modrinth Hosting до запуска бета‑версии в ноябре 2024 года."
+    "defaultMessage": "Этот пользователь участвовал в закрытом альфа‑тестировании FreePlay Hosting до запуска бета‑версии в ноябре 2024 года."
   },
   "user.profile.badge.hosting-alpha.name": {
-    "defaultMessage": "Участник альфы Modrinth Hosting"
+    "defaultMessage": "Участник альфы FreePlay Hosting"
   },
   "user.profile.badge.moderator.about.1": {
-    "defaultMessage": "Этот пользователь работает в Modrinth в роли модератора контента."
+    "defaultMessage": "Этот пользователь работает в FreePlay в роли модератора контента."
   },
   "user.profile.badge.moderator.about.2": {
     "defaultMessage": "Модераторы контента проверяют проекты, обрабатывают жалобы и следят за порядком."
@@ -5892,16 +5892,16 @@
     "defaultMessage": "Модератор контента"
   },
   "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Этот пользователь активно поддерживает Modrinth и авторов на платформе."
+    "defaultMessage": "Этот пользователь активно поддерживает FreePlay и авторов на платформе."
   },
   "user.profile.badge.plus.link": {
     "defaultMessage": "Нажмите, чтобы узнать, как стать подписчиком."
   },
   "user.profile.badge.plus.name": {
-    "defaultMessage": "Подписчик Modrinth+"
+    "defaultMessage": "Подписчик FreePlay+"
   },
   "user.profile.badge.pride.about.1": {
-    "defaultMessage": "Этот пользователь поддержал сообщество ЛГБТК+ в благотворительной акции Modrinth."
+    "defaultMessage": "Этот пользователь поддержал сообщество ЛГБТК+ в благотворительной акции FreePlay."
   },
   "user.profile.badge.pride.link": {
     "defaultMessage": "Нажмите, чтобы узнать о последнем сборе средств."
@@ -5910,10 +5910,10 @@
     "defaultMessage": "Поддержка сообщества ЛГБТК+"
   },
   "user.profile.badge.staff.about.1": {
-    "defaultMessage": "Этот пользователь работает в Modrinth."
+    "defaultMessage": "Этот пользователь работает в FreePlay."
   },
   "user.profile.badge.staff.name": {
-    "defaultMessage": "Команда Modrinth"
+    "defaultMessage": "Команда FreePlay"
   },
   "version.content.name": {
     "defaultMessage": "Название"

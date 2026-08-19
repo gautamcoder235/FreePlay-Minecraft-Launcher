@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Minecraft 설치에 실패했습니다"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "FreePlay에 연결할 수 없습니다"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -752,19 +752,19 @@
   "app.nav.home": {
     "message": "홈"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "FreePlay 계정"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay 호스팅"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "FreePlay 계정으로 로그인"
   },
   "app.nav.signed-in-as": {
     "message": "<user>{username}</user> 으로 로그인됨"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "FreePlay+ 로 업그레이드"
   },
   "app.news.title": {
@@ -1106,13 +1106,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay 프라이드"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "프라이드 월간 동안 FreePlay 프라이드 모금 행사에 기부하여 이 스킨들을 받았습니다."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1799,37 +1799,37 @@
   "minecraft-required.sign-in": {
     "message": "Microsoft 계정 로그인"
   },
-  "modal.modrinth-account-required.browser-description": {
+  "modal.freeplay-account-required.browser-description": {
     "message": "로그인을 위한 새 탭이 열렸습니다. 해당 탭에서 로그인을 완료한 후 앱 돌아오세요."
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "브라우저에서 계속 진행"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "계정 생성"
   },
-  "modal.modrinth-account-required.description": {
+  "modal.freeplay-account-required.description": {
     "message": "이 기능을 사용하려면 FreePlay 계정에 로그인해야 합니다."
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "계정 필요"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "브라우저 다시 열기"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "FreePlay 로그인"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "FreePlay 계정 로그인"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "로그인 중"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "로그인에 문제가 있나요? <support>지원 받기</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "브라우저 확인 대기 중..."
   },
   "search.filter.locked.instance": {

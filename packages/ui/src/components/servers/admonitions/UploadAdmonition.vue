@@ -36,7 +36,7 @@ import { computed } from 'vue'
 import Admonition from '#ui/components/base/Admonition.vue'
 import { Button } from '#ui/components/base/buttons'
 import { useFormatBytes } from '#ui/composables'
-import { injectModrinthServerContext } from '#ui/providers'
+import { injectFreePlayServerContext } from '#ui/providers'
 
 withDefaults(
 	defineProps<{
@@ -55,7 +55,7 @@ defineEmits<{
 
 const formatBytes = useFormatBytes()
 
-const ctx = injectModrinthServerContext()
+const ctx = injectFreePlayServerContext()
 
 const state = computed(() => ctx.uploadState.value)
 

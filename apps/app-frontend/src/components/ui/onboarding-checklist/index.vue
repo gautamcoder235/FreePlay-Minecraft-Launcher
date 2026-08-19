@@ -8,14 +8,14 @@ import { injectOnboardingChecklist } from '@/providers/onboarding-checklist'
 const emit = defineEmits<{
 	'create-instance': []
 	'login-minecraft': []
-	'login-modrinth': []
+	'login-freeplay': []
 }>()
 
 const { formatMessage } = useVIntl()
 const {
 	hasCreatedInstance,
 	hasLoggedIntoMinecraft,
-	hasLoggedIntoModrinth,
+	hasLoggedIntoFreePlay,
 	isReady,
 	showChecklist,
 } = injectOnboardingChecklist()
@@ -35,9 +35,9 @@ const messages = defineMessages({
 		id: 'onboarding-checklist.login-minecraft',
 		defaultMessage: 'Sign in to Minecraft',
 	},
-	loginModrinth: {
-		id: 'onboarding-checklist.login-modrinth',
-		defaultMessage: 'Sign in to Modrinth',
+	loginFreePlay: {
+		id: 'onboarding-checklist.login-freeplay',
+		defaultMessage: 'Sign in to FreePlay',
 	},
 })
 
@@ -55,10 +55,10 @@ const steps = computed(() => [
 		action: () => emit('login-minecraft'),
 	},
 	{
-		id: 'login-modrinth',
-		label: formatMessage(messages.loginModrinth),
-		complete: hasLoggedIntoModrinth.value,
-		action: () => emit('login-modrinth'),
+		id: 'login-freeplay',
+		label: formatMessage(messages.loginFreePlay),
+		complete: hasLoggedIntoFreePlay.value,
+		action: () => emit('login-freeplay'),
 	},
 ])
 

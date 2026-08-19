@@ -41,7 +41,7 @@
 								<template #github-link="{ children }">
 									<AutoLink
 										class="text-link hover:underline"
-										to="https://github.com/modrinth/code/issues"
+										to="https://github.com/freeplay/code/issues"
 									>
 										<component :is="() => children" />
 									</AutoLink>
@@ -253,7 +253,7 @@ import {
 	defineMessages,
 	formatReportType,
 	injectAuth,
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	IntlFormatted,
 	ManagedContentModal,
@@ -309,7 +309,7 @@ const emit = defineEmits<{
 }>()
 const { formatMessage } = useVIntl()
 const auth = injectAuth()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const queryClient = useQueryClient()
 const { addNotification, handleError } = injectNotificationManager()
 const { load } = useSharedInstancePreviewContent()
@@ -511,12 +511,12 @@ const messages = defineMessages({
 	inviteWarning: {
 		id: 'app.modal.install-to-play.invite-warning',
 		defaultMessage:
-			'This invite was created by another FreePlay user, not Modrinth. Only accept invites from people you trust.',
+			'This invite was created by another FreePlay user, not FreePlay. Only accept invites from people you trust.',
 	},
 	inviteWarningWithCreator: {
 		id: 'app.modal.install-to-play.invite-warning-with-creator',
 		defaultMessage:
-			'This invite was created by <creator>{username}</creator>, not Modrinth. Only accept invites from people you trust.',
+			'This invite was created by <creator>{username}</creator>, not FreePlay. Only accept invites from people you trust.',
 	},
 	reportDescription: {
 		id: 'app.modal.install-to-play.report-description',
@@ -576,7 +576,7 @@ const messages = defineMessages({
 	unknownFilesDescription: {
 		id: 'app.modal.install-to-play.shared-instance-unknown-files-description',
 		defaultMessage:
-			'This shared instance contains files that aren’t published on Modrinth. We strongly recommend only installing files from sources you trust.',
+			'This shared instance contains files that aren’t published on FreePlay. We strongly recommend only installing files from sources you trust.',
 	},
 	unrecognizedFiles: {
 		id: 'app.modal.install-to-play.unrecognized-files',
@@ -584,7 +584,7 @@ const messages = defineMessages({
 	},
 	reviewedFiles: {
 		id: 'app.modal.install-to-play.reviewed-files',
-		defaultMessage: "Files that aren't published to Modrinth aren't reviewed.",
+		defaultMessage: "Files that aren't published to FreePlay aren't reviewed.",
 	},
 	installAnyway: {
 		id: 'app.modal.install-to-play.install-anyway',

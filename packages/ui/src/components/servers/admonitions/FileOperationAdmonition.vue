@@ -49,7 +49,7 @@ import { useFormatBytes } from '#ui/composables'
 import { defineMessages, useVIntl } from '#ui/composables/i18n'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import type { FileOperation } from '#ui/layouts/shared/files-tab/types'
-import { injectModrinthServerContext } from '#ui/providers'
+import { injectFreePlayServerContext } from '#ui/providers'
 import { commonMessages } from '#ui/utils/common-messages'
 
 defineEmits<{ dismiss: [] }>()
@@ -61,7 +61,7 @@ const props = defineProps<{
 
 const { formatMessage } = useVIntl()
 const formatBytes = useFormatBytes()
-const ctx = injectModrinthServerContext()
+const ctx = injectFreePlayServerContext()
 const { canWriteFiles, permissionDeniedMessage } = useServerPermissions()
 
 const messages = defineMessages({

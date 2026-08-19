@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 
 export const APP_UPDATE_POPUP_DELAY_MS = 24 * 60 * 60 * 1000
 
-const UPDATE_PROMPT_STORAGE_KEY = 'modrinth-app-update-prompt-state'
+const UPDATE_PROMPT_STORAGE_KEY = 'freeplay-app-update-prompt-state'
 
 export interface AppUpdate {
 	rid: number

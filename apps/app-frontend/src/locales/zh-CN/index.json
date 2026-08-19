@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Minecraft 配置失败"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "无法连接 FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -708,7 +708,7 @@
     "message": "共享的实例"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "这实例里面有东西没有在modrinth。我们真的建议只安装你信任的文件源。"
+    "message": "这实例里面有东西没有在freeplay。我们真的建议只安装你信任的文件源。"
   },
   "app.modal.install-to-play.unknown-files-description": {
     "message": "这个整合包包含一些未在 FreePlay 发布的文件。我们强烈建议只从你信任的来源安装文件。"
@@ -732,7 +732,7 @@
     "message": "已移除"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "这服务器里面的模组有些不在modrinth。我们真的建议只安装你信任的文件源。"
+    "message": "这服务器里面的模组有些不在freeplay。我们真的建议只安装你信任的文件源。"
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "被加入的"
@@ -741,7 +741,7 @@
     "message": "被删除的"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "这分享实例里面有东西没有在modrinth。我们真的建议只安装你信任的文件源。"
+    "message": "这分享实例里面有东西没有在freeplay。我们真的建议只安装你信任的文件源。"
   },
   "app.modal.update-to-play.update-required": {
     "message": "需要更新"
@@ -755,19 +755,19 @@
   "app.nav.home": {
     "message": "首页"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "FreePlay账户"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "登录FreePlay账户"
   },
   "app.nav.signed-in-as": {
     "message": "以<user>{username}</user>身份登录"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "升级至FreePlay+"
   },
   "app.news.title": {
@@ -1109,13 +1109,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay 精选"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "你在骄傲月期间为 FreePlay 的骄傲月筹款活动捐款，因此获得了这些皮肤。"
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1826,37 +1826,37 @@
   "minecraft-required.sign-in": {
     "message": "登录 Microsoft 账户"
   },
-  "modal.modrinth-account-required.browser-description": {
+  "modal.freeplay-account-required.browser-description": {
     "message": "一个新的标签页已打开，你需要在那里完成登录，然后回到FreePlay app。"
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "请在你的浏览器中继续"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "新建账户"
   },
-  "modal.modrinth-account-required.description": {
+  "modal.freeplay-account-required.description": {
     "message": "在使用这个功能之前，你需要登入你的FreePlay账户。"
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "需要账户"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "再次开启浏览器"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "登录 FreePlay"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "登录 FreePlay 账号"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "正在登录"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "在登录时遇到困难？<support>获取帮助</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "等待浏览器确认……"
   },
   "search.filter.locked.instance": {

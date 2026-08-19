@@ -5,7 +5,7 @@ import {
 	GaugeIcon,
 	HeartHandshakeIcon,
 	LanguagesIcon,
-	ModrinthIcon,
+	FreePlayIcon,
 	PaintbrushIcon,
 	Settings2Icon,
 	ShieldIcon,
@@ -311,7 +311,7 @@ const messages = defineMessages({
 						}"
 						@click="devModeCount"
 					>
-						<ModrinthIcon aria-hidden="true" class="w-6 h-6" />
+						<FreePlayIcon aria-hidden="true" class="w-6 h-6" />
 					</button>
 					<div class="max-w-[200px]">
 						<p class="m-0">

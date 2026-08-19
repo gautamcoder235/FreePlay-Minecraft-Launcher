@@ -23,10 +23,10 @@ import { getPriceForInterval, monthsInInterval } from '../../utils/product-utils
 import { regionOverrides } from '../../utils/regions'
 import Checkbox from '../base/Checkbox.vue'
 import TagItem from '../base/TagItem.vue'
-import ModrinthServersIcon from '../servers/ModrinthServersIcon.vue'
+import FreePlayServersIcon from '../servers/FreePlayServersIcon.vue'
 import ExpandableInvoiceTotal from './ExpandableInvoiceTotal.vue'
 import FormattedPaymentMethod from './FormattedPaymentMethod.vue'
-import type { ServerBillingInterval } from './ModrinthServersPurchaseModal.vue'
+import type { ServerBillingInterval } from './FreePlayServersPurchaseModal.vue'
 import ServersSpecs from './ServersSpecs.vue'
 
 const { formatMessage } = useVIntl()
@@ -182,7 +182,7 @@ function setInterval(newInterval: ServerBillingInterval) {
 	<div class="grid sm:grid-cols-[3fr_2fr] gap-4">
 		<div class="bg-surface-2 p-4 rounded-2xl">
 			<div class="flex items-center gap-2 mb-3">
-				<ModrinthServersIcon class="flex h-5 w-fit" />
+				<FreePlayServersIcon class="flex h-5 w-fit" />
 				<TagItem>{{ planName }}</TagItem>
 			</div>
 			<div>
@@ -288,10 +288,10 @@ function setInterval(newInterval: ServerBillingInterval) {
 								{
 									title:
 										isProratedCharge && prorationDays
-											? `Modrinth Hosting (${planName}) — prorated for ${prorationDays} day${
+											? `FreePlay Hosting (${planName}) — prorated for ${prorationDays} day${
 													prorationDays === 1 ? '' : 's'
 												}`
-											: `Modrinth Hosting (${planName})`,
+											: `FreePlay Hosting (${planName})`,
 									amount: total - tax,
 								},
 								{

@@ -6,10 +6,10 @@ import { useRouter } from 'vue-router'
 import ServerPanelAdmonitions from '../../components/servers/admonitions/ServerPanelAdmonitions.vue'
 import { defineMessage } from '../../composables/i18n'
 import type { FileOperation } from '../../layouts/shared/files-tab/types'
-import { provideModrinthServerContext } from '../../providers'
+import { provideFreePlayServerContext } from '../../providers'
 import type {
 	CancelUploadHandler,
-	ModrinthServerContext,
+	FreePlayServerContext,
 	ServerStats,
 } from '../../providers/server-context'
 
@@ -73,7 +73,7 @@ const meta = {
 					},
 				])
 
-				const serverContext: ModrinthServerContext = {
+				const serverContext: FreePlayServerContext = {
 					get serverId() {
 						return 'demo-server'
 					},
@@ -111,7 +111,7 @@ const meta = {
 					},
 				}
 
-				provideModrinthServerContext(serverContext)
+				provideFreePlayServerContext(serverContext)
 				return {}
 			},
 			template: '<div style="max-width: 720px"><story /></div>',

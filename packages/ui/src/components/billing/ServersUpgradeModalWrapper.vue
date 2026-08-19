@@ -1,5 +1,5 @@
 <template>
-	<ModrinthServersPurchaseModal
+	<FreePlayServersPurchaseModal
 		v-if="customer && regionsData"
 		ref="purchaseModal"
 		:publishable-key="props.stripePublishableKey"
@@ -29,9 +29,9 @@
 <script setup lang="ts">
 import type { Archon, Labrinth } from '@freeplay/api-client'
 import {
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
-	ModrinthServersPurchaseModal,
+	FreePlayServersPurchaseModal,
 	useDebugLogger,
 } from '@freeplay/ui'
 import { useMutation, useQuery } from '@tanstack/vue-query'
@@ -48,9 +48,9 @@ const checkoutReturnUrl = computed(() => {
 })
 
 const { addNotification } = injectNotificationManager()
-const { labrinth, archon } = injectModrinthClient()
+const { labrinth, archon } = injectFreePlayClient()
 const debug = useDebugLogger('ServersUpgradeModalWrapper')
-const purchaseModal = ref<InstanceType<typeof ModrinthServersPurchaseModal> | null>(null)
+const purchaseModal = ref<InstanceType<typeof FreePlayServersPurchaseModal> | null>(null)
 
 // stripe type
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

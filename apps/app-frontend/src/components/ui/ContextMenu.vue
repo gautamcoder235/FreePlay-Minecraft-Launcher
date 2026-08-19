@@ -35,7 +35,7 @@ const left = ref('0px')
 const top = ref('0px')
 const shown = ref(false)
 const contextMenuId = Symbol()
-const contextMenuOpenEvent = 'modrinth-context-menu-open'
+const contextMenuOpenEvent = 'freeplay-context-menu-open'
 
 const hideContextMenu = () => {
 	shown.value = false

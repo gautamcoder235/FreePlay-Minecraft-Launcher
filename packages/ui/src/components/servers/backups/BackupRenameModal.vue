@@ -57,8 +57,8 @@ import { Button } from '#ui/components/base/buttons'
 
 import { useVIntl } from '../../../composables/i18n'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '../../../providers'
 import { commonMessages } from '../../../utils'
@@ -67,9 +67,9 @@ import NewModal from '../../modal/NewModal.vue'
 
 const { addNotification } = injectNotificationManager()
 const { formatMessage } = useVIntl()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const queryClient = useQueryClient()
-const ctx = injectModrinthServerContext()
+const ctx = injectFreePlayServerContext()
 
 const props = withDefaults(
 	defineProps<{

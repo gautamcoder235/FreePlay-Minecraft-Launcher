@@ -246,7 +246,7 @@ import { computed, ref, useTemplateRef } from 'vue'
 
 import { useFormatDateTime, useRelativeTime } from '../../composables'
 import { defineMessage, defineMessages, useVIntl } from '../../composables/i18n'
-import { injectModrinthClient } from '../../providers'
+import { injectFreePlayClient } from '../../providers'
 import { commonMessages } from '../../utils/common-messages'
 import { getActiveDisclosures } from '../../utils/disclosures'
 import { Avatar, BasicMarkdownText, IntlFormatted } from '../base'
@@ -256,7 +256,7 @@ const LICENSE_STALE_TIME = 1000 * 60 * 10
 const DISCLOSURE_STALE_TIME = 1000 * 60 * 5
 
 const { formatMessage, locale } = useVIntl()
-const { labrinth } = injectModrinthClient()
+const { labrinth } = injectFreePlayClient()
 const formatRelativeTime = useRelativeTime()
 const formatDateTime = useFormatDateTime({
 	timeStyle: 'short',

@@ -117,15 +117,15 @@ import {
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { ref } from 'vue'
 
-import { cancelLogin, type ModrinthAuthFlow } from '@/helpers/mr_auth'
+import { cancelLogin, type FreePlayAuthFlow } from '@/helpers/mr_auth'
 
 const props = defineProps<{
-	requestAuth: (flow: ModrinthAuthFlow) => Promise<boolean>
+	requestAuth: (flow: FreePlayAuthFlow) => Promise<boolean>
 }>()
 
 const { formatMessage } = useVIntl()
 const modal = ref<InstanceType<typeof NewModal>>()
-const authenticating = ref<ModrinthAuthFlow | null>(null)
+const authenticating = ref<FreePlayAuthFlow | null>(null)
 const reopeningBrowser = ref(false)
 let resolveShow: ((signedIn: boolean) => void) | undefined
 let authenticationId = 0
@@ -143,7 +143,7 @@ function show(event?: MouseEvent) {
 	})
 }
 
-function showSigningIn(flow: ModrinthAuthFlow = 'sign-in', event?: MouseEvent) {
+function showSigningIn(flow: FreePlayAuthFlow = 'sign-in', event?: MouseEvent) {
 	const result = show(event)
 	authenticate(flow)
 	return result
@@ -154,7 +154,7 @@ function finish(signedIn: boolean) {
 	resolveShow = undefined
 }
 
-function authenticate(flow: ModrinthAuthFlow) {
+function authenticate(flow: FreePlayAuthFlow) {
 	const id = ++authenticationId
 	authenticating.value = flow
 

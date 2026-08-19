@@ -15,8 +15,8 @@ type Story = StoryObj<typeof ShareModal>
 export const LinkShare: Story = {
 	args: {
 		header: 'Share link',
-		shareTitle: 'Modrinth',
-		shareText: 'Check this out on Modrinth',
+		shareTitle: 'FreePlay',
+		shareText: 'Check this out on FreePlay',
 		link: true,
 	},
 	render: (args) => ({
@@ -24,7 +24,7 @@ export const LinkShare: Story = {
 		setup() {
 			const modalRef = ref<InstanceType<typeof ShareModal> | null>(null)
 			const openModal = () => {
-				modalRef.value?.show('https://modrinth.com')
+				modalRef.value?.show('https://freeplay.app')
 			}
 			return { args, modalRef, openModal }
 		},
@@ -40,8 +40,8 @@ export const LinkShare: Story = {
 export const TextShare: Story = {
 	args: {
 		header: 'Share text',
-		shareTitle: 'Modrinth',
-		shareText: 'Invite your friends to try Modrinth.',
+		shareTitle: 'FreePlay',
+		shareText: 'Invite your friends to try FreePlay.',
 		link: false,
 	},
 	render: (args) => ({
@@ -49,7 +49,7 @@ export const TextShare: Story = {
 		setup() {
 			const modalRef = ref<InstanceType<typeof ShareModal> | null>(null)
 			const openModal = () => {
-				modalRef.value?.show('https://modrinth.com')
+				modalRef.value?.show('https://freeplay.app')
 			}
 			return { args, modalRef, openModal }
 		},

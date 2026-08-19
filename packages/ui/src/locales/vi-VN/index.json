@@ -96,7 +96,7 @@
     "defaultMessage": "Không tìm được thứ bạn đang tìm kiếm!"
   },
   "browse.offline": {
-    "defaultMessage": "Bạn đã Mất kết nối. Hãy kết nối mạng để tìm kiếm Modrinth!"
+    "defaultMessage": "Bạn đã Mất kết nối. Hãy kết nối mạng để tìm kiếm FreePlay!"
   },
   "browse.search.placeholder": {
     "defaultMessage": "Tìm kiếm {projectType}..."
@@ -221,7 +221,7 @@
   "button.open-in-folder": {
     "defaultMessage": "Mở thư mục"
   },
-  "button.open-in-modrinth": {
+  "button.open-in-freeplay": {
     "defaultMessage": "Mở trong trình duyệt"
   },
   "button.play": {
@@ -783,7 +783,7 @@
     "defaultMessage": "Nhập cấu hình"
   },
   "creation-flow.modal.setup-type.option.modpack-base.description": {
-    "defaultMessage": "Duyệt modpack trên Modrinth hoặc nhập từ tệp."
+    "defaultMessage": "Duyệt modpack trên FreePlay hoặc nhập từ tệp."
   },
   "creation-flow.modal.setup-type.option.modpack-base.title": {
     "defaultMessage": "Cài modpack"
@@ -2241,16 +2241,16 @@
     "defaultMessage": "Luôn cập nhật các file khi server thay đổi"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Tải Modrinth App"
+    "defaultMessage": "Tải FreePlay App"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Modrinth App sẽ được tự động mở..."
+    "defaultMessage": "FreePlay App sẽ được tự động mở..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "Mở Modrinth App"
+    "defaultMessage": "Mở FreePlay App"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "Tại sao nên sử dụng Modrinth App"
+    "defaultMessage": "Tại sao nên sử dụng FreePlay App"
   },
   "notification.error.title": {
     "defaultMessage": "Đã xảy ra lỗi"
@@ -2282,8 +2282,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Kiểm duyệt viên"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Đội Ngũ Modrinth"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "Đội Ngũ FreePlay"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "Đang chờ"
@@ -2703,7 +2703,7 @@
     "defaultMessage": "{count} {countPlural, plural, one {lượt chơi gần đây} other {lượt chơi gần đây}}"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "{count} {countPlural, plural, one {lượt chơi gần đây} other {lượt chơi gần đây}} từ Modrinth trong 2 tuần vừa qua"
+    "defaultMessage": "{count} {countPlural, plural, one {lượt chơi gần đây} other {lượt chơi gần đây}} từ FreePlay trong 2 tuần vừa qua"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "Dự án này có sử dụng modpack tuỳ chỉnh"
@@ -3015,7 +3015,7 @@
     "defaultMessage": "Project của bạn có nhiều biến môi trường"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "Chúng tôi vừa nâng cấp hệ thống Môi trường trên Modrinth và hiện đã có thêm các tùy chọn mới. Vui lòng đảm bảo bạn đã chọn đúng tùy chọn bên dưới và sau đó nhấp vào 'Xác nhận' khi hoàn tất!"
+    "defaultMessage": "Chúng tôi vừa nâng cấp hệ thống Môi trường trên FreePlay và hiện đã có thêm các tùy chọn mới. Vui lòng đảm bảo bạn đã chọn đúng tùy chọn bên dưới và sau đó nhấp vào 'Xác nhận' khi hoàn tất!"
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "Xin hãy xem lại các lựa chọn bên dưới"
@@ -3135,7 +3135,7 @@
     "defaultMessage": "Không công khai"
   },
   "project.visibility.unlisted-by-staff": {
-    "defaultMessage": "Đã bị ẩn bởi đội ngũ Modrinth"
+    "defaultMessage": "Đã bị ẩn bởi đội ngũ FreePlay"
   },
   "report.item-type.content": {
     "defaultMessage": "nội dung"
@@ -3863,14 +3863,14 @@
   "servers.list-empty.already-have-server-label": {
     "defaultMessage": "Đã có máy chủ rồi?"
   },
-  "servers.list-empty.modrinth-hosting-label": {
-    "defaultMessage": "Modrinth Hosting"
+  "servers.list-empty.freeplay-hosting-label": {
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.list-empty.new-server-button": {
     "defaultMessage": "Máy chủ mới"
   },
   "servers.list-empty.no-servers-description": {
-    "defaultMessage": "Cài mod, mời bạn bè, và chơi cùng nhau mà chỉ cần Ứng dụng Modrinth."
+    "defaultMessage": "Cài mod, mời bạn bè, và chơi cùng nhau mà chỉ cần Ứng dụng FreePlay."
   },
   "servers.list-empty.one-click-mod-installs-description": {
     "defaultMessage": "Chọn bản mod mà bạn yêu thích và chúng tôi sẽ làm tất cả phần còn lại."
@@ -3879,7 +3879,7 @@
     "defaultMessage": "Cài mod với một cú nhấp"
   },
   "servers.list-empty.play-with-friends-description": {
-    "defaultMessage": "Mời bạn bè và giúp họ thiết lập ngay trong ứng dụng Modrinth."
+    "defaultMessage": "Mời bạn bè và giúp họ thiết lập ngay trong ứng dụng FreePlay."
   },
   "servers.list-empty.play-with-friends-title": {
     "defaultMessage": "Chơi với bạn bè"
@@ -3939,7 +3939,7 @@
     "defaultMessage": "Gói đăng ký của bạn được thiết lập để hủy vào <date>{formattedDate}</date>. "
   },
   "servers.listing.notice.suspended": {
-    "defaultMessage": "Máy chủ của bạn đã bị đình chỉ, liên hệ bên hỗ trợ Modrinth để biết thêm thông tin."
+    "defaultMessage": "Máy chủ của bạn đã bị đình chỉ, liên hệ bên hỗ trợ FreePlay để biết thêm thông tin."
   },
   "servers.listing.notice.upgrading": {
     "defaultMessage": "Phần cứng máy chủ của bạn hiện đang được nâng cấp và sẽ hoạt động trở lại trong thời gian ngắn."
@@ -3966,7 +3966,7 @@
     "defaultMessage": "Đang tải lên"
   },
   "servers.manage.contact-support-button": {
-    "defaultMessage": "Liên hệ bên hỗ trợ Modrinth"
+    "defaultMessage": "Liên hệ bên hỗ trợ FreePlay"
   },
   "servers.manage.error.alert-notice": {
     "defaultMessage": "Hệ thống của chúng tôi tự động báo cáo với đội ngũ khi có vấn đề. Chúng tôi đã cố gắng đưa nó trực tuyến."
@@ -3978,10 +3978,10 @@
     "defaultMessage": "Chi tiết lỗi:"
   },
   "servers.manage.error.queue-notice": {
-    "defaultMessage": "Nếu bạn đã từng mua máy chủ Modrinth Hosting, nó đang trong hàng chờ và sẽ xuất hiện ở đây khi đã sẵn sàng. <warning>Tuyệt đối không được mua lại máy chủ mới.</warning>"
+    "defaultMessage": "Nếu bạn đã từng mua máy chủ FreePlay Hosting, nó đang trong hàng chờ và sẽ xuất hiện ở đây khi đã sẵn sàng. <warning>Tuyệt đối không được mua lại máy chủ mới.</warning>"
   },
   "servers.manage.error.support-notice": {
-    "defaultMessage": "Nếu bạn cần trợ giúp cá nhân liên quan đến trạng thái máy chủ, vui lòng liên hệ bên hỗ trợ Modrinth."
+    "defaultMessage": "Nếu bạn cần trợ giúp cá nhân liên quan đến trạng thái máy chủ, vui lòng liên hệ bên hỗ trợ FreePlay."
   },
   "servers.manage.error.title": {
     "defaultMessage": "Không tải được máy chủ"
@@ -4005,7 +4005,7 @@
     "defaultMessage": "Làm mới"
   },
   "servers.manage.resubscribe-error.text": {
-    "defaultMessage": "Có lỗi xảy ra trong khi đăng ký lại cho máy chủ Modrinth."
+    "defaultMessage": "Có lỗi xảy ra trong khi đăng ký lại cho máy chủ FreePlay."
   },
   "servers.manage.resubscribe-error.title": {
     "defaultMessage": "Lỗi khi đăng ký lại"
@@ -4026,7 +4026,7 @@
     "defaultMessage": "Tìm kiếm trong {count} {count, plural, other {máy chủ}}..."
   },
   "servers.manage.servers-title": {
-    "defaultMessage": "Modrinth Hosting"
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.manage.settings-hint.description": {
     "defaultMessage": "Nó hiện đang ở đây!"
@@ -4047,10 +4047,10 @@
     "defaultMessage": "Thời gian dùng thử máy chủ Medal của bạn đã kết thúc và máy chủ của bạn đã bị đình chỉ. Vui lòng nâng cấp để tiếp tục sử dụng máy chủ."
   },
   "servers.medal-listing.notice.suspended": {
-    "defaultMessage": "Máy chủ của bạn đã bị đình chỉ. Vui lòng cập nhật thông tin thanh toán hoặc liên hệ với bên hỗ trợ của Modrinth để biết thêm thông tin."
+    "defaultMessage": "Máy chủ của bạn đã bị đình chỉ. Vui lòng cập nhật thông tin thanh toán hoặc liên hệ với bên hỗ trợ của FreePlay để biết thêm thông tin."
   },
   "servers.medal-listing.notice.suspended-with-reason": {
-    "defaultMessage": "Máy chủ của bạn đã bị đình chỉ do: {reason}. Vui lòng cập nhật thông tin thanh toán hoặc liên hệ với bên hỗ trợ của Modrinth để biết thêm thông tin."
+    "defaultMessage": "Máy chủ của bạn đã bị đình chỉ do: {reason}. Vui lòng cập nhật thông tin thanh toán hoặc liên hệ với bên hỗ trợ của FreePlay để biết thêm thông tin."
   },
   "servers.medal-listing.notice.upgrading": {
     "defaultMessage": "Phần cứng máy chủ của bạn hiện đang được nâng cấp và sẽ hoạt động trở lại trong thời gian ngắn."
@@ -4092,7 +4092,7 @@
     "defaultMessage": "Không thể bỏ qua"
   },
   "servers.purchase.notification.success.text": {
-    "defaultMessage": "Đã thành toán thành công cho Modrinth Hosting."
+    "defaultMessage": "Đã thành toán thành công cho FreePlay Hosting."
   },
   "servers.purchase.notification.success.title": {
     "defaultMessage": "Thanh toán thành công"
@@ -4182,7 +4182,7 @@
     "defaultMessage": "Bạn muốn khu vực máy chủ của bạn được nằm ở đâu?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "Khu vực không được liệt kê? <link>Hãy cho chúng tôi biết nơi mà bạn muốn Modrinth Hosting sẽ có trong tương lai!</link>"
+    "defaultMessage": "Khu vực không được liệt kê? <link>Hãy cho chúng tôi biết nơi mà bạn muốn FreePlay Hosting sẽ có trong tương lai!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "Đông Nam Á"
@@ -4233,7 +4233,7 @@
     "defaultMessage": "Máy chủ của bạn đã sẵn sàng. Bạn sẽ cần làm những điều này để bắt đầu chơi!"
   },
   "servers.setup.onboarding.welcome.title": {
-    "defaultMessage": "Chào mừng đến Modrinth Hosting"
+    "defaultMessage": "Chào mừng đến FreePlay Hosting"
   },
   "servers.setup.rate-limit.text": {
     "defaultMessage": "Bạn đang bị giới hạn lượt truy cập. Vui lòng thử lại sau."
@@ -4272,7 +4272,7 @@
     "defaultMessage": "Tối"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "Chọn màu nền ưa thích của bạn cho Modrinth trên thiết bị này."
+    "defaultMessage": "Chọn màu nền ưa thích của bạn cho FreePlay trên thiết bị này."
   },
   "settings.display.theme.light": {
     "defaultMessage": "Sáng"
@@ -4878,7 +4878,7 @@
     "defaultMessage": "Người dùng nãy đã có mặt từ thời Beta, kết thúc vào tháng hai năm 2022."
   },
   "user.profile.badge.beta.link": {
-    "defaultMessage": "Nhấp để tìm hiểu thêm vào sự ra mắt phiên bản Beta của Modrinth."
+    "defaultMessage": "Nhấp để tìm hiểu thêm vào sự ra mắt phiên bản Beta của FreePlay."
   },
   "user.profile.badge.beta.name": {
     "defaultMessage": "Người thử nghiệm Beta"
@@ -4890,67 +4890,67 @@
     "defaultMessage": "{download_sum} Lượt tải xuống"
   },
   "user.profile.badge.early-datapack-adopter.about.1": {
-    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án gói dữ liệu trên Modrinth trước khi chúng tôi phát hành chúng vào tháng giêng 2023."
+    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án gói dữ liệu trên FreePlay trước khi chúng tôi phát hành chúng vào tháng giêng 2023."
   },
   "user.profile.badge.early-datapack-adopter.name": {
     "defaultMessage": "Người dùng gói dữ liệu sớm"
   },
   "user.profile.badge.early-modpack-adopter.about.1": {
-    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án Modpack trên Modrinth trước khi chúng tôi phát hành chúng vào tháng năm, 2022."
+    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án Modpack trên FreePlay trước khi chúng tôi phát hành chúng vào tháng năm, 2022."
   },
   "user.profile.badge.early-modpack-adopter.name": {
     "defaultMessage": "Người dùng Modpack sớm"
   },
   "user.profile.badge.early-plugin-adopter.about.1": {
-    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án Plugin trên Modrinth trước khi chúng tôi phát hành chúng vào tháng tám 2022."
+    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án Plugin trên FreePlay trước khi chúng tôi phát hành chúng vào tháng tám 2022."
   },
   "user.profile.badge.early-plugin-adopter.name": {
     "defaultMessage": "Người dùng Plugin sớm"
   },
   "user.profile.badge.early-resourcepack-adopter.about.1": {
-    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án gói tài nguyên trên Modrinth trước khi chúng tôi phát hành chúng vào tháng tám 2022."
+    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án gói tài nguyên trên FreePlay trước khi chúng tôi phát hành chúng vào tháng tám 2022."
   },
   "user.profile.badge.early-resourcepack-adopter.name": {
     "defaultMessage": "Người dùng gói tài nguyên sớm"
   },
   "user.profile.badge.early-server-adopter.about.1": {
-    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án máy chủ trên Modrinth trước khi chúng tôi phát hành chúng vào tháng ba 2026."
+    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án máy chủ trên FreePlay trước khi chúng tôi phát hành chúng vào tháng ba 2026."
   },
   "user.profile.badge.early-server-adopter.name": {
     "defaultMessage": "Người dùng Máy chủ sớm"
   },
   "user.profile.badge.early-shader-adopter.about.1": {
-    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án Shader trên Modrinth trước khi chúng tôi phát hành chúng vào tháng giêng 2023."
+    "defaultMessage": "Người dùng này đã giúp chúng tôi thử nghiệm với các dự án Shader trên FreePlay trước khi chúng tôi phát hành chúng vào tháng giêng 2023."
   },
   "user.profile.badge.early-shader-adopter.name": {
     "defaultMessage": "Người dùng Shader sớm"
   },
   "user.profile.badge.hosting-alpha.about.1": {
-    "defaultMessage": "Người này đã tham gia vào việc thử nghiệm alpha kín của Modrinth Hosting trước khi chúng tôi phát hành Modrinth Hosting Beta vào tháng mười một 2024."
+    "defaultMessage": "Người này đã tham gia vào việc thử nghiệm alpha kín của FreePlay Hosting trước khi chúng tôi phát hành FreePlay Hosting Beta vào tháng mười một 2024."
   },
   "user.profile.badge.hosting-alpha.name": {
-    "defaultMessage": "Người thử nghiệm Modrinth Hosting"
+    "defaultMessage": "Người thử nghiệm FreePlay Hosting"
   },
   "user.profile.badge.moderator.about.1": {
-    "defaultMessage": "Người dùng này làm cho bên kiểm duyệt nội dung Modrinth."
+    "defaultMessage": "Người dùng này làm cho bên kiểm duyệt nội dung FreePlay."
   },
   "user.profile.badge.moderator.about.2": {
-    "defaultMessage": "Những người kiểm duyệt nội dung trên Modrinth xem xét các dự án, xử lý báo cáo và giúp giữ cho Modrinth an toàn."
+    "defaultMessage": "Những người kiểm duyệt nội dung trên FreePlay xem xét các dự án, xử lý báo cáo và giúp giữ cho FreePlay an toàn."
   },
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Thành viên bên kiểm duyệt nội dung"
   },
   "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Người dùng này đang đóng góp và hỗ trợ cho Modrinth và Nhà sáng tạo trên nên tảng."
+    "defaultMessage": "Người dùng này đang đóng góp và hỗ trợ cho FreePlay và Nhà sáng tạo trên nên tảng."
   },
   "user.profile.badge.plus.link": {
     "defaultMessage": "Nhấp vào để xem cách làm thành viên."
   },
   "user.profile.badge.plus.name": {
-    "defaultMessage": "Thành viên Modrinth+"
+    "defaultMessage": "Thành viên FreePlay+"
   },
   "user.profile.badge.pride.about.1": {
-    "defaultMessage": "Người dùng này đã tham gia ít nhất một trong các hoạt động gây quỹ của Modrinth dành cho cộng đồng LGBTQ+."
+    "defaultMessage": "Người dùng này đã tham gia ít nhất một trong các hoạt động gây quỹ của FreePlay dành cho cộng đồng LGBTQ+."
   },
   "user.profile.badge.pride.link": {
     "defaultMessage": "Nhấp vào để ghé qua quỹ LGBT của chúng tôi."
@@ -4959,9 +4959,9 @@
     "defaultMessage": "Người ủng hộ quỹ LGBT"
   },
   "user.profile.badge.staff.about.1": {
-    "defaultMessage": "Người dùng này là cộng tác viên Modrinth."
+    "defaultMessage": "Người dùng này là cộng tác viên FreePlay."
   },
   "user.profile.badge.staff.name": {
-    "defaultMessage": "Đội ngũ Modrinth"
+    "defaultMessage": "Đội ngũ FreePlay"
   }
 }

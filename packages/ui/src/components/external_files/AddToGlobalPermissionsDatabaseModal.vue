@@ -7,7 +7,7 @@ import { computed, ref, useTemplateRef } from 'vue'
 import { Accordion, Combobox, type ComboboxOption, NewModal, StyledInput } from '#ui/components'
 import { Button } from '#ui/components/base/buttons'
 
-import { injectModrinthClient, injectNotificationManager } from '../../providers'
+import { injectFreePlayClient, injectNotificationManager } from '../../providers'
 import AttributionGroupFilePicker from './AttributionGroupFilePicker.vue'
 import {
 	attributionKindToDefaultExternalStatus,
@@ -26,7 +26,7 @@ const emit = defineEmits<{
 	(e: 'success'): void
 }>()
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const { addNotification } = injectNotificationManager()
 
 const modalRef = useTemplateRef<InstanceType<typeof NewModal>>('modalRef')

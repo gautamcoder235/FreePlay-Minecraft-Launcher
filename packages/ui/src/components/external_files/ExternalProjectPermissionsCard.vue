@@ -26,7 +26,7 @@ import { commonMessages } from '#ui/utils'
 import { defineMessage, defineMessages, useVIntl } from '../../composables/i18n'
 import {
 	injectAttributionModeration,
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	injectProjectPageContext,
 } from '../../providers'
@@ -83,7 +83,7 @@ const addToExistingModalRef =
 const deleteGroupModalRef = useTemplateRef<InstanceType<typeof ConfirmModal>>('deleteGroupModalRef')
 
 const { formatMessage } = useVIntl()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const queryClient = useQueryClient()
 const { addNotification } = injectNotificationManager()
 const { allMembers } = injectProjectPageContext()

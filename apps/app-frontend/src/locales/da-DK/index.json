@@ -71,7 +71,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Minecraft setup fejlede"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Kunne ikke få forbindelse til FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -620,13 +620,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Du modtog disse skins for at donere til en FreePlay Pride indsamling imens der er Pride Month."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1109,31 +1109,31 @@
   "minecraft-required.sign-in": {
     "message": "Log ind på Microsoft"
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "Fortsæt i din browser"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "Opret en konto"
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "Konto påkrævet"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "Åbn browser igen"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "Log ind på FreePlay"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "Log ind med en FreePlay konto"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "Logger ind"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "Har du problemer med at logge ind? <support>Få hjælp</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "Venter på browser bekræftigelse..."
   },
   "search.filter.locked.instance": {

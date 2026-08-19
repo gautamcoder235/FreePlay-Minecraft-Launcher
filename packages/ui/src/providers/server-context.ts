@@ -38,7 +38,7 @@ export interface ServerStats {
 	}
 }
 
-export interface ModrinthServerContext {
+export interface FreePlayServerContext {
 	readonly serverId: string
 	readonly worldId: Ref<string | null>
 	readonly server: Ref<Archon.Servers.v0.Server>
@@ -77,5 +77,5 @@ export interface ModrinthServerContext {
 	dismissOperation: (opId: string, action: 'dismiss' | 'cancel') => Promise<void>
 }
 
-export const [injectModrinthServerContext, provideModrinthServerContext] =
-	createContext<ModrinthServerContext>('[id].vue', 'modrinthServerContext')
+export const [injectFreePlayServerContext, provideFreePlayServerContext] =
+	createContext<FreePlayServerContext>('[id].vue', 'freeplayServerContext')

@@ -1,4 +1,4 @@
-import type { ModrinthId } from '@freeplay/utils'
+import type { FreePlayId } from '@freeplay/utils'
 
 export type GameInstance = {
 	id: string
@@ -63,50 +63,50 @@ type InstallStage =
 	| 'not_installed'
 
 type InstanceLinkIdentity = {
-	project_id?: ModrinthId | null
-	version_id?: ModrinthId | null
-	server_project_id?: ModrinthId | null
-	content_project_id?: ModrinthId | null
-	content_version_id?: ModrinthId | null
+	project_id?: FreePlayId | null
+	version_id?: FreePlayId | null
+	server_project_id?: FreePlayId | null
+	content_project_id?: FreePlayId | null
+	content_version_id?: FreePlayId | null
 }
 
 export type InstanceLink = InstanceLinkIdentity &
 	(
 		| {
-				type: 'modrinth_modpack'
-				project_id: ModrinthId
-				version_id: ModrinthId
+				type: 'freeplay_modpack'
+				project_id: FreePlayId
+				version_id: FreePlayId
 		  }
 		| {
 				type: 'server_project'
-				project_id: ModrinthId
+				project_id: FreePlayId
 		  }
 		| {
 				type: 'server_project_modpack'
-				server_project_id: ModrinthId
-				content_project_id?: ModrinthId | null
-				content_version_id: ModrinthId
-				project_id?: ModrinthId
-				version_id?: ModrinthId
+				server_project_id: FreePlayId
+				content_project_id?: FreePlayId | null
+				content_version_id: FreePlayId
+				project_id?: FreePlayId
+				version_id?: FreePlayId
 		  }
 		| {
 				type: 'imported_modpack'
-				project_id?: ModrinthId | null
-				version_id?: ModrinthId | null
+				project_id?: FreePlayId | null
+				version_id?: FreePlayId | null
 				name?: string | null
 				version_number?: string | null
 				filename?: string | null
 		  }
 		| {
-				type: 'modrinth_hosting'
+				type: 'freeplay_hosting'
 				server_id: string
 				instance_ids: string[]
 				active_instance_id?: string | null
 		  }
 		| {
 				type: 'shared_instance'
-				modpack_project_id?: ModrinthId | null
-				modpack_version_id?: ModrinthId | null
+				modpack_project_id?: FreePlayId | null
+				modpack_version_id?: FreePlayId | null
 		  }
 	)
 
@@ -137,9 +137,9 @@ export type InstanceLoader = 'vanilla' | 'forge' | 'fabric' | 'quilt' | 'neoforg
 
 export type ContentSourceKind =
 	| 'local'
-	| 'modrinth_modpack'
+	| 'freeplay_modpack'
 	| 'server_project'
-	| 'modrinth_hosting'
+	| 'freeplay_hosting'
 	| 'imported_modpack'
 	| 'shared_instance'
 

@@ -17,7 +17,7 @@ import FriendsSection from '@/components/ui/friends/FriendsSection.vue'
 import ModalWrapper from '@/components/ui/modal/ModalWrapper.vue'
 import { useFriends } from '@/composables/use-friends'
 import type { FriendWithUserData } from '@/helpers/friends.ts'
-import type { ModrinthCredentials } from '@/helpers/mr_auth'
+import type { FreePlayCredentials } from '@/helpers/mr_auth'
 import { get as getSettings, set as setSettings } from '@/helpers/settings.ts'
 import { useTheming } from '@/store/state'
 
@@ -28,7 +28,7 @@ const formatRelativeTime = useRelativeTime()
 const themeStore = useTheming()
 
 const props = defineProps<{
-	credentials: ModrinthCredentials | null
+	credentials: FreePlayCredentials | null
 	signIn: () => void
 }>()
 

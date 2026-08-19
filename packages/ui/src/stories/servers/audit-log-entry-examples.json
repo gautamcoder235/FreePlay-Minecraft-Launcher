@@ -447,7 +447,7 @@
 				"action": "modpack_changed",
 				"metadata": {
 					"spec": {
-						"platform": "modrinth",
+						"platform": "freeplay",
 						"project_id": "BYN9yKrV",
 						"version_id": "w0KHzZ43",
 						"mrpack_sha1": "6b277e2f6e3a9a1acef3342bd154ade25031ad70"
@@ -467,7 +467,7 @@
 				"action": "modpack_unlinked",
 				"metadata": {
 					"spec": {
-						"platform": "modrinth",
+						"platform": "freeplay",
 						"project_id": "BYN9yKrV",
 						"version_id": "w0KHzZ43",
 						"mrpack_sha1": "6b277e2f6e3a9a1acef3342bd154ade25031ad70"
@@ -858,7 +858,7 @@
 	"users": {
 		"TEZXhE2U": {
 			"username": "jellysquid3",
-			"avatar_url": "https://cdn.modrinth.com/user/TEZXhE2U/f4705a5f2388c65029ae2e59f1434b3e6e4de23a.png"
+			"avatar_url": "https://cdn.freeplay.app/user/TEZXhE2U/f4705a5f2388c65029ae2e59f1434b3e6e4de23a.png"
 		},
 		"JZA4dW8o": {
 			"username": "modmuss50",
@@ -870,38 +870,38 @@
 		},
 		"uk2lIMmm": {
 			"username": "devin",
-			"avatar_url": "https://cdn.modrinth.com/user/uk2lIMmm/9ceb45272fef68343dcbc01696eb1c6856acb701.png"
+			"avatar_url": "https://cdn.freeplay.app/user/uk2lIMmm/9ceb45272fef68343dcbc01696eb1c6856acb701.png"
 		}
 	},
 	"addons": {
 		"AANobbMI": {
 			"title": "Sodium",
 			"slug": "sodium",
-			"icon_url": "https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp",
+			"icon_url": "https://cdn.freeplay.app/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp",
 			"version": null
 		},
 		"P7dR8mSH": {
 			"title": "Fabric API",
 			"slug": "fabric-api",
-			"icon_url": "https://cdn.modrinth.com/data/P7dR8mSH/icon.png",
+			"icon_url": "https://cdn.freeplay.app/data/P7dR8mSH/icon.png",
 			"version": null
 		},
 		"YL57xq9U": {
 			"title": "Iris Shaders",
 			"slug": "iris",
-			"icon_url": "https://cdn.modrinth.com/data/YL57xq9U/18d0e7f076d3d6ed5bedd472b853909aac5da202_96.webp",
+			"icon_url": "https://cdn.freeplay.app/data/YL57xq9U/18d0e7f076d3d6ed5bedd472b853909aac5da202_96.webp",
 			"version": null
 		},
 		"gvQqBUqZ": {
 			"title": "Lithium",
 			"slug": "lithium",
-			"icon_url": "https://cdn.modrinth.com/data/gvQqBUqZ/bcc8686c13af0143adf4285d741256af824f70b7_96.webp",
+			"icon_url": "https://cdn.freeplay.app/data/gvQqBUqZ/bcc8686c13af0143adf4285d741256af824f70b7_96.webp",
 			"version": null
 		},
 		"BYN9yKrV": {
 			"title": "Adrenaline",
 			"slug": "adrenaline",
-			"icon_url": "https://cdn.modrinth.com/data/BYN9yKrV/98f14519960b17418d5ba5ebfdc46c85154ad87b_96.webp",
+			"icon_url": "https://cdn.freeplay.app/data/BYN9yKrV/98f14519960b17418d5ba5ebfdc46c85154ad87b_96.webp",
 			"version": null
 		}
 	},

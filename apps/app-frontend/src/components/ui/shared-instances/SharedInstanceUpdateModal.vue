@@ -132,7 +132,7 @@ const messages = defineMessages({
 	externalWarningDescription: {
 		id: 'app.modal.update-to-play.shared-instance-unknown-files-description',
 		defaultMessage:
-			'This shared instance update contains files that aren’t published on Modrinth. We strongly recommend only installing files from sources you trust.',
+			'This shared instance update contains files that aren’t published on FreePlay. We strongly recommend only installing files from sources you trust.',
 	},
 })
 

@@ -10,8 +10,8 @@ import { useUploadSessionUpload } from '#ui/composables/hosting/kyros-session-up
 import { useVIntl } from '#ui/composables/i18n'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 import { commonMessages } from '#ui/utils/common-messages'
@@ -25,8 +25,8 @@ const props = defineProps<{
 	showRefreshButton?: boolean
 }>()
 
-const client = injectModrinthClient()
-const serverContext = injectModrinthServerContext()
+const client = injectFreePlayClient()
+const serverContext = injectFreePlayServerContext()
 const {
 	serverId,
 	worldId,
@@ -135,7 +135,7 @@ const {
 })
 
 function isVisibleFileItem(item: Kyros.Files.v0.DirectoryItem) {
-	return !item.path.split('/').includes('.modrinth-staged')
+	return !item.path.split('/').includes('.freeplay-staged')
 }
 
 const items = computed<FileItem[]>(() =>

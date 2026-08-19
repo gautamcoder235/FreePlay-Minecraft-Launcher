@@ -90,7 +90,7 @@
     "defaultMessage": "Niciun rezultat găsit pentru query-ul tău!"
   },
   "browse.offline": {
-    "defaultMessage": "Sunteți offline! Conectați-vă la internet ca să puteți căuta pe Modrinth!"
+    "defaultMessage": "Sunteți offline! Conectați-vă la internet ca să puteți căuta pe FreePlay!"
   },
   "browse.search.placeholder": {
     "defaultMessage": "Caută {projectType}..."
@@ -215,8 +215,8 @@
   "button.open-in-folder": {
     "defaultMessage": "Deschide în folder"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "Deschide în Modrinth"
+  "button.open-in-freeplay": {
+    "defaultMessage": "Deschide în FreePlay"
   },
   "button.play": {
     "defaultMessage": "Joacă"
@@ -1563,16 +1563,16 @@
     "defaultMessage": "Mențineți fișierele actualizate atunci când serverul se modifică"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Descărcați aplicația Modrinth"
+    "defaultMessage": "Descărcați aplicația FreePlay"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Aplicația Modrinth se va deschide automat..."
+    "defaultMessage": "Aplicația FreePlay se va deschide automat..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "Deschiderea aplicației Modrinth"
+    "defaultMessage": "Deschiderea aplicației FreePlay"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "De ce să folosiți aplicația Modrinth"
+    "defaultMessage": "De ce să folosiți aplicația FreePlay"
   },
   "notification.error.title": {
     "defaultMessage": "A avut loc o eroare"
@@ -1604,8 +1604,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Moderator"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Echipa Modrinth"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "Echipa FreePlay"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "În așteptare"
@@ -2025,7 +2025,7 @@
     "defaultMessage": "{count} {countPlural, plural, one {recent jucat} other {recent jucate}}"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "{count} {countPlural, plural, one {recent jucat} other {recent jucate}} de la Modrinth în ultimele 2 săptămâni"
+    "defaultMessage": "{count} {countPlural, plural, one {recent jucat} other {recent jucate}} de la FreePlay în ultimele 2 săptămâni"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "Acest proiect folosește un pachet de resurse personalizat"
@@ -2190,7 +2190,7 @@
     "defaultMessage": "Proiectul tău are mai multe environment-uri"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "Tocmai am revizuit sistemul Environments pe Modrinth și acum sunt disponibile noi opțiuni. Asigurați-vă că ați selectat opțiunea corectă mai jos și apoi faceți clic pe „Verificați” când ați terminat!"
+    "defaultMessage": "Tocmai am revizuit sistemul Environments pe FreePlay și acum sunt disponibile noi opțiuni. Asigurați-vă că ați selectat opțiunea corectă mai jos și apoi faceți clic pe „Verificați” când ați terminat!"
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "Vă rugăm să examinați opțiunile de mai jos"
@@ -2907,7 +2907,7 @@
     "defaultMessage": "Unde ți-ar plăcea ca serverul să fie localizat?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "Regiunea nu este listată? <link>Spuneți-ne unde doriți să vedeți în continuare Modrinth Hosting!</link>"
+    "defaultMessage": "Regiunea nu este listată? <link>Spuneți-ne unde doriți să vedeți în continuare FreePlay Hosting!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "Asia Sud-Estică"
@@ -2934,7 +2934,7 @@
     "defaultMessage": "Întunecat"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "Selectați tema de culoare preferată pentru Modrinth pe acest dispozitiv."
+    "defaultMessage": "Selectați tema de culoare preferată pentru FreePlay pe acest dispozitiv."
   },
   "settings.display.theme.light": {
     "defaultMessage": "Luminos"

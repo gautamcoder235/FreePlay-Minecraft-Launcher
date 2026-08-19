@@ -3,7 +3,7 @@ import { computed, type Ref } from 'vue'
 
 import type { GameInstance } from '@/helpers/types'
 
-const managedSourceKinds = new Set(['shared_instance', 'modrinth_modpack', 'imported_modpack'])
+const managedSourceKinds = new Set(['shared_instance', 'freeplay_modpack', 'imported_modpack'])
 
 export function useManagedContentPolicy(instance: Ref<GameInstance>) {
 	const { formatMessage } = useVIntl()

@@ -2,14 +2,14 @@ import type { Archon } from '@freeplay/api-client'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, reactive, type Ref } from 'vue'
 
-import { type BusyReason, injectModrinthClient } from '#ui/providers'
+import { type BusyReason, injectFreePlayClient } from '#ui/providers'
 
 import { defineMessage } from './i18n'
 
 type ProgressKey = `${string}:${'create' | 'restore'}`
 
 export function useServerBackupsQueue(serverId: Ref<string>, worldId: Ref<string | null>) {
-	const client = injectModrinthClient()
+	const client = injectFreePlayClient()
 	const queryClient = useQueryClient()
 
 	const queryKey = computed(() => ['backups', 'queue', serverId.value] as const)

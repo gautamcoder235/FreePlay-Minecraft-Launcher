@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Podešavanje Minecrafta nije uspelo"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Nije bilo moguće povezati se sa FreePlay-om"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -620,13 +620,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Ponos"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Dobio si ove skinove za donaciju za prikupljanje sredstava FreePlay Ponos tokom Meseca ponosa."
   },
   "app.skins.section.mounts-of-mayhem": {

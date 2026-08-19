@@ -213,7 +213,7 @@
 				<DownloadIcon /> {{ formatMessage(commonMessages.installButton) }}
 			</template>
 			<template #open_link>
-				<GlobeIcon /> {{ formatMessage(commonMessages.openInModrinthButton) }} <ExternalIcon />
+				<GlobeIcon /> {{ formatMessage(commonMessages.openInFreePlayButton) }} <ExternalIcon />
 			</template>
 			<template #copy_link>
 				<ClipboardCopyIcon /> {{ formatMessage(commonMessages.copyLinkButton) }}
@@ -593,7 +593,7 @@ const installButtonIconClass = computed(() =>
 const serverProjectHeaderMoreActions = computed(() => [
 	{
 		id: 'open-in-browser',
-		label: formatMessage(commonMessages.openInModrinthButton),
+		label: formatMessage(commonMessages.openInFreePlayButton),
 		icon: ExternalIcon,
 		action: openProjectInBrowser,
 	},
@@ -627,7 +627,7 @@ const projectHeaderMoreActions = computed(() => [
 	},
 	{
 		id: 'open-in-browser',
-		label: formatMessage(commonMessages.openInModrinthButton),
+		label: formatMessage(commonMessages.openInFreePlayButton),
 		icon: ExternalIcon,
 		action: openProjectInBrowser,
 	},

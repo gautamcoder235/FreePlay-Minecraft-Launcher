@@ -290,8 +290,8 @@ import { useServerBackupsQueue } from '#ui/composables/server-backups-queue'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import { useBulkOperation } from '#ui/layouts/shared/content-tab/composables/bulk-operations'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 import { commonMessages } from '#ui/utils/common-messages'
@@ -360,9 +360,9 @@ const filterPillOptions = computed<FilterPillOption[]>(() => [
 	{ id: 'manual', label: formatMessage(messages.filterManual) },
 	{ id: 'auto', label: formatMessage(messages.filterAuto) },
 ])
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const queryClient = useQueryClient()
-const { server, worldId, busyReasons } = injectModrinthServerContext()
+const { server, worldId, busyReasons } = injectFreePlayServerContext()
 
 const props = defineProps<{
 	isServerRunning: boolean

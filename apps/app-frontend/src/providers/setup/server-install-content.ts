@@ -8,7 +8,7 @@ import {
 	getServerAddonInstallPlanProjectIds,
 	getStoredServerAddonInstallQueue,
 	getTargetInstallPreferences,
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	type ProjectSearchResult,
 	readStoredServerInstallQueue,
@@ -99,7 +99,7 @@ export function createServerInstallContent(opts: {
 	const { serverSetupModalRef } = opts
 	const route = useRoute()
 	const router = useRouter()
-	const client = injectModrinthClient()
+	const client = injectFreePlayClient()
 	const { handleError } = injectNotificationManager()
 	const queryClient = useQueryClient()
 
@@ -525,7 +525,7 @@ export function createServerInstallContent(opts: {
 			await client.archon.content_v1.installContent(sid, wid, {
 				content_variant: 'modpack',
 				spec: {
-					platform: 'modrinth',
+					platform: 'freeplay',
 					project_id: config.modpackSelection.value.projectId,
 					version_id: config.modpackSelection.value.versionId,
 				},

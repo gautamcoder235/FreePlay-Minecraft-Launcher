@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	ServersManageContentPage,
 } from '@freeplay/ui'
 import { useQueryClient } from '@tanstack/vue-query'
 
-const client = injectModrinthClient()
-const { serverId, worldId } = injectModrinthServerContext()
+const client = injectFreePlayClient()
+const { serverId, worldId } = injectFreePlayServerContext()
 const queryClient = useQueryClient()
 
 if (worldId.value) {

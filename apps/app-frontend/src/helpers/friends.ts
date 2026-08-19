@@ -4,7 +4,7 @@ import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
 
 import { get_user_many } from '@/helpers/cache'
-import type { ModrinthCredentials } from '@/helpers/mr_auth'
+import type { FreePlayCredentials } from '@/helpers/mr_auth'
 
 export const friendsQueryKey = (userId?: string | null) => ['friends', userId ?? null] as const
 
@@ -56,7 +56,7 @@ export type FriendCacheUser = {
 }
 
 export async function getFriendsWithUserData(
-	credentials: ModrinthCredentials | null,
+	credentials: FreePlayCredentials | null,
 ): Promise<FriendWithUserData[]> {
 	if (!credentials) return []
 
@@ -155,7 +155,7 @@ export function normalizeFriendKey(value: string) {
 
 export async function transformFriends(
 	friends: UserFriend[],
-	credentials: ModrinthCredentials | null,
+	credentials: FreePlayCredentials | null,
 ): Promise<FriendWithUserData[]> {
 	if (friends.length === 0 || !credentials) {
 		return []

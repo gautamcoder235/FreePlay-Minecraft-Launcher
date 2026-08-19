@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "無法設定 Minecraft"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "無法連線到 FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -755,19 +755,19 @@
   "app.nav.home": {
     "message": "首頁"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "FreePlay 帳號"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "登入 FreePlay 帳號"
   },
   "app.nav.signed-in-as": {
     "message": "以 <user>{username}</user> 登入"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "升級至 FreePlay+"
   },
   "app.news.title": {
@@ -1109,13 +1109,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay 驕傲"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "這些外觀是你在驕傲月期間捐款給 FreePlay 驕傲月籌款活動所獲得的。"
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1826,37 +1826,37 @@
   "minecraft-required.sign-in": {
     "message": "登入 Microsoft"
   },
-  "modal.modrinth-account-required.browser-description": {
+  "modal.freeplay-account-required.browser-description": {
     "message": "一個新分頁已開啟供你登入。請在該分頁完成登入，然後返回應用程式。"
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "在瀏覽器中繼續"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "建立帳號"
   },
-  "modal.modrinth-account-required.description": {
+  "modal.freeplay-account-required.description": {
     "message": "你必須登入 FreePlay 帳號才能使用這個功能。"
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "需要帳號"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "再次開啟瀏覽器"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "登入 FreePlay"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "登入 FreePlay 帳號"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "登入"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "登入時遇到問題嗎？<support>取得支援</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "等待瀏覽器確認..."
   },
   "search.filter.locked.instance": {

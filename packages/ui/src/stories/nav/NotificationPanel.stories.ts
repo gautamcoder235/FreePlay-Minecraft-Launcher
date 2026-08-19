@@ -52,7 +52,7 @@ export const Default: StoryObj = {
 
 			const showActions = () => {
 				notificationManager.addNotification({
-					title: 'Your privacy and how ads support Modrinth',
+					title: 'Your privacy and how ads support FreePlay',
 					text: 'Choose how our advertising partners may use your data.',
 					type: 'neutral',
 					autoCloseMs: null,

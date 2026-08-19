@@ -84,10 +84,12 @@ import _NoSearchResultIllustration from './illustrations/no-search-result.svg?co
 import _NoTasksIllustration from './illustrations/no-tasks.svg?component'
 
 export const ModrinthIcon = _ModrinthIcon
+export const FreePlayIcon = _ModrinthIcon
 export const BrowserWindowSuccessIllustration = _BrowserWindowSuccessIllustration
 export const InviteBackgroundIllustration = _InviteBackgroundIllustration
 export const FourOhFourNotFound = _FourOhFourNotFound
 export const ModrinthPlusIcon = _ModrinthPlusIcon
+export const FreePlayPlusIcon = _ModrinthPlusIcon
 export const AngryRinthbot = _AngryRinthbot
 export const AnnoyedRinthbot = _AnnoyedRinthbot
 export const ConfusedRinthbot = _ConfusedRinthbot

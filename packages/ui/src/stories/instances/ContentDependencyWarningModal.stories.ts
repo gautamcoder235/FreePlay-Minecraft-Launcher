@@ -11,7 +11,7 @@ const fabricApiItem: ContentCardTableItem = {
 		id: 'P7dR8mSH',
 		slug: 'fabric-api',
 		title: 'Fabric API',
-		icon_url: 'https://cdn.modrinth.com/data/P7dR8mSH/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/P7dR8mSH/icon.png',
 	},
 	projectLink: '/project/fabric-api',
 	version: {
@@ -23,7 +23,7 @@ const fabricApiItem: ContentCardTableItem = {
 	owner: {
 		id: 'fabricmc',
 		name: 'FabricMC',
-		avatar_url: 'https://cdn.modrinth.com/data/P7dR8mSH/icon.png',
+		avatar_url: 'https://cdn.freeplay.app/data/P7dR8mSH/icon.png',
 		type: 'organization',
 		link: '/organization/fabricmc',
 	},
@@ -37,7 +37,7 @@ const sodiumItem: ContentCardTableItem = {
 		slug: 'sodium',
 		title: 'Sodium',
 		icon_url:
-			'https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
+			'https://cdn.freeplay.app/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
 	},
 	projectLink: '/project/sodium',
 	version: {
@@ -61,7 +61,7 @@ const irisItem: ContentCardTableItem = {
 		id: 'YL57xq9U',
 		slug: 'iris',
 		title: 'Iris Shaders',
-		icon_url: 'https://cdn.modrinth.com/data/YL57xq9U/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/YL57xq9U/icon.png',
 	},
 	projectLink: '/project/iris',
 	version: {
@@ -86,7 +86,7 @@ const lithiumItem: ContentCardTableItem = {
 		slug: 'lithium',
 		title: 'Lithium',
 		icon_url:
-			'https://cdn.modrinth.com/data/gvQqBUqZ/d6a1873d52b7d1c82b9a8d9b1889c9c1a29ae92d_96.webp',
+			'https://cdn.freeplay.app/data/gvQqBUqZ/d6a1873d52b7d1c82b9a8d9b1889c9c1a29ae92d_96.webp',
 	},
 	projectLink: '/project/lithium',
 	version: {
@@ -110,7 +110,7 @@ const continuityItem: ContentCardTableItem = {
 		id: '1IjD5062',
 		slug: 'continuity',
 		title: 'Continuity',
-		icon_url: 'https://cdn.modrinth.com/data/1IjD5062/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/1IjD5062/icon.png',
 	},
 	projectLink: '/project/continuity',
 	version: {

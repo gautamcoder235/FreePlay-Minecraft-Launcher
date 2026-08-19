@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Minecraft kurulumu başarısız oldu"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "FreePlay'e erişilemiyor"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -695,19 +695,19 @@
   "app.nav.home": {
     "message": "Ana Sayfa"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "FreePlay hesabı"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "Bir FreePlay hesabıyla oturum açın"
   },
   "app.nav.signed-in-as": {
     "message": "<user>{username}</user> olarak oturum açıldı"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "FreePlay+'a yükselt"
   },
   "app.news.title": {
@@ -905,13 +905,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Onuru"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Bu skinleri, Onur Ayı boyunca FreePlay'in düzenlediği bir bağış kampanyasına yaptığınız bağış karşılığında aldınız."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1433,16 +1433,16 @@
   "minecraft-required.sign-in": {
     "message": "Microsoft'a giriş yap"
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "Tarayıcında devam et"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "Bir hesap oluştur"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "Tarayıcıyı yeniden aç"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "Giriş yapılıyor"
   },
   "search.filter.locked.instance": {

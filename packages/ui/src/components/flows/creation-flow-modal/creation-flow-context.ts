@@ -12,7 +12,7 @@ import {
 } from '#ui/composables/i18n'
 import { formatLoaderLabel } from '#ui/utils/loaders'
 
-import { createContext, injectModrinthClient, injectNotificationManager } from '../../../providers'
+import { createContext, injectFreePlayClient, injectNotificationManager } from '../../../providers'
 import type { ImportableLauncher } from '../../../providers/instance-import'
 import type { MultiStageModal, StageConfigInput } from '../../base'
 import type { ComboboxOption } from '../../base/Combobox.vue'
@@ -285,7 +285,7 @@ export function createCreationFlowContext(
 	options: CreationFlowOptions = {},
 ): CreationFlowContextValue {
 	const debug = useDebugLogger('CreationFlow')
-	const client = injectModrinthClient()
+	const client = injectFreePlayClient()
 	const { handleError } = injectNotificationManager()
 	const queryClient = useQueryClient()
 	const { formatMessage } = useVIntl()

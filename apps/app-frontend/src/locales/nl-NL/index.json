@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Instellen van Minecraft is mislukt"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "FreePlay kon niet bereikt worden"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -755,19 +755,19 @@
   "app.nav.home": {
     "message": "Start"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "FreePlay-account"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "Meld je aan bij een FreePlay-account"
   },
   "app.nav.signed-in-as": {
     "message": "Aangemeld als <user>{username}</user>"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "Upgrade naar FreePlay+"
   },
   "app.news.title": {
@@ -1109,13 +1109,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Je hebt deze skins ontvangen omdat je tijdens Pride Month een donatie hebt gedaan aan een inzamelingsactie van FreePlay Pride."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1826,37 +1826,37 @@
   "minecraft-required.sign-in": {
     "message": "Aanmelden bij Microsoft"
   },
-  "modal.modrinth-account-required.browser-description": {
+  "modal.freeplay-account-required.browser-description": {
     "message": "Er is een nieuw tabblad geopend om je aan te melden. Log daar in en ga vervolgens terug naar de app."
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "Doorgaan in je browser"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "Een account aanmaken"
   },
-  "modal.modrinth-account-required.description": {
+  "modal.freeplay-account-required.description": {
     "message": "Je moet je aanmelden bij je FreePlay-account voordat je deze functie kunt gebruiken."
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "Account vereist"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "Opnieuw de browser openen"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "Bij FreePlay aanmelden"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "Meld je aan bij een FreePlay-account"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "Aanmelden"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "Problemen bij het aanmelden? <support>Hulp krijgen</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "Wachten op bevestiging van de browser..."
   },
   "search.filter.locked.instance": {

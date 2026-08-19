@@ -18,6 +18,6 @@ export const Default: Story = {
 
 export const LongText: Story = {
 	args: {
-		text: 'curl -X GET "https://api.modrinth.com/v2/project/sodium" -H "Accept: application/json"',
+		text: 'curl -X GET "https://api.freeplay.app/v2/project/sodium" -H "Accept: application/json"',
 	},
 }

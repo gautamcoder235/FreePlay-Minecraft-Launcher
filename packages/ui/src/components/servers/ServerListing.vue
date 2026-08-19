@@ -207,7 +207,7 @@
 				</Button>
 				<ButtonLink
 					v-if="noticeButtons.support"
-					href="https://support.modrinth.com/en/"
+					href="https://support.freeplay.app/en/"
 					target="_blank"
 					data-server-listing-button
 					><MessagesSquareIcon /> {{ formatMessage(messages.supportLabel) }}
@@ -253,7 +253,7 @@
 				:ram="Math.round((pendingChange.ramGb ?? 0) * 1024)"
 				:storage="Math.round((pendingChange.storageGb ?? 0) * 1024)"
 				:cpus="pendingChange.cpuBurst"
-				bursting-link="https://docs.modrinth.com/servers/bursting"
+				bursting-link="https://docs.freeplay.app/servers/bursting"
 			/>
 		</div>
 	</div>
@@ -282,7 +282,7 @@ import {
 } from '../../../../assets/generated-icons'
 import { useFormatDateTime } from '../../composables'
 import { defineMessages, useVIntl } from '../../composables/i18n'
-import { injectModrinthClient } from '../../providers/api-client'
+import { injectFreePlayClient } from '../../providers/api-client'
 import Avatar from '../base/Avatar.vue'
 import IntlFormatted from '../base/IntlFormatted.vue'
 import ServersSpecs from '../billing/ServersSpecs.vue'
@@ -364,7 +364,7 @@ const messages = defineMessages({
 	suspendedNotice: {
 		id: 'servers.listing.notice.suspended',
 		defaultMessage:
-			'Your server has been suspended. Please contact Modrinth Support for more information.',
+			'Your server has been suspended. Please contact FreePlay Support for more information.',
 	},
 	downloadLatestBackupTooltip: {
 		id: 'servers.listing.download-latest-backup-tooltip',
@@ -441,7 +441,7 @@ type ServerListingProps = {
 const props = defineProps<ServerListingProps>()
 const router = useRouter()
 
-const { archon, kyros, labrinth } = injectModrinthClient()
+const { archon, kyros, labrinth } = injectFreePlayClient()
 
 const isBackupDownloadEnabled = false
 const isConfiguring = computed(() => props.flows?.intro)

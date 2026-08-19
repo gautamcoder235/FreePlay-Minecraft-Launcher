@@ -4,7 +4,7 @@
 			<Avatar
 				:src="user.avatar_url"
 				:alt="user.username"
-				:size="isModrinthUser ? '64px' : '96px'"
+				:size="isFreePlayUser ? '64px' : '96px'"
 				:tint-by="user.username"
 				circle
 			/>
@@ -33,7 +33,7 @@
 			<slot name="summary" />
 		</template>
 
-		<template v-if="!isModrinthUser" #metadata>
+		<template v-if="!isFreePlayUser" #metadata>
 			<PageHeaderMetadata>
 				<PageHeaderMetadataNumberItem
 					:icon="BoxIcon"
@@ -142,7 +142,7 @@ const messages = defineMessages({
 	},
 	officialAccount: {
 		id: 'profile.official-account',
-		defaultMessage: 'Official Modrinth account',
+		defaultMessage: 'Official FreePlay account',
 	},
 	profileJoinedLabel: {
 		id: 'profile.label.joined',
@@ -176,7 +176,7 @@ const props = withDefaults(
 		summary?: string | null
 		authUser?: AuthUser | null
 		editProfileLink?: string | (() => void)
-		isModrinthUser?: boolean
+		isFreePlayUser?: boolean
 		isOfficialAccount?: boolean
 		showAffiliateBadge?: boolean
 		isAffiliate?: boolean
@@ -192,7 +192,7 @@ const props = withDefaults(
 		summary: null,
 		authUser: null,
 		editProfileLink: '/settings/profile',
-		isModrinthUser: false,
+		isFreePlayUser: false,
 		isOfficialAccount: false,
 		showAffiliateBadge: false,
 		isAffiliate: false,

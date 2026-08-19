@@ -383,13 +383,13 @@
   "app.skins.rate-limit.title": {
     "message": "Perlahanlah sikit!"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Anda menerima kekulit ini kerana menderma kepada acara pengumpulan dana FreePlay Pride semasa Pride Month."
   },
   "app.skins.section.mounts-of-mayhem": {

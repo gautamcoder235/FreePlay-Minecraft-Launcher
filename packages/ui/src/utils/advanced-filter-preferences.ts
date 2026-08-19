@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 
 import { type FilterType, type FilterValue, findFilterOption, flattenFilterOptions } from './search'
 
-export const ADVANCED_PREFS_KEY = 'modrinth-advanced-exclusion-filters'
+export const ADVANCED_PREFS_KEY = 'freeplay-advanced-exclusion-filters'
 
 export function useAdvancedPrefs(): Ref<string[]> {
 	return useStorage<string[]>(ADVANCED_PREFS_KEY, [])

@@ -22,11 +22,11 @@
 			v-if="!isEditingImage && !isLoading && props.editorComponent"
 			v-model:value="fileContent"
 			:lang="editorLanguage"
-			theme="modrinth"
+			theme="freeplay"
 			:readonly="isEditorReadOnly"
 			:print-margin="false"
 			:style="{ height: editorHeight, fontSize: '0.875rem' }"
-			class="ace-modrinth rounded-[20px]"
+			class="ace-freeplay rounded-[20px]"
 			@init="onEditorInit"
 		/>
 		<FileImageViewer v-else-if="isEditingImage && imagePreview" :image-blob="imagePreview" />
@@ -46,7 +46,7 @@ import type { Ace } from 'ace-builds'
 import { type Component, computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import { defineMessages, useVIntl } from '#ui/composables/i18n'
-import { injectModrinthClient } from '#ui/providers'
+import { injectFreePlayClient } from '#ui/providers'
 import { injectNotificationManager } from '#ui/providers/web-notifications'
 import { getEditorLanguage, getFileExtension, isImageFile } from '#ui/utils/file-extensions'
 
@@ -67,7 +67,7 @@ const emit = defineEmits<{
 const { formatMessage } = useVIntl()
 const { addNotification } = injectNotificationManager()
 const ctx = injectFileManager()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 
 const messages = defineMessages({
 	failedToOpenTitle: {

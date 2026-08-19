@@ -19,7 +19,7 @@
 				>
 					<ClockIcon class="clock-glow text-medal-orange size-5 shrink-0" />
 					<span class="w-full text-wrap text-lg">
-						Your <span class="text-medal-orange">Medal</span>-powered Modrinth Server will expire in
+						Your <span class="text-medal-orange">Medal</span>-powered FreePlay Server will expire in
 						<span class="text-medal-orange font-bold">{{ timeLeftCountdown.days }}</span> days
 						<span class="text-medal-orange font-bold">{{ timeLeftCountdown.hours }}</span> hours
 						<span class="text-medal-orange font-bold">{{ timeLeftCountdown.minutes }}</span> minutes
@@ -53,7 +53,7 @@ import { type ComponentPublicInstance, computed, onMounted, onUnmounted, ref } f
 
 import { Button } from '#ui/components/base/buttons'
 import ServersUpgradeModalWrapper from '#ui/components/billing/ServersUpgradeModalWrapper.vue'
-import { injectModrinthClient } from '#ui/providers'
+import { injectFreePlayClient } from '#ui/providers'
 
 import MedalBackgroundImage from './MedalBackgroundImage.vue'
 
@@ -69,7 +69,7 @@ const props = defineProps<{
 	products?: Labrinth.Billing.Internal.Product[]
 }>()
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const { data: subscriptions } = useQuery({
 	queryKey: ['billing', 'subscriptions'],
 	queryFn: () => client.labrinth.billing_internal.getSubscriptions(),

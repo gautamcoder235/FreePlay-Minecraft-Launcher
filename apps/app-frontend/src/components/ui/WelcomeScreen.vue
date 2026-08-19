@@ -3,7 +3,7 @@ import { ImportIcon, PlusIcon } from '@freeplay/assets'
 import { Button, defineMessages, IntlFormatted, useVIntl } from '@freeplay/ui'
 import { inject, onMounted, onUnmounted, ref } from 'vue'
 
-import modrinthSocialIcon from '../../assets/welcome/modrinth-social-icon.png'
+import freeplaySocialIcon from '../../assets/welcome/freeplay-social-icon.png'
 
 const showCreationModal = inject<() => void>('showCreationModal')
 const showImportModal = inject<() => void>('showImportModal')

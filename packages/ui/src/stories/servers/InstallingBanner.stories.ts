@@ -4,10 +4,10 @@ import { computed, ref } from 'vue'
 
 import InstallingBanner from '../../components/servers/InstallingBanner.vue'
 import type { ServerInstallationState } from '../../composables/server-installation-tracker'
-import { provideModrinthServerContext } from '../../providers'
+import { provideFreePlayServerContext } from '../../providers'
 import type {
 	CancelUploadHandler,
-	ModrinthServerContext,
+	FreePlayServerContext,
 	ServerStats,
 } from '../../providers/server-context'
 
@@ -16,7 +16,7 @@ function renderInstallation(state: ServerInstallationState) {
 		components: { InstallingBanner },
 		setup() {
 			const installation = ref<ServerInstallationState | null>(state)
-			const serverContext: ModrinthServerContext = {
+			const serverContext: FreePlayServerContext = {
 				get serverId() {
 					return 'story-server'
 				},
@@ -75,7 +75,7 @@ function renderInstallation(state: ServerInstallationState) {
 				activeOperations: computed(() => []),
 				dismissOperation: async () => {},
 			}
-			provideModrinthServerContext(serverContext)
+			provideFreePlayServerContext(serverContext)
 		},
 		template: '<InstallingBanner />',
 	})
@@ -139,9 +139,9 @@ export const Vanilla: Story = {
 
 export const Modpack: Story = {
 	render: renderInstallation({
-		id: 'modrinth-modpack:project:version',
+		id: 'freeplay-modpack:project:version',
 		key: {
-			type: 'modrinth_modpack',
+			type: 'freeplay_modpack',
 			project_id: 'project',
 			version_id: 'version',
 		},
@@ -170,9 +170,9 @@ export const PlatformFailed: Story = {
 
 export const ModpackFailed: Story = {
 	render: renderInstallation({
-		id: 'modrinth-modpack:project:version',
+		id: 'freeplay-modpack:project:version',
 		key: {
-			type: 'modrinth_modpack',
+			type: 'freeplay_modpack',
 			project_id: 'project',
 			version_id: 'version',
 		},

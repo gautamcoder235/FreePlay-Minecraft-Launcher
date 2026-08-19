@@ -35,8 +35,8 @@ function installationKeyId(key: ServerInstallationKey) {
 	switch (key.type) {
 		case 'platform':
 			return `platform:${key.platform}:${key.platform_version}:${key.game_version}`
-		case 'modrinth_modpack':
-			return `modrinth-modpack:${key.project_id}:${key.version_id}`
+		case 'freeplay_modpack':
+			return `freeplay-modpack:${key.project_id}:${key.version_id}`
 		case 'local_modpack':
 			return `local-modpack:${key.filename}`
 		case 'unknown':
@@ -71,9 +71,9 @@ function contentPlatform(modloader: string | null): ServerInstallationPlatform |
 function contentInstallationKey(content: Archon.Content.v1.Addons): ServerInstallationKey {
 	if (content.installing === 'modpack' || (content.error && content.modpack)) {
 		const spec = content.modpack?.spec
-		if (spec?.platform === 'modrinth') {
+		if (spec?.platform === 'freeplay') {
 			return {
-				type: 'modrinth_modpack',
+				type: 'freeplay_modpack',
 				project_id: spec.project_id,
 				version_id: spec.version_id,
 			}

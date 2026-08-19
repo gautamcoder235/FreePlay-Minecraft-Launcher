@@ -368,7 +368,7 @@ const commands = {
 }
 
 export const markdownCommands = commands
-export const modrinthMarkdownEditorKeymap: KeyBinding[] = [
+export const freeplayMarkdownEditorKeymap: KeyBinding[] = [
 	{ key: 'Enter', run: insertNewlineContinueMark },
 	{ key: 'Backspace', run: deleteMarkupBackward },
 	{ key: 'Mod-b', run: toggleBold },
@@ -377,3 +377,5 @@ export const modrinthMarkdownEditorKeymap: KeyBinding[] = [
 	{ key: 'Mod-s', run: toggleStrikethrough },
 	{ key: 'Mod-Shift-.', run: toggleQuote },
 ]
+export const modrinthMarkdownEditorKeymap = freeplayMarkdownEditorKeymap
+

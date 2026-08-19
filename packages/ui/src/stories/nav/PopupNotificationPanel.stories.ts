@@ -57,7 +57,7 @@ export const Default: StoryObj = {
 				popupManager.addPopupNotification({
 					contentType: 'standard',
 					title: 'Update available',
-					text: "Modrinth App v2.1.0 is available now! Since you're on a metered network, we didn't automatically download it.",
+					text: "FreePlay App v2.1.0 is available now! Since you're on a metered network, we didn't automatically download it.",
 					type: 'warning',
 					autoCloseMs: null,
 					buttons: [
@@ -78,7 +78,7 @@ export const Default: StoryObj = {
 				popupManager.addPopupNotification({
 					contentType: 'standard',
 					title: 'Download complete',
-					text: 'Modrinth App v2.1.0 has finished downloading. Reload to update now.',
+					text: 'FreePlay App v2.1.0 has finished downloading. Reload to update now.',
 					type: 'info',
 					buttons: [
 						{
@@ -116,8 +116,8 @@ export const Default: StoryObj = {
 			const showBlocking = () => {
 				popupManager.addPopupNotification({
 					contentType: 'standard',
-					title: 'Your privacy and how ads support Modrinth',
-					text: 'Ads make Modrinth possible and fund creator rewards. Our partners may store unique identifiers to personalize ads and measure performance.',
+					title: 'Your privacy and how ads support FreePlay',
+					text: 'Ads make FreePlay possible and fund creator rewards. Our partners may store unique identifiers to personalize ads and measure performance.',
 					type: 'info',
 					autoCloseMs: null,
 					dismissible: false,

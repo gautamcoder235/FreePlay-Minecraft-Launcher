@@ -225,7 +225,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { Button } from '#ui/components/base/buttons'
 import { useDebugLogger } from '#ui/composables/debug-logger'
 
-import { injectFilePicker, injectModrinthClient, injectTags } from '../../../../providers'
+import { injectFilePicker, injectFreePlayClient, injectTags } from '../../../../providers'
 import Avatar from '../../../base/Avatar.vue'
 import Chips from '../../../base/Chips.vue'
 import Collapsible from '../../../base/Collapsible.vue'
@@ -237,7 +237,7 @@ import { injectCreationFlowContext } from '../creation-flow-context'
 import { formatLoaderLabel } from '../shared'
 
 const debug = useDebugLogger('CustomSetupStage')
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const ctx = injectCreationFlowContext()
 const { formatMessage } = useVIntl()
 const {
@@ -477,12 +477,12 @@ const gameVersionOptions = computed<ComboboxOption<string>[]>(() => {
 		const manifest = ctx.loaderVersionsCache.value[apiLoader]
 		if (!manifest) return []
 
-		const hasPlaceholder = manifest.gameVersions.some((x) => x.id === '${modrinth.gameVersion}')
+		const hasPlaceholder = manifest.gameVersions.some((x) => x.id === '${freeplay.gameVersion}')
 		const supportedVersions = new Set(
 			manifest.gameVersions
 				.filter(
 					(x) =>
-						x.id !== '${modrinth.gameVersion}' &&
+						x.id !== '${freeplay.gameVersion}' &&
 						(hasPlaceholder || x.loaders.length > 0 || !!x.versionGroup),
 				)
 				.map((x) => x.id),
@@ -580,7 +580,7 @@ function getLoaderVersionsForGameVersion(
 	if (!manifest) return []
 
 	// Some loaders (e.g. Fabric) list all versions under a placeholder entry
-	const placeholder = manifest.gameVersions.find((x) => x.id === '${modrinth.gameVersion}')
+	const placeholder = manifest.gameVersions.find((x) => x.id === '${freeplay.gameVersion}')
 	if (placeholder) {
 		if (!manifest.gameVersions.some((x) => x.id === gameVersion)) return []
 		debug(

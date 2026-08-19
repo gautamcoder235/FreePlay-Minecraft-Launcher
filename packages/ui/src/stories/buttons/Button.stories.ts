@@ -199,10 +199,10 @@ export const LinksAndIconButton: Story = {
 		template: /*html*/ `
 			<div class="flex flex-wrap items-center gap-4">
 				<ButtonLink to="/library">Internal link</ButtonLink>
-				<ButtonLink href="https://modrinth.com" target="_blank" type="outlined">
-					Modrinth<ExternalIcon />
+				<ButtonLink href="https://freeplay.app" target="_blank" type="outlined">
+					FreePlay<ExternalIcon />
 				</ButtonLink>
-				<ButtonLink href="https://modrinth.com" disabled>Disabled link</ButtonLink>
+				<ButtonLink href="https://freeplay.app" disabled>Disabled link</ButtonLink>
 				<IconButton label="Favorite"><HeartIcon /></IconButton>
 				<IconButton label="Favorite" type="colored"><HeartIcon /></IconButton>
 				<IconButton label="Favorite" type="outlined"><HeartIcon /></IconButton>

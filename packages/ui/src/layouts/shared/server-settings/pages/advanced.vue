@@ -223,14 +223,14 @@ import { Button, ButtonLink, IconButton } from '#ui/components/base/buttons'
 import SaveBanner from '#ui/components/servers/SaveBanner.vue'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 
 const { addNotification } = injectNotificationManager()
-const { server, serverId, worldId } = injectModrinthServerContext()
-const client = injectModrinthClient()
+const { server, serverId, worldId } = injectFreePlayServerContext()
+const client = injectFreePlayClient()
 const queryClient = useQueryClient()
 const { canUseAdvancedSettings, canWriteFiles, permissionDeniedMessage } = useServerPermissions()
 

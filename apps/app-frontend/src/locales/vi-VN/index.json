@@ -68,7 +68,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Cài đặt Minecraft thất bại"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Không thể kết nối được với FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -539,13 +539,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Bạn đã được tặng những skin này sau khi quyên góp cho FreePlay trong tháng tự hào LGBT thế giới."
   },
   "app.skins.section.mounts-of-mayhem": {

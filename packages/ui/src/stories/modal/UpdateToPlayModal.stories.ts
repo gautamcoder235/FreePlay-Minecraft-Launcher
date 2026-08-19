@@ -76,7 +76,7 @@ export const ExternalFiles: Story = {
 			<ContentDiffModal
 				ref="modalRef"
 				header="Update to play"
-				description="An update is required to play Epic Modrinth Pack. Please update to the latest version to launch the game."
+				description="An update is required to play Epic FreePlay Pack. Please update to the latest version to launch the game."
 				:diffs="diffs"
 				version-date="November 25, 2025"
 				show-external-warnings

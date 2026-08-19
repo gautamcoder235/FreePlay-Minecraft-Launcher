@@ -380,13 +380,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "คุณได้รับสกินเหล่านี้จากการร่วมบริจาคให้กับกิจกรรมระดมทุน FreePlay Pride ในช่วงเดือน Pride Month"
   },
   "app.skins.section.mounts-of-mayhem": {

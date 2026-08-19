@@ -151,9 +151,9 @@ const failureSummaryMessages = defineMessages({
 		id: 'app.action-bar.install.summary.download-failed',
 		defaultMessage: "Download couldn't finish",
 	},
-	modrinthUnreachable: {
-		id: 'app.action-bar.install.summary.modrinth-unreachable',
-		defaultMessage: "Couldn't reach Modrinth",
+	freeplayUnreachable: {
+		id: 'app.action-bar.install.summary.freeplay-unreachable',
+		defaultMessage: "Couldn't reach FreePlay",
 	},
 	packDownloadFailed: {
 		id: 'app.action-bar.install.summary.pack-download-failed',
@@ -298,7 +298,7 @@ export async function useInstallJobNotifications(opts: {
 						: failureSummaryMessages.downloadFailed,
 				)
 			case 'api_error':
-				return formatMessage(failureSummaryMessages.modrinthUnreachable)
+				return formatMessage(failureSummaryMessages.freeplayUnreachable)
 			case 'pack_error':
 				return formatMessage(
 					phase === 'downloading_pack_file'

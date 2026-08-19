@@ -1326,7 +1326,7 @@ provideBrowseManager({
 			<template #after>
 				<ContextMenu ref="contextMenuRef" @option-clicked="handleOptionsClick">
 					<template #open_link>
-						<GlobeIcon /> {{ formatMessage(commonMessages.openInModrinthButton) }} <ExternalIcon />
+						<GlobeIcon /> {{ formatMessage(commonMessages.openInFreePlayButton) }} <ExternalIcon />
 					</template>
 					<template #copy_link>
 						<ClipboardCopyIcon /> {{ formatMessage(commonMessages.copyLinkButton) }}

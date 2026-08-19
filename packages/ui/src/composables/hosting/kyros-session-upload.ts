@@ -1,5 +1,5 @@
 import type {
-	AbstractModrinthClient,
+	AbstractFreePlayClient,
 	Kyros,
 	UploadProgress,
 	UploadState,
@@ -16,7 +16,7 @@ export type UploadSessionUploadFile = {
 export type UploadSessionUploadResult = 'completed' | 'cancelled'
 
 export function useUploadSessionUpload(options: {
-	client: AbstractModrinthClient
+	client: AbstractFreePlayClient
 	scope: Kyros.UploadSessions.v1.Scope
 	worldId: Ref<string | null>
 	uploadState: Ref<UploadState>

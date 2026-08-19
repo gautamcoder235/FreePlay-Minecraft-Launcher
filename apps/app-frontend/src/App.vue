@@ -1,11 +1,11 @@
 <script setup>
 import {
 	AuthFeature,
-	ModrinthApiError,
+	FreePlayApiError,
 	NodeAuthFeature,
 	nodeAuthState,
 	PanelVersionFeature,
-	TauriModrinthClient,
+	TauriFreePlayClient,
 	VerboseLoggingFeature,
 } from '@freeplay/api-client'
 import {
@@ -42,7 +42,7 @@ import {
 	NotificationPanel,
 	PopupNotificationPanel,
 	provideModalBehavior,
-	provideModrinthClient,
+	provideFreePlayClient,
 	provideNotificationManager,
 	providePageContext,
 	providePopupNotificationManager,
@@ -109,11 +109,11 @@ import { get_user, get_version } from '@/helpers/cache.js'
 import { install_create_modpack_instance, install_get_modpack_preview } from '@/helpers/install'
 import { can_current_user_use_shared_instances, get as getInstance, run } from '@/helpers/instance'
 import { get as getCreds, login, logout } from '@/helpers/mr_auth.ts'
-import { mergeUrlQuery, parseModrinthLink } from '@/helpers/project-links.ts'
+import { mergeUrlQuery, parseFreePlayLink } from '@/helpers/project-links.ts'
 import { get as getSettings, set as setSettings } from '@/helpers/settings.ts'
 import { get_opening_command, initialize_state } from '@/helpers/state'
 import { hasActivePride26Midas, hasMidasBadge } from '@/helpers/user-campaigns.ts'
-import { parse_modrinth_user_link } from '@/helpers/users'
+import { parse_freeplay_user_link } from '@/helpers/users'
 import {
 	areUpdatesEnabled,
 	enqueueUpdateForInstallation,
@@ -265,8 +265,8 @@ let adsConsentPopupId = null
 useAppEvent('ads_consent_required', handleAdsConsentRequired, appEvents)
 
 const appVersion = getVersion()
-const tauriApiClient = new TauriModrinthClient({
-	userAgent: async () => `modrinth/theseus/${await appVersion} (support@freeplay.app)`,
+const tauriApiClient = new TauriFreePlayClient({
+	userAgent: async () => `freeplay/theseus/${await appVersion} (support@freeplay.app)`,
 	labrinthBaseUrl: config.labrinthBaseUrl,
 	archonBaseUrl: config.archonBaseUrl,
 	sharedInstancesBaseUrl: config.sharedInstancesBaseUrl,
@@ -286,8 +286,8 @@ const tauriApiClient = new TauriModrinthClient({
 		new VerboseLoggingFeature(),
 	],
 })
-provideModrinthClient(tauriApiClient)
-const { data: authenticatedModrinthUser } = useQuery({
+provideFreePlayClient(tauriApiClient)
+const { data: authenticatedFreePlayUser } = useQuery({
 	queryKey: computed(() => ['authenticated-user', 'campaigns', credentials.value?.user?.id]),
 	queryFn: () => tauriApiClient.labrinth.users_v3.getAuthenticated(),
 	enabled: () => !!credentials.value?.session,
@@ -307,7 +307,7 @@ const hasPlus = computed(
 	() =>
 		!!credentials.value?.user &&
 		(hasMidasBadge(credentials.value.user) ||
-			hasActivePride26Midas(authenticatedModrinthUser.value?.campaigns?.pride_26)),
+			hasActivePride26Midas(authenticatedFreePlayUser.value?.campaigns?.pride_26)),
 )
 const showAd = computed(
 	() => sidebarVisible.value && !hasPlus.value && credentials.value !== undefined,
@@ -359,8 +359,8 @@ const {
 	(iconPath) =>
 		creationGeneratedIcon.value?.path === iconPath ? creationGeneratedIcon.value.config : null,
 )
-const { hasLoggedIntoMinecraft, hasLoggedIntoModrinth, showChecklist } = onboardingChecklist
-const showFriendsList = computed(() => !showChecklist.value || hasLoggedIntoModrinth.value)
+const { hasLoggedIntoMinecraft, hasLoggedIntoFreePlay, showChecklist } = onboardingChecklist
+const showFriendsList = computed(() => !showChecklist.value || hasLoggedIntoFreePlay.value)
 
 async function randomizeCreationIcon() {
 	const generated = await creationIconEditorModal.value?.randomizeAndSave()
@@ -504,12 +504,12 @@ const messages = defineMessages({
 	},
 	adsConsentTitle: {
 		id: 'app.ads-consent.title',
-		defaultMessage: 'Your privacy and how ads support Modrinth',
+		defaultMessage: 'Your privacy and how ads support FreePlay',
 	},
 	adsConsentBody: {
 		id: 'app.ads-consent.body',
 		defaultMessage:
-			'Ads make Modrinth possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance.',
+			'Ads make FreePlay possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance.',
 	},
 	adsConsentManage: {
 		id: 'app.ads-consent.manage',
@@ -527,32 +527,32 @@ const messages = defineMessages({
 		id: 'app.nav.home',
 		defaultMessage: 'Home',
 	},
-	modrinthHosting: {
-		id: 'app.nav.modrinth-hosting',
+	freeplayHosting: {
+		id: 'app.nav.freeplay-hosting',
 		defaultMessage: 'FreePlay Server Hosting',
 	},
 	createNewInstance: {
 		id: 'app.nav.create-new-instance',
 		defaultMessage: 'Create new instance',
 	},
-	modrinthAccount: {
-		id: 'app.nav.modrinth-account',
+	freeplayAccount: {
+		id: 'app.nav.freeplay-account',
 		defaultMessage: 'FreePlay account',
 	},
 	signedInAs: {
 		id: 'app.nav.signed-in-as',
 		defaultMessage: 'Signed in as <user>{username}</user>',
 	},
-	signInToModrinthAccount: {
-		id: 'app.nav.sign-in-to-modrinth-account',
+	signInToFreePlayAccount: {
+		id: 'app.nav.sign-in-to-freeplay-account',
 		defaultMessage: 'Sign in to a FreePlay account',
 	},
 	restarting: {
 		id: 'app.restarting',
 		defaultMessage: 'Restarting...',
 	},
-	upgradeToModrinthPlus: {
-		id: 'app.nav.upgrade-to-modrinth-plus',
+	upgradeToFreePlayPlus: {
+		id: 'app.nav.upgrade-to-freeplay-plus',
 		defaultMessage: 'Upgrade to FreePlay+',
 	},
 	news: {
@@ -950,7 +950,7 @@ const installToPlayModal = ref()
 const sharedInstanceInviteHandler = ref()
 const updateToPlayModal = ref()
 
-const modrinthLoginModal = ref()
+const freeplayLoginModal = ref()
 const appSettingsModal = ref()
 provide(appSettingsModalOpenProfileKey, () => appSettingsModal.value?.showProfile())
 
@@ -1026,10 +1026,10 @@ async function signIn(flow = 'sign-in') {
 }
 
 async function requestSignIn(flow = 'sign-in') {
-	await modrinthLoginModal.value?.showSigningIn(flow)
+	await freeplayLoginModal.value?.showSigningIn(flow)
 }
 
-async function requestModrinthAuth(flow = 'sign-in') {
+async function requestFreePlayAuth(flow = 'sign-in') {
 	await signIn(flow)
 	return !!credentials.value?.session
 }
@@ -1115,7 +1115,7 @@ async function markLiveNotificationRead(notification) {
 	try {
 		await tauriApiClient.labrinth.notifications_v2.markAsRead(notification.id)
 	} catch (error) {
-		if (error instanceof ModrinthApiError && error.statusCode === 404) {
+		if (error instanceof FreePlayApiError && error.statusCode === 404) {
 			console.warn(`notification ${notification.id} could not be marked as read`, error)
 			return
 		}
@@ -1569,7 +1569,7 @@ setAppUpdateActions({
 	changelog: () => openUrl('https://freeplay.app/news/changelog?filter=app'),
 })
 
-async function openModrinthProjectLinkInApp(parsed) {
+async function openFreePlayProjectLinkInApp(parsed) {
 	const { slug, pathSuffix, url } = parsed
 	const loadToken = loading.begin()
 	try {
@@ -1581,7 +1581,7 @@ async function openModrinthProjectLinkInApp(parsed) {
 			hash: url.hash || undefined,
 		})
 	} catch (err) {
-		if (err instanceof ModrinthApiError && err.statusCode === 404) {
+		if (err instanceof FreePlayApiError && err.statusCode === 404) {
 			openUrl(url.href)
 		} else {
 			handleError(err)
@@ -1603,12 +1603,12 @@ function handleClick(e) {
 				!target.href.startsWith('https://tauri.localhost') &&
 				!target.href.startsWith('http://tauri.localhost')
 			) {
-				const userPath = parse_modrinth_user_link(target.href)
-				const parsed = parseModrinthLink(target.href)
+				const userPath = parse_freeplay_user_link(target.href)
+				const parsed = parseFreePlayLink(target.href)
 				if (userPath) {
 					void router.push(userPath)
 				} else if (target.target !== '_blank' && parsed) {
-					void openModrinthProjectLinkInApp(parsed)
+					void openFreePlayProjectLinkInApp(parsed)
 				} else {
 					openUrl(target.href)
 				}
@@ -1664,7 +1664,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			<AppSettingsModal ref="appSettingsModal" />
 		</Suspense>
 		<Suspense>
-			<FreePlayAccountRequiredModal ref="modrinthLoginModal" :request-auth="requestModrinthAuth" />
+			<FreePlayAccountRequiredModal ref="freeplayLoginModal" :request-auth="requestFreePlayAuth" />
 		</Suspense>
 		<CreationFlowModal
 			ref="installationModal"
@@ -1714,7 +1714,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 				<ShirtIcon />
 			</NavButton>
 			<NavButton
-				v-tooltip.right="formatMessage(messages.modrinthHosting)"
+				v-tooltip.right="formatMessage(messages.freeplayHosting)"
 				to="/hosting/manage"
 				:is-primary="(r) => r.path === '/hosting/manage' || r.path === '/hosting/manage/'"
 				:is-subpage="
@@ -1744,7 +1744,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			</NavButton>
 			<TeleportOverflowMenu
 				v-if="credentials?.user"
-				v-tooltip.right="formatMessage(messages.modrinthAccount)"
+				v-tooltip.right="formatMessage(messages.freeplayAccount)"
 				type="quiet"
 				size="xl"
 				:label="formatMessage(messages.moreOptions)"
@@ -1790,7 +1790,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			</TeleportOverflowMenu>
 			<NavButton
 				v-else
-				v-tooltip.right="formatMessage(messages.signInToModrinthAccount)"
+				v-tooltip.right="formatMessage(messages.signInToFreePlayAccount)"
 				:to="() => requestSignIn()"
 			>
 				<LogInIcon class="text-brand" />
@@ -1934,7 +1934,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 				<OnboardingChecklist
 					@create-instance="installationModal?.show()"
 					@login-minecraft="accounts?.login()"
-					@login-modrinth="signIn"
+					@login-freeplay="signIn"
 				/>
 				<div id="sidebar-teleport-target" class="sidebar-teleport-content"></div>
 				<div class="sidebar-default-content" :class="{ 'sidebar-enabled': sidebarVisible }">
@@ -1988,12 +1988,12 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			</div>
 			<template v-if="showAd">
 				<a
-					href="https://modrinth.plus?app"
+					href="https://freeplay.app/plus"
 					class="absolute bottom-[250px] w-full flex justify-center items-center gap-1 px-4 py-3 text-purple font-medium hover:underline z-10"
 					target="_blank"
 				>
 					<ArrowBigUpDashIcon class="text-2xl" />
-					{{ formatMessage(messages.upgradeToModrinthPlus) }}
+					{{ formatMessage(messages.upgradeToFreePlayPlus) }}
 				</a>
 				<PromotionWrapper />
 			</template>

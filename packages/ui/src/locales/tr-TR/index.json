@@ -99,7 +99,7 @@
     "defaultMessage": "Sorgunuz için sonuç bulunamadı!"
   },
   "browse.offline": {
-    "defaultMessage": "Şu anda çevrimdışısınız. Modrinth'de gezinmek için internet'e bağlanın!"
+    "defaultMessage": "Şu anda çevrimdışısınız. FreePlay'de gezinmek için internet'e bağlanın!"
   },
   "browse.search.placeholder": {
     "defaultMessage": "{projectType} araştır..."
@@ -227,8 +227,8 @@
   "button.open-in-folder": {
     "defaultMessage": "Klasörde aç"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "Modrinth'de aç"
+  "button.open-in-freeplay": {
+    "defaultMessage": "FreePlay'de aç"
   },
   "button.play": {
     "defaultMessage": "Oyna"
@@ -486,13 +486,13 @@
     "defaultMessage": "{count} kaldırıldı"
   },
   "content.diff-modal.reviewed-files": {
-    "defaultMessage": "Dosya formatı ne olursa olsun (.mrpack dahil), bir dosya yalnızca Modrinth'e yüklendiğinde denetlenir."
+    "defaultMessage": "Dosya formatı ne olursa olsun (.mrpack dahil), bir dosya yalnızca FreePlay'e yüklendiğinde denetlenir."
   },
   "content.diff-modal.unknown-content-body": {
     "defaultMessage": "Sunucundaki bazı içerikler analiz edilemedi ve bu değişiklikten etkilenebilir."
   },
   "content.diff-modal.unknown-files-description": {
-    "defaultMessage": "Bu güncelleme Modrinth'te yayınlanmamış doysalar barındırıyor. Yalnızca güvendiğiniz kaynaklardan dosya indirmenizi önemle tavsiye ederiz."
+    "defaultMessage": "Bu güncelleme FreePlay'te yayınlanmamış doysalar barındırıyor. Yalnızca güvendiğiniz kaynaklardan dosya indirmenizi önemle tavsiye ederiz."
   },
   "content.diff-modal.unknown-files-warning": {
     "defaultMessage": "Bilinmeyen dosya uyarısı"
@@ -861,7 +861,7 @@
     "defaultMessage": "Kurulumu Dışa aktar"
   },
   "creation-flow.modal.setup-type.option.modpack-base.description": {
-    "defaultMessage": "Modrinth'teki mod paketlerine göz atın veya bir dosyadan içe aktarın."
+    "defaultMessage": "FreePlay'teki mod paketlerine göz atın veya bir dosyadan içe aktarın."
   },
   "creation-flow.modal.setup-type.option.modpack-base.title": {
     "defaultMessage": "Modpack İndir"
@@ -989,8 +989,8 @@
   "external-files.permissions-card.editor.link-to-work-url-placeholder": {
     "defaultMessage": "çalışma-linki"
   },
-  "external-files.permissions-card.editor.modrinth-link-to-work": {
-    "defaultMessage": "Bu görünüşe göre bir Modrinth linkine benziyor. Eğer bu içerik Modrinth'te varsa, paketin muhtemelen hatalı aktarılmıştır. Eğer farklı bir siteden indirdiyseniz, Modrinth versiyonunu indirmeyi deneyin; bazen iki dosya aynı olmayabiliyor."
+  "external-files.permissions-card.editor.freeplay-link-to-work": {
+    "defaultMessage": "Bu görünüşe göre bir FreePlay linkine benziyor. Eğer bu içerik FreePlay'te varsa, paketin muhtemelen hatalı aktarılmıştır. Eğer farklı bir siteden indirdiyseniz, FreePlay versiyonunu indirmeyi deneyin; bazen iki dosya aynı olmayabiliyor."
   },
   "external-files.permissions-card.editor.notes-label": {
     "defaultMessage": "Notlar"
@@ -1014,7 +1014,7 @@
     "defaultMessage": "Eğer ki yüklediğin fotoğraflarla yalan söylediğin veya manipüle edildiğin tespit edilirse, projen veya hesabın devre dışı bırakılabilir."
   },
   "external-files.permissions-card.editor.proof-warning.title": {
-    "defaultMessage": "Modrinth çalışanları senin kanıtını doğrulayabilir"
+    "defaultMessage": "FreePlay çalışanları senin kanıtını doğrulayabilir"
   },
   "external-files.permissions-card.editor.save": {
     "defaultMessage": "Kaynak gösterme bilgisini sakla"
@@ -1101,7 +1101,7 @@
     "defaultMessage": "Otomatik olarak kaynak gösterildi"
   },
   "external-files.permissions-card.reason.globally-allowed.description": {
-    "defaultMessage": "Bu dosyayı daha önce gördük ve sizin için bir kaynak gösterdik. Bir şey yanlış görünürse, lütfen Modrinth Desteğinden üzerinden Yardım Merkezine ulaşın"
+    "defaultMessage": "Bu dosyayı daha önce gördük ve sizin için bir kaynak gösterdik. Bir şey yanlış görünürse, lütfen FreePlay Desteğinden üzerinden Yardım Merkezine ulaşın"
   },
   "external-files.permissions-card.reason.license": {
     "defaultMessage": "Lisans"
@@ -2589,16 +2589,16 @@
     "defaultMessage": "Sunucu değiştiğinde dosyaları güncel tut"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Modrinth Uygulaması Edin"
+    "defaultMessage": "FreePlay Uygulaması Edin"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Modrinth App otomatik olarak açılacak..."
+    "defaultMessage": "FreePlay App otomatik olarak açılacak..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "Modrinth App açılıyor"
+    "defaultMessage": "FreePlay App açılıyor"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "Neden Modrinth App kullanmalısın"
+    "defaultMessage": "Neden FreePlay App kullanmalısın"
   },
   "notification.error.title": {
     "defaultMessage": "Bir hata oluştu"
@@ -2630,8 +2630,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Moderatör"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Modrinth Ekibi"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlay Ekibi"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "Beklemede"
@@ -2751,7 +2751,7 @@
     "defaultMessage": "Visa"
   },
   "profile.bio.fallback.user": {
-    "defaultMessage": "Bir Modrinth kullanıcısı."
+    "defaultMessage": "Bir FreePlay kullanıcısı."
   },
   "profile.block-user.admonition-title": {
     "defaultMessage": "Bu kullanıcıyı engellemek istediğinize emin misiniz?"
@@ -3090,7 +3090,7 @@
     "defaultMessage": "{count} oynama"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "Modrinth'den son 2 haftada {count} oynama"
+    "defaultMessage": "FreePlay'den son 2 haftada {count} oynama"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "Bu proje özel bir mod paketi kullanmaktadır"
@@ -3402,7 +3402,7 @@
     "defaultMessage": "Projenizin birden fazla ortamı var"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "Daha yeni Modrinth'in Ortam sistemini tamamen yeniledik ve yeni ayarlar var. Lütfen aşağıda doğru ayarın şeçili olduğundan emin olun ve 'Doğrula' tuşuna basın!"
+    "defaultMessage": "Daha yeni FreePlay'in Ortam sistemini tamamen yeniledik ve yeni ayarlar var. Lütfen aşağıda doğru ayarın şeçili olduğundan emin olun ve 'Doğrula' tuşuna basın!"
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "Lütfen aşağıdaki ayarları inceleyin"
@@ -4389,13 +4389,13 @@
     "defaultMessage": "Onların Minecraft kullanıcı adlarını kullanmayın."
   },
   "servers.grant-access-modal.target.label": {
-    "defaultMessage": "Modrinth kullanıcı adı"
+    "defaultMessage": "FreePlay kullanıcı adı"
   },
   "servers.grant-access-modal.target.no-suggestions": {
     "defaultMessage": "Eşleşen kullanıcı bulunamadı."
   },
   "servers.grant-access-modal.target.placeholder": {
-    "defaultMessage": "Modrinth kullanıcı adınızı girin"
+    "defaultMessage": "FreePlay kullanıcı adınızı girin"
   },
   "servers.grant-access-modal.target.searching": {
     "defaultMessage": "Arama yapılıyor..."
@@ -4412,14 +4412,14 @@
   "servers.list-empty.already-have-server-label": {
     "defaultMessage": "Zaten sunucunuz var mı?"
   },
-  "servers.list-empty.modrinth-hosting-label": {
-    "defaultMessage": "Modrinth Hosting"
+  "servers.list-empty.freeplay-hosting-label": {
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.list-empty.new-server-button": {
     "defaultMessage": "Yeni sunucu"
   },
   "servers.list-empty.no-servers-description": {
-    "defaultMessage": "Mod kur, arkadaş davet et, birlikte oyna ve hepsini Modrinth App'ten yap."
+    "defaultMessage": "Mod kur, arkadaş davet et, birlikte oyna ve hepsini FreePlay App'ten yap."
   },
   "servers.list-empty.one-click-mod-installs-description": {
     "defaultMessage": "Beğendiğiniz modları seçin ve biz geri kalan işi hallederiz."
@@ -4428,7 +4428,7 @@
     "defaultMessage": "Tek-tıklamada mod kurma"
   },
   "servers.list-empty.play-with-friends-description": {
-    "defaultMessage": "Arkadaşlarınızı davet edin ve onları doğrudan Modrinth App'den ayarlayın."
+    "defaultMessage": "Arkadaşlarınızı davet edin ve onları doğrudan FreePlay App'den ayarlayın."
   },
   "servers.list-empty.play-with-friends-title": {
     "defaultMessage": "Arkadaşlarınızla oynayın"
@@ -4482,7 +4482,7 @@
     "defaultMessage": "Aboneliğiniz <date>{formattedDate}</date> tarihinde iptal edilmek üzere ayarlanmıştır. "
   },
   "servers.listing.notice.suspended": {
-    "defaultMessage": "Sunucunuz askıya alındı. Daha fazla bilgi için lütfen Modrinth Destek ile iletişime geçin."
+    "defaultMessage": "Sunucunuz askıya alındı. Daha fazla bilgi için lütfen FreePlay Destek ile iletişime geçin."
   },
   "servers.listing.notice.upgrading": {
     "defaultMessage": "Sunucunuzun donanımı şu anda yükseltilmektedir ve kısa süre içinde tekrar çevrimiçi olacaktır."
@@ -4515,7 +4515,7 @@
     "defaultMessage": "Yükleme devam etmekte"
   },
   "servers.manage.contact-support-button": {
-    "defaultMessage": "Modrinth Destek ile İletişime Geçin"
+    "defaultMessage": "FreePlay Destek ile İletişime Geçin"
   },
   "servers.manage.error.alert-notice": {
     "defaultMessage": "Sistemlerimiz bir sorun olduğunda ekibimizi otomatik olarak uyarır. Onları tekrar çevrimiçi hale getirmek için zaten çalışıyoruz."
@@ -4527,10 +4527,10 @@
     "defaultMessage": "Hata detayları:"
   },
   "servers.manage.error.queue-notice": {
-    "defaultMessage": "Modrinth Hosting sunucunuzu yakın zamanda satın aldıysanız, şu anda bir kuyruktadır ve hazır olur olmaz burada görünecektir. <warning>Yeni bir sunucu satın almaya çalışmayın</warning>"
+    "defaultMessage": "FreePlay Hosting sunucunuzu yakın zamanda satın aldıysanız, şu anda bir kuyruktadır ve hazır olur olmaz burada görünecektir. <warning>Yeni bir sunucu satın almaya çalışmayın</warning>"
   },
   "servers.manage.error.support-notice": {
-    "defaultMessage": "Sunucunuzun durumu ile ilgili kişiselleştirilmiş desteğe ihtiyacınız varsa, lütfen Modrinth Destek ile iletişime geçin."
+    "defaultMessage": "Sunucunuzun durumu ile ilgili kişiselleştirilmiş desteğe ihtiyacınız varsa, lütfen FreePlay Destek ile iletişime geçin."
   },
   "servers.manage.error.title": {
     "defaultMessage": "Sunucular yüklenemedi"
@@ -4560,7 +4560,7 @@
     "defaultMessage": "Yeniden başlat"
   },
   "servers.manage.resubscribe-error.text": {
-    "defaultMessage": "Modrinth sunucuna yeniden abone olurken hata oluştu."
+    "defaultMessage": "FreePlay sunucuna yeniden abone olurken hata oluştu."
   },
   "servers.manage.resubscribe-error.title": {
     "defaultMessage": "Yeniden abone olurken hata"
@@ -4581,7 +4581,7 @@
     "defaultMessage": "{count} {count, plural, one {server} other {servers}} sonuç bulundu..."
   },
   "servers.manage.servers-title": {
-    "defaultMessage": "Modrinth Hosting"
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.manage.settings-hint.description": {
     "defaultMessage": "Artık burada bulunabilirler!"
@@ -4608,10 +4608,10 @@
     "defaultMessage": "Medal sunucu denemeniz sona erdi ve sunucunuz askıya alındı. Sunucunuzu kullanmaya devam etmek için lütfen yükseltin."
   },
   "servers.medal-listing.notice.suspended": {
-    "defaultMessage": "Sunucunuz askıya alındı. Lütfen fatura bilgilerinizi güncelleyin veya daha fazla bilgi için Modrinth Destek ile iletişime geçin."
+    "defaultMessage": "Sunucunuz askıya alındı. Lütfen fatura bilgilerinizi güncelleyin veya daha fazla bilgi için FreePlay Destek ile iletişime geçin."
   },
   "servers.medal-listing.notice.suspended-with-reason": {
-    "defaultMessage": "Sunucunuz şu sebepten askıya alındı: {reason}. Lütfen fatura bilgilerinizi güncelleyin veya daha fazla bilgi için Modrinth Destek ile iletişime geçin."
+    "defaultMessage": "Sunucunuz şu sebepten askıya alındı: {reason}. Lütfen fatura bilgilerinizi güncelleyin veya daha fazla bilgi için FreePlay Destek ile iletişime geçin."
   },
   "servers.medal-listing.notice.upgrading": {
     "defaultMessage": "Sunucunuzun donanımı şu anda yükseltilmektedir ve kısa süre içinde tekrar çevrimiçi olacaktır."
@@ -4659,7 +4659,7 @@
     "defaultMessage": "Görmezden gelinemez"
   },
   "servers.purchase.notification.success.text": {
-    "defaultMessage": "Modrinth Hosting satın alma işleminiz başarıyla tamamlandı."
+    "defaultMessage": "FreePlay Hosting satın alma işleminiz başarıyla tamamlandı."
   },
   "servers.purchase.notification.success.title": {
     "defaultMessage": "Satın alım başarılı"
@@ -4749,7 +4749,7 @@
     "defaultMessage": "Sunucunun nerede bulunmasını istersin?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "Bölgen listede yok mu? <link>Modrinth Hosting'i gelecekte nerede görmek istediğini bize söyle!</link>"
+    "defaultMessage": "Bölgen listede yok mu? <link>FreePlay Hosting'i gelecekte nerede görmek istediğini bize söyle!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "Güneydoğu Asya"
@@ -4821,7 +4821,7 @@
     "defaultMessage": "Sunucu kur"
   },
   "servers.setup.onboarding.step.choose.description": {
-    "defaultMessage": "Modrinth'ten favori mod paketinizi seçin veya bir yükleyici seçin ve istediğiniz modları ekleyin."
+    "defaultMessage": "FreePlay'ten favori mod paketinizi seçin veya bir yükleyici seçin ve istediğiniz modları ekleyin."
   },
   "servers.setup.onboarding.step.choose.title": {
     "defaultMessage": "Ne oynayacağınızı seçin"
@@ -4848,7 +4848,7 @@
     "defaultMessage": "Sunucunuz hazır. İşte oynamaya başlamak için yapmanız gerekenler!"
   },
   "servers.setup.onboarding.welcome.title": {
-    "defaultMessage": "Modrinth Hosting'e Hoş Geldiniz"
+    "defaultMessage": "FreePlay Hosting'e Hoş Geldiniz"
   },
   "servers.setup.rate-limit.text": {
     "defaultMessage": "Sınırlandırılıyorsunuz. Lütfen sonra tekrar deneyin."
@@ -4887,7 +4887,7 @@
     "defaultMessage": "Karanlık"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "Modrinth için bu cihazda tercih ettiğiniz renk temasını seçin."
+    "defaultMessage": "FreePlay için bu cihazda tercih ettiğiniz renk temasını seçin."
   },
   "settings.display.theme.light": {
     "defaultMessage": "Aydınlık"
@@ -5496,34 +5496,34 @@
     "defaultMessage": "Kötü amaçlı yazılımlar, genellikle Discord gibi platformlarda paylaşılan mod dosyaları aracılığıyla yayılmaktadır."
   },
   "unknown-file-warning-modal.mod-warning-body": {
-    "defaultMessage": " Modrinth'te paylaşılmamış. Yalnızca güvendiğiniz kaynaklardan gelen dosyaları yüklemenizi önemle tavsiye ederiz."
+    "defaultMessage": " FreePlay'te paylaşılmamış. Yalnızca güvendiğiniz kaynaklardan gelen dosyaları yüklemenizi önemle tavsiye ederiz."
   },
   "unknown-file-warning-modal.mod-warning-title": {
     "defaultMessage": "Bilinmeyen dosya uyarısı"
   },
   "unknown-file-warning-modal.modpack-warning-body": {
-    "defaultMessage": " Modrinth'te yayınlanmamış doysalar barındırıyor. Yalnızca güvendiğiniz kaynaklardan dosya indirmenizi önemle tavsiye ederiz."
+    "defaultMessage": " FreePlay'te yayınlanmamış doysalar barındırıyor. Yalnızca güvendiğiniz kaynaklardan dosya indirmenizi önemle tavsiye ederiz."
   },
   "unknown-file-warning-modal.modpack-warning-title": {
     "defaultMessage": "Bilinmeyen dosya uyarısı"
   },
   "unknown-file-warning-modal.reviewed-files": {
-    "defaultMessage": "Dosya formatı ne olursa olsun (.mrpack dahil), bir dosya yalnızca Modrinth'e yüklendiğinde denetlenir."
+    "defaultMessage": "Dosya formatı ne olursa olsun (.mrpack dahil), bir dosya yalnızca FreePlay'e yüklendiğinde denetlenir."
   },
   "unknown-file-warning-modal.unrecognized-files": {
     "defaultMessage": "Tanımlanamayan dosyalar"
   },
   "user.profile.badge.alpha.about.1": {
-    "defaultMessage": "Bu kullanıcı, Modrinth Alpha'nın başladığı tarihten beri aktif durumda; bu dönem Kasım 2020 itibarıyla sona ermiştir."
+    "defaultMessage": "Bu kullanıcı, FreePlay Alpha'nın başladığı tarihten beri aktif durumda; bu dönem Kasım 2020 itibarıyla sona ermiştir."
   },
   "user.profile.badge.alpha.name": {
     "defaultMessage": "Alfa Test Kullanıcısı"
   },
   "user.profile.badge.beta.about.1": {
-    "defaultMessage": "Bu kullanıcı, Şubat 2022'de sona eren Modrinth Beta sürümünden beri aktif durumda."
+    "defaultMessage": "Bu kullanıcı, Şubat 2022'de sona eren FreePlay Beta sürümünden beri aktif durumda."
   },
   "user.profile.badge.beta.link": {
-    "defaultMessage": "Modrinth Beta'nın lansmanı hakkında bilgi edinmek için tıklayın."
+    "defaultMessage": "FreePlay Beta'nın lansmanı hakkında bilgi edinmek için tıklayın."
   },
   "user.profile.badge.beta.name": {
     "defaultMessage": "Deneme Kullanıcısı"
@@ -5535,19 +5535,19 @@
     "defaultMessage": "{download_sum} İndirme"
   },
   "user.profile.badge.early-datapack-adopter.about.1": {
-    "defaultMessage": "Bu kullanıcı, Ocak 2023'te yayınlamadan önce Modrinth üzerinde Data Pack projelerini test etmemize yardımcı oldu."
+    "defaultMessage": "Bu kullanıcı, Ocak 2023'te yayınlamadan önce FreePlay üzerinde Data Pack projelerini test etmemize yardımcı oldu."
   },
   "user.profile.badge.early-datapack-adopter.name": {
     "defaultMessage": "Erken Veri Paketı Kullanıcısı"
   },
   "user.profile.badge.early-modpack-adopter.about.1": {
-    "defaultMessage": "Bu kullanıcı, Mayıs 2022'de yayınlamadan önce Modrinth üzerinde Modpack projelerini test etmemize yardımcı oldu."
+    "defaultMessage": "Bu kullanıcı, Mayıs 2022'de yayınlamadan önce FreePlay üzerinde Modpack projelerini test etmemize yardımcı oldu."
   },
   "user.profile.badge.early-modpack-adopter.name": {
     "defaultMessage": "Erken Mod Paket Kullanıcısı"
   },
   "user.profile.badge.early-plugin-adopter.about.1": {
-    "defaultMessage": "Bu kullanıcı, modları Ağustos 2022'de yayınlamadan önce Modrinth üzerinde Plugin projelerini test etmemize yardımcı oldu."
+    "defaultMessage": "Bu kullanıcı, modları Ağustos 2022'de yayınlamadan önce FreePlay üzerinde Plugin projelerini test etmemize yardımcı oldu."
   },
   "user.profile.badge.early-plugin-adopter.name": {
     "defaultMessage": "Erken Dönemde Eklenti Kullanıcısı"
@@ -5559,43 +5559,43 @@
     "defaultMessage": ""
   },
   "user.profile.badge.early-server-adopter.about.1": {
-    "defaultMessage": "Bu kullanıcı, sunucu projelerini Mart 2026'da yayınlamadan önce Modrinth üzerinde test etmemize yardımcı oldu."
+    "defaultMessage": "Bu kullanıcı, sunucu projelerini Mart 2026'da yayınlamadan önce FreePlay üzerinde test etmemize yardımcı oldu."
   },
   "user.profile.badge.early-server-adopter.name": {
     "defaultMessage": "Erken Sunucu Benimseyen"
   },
   "user.profile.badge.early-shader-adopter.about.1": {
-    "defaultMessage": "Bu kullanıcı, modları Ocak 2023'te yayınlamadan önce Shader projelerini Modrinth üzerinde test etmemize yardımcı oldu."
+    "defaultMessage": "Bu kullanıcı, modları Ocak 2023'te yayınlamadan önce Shader projelerini FreePlay üzerinde test etmemize yardımcı oldu."
   },
   "user.profile.badge.early-shader-adopter.name": {
     "defaultMessage": "Erken Shader Kullanıcısı"
   },
   "user.profile.badge.hosting-alpha.about.1": {
-    "defaultMessage": "Bu kullanıcı, Modrinth Hosting'in Kasım 2024'te yayınlanacak beta sürümünü piyasaya sürmeden önce gerçekleştirdiğimiz kapalı alfa testine katılmıştır."
+    "defaultMessage": "Bu kullanıcı, FreePlay Hosting'in Kasım 2024'te yayınlanacak beta sürümünü piyasaya sürmeden önce gerçekleştirdiğimiz kapalı alfa testine katılmıştır."
   },
   "user.profile.badge.hosting-alpha.name": {
-    "defaultMessage": "Modrinth Barındırma Alfa Testi"
+    "defaultMessage": "FreePlay Barındırma Alfa Testi"
   },
   "user.profile.badge.moderator.about.1": {
-    "defaultMessage": "Bu kullanıcı, Modrinth için içerik moderatörü olarak çalışmaktadır."
+    "defaultMessage": "Bu kullanıcı, FreePlay için içerik moderatörü olarak çalışmaktadır."
   },
   "user.profile.badge.moderator.about.2": {
-    "defaultMessage": "Modrinth'daki içerik denetleyicileri, projeleri inceler, raporları işler ve Modrinth'in güvenliğini sağlamaya yardımcı olur."
+    "defaultMessage": "FreePlay'daki içerik denetleyicileri, projeleri inceler, raporları işler ve FreePlay'in güvenliğini sağlamaya yardımcı olur."
   },
   "user.profile.badge.moderator.name": {
     "defaultMessage": "İçerik Moderatörü"
   },
   "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Bu kullanıcı, Modrinth ve platformdaki yaratıcıları desteklemek için elinden geleni yapmaktadır."
+    "defaultMessage": "Bu kullanıcı, FreePlay ve platformdaki yaratıcıları desteklemek için elinden geleni yapmaktadır."
   },
   "user.profile.badge.plus.link": {
     "defaultMessage": "Üyeliğe nasıl katılabileceğiniz hakkında daha fazla bilgi edinmek için tıklayın."
   },
   "user.profile.badge.plus.name": {
-    "defaultMessage": "Modrinth+ Üyesi"
+    "defaultMessage": "FreePlay+ Üyesi"
   },
   "user.profile.badge.pride.about.1": {
-    "defaultMessage": "Bu kullanıcı, Modrinth'in LGBTQ+ topluluğu için düzenlediği en az bir Pride bağış kampanyasına katılmıştır."
+    "defaultMessage": "Bu kullanıcı, FreePlay'in LGBTQ+ topluluğu için düzenlediği en az bir Pride bağış kampanyasına katılmıştır."
   },
   "user.profile.badge.pride.link": {
     "defaultMessage": "En son Onur Ayı bağış kampanyamızı ziyaret etmek için tıklayın."
@@ -5604,10 +5604,10 @@
     "defaultMessage": "Onur Ayı Bağış Toplama Etkinliği Destekçisi"
   },
   "user.profile.badge.staff.about.1": {
-    "defaultMessage": "Bu kullanıcı Modrinth'te çalışıyor."
+    "defaultMessage": "Bu kullanıcı FreePlay'te çalışıyor."
   },
   "user.profile.badge.staff.name": {
-    "defaultMessage": "Modrinth Ekibi"
+    "defaultMessage": "FreePlay Ekibi"
   },
   "version.content.name": {
     "defaultMessage": "İsim"

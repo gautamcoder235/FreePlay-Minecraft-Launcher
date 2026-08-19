@@ -416,8 +416,8 @@
   "omorphia.component.badge.label.failed": {
     "defaultMessage": "ไม่สำเร็จ"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "ทีม Modrinth"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "ทีม FreePlay"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "กําลังดำเนินการ"
@@ -633,7 +633,7 @@
     "defaultMessage": "มืด"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "เลือกธีมสีที่คุณต้องการสำหรับ Modrinth บนอุปกรณ์นี้"
+    "defaultMessage": "เลือกธีมสีที่คุณต้องการสำหรับ FreePlay บนอุปกรณ์นี้"
   },
   "settings.display.theme.light": {
     "defaultMessage": "สว่าง"

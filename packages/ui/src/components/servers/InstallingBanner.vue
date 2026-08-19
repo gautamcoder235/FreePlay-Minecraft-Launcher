@@ -34,7 +34,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import { Button } from '#ui/components/base/buttons'
 import { defineMessages, useVIntl } from '#ui/composables/i18n'
-import { injectModrinthServerContext } from '#ui/providers'
+import { injectFreePlayServerContext } from '#ui/providers'
 import { commonMessages } from '#ui/utils/common-messages'
 import { formatLoaderLabel } from '#ui/utils/loaders'
 
@@ -51,7 +51,7 @@ const emit = defineEmits<{
 }>()
 
 const { formatMessage } = useVIntl()
-const { installation } = injectModrinthServerContext()
+const { installation } = injectFreePlayServerContext()
 
 const messages = defineMessages({
 	errorHeader: {
@@ -158,7 +158,7 @@ const headerLabel = computed(() => {
 				version: current.key.game_version,
 			})
 		}
-		case 'modrinth_modpack':
+		case 'freeplay_modpack':
 			return formatMessage(
 				current.status === 'failed' ? messages.modpackErrorHeader : messages.installingModpack,
 			)

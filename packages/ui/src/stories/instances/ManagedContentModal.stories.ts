@@ -17,7 +17,7 @@ const sodiumItem: ContentItem = {
 		slug: 'sodium',
 		title: 'Sodium',
 		icon_url:
-			'https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
+			'https://cdn.freeplay.app/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
 	},
 	version: {
 		id: '59wygFUQ',
@@ -46,7 +46,7 @@ const lithiumItem: ContentItem = {
 		slug: 'lithium',
 		title: 'Lithium',
 		icon_url:
-			'https://cdn.modrinth.com/data/gvQqBUqZ/d6a1873d52b7d1c82b9a8d9b1889c9c1a29ae92d_96.webp',
+			'https://cdn.freeplay.app/data/gvQqBUqZ/d6a1873d52b7d1c82b9a8d9b1889c9c1a29ae92d_96.webp',
 	},
 	version: {
 		id: 'abc123',
@@ -74,7 +74,7 @@ const fabricApiItem: ContentItem = {
 		id: 'P7dR8mSH',
 		slug: 'fabric-api',
 		title: 'Fabric API',
-		icon_url: 'https://cdn.modrinth.com/data/P7dR8mSH/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/P7dR8mSH/icon.png',
 	},
 	version: {
 		id: 'Lwa1Q6e4',
@@ -84,7 +84,7 @@ const fabricApiItem: ContentItem = {
 	owner: {
 		id: 'BZoBsPo6',
 		name: 'FabricMC',
-		avatar_url: 'https://cdn.modrinth.com/data/P7dR8mSH/icon.png',
+		avatar_url: 'https://cdn.freeplay.app/data/P7dR8mSH/icon.png',
 		type: 'organization',
 	},
 	has_update: false,
@@ -102,7 +102,7 @@ const modMenuItem: ContentItem = {
 		id: 'mOgUt4GM',
 		slug: 'modmenu',
 		title: 'Mod Menu',
-		icon_url: 'https://cdn.modrinth.com/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
+		icon_url: 'https://cdn.freeplay.app/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
 	},
 	version: {
 		id: 'QuU0ciaR',
@@ -129,7 +129,7 @@ const irisItem: ContentItem = {
 		id: 'YL57xq9U',
 		slug: 'iris',
 		title: 'Iris Shaders',
-		icon_url: 'https://cdn.modrinth.com/data/YL57xq9U/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/YL57xq9U/icon.png',
 	},
 	version: {
 		id: 'iris123',
@@ -157,7 +157,7 @@ const entityModelFeaturesItem: ContentItem = {
 		slug: 'entity-model-features',
 		title: '[EMF] Entity Model Features',
 		icon_url:
-			'https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
+			'https://cdn.freeplay.app/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp',
 	},
 	version: {
 		id: 'emfv1',
@@ -184,7 +184,7 @@ const entityTextureFeaturesItem: ContentItem = {
 		id: 'etf456',
 		slug: 'entity-texture-features',
 		title: '[ETF] Entity Texture Features',
-		icon_url: 'https://cdn.modrinth.com/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
+		icon_url: 'https://cdn.freeplay.app/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png',
 	},
 	version: {
 		id: 'etfv1',
@@ -211,7 +211,7 @@ const complementaryShaderItem: ContentItem = {
 		id: 'shader1',
 		slug: 'complementary-reimagined',
 		title: 'Complementary Reimagined',
-		icon_url: 'https://cdn.modrinth.com/data/HVnmMxH1/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/HVnmMxH1/icon.png',
 	},
 	version: {
 		id: 'shaderv1',
@@ -238,7 +238,7 @@ const bslShaderItem: ContentItem = {
 		id: 'shader2',
 		slug: 'bsl-shaders',
 		title: 'BSL Shaders',
-		icon_url: 'https://cdn.modrinth.com/data/Q1vvjJYV/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/Q1vvjJYV/icon.png',
 	},
 	version: {
 		id: 'shaderv2',
@@ -265,7 +265,7 @@ const faithfulItem: ContentItem = {
 		id: 'rp1',
 		slug: 'faithful-32x',
 		title: 'Faithful 32x',
-		icon_url: 'https://cdn.modrinth.com/data/tAnpCviC/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/tAnpCviC/icon.png',
 	},
 	version: {
 		id: 'rpv1',
@@ -275,7 +275,7 @@ const faithfulItem: ContentItem = {
 	owner: {
 		id: 'faithful',
 		name: 'Faithful Resource Pack',
-		avatar_url: 'https://cdn.modrinth.com/data/tAnpCviC/icon.png',
+		avatar_url: 'https://cdn.freeplay.app/data/tAnpCviC/icon.png',
 		type: 'organization',
 	},
 	has_update: false,
@@ -320,7 +320,7 @@ const stayTrueItem: ContentItem = {
 		id: 'rp3',
 		slug: 'stay-true',
 		title: 'Stay True',
-		icon_url: 'https://cdn.modrinth.com/data/HVnmMxH1/icon.png',
+		icon_url: 'https://cdn.freeplay.app/data/HVnmMxH1/icon.png',
 	},
 	version: {
 		id: 'rpv3',
@@ -411,7 +411,7 @@ export const Default: Story = {
 				<ManagedContentModal
 					ref="modalRef"
 					source-name="Cobblemon Official Modpack"
-					source-icon-url="https://cdn.modrinth.com/data/5FFgwNNP/icon.png"
+					source-icon-url="https://cdn.freeplay.app/data/5FFgwNNP/icon.png"
 				/>
 			</div>
 		`,
@@ -454,7 +454,7 @@ export const LoadingState: Story = {
 				<ManagedContentModal
 					ref="modalRef"
 					source-name="Fabulously Optimized"
-					source-icon-url="https://cdn.modrinth.com/data/1KVo5zza/icon.png"
+					source-icon-url="https://cdn.freeplay.app/data/1KVo5zza/icon.png"
 				/>
 			</div>
 		`,
@@ -492,7 +492,7 @@ export const LargeModpack: Story = {
 				<ManagedContentModal
 					ref="modalRef"
 					source-name="All the Mods 10"
-					source-icon-url="https://cdn.modrinth.com/data/1KVo5zza/icon.png"
+					source-icon-url="https://cdn.freeplay.app/data/1KVo5zza/icon.png"
 				/>
 			</div>
 		`,

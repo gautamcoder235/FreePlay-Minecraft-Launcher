@@ -303,14 +303,14 @@ import SaveBanner from '#ui/components/servers/SaveBanner.vue'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import { injectServerSettings } from '#ui/layouts/shared/server-settings'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 
 const { addNotification } = injectNotificationManager()
-const client = injectModrinthClient()
-const { serverId, worldId, powerState, busyReasons } = injectModrinthServerContext()
+const client = injectFreePlayClient()
+const { serverId, worldId, powerState, busyReasons } = injectFreePlayServerContext()
 const queryClient = useQueryClient()
 const { canUseAdvancedSettings, canUsePowerActions, permissionDeniedMessage } =
 	useServerPermissions()

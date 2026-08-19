@@ -258,7 +258,7 @@
 					<template #markdown-link="{ children }">
 						<a
 							class="markdown-resource-link"
-							href="https://support.modrinth.com/en/articles/8801962-advanced-markdown-formatting"
+							href="https://support.freeplay.app/en/articles/8801962-advanced-markdown-formatting"
 							target="_blank"
 						>
 							<component :is="() => children" />
@@ -322,7 +322,7 @@ import {
 	XIcon,
 	YouTubeIcon,
 } from '@freeplay/assets'
-import { markdownCommands, modrinthMarkdownEditorKeymap } from '@freeplay/utils/codemirror'
+import { markdownCommands, freeplayMarkdownEditorKeymap } from '@freeplay/utils/codemirror'
 import { renderHighlightedString } from '@freeplay/utils/highlightjs'
 import { type Component, computed, onBeforeUnmount, onMounted, ref, toRef, useId, watch } from 'vue'
 
@@ -695,7 +695,7 @@ onMounted(() => {
 			eventHandlers,
 			updateListener,
 			keymap.of([indentWithTab]),
-			keymap.of(modrinthMarkdownEditorKeymap),
+			keymap.of(freeplayMarkdownEditorKeymap),
 			history(),
 			markdown({
 				addKeymap: false,

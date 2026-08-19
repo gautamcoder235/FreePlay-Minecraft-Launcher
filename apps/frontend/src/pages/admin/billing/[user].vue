@@ -146,7 +146,7 @@
 								<ModrinthPlusIcon class="h-7 w-min" />
 							</template>
 							<template v-else-if="subscription.metadata?.type === 'pyro'">
-								<ModrinthServersIcon class="h-7 w-min" />
+								<FreePlayServersIcon class="h-7 w-min" />
 							</template>
 							<template v-else-if="subscription.metadata?.type === 'medal'">
 								<span>Medal Trial Server</span>
@@ -226,7 +226,7 @@ import { DEFAULT_CREDIT_EMAIL_MESSAGE } from '@freeplay/utils/utils.ts'
 import { useQuery } from '@tanstack/vue-query'
 import dayjs from 'dayjs'
 
-import ModrinthServersIcon from '~/components/brand/ModrinthServersIcon.vue'
+import FreePlayServersIcon from '~/components/brand/FreePlayServersIcon.vue'
 import AdminBillingChargeCard from '~/components/ui/admin/AdminBillingChargeCard.vue'
 
 const { addNotification } = injectNotificationManager()

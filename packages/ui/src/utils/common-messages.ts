@@ -228,8 +228,8 @@ export const commonMessages = defineMessages({
 		id: 'button.open-in-browser',
 		defaultMessage: 'Open in browser',
 	},
-	openInModrinthButton: {
-		id: 'button.open-in-modrinth',
+	openInFreePlayButton: {
+		id: 'button.open-in-freeplay',
 		defaultMessage: 'Open in FreePlay',
 	},
 	orLabel: {

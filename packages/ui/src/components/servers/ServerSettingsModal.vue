@@ -18,8 +18,8 @@ import {
 } from '#ui/layouts/shared/server-settings'
 import { provideServerSettings } from '#ui/layouts/shared/server-settings/providers/server-settings'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 import { commonMessages } from '#ui/utils/common-messages'
@@ -41,7 +41,7 @@ const props = defineProps<{
 
 const { formatMessage } = useVIntl()
 const queryClient = useQueryClient()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const { addNotification } = injectNotificationManager()
 
 const messages = defineMessages({
@@ -53,7 +53,7 @@ const messages = defineMessages({
 
 const modal = ref<InstanceType<typeof TabbedModal> | null>(null)
 
-const { serverId: currentServerId, worldId, server } = injectModrinthServerContext()
+const { serverId: currentServerId, worldId, server } = injectFreePlayServerContext()
 
 const currentUserId = ref<string | null>(null)
 const currentUserRole = ref<string | null>(null)
@@ -110,7 +110,7 @@ const tabs = computed<TabbedModalTab[]>(() =>
 			return {
 				name,
 				icon: tab.icon,
-				href: tab.href ? `https://modrinth.com${tab.href(ctx)}` : undefined,
+				href: tab.href ? `https://freeplay.app${tab.href(ctx)}` : undefined,
 				shown,
 			}
 		}

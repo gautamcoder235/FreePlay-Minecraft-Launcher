@@ -35,7 +35,7 @@ Files inside `layouts/` use the `#ui/*` import alias (resolved via the `"imports
 All frontend packages share a Tailwind preset at `packages/tooling-config/tailwind/tailwind-preset.ts`. This package's `tailwind.config.ts` extends it:
 
 ```ts
-import preset from '@modrinth/tooling-config/tailwind/tailwind-preset.ts'
+import preset from '@freeplay/tooling-config/tailwind/tailwind-preset.ts'
 ```
 
 CSS custom properties are defined in `packages/assets/styles/variables.scss` with light, dark, and OLED theme variants.
@@ -78,7 +78,7 @@ This package defines the DI layer using `createContext` from `src/providers/inde
 
 Key providers exported from this package:
 
-- `provideModrinthClient` / `injectModrinthClient` — API client
+- `provideFreePlayClient` / `injectFreePlayClient` — API client
 - `provideNotificationManager` / `injectNotificationManager` — Notifications
 
 ## Vue Template Rules

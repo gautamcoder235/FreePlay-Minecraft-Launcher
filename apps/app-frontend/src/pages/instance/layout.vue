@@ -687,7 +687,7 @@ const repairInstance = async () => {
 	if (!currentInstance || currentInstance.quarantined) return
 	if (
 		currentInstance.install_stage !== 'pack_installed' &&
-		(currentInstance.link?.type === 'modrinth_modpack' ||
+		(currentInstance.link?.type === 'freeplay_modpack' ||
 			currentInstance.link?.type === 'server_project_modpack')
 	) {
 		await install_pack_to_existing_instance(currentInstance.id, {

@@ -59,8 +59,8 @@ import { ServerIcon, TeleportOverflowMenu } from '#ui/components'
 import { useServerImage } from '#ui/composables'
 import { useVIntl } from '#ui/composables/i18n'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 import { commonMessages } from '#ui/utils/common-messages'
@@ -78,8 +78,8 @@ const props = withDefaults(
 
 const { addNotification } = injectNotificationManager()
 const { formatMessage } = useVIntl()
-const client = injectModrinthClient()
-const { serverId, server } = injectModrinthServerContext()
+const client = injectFreePlayClient()
+const { serverId, server } = injectFreePlayServerContext()
 const queryClient = useQueryClient()
 const isUploadingIcon = ref(false)
 const isSyncingIcon = ref(false)

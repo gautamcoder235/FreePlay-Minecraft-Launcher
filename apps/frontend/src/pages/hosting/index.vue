@@ -4,7 +4,7 @@
 		data-pyro
 		class="servers-hero relative isolate -mt-44 h-full min-h-screen pt-8"
 	>
-		<ModrinthServersPurchaseModal
+		<FreePlayServersPurchaseModal
 			v-if="customer"
 			:key="`purchase-modal-${customer.id}`"
 			ref="purchaseModal"
@@ -641,7 +641,7 @@ import {
 	injectModrinthClient,
 	injectNotificationManager,
 	IntlFormatted,
-	ModrinthServersPurchaseModal,
+	FreePlayServersPurchaseModal,
 	OptionGroup,
 	TagIcon,
 	useFormatPrice,

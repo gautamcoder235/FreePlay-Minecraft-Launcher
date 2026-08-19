@@ -16,7 +16,7 @@ import { nextTick, ref } from 'vue'
 import FreePlayAccountRequiredModal from '@/components/ui/modal/FreePlayAccountRequiredModal.vue'
 import SharedInstanceInstallModal from '@/components/ui/shared-instances/shared-instance-install-modal/index.vue'
 import SharedInstanceAlreadyInstalledModal from '@/components/ui/shared-instances/SharedInstanceAlreadyInstalledModal.vue'
-import type { ModrinthAuthFlow } from '@/helpers/mr_auth'
+import type { FreePlayAuthFlow } from '@/helpers/mr_auth'
 
 import type { SharedInstanceInviteHandler } from './shared-instance-invite-types'
 import { useSharedInstanceInviteHandler } from './use-shared-instance-invite-handler'
@@ -34,7 +34,7 @@ const {
 	handleAlreadyInstalledInstallAnyway,
 } = useSharedInstanceInviteHandler(installModal, alreadyInstalledModal, accountRequiredModal)
 
-async function requestAuth(flow: ModrinthAuthFlow) {
+async function requestAuth(flow: FreePlayAuthFlow) {
 	await auth.requestSignIn('', flow, { showModal: false })
 	await nextTick()
 	return !!auth.session_token.value

@@ -25,7 +25,7 @@ const MODPACK_FILES: FileTreeSelectItem[] = [
 	{ path: 'datapacks/terralith.zip', size: 17452213, modified: modified - 4200 },
 	{ path: 'icon.png', size: 128044, modified: modified - 5000 },
 	{ path: 'profile.json', size: 928, modified: modified - 400, disabled: true },
-	{ path: 'modrinth_logs/launcher.log', size: 224018, modified: modified - 100, disabled: true },
+	{ path: 'freeplay_logs/launcher.log', size: 224018, modified: modified - 100, disabled: true },
 ]
 
 const meta = {

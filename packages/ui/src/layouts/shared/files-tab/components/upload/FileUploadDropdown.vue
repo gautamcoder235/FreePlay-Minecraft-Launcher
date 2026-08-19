@@ -117,14 +117,14 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { Button } from '#ui/components/base/buttons'
 import { useFormatBytes } from '#ui/composables'
 import { defineMessages, useVIntl } from '#ui/composables/i18n'
-import { injectModrinthClient } from '#ui/providers/api-client'
+import { injectFreePlayClient } from '#ui/providers/api-client'
 import { injectNotificationManager } from '#ui/providers/web-notifications'
 import { commonMessages } from '#ui/utils/common-messages'
 
 const { formatMessage } = useVIntl()
 const formatBytes = useFormatBytes()
 const { addNotification } = injectNotificationManager()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 
 const messages = defineMessages({
 	file: {

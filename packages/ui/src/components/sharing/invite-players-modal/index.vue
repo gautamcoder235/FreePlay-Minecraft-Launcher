@@ -25,7 +25,7 @@
 						show-search-icon
 						:show-chevron="false"
 						search-type="search"
-						search-name="modrinth-player-invite-search"
+						search-name="freeplay-player-invite-search"
 						search-inputmode="search"
 						search-autocomplete="new-password"
 						search-autocorrect="off"
@@ -213,7 +213,7 @@ const messages = defineMessages({
 	},
 	searchPlaceholder: {
 		id: 'sharing.invite-players-modal.search-placeholder',
-		defaultMessage: 'Enter Modrinth username',
+		defaultMessage: 'Enter FreePlay username',
 	},
 	addButton: {
 		id: 'sharing.invite-players-modal.add',

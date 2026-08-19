@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Archon, type Labrinth, ModrinthApiError } from '@freeplay/api-client'
+import { type Archon, type Labrinth, FreePlayApiError } from '@freeplay/api-client'
 import { ClipboardCopyIcon } from '@freeplay/assets'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, nextTick, ref, watch } from 'vue'
@@ -12,8 +12,8 @@ import { defineMessages, useVIntl } from '#ui/composables/i18n'
 import { waitForServerContextRuntimeReady } from '#ui/composables/server-context-runtime'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 	injectServerSettingsModal,
 } from '#ui/providers'
@@ -48,7 +48,7 @@ const props = withDefaults(
 		ownerAvatarUrlBase?: string
 	}>(),
 	{
-		ownerAvatarUrlBase: 'https://modrinth.com',
+		ownerAvatarUrlBase: 'https://freeplay.app',
 	},
 )
 
@@ -109,9 +109,9 @@ const messages = defineMessages({
 	},
 })
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const { server, worldId, busyReasons, installProgressItems, uploadState, cancelUpload } =
-	injectModrinthServerContext()
+	injectFreePlayServerContext()
 const contentUploadSession = useUploadSessionUpload({
 	client,
 	scope: 'content',
@@ -204,7 +204,7 @@ const contentActionBusyMessage = computed(() => {
 
 const modpackProjectId = computed(() => {
 	const spec = contentQuery.data.value?.modpack?.spec
-	return spec?.platform === 'modrinth' ? spec.project_id : null
+	return spec?.platform === 'freeplay' ? spec.project_id : null
 })
 
 const modpackVersionsQuery = useQuery({
@@ -232,7 +232,7 @@ function sortVersionsByPublishedDate(versions: Labrinth.Versions.v2.Version[]) {
 
 const currentModpackVersionId = computed(() => {
 	const spec = contentQuery.data.value?.modpack?.spec
-	return spec?.platform === 'modrinth' ? spec.version_id : null
+	return spec?.platform === 'freeplay' ? spec.version_id : null
 })
 
 const newestModpackUpdateVersion = computed(() => {
@@ -287,7 +287,7 @@ const managedContent = computed<ManagedContentData | null>(() => {
 			summary,
 			versionNumber: isLocal ? undefined : (mp.version_number ?? undefined),
 			versionLink:
-				projectId && mp.spec.platform === 'modrinth'
+				projectId && mp.spec.platform === 'freeplay'
 					? `/project/${project?.slug ?? projectId}/version/${mp.spec.version_id}`
 					: undefined,
 			updatedAt: isLocal ? undefined : (mp.date_published ?? undefined),
@@ -745,7 +745,7 @@ function handleUploadFiles() {
 		if (!wid) return
 
 		try {
-			const fileRecognition = await Promise.all(files.map(isFileOnModrinth))
+			const fileRecognition = await Promise.all(files.map(isFileOnFreePlay))
 			const unrecognizedFileSet = new Set(files.filter((_, index) => !fileRecognition[index]))
 			const confirmedFiles: File[] = []
 			for (const file of files) {
@@ -770,7 +770,7 @@ function handleUploadFiles() {
 	input.click()
 }
 
-async function isFileOnModrinth(file: File) {
+async function isFileOnFreePlay(file: File) {
 	const buffer = await file.arrayBuffer()
 	const digest = await crypto.subtle.digest('SHA-1', buffer)
 	const hash = Array.from(new Uint8Array(digest), (byte) =>
@@ -781,7 +781,7 @@ async function isFileOnModrinth(file: File) {
 		await client.labrinth.versions_v2.getVersionFromFileHash(hash, 'sha1')
 		return true
 	} catch (error) {
-		return !(error instanceof ModrinthApiError && error.statusCode === 404)
+		return !(error instanceof FreePlayApiError && error.statusCode === 404)
 	}
 }
 
@@ -1024,7 +1024,7 @@ async function handleSwitchVersion(item: ContentItem) {
 async function handleModpackUpdate() {
 	if (setupActionDisabled.value) return
 	const mp = contentQuery.data.value?.modpack
-	if (!mp || mp.spec.platform !== 'modrinth') return
+	if (!mp || mp.spec.platform !== 'freeplay') return
 
 	updatingModpack.value = true
 	updatingProject.value = null
@@ -1082,7 +1082,7 @@ function handleModalUpdate(selectedVersion: Labrinth.Versions.v2.Version, event?
 		pendingModpackUpdateVersion.value = selectedVersion
 
 		const mpSpec = contentQuery.data.value?.modpack?.spec
-		const currentVersionId = mpSpec?.platform === 'modrinth' ? mpSpec.version_id : undefined
+		const currentVersionId = mpSpec?.platform === 'freeplay' ? mpSpec.version_id : undefined
 		const currentVersion = updatingProjectVersions.value.find((v) => v.id === currentVersionId)
 		isModpackUpdateDowngrade.value = currentVersion
 			? new Date(selectedVersion.date_published) < new Date(currentVersion.date_published)
@@ -1128,11 +1128,11 @@ async function performUpdate(selectedVersion: Labrinth.Versions.v2.Version) {
 	try {
 		if (updatingModpack.value) {
 			const mp = contentQuery.data.value?.modpack
-			if (!mp || mp.spec.platform !== 'modrinth') return
+			if (!mp || mp.spec.platform !== 'freeplay') return
 			await client.archon.content_v1.installContent(serverId, worldId.value!, {
 				content_variant: 'modpack',
 				spec: {
-					platform: 'modrinth',
+					platform: 'freeplay',
 					project_id: mp.spec.project_id,
 					version_id: selectedVersion.id,
 				},
@@ -1184,7 +1184,7 @@ function getOverflowOptions(item: ContentItem) {
 			icon: ClipboardCopyIcon,
 			action: async () => {
 				await navigator.clipboard.writeText(
-					`https://modrinth.com/${item.project_type}/${item.project?.slug}`,
+					`https://freeplay.app/${item.project_type}/${item.project?.slug}`,
 				)
 			},
 		})
@@ -1229,21 +1229,21 @@ provideContentManager({
 	mapToTableItem: (item) => {
 		const projectType = item.project_type ?? type.value
 		const addon = addonLookup.value.get(item.file_name)
-		const hasModrinthProject = !!addon?.project_id || (!!item.installing && !!item.project?.id)
+		const hasFreePlayProject = !!addon?.project_id || (!!item.installing && !!item.project?.id)
 		const projectSlugOrId = item.project.slug ?? item.project.id
 		return {
 			id: getContentItemId(item),
 			project: item.project,
-			projectLink: hasModrinthProject ? `/${projectType}/${projectSlugOrId}` : undefined,
+			projectLink: hasFreePlayProject ? `/${projectType}/${projectSlugOrId}` : undefined,
 			version: item.version,
 			versionLink:
-				hasModrinthProject && item.version?.id
+				hasFreePlayProject && item.version?.id
 					? `/${projectType}/${projectSlugOrId}/version/${item.version.id}`
 					: undefined,
 			owner: item.owner
 				? { ...item.owner, link: item.owner.link ?? `/${item.owner.type}/${item.owner.id}` }
 				: undefined,
-			external: item.external ?? !hasModrinthProject,
+			external: item.external ?? !hasFreePlayProject,
 			enabled: item.enabled,
 		}
 	},
@@ -1291,7 +1291,7 @@ provideContentManager({
 					:current-loader="currentLoader"
 					:current-version-id="
 						updatingModpack
-							? contentQuery.data.value?.modpack?.spec.platform === 'modrinth'
+							? contentQuery.data.value?.modpack?.spec.platform === 'freeplay'
 								? contentQuery.data.value.modpack.spec.version_id
 								: ''
 							: (updatingProject?.version?.id ?? '')

@@ -99,7 +99,7 @@
     "defaultMessage": "Inga resultat hittades för din sökning!"
   },
   "browse.offline": {
-    "defaultMessage": "Du är för nuvarande offline. Koppla upp dig till internet för att bläddra bland Modrinth!"
+    "defaultMessage": "Du är för nuvarande offline. Koppla upp dig till internet för att bläddra bland FreePlay!"
   },
   "browse.search.placeholder": {
     "defaultMessage": "Sök {projectType}..."
@@ -227,8 +227,8 @@
   "button.open-in-folder": {
     "defaultMessage": "Öppna i mapp"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "Öppna i Modrinth"
+  "button.open-in-freeplay": {
+    "defaultMessage": "Öppna i FreePlay"
   },
   "button.play": {
     "defaultMessage": "Spela"
@@ -501,13 +501,13 @@
     "defaultMessage": "{count} borttagna"
   },
   "content.diff-modal.reviewed-files": {
-    "defaultMessage": "En fil granskas bara om den publiceras på Modrinth, oavsett dess filformat (däribland .mrpack)."
+    "defaultMessage": "En fil granskas bara om den publiceras på FreePlay, oavsett dess filformat (däribland .mrpack)."
   },
   "content.diff-modal.unknown-content-body": {
     "defaultMessage": "Något innehåll på din server kunde inte analyseras och kommer kanske påverkas av denna ändring."
   },
   "content.diff-modal.unknown-files-description": {
-    "defaultMessage": "Denna uppdatering innehåller filer som inte är utgivna på Modrinth. Vi rekommenderar att endast installera filer från källor du litar på."
+    "defaultMessage": "Denna uppdatering innehåller filer som inte är utgivna på FreePlay. Vi rekommenderar att endast installera filer från källor du litar på."
   },
   "content.diff-modal.unknown-files-warning": {
     "defaultMessage": "Okända filvarningar"
@@ -831,7 +831,7 @@
     "defaultMessage": "Importera instans"
   },
   "creation-flow.modal.setup-type.option.modpack-base.description": {
-    "defaultMessage": "Bläddra bland modpaket på Modrinth eller importera ett från en fil."
+    "defaultMessage": "Bläddra bland modpaket på FreePlay eller importera ett från en fil."
   },
   "creation-flow.modal.setup-type.option.modpack-base.title": {
     "defaultMessage": "Installera modpaket"
@@ -2325,16 +2325,16 @@
     "defaultMessage": "Håll filer uppdaterade när servern ändras"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Installera Modrinth App"
+    "defaultMessage": "Installera FreePlay App"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Modrinth App kommer att öppnas automatiskt..."
+    "defaultMessage": "FreePlay App kommer att öppnas automatiskt..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "Öppnar Modrinth App"
+    "defaultMessage": "Öppnar FreePlay App"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "Varför använda Modrinth App"
+    "defaultMessage": "Varför använda FreePlay App"
   },
   "notification.error.title": {
     "defaultMessage": "Ett fel inträffade"
@@ -2366,8 +2366,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Moderator"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Modrinth-teamet"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlay-teamet"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "Väntar"
@@ -2484,7 +2484,7 @@
     "defaultMessage": "Visa"
   },
   "profile.bio.fallback.user": {
-    "defaultMessage": "En Modrinth-användare."
+    "defaultMessage": "En FreePlay-användare."
   },
   "profile.block-user.admonition-title": {
     "defaultMessage": "Är du säker på att du vill blocka den här användaren?"
@@ -2571,7 +2571,7 @@
     "defaultMessage": "Projekt"
   },
   "profile.official-account": {
-    "defaultMessage": "Officiellt Modrinth-konto"
+    "defaultMessage": "Officiellt FreePlay-konto"
   },
   "profile.unblock-user.error-description": {
     "defaultMessage": "Ett fel inträffade under avblockeringen av den här användaren. Vänligen försök igen."
@@ -2895,7 +2895,7 @@
     "defaultMessage": "Spelades senast {count} {countPlural, plural, one {gång} other {gånger}}"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "Spelades på Modrinth {count} {countPlural, plural, one {gång} other {gånger}} i de 2 sista veckorna"
+    "defaultMessage": "Spelades på FreePlay {count} {countPlural, plural, one {gång} other {gånger}} i de 2 sista veckorna"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "Detta projektet använder ett modpaket"
@@ -3207,7 +3207,7 @@
     "defaultMessage": "Ditt projekt har flera miljöer"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "Vi har just förbättrat Miljösystemet på Modrinth och nya val finns nu. Vänligen kontrollera att rätt val är vald nedanför och sen klicka på 'Verifiera' när du är klar!"
+    "defaultMessage": "Vi har just förbättrat Miljösystemet på FreePlay och nya val finns nu. Vänligen kontrollera att rätt val är vald nedanför och sen klicka på 'Verifiera' när du är klar!"
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "Granska valen nedan"
@@ -4101,13 +4101,13 @@
     "defaultMessage": "Använd inte deras Minecraft-användarnamn."
   },
   "servers.grant-access-modal.target.label": {
-    "defaultMessage": "Modrinth-användarnamn"
+    "defaultMessage": "FreePlay-användarnamn"
   },
   "servers.grant-access-modal.target.no-suggestions": {
     "defaultMessage": "Ingen matchande användare hittades."
   },
   "servers.grant-access-modal.target.placeholder": {
-    "defaultMessage": "Ange Modrinth-användarnamn"
+    "defaultMessage": "Ange FreePlay-användarnamn"
   },
   "servers.grant-access-modal.target.searching": {
     "defaultMessage": "Söker..."
@@ -4128,7 +4128,7 @@
     "defaultMessage": "Ny server"
   },
   "servers.list-empty.no-servers-description": {
-    "defaultMessage": "Installera moddar, bjud in vänner och spela tillsammans, allt från Modrinth App."
+    "defaultMessage": "Installera moddar, bjud in vänner och spela tillsammans, allt från FreePlay App."
   },
   "servers.list-empty.one-click-mod-installs-description": {
     "defaultMessage": "Välj dina favorit moddar så hanterar vi resten."
@@ -4197,7 +4197,7 @@
     "defaultMessage": "Uppladdning pågår"
   },
   "servers.manage.contact-support-button": {
-    "defaultMessage": "Kontakta Modrinth-support"
+    "defaultMessage": "Kontakta FreePlay-support"
   },
   "servers.manage.error.details": {
     "defaultMessage": "Feldetaljer:"
@@ -4230,7 +4230,7 @@
     "defaultMessage": "Ladda om"
   },
   "servers.manage.resubscribe-error.text": {
-    "defaultMessage": "Ett fel inträffade när du återprenumererade till din Modrinth server."
+    "defaultMessage": "Ett fel inträffade när du återprenumererade till din FreePlay server."
   },
   "servers.manage.resubscribe-error.title": {
     "defaultMessage": "Fel vid återprenumerering"
@@ -4242,7 +4242,7 @@
     "defaultMessage": "Sök {count} {count, plural,one {server}other {servrar}}..."
   },
   "servers.manage.servers-title": {
-    "defaultMessage": "Modrinth Hosting"
+    "defaultMessage": "FreePlay Hosting"
   },
   "servers.manage.settings-hint.description": {
     "defaultMessage": "De kan nu hittas här!"
@@ -4395,7 +4395,7 @@
     "defaultMessage": "Vart vill du att din server ska vara placerad?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "Är området inte med i listan? <link>Berätta vart du vill se Modrinth Hosting härnäst!</link>"
+    "defaultMessage": "Är området inte med i listan? <link>Berätta vart du vill se FreePlay Hosting härnäst!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "Sydostasien"
@@ -4467,7 +4467,7 @@
     "defaultMessage": "Ställ in server"
   },
   "servers.setup.onboarding.step.choose.description": {
-    "defaultMessage": "Välj ditt favorit modpaket från Modrinth, eller välj en loader och lägg till de moddar du vill."
+    "defaultMessage": "Välj ditt favorit modpaket från FreePlay, eller välj en loader och lägg till de moddar du vill."
   },
   "servers.setup.onboarding.step.choose.title": {
     "defaultMessage": "Välj vad du vill spela"
@@ -4524,7 +4524,7 @@
     "defaultMessage": "Mörkt"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "Välj färgtema för Modrinth på denna enhet."
+    "defaultMessage": "Välj färgtema för FreePlay på denna enhet."
   },
   "settings.display.theme.light": {
     "defaultMessage": "Ljust"
@@ -4593,10 +4593,10 @@
     "defaultMessage": "Misslyckades att uppdatera profil"
   },
   "settings.profile.sign-in-required.description": {
-    "defaultMessage": "Logga in på ett Modrinth-konto för att anpassa din offentliga profil."
+    "defaultMessage": "Logga in på ett FreePlay-konto för att anpassa din offentliga profil."
   },
   "settings.profile.sign-in-required.title": {
-    "defaultMessage": "Modrinth-konto behövs"
+    "defaultMessage": "FreePlay-konto behövs"
   },
   "settings.sessions.title": {
     "defaultMessage": "Sessioner"
@@ -4608,7 +4608,7 @@
     "defaultMessage": "Användare"
   },
   "settings.social.blocked-users.description": {
-    "defaultMessage": "Det här är användare du har blockat på Modrinth. De kan inte:"
+    "defaultMessage": "Det här är användare du har blockat på FreePlay. De kan inte:"
   },
   "settings.social.blocked-users.empty": {
     "defaultMessage": "Du har inte blockerat någon."
@@ -4659,7 +4659,7 @@
     "defaultMessage": "Inbjudningar"
   },
   "settings.social.sign-in-required.title": {
-    "defaultMessage": "Modrinth-konto krävs"
+    "defaultMessage": "FreePlay-konto krävs"
   },
   "sharing.invite-players-modal.add": {
     "defaultMessage": "Lägg till"
@@ -4743,7 +4743,7 @@
     "defaultMessage": "Spara"
   },
   "sharing.invite-players-modal.search-placeholder": {
-    "defaultMessage": "Ange Modrinth-användarnamn"
+    "defaultMessage": "Ange FreePlay-användarnamn"
   },
   "sharing.invite-players-modal.searching": {
     "defaultMessage": "Söker..."
@@ -5271,25 +5271,25 @@
     "defaultMessage": "Skadeprogram distribueras ofta via moddfiler genom att dela dem på plattformar som Discord."
   },
   "unknown-file-warning-modal.mod-warning-body": {
-    "defaultMessage": " är inte publiserad på Modrinth. Vi rekommenderar starkt att endast installera filer från källor du litar på."
+    "defaultMessage": " är inte publiserad på FreePlay. Vi rekommenderar starkt att endast installera filer från källor du litar på."
   },
   "unknown-file-warning-modal.mod-warning-title": {
     "defaultMessage": "Okänd filvarning"
   },
   "unknown-file-warning-modal.modpack-warning-body": {
-    "defaultMessage": " innehåller filer som inte är utgivna på Modrinth. Vi rekommenderar att endast installera filer från källor du litar på."
+    "defaultMessage": " innehåller filer som inte är utgivna på FreePlay. Vi rekommenderar att endast installera filer från källor du litar på."
   },
   "unknown-file-warning-modal.modpack-warning-title": {
     "defaultMessage": "Okända filvarningar"
   },
   "user.profile.badge.alpha.about.1": {
-    "defaultMessage": "Denna användare har funnits sedan Modrinth alfa, som slutate i november 2020."
+    "defaultMessage": "Denna användare har funnits sedan FreePlay alfa, som slutate i november 2020."
   },
   "user.profile.badge.alpha.name": {
     "defaultMessage": "Alfa-testare"
   },
   "user.profile.badge.beta.about.1": {
-    "defaultMessage": "Denna användare har funnits sedan Modrinth beta, som slutade i februari 2022."
+    "defaultMessage": "Denna användare har funnits sedan FreePlay beta, som slutade i februari 2022."
   },
   "user.profile.badge.beta.name": {
     "defaultMessage": "Beta-testare"
@@ -5298,10 +5298,10 @@
     "defaultMessage": "{download_sum} nedladdningar"
   },
   "user.profile.badge.pride.about.1": {
-    "defaultMessage": "Denna användare har deltagit i åtminstone ett av Modrinths Pride-insamlingar för LGBTQ+ gemenskapen."
+    "defaultMessage": "Denna användare har deltagit i åtminstone ett av FreePlays Pride-insamlingar för LGBTQ+ gemenskapen."
   },
   "user.profile.badge.staff.name": {
-    "defaultMessage": "Modrinth-team"
+    "defaultMessage": "FreePlay-team"
   },
   "version.content.name": {
     "defaultMessage": "Namn"

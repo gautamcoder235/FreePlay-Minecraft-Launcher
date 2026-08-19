@@ -26,7 +26,7 @@
 				v-if="isDisabled"
 				class="relative z-10 flex size-16 items-center justify-center rounded-xl border-[1px] border-solid border-button-border bg-button-bg shadow-sm"
 			>
-				<Avatar src="https://cdn-raw.modrinth.com/medal_icon.webp" size="64px" class="opacity-50" />
+				<Avatar src="https://cdn-raw.freeplay.app/medal_icon.webp" size="64px" class="opacity-50" />
 				<SpinnerIcon
 					v-if="isUpgrading"
 					class="size-8 animate-spin absolute text-contrast"
@@ -34,7 +34,7 @@
 				/>
 				<LockIcon v-else class="size-8 absolute" :class="{ 'opacity-50': isDisabled }" />
 			</div>
-			<Avatar v-else src="https://cdn-raw.modrinth.com/medal_icon.webp" size="64px" class="z-10" />
+			<Avatar v-else src="https://cdn-raw.freeplay.app/medal_icon.webp" size="64px" class="z-10" />
 			<div class="z-10 ml-4 flex min-w-0 flex-col gap-1.5">
 				<div class="flex flex-row items-center gap-2.5">
 					<h2
@@ -177,7 +177,7 @@ import { useRouter } from 'vue-router'
 import { Button } from '#ui/components/base/buttons'
 
 import { defineMessages, useVIntl } from '../../../composables/i18n'
-import { injectModrinthClient } from '../../../providers/api-client'
+import { injectFreePlayClient } from '../../../providers/api-client'
 import Avatar from '../../base/Avatar.vue'
 import CopyCode from '../../base/CopyCode.vue'
 import IntlFormatted from '../../base/IntlFormatted.vue'
@@ -208,10 +208,10 @@ const props = defineProps<MedalServerListingProps>()
 const emit = defineEmits<{ (e: 'upgrade', serverId: string): void }>()
 const { formatMessage } = useVIntl()
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const router = useRouter()
 
-// const isNuxt = computed(() => client instanceof NuxtModrinthClient)
+// const isNuxt = computed(() => client instanceof NuxtFreePlayClient)
 
 const showGameLabel = computed(() => !!props.game)
 const showLoaderLabel = computed(() => !!props.loader)
@@ -276,12 +276,12 @@ const messages = defineMessages({
 	suspendedWithReasonNotice: {
 		id: 'servers.medal-listing.notice.suspended-with-reason',
 		defaultMessage:
-			'Your server has been suspended: {reason}. Please update your billing information or contact Modrinth Support for more information.',
+			'Your server has been suspended: {reason}. Please update your billing information or contact FreePlay Support for more information.',
 	},
 	suspendedNotice: {
 		id: 'servers.medal-listing.notice.suspended',
 		defaultMessage:
-			'Your server has been suspended. Please update your billing information or contact Modrinth Support for more information.',
+			'Your server has been suspended. Please update your billing information or contact FreePlay Support for more information.',
 	},
 })
 

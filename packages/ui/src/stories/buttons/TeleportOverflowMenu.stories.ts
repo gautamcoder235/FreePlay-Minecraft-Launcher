@@ -29,7 +29,7 @@ const options: OverflowMenuOption[] = [
 		label: 'Open website',
 		icon: ExternalIcon,
 		type: 'link',
-		href: 'https://modrinth.com',
+		href: 'https://freeplay.app',
 		target: '_blank',
 	},
 	{

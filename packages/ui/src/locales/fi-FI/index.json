@@ -374,8 +374,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Moderaattori"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Modrinthin Tiimi"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlayin Tiimi"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "Odottaa"

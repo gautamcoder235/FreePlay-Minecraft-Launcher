@@ -1,7 +1,7 @@
-import { ModrinthApiError } from '@freeplay/api-client'
+import { FreePlayApiError } from '@freeplay/api-client'
 import {
 	injectAuth,
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	injectPopupNotificationManager,
 } from '@freeplay/ui'
@@ -51,7 +51,7 @@ export function useSharedInstanceInviteHandler(
 	accountRequiredModal: Ref<AccountRequiredModal | undefined>,
 ) {
 	const auth = injectAuth()
-	const client = injectModrinthClient()
+	const client = injectFreePlayClient()
 	const { handleError } = injectNotificationManager()
 	const { notifySharedInstanceConnectionError, notifySharedInstanceError } =
 		useSharedInstanceErrors()
@@ -77,7 +77,7 @@ export function useSharedInstanceInviteHandler(
 		try {
 			await client.labrinth.notifications_v2.markAsRead(String(notification.id))
 		} catch (error) {
-			if (error instanceof ModrinthApiError && error.statusCode === 404) return
+			if (error instanceof FreePlayApiError && error.statusCode === 404) return
 			throw error
 		}
 	}

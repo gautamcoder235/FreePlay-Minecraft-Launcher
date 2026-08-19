@@ -51,7 +51,7 @@ const versions: StoryVersion[] = [
 		files: [
 			{
 				hashes: { sha512: 'sha512-1', sha1: 'sha1-1' },
-				url: 'https://cdn.modrinth.com/data/story/version-1.jar',
+				url: 'https://cdn.freeplay.app/data/story/version-1.jar',
 				filename: 'sodium-fabric-0.6.13.jar',
 				primary: true,
 				size: 1248200,
@@ -79,14 +79,14 @@ const versions: StoryVersion[] = [
 		files: [
 			{
 				hashes: { sha512: 'sha512-2', sha1: 'sha1-2' },
-				url: 'https://cdn.modrinth.com/data/story/version-2.jar',
+				url: 'https://cdn.freeplay.app/data/story/version-2.jar',
 				filename: 'sodium-neoforge-0.5.11.jar',
 				primary: true,
 				size: 1424200,
 			},
 			{
 				hashes: { sha512: 'sha512-3', sha1: 'sha1-3' },
-				url: 'https://cdn.modrinth.com/data/story/version-2-sources.jar',
+				url: 'https://cdn.freeplay.app/data/story/version-2-sources.jar',
 				filename: 'sodium-neoforge-0.5.11-sources.jar',
 				primary: false,
 				size: 624200,
@@ -115,7 +115,7 @@ const versions: StoryVersion[] = [
 		files: [
 			{
 				hashes: { sha512: 'sha512-4', sha1: 'sha1-4' },
-				url: 'https://cdn.modrinth.com/data/story/version-3.mrpack',
+				url: 'https://cdn.freeplay.app/data/story/version-3.mrpack',
 				filename: 'server-pack-1.0.0.mrpack',
 				primary: true,
 				size: 2048200,
@@ -145,7 +145,7 @@ const meta = {
 		baseId: 'project-page-versions-story',
 		showFiles: false,
 		showEnvironmentColumn: false,
-		versionLink: (version: Version) => `https://modrinth.com/mod/sodium/version/${version.id}`,
+		versionLink: (version: Version) => `https://freeplay.app/mod/sodium/version/${version.id}`,
 	},
 	render: (args) => ({
 		components: { DownloadIcon, MoreVerticalIcon, ProjectPageVersions, ButtonLink, IconButton },

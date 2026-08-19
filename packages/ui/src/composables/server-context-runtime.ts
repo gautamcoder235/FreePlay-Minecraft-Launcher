@@ -1,8 +1,8 @@
-import type { AbstractModrinthClient, Archon } from '@freeplay/api-client'
+import type { AbstractFreePlayClient, Archon } from '@freeplay/api-client'
 import type { ComputedRef, Ref } from 'vue'
 import { onUnmounted, ref, watch } from 'vue'
 
-import { injectModrinthClient } from '../providers'
+import { injectFreePlayClient } from '../providers'
 
 type ReadableRef<T> = Ref<T> | ComputedRef<T>
 type RuntimeUnsubscriber = () => void
@@ -14,7 +14,7 @@ type RuntimeReadyWaiter = {
 }
 
 type ServerContextRuntime = {
-	client: AbstractModrinthClient
+	client: AbstractFreePlayClient
 	serverId: string
 	leases: number
 	socketLeases: number
@@ -50,9 +50,9 @@ type RetainServerContextRuntimeOptions = {
 
 const runtimeReleaseDelay = 1000
 const authoritativeReadinessTimeout = 30000
-const runtimesByClient = new WeakMap<AbstractModrinthClient, Map<string, ServerContextRuntime>>()
+const runtimesByClient = new WeakMap<AbstractFreePlayClient, Map<string, ServerContextRuntime>>()
 
-function getClientRuntimes(client: AbstractModrinthClient) {
+function getClientRuntimes(client: AbstractFreePlayClient) {
 	let runtimes = runtimesByClient.get(client)
 	if (!runtimes) {
 		runtimes = new Map()
@@ -76,7 +76,7 @@ function resolveReadyWaiters(runtime: ServerContextRuntime) {
 }
 
 function createServerContextRuntime(
-	client: AbstractModrinthClient,
+	client: AbstractFreePlayClient,
 	serverId: string,
 ): ServerContextRuntime {
 	const runtime: ServerContextRuntime = {
@@ -222,7 +222,7 @@ function destroyRuntime(runtime: ServerContextRuntime) {
 }
 
 export function retainServerContextRuntime(
-	client: AbstractModrinthClient,
+	client: AbstractFreePlayClient,
 	serverId: string,
 	options: RetainServerContextRuntimeOptions = {},
 ): ServerContextRuntimeLease {
@@ -314,7 +314,7 @@ export function retainServerContextRuntime(
 }
 
 export function useServerContextRuntime(serverId: ReadableRef<string | null>) {
-	const client = injectModrinthClient()
+	const client = injectFreePlayClient()
 	let lease: ServerContextRuntimeLease | null = null
 
 	const stop = watch(
@@ -338,7 +338,7 @@ export function useServerContextRuntime(serverId: ReadableRef<string | null>) {
 }
 
 export async function waitForServerContextRuntimeReady(
-	client: AbstractModrinthClient,
+	client: AbstractFreePlayClient,
 	serverId: string,
 ) {
 	const lease = retainServerContextRuntime(client, serverId)

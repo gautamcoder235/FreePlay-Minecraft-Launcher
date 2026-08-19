@@ -278,8 +278,8 @@ export async function add_project_from_path(
 	})
 }
 
-export async function is_file_on_modrinth(projectPath: string): Promise<boolean> {
-	return await invoke('plugin:instance|instance_is_file_on_modrinth', { projectPath })
+export async function is_file_on_freeplay(projectPath: string): Promise<boolean> {
+	return await invoke('plugin:instance|instance_is_file_on_freeplay', { projectPath })
 }
 
 // Toggle disabling a project
@@ -312,20 +312,20 @@ export async function remove_project(instanceId: string, projectPath: string): P
 	return await invoke('plugin:instance|instance_remove_project', { instanceId, projectPath })
 }
 
-// Update a managed Modrinth instance to a specific version
-export async function update_managed_modrinth_version(
+// Update a managed FreePlay instance to a specific version
+export async function update_managed_freeplay_version(
 	instanceId: string,
 	versionId: string,
 ): Promise<InstallJobSnapshot> {
-	return await invoke('plugin:instance|instance_update_managed_modrinth_version', {
+	return await invoke('plugin:instance|instance_update_managed_freeplay_version', {
 		instanceId,
 		versionId,
 	})
 }
 
-// Repair a managed Modrinth instance
-export async function update_repair_modrinth(instanceId: string): Promise<InstallJobSnapshot> {
-	return await invoke('plugin:instance|instance_repair_managed_modrinth', { instanceId })
+// Repair a managed FreePlay instance
+export async function update_repair_freeplay(instanceId: string): Promise<InstallJobSnapshot> {
+	return await invoke('plugin:instance|instance_repair_managed_freeplay', { instanceId })
 }
 
 // Export an instance to .mrpack

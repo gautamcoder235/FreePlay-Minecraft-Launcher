@@ -152,7 +152,7 @@ import {
 	isSharedInstanceUnavailableError,
 } from '@/helpers/install'
 import { edit } from '@/helpers/instance'
-import type { ModrinthAuthFlow } from '@/helpers/mr_auth.ts'
+import type { FreePlayAuthFlow } from '@/helpers/mr_auth.ts'
 import {
 	sharedInstanceErrorMessages,
 	useSharedInstanceErrors,
@@ -392,7 +392,7 @@ function removeMember(row: ShareRow) {
 function userProfileLink(username: string) {
 	return !username || username.includes('@') ? undefined : `/user/${encodeURIComponent(username)}`
 }
-async function requestAuth(flow: ModrinthAuthFlow) {
+async function requestAuth(flow: FreePlayAuthFlow) {
 	await auth.requestSignIn(`/instance/${encodeURIComponent(instance.value.id)}/share`, flow, {
 		showModal: false,
 	})

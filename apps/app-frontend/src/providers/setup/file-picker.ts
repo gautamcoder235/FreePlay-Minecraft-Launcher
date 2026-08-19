@@ -71,7 +71,7 @@ export function setupFilePickerProvider() {
 				file: await createFileFromPath(
 					path,
 					'modpack.mrpack',
-					'application/x-modrinth-modpack+zip',
+					'application/x-freeplay-modpack+zip',
 				),
 				path,
 				previewUrl: '',

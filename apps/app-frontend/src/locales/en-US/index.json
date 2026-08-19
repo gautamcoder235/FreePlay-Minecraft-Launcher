@@ -77,7 +77,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Minecraft setup failed"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Couldn't reach FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -1217,19 +1217,19 @@
   "app.nav.home": {
     "message": "FreePlay Home"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "FreePlay account"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "Sign in to a FreePlay account"
   },
   "app.nav.signed-in-as": {
     "message": "Signed in as <user>{username}</user>"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "Upgrade to FreePlay+"
   },
   "app.navigation.go-back": {
@@ -1619,13 +1619,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "You received these skins for donating to a FreePlay Pride fundraiser during Pride Month."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -2582,37 +2582,37 @@
   "minecraft-required.sign-in": {
     "message": "Sign in to Microsoft"
   },
-  "modal.modrinth-account-required.browser-description": {
+  "modal.freeplay-account-required.browser-description": {
     "message": "A new tab opened to sign in. Complete the sign in there, then return to the app."
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "Continue in your browser"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "Create an account"
   },
-  "modal.modrinth-account-required.description": {
+  "modal.freeplay-account-required.description": {
     "message": "You'll need to sign into your FreePlay account before you can use this feature."
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "Account required"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "Open browser again"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "Sign in to FreePlay"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "Sign in to a FreePlay account"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "Signing in"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "Having trouble signing in? <support>Get support</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "Waiting for browser confirmation..."
   },
   "onboarding-checklist.create-instance": {
@@ -2621,7 +2621,7 @@
   "onboarding-checklist.login-minecraft": {
     "message": "Sign in to Minecraft"
   },
-  "onboarding-checklist.login-modrinth": {
+  "onboarding-checklist.login-freeplay": {
     "message": "Sign in to FreePlay"
   },
   "onboarding-checklist.title": {

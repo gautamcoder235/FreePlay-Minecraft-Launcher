@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Ustawianie Minecraft nie powiodło się"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Nie udało się połączyć z serwerami FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -722,19 +722,19 @@
   "app.nav.home": {
     "message": "Strona główna"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "Konto FreePlay"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "Zaloguj się na konto FreePlay"
   },
   "app.nav.signed-in-as": {
     "message": "Zalogowano jako <user>{username}</user>"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "Ulepsz do FreePlay+"
   },
   "app.news.title": {
@@ -995,13 +995,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "Duma FreePlay"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Zdobyłeś te skórki poprzez dotację na zbiórkę Dumy FreePlay w okresie Miesiąca Dumy."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1619,31 +1619,31 @@
   "minecraft-required.sign-in": {
     "message": "Zaloguj się do Microsoft"
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "Kontynuuj w przeglądarce"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "Utwórz konto"
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "Konto wymagane"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "Otwórz ponownie przeglądarkę"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "Zaloguj się na FreePlay"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "Zaloguj się na konto FreePlay"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "Trwa logowanie"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "Masz problem z logowaniem? Skorzystaj z <support>Obsługi klienta</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "Oczekiwanie na twoje potwierdzenie..."
   },
   "search.filter.locked.instance": {

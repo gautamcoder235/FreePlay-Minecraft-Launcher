@@ -4,7 +4,7 @@
 
 		<!-- User roles -->
 		<template v-else-if="type === 'admin'">
-			<ModrinthIcon aria-hidden="true" /> {{ formatMessage(messages.modrinthTeamLabel) }}
+			<FreePlayIcon aria-hidden="true" /> {{ formatMessage(messages.freeplayTeamLabel) }}
 		</template>
 		<template v-else-if="type === 'moderator'">
 			<ScaleIcon aria-hidden="true" /> {{ formatMessage(messages.moderatorLabel) }}
@@ -93,7 +93,7 @@ import {
 	GlobeIcon,
 	LinkIcon,
 	LockIcon,
-	ModrinthIcon,
+	FreePlayIcon,
 	ScaleIcon,
 	ShieldCheckIcon,
 	UpdatedIcon,
@@ -140,9 +140,9 @@ const messages = defineMessages({
 		id: 'omorphia.component.badge.label.moderator',
 		defaultMessage: 'Moderator',
 	},
-	modrinthTeamLabel: {
-		id: 'omorphia.component.badge.label.modrinth-team',
-		defaultMessage: 'Modrinth Team',
+	freeplayTeamLabel: {
+		id: 'omorphia.component.badge.label.freeplay-team',
+		defaultMessage: 'FreePlay Team',
 	},
 	pendingLabel: {
 		id: 'omorphia.component.badge.label.pending',

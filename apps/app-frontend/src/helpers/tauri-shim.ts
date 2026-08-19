@@ -229,7 +229,7 @@ if (typeof window !== 'undefined') {
 						gameVersions: [
 							{ id: '1.21.4', loaders: [{ id: '1.0.0', stable: true }] },
 							{ id: '1.20.1', loaders: [{ id: '0.15.0', stable: true }] },
-							{ id: '${modrinth.gameVersion}', loaders: [{ id: '0.16.0', stable: true }] },
+							{ id: '${freeplay.gameVersion}', loaders: [{ id: '0.16.0', stable: true }] },
 						],
 					}
 				}

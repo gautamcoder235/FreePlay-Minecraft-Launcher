@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "فشل إعداد Minecraft"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "لم أتمكن من الوصول إلى FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -587,13 +587,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "فخر FreePlay"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "لقد حصلت على هذه أشكال الشخصيات مقابل تبرعك لحملة جمع التبرعات التي نظمتها FreePlay Pride خلال شهر الفخر."
   },
   "app.skins.section.mounts-of-mayhem": {

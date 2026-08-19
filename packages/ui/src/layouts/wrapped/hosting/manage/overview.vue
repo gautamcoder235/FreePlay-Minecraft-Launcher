@@ -51,10 +51,10 @@ import { useStorage } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 
 import ServerManageStats from '#ui/components/servers/ServerManageStats.vue'
-import { useModrinthServersConsole } from '#ui/composables'
+import { useFreePlayServersConsole } from '#ui/composables'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import { ConsolePageLayout, provideConsoleManager } from '#ui/layouts/shared/console'
-import { injectModrinthClient, injectModrinthServerContext } from '#ui/providers'
+import { injectFreePlayClient, injectFreePlayServerContext } from '#ui/providers'
 
 const props = withDefaults(
 	defineProps<{
@@ -67,7 +67,7 @@ const props = withDefaults(
 	},
 )
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const {
 	server: _serverData,
 	serverId,
@@ -76,21 +76,21 @@ const {
 	stats,
 	powerState: serverPowerState,
 	powerStateDetails: _powerStateDetails,
-} = injectModrinthServerContext()
-const modrinthServersConsole = useModrinthServersConsole()
+} = injectFreePlayServerContext()
+const freeplayServersConsole = useFreePlayServersConsole()
 const { canUsePowerActions, permissionDeniedMessage } = useServerPermissions()
 
 watch(
 	() => props.showAdvancedDebugInfo,
 	(enabled) => {
-		modrinthServersConsole.setWsEventCaptureEnabled(enabled)
+		freeplayServersConsole.setWsEventCaptureEnabled(enabled)
 	},
 	{ immediate: true },
 )
 
 const crashAnalysis = ref<Mclogs.Insights.v1.InsightsResponse | null>(null)
 const DISMISS_DURATION_MS = 30 * 60 * 1000
-const dismissedUntil = useStorage(`modrinth-crash-dismissed-${serverId}`, 0)
+const dismissedUntil = useStorage(`freeplay-crash-dismissed-${serverId}`, 0)
 
 const isDismissed = () => Date.now() < dismissedUntil.value
 
@@ -120,7 +120,7 @@ const dismissCrash = () => {
 }
 
 provideConsoleManager({
-	logLines: modrinthServersConsole.output,
+	logLines: freeplayServersConsole.output,
 	sendCommand: (cmd: string) => {
 		if (!canUsePowerActions.value) return
 		try {
@@ -139,12 +139,12 @@ provideConsoleManager({
 	loading: computed(
 		() =>
 			!isConnected.value ||
-			modrinthServersConsole.isInitialLogHydrating.value ||
+			freeplayServersConsole.isInitialLogHydrating.value ||
 			isWsAuthIncorrect.value,
 	),
 	onClear: async () => {
 		if (!canUsePowerActions.value) return
-		modrinthServersConsole.clear()
+		freeplayServersConsole.clear()
 		try {
 			await client.kyros.logs_v1.clear()
 		} catch (error) {
@@ -177,7 +177,7 @@ if (serverPowerState.value === 'crashed') {
 }
 
 const downloadLog4jDebug = () => {
-	const events = modrinthServersConsole.getWsEventHistory()
+	const events = freeplayServersConsole.getWsEventHistory()
 	const blob = new Blob([JSON.stringify(events, null, 2)], { type: 'application/json' })
 	const url = URL.createObjectURL(blob)
 	const a = document.createElement('a')

@@ -7,7 +7,7 @@ import { computed, ref } from 'vue'
 import { useCompactNumber } from '#ui/composables/format-number.ts'
 
 import { defineMessages, useVIntl } from '../../composables/i18n'
-import { injectModrinthClient } from '../../providers/api-client'
+import { injectFreePlayClient } from '../../providers/api-client'
 import AutoLink from '../base/AutoLink.vue'
 import Avatar from '../base/Avatar.vue'
 import StyledInput from '../base/StyledInput.vue'
@@ -19,7 +19,7 @@ const props = defineProps<{
 	collectionId: string
 }>()
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 
 const { data: collection, isLoading: isLoadingCollection } = useQuery({
 	queryKey: ['collection', () => props.collectionId],

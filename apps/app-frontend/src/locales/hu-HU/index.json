@@ -74,7 +74,7 @@
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "A Minecraft telepítése meghiúsult"
   },
-  "app.action-bar.install.summary.modrinth-unreachable": {
+  "app.action-bar.install.summary.freeplay-unreachable": {
     "message": "Nem sikerült elérni FreePlayot"
   },
   "app.action-bar.install.summary.no-write-permission": {
@@ -755,19 +755,19 @@
   "app.nav.home": {
     "message": "Kezdőlap"
   },
-  "app.nav.modrinth-account": {
+  "app.nav.freeplay-account": {
     "message": "FreePlay fiók"
   },
-  "app.nav.modrinth-hosting": {
+  "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
   },
-  "app.nav.sign-in-to-modrinth-account": {
+  "app.nav.sign-in-to-freeplay-account": {
     "message": "Bejelentkezés egy FreePlay-fiókba"
   },
   "app.nav.signed-in-as": {
     "message": "Bejelentkezve mint <user>{username}</user>"
   },
-  "app.nav.upgrade-to-modrinth-plus": {
+  "app.nav.upgrade-to-freeplay-plus": {
     "message": "Frissíts a FreePlay+-ra"
   },
   "app.news.title": {
@@ -1109,13 +1109,13 @@
   "app.skins.section.minecon-earth-2017": {
     "message": "MINECON Earth 2017"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
-  "app.skins.section.modrinth-pride.tooltip": {
+  "app.skins.section.freeplay-pride.tooltip": {
     "message": "Ezeket a kinézeteket azért kaptad, mert a Pride-hónap során adományoztál a FreePlay Pride jótékonysági gyűjtéséhez."
   },
   "app.skins.section.mounts-of-mayhem": {
@@ -1811,37 +1811,37 @@
   "minecraft-required.sign-in": {
     "message": "Bejelentkezés a Microsft-ba"
   },
-  "modal.modrinth-account-required.browser-description": {
+  "modal.freeplay-account-required.browser-description": {
     "message": "Megnyílt egy új lap a bejelentkezéshez. Végezd el ott a bejelentkezést, majd térj vissza az alkalmazásba."
   },
-  "modal.modrinth-account-required.continue-in-browser-heading": {
+  "modal.freeplay-account-required.continue-in-browser-heading": {
     "message": "Folytatás a böngészőben"
   },
-  "modal.modrinth-account-required.create-account-button": {
+  "modal.freeplay-account-required.create-account-button": {
     "message": "Fiók létrehozása"
   },
-  "modal.modrinth-account-required.description": {
+  "modal.freeplay-account-required.description": {
     "message": "Ahhoz, hogy ezt a funkciót használhas, be kell jelentkeznie a FreePlay-fiókjába."
   },
-  "modal.modrinth-account-required.header": {
+  "modal.freeplay-account-required.header": {
     "message": "Fiók szükséges"
   },
-  "modal.modrinth-account-required.open-browser-again-button": {
+  "modal.freeplay-account-required.open-browser-again-button": {
     "message": "Böngésző megnyitása újra"
   },
-  "modal.modrinth-account-required.sign-in-button": {
+  "modal.freeplay-account-required.sign-in-button": {
     "message": "Jelentkezz be a FreePlaybe"
   },
-  "modal.modrinth-account-required.sign-in-heading": {
+  "modal.freeplay-account-required.sign-in-heading": {
     "message": "Jelentkezz be egy FreePlay-fiókba"
   },
-  "modal.modrinth-account-required.signing-in-header": {
+  "modal.freeplay-account-required.signing-in-header": {
     "message": "Bejelentkezés"
   },
-  "modal.modrinth-account-required.support-prompt": {
+  "modal.freeplay-account-required.support-prompt": {
     "message": "Problémád van a bejelentkezéssel? <support>Segítség</support>"
   },
-  "modal.modrinth-account-required.waiting-for-browser": {
+  "modal.freeplay-account-required.waiting-for-browser": {
     "message": "Várakozás a böngésző megerősítésére..."
   },
   "search.filter.locked.instance": {

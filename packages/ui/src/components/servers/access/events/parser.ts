@@ -521,7 +521,7 @@ function modpackEntityFromMetadata(
 	if (!spec) return null
 
 	const platform = stringField(spec, 'platform')
-	if (platform === 'modrinth') {
+	if (platform === 'freeplay') {
 		const projectId = stringField(spec, 'project_id')
 		const versionId = stringField(spec, 'version_id')
 		if (!projectId && !versionId) return null
@@ -532,8 +532,8 @@ function modpackEntityFromMetadata(
 		const label = project?.title || (projectId ? shortId(projectId) : versionLabel)
 
 		return {
-			id: projectId || versionId || 'modrinth',
-			label: label || 'Modrinth modpack',
+			id: projectId || versionId || 'freeplay',
+			label: label || 'FreePlay modpack',
 			secondaryLabel: versionLabel,
 			icon: PackageIcon,
 			iconUrl: project?.icon_url || undefined,

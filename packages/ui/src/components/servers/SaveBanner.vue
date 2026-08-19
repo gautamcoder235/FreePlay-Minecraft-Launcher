@@ -37,7 +37,7 @@ import { computed } from 'vue'
 
 import { Button } from '#ui/components/base/buttons'
 import FloatingActionBar from '#ui/components/base/FloatingActionBar.vue'
-import { injectModrinthClient, injectModrinthServerContext } from '#ui/providers'
+import { injectFreePlayClient, injectFreePlayServerContext } from '#ui/providers'
 
 const props = defineProps<{
 	isUpdating: boolean
@@ -48,9 +48,9 @@ const props = defineProps<{
 	serverId: string
 }>()
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 
-const { powerState } = injectModrinthServerContext()
+const { powerState } = injectFreePlayServerContext()
 
 const isStopped = computed(() => powerState.value === 'stopped' || powerState.value === 'crashed')
 

@@ -8,11 +8,11 @@
 
 <script setup lang="ts">
 import type { Labrinth } from '@freeplay/api-client'
-import { AccountSocialSettings, injectModrinthClient } from '@freeplay/ui'
+import { AccountSocialSettings, injectFreePlayClient } from '@freeplay/ui'
 
 import { get_blocked_users, unblock_user } from '@/helpers/users'
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 
 function getUsers(userIds: string[]): Promise<Labrinth.Users.v2.User[]> {
 	return client.labrinth.users_v2.getMultiple(userIds)

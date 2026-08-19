@@ -232,14 +232,14 @@ import type { TableColumn } from '#ui/components/base'
 import { Button, IconButton } from '#ui/components/base/buttons'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 
 const { addNotification } = injectNotificationManager()
-const { server, serverId } = injectModrinthServerContext()
-const client = injectModrinthClient()
+const { server, serverId } = injectFreePlayServerContext()
+const client = injectFreePlayClient()
 const queryClient = useQueryClient()
 const { canUseAdvancedSettings, permissionDeniedMessage } = useServerPermissions()
 

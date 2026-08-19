@@ -135,13 +135,13 @@ import {
 	get_linked_modpack_content,
 	get_shared_instance_publish_preview,
 	getInstanceIconUrl,
-	is_file_on_modrinth,
+	is_file_on_freeplay,
 	remove_project,
 	set_project_locked,
 	switch_project_version_with_dependencies,
 	toggle_disable_project,
 	update_all,
-	update_managed_modrinth_version,
+	update_managed_freeplay_version,
 } from '@/helpers/instance'
 import { type InstanceContentData, loadInstanceContentData } from '@/helpers/instance-content'
 import { get as getSettings, set as setSettings } from '@/helpers/settings'
@@ -342,7 +342,7 @@ const showSharedContentFilter = computed(() => instance.value.shared_instance?.r
 const isPackLocked = computed(
 	() =>
 		instance.value.quarantined ||
-		instance.value?.link?.type === 'modrinth_modpack' ||
+		instance.value?.link?.type === 'freeplay_modpack' ||
 		instance.value?.link?.type === 'server_project_modpack',
 )
 
@@ -708,7 +708,7 @@ async function handleUploadFiles() {
 	const fileRecognition = await Promise.all(
 		selectedFiles.map(async ({ path }) => {
 			try {
-				return await is_file_on_modrinth(path)
+				return await is_file_on_freeplay(path)
 			} catch {
 				return true
 			}
@@ -1391,7 +1391,7 @@ async function handleModpackUpdateConfirm() {
 	contentUpdaterModal.value?.hide()
 	isModpackUpdating.value = true
 	try {
-		await update_managed_modrinth_version(instance.value.id, version.id)
+		await update_managed_freeplay_version(instance.value.id, version.id)
 		await initProjects()
 	} finally {
 		isModpackUpdating.value = false
@@ -1624,7 +1624,7 @@ provideContentManager({
 	runManagedContentPrimaryAction:
 		instance.value.shared_instance?.role === 'member'
 			? instancePage.reviewSharedInstanceUpdate
-			: instance.value.link?.type === 'modrinth_modpack' && !isQuarantined.value
+			: instance.value.link?.type === 'freeplay_modpack' && !isQuarantined.value
 				? handleModpackUpdate
 				: undefined,
 	viewManagedContent: handleManagedContent,

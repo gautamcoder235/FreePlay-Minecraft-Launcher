@@ -2,7 +2,7 @@ import type { Archon } from '@freeplay/api-client'
 import { computed } from 'vue'
 
 import { useVIntl } from '#ui/composables/i18n'
-import { injectModrinthServerContext } from '#ui/providers'
+import { injectFreePlayServerContext } from '#ui/providers'
 import { commonMessages } from '#ui/utils/common-messages'
 
 export type ServerPermissionName = keyof typeof Archon.ServerUsers.v1.UserScope
@@ -82,7 +82,7 @@ export function hasServerPermission(
 
 export function useServerPermissions() {
 	const { formatMessage } = useVIntl()
-	const { currentUserPermissions } = injectModrinthServerContext()
+	const { currentUserPermissions } = injectFreePlayServerContext()
 
 	const hasCurrentUserPermission = (scope: ServerPermissionName) =>
 		hasServerPermission(currentUserPermissions.value, scope)

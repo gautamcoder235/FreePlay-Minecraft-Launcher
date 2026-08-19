@@ -15,7 +15,7 @@
 			:logged-in="loggedIn"
 			@continue="handleGuestPlanContinue"
 		/>
-		<ModrinthServersPurchaseModal
+		<FreePlayServersPurchaseModal
 			v-if="customer && paymentMethods && regions"
 			ref="purchaseModal"
 			:publishable-key="props.stripePublishableKey"
@@ -84,7 +84,7 @@
 					color="brand"
 					size="xl"
 					class="mt-6 !w-full"
-					to="https://support.modrinth.com"
+					to="https://support.freeplay.app"
 					>{{ formatMessage(messages.contactSupportButton) }}</ButtonLink
 				>
 				<Button size="xl" class="mt-3 !w-full" @click="() => router.go(0)">{{
@@ -239,10 +239,10 @@ import {
 	CopyCode,
 	defineMessages,
 	injectAuth,
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	IntlFormatted,
-	ModrinthServersPurchaseModal,
+	FreePlayServersPurchaseModal,
 	ResubscribeModal,
 	ServerListEmpty,
 	ServersGuestPlanModal,
@@ -274,7 +274,7 @@ const props = defineProps<{
 const router = useRouter()
 const route = useRoute()
 const auth = injectAuth()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const loggedIn = computed(() => !!auth.user.value)
 const { formatMessage } = useVIntl()
 
@@ -292,20 +292,20 @@ const messages = defineMessages({
 	errorQueueNotice: {
 		id: 'servers.manage.error.queue-notice',
 		defaultMessage:
-			"If you recently purchased your Modrinth Hosting server, it is currently in a queue and will appear here as soon as it's ready. <warning>Do not attempt to purchase a new server.</warning>",
+			"If you recently purchased your FreePlay Hosting server, it is currently in a queue and will appear here as soon as it's ready. <warning>Do not attempt to purchase a new server.</warning>",
 	},
 	errorSupportNotice: {
 		id: 'servers.manage.error.support-notice',
 		defaultMessage:
-			'If you require personalized support regarding the status of your server, please contact Modrinth Support.',
+			'If you require personalized support regarding the status of your server, please contact FreePlay Support.',
 	},
 	errorDetails: { id: 'servers.manage.error.details', defaultMessage: 'Error details:' },
 	contactSupportButton: {
 		id: 'servers.manage.contact-support-button',
-		defaultMessage: 'Contact Modrinth Support',
+		defaultMessage: 'Contact FreePlay Support',
 	},
 	reloadButton: { id: 'servers.manage.reload-button', defaultMessage: 'Reload' },
-	serversTitle: { id: 'servers.manage.servers-title', defaultMessage: 'Modrinth Hosting' },
+	serversTitle: { id: 'servers.manage.servers-title', defaultMessage: 'FreePlay Hosting' },
 	searchPlaceholder: {
 		id: 'servers.manage.search-placeholder',
 		defaultMessage: 'Search {count} {count, plural, one {server} other {servers}}...',
@@ -372,7 +372,7 @@ const messages = defineMessages({
 	},
 	resubscribeErrorText: {
 		id: 'servers.manage.resubscribe-error.text',
-		defaultMessage: 'An error occurred while resubscribing to your Modrinth server.',
+		defaultMessage: 'An error occurred while resubscribing to your FreePlay server.',
 	},
 })
 
@@ -408,7 +408,7 @@ function startNewServerPolling(initialServers: Archon.Servers.v0.Server[]) {
 }
 
 const guestPlanModal = ref<InstanceType<typeof ServersGuestPlanModal> | null>(null)
-const purchaseModal = ref<InstanceType<typeof ModrinthServersPurchaseModal> | null>(null)
+const purchaseModal = ref<InstanceType<typeof FreePlayServersPurchaseModal> | null>(null)
 type UpgradeModalRef = ComponentPublicInstance<{ open: (id?: string) => void | Promise<void> }>
 const medalUpgradeModal = ref<UpgradeModalRef | null>(null)
 const resubscribeModal = ref<InstanceType<typeof ResubscribeModal> | null>(null)

@@ -5,27 +5,27 @@
  */
 import { invoke } from '@tauri-apps/api/core'
 
-export type ModrinthCredentials = {
+export type FreePlayCredentials = {
 	session: string
 	expires: string
 	user_id: string
 	active: boolean
 }
 
-export type ModrinthAuthFlow = 'sign-in' | 'sign-up'
+export type FreePlayAuthFlow = 'sign-in' | 'sign-up'
 
-export async function login(flow: ModrinthAuthFlow = 'sign-in'): Promise<ModrinthCredentials> {
-	return await invoke('plugin:mr-auth|modrinth_login', { flow })
+export async function login(flow: FreePlayAuthFlow = 'sign-in'): Promise<FreePlayCredentials> {
+	return await invoke('plugin:mr-auth|freeplay_login', { flow })
 }
 
 export async function logout(): Promise<void> {
 	return await invoke('plugin:mr-auth|logout')
 }
 
-export async function get(): Promise<ModrinthCredentials | null> {
+export async function get(): Promise<FreePlayCredentials | null> {
 	return await invoke('plugin:mr-auth|get')
 }
 
 export async function cancelLogin(): Promise<void> {
-	return await invoke('plugin:mr-auth|cancel_modrinth_login')
+	return await invoke('plugin:mr-auth|cancel_freeplay_login')
 }

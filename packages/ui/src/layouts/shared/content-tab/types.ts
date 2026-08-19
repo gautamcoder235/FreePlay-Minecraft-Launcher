@@ -31,9 +31,9 @@ export type ClientWarningType = 'retained' | 'depends' | 'environment'
 
 export type ContentSourceKind =
 	| 'local'
-	| 'modrinth_modpack'
+	| 'freeplay_modpack'
 	| 'server_project'
-	| 'modrinth_hosting'
+	| 'freeplay_hosting'
 	| 'imported_modpack'
 	| 'shared_instance'
 

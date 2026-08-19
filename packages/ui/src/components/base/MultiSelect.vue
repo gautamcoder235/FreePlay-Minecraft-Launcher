@@ -473,7 +473,7 @@ const OPTIONS_OVERLAY_SCROLLBARS_OPTIONS = Object.freeze<PartialOptions>({
 		y: 'scroll',
 	},
 	scrollbars: {
-		theme: 'os-theme-modrinth',
+		theme: 'os-theme-freeplay',
 		autoHide: 'leave',
 		autoHideSuspend: true,
 	},
@@ -1471,7 +1471,7 @@ watch(
 	box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.08);
 }
 
-.multi-select-options-scrollbar :deep(.os-theme-modrinth) {
+.multi-select-options-scrollbar :deep(.os-theme-freeplay) {
 	--os-size: 8px;
 	--os-padding-perpendicular: 0px;
 	--os-padding-axis: 0px;

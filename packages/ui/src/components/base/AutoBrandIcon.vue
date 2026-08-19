@@ -10,7 +10,7 @@ import {
 	InstagramIcon,
 	KoFiIcon,
 	MastodonIcon,
-	ModrinthIcon,
+	FreePlayIcon,
 	OpenCollectiveIcon,
 	PatreonIcon,
 	PayPalIcon,
@@ -131,8 +131,8 @@ const services = [
 		keywords: ['curseforge', 'cf', 'curse', 'curse forge'],
 	},
 	{
-		icon: ModrinthIcon,
-		keywords: ['modrinth', 'mod rinth', 'modrith', 'mr'],
+		icon: FreePlayIcon,
+		keywords: ['freeplay', 'fp'],
 	},
 	{
 		icon: TwitterIcon,

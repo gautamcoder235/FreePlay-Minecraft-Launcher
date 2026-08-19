@@ -15,7 +15,7 @@ import { useFormatDateTime } from '#ui/composables/format-date-time.ts'
 import { useCompactNumber, useFormatNumber } from '#ui/composables/format-number.ts'
 import { useRelativeTime } from '#ui/composables/how-ago.ts'
 import { defineMessage, defineMessages, useVIntl } from '#ui/composables/i18n.ts'
-import { injectModrinthClient } from '#ui/providers/api-client.ts'
+import { injectFreePlayClient } from '#ui/providers/api-client.ts'
 import { injectTags } from '#ui/providers/tags.ts'
 import {
 	commonMessages,
@@ -53,7 +53,7 @@ const props = defineProps<{
 	userLinkCreator?: (user: Labrinth.Users.v3.User) => string | undefined
 }>()
 
-const api = injectModrinthClient()
+const api = injectFreePlayClient()
 const tags = injectTags(null)
 
 const gameVersionsToDisplay = computed(() =>

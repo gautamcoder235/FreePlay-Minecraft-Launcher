@@ -49,7 +49,7 @@ export const initAnalytics = () => {
 	if (initialized) return
 	posthog.init('phc_9Iqi6lFs9sr5BSqh9RRNRSJ0mATS9PSgirDiX3iOYJ', {
 		persistence: 'localStorage',
-		api_host: 'https://posthog.modrinth.com',
+		api_host: 'https://posthog.freeplay.app',
 	})
 	initialized = true
 }

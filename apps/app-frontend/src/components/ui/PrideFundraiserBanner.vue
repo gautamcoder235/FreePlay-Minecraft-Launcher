@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { CalendarIcon, UsersIcon, XIcon } from '@freeplay/assets'
-import { injectModrinthClient, ProgressBar } from '@freeplay/ui'
+import { injectFreePlayClient, ProgressBar } from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { computed, ref } from 'vue'
 
 const DISMISSED_STORAGE_KEY = 'pride-fundraiser-2026-dismissed'
 
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 const dismissed = ref(localStorage.getItem(DISMISSED_STORAGE_KEY) === 'true')
 
 const { data: campaignInfo } = useQuery({

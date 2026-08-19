@@ -372,7 +372,7 @@ const messages = defineMessages({
 	inviteWarning: {
 		id: 'app.modal.install-to-play.invite-warning',
 		defaultMessage:
-			'This invite was created by another FreePlay user, not Modrinth. Only accept invites from people you trust.',
+			'This invite was created by another FreePlay user, not FreePlay. Only accept invites from people you trust.',
 	},
 	sharedInstance: {
 		id: 'app.modal.install-to-play.shared-instance',
@@ -397,7 +397,7 @@ const messages = defineMessages({
 	unknownFilesDescription: {
 		id: 'app.modal.install-to-play.unknown-files-description',
 		defaultMessage:
-			'This server modpack contains files that aren’t published on Modrinth. We strongly recommend only installing files from sources you trust.',
+			'This server modpack contains files that aren’t published on FreePlay. We strongly recommend only installing files from sources you trust.',
 	},
 	unrecognizedFiles: {
 		id: 'app.modal.install-to-play.unrecognized-files',
@@ -405,7 +405,7 @@ const messages = defineMessages({
 	},
 	reviewedFiles: {
 		id: 'app.modal.install-to-play.reviewed-files',
-		defaultMessage: "Files that aren't published to Modrinth aren't reviewed.",
+		defaultMessage: "Files that aren't published to FreePlay aren't reviewed.",
 	},
 	installAnyway: {
 		id: 'app.modal.install-to-play.install-anyway',

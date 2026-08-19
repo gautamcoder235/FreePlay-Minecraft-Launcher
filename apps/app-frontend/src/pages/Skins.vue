@@ -15,7 +15,7 @@ import {
 	ConfirmModal,
 	defineMessages,
 	injectAuth,
-	injectModrinthClient,
+	injectFreePlayClient,
 	injectNotificationManager,
 	SkinPreviewRenderer,
 	Toggle,
@@ -79,17 +79,17 @@ const PENDING_SKIN_REFRESH_DELAY_MS = 11_000
 const DEFAULT_SKIN_SECTION_SORT_ORDER = ['Default skins', 'FreePlay Pride']
 const EARS_NOTICE_PLACEHOLDER = '__EARS_MOD_NAME__'
 const messages = defineMessages({
-	modrinthPrideSection: {
-		id: 'app.skins.section.modrinth-pride',
+	freeplayPrideSection: {
+		id: 'app.skins.section.freeplay-pride',
 		defaultMessage: 'FreePlay Pride',
 	},
-	modrinthPrideTooltip: {
-		id: 'app.skins.section.modrinth-pride.tooltip',
+	freeplayPrideTooltip: {
+		id: 'app.skins.section.freeplay-pride.tooltip',
 		defaultMessage:
 			'You received these skins for donating to a FreePlay Pride fundraiser during Pride Month.',
 	},
-	modrinthSection: {
-		id: 'app.skins.section.modrinth',
+	freeplaySection: {
+		id: 'app.skins.section.freeplay',
 		defaultMessage: 'FreePlay',
 	},
 	defaultSkinsSection: {
@@ -215,7 +215,7 @@ const { formatMessage } = useVIntl()
 const notifications = injectNotificationManager()
 const { addNotification, handleError } = notifications
 const auth = injectAuth()
-const client = injectModrinthClient()
+const client = injectFreePlayClient()
 
 const themeStore = useTheming()
 const skins = ref<Skin[]>([])
@@ -272,18 +272,18 @@ const authServerQuery = useQuery({
 	retry: false,
 	refetchOnWindowFocus: false,
 })
-const { data: modrinthUser } = useQuery({
+const { data: freeplayUser } = useQuery({
 	queryKey: computed(() => ['authenticated-user', 'campaigns', auth.user.value?.id]),
 	queryFn: () => client.labrinth.users_v3.getAuthenticated(),
 	enabled: () => !!auth.session_token.value,
 	retry: false,
 })
-const hasModrinthPrideCampaign = computed(
-	() => !!auth.session_token.value && hasPride26Badge(modrinthUser.value?.campaigns?.pride_26),
+const hasFreePlayPrideCampaign = computed(
+	() => !!auth.session_token.value && hasPride26Badge(freeplayUser.value?.campaigns?.pride_26),
 )
 const defaultSkins = computed(() =>
 	filterDefaultSkins(skins.value).filter(
-		(skin) => skin.section !== 'FreePlay Pride' || hasModrinthPrideCampaign.value,
+		(skin) => skin.section !== 'FreePlay Pride' || hasFreePlayPrideCampaign.value,
 	),
 )
 const defaultSkinSections = computed(() => {
@@ -481,9 +481,9 @@ function isMinecraftSkinRateLimitError(error: unknown) {
 function getDefaultSkinSectionTitle(section?: string) {
 	switch (section) {
 		case 'FreePlay Pride':
-			return formatMessage(messages.modrinthPrideSection)
-		case 'Modrinth':
-			return formatMessage(messages.modrinthSection)
+			return formatMessage(messages.freeplayPrideSection)
+		case 'FreePlay':
+			return formatMessage(messages.freeplaySection)
 		case 'MINECON Earth 2017':
 			return formatMessage(messages.mineconEarth2017Section)
 		case 'Builders & Biomes':
@@ -512,7 +512,7 @@ function getDefaultSkinSectionTitle(section?: string) {
 function getDefaultSkinSectionInfoTooltip(section: string) {
 	switch (section) {
 		case 'FreePlay Pride':
-			return formatMessage(messages.modrinthPrideTooltip)
+			return formatMessage(messages.freeplayPrideTooltip)
 		default:
 			return undefined
 	}

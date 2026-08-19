@@ -11,7 +11,7 @@ import { defineMessages, useVIntl } from '#ui/composables/i18n'
 import { useServerBackupsQueue } from '#ui/composables/server-backups-queue'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import type { FileOperation } from '#ui/layouts/shared/files-tab/types'
-import { injectModrinthClient, injectModrinthServerContext } from '#ui/providers'
+import { injectFreePlayClient, injectFreePlayServerContext } from '#ui/providers'
 
 import BackupAdmonition, { type BackupAdmonitionEntry } from './BackupAdmonition.vue'
 import FileOperationAdmonition from './FileOperationAdmonition.vue'
@@ -22,8 +22,8 @@ const emit = defineEmits<{
 }>()
 
 const { formatMessage } = useVIntl()
-const client = injectModrinthClient()
-const ctx = injectModrinthServerContext()
+const client = injectFreePlayClient()
+const ctx = injectFreePlayServerContext()
 const route = useRoute()
 const { canSetup, canManageBackups, permissionDeniedMessage } = useServerPermissions()
 

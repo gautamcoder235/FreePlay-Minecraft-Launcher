@@ -2,10 +2,10 @@
 	<NewModal ref="purchaseModal">
 		<template #title>
 			<span class="text-contrast text-xl font-extrabold">
-				<template v-if="productType === 'midas'">Subscribe to Modrinth+!</template>
+				<template v-if="productType === 'midas'">Subscribe to FreePlay+!</template>
 				<template v-else-if="productType === 'pyro'">
 					<template v-if="existingSubscription"> Upgrade server plan </template>
-					<template v-else> Subscribe to Modrinth Hosting! </template>
+					<template v-else> Subscribe to FreePlay Hosting! </template>
 				</template>
 				<template v-else>Purchase product</template>
 			</span>
@@ -143,7 +143,7 @@
 								Max Burst CPUs
 								<UnknownIcon
 									v-tooltip="
-										'CPU bursting allows your server to temporarily use additional threads to help mitigate TPS spikes. See Modrinth Hosting FAQ for more info.'
+										'CPU bursting allows your server to temporarily use additional threads to help mitigate TPS spikes. See FreePlay Hosting FAQ for more info.'
 									"
 									class="h-4 w-4text-secondary opacity-60"
 								/>
@@ -296,7 +296,7 @@
 					<p class="my-2 text-lg font-bold text-primary">Purchase details</p>
 					<div class="mb-2 flex justify-between">
 						<span class="text-secondary">
-							{{ mutatedProduct.metadata.type === 'midas' ? 'Modrinth+' : 'Modrinth Hosting' }}
+							{{ mutatedProduct.metadata.type === 'midas' ? 'FreePlay+' : 'FreePlay Hosting' }}
 							{{
 								existingPlan
 									? `(${dayjs(renewalDate).diff(dayjs(), 'days')} days prorated)`

@@ -81,7 +81,7 @@
 				<div
 					class="flex h-8 items-center justify-between gap-2 rounded-xl bg-surface-1 px-2.5 text-sm font-medium text-primary"
 				>
-					<span class="truncate">https://modrinth.com/server/abc123</span>
+					<span class="truncate">https://freeplay.app/server/abc123</span>
 					<ClipboardCopyIcon class="size-4 shrink-0 text-secondary" />
 				</div>
 			</div>
@@ -110,8 +110,8 @@
 							{{ formatMessage(messages.invitedYouTo) }}
 						</p>
 						<p class="m-0 flex items-center gap-1">
-							<Avatar :src="modrinthSmpIcon" size="1.25rem" no-shadow />
-							<span class="font-medium text-contrast">Modrinth SMP</span>
+							<Avatar :src="freeplaySmpIcon" size="1.25rem" no-shadow />
+							<span class="font-medium text-contrast">FreePlay SMP</span>
 							<span>{{ formatMessage(messages.serverSuffix) }}</span>
 						</p>
 					</div>
@@ -146,7 +146,7 @@ import geometricallyAvatar from '#ui/assets/servers/server-list-empty/geometrica
 import imb11Avatar from '#ui/assets/servers/server-list-empty/imb11.png'
 import joshAvatar from '#ui/assets/servers/server-list-empty/josh.png'
 import michaelAvatar from '#ui/assets/servers/server-list-empty/michael.png'
-import modrinthSmpIcon from '#ui/assets/servers/server-list-empty/modrinth-smp.png'
+import freeplaySmpIcon from '#ui/assets/servers/server-list-empty/freeplay-smp.png'
 import prospectorAvatar from '#ui/assets/servers/server-list-empty/prospector.png'
 import sayaAvatar from '#ui/assets/servers/server-list-empty/saya.png'
 import trumanAvatar from '#ui/assets/servers/server-list-empty/truman.png'
@@ -168,7 +168,7 @@ const messages = defineMessages({
 	},
 	searchPlaceholder: {
 		id: 'sharing.invite-players-modal.search-placeholder',
-		defaultMessage: 'Enter Modrinth username',
+		defaultMessage: 'Enter FreePlay username',
 	},
 	addButton: {
 		id: 'sharing.invite-players-modal.add',

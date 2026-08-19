@@ -186,7 +186,7 @@ export const CreatorHeader: Story = {
 			}
 		},
 		template: `
-			<PageHeader title="Prospector" summary="A Modrinth creator with a handful of popular projects.">
+			<PageHeader title="Prospector" summary="A FreePlay creator with a handful of popular projects.">
 				<template #leading>
 					<Avatar src="" alt="Prospector" size="96px" tint-by="Prospector" circle />
 				</template>
@@ -320,7 +320,7 @@ export const ServerPanelRootHeader: Story = {
 					<PageHeaderMetadata>
 						<PageHeaderMetadataItem :icon="GlobeIcon" tooltip="Active instance">My World</PageHeaderMetadataItem>
 						<PageHeaderMetadataItem :icon="LinkIcon" tooltip="Copy server address" :action="noop">
-							play.modrinth.gg
+							play.freeplay.gg
 						</PageHeaderMetadataItem>
 					</PageHeaderMetadata>
 				</template>

@@ -3,7 +3,7 @@ import { type Ref, ref, watch } from 'vue'
 
 import { createContext } from '.'
 
-const PURCHASE_INTENT_STORAGE_KEY = 'modrinth:servers-purchase-intent'
+const PURCHASE_INTENT_STORAGE_KEY = 'freeplay:servers-purchase-intent'
 
 export type ServerBillingInterval = 'monthly' | 'quarterly' | 'yearly'
 

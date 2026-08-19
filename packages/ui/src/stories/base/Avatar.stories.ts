@@ -14,14 +14,14 @@ export const Default: Story = {}
 
 export const WithImage: Story = {
 	args: {
-		src: 'https://cdn.modrinth.com/data/AANobbMI/icon.png',
+		src: 'https://cdn.freeplay.app/data/AANobbMI/icon.png',
 		alt: 'Project icon',
 	},
 }
 
 export const Circle: Story = {
 	args: {
-		src: 'https://cdn.modrinth.com/data/AANobbMI/icon.png',
+		src: 'https://cdn.freeplay.app/data/AANobbMI/icon.png',
 		circle: true,
 	},
 }
@@ -31,10 +31,10 @@ export const AllSizes: Story = {
 		components: { Avatar },
 		template: /*html*/ `
 			<div style="display: flex; gap: 1rem; align-items: center;">
-				<Avatar src="https://cdn.modrinth.com/data/AANobbMI/icon.png" size="1.5rem" />
-				<Avatar src="https://cdn.modrinth.com/data/AANobbMI/icon.png" size="2rem" />
-				<Avatar src="https://cdn.modrinth.com/data/AANobbMI/icon.png" size="3rem" />
-				<Avatar src="https://cdn.modrinth.com/data/AANobbMI/icon.png" size="4rem" />
+				<Avatar src="https://cdn.freeplay.app/data/AANobbMI/icon.png" size="1.5rem" />
+				<Avatar src="https://cdn.freeplay.app/data/AANobbMI/icon.png" size="2rem" />
+				<Avatar src="https://cdn.freeplay.app/data/AANobbMI/icon.png" size="3rem" />
+				<Avatar src="https://cdn.freeplay.app/data/AANobbMI/icon.png" size="4rem" />
 			</div>
 		`,
 	}),

@@ -99,7 +99,7 @@
     "defaultMessage": "검색 결과가 없습니다!"
   },
   "browse.offline": {
-    "defaultMessage": "현재 오프라인 상태입니다. Modrinth를 이용하려면 인터넷에 연결하세요!"
+    "defaultMessage": "현재 오프라인 상태입니다. FreePlay를 이용하려면 인터넷에 연결하세요!"
   },
   "browse.search.placeholder": {
     "defaultMessage": "{projectType} 검색..."
@@ -227,8 +227,8 @@
   "button.open-in-folder": {
     "defaultMessage": "폴더 열기"
   },
-  "button.open-in-modrinth": {
-    "defaultMessage": "Modrinth로 열기"
+  "button.open-in-freeplay": {
+    "defaultMessage": "FreePlay로 열기"
   },
   "button.play": {
     "defaultMessage": "플레이"
@@ -507,13 +507,13 @@
     "defaultMessage": "{count} 제거됨 (비활성화됨)"
   },
   "content.diff-modal.reviewed-files": {
-    "defaultMessage": "모든 파일은 형식(.mrpack 포함)에 무관하게 Modrinth에 게시되어야만 검수를 거칩니다."
+    "defaultMessage": "모든 파일은 형식(.mrpack 포함)에 무관하게 FreePlay에 게시되어야만 검수를 거칩니다."
   },
   "content.diff-modal.unknown-content-body": {
     "defaultMessage": "서버의 일부 콘텐츠를 분석할 수 없었으며, 이번 변경 사항의 영향을 받을 수 있습니다."
   },
   "content.diff-modal.unknown-files-description": {
-    "defaultMessage": "이 업데이트에는 Modrinth에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
+    "defaultMessage": "이 업데이트에는 FreePlay에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
   },
   "content.diff-modal.unknown-files-warning": {
     "defaultMessage": "출처를 알 수 없는 파일"
@@ -882,7 +882,7 @@
     "defaultMessage": "인스턴스 가져오기"
   },
   "creation-flow.modal.setup-type.option.modpack-base.description": {
-    "defaultMessage": "Modrinth에서 모드팩을 찾아보거나 파일에서 직접 가져오세요."
+    "defaultMessage": "FreePlay에서 모드팩을 찾아보거나 파일에서 직접 가져오세요."
   },
   "creation-flow.modal.setup-type.option.modpack-base.title": {
     "defaultMessage": "모드팩 설치"
@@ -1010,8 +1010,8 @@
   "external-files.permissions-card.editor.link-to-work-url-placeholder": {
     "defaultMessage": "원본_링크"
   },
-  "external-files.permissions-card.editor.modrinth-link-to-work": {
-    "defaultMessage": "Modrinth 링크로 보입니다. Modrinth에 게시된 콘텐츠인 경우 팩이 잘못 내보내졌을 수 있습니다. 다른 사이트에서 다운로드한 경우 Modrinth에서 다시 설치해보세요. 파일이 달라졌을 수 있습니다."
+  "external-files.permissions-card.editor.freeplay-link-to-work": {
+    "defaultMessage": "FreePlay 링크로 보입니다. FreePlay에 게시된 콘텐츠인 경우 팩이 잘못 내보내졌을 수 있습니다. 다른 사이트에서 다운로드한 경우 FreePlay에서 다시 설치해보세요. 파일이 달라졌을 수 있습니다."
   },
   "external-files.permissions-card.editor.notes-label": {
     "defaultMessage": "노트"
@@ -1035,7 +1035,7 @@
     "defaultMessage": "제출된 이미지를 조작하거나 허위 사실을 기재한 경우, 프로젝트와 계정이 영구 삭제될 수 있습니다."
   },
   "external-files.permissions-card.editor.proof-warning.title": {
-    "defaultMessage": "Modrinth 직원이 제출한 증명을 검증할 수 있습니다"
+    "defaultMessage": "FreePlay 직원이 제출한 증명을 검증할 수 있습니다"
   },
   "external-files.permissions-card.editor.save": {
     "defaultMessage": "속성 저장"
@@ -1122,7 +1122,7 @@
     "defaultMessage": "자동으로 출처가 표기됨"
   },
   "external-files.permissions-card.reason.globally-allowed.description": {
-    "defaultMessage": "이 파일을 이전에 확인한 적이 있어 출처 표기를 미리 준비해 두었습니다. 잘못된 부분이 있다면 헬프 센터를 통해 Modrinth 고객 지원팀에 문의해 주세요"
+    "defaultMessage": "이 파일을 이전에 확인한 적이 있어 출처 표기를 미리 준비해 두었습니다. 잘못된 부분이 있다면 헬프 센터를 통해 FreePlay 고객 지원팀에 문의해 주세요"
   },
   "external-files.permissions-card.reason.license": {
     "defaultMessage": "라이선스"
@@ -2622,16 +2622,16 @@
     "defaultMessage": "서버 변경 시 파일 자동 업데이트"
   },
   "modal.open-in-app.get-app": {
-    "defaultMessage": "Modrinth App 받기"
+    "defaultMessage": "FreePlay App 받기"
   },
   "modal.open-in-app.opening-automatically": {
-    "defaultMessage": "Modrinth App이 자동으로 열립니다..."
+    "defaultMessage": "FreePlay App이 자동으로 열립니다..."
   },
   "modal.open-in-app.title": {
-    "defaultMessage": "Modrinth App 여는 중"
+    "defaultMessage": "FreePlay App 여는 중"
   },
   "modal.open-in-app.why-use": {
-    "defaultMessage": "Modrinth App을 사용하는 이유"
+    "defaultMessage": "FreePlay App을 사용하는 이유"
   },
   "notification.error.title": {
     "defaultMessage": "오류가 발생했습니다"
@@ -2663,8 +2663,8 @@
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "관리자"
   },
-  "omorphia.component.badge.label.modrinth-team": {
-    "defaultMessage": "Modrinth 팀"
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlay 팀"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "대기중"
@@ -2784,13 +2784,13 @@
     "defaultMessage": "Visa"
   },
   "profile.bio.fallback.creator": {
-    "defaultMessage": "Modrinth 크리에이터입니다."
+    "defaultMessage": "FreePlay 크리에이터입니다."
   },
   "profile.bio.fallback.user": {
-    "defaultMessage": "Modrinth 사용자입니다."
+    "defaultMessage": "FreePlay 사용자입니다."
   },
   "profile.block-user.admonition-body": {
-    "defaultMessage": "{username} 님은 친구 요청을 보내거나, 공유 인스턴스 초대 및 Modrinth Hosting 서버 초대를 할 수 없게 됩니다."
+    "defaultMessage": "{username} 님은 친구 요청을 보내거나, 공유 인스턴스 초대 및 FreePlay Hosting 서버 초대를 할 수 없게 됩니다."
   },
   "profile.block-user.admonition-title": {
     "defaultMessage": "이 사용자를 차단하시겠습니까?"
@@ -2907,10 +2907,10 @@
     "defaultMessage": "{count, plural, other {프로젝트}}"
   },
   "profile.official-account": {
-    "defaultMessage": "공식 Modrinth 계정"
+    "defaultMessage": "공식 FreePlay 계정"
   },
   "profile.official-account.bio": {
-    "defaultMessage": "Modrinth의 공식 사용자 계정입니다. <support-link></support-link> 또는 <email></email> 을 통해 문의해 주세요"
+    "defaultMessage": "FreePlay의 공식 사용자 계정입니다. <support-link></support-link> 또는 <email></email> 을 통해 문의해 주세요"
   },
   "profile.unblock-user.error-description": {
     "defaultMessage": "이 사용자의 차단을 해제하는 동안 오류가 발생했습니다. 다시 시도해 주세요."
@@ -3243,7 +3243,7 @@
     "defaultMessage": "{count} {countPlural, plural, one {회 최근 플레이} other {회 최근 플레이}}"
   },
   "project.recent-plays.tooltip": {
-    "defaultMessage": "Modrinth에서 지난 2주동안 {count}회 플레이"
+    "defaultMessage": "FreePlay에서 지난 2주동안 {count}회 플레이"
   },
   "project.server.customModpackTooltip": {
     "defaultMessage": "이 프로젝트는 사용자 지정 모드팩을 사용합니다"
@@ -3555,7 +3555,7 @@
     "defaultMessage": "프로젝트가 여러 실행 환경에 있습니다"
   },
   "project.settings.environment.notice.review-options.description": {
-    "defaultMessage": "Modrinth의 실행 환경 시스템이 개편되어 새로운 옵션을 사용할 수 있습니다. 아래에서 올바른 옵션이 선택되어 있는지 확인한 후, 완료되면 ‘확인’을 클릭해 주세요!"
+    "defaultMessage": "FreePlay의 실행 환경 시스템이 개편되어 새로운 옵션을 사용할 수 있습니다. 아래에서 올바른 옵션이 선택되어 있는지 확인한 후, 완료되면 ‘확인’을 클릭해 주세요!"
   },
   "project.settings.environment.notice.review-options.title": {
     "defaultMessage": "아래 옵션을 검토해주세요"
@@ -4554,13 +4554,13 @@
     "defaultMessage": "Minecraft 사용자 이름을 사용하지 마세요."
   },
   "servers.grant-access-modal.target.label": {
-    "defaultMessage": "Modrinth 사용자명"
+    "defaultMessage": "FreePlay 사용자명"
   },
   "servers.grant-access-modal.target.no-suggestions": {
     "defaultMessage": "일치하는 사용자를 찾을 수 없습니다."
   },
   "servers.grant-access-modal.target.placeholder": {
-    "defaultMessage": "Modrinth 사용자명 입력"
+    "defaultMessage": "FreePlay 사용자명 입력"
   },
   "servers.grant-access-modal.target.searching": {
     "defaultMessage": "검색 중..."
@@ -4577,14 +4577,14 @@
   "servers.list-empty.already-have-server-label": {
     "defaultMessage": "서버가 이미 있으신가요?"
   },
-  "servers.list-empty.modrinth-hosting-label": {
-    "defaultMessage": "Modrinth 호스팅"
+  "servers.list-empty.freeplay-hosting-label": {
+    "defaultMessage": "FreePlay 호스팅"
   },
   "servers.list-empty.new-server-button": {
     "defaultMessage": "새로운 서버"
   },
   "servers.list-empty.no-servers-description": {
-    "defaultMessage": "Modrinth 앱에서 모드를 설치하고, 친구를 초대해 함께 플레이하세요."
+    "defaultMessage": "FreePlay 앱에서 모드를 설치하고, 친구를 초대해 함께 플레이하세요."
   },
   "servers.list-empty.one-click-mod-installs-description": {
     "defaultMessage": "즐겨찾는 모드들을 선택하시고 나머지는 저희에게 맡겨주세요."
@@ -4593,7 +4593,7 @@
     "defaultMessage": "원클릭 모드 설치"
   },
   "servers.list-empty.play-with-friends-description": {
-    "defaultMessage": "Modrinth 앱에서 친구들을 초대해 설정을 도울 수 있습니다."
+    "defaultMessage": "FreePlay 앱에서 친구들을 초대해 설정을 도울 수 있습니다."
   },
   "servers.list-empty.play-with-friends-title": {
     "defaultMessage": "친구들과 플레이"
@@ -4653,7 +4653,7 @@
     "defaultMessage": "구독이 <date>{formattedDate}</date>에 취소되도록 설정되어 있습니다."
   },
   "servers.listing.notice.suspended": {
-    "defaultMessage": "서버가 정지되었습니다. 자세한 내용은 Modrinth 지원팀에 문의하십시오."
+    "defaultMessage": "서버가 정지되었습니다. 자세한 내용은 FreePlay 지원팀에 문의하십시오."
   },
   "servers.listing.notice.upgrading": {
     "defaultMessage": "서버 하드웨어 업그레이드 작업이 진행 중이며 곧 다시 온라인 상태가 될 예정입니다."
@@ -4686,7 +4686,7 @@
     "defaultMessage": "업로드 진행 중"
   },
   "servers.manage.contact-support-button": {
-    "defaultMessage": "Modrinth 지원팀에 문의하세요."
+    "defaultMessage": "FreePlay 지원팀에 문의하세요."
   },
   "servers.manage.error.alert-notice": {
     "defaultMessage": "저희 시스템은 문제가 발생하면 자동으로 팀에 알림을 보냅니다. 현재 시스템을 다시 정상화하기 위해 노력하고 있습니다."
@@ -4698,7 +4698,7 @@
     "defaultMessage": "오류 세부정보:"
   },
   "servers.manage.error.support-notice": {
-    "defaultMessage": "\n서버 상태와 관련하여 개별적인 지원이 필요하시면 Modrinth 지원팀에 문의해 주세요."
+    "defaultMessage": "\n서버 상태와 관련하여 개별적인 지원이 필요하시면 FreePlay 지원팀에 문의해 주세요."
   },
   "servers.manage.error.title": {
     "defaultMessage": "서버를 로드할 수 없습니다."
@@ -4728,7 +4728,7 @@
     "defaultMessage": "새로고침"
   },
   "servers.manage.resubscribe-error.text": {
-    "defaultMessage": "Modrinth 서버에 다시 가입하는 동안 오류가 발생했습니다."
+    "defaultMessage": "FreePlay 서버에 다시 가입하는 동안 오류가 발생했습니다."
   },
   "servers.manage.resubscribe-error.title": {
     "defaultMessage": "재구독 중 오류 발생"
@@ -4749,7 +4749,7 @@
     "defaultMessage": "검색 {count} {count, plural, one {서버} other {서버}}..."
   },
   "servers.manage.servers-title": {
-    "defaultMessage": "Modrinth 호스팅"
+    "defaultMessage": "FreePlay 호스팅"
   },
   "servers.manage.settings-hint.description": {
     "defaultMessage": "여기서 찾을 수 있습니다!"
@@ -4776,10 +4776,10 @@
     "defaultMessage": "Medal 서버 체험판이 종료되어 서버가 일시 중지되었습니다. 계속 사용하려면 업그레이드해 주세요."
   },
   "servers.medal-listing.notice.suspended": {
-    "defaultMessage": "서버가 일시 중지되었습니다. 결제 정보를 업데이트하거나 자세한 내용은 Modrinth 지원팀에 문의해 주세요."
+    "defaultMessage": "서버가 일시 중지되었습니다. 결제 정보를 업데이트하거나 자세한 내용은 FreePlay 지원팀에 문의해 주세요."
   },
   "servers.medal-listing.notice.suspended-with-reason": {
-    "defaultMessage": "서버가 일시 중지되었습니다: {reason}. 결제 정보를 업데이트하거나 자세한 내용은 Modrinth 지원팀에 문의해 주세요."
+    "defaultMessage": "서버가 일시 중지되었습니다: {reason}. 결제 정보를 업데이트하거나 자세한 내용은 FreePlay 지원팀에 문의해 주세요."
   },
   "servers.medal-listing.notice.upgrading": {
     "defaultMessage": "서버의 하드웨어가 현재 업그레이드 중이며, 곧 다시 온라인 상태로 돌아올 예정입니다."
@@ -4827,7 +4827,7 @@
     "defaultMessage": "무시 불가"
   },
   "servers.purchase.notification.success.text": {
-    "defaultMessage": "Modrinth 호스팅 결제가 성공적으로 완료되었습니다."
+    "defaultMessage": "FreePlay 호스팅 결제가 성공적으로 완료되었습니다."
   },
   "servers.purchase.notification.success.title": {
     "defaultMessage": "결제 성공"
@@ -4917,7 +4917,7 @@
     "defaultMessage": "서버가 어디에 위치했으면 좋겠나요?"
   },
   "servers.region.region-unsupported": {
-    "defaultMessage": "원하는 지역이 목록에 없나요? <link>Modrinth Hosting을 어디에서 만나고 싶은지 알려주세요!</link>"
+    "defaultMessage": "원하는 지역이 목록에 없나요? <link>FreePlay Hosting을 어디에서 만나고 싶은지 알려주세요!</link>"
   },
   "servers.region.southeast-asia": {
     "defaultMessage": "동남아시아"
@@ -4989,7 +4989,7 @@
     "defaultMessage": "서버 설정"
   },
   "servers.setup.onboarding.step.choose.description": {
-    "defaultMessage": "Modrinth에서 마음에 드는 모드팩을 고르거나, 로더를 선택하고 원하는 모드를 추가하세요."
+    "defaultMessage": "FreePlay에서 마음에 드는 모드팩을 고르거나, 로더를 선택하고 원하는 모드를 추가하세요."
   },
   "servers.setup.onboarding.step.choose.title": {
     "defaultMessage": "플레이할 콘텐츠 선택"
@@ -5016,7 +5016,7 @@
     "defaultMessage": "서버가 준비되었습니다. 플레이하려면 다음 단계를 따라주세요!"
   },
   "servers.setup.onboarding.welcome.title": {
-    "defaultMessage": "Modrinth Hosting에 오신 것을 환영합니다"
+    "defaultMessage": "FreePlay Hosting에 오신 것을 환영합니다"
   },
   "servers.setup.rate-limit.text": {
     "defaultMessage": "제한에 도달했습니다. 나중에 다시 시도하세요."
@@ -5055,7 +5055,7 @@
     "defaultMessage": "어두운 테마"
   },
   "settings.display.theme.description": {
-    "defaultMessage": "이 디바이스에서 선호하는 Modrinth의 색상 테마를 선택합니다."
+    "defaultMessage": "이 디바이스에서 선호하는 FreePlay의 색상 테마를 선택합니다."
   },
   "settings.display.theme.light": {
     "defaultMessage": "밝은 테마"
@@ -5127,7 +5127,7 @@
     "defaultMessage": "프로필 사진"
   },
   "settings.profile.public-information.description": {
-    "defaultMessage": "프로필 정보는 Modrinth에서 <profile-link>누구나 볼 수 있게 공개</profile-link>되며, <docs-link>Modrinth API</docs-link>를 통해서도 확인할 수 있습니다."
+    "defaultMessage": "프로필 정보는 FreePlay에서 <profile-link>누구나 볼 수 있게 공개</profile-link>되며, <docs-link>FreePlay API</docs-link>를 통해서도 확인할 수 있습니다."
   },
   "settings.profile.save-error": {
     "defaultMessage": "프로필 업데이트 실패"
@@ -5136,10 +5136,10 @@
     "defaultMessage": "프로필을 업데이트하는 동안 오류가 발생했습니다. 다시 시도해 주세요."
   },
   "settings.profile.sign-in-required.description": {
-    "defaultMessage": "공개 프로필을 맞춤 설정하려면 Modrinth 계정에 로그인하세요."
+    "defaultMessage": "공개 프로필을 맞춤 설정하려면 FreePlay 계정에 로그인하세요."
   },
   "settings.profile.sign-in-required.title": {
-    "defaultMessage": "Modrinth 계정 필요"
+    "defaultMessage": "FreePlay 계정 필요"
   },
   "settings.profile.username.description": {
     "defaultMessage": "프로필을 식별하기 위한 대소문자 구분 없는 고유한 이름입니다."
@@ -5154,7 +5154,7 @@
     "defaultMessage": "사용자"
   },
   "settings.social.blocked-users.description": {
-    "defaultMessage": "Modrinth에서 차단한 사용자 목록입니다. 해당 사용자는 다음 행위를 할 수 없습니다:"
+    "defaultMessage": "FreePlay에서 차단한 사용자 목록입니다. 해당 사용자는 다음 행위를 할 수 없습니다:"
   },
   "settings.social.blocked-users.empty": {
     "defaultMessage": "차단한 사용자가 없습니다."
@@ -5169,7 +5169,7 @@
     "defaultMessage": "나에게 친구 요청 전송"
   },
   "settings.social.blocked-users.restriction.hosting": {
-    "defaultMessage": "Modrinth 호스팅 서버 관리 초대."
+    "defaultMessage": "FreePlay 호스팅 서버 관리 초대."
   },
   "settings.social.blocked-users.restriction.shared-instances": {
     "defaultMessage": "공유 인스턴스에 초대"
@@ -5193,7 +5193,7 @@
     "defaultMessage": "{username} 님의 아바타"
   },
   "settings.social.friend-requests.description": {
-    "defaultMessage": "Modrinth에서 본인에게 친구 요청을 보낼 수 있는 사람을 설정합니다."
+    "defaultMessage": "FreePlay에서 본인에게 친구 요청을 보낼 수 있는 사람을 설정합니다."
   },
   "settings.social.friend-requests.title": {
     "defaultMessage": "친구 요청"
@@ -5214,16 +5214,16 @@
     "defaultMessage": "아무도 없음"
   },
   "settings.social.shared-instance-invites.description": {
-    "defaultMessage": "공유 인스턴스 및 Modrinth Hosting 패널 초대를 보낼 수 있는 사람을 설정합니다."
+    "defaultMessage": "공유 인스턴스 및 FreePlay Hosting 패널 초대를 보낼 수 있는 사람을 설정합니다."
   },
   "settings.social.shared-instance-invites.title": {
     "defaultMessage": "초대"
   },
   "settings.social.sign-in-required.description": {
-    "defaultMessage": "Modrinth 계정이 있으면 본인과 소통 가능한 사람을 설정하고 차단된 사용자를 관리할 수 있습니다"
+    "defaultMessage": "FreePlay 계정이 있으면 본인과 소통 가능한 사람을 설정하고 차단된 사용자를 관리할 수 있습니다"
   },
   "settings.social.sign-in-required.title": {
-    "defaultMessage": "Modrinth 계정이 필요합니다"
+    "defaultMessage": "FreePlay 계정이 필요합니다"
   },
   "settings.social.title": {
     "defaultMessage": "소셜"
@@ -5316,7 +5316,7 @@
     "defaultMessage": "저장"
   },
   "sharing.invite-players-modal.search-placeholder": {
-    "defaultMessage": "Modrinth 사용자 이름 입력"
+    "defaultMessage": "FreePlay 사용자 이름 입력"
   },
   "sharing.invite-players-modal.searching": {
     "defaultMessage": "검색 중..."
@@ -5874,34 +5874,34 @@
     "defaultMessage": "Discord 등의 플랫폼을 통해 모드 파일을 공유하는 과정에서 악성코드가 유포되는 경우가 많습니다."
   },
   "unknown-file-warning-modal.mod-warning-body": {
-    "defaultMessage": " 은 Modrinth에 게시되지 않은 파일입니다. 신뢰할 수 있는 출처의 파일만 설치할 것을 강력히 권장합니다."
+    "defaultMessage": " 은 FreePlay에 게시되지 않은 파일입니다. 신뢰할 수 있는 출처의 파일만 설치할 것을 강력히 권장합니다."
   },
   "unknown-file-warning-modal.mod-warning-title": {
     "defaultMessage": "알 수 없는 파일 경고"
   },
   "unknown-file-warning-modal.modpack-warning-body": {
-    "defaultMessage": " Modrinth에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
+    "defaultMessage": " FreePlay에 게시되지 않은 파일이 포함되어 있습니다. 신뢰할 수 있는 출처의 파일만 설치하는 것을 강력히 권장합니다."
   },
   "unknown-file-warning-modal.modpack-warning-title": {
     "defaultMessage": "알 수 없는 파일 경고"
   },
   "unknown-file-warning-modal.reviewed-files": {
-    "defaultMessage": "파일 형식(.mrpack 포함)에 관계없이, Modrinth에 게시된 파일만 검토 과정을 거칩니다."
+    "defaultMessage": "파일 형식(.mrpack 포함)에 관계없이, FreePlay에 게시된 파일만 검토 과정을 거칩니다."
   },
   "unknown-file-warning-modal.unrecognized-files": {
     "defaultMessage": "인식되지 않는 파일"
   },
   "user.profile.badge.alpha.about.1": {
-    "defaultMessage": "이 사용자는 2020년 11월에 종료된 Modrinth 알파 버전 시절부터 활동해 왔습니다."
+    "defaultMessage": "이 사용자는 2020년 11월에 종료된 FreePlay 알파 버전 시절부터 활동해 왔습니다."
   },
   "user.profile.badge.alpha.name": {
     "defaultMessage": "알파 테스터"
   },
   "user.profile.badge.beta.about.1": {
-    "defaultMessage": "이 사용자는 2022년 2월에 종료된 Modrinth 베타 버전 시절부터 활동해 왔습니다."
+    "defaultMessage": "이 사용자는 2022년 2월에 종료된 FreePlay 베타 버전 시절부터 활동해 왔습니다."
   },
   "user.profile.badge.beta.link": {
-    "defaultMessage": "Modrinth 베타 출시 소식을 보려면 여기를 클릭하세요."
+    "defaultMessage": "FreePlay 베타 출시 소식을 보려면 여기를 클릭하세요."
   },
   "user.profile.badge.beta.name": {
     "defaultMessage": "베타 테스터"
@@ -5913,67 +5913,67 @@
     "defaultMessage": "{download_sum}회 다운로드"
   },
   "user.profile.badge.early-datapack-adopter.about.1": {
-    "defaultMessage": "이 사용자는 2023년 1월에 데이터 팩 프로젝트가 공식 출시되기 전, Modrinth에서 테스트를 도와주었습니다."
+    "defaultMessage": "이 사용자는 2023년 1월에 데이터 팩 프로젝트가 공식 출시되기 전, FreePlay에서 테스트를 도와주었습니다."
   },
   "user.profile.badge.early-datapack-adopter.name": {
     "defaultMessage": "초기 데이터 팩 테스터"
   },
   "user.profile.badge.early-modpack-adopter.about.1": {
-    "defaultMessage": "이 사용자는 2022년 5월에 모드팩 프로젝트가 공식 출시되기 전, Modrinth에서 테스트를 도와주었습니다."
+    "defaultMessage": "이 사용자는 2022년 5월에 모드팩 프로젝트가 공식 출시되기 전, FreePlay에서 테스트를 도와주었습니다."
   },
   "user.profile.badge.early-modpack-adopter.name": {
     "defaultMessage": "초기 모드 팩 테스터"
   },
   "user.profile.badge.early-plugin-adopter.about.1": {
-    "defaultMessage": "이 사용자는 2022년 8월에 플러그인 프로젝트가 공식 출시되기 전, Modrinth에서 테스트를 도와주었습니다."
+    "defaultMessage": "이 사용자는 2022년 8월에 플러그인 프로젝트가 공식 출시되기 전, FreePlay에서 테스트를 도와주었습니다."
   },
   "user.profile.badge.early-plugin-adopter.name": {
     "defaultMessage": "초기 플러그인 팩 테스터"
   },
   "user.profile.badge.early-resourcepack-adopter.about.1": {
-    "defaultMessage": "이 사용자는 2022년 8월에 리소스 팩 프로젝트가 공식 출시되기 전, Modrinth에서 테스트를 도와주었습니다."
+    "defaultMessage": "이 사용자는 2022년 8월에 리소스 팩 프로젝트가 공식 출시되기 전, FreePlay에서 테스트를 도와주었습니다."
   },
   "user.profile.badge.early-resourcepack-adopter.name": {
     "defaultMessage": "초기 리소스팩 팩 테스터"
   },
   "user.profile.badge.early-server-adopter.about.1": {
-    "defaultMessage": "이 사용자는 2026년 3월에 서버 프로젝트가 공식 출시되기 전, Modrinth에서 테스트를 도와주었습니다."
+    "defaultMessage": "이 사용자는 2026년 3월에 서버 프로젝트가 공식 출시되기 전, FreePlay에서 테스트를 도와주었습니다."
   },
   "user.profile.badge.early-server-adopter.name": {
     "defaultMessage": "초기 호스팅 테스터"
   },
   "user.profile.badge.early-shader-adopter.about.1": {
-    "defaultMessage": "이 사용자는 2023년 1월에 셰이더 프로젝트가 공식 출시되기 전, Modrinth에서 테스트를 도와주었습니다."
+    "defaultMessage": "이 사용자는 2023년 1월에 셰이더 프로젝트가 공식 출시되기 전, FreePlay에서 테스트를 도와주었습니다."
   },
   "user.profile.badge.early-shader-adopter.name": {
     "defaultMessage": "초기 쉐이더 테스터"
   },
   "user.profile.badge.hosting-alpha.about.1": {
-    "defaultMessage": "이 사용자는 2024년 11월에 Modrinth 호스팅 베타가 출시되기 전, Modrinth 호스팅의 비공개 알파 테스트에 참여했습니다."
+    "defaultMessage": "이 사용자는 2024년 11월에 FreePlay 호스팅 베타가 출시되기 전, FreePlay 호스팅의 비공개 알파 테스트에 참여했습니다."
   },
   "user.profile.badge.hosting-alpha.name": {
-    "defaultMessage": "초기 Modrinth 호스팅 테스터"
+    "defaultMessage": "초기 FreePlay 호스팅 테스터"
   },
   "user.profile.badge.moderator.about.1": {
-    "defaultMessage": "이 사용자는 Modrinth에서 콘텐츠 중재자로 일하고 있습니다."
+    "defaultMessage": "이 사용자는 FreePlay에서 콘텐츠 중재자로 일하고 있습니다."
   },
   "user.profile.badge.moderator.about.2": {
-    "defaultMessage": "Modrinth의 콘텐츠 모더레이터는 프로젝트를 검토하고, 신고를 처리하며, Modrinth를 안전하게 유지하도록 돕습니다."
+    "defaultMessage": "FreePlay의 콘텐츠 모더레이터는 프로젝트를 검토하고, 신고를 처리하며, FreePlay를 안전하게 유지하도록 돕습니다."
   },
   "user.profile.badge.moderator.name": {
     "defaultMessage": "콘텐츠 중재자"
   },
   "user.profile.badge.plus.about.1": {
-    "defaultMessage": "이 사용자는 Modrinth와 플랫폼의 크리에이터들을 지원하기 위해 아낌없는 노력을 기울이고 있습니다."
+    "defaultMessage": "이 사용자는 FreePlay와 플랫폼의 크리에이터들을 지원하기 위해 아낌없는 노력을 기울이고 있습니다."
   },
   "user.profile.badge.plus.link": {
     "defaultMessage": "멤버가 되는 방법에 대해 자세히 알아보려면 클릭하세요."
   },
   "user.profile.badge.plus.name": {
-    "defaultMessage": "Modrinth+ 유저"
+    "defaultMessage": "FreePlay+ 유저"
   },
   "user.profile.badge.pride.about.1": {
-    "defaultMessage": "이 사용자는 LGBTQ+ 커뮤니티를 위한 Modrinth의 프라이드 모금 행사에 최소 한 번 이상 참여했습니다."
+    "defaultMessage": "이 사용자는 LGBTQ+ 커뮤니티를 위한 FreePlay의 프라이드 모금 행사에 최소 한 번 이상 참여했습니다."
   },
   "user.profile.badge.pride.link": {
     "defaultMessage": "최신 프라이드 모금 행사 페이지를 방문하려면 클릭하세요."
@@ -5982,10 +5982,10 @@
     "defaultMessage": "프라이드 모금 행사 후원자"
   },
   "user.profile.badge.staff.about.1": {
-    "defaultMessage": "이 사용자는 Modrinth에서 근무하고 있습니다."
+    "defaultMessage": "이 사용자는 FreePlay에서 근무하고 있습니다."
   },
   "user.profile.badge.staff.name": {
-    "defaultMessage": "Modrinth 팀"
+    "defaultMessage": "FreePlay 팀"
   },
   "version.content.name": {
     "defaultMessage": "이름"

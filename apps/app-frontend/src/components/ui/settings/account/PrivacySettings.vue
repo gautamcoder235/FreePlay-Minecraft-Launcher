@@ -22,12 +22,12 @@ const settings = ref(await get())
 const messages = defineMessages({
 	adsConsentTitle: {
 		id: 'app.ads-consent.title',
-		defaultMessage: 'Your privacy and how ads support Modrinth',
+		defaultMessage: 'Your privacy and how ads support FreePlay',
 	},
 	adsConsentIntro: {
 		id: 'app.settings.privacy.ads-consent.intro',
 		defaultMessage:
-			'Ads make Modrinth possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance. You can opt out or manage your preferences below.',
+			'Ads make FreePlay possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance. You can opt out or manage your preferences below.',
 	},
 	adsConsentManage: {
 		id: 'app.ads-consent.manage',
@@ -40,7 +40,7 @@ const messages = defineMessages({
 	telemetryDescription: {
 		id: 'app.settings.privacy.telemetry.description',
 		defaultMessage:
-			'Modrinth collects anonymized analytics and usage data to improve our user experience and customize your experience. By disabling this option, you opt out and your data will no longer be collected.',
+			'FreePlay collects anonymized analytics and usage data to improve our user experience and customize your experience. By disabling this option, you opt out and your data will no longer be collected.',
 	},
 	discordRichPresenceTitle: {
 		id: 'app.settings.privacy.discord-rich-presence.title',

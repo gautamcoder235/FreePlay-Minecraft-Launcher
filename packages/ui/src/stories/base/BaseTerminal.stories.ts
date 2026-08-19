@@ -19,7 +19,7 @@ export const Default: StoryObj = {
 			onMounted(() => {
 				const t = termRef.value
 				if (!t) return
-				t.writeln('\x1b[1;32m=== Modrinth Server Console ===\x1b[0m')
+				t.writeln('\x1b[1;32m=== FreePlay Server Console ===\x1b[0m')
 				t.writeln('')
 				t.writeln('\x1b[36m[10:15:30]\x1b[0m \x1b[32m[Server/INFO]\x1b[0m: Loading properties')
 				t.writeln(
@@ -82,7 +82,7 @@ export const StreamingLogs: StoryObj = {
 			let index = 0
 
 			onMounted(() => {
-				termRef.value?.writeln('\x1b[1;32m=== Modrinth Server Console ===\x1b[0m')
+				termRef.value?.writeln('\x1b[1;32m=== FreePlay Server Console ===\x1b[0m')
 				termRef.value?.writeln('')
 
 				interval = setInterval(() => {
@@ -117,7 +117,7 @@ export const WithInput: StoryObj = {
 			}
 
 			onMounted(() => {
-				termRef.value?.writeln('\x1b[1;32m=== Modrinth Server Console ===\x1b[0m')
+				termRef.value?.writeln('\x1b[1;32m=== FreePlay Server Console ===\x1b[0m')
 				termRef.value?.writeln('')
 				termRef.value?.writeln(
 					'\x1b[36m[10:15:35]\x1b[0m \x1b[32m[Server/INFO]\x1b[0m: Done! For help, type "help"',

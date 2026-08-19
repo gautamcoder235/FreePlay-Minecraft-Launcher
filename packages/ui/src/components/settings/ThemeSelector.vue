@@ -18,7 +18,7 @@ const colorTheme = defineMessages({
 	},
 	description: {
 		id: 'settings.display.theme.description',
-		defaultMessage: 'Select your preferred color theme for Modrinth on this device.',
+		defaultMessage: 'Select your preferred color theme for FreePlay on this device.',
 	},
 	system: {
 		id: 'settings.display.theme.system',

@@ -116,7 +116,7 @@ const repair = async (e) => {
 
 	if (
 		props.instance.install_stage !== 'pack_installed' &&
-		(props.instance.link?.type === 'modrinth_modpack' ||
+		(props.instance.link?.type === 'freeplay_modpack' ||
 			props.instance.link?.type === 'server_project_modpack')
 	) {
 		await install_pack_to_existing_instance(props.instance.id, {

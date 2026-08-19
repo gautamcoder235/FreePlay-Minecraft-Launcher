@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>
 
 export const ExternalLink: Story = {
 	args: {
-		to: 'https://modrinth.com',
+		to: 'https://freeplay.app',
 	},
 }
 

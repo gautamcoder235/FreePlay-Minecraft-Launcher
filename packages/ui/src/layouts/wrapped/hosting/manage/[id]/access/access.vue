@@ -135,8 +135,8 @@ import {
 import { useVIntl } from '#ui/composables/i18n'
 import { useServerPermissions } from '#ui/composables/server-permissions'
 import {
-	injectModrinthClient,
-	injectModrinthServerContext,
+	injectFreePlayClient,
+	injectFreePlayServerContext,
 	injectNotificationManager,
 } from '#ui/providers'
 
@@ -159,8 +159,8 @@ const showAuditLogInstances = computed(() => props.showAuditLogInstances)
 const INVITE_RESEND_COOLDOWN_SECONDS = 2 * 60
 
 const { formatMessage } = useVIntl()
-const client = injectModrinthClient()
-const { serverId, serverFull } = injectModrinthServerContext()
+const client = injectFreePlayClient()
+const { serverId, serverFull } = injectFreePlayServerContext()
 const { addNotification } = injectNotificationManager()
 const queryClient = useQueryClient()
 const grantAccessModal = ref<InstanceType<typeof GrantAccessModal> | null>(null)

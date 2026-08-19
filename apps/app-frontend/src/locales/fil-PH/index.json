@@ -290,10 +290,10 @@
   "app.skins.modal.texture-section": {
     "message": "Texture"
   },
-  "app.skins.section.modrinth": {
+  "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
-  "app.skins.section.modrinth-pride": {
+  "app.skins.section.freeplay-pride": {
     "message": "FreePlay Pride"
   },
   "app.update-popup.body.download-complete": {

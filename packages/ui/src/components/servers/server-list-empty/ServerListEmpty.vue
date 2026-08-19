@@ -5,7 +5,7 @@
 				<div class="flex flex-col gap-2">
 					<div class="flex items-center gap-3">
 						<h1 class="m-0 text-3xl font-semibold leading-9 text-contrast">
-							{{ formatMessage(messages.modrinthHostingLabel) }}
+							{{ formatMessage(messages.freeplayHostingLabel) }}
 						</h1>
 					</div>
 					<p class="m-0 text-base text-primary">
@@ -48,7 +48,7 @@
 						{{ formatMessage(messages.newServerButton) }}
 					</Button>
 					<AutoLink
-						to="https://modrinth.com/hosting"
+						to="https://freeplay.app/hosting"
 						target="_blank"
 						class="flex items-center gap-1 hover:brightness-125 font-semibold"
 					>
@@ -100,13 +100,13 @@ defineProps<{
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
-	modrinthHostingLabel: {
-		id: 'servers.list-empty.modrinth-hosting-label',
-		defaultMessage: 'Modrinth Hosting',
+	freeplayHostingLabel: {
+		id: 'servers.list-empty.freeplay-hosting-label',
+		defaultMessage: 'FreePlay Hosting',
 	},
 	noServersDescription: {
 		id: 'servers.list-empty.no-servers-description',
-		defaultMessage: 'Install mods, invite friends, and play together all from the Modrinth App.',
+		defaultMessage: 'Install mods, invite friends, and play together all from the FreePlay App.',
 	},
 	oneClickModInstallsTitle: {
 		id: 'servers.list-empty.one-click-mod-installs-title',
@@ -130,7 +130,7 @@ const messages = defineMessages({
 	},
 	playWithFriendsDescription: {
 		id: 'servers.list-empty.play-with-friends-description',
-		defaultMessage: 'Invite friends to play your server with one-click play from the Modrinth App.',
+		defaultMessage: 'Invite friends to play your server with one-click play from the FreePlay App.',
 	},
 	newServerButton: {
 		id: 'servers.list-empty.new-server-button',
@@ -146,7 +146,7 @@ const messages = defineMessages({
 	},
 	signInButton: {
 		id: 'servers.list-empty.sign-in-button',
-		defaultMessage: 'Sign in to Modrinth',
+		defaultMessage: 'Sign in to FreePlay',
 	},
 })
 
