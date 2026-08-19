@@ -6,6 +6,7 @@ use uuid::{Uuid, fmt::Hyphenated};
 use super::MinecraftSkinVariant;
 
 pub mod mojang_api;
+pub mod offline;
 
 /// Represents a saved skin row for a Minecraft player.
 ///

@@ -52,6 +52,9 @@ pub enum ErrorKind {
     #[error("Filesystem error: {0}")]
     FSError(String),
 
+    #[error("Offline skin error: {0}")]
+    OfflineSkin(#[from] crate::state::minecraft_skins::offline::OfflineSkinError),
+
     #[error("Serialization error (INI): {0}")]
     INIError(#[from] serde_ini::de::Error),
 

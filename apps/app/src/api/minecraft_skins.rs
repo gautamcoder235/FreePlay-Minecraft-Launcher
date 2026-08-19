@@ -20,6 +20,9 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
             flush_pending_skin_change_for_profile,
             normalize_skin_texture,
             get_dragged_skin_data,
+            set_offline_user_skin,
+            get_offline_user_skin,
+            remove_offline_user_skin,
         ])
         .build()
 }
@@ -144,4 +147,30 @@ pub async fn normalize_skin_texture(texture: UrlOrBlob) -> Result<Bytes> {
 pub async fn get_dragged_skin_data(path: String) -> Result<Bytes> {
     let path = Path::new(&path);
     Ok(minecraft_skins::get_dragged_skin_data(path).await?)
+}
+
+#[tauri::command]
+pub async fn set_offline_user_skin(
+    state: tauri::State<'_, theseus::State>,
+    username: String,
+    png_bytes: Vec<u8>,
+    is_slim: bool,
+) -> Result<()> {
+    Ok(minecraft_skins::set_offline_user_skin(state, username, png_bytes, is_slim).await?)
+}
+
+#[tauri::command]
+pub async fn get_offline_user_skin(
+    state: tauri::State<'_, theseus::State>,
+    username: String,
+) -> Result<Option<theseus::minecraft_skins::OfflineSkinMetadata>> {
+    Ok(minecraft_skins::get_offline_user_skin(state, username).await?)
+}
+
+#[tauri::command]
+pub async fn remove_offline_user_skin(
+    state: tauri::State<'_, theseus::State>,
+    username: String,
+) -> Result<()> {
+    Ok(minecraft_skins::remove_offline_user_skin(state, username).await?)
 }
