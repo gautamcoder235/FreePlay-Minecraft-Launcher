@@ -1,0 +1,36 @@
+{
+  "app": {
+    "title": "FreePlay Minecraft Launcher",
+    "nav": {
+      "library": "Library",
+      "browse": "Browse Content",
+      "hosting": "Host & Play",
+      "servers": "Servers",
+      "settings": "Settings"
+    }
+  },
+  "instances": {
+    "create": "Create Instance",
+    "launch": "Launch",
+    "stop": "Stop",
+    "edit": "Edit",
+    "delete": "Delete",
+    "status": {
+      "stopped": "Ready to play",
+      "preparing": "Preparing game files...",
+      "launching": "Launching Minecraft...",
+      "running": "Playing",
+      "crashed": "Crashed"
+    }
+  },
+  "hosting": {
+    "title": "Local Server & Free Online Tunnel",
+    "start_server": "Start Server & Online Host",
+    "stop_server": "Stop Server",
+    "eula_warning": "You must agree to the Mojang Minecraft EULA before hosting.",
+    "eula_agree": "I Agree to Mojang EULA",
+    "public_address": "Shareable Address:",
+    "copy_address": "Copy Link",
+    "copied": "Copied to clipboard!"
+  }
+}

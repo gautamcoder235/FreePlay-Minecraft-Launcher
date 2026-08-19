@@ -1,0 +1,16 @@
+[package]
+name = "freeplay-application"
+version = "0.1.0"
+edition = "2021"
+description = "Use cases, ports, and orchestrators for FreePlay Minecraft Launcher"
+license = "GPL-3.0"
+
+[dependencies]
+freeplay-domain = { path = "../domain" }
+async-trait = "0.1"
+serde = { version = "1.0", features = ["derive"] }
+specta = { version = "=2.0.0-rc.20", features = ["derive", "chrono", "uuid"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.10", features = ["v4", "serde"] }
+thiserror = "2.0"
+tokio = { version = "1.40", features = ["sync"] }
