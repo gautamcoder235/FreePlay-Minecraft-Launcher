@@ -601,19 +601,19 @@ interface ServerState {
 }
 
 const serverState = ref<ServerState>({
-	status: 'online',
+	status: 'offline',
 	version: '1.21.4',
 	engine: 'PaperMC',
 	ram_gb: 4,
 	tunnel_enabled: true,
-	public_ip: 'freeplay-game.gl.joinmc.link:25565',
+	public_ip: 'Not Active',
 	local_port: 25565,
 	motd: 'A FreePlay Minecraft Server',
-	uptime_seconds: 9840,
-	cpu_percent: 14.5,
-	ram_used_mb: 2480,
+	uptime_seconds: 0,
+	cpu_percent: 0,
+	ram_used_mb: 0,
 	players: [],
-	logs: [],
+	logs: ['[INFO] FreePlay Server Control Room ready. Click "Start Server" to launch.'],
 })
 
 const copied = ref(false)
