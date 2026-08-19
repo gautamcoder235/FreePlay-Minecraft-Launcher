@@ -4,7 +4,10 @@ use reqwest::Client;
 use freeplay_application::{JavaRuntimeInfo, MinecraftMetadataPort, VersionManifestEntry};
 use freeplay_domain::{DomainError, Instance, InstanceRunState};
 
+pub mod downloader;
 pub mod java_detector;
+pub mod java_runtime;
+pub mod loaders;
 pub mod manifest;
 pub mod rules;
 

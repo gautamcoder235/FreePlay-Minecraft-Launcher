@@ -1,3 +1,5 @@
+pub mod launch_builder;
+
 use std::collections::VecDeque;
 use std::path::{Path, PathBuf};
 use std::process::Stdio;
