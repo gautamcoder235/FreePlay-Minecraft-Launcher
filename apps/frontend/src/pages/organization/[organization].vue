@@ -212,7 +212,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	BoxIcon,
 	ChartIcon,
@@ -222,7 +222,7 @@ import {
 	SpinnerIcon,
 	UsersIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -239,8 +239,8 @@ import {
 	sortProjectTypes,
 	useCompactNumber,
 	useVIntl,
-} from '@modrinth/ui'
-import type { Organization, ProjectStatus, ProjectType } from '@modrinth/utils'
+} from '@freeplay/ui'
+import type { Organization, ProjectStatus, ProjectType } from '@freeplay/utils'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg?component'

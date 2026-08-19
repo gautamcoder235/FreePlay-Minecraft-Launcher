@@ -30,8 +30,8 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { MailIcon } from '@modrinth/assets'
-import { Button, injectNotificationManager, StyledInput } from '@modrinth/ui'
+import { MailIcon } from '@freeplay/assets'
+import { Button, injectNotificationManager, StyledInput } from '@freeplay/ui'
 
 const { addNotification } = injectNotificationManager()
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { PlusIcon, SearchIcon, SquarePlusIcon } from '@modrinth/assets'
-import { Button, defineMessages, StyledInput, useVIntl } from '@modrinth/ui'
+import { PlusIcon, SearchIcon, SquarePlusIcon } from '@freeplay/assets'
+import { Button, defineMessages, StyledInput, useVIntl } from '@freeplay/ui'
 import { computed, inject } from 'vue'
 
 import FilterMenu from '@/components/ui/library/library-toolbar/filter-menu.vue'

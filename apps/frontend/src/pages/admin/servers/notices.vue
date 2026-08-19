@@ -256,8 +256,8 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
-import { EditIcon, PlusIcon, SaveIcon, SettingsIcon, TrashIcon, XIcon } from '@modrinth/assets'
+import type { Archon } from '@freeplay/api-client'
+import { EditIcon, PlusIcon, SaveIcon, SettingsIcon, TrashIcon, XIcon } from '@freeplay/assets'
 import {
 	Button,
 	Combobox,
@@ -274,8 +274,8 @@ import {
 	useFormatDateTime,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
-import { NOTICE_LEVELS } from '@modrinth/ui/src/utils/notices.ts'
+} from '@freeplay/ui'
+import { NOTICE_LEVELS } from '@freeplay/ui/src/utils/notices.ts'
 import dayjs from 'dayjs'
 import { computed } from 'vue'
 

@@ -16,8 +16,8 @@ import {
 	UpdatedIcon,
 	UserIcon,
 	XIcon,
-} from '@modrinth/assets'
-import type { MessageDescriptor } from '@modrinth/ui'
+} from '@freeplay/assets'
+import type { MessageDescriptor } from '@freeplay/ui'
 import {
 	Avatar,
 	BulletDivider,
@@ -32,7 +32,7 @@ import {
 	useFormatDateTime,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import dayjs from 'dayjs'
 import type { Component } from 'vue'
 import { computed } from 'vue'

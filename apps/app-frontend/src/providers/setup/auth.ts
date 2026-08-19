@@ -1,11 +1,11 @@
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	type AuthFlow,
 	type AuthProvider,
 	type AuthRequestOptions,
 	type AuthUser,
 	provideAuth,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { computed, type Ref, ref, watch, watchEffect } from 'vue'
 
 type AppCredentials = {

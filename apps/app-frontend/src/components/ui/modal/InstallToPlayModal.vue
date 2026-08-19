@@ -149,9 +149,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { BanIcon, DownloadIcon, EyeIcon, ReportIcon, XIcon } from '@modrinth/assets'
-import { Button } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { BanIcon, DownloadIcon, EyeIcon, ReportIcon, XIcon } from '@freeplay/assets'
+import { Button } from '@freeplay/ui'
 import {
 	Admonition,
 	Avatar,
@@ -165,7 +165,7 @@ import {
 	type TableColumn,
 	useScrollIndicator,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { computed, nextTick, ref } from 'vue'
 

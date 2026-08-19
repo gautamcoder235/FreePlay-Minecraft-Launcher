@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { CheckIcon, MailIcon } from '@modrinth/assets'
-import { Button, defineMessages, injectModrinthClient, useVIntl } from '@modrinth/ui'
+import { CheckIcon, MailIcon } from '@freeplay/assets'
+import { Button, defineMessages, injectModrinthClient, useVIntl } from '@freeplay/ui'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, ref } from 'vue'
 

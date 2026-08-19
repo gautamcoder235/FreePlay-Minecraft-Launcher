@@ -1,6 +1,6 @@
 <script setup>
-import { DownloadIcon, HeartIcon, TagIcon } from '@modrinth/assets'
-import { Avatar, FormattedTag, TagItem, useCompactNumber } from '@modrinth/ui'
+import { DownloadIcon, HeartIcon, TagIcon } from '@freeplay/assets'
+import { Avatar, FormattedTag, TagItem, useCompactNumber } from '@freeplay/ui'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { computed } from 'vue'

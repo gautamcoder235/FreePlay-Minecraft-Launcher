@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { GameIcon, LeftArrowIcon } from '@modrinth/assets'
-import { Avatar, ButtonLink, defineMessages, FormattedTag, useVIntl } from '@modrinth/ui'
+import { GameIcon, LeftArrowIcon } from '@freeplay/assets'
+import { Avatar, ButtonLink, defineMessages, FormattedTag, useVIntl } from '@freeplay/ui'
 import { computed } from 'vue'
 
 import { getInstanceIconUrl } from '@/helpers/instance'

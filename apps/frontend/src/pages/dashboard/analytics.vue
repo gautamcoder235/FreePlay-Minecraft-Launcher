@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { commonProjectSettingsMessages, useVIntl } from '@modrinth/ui'
+import { commonProjectSettingsMessages, useVIntl } from '@freeplay/ui'
 
 import AnalyticsDashboard from '~/components/analytics-dashboard/index.vue'
 

@@ -6,7 +6,7 @@ import {
 	SpinnerIcon,
 	StopCircleIcon,
 	TimerIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	defineMessages,
@@ -14,7 +14,7 @@ import {
 	injectNotificationManager,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import dayjs from 'dayjs'
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'

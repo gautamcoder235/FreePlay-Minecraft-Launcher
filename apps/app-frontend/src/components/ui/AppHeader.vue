@@ -79,8 +79,8 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronLeftIcon, ChevronRightIcon, RightArrowIcon } from '@modrinth/assets'
-import { defineMessages, IconButton, useVIntl } from '@modrinth/ui'
+import { ChevronLeftIcon, ChevronRightIcon, RightArrowIcon } from '@freeplay/assets'
+import { defineMessages, IconButton, useVIntl } from '@freeplay/ui'
 import { useRouter } from 'vue-router'
 
 import AppActionBar from '@/components/ui/AppActionBar.vue'

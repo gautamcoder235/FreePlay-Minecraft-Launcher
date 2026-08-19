@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Toggle } from '@modrinth/ui'
+import { Button, Toggle } from '@freeplay/ui'
 import { ref, watch } from 'vue'
 
 import { get as getSettings, set as setSettings } from '@/helpers/settings.ts'

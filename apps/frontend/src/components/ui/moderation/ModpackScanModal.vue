@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	FolderSearchIcon,
 	RotateCounterClockwiseIcon,
 	SpinnerIcon,
 	StarIcon,
 	TrashIcon,
-} from '@modrinth/assets'
-import { Button, IconButton } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { Button, IconButton } from '@freeplay/ui'
 import {
 	Combobox,
 	type ComboboxOption,
@@ -20,8 +20,8 @@ import {
 	Table,
 	type TableColumn,
 	useVIntl,
-} from '@modrinth/ui'
-import { renderString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { renderString } from '@freeplay/utils'
 import { useQueryClient } from '@tanstack/vue-query'
 import { computed, ref, useTemplateRef } from 'vue'
 

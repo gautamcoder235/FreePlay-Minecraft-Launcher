@@ -33,8 +33,8 @@
 </template>
 
 <script setup>
-import { MaximizeIcon, MinimizeIcon, RestoreIcon, XIcon } from '@modrinth/assets'
-import { IconButton } from '@modrinth/ui'
+import { MaximizeIcon, MinimizeIcon, RestoreIcon, XIcon } from '@freeplay/assets'
+import { IconButton } from '@freeplay/ui'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state'
 import { computed, onMounted, onUnmounted, ref } from 'vue'

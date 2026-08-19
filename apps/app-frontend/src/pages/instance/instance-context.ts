@@ -1,5 +1,5 @@
-import type { Labrinth } from '@modrinth/api-client'
-import { createContext } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { createContext } from '@freeplay/ui'
 import type { ComputedRef, Ref } from 'vue'
 
 import type { GameInstance } from '@/helpers/types'

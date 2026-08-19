@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { UnknownFileWarningModal } from '@modrinth/ui'
+import { UnknownFileWarningModal } from '@freeplay/ui'
 import { ref, useTemplateRef } from 'vue'
 
 import { get as getSettings, set as setSettings } from '@/helpers/settings'

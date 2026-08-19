@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { EditingFile, FileItem, UploadState } from '@modrinth/ui'
+import type { EditingFile, FileItem, UploadState } from '@freeplay/ui'
 import {
 	commonMessages,
 	defineMessages,
@@ -9,7 +9,7 @@ import {
 	ReadyTransition,
 	useDebugLogger,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 import { invoke } from '@tauri-apps/api/core'
 import {

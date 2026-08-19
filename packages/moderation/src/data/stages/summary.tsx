@@ -1,5 +1,5 @@
-import { AlignLeftIcon } from '@modrinth/assets'
-import { injectProjectPageContext } from '@modrinth/ui'
+import { AlignLeftIcon } from '@freeplay/assets'
+import { injectProjectPageContext } from '@freeplay/ui'
 import { computed } from 'vue'
 
 import { group, stage, toggle } from '../../types/node'

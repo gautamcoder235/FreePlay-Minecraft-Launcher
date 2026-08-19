@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { XIcon } from '@modrinth/assets'
-import { commonMessages, defineMessages, IconButton, PagewideBanner, useVIntl } from '@modrinth/ui'
+import { XIcon } from '@freeplay/assets'
+import { commonMessages, defineMessages, IconButton, PagewideBanner, useVIntl } from '@freeplay/ui'
 
 const { formatMessage } = useVIntl()
 const cosmetics = useCosmetics()

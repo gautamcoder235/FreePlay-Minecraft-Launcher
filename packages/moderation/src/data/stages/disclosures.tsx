@@ -1,4 +1,4 @@
-import { TriangleAlertIcon } from '@modrinth/assets'
+import { TriangleAlertIcon } from '@freeplay/assets'
 
 import { group, stage, toggle } from '../../types/node'
 

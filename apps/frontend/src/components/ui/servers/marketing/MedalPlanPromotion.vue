@@ -34,14 +34,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ExternalIcon } from '@modrinth/assets'
+import { ExternalIcon } from '@freeplay/assets'
 import {
 	ButtonLink,
 	defineMessages,
 	IntlFormatted,
 	MedalBackgroundImage,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import MedalIcon from '~/assets/images/illustrations/medal_icon.svg?component'
 

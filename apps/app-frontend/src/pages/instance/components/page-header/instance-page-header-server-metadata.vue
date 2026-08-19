@@ -24,15 +24,15 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { TimerIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { TimerIcon } from '@freeplay/assets'
 import {
 	PageHeaderMetadata,
 	PageHeaderMetadataItem,
 	ServerOnlinePlayers,
 	ServerPing,
 	ServerRegion,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 defineProps<{
 	loadingServerPing?: boolean

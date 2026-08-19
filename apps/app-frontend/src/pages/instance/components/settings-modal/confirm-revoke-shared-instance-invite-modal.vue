@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { XIcon } from '@modrinth/assets'
+import { XIcon } from '@freeplay/assets'
 import {
 	Admonition,
 	Button,
@@ -33,7 +33,7 @@ import {
 	IntlFormatted,
 	NewModal,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { ref } from 'vue'
 
 const { formatMessage } = useVIntl()

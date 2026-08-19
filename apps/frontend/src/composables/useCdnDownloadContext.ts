@@ -1,5 +1,5 @@
-import type { FilterValue } from '@modrinth/ui'
-import { LOADER_FILTER_TYPES } from '@modrinth/ui'
+import type { FilterValue } from '@freeplay/ui'
+import { LOADER_FILTER_TYPES } from '@freeplay/ui'
 
 const TEN_MINUTES = 600
 

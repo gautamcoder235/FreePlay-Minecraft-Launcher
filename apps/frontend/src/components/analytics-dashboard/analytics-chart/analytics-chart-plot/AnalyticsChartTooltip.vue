@@ -142,8 +142,8 @@
 </template>
 
 <script setup lang="ts">
-import { PinIcon } from '@modrinth/assets'
-import { useScrollIndicator, useVIntl } from '@modrinth/ui'
+import { PinIcon } from '@freeplay/assets'
+import { useScrollIndicator, useVIntl } from '@freeplay/ui'
 
 import { analyticsChartMessages } from '../../analytics-messages'
 

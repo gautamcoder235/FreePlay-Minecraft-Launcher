@@ -204,7 +204,7 @@ import {
 	ServerIcon,
 	UserIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -220,9 +220,9 @@ import {
 	useFormatDateTime,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
-import { capitalizeString } from '@modrinth/utils'
-import { DEFAULT_CREDIT_EMAIL_MESSAGE } from '@modrinth/utils/utils.ts'
+} from '@freeplay/ui'
+import { capitalizeString } from '@freeplay/utils'
+import { DEFAULT_CREDIT_EMAIL_MESSAGE } from '@freeplay/utils/utils.ts'
 import { useQuery } from '@tanstack/vue-query'
 import dayjs from 'dayjs'
 

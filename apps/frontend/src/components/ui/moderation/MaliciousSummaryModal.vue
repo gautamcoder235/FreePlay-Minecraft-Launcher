@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { ClipboardCopyIcon, DownloadIcon, LoaderCircleIcon, XIcon } from '@modrinth/assets'
-import { Button, ButtonLink, CopyCode, NewModal, useDebugLogger } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { ClipboardCopyIcon, DownloadIcon, LoaderCircleIcon, XIcon } from '@freeplay/assets'
+import { Button, ButtonLink, CopyCode, NewModal, useDebugLogger } from '@freeplay/ui'
 import { ref, useTemplateRef } from 'vue'
 
 export type UnsafeFile = {

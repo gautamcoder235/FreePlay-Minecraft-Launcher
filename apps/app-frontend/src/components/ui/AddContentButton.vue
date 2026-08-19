@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { DropdownIcon, FolderOpenIcon, PlusIcon } from '@modrinth/assets'
-import { Button, injectNotificationManager, TeleportOverflowMenu } from '@modrinth/ui'
+import { DropdownIcon, FolderOpenIcon, PlusIcon } from '@freeplay/assets'
+import { Button, injectNotificationManager, TeleportOverflowMenu } from '@freeplay/ui'
 import { open } from '@tauri-apps/plugin-dialog'
 import { useRouter } from 'vue-router'
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { FileTextIcon } from '@modrinth/assets'
-import { Button, defineMessages, PagewideBanner, useFormatMoney, useVIntl } from '@modrinth/ui'
+import { FileTextIcon } from '@freeplay/assets'
+import { Button, defineMessages, PagewideBanner, useFormatMoney, useVIntl } from '@freeplay/ui'
 import { computed } from 'vue'
 
 import { getTaxThreshold } from '@/providers/creator-withdraw.ts'

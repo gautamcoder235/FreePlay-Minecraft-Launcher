@@ -1,4 +1,4 @@
-import { CheckIcon, EyeIcon, RotateCounterClockwiseIcon } from '@modrinth/assets'
+import { CheckIcon, EyeIcon, RotateCounterClockwiseIcon } from '@freeplay/assets'
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { onBeforeUnmount, ref } from 'vue'
 

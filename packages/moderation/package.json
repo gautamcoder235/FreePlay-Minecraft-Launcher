@@ -1,5 +1,5 @@
 {
-	"name": "@modrinth/moderation",
+	"name": "@freeplay/moderation",
 	"version": "0.0.0",
 	"private": true,
 	"main": "./src/index.ts",
@@ -10,15 +10,15 @@
 		"intl:prune-local": "pnpm -w scripts i18n-icu-contract prune-local --scope packages/moderation"
 	},
 	"dependencies": {
-		"@modrinth/assets": "workspace:*",
-		"@modrinth/utils": "workspace:*",
-		"@modrinth/api-client": "workspace:*",
+		"@freeplay/assets": "workspace:*",
+		"@freeplay/utils": "workspace:*",
+		"@freeplay/api-client": "workspace:*",
 		"vue": "^3.5.13"
 	},
 	"devDependencies": {
 		"@formatjs/cli": "^6.2.12",
-		"@modrinth/tooling-config": "workspace:*",
-		"@modrinth/ui": "workspace:*",
+		"@freeplay/tooling-config": "workspace:*",
+		"@freeplay/ui": "workspace:*",
 		"typescript": "^5.4.5"
 	}
 }

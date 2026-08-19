@@ -57,8 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeftRightIcon, FileIcon } from '@modrinth/assets'
-import { Button, Checkbox, DropzoneFileInput } from '@modrinth/ui'
+import { ArrowLeftRightIcon, FileIcon } from '@freeplay/assets'
+import { Button, Checkbox, DropzoneFileInput } from '@freeplay/ui'
 
 import { injectServerCompatibilityContext } from '~/providers/manage-server-compatibility-modal'
 

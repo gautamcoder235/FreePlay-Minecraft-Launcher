@@ -1,10 +1,10 @@
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	createContext,
 	injectModrinthClient,
 	injectNotificationManager,
 	type ProjectPageContext,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { ComputedRef, Ref } from 'vue'
 

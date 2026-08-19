@@ -1,5 +1,5 @@
-import type { Labrinth, SharedInstances } from '@modrinth/api-client'
-import type { Thread, User, Version } from '@modrinth/utils'
+import type { Labrinth, SharedInstances } from '@freeplay/api-client'
+import type { Thread, User, Version } from '@freeplay/utils'
 
 export interface OwnershipTarget {
 	name: string

@@ -72,8 +72,8 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronRightIcon } from '@modrinth/assets'
-import { Button, ButtonLink } from '@modrinth/ui'
+import { ChevronRightIcon } from '@freeplay/assets'
+import { Button, ButtonLink } from '@freeplay/ui'
 import { type Component, computed, useSlots } from 'vue'
 
 type NavStackBaseItem = {

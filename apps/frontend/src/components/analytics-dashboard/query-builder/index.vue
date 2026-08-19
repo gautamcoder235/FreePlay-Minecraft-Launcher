@@ -448,7 +448,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	BlocksIcon,
 	BoxIcon,
@@ -459,8 +459,8 @@ import {
 	FolderOpenIcon,
 	LayersIcon,
 	UserIcon,
-} from '@modrinth/assets'
-import { Button } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { Button } from '@freeplay/ui'
 import {
 	Combobox,
 	type ComboboxOption,
@@ -468,7 +468,7 @@ import {
 	type MultiSelectItem,
 	type MultiSelectOption,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import {
 	buildDefaultAnalyticsQueryBuilderState,

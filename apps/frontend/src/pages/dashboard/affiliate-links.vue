@@ -55,8 +55,8 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { PlusIcon, SearchIcon, XCircleIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { PlusIcon, SearchIcon, XCircleIcon } from '@freeplay/assets'
 import {
 	Admonition,
 	AffiliateLinkCard,
@@ -68,7 +68,7 @@ import {
 	injectNotificationManager,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 
 const createModal = useTemplateRef<typeof AffiliateLinkCreateModal>('createModal')

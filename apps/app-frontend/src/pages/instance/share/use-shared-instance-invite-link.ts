@@ -1,4 +1,4 @@
-import type { InviteLinkSettings } from '@modrinth/ui'
+import type { InviteLinkSettings } from '@freeplay/ui'
 import { computed, type Ref, ref, watch } from 'vue'
 
 import { config } from '@/config'

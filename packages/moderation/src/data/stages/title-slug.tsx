@@ -1,18 +1,18 @@
-import type { Labrinth } from '@modrinth/api-client'
-import { ModrinthApiError } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
+import { ModrinthApiError } from '@freeplay/api-client'
 import {
 	BookOpenIcon,
 	TagCategoryRefreshCcwIcon,
 	TagCategoryWandSparklesIcon,
 	UserPlusIcon,
 	WrenchIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Alert,
 	injectModrinthClient,
 	injectProjectPageContext,
 	ProjectStatusLink,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQueryClient } from '@tanstack/vue-query'
 import { computed, ref, watch } from 'vue'
 

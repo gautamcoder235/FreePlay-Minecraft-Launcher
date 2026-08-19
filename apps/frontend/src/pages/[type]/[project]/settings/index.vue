@@ -297,8 +297,8 @@
 </template>
 
 <script setup>
-import { ImageIcon, ScaleIcon, TrashIcon, UploadIcon } from '@modrinth/assets'
-import { MIN_SUMMARY_CHARS } from '@modrinth/moderation'
+import { ImageIcon, ScaleIcon, TrashIcon, UploadIcon } from '@freeplay/assets'
+import { MIN_SUMMARY_CHARS } from '@freeplay/moderation'
 import {
 	Avatar,
 	Button,
@@ -321,8 +321,8 @@ import {
 	useFormatBytes,
 	usePageLeaveSafety,
 	useVIntl,
-} from '@modrinth/ui'
-import { fileIsValid, formatProjectStatus } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { fileIsValid, formatProjectStatus } from '@freeplay/utils'
 
 import AiImageWarningModal from '~/components/ui/AiImageWarningModal.vue'
 import { useAuth } from '~/composables/auth.js'

@@ -110,8 +110,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
-import { PlusIcon, XCircleIcon } from '@modrinth/assets'
+import type { Archon } from '@freeplay/api-client'
+import { PlusIcon, XCircleIcon } from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -122,8 +122,8 @@ import {
 	TagItem,
 	useFormatDateTime,
 	useRelativeTime,
-} from '@modrinth/ui'
-import type { User } from '@modrinth/utils'
+} from '@freeplay/ui'
+import type { User } from '@freeplay/utils'
 import dayjs from 'dayjs'
 import { computed, ref } from 'vue'
 

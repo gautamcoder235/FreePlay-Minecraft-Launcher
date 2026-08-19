@@ -694,7 +694,7 @@ import {
 	TrashIcon,
 	UpdatedIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	AddPaymentMethodModal,
 	Button,
@@ -715,8 +715,8 @@ import {
 	useFormatPrice,
 	useServerBackupDownload,
 	useVIntl,
-} from '@modrinth/ui'
-import { calculateSavings, getCurrency } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { calculateSavings, getCurrency } from '@freeplay/utils'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useIntervalFn } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'

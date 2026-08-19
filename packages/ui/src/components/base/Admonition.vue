@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { ClockIcon, XIcon } from '@modrinth/assets'
+import { ClockIcon, XIcon } from '@freeplay/assets'
 import { useNow } from '@vueuse/core'
 import { computed } from 'vue'
 

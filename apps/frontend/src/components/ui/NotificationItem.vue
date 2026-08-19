@@ -396,7 +396,7 @@ import {
 	UserPlusIcon,
 	VersionIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -410,8 +410,8 @@ import {
 	ProjectStatusBadge,
 	useFormatDateTime,
 	useRelativeTime,
-} from '@modrinth/ui'
-import { getUserLink, renderString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { getUserLink, renderString } from '@freeplay/utils'
 
 import { markAsRead } from '~/helpers/platform-notifications'
 import { getProjectLink, getVersionLink } from '~/helpers/projects'

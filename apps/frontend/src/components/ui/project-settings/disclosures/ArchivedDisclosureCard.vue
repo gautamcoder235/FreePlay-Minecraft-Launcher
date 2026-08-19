@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArchiveIcon } from '@modrinth/assets'
+import { ArchiveIcon } from '@freeplay/assets'
 import {
 	ArchivedProjectBanner,
 	commonMessages,
@@ -7,7 +7,7 @@ import {
 	SettingsFormGroup,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import DisclosureToggleCard from './DisclosureToggleCard.vue'
 import type { DisclosureCardMetaProps, DisclosureLockStatus, NoteDisclosure } from './types'

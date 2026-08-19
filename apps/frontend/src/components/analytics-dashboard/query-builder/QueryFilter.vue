@@ -197,7 +197,7 @@
 </template>
 
 <script setup lang="ts">
-import { BoxIcon, UserIcon } from '@modrinth/assets'
+import { BoxIcon, UserIcon } from '@freeplay/assets'
 import {
 	buildDependentsSearchFilters,
 	type ButtonSize,
@@ -212,8 +212,8 @@ import {
 	type TabsValue,
 	truncatedTooltip,
 	useVIntl,
-} from '@modrinth/ui'
-import { formatProjectType } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { formatProjectType } from '@freeplay/utils'
 import { useQuery } from '@tanstack/vue-query'
 import type { ComponentPublicInstance } from 'vue'
 

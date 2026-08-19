@@ -7,7 +7,7 @@ import {
 	SearchIcon,
 	SpinnerIcon,
 	XCircleIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Button,
 	Checkbox,
@@ -16,7 +16,7 @@ import {
 	Slider,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { open } from '@tauri-apps/plugin-dialog'
 import { computed, readonly, ref, watch } from 'vue'
 

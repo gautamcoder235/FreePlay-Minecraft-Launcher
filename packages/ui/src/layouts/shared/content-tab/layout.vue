@@ -18,7 +18,7 @@ import {
 	TextCursorInputIcon,
 	TrashIcon,
 	UserIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 import Avatar from '#ui/components/base/Avatar.vue'

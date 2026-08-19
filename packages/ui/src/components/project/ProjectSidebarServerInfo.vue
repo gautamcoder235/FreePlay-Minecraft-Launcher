@@ -99,10 +99,10 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { CopyIcon, getLoaderIcon } from '@modrinth/assets'
-import { SERVER_LANGUAGES } from '@modrinth/ui'
-import { formatVersionsForDisplay, type GameVersionTag, type PlatformTag } from '@modrinth/utils'
+import type { Labrinth } from '@freeplay/api-client'
+import { CopyIcon, getLoaderIcon } from '@freeplay/assets'
+import { SERVER_LANGUAGES } from '@freeplay/ui'
+import { formatVersionsForDisplay, type GameVersionTag, type PlatformTag } from '@freeplay/utils'
 import { computed } from 'vue'
 
 import { defineMessages, useVIntl } from '../../composables'

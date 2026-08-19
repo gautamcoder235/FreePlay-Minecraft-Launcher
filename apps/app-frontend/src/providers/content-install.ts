@@ -1,11 +1,11 @@
-import type { Labrinth } from '@modrinth/api-client'
-import type { ContentInstallInstance, ContentInstallProjectInfo, ContentItem } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import type { ContentInstallInstance, ContentInstallProjectInfo, ContentItem } from '@freeplay/ui'
 import {
 	createContext,
 	defineMessage,
 	getLatestMatchingInstallVersion,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import dayjs from 'dayjs'
 import { nextTick, type Ref, ref } from 'vue'

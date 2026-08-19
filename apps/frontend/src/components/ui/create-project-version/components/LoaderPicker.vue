@@ -39,9 +39,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { Labrinth } from '@modrinth/api-client'
-import { getLoaderIcon } from '@modrinth/assets'
-import { Chips, FormattedTag, TagItem } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { getLoaderIcon } from '@freeplay/assets'
+import { Chips, FormattedTag, TagItem } from '@freeplay/ui'
 
 const selectedLoaders = defineModel<string[]>({ default: [] })
 

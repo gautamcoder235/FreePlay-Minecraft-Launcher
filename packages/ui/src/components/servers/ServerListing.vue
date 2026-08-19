@@ -260,14 +260,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
+import type { Archon } from '@freeplay/api-client'
 import {
 	DownloadIcon,
 	LockIcon,
 	MessagesSquareIcon,
 	SparklesIcon,
 	SpinnerIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import { useQuery } from '@tanstack/vue-query'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'

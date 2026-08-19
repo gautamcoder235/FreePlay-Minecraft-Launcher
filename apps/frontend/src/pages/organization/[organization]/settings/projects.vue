@@ -344,7 +344,7 @@ import {
 	TrashIcon,
 	TriangleAlertIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Button,
 	ButtonLink,
@@ -362,8 +362,8 @@ import {
 	StyledInput,
 	Table,
 	useVIntl,
-} from '@modrinth/ui'
-import { formatProjectType } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { formatProjectType } from '@freeplay/utils'
 import { useQuery } from '@tanstack/vue-query'
 
 import ModalCreation from '~/components/ui/create/ProjectCreateModal.vue'

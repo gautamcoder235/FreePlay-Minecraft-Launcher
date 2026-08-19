@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCircleIcon } from '@modrinth/assets'
+import { CheckCircleIcon } from '@freeplay/assets'
 import {
 	Button,
 	commonMessages,
@@ -43,7 +43,7 @@ import {
 	NewModal,
 	normalizeChildren,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useTemplateRef } from 'vue'
 
 const { formatMessage } = useVIntl()

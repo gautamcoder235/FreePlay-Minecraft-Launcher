@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
-import { ChevronRightIcon } from '@modrinth/assets'
+import type { Archon } from '@freeplay/api-client'
+import { ChevronRightIcon } from '@freeplay/assets'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, nextTick, ref } from 'vue'
 

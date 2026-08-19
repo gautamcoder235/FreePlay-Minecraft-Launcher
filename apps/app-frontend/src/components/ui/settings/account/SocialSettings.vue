@@ -7,8 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { AccountSocialSettings, injectModrinthClient } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { AccountSocialSettings, injectModrinthClient } from '@freeplay/ui'
 
 import { get_blocked_users, unblock_user } from '@/helpers/users'
 

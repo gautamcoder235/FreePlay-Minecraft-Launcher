@@ -419,15 +419,15 @@ import {
 	ToggleRightIcon,
 	UndoIcon,
 	XIcon,
-} from '@modrinth/assets'
-import type { Priority } from '@modrinth/moderation'
+} from '@freeplay/assets'
+import type { Priority } from '@freeplay/moderation'
 import {
 	expandVariables,
 	kebabToTitleCase,
 	moderationSettings,
 	useStages,
-} from '@modrinth/moderation'
-import type { ActiveAction, NodeState, StageNode } from '@modrinth/moderation/src/types/node'
+} from '@freeplay/moderation'
+import type { ActiveAction, NodeState, StageNode } from '@freeplay/moderation/src/types/node'
 import {
 	CHECKLIST_META_KEY,
 	collectActiveActions,
@@ -441,10 +441,10 @@ import {
 	resolveChildren,
 	setMessageProject,
 	setMissingMdHandler,
-} from '@modrinth/moderation/src/types/node'
-import NodeRenderer from '@modrinth/moderation/src/types/node/components/NodeRenderer.vue'
-import type { FixBuilder } from '@modrinth/moderation/src/types/node/fix'
-import type { Writer } from '@modrinth/moderation/src/types/node/mutate'
+} from '@freeplay/moderation/src/types/node'
+import NodeRenderer from '@freeplay/moderation/src/types/node/components/NodeRenderer.vue'
+import type { FixBuilder } from '@freeplay/moderation/src/types/node/fix'
+import type { Writer } from '@freeplay/moderation/src/types/node/mutate'
 import {
 	Avatar,
 	Button,
@@ -459,9 +459,9 @@ import {
 	StyledInput,
 	TeleportOverflowMenu,
 	useDebugLogger,
-} from '@modrinth/ui'
-import type { ProjectStatus } from '@modrinth/utils'
-import { renderHighlightedString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import type { ProjectStatus } from '@freeplay/utils'
+import { renderHighlightedString } from '@freeplay/utils'
 import { useQueryClient } from '@tanstack/vue-query'
 import { useDebounceFn } from '@vueuse/core'
 import type { Component } from 'vue'

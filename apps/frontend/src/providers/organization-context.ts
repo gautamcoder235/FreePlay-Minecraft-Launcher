@@ -1,5 +1,5 @@
-import { createContext } from '@modrinth/ui'
-import type { Organization, OrganizationMember, ProjectV3 } from '@modrinth/utils'
+import { createContext } from '@freeplay/ui'
+import type { Organization, OrganizationMember, ProjectV3 } from '@freeplay/utils'
 
 export class OrganizationContext {
 	public readonly organization: Ref<Organization | null>

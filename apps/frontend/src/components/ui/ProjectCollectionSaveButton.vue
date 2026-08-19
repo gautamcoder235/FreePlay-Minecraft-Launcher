@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { BookmarkIcon, PlusIcon } from '@modrinth/assets'
+import { BookmarkIcon, PlusIcon } from '@freeplay/assets'
 import {
 	Button,
 	ButtonLink,
@@ -63,7 +63,7 @@ import {
 	StyledInput,
 	TeleportPopoutMenu,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { computed, ref } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
 

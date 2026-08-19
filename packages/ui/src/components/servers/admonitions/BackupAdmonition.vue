@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
+import type { Archon } from '@freeplay/api-client'
 import {
 	CheckCircleIcon,
 	InfoIcon,
 	RotateCounterClockwiseIcon,
 	TriangleAlertIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 
 import Admonition from '#ui/components/base/Admonition.vue'
 import { Button } from '#ui/components/base/buttons'

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { DownloadIcon, ExternalIcon, FileIcon, SearchIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { DownloadIcon, ExternalIcon, FileIcon, SearchIcon } from '@freeplay/assets'
 import {
 	capitalizeString,
 	formatVersionsForDisplay,
 	type GameVersionTag,
 	renderHighlightedString,
-} from '@modrinth/utils'
+} from '@freeplay/utils'
 import { useQuery } from '@tanstack/vue-query'
 import { computed, ref } from 'vue'
 

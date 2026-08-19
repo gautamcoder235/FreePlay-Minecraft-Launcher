@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PlusIcon, XIcon } from '@modrinth/assets'
+import { PlusIcon, XIcon } from '@freeplay/assets'
 import type Stripe from 'stripe'
 import { nextTick, ref, useTemplateRef } from 'vue'
 

@@ -7,7 +7,7 @@ import {
 	SparklesIcon,
 	SpinnerIcon,
 	StopCircleIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	BulletDivider,
@@ -21,8 +21,8 @@ import {
 	useFormatDateTime,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
-import { capitalizeString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { capitalizeString } from '@freeplay/utils'
 import type { Dayjs } from 'dayjs'
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'

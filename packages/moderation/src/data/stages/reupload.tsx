@@ -1,5 +1,5 @@
-import { CopyrightIcon } from '@modrinth/assets'
-import { injectProjectPageContext } from '@modrinth/ui'
+import { CopyrightIcon } from '@freeplay/assets'
+import { injectProjectPageContext } from '@freeplay/ui'
 import { computed } from 'vue'
 
 import { check, group, markdown, stage, text, toggle } from '../../types/node'

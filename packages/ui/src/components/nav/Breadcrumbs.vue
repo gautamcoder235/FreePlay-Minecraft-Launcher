@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ChevronRightIcon } from '@modrinth/assets'
+import { ChevronRightIcon } from '@freeplay/assets'
 
 defineProps({
 	linkStack: {

@@ -8,9 +8,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 // TODO: Remove this wrapper when we figure out how to do cross platform state + stripe
-import { ServersUpgradeModalWrapper as ServersUpgradeModalWrapperBase } from '@modrinth/ui'
+import { ServersUpgradeModalWrapper as ServersUpgradeModalWrapperBase } from '@freeplay/ui'
 
 import { products } from '~/generated/state.json'
 

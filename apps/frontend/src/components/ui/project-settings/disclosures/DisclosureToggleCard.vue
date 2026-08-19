@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CircleSlashIcon, LockIcon, LockOpenIcon } from '@modrinth/assets'
+import { CircleSlashIcon, LockIcon, LockOpenIcon } from '@freeplay/assets'
 import {
 	Button,
 	ButtonGroup,
@@ -8,7 +8,7 @@ import {
 	normalizeChildren,
 	SettingsInlineWarning,
 	SettingsToggleCard,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import type { Component } from 'vue'
 import { computed } from 'vue'
 

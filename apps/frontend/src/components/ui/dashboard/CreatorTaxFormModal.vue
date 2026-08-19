@@ -159,7 +159,7 @@ import {
 	RightArrowIcon,
 	SpinnerIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Admonition,
 	Button,
@@ -171,7 +171,7 @@ import {
 	NewModal,
 	normalizeChildren,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import { type FormRequestResponse, useAvalara1099 } from '@/composables/avalara1099'
 

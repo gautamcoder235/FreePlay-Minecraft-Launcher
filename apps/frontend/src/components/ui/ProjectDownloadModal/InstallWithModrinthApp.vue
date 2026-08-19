@@ -37,10 +37,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { ModrinthIcon } from '@modrinth/assets'
-import { ButtonLink, defineMessages, useVIntl } from '@modrinth/ui'
-import type { DisplayProjectType } from '@modrinth/utils'
+import type { Labrinth } from '@freeplay/api-client'
+import { ModrinthIcon } from '@freeplay/assets'
+import { ButtonLink, defineMessages, useVIntl } from '@freeplay/ui'
+import type { DisplayProjectType } from '@freeplay/utils'
 import { ref } from 'vue'
 
 import Accordion from '~/components/ui/Accordion.vue'

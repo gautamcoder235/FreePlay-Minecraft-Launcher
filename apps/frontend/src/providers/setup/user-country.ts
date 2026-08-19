@@ -1,4 +1,4 @@
-import { provideUserCountry } from '@modrinth/ui'
+import { provideUserCountry } from '@freeplay/ui'
 import { onMounted } from 'vue'
 
 import { useRequestHeaders, useState } from '#imports'

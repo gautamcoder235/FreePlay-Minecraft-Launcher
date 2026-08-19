@@ -159,8 +159,8 @@ import {
 	InfoIcon,
 	Settings2Icon,
 	TagCategoryFlagIcon,
-} from '@modrinth/assets'
-import { Toggle, useVIntl } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { Toggle, useVIntl } from '@freeplay/ui'
 import { Menu } from 'floating-vue'
 
 import { analyticsChartMessages, analyticsMessages } from '../../analytics-messages'

@@ -1,4 +1,4 @@
-import { ChartIcon, DownloadIcon, UsersIcon } from '@modrinth/assets'
+import { ChartIcon, DownloadIcon, UsersIcon } from '@freeplay/assets'
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { ref } from 'vue'
 

@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { Admonition } from '@modrinth/ui'
+import { Admonition } from '@freeplay/ui'
 
 import { injectServerCompatibilityContext } from '../../../../providers/manage-server-compatibility-modal'
 

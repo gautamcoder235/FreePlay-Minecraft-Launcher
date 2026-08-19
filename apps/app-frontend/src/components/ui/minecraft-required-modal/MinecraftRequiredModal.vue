@@ -64,8 +64,8 @@
 </template>
 
 <script setup lang="ts">
-import { MessagesSquareIcon, SpinnerIcon, UserIcon } from '@modrinth/assets'
-import { Button, ButtonLink, defineMessages, NewModal, useVIntl } from '@modrinth/ui'
+import { MessagesSquareIcon, SpinnerIcon, UserIcon } from '@freeplay/assets'
+import { Button, ButtonLink, defineMessages, NewModal, useVIntl } from '@freeplay/ui'
 import { inject, type Ref, ref, useTemplateRef } from 'vue'
 
 import steveImage from '@/assets/steve-look-up-left.webp'

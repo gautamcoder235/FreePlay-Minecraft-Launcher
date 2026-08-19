@@ -1,5 +1,5 @@
-import type { Labrinth } from '@modrinth/api-client'
-import { type AuthProvider, type AuthUser, provideAuth } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { type AuthProvider, type AuthUser, provideAuth } from '@freeplay/ui'
 import { ref, watchEffect } from 'vue'
 
 import { getSignInRedirectPath } from '~/composables/auth.ts'

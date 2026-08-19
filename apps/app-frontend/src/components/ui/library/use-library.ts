@@ -1,5 +1,5 @@
-import type { Labrinth } from '@modrinth/api-client'
-import { formatLoader, injectNotificationManager, useVIntl } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { formatLoader, injectNotificationManager, useVIntl } from '@freeplay/ui'
 import { useEventListener, useStorage } from '@vueuse/core'
 import dayjs from 'dayjs'
 import {

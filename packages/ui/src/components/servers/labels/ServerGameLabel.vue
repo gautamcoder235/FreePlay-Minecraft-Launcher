@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { GameIcon } from '@modrinth/assets'
+import { GameIcon } from '@freeplay/assets'
 import { computed } from 'vue'
 
 import { injectServerSettingsModal } from '#ui/providers/server-settings-modal'

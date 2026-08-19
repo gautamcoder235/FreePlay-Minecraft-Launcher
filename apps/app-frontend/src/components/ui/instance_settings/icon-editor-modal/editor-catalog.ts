@@ -1,4 +1,4 @@
-import { defineMessages } from '@modrinth/ui'
+import { defineMessages } from '@freeplay/ui'
 
 import backpack from '@/assets/instance-icons/backpack.png'
 import beacon from '@/assets/instance-icons/beacon.png'

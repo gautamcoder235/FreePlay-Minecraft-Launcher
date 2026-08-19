@@ -498,7 +498,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	BoxIcon,
 	ChevronLeftIcon,
@@ -517,8 +517,8 @@ import {
 	SettingsIcon,
 	TrashIcon,
 	XIcon,
-} from '@modrinth/assets'
-import { moderationSettings } from '@modrinth/moderation'
+} from '@freeplay/assets'
+import { moderationSettings } from '@freeplay/moderation'
 import {
 	Admonition,
 	Button,
@@ -542,8 +542,8 @@ import {
 	useFormatDateTime,
 	useVIntl,
 	VersionPage,
-} from '@modrinth/ui'
-import { isStaff } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { isStaff } from '@freeplay/utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { onServerPrefetch } from 'vue'
 

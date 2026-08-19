@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ScaleIcon, XIcon } from '@modrinth/assets'
-import { AutoLink, Button, injectModrinthClient, NewModal } from '@modrinth/ui'
+import { ScaleIcon, XIcon } from '@freeplay/assets'
+import { AutoLink, Button, injectModrinthClient, NewModal } from '@freeplay/ui'
 import { ref, useTemplateRef } from 'vue'
 
 import { useGeneratedState } from '~/composables/generated'

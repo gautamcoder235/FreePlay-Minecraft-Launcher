@@ -1,6 +1,6 @@
-import type { Labrinth } from '@modrinth/api-client'
-import type { AbstractPopupNotificationManager } from '@modrinth/ui'
-import { createContext } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import type { AbstractPopupNotificationManager } from '@freeplay/ui'
+import { createContext } from '@freeplay/ui'
 import { type Ref, ref } from 'vue'
 import type { Router } from 'vue-router'
 

@@ -120,8 +120,8 @@
 </template>
 
 <script lang="ts">
-import { ChevronRightIcon, SpinnerIcon } from '@modrinth/assets'
-import { NewModal } from '@modrinth/ui'
+import { ChevronRightIcon, SpinnerIcon } from '@freeplay/assets'
+import { NewModal } from '@freeplay/ui'
 import type { Component } from 'vue'
 import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
 

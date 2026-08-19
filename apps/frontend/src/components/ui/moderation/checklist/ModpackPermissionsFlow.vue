@@ -188,8 +188,8 @@
 </template>
 
 <script setup lang="ts">
-import { LeftArrowIcon, RightArrowIcon } from '@modrinth/assets'
-import { Button, StyledInput } from '@modrinth/ui'
+import { LeftArrowIcon, RightArrowIcon } from '@freeplay/assets'
+import { Button, StyledInput } from '@freeplay/ui'
 import type {
 	ModerationFlameModpackItem,
 	ModerationJudgements,
@@ -198,7 +198,7 @@ import type {
 	ModerationModpackResponse,
 	ModerationPermissionType,
 	ModerationUnknownModpackItem,
-} from '@modrinth/utils'
+} from '@freeplay/utils'
 import { useLocalStorage, useSessionStorage } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 

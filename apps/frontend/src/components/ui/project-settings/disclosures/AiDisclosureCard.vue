@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SparklesIcon } from '@modrinth/assets'
+import { SparklesIcon } from '@freeplay/assets'
 import {
 	Checkbox,
 	commonMessages,
@@ -10,7 +10,7 @@ import {
 	SettingsFormGroup,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import DisclosureToggleCard from './DisclosureToggleCard.vue'
 import type { AiDisclosure, AiUsage, DisclosureCardMetaProps, DisclosureLockStatus } from './types'

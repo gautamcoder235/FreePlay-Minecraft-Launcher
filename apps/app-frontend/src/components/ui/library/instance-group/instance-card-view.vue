@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Avatar, truncatedTooltip } from '@modrinth/ui'
+import { Avatar, truncatedTooltip } from '@freeplay/ui'
 import { computed, ref } from 'vue'
 
 import { getInstanceIconUrl } from '@/helpers/instance'

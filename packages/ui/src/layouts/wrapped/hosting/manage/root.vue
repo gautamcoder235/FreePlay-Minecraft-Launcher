@@ -304,8 +304,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Archon, Labrinth } from '@modrinth/api-client'
-import { ModrinthApiError, NuxtModrinthClient } from '@modrinth/api-client'
+import type { Archon, Labrinth } from '@freeplay/api-client'
+import { ModrinthApiError, NuxtModrinthClient } from '@freeplay/api-client'
 import {
 	BoxesIcon,
 	CopyIcon,
@@ -324,7 +324,7 @@ import {
 	TriangleAlertIcon,
 	UsersIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useStorage } from '@vueuse/core'
 import DOMPurify from 'dompurify'

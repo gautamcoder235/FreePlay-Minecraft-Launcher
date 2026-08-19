@@ -1,4 +1,4 @@
-import type { Archon, UploadState } from '@modrinth/api-client'
+import type { Archon, UploadState } from '@freeplay/api-client'
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { computed, ref } from 'vue'
 

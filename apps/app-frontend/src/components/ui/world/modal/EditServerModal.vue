@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SaveIcon, XIcon } from '@modrinth/assets'
+import { SaveIcon, XIcon } from '@freeplay/assets'
 import {
 	Button,
 	commonMessages,
@@ -7,7 +7,7 @@ import {
 	injectNotificationManager,
 	NewModal,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { computed, ref } from 'vue'
 
 import HideFromHomeOption from '@/components/ui/world/modal/HideFromHomeOption.vue'

@@ -1,5 +1,5 @@
-import { defineMessage, useVIntl } from '@modrinth/ui'
-import { renderHighlightedString } from '@modrinth/utils'
+import { defineMessage, useVIntl } from '@freeplay/ui'
+import { renderHighlightedString } from '@freeplay/utils'
 
 import type { Nag, NagContext } from '../../types/nags'
 

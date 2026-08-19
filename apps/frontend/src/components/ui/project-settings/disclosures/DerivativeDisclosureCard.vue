@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GitForkIcon, PlusIcon, TrashIcon } from '@modrinth/assets'
+import { GitForkIcon, PlusIcon, TrashIcon } from '@freeplay/assets'
 import {
 	Button,
 	commonMessages,
@@ -7,7 +7,7 @@ import {
 	SettingsFormGroup,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { watch } from 'vue'
 
 import DisclosureToggleCard from './DisclosureToggleCard.vue'

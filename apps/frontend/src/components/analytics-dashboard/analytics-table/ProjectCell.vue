@@ -42,8 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import { BoxIcon, OrganizationIcon } from '@modrinth/assets'
-import { useVIntl } from '@modrinth/ui'
+import { BoxIcon, OrganizationIcon } from '@freeplay/assets'
+import { useVIntl } from '@freeplay/ui'
 
 import { analyticsMessages } from '../analytics-messages.ts'
 

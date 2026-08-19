@@ -6,8 +6,8 @@ import {
 	LogInIcon,
 	MessagesSquareIcon,
 	WrenchIcon,
-} from '@modrinth/assets'
-import { Admonition, Button, ButtonLink, Collapsible, IconButton, NewModal } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { Admonition, Button, ButtonLink, Collapsible, IconButton, NewModal } from '@freeplay/ui'
 import { computed, ref } from 'vue'
 
 import { login as login_flow, set_default_user } from '@/helpers/auth.js'

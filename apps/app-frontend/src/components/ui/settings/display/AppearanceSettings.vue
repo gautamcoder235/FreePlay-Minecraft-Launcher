@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineMessages, ThemeSelector, Toggle, useVIntl } from '@modrinth/ui'
+import { defineMessages, ThemeSelector, Toggle, useVIntl } from '@freeplay/ui'
 import { computed, ref, watch } from 'vue'
 
 import { get, set } from '@/helpers/settings.ts'

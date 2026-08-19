@@ -255,7 +255,7 @@ import {
 	ReportIcon,
 	SpinnerIcon,
 	StopCircleIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	BrowseInstallHeader,
 	Button,
@@ -278,7 +278,7 @@ import {
 	SelectedProjectsFloatingBar,
 	TeleportOverflowMenu,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQueryClient } from '@tanstack/vue-query'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import dayjs from 'dayjs'

@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	AsteriskIcon,
 	ChevronRightIcon,
@@ -91,11 +91,11 @@ import {
 	ScaleIcon,
 	SendIcon,
 	TriangleAlertIcon,
-} from '@modrinth/assets'
-import type { Nag, NagContext, NagStatus } from '@modrinth/moderation'
-import { nags } from '@modrinth/moderation'
-import { Button, IconButton } from '@modrinth/ui'
-import { defineMessages, type MessageDescriptor, useVIntl } from '@modrinth/ui'
+} from '@freeplay/assets'
+import type { Nag, NagContext, NagStatus } from '@freeplay/moderation'
+import { nags } from '@freeplay/moderation'
+import { Button, IconButton } from '@freeplay/ui'
+import { defineMessages, type MessageDescriptor, useVIntl } from '@freeplay/ui'
 import type { Component } from 'vue'
 import { computed } from 'vue'
 

@@ -7,7 +7,7 @@ import {
 	PaintbrushIcon,
 	SearchIcon,
 	SpinnerIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import Fuse from 'fuse.js'
 import { computed, nextTick, ref, watchSyncEffect } from 'vue'
 

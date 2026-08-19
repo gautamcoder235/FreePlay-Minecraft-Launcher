@@ -80,8 +80,8 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { PlusIcon, SearchIcon, XCircleIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { PlusIcon, SearchIcon, XCircleIcon } from '@freeplay/assets'
 import {
 	Accordion,
 	Admonition,
@@ -93,8 +93,8 @@ import {
 	injectModrinthClient,
 	injectNotificationManager,
 	StyledInput,
-} from '@modrinth/ui'
-import type { User } from '@modrinth/utils'
+} from '@freeplay/ui'
+import type { User } from '@freeplay/utils'
 import { useQuery } from '@tanstack/vue-query'
 import { computed, ref } from 'vue'
 

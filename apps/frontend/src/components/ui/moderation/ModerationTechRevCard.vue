@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	BanIcon,
 	BugIcon,
@@ -20,9 +20,9 @@ import {
 	SpinnerIcon,
 	TimerIcon,
 	XIcon,
-} from '@modrinth/assets'
-import { type TechReviewContext, techReviewQuickReplies } from '@modrinth/moderation'
-import { Button, ButtonLink, IconButton, TeleportOverflowMenu } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { type TechReviewContext, techReviewQuickReplies } from '@freeplay/moderation'
+import { Button, ButtonLink, IconButton, TeleportOverflowMenu } from '@freeplay/ui'
 import {
 	Avatar,
 	Collapsible,
@@ -37,14 +37,14 @@ import {
 	useFormatBytes,
 	useFormatDateTime,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import {
 	capitalizeString,
 	formatProjectType,
 	highlightCodeLines,
 	type ThreadMessage,
 	type User,
-} from '@modrinth/utils'
+} from '@freeplay/utils'
 import dayjs from 'dayjs'
 import { computed, nextTick, reactive, ref, watch } from 'vue'
 

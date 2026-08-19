@@ -72,9 +72,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { DownloadIcon, RadioButtonCheckedIcon, RadioButtonIcon } from '@modrinth/assets'
-import { ButtonLink } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { DownloadIcon, RadioButtonCheckedIcon, RadioButtonIcon } from '@freeplay/assets'
+import { ButtonLink } from '@freeplay/ui'
 import {
 	type CdnDownloadReason,
 	defineMessages,
@@ -83,9 +83,9 @@ import {
 	useFormatDateTime,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
-import VersionChannelTag from '@modrinth/ui/src/components/version/VersionChannelTag.vue'
-import { capitalizeString, type DisplayProjectType } from '@modrinth/utils'
+} from '@freeplay/ui'
+import VersionChannelTag from '@freeplay/ui/src/components/version/VersionChannelTag.vue'
+import { capitalizeString, type DisplayProjectType } from '@freeplay/utils'
 import { computed, ref } from 'vue'
 
 defineOptions({

@@ -1,5 +1,5 @@
-import type { ISO3166 } from '@modrinth/api-client'
-import { useUserCountry as useInjectedUserCountry } from '@modrinth/ui'
+import type { ISO3166 } from '@freeplay/api-client'
+import { useUserCountry as useInjectedUserCountry } from '@freeplay/ui'
 
 import { countries, subdivisions } from '~/generated/state.json'
 

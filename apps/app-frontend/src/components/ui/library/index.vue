@@ -9,8 +9,8 @@ import {
 	StarIcon,
 	StopCircleIcon,
 	TrashIcon,
-} from '@modrinth/assets'
-import { defineMessages, useVIntl } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { defineMessages, useVIntl } from '@freeplay/ui'
 import { computed, nextTick, onDeactivated, onUnmounted, ref, toRef, watch } from 'vue'
 import Draggable from 'vuedraggable'
 

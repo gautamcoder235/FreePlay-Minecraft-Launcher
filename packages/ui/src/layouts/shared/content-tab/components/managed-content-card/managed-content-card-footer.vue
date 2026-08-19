@@ -5,7 +5,7 @@ import {
 	DownloadIcon,
 	LockIcon,
 	SpinnerIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import { computed } from 'vue'
 
 import AutoLink from '#ui/components/base/AutoLink.vue'

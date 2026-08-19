@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { getMarginTarget } from '@modrinth/moderation'
-import { commonProjectTypeCategoryMessages, NavTabs, useVIntl } from '@modrinth/ui'
+import { getMarginTarget } from '@freeplay/moderation'
+import { commonProjectTypeCategoryMessages, NavTabs, useVIntl } from '@freeplay/ui'
 
 const { formatMessage } = useVIntl()
 

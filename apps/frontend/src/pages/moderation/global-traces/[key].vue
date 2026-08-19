@@ -87,8 +87,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { ArrowLeftIcon, HashIcon, TrashIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { ArrowLeftIcon, HashIcon, TrashIcon } from '@freeplay/assets'
 import {
 	Badge,
 	Button,
@@ -97,7 +97,7 @@ import {
 	injectModrinthClient,
 	injectNotificationManager,
 	Pagination,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import GlobalDetailLocalTraceCard from '~/components/ui/moderation/GlobalDetailLocalTraceCard.vue'
 

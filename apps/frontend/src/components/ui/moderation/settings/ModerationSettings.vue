@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { moderationSettings, type SettingDefinition } from '@modrinth/moderation'
-import { Combobox, Toggle } from '@modrinth/ui'
+import { moderationSettings, type SettingDefinition } from '@freeplay/moderation'
+import { Combobox, Toggle } from '@freeplay/ui'
 
 const flattenedSettings = Object.entries(moderationSettings).reduce(
 	(acc, [group, settings]) => {

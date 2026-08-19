@@ -1,5 +1,5 @@
-import type { LoadingStateProvider } from '@modrinth/ui'
-import { createLoadingStateCore, provideLoadingState } from '@modrinth/ui'
+import type { LoadingStateProvider } from '@freeplay/ui'
+import { createLoadingStateCore, provideLoadingState } from '@freeplay/ui'
 import { watch } from 'vue'
 
 /**

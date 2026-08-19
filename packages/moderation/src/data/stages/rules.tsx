@@ -1,5 +1,5 @@
-import { ListBulletedIcon } from '@modrinth/assets'
-import { injectProjectPageContext } from '@modrinth/ui'
+import { ListBulletedIcon } from '@freeplay/assets'
+import { injectProjectPageContext } from '@freeplay/ui'
 import { computed } from 'vue'
 
 import { group, markdown, stage, toggle } from '../../types/node'

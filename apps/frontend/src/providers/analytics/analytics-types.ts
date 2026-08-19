@@ -1,4 +1,4 @@
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import type { LocationQueryValueRaw } from 'vue-router'
 
 import type { ProjectStatusFilterValue } from '~/components/analytics-dashboard/query-builder/query-filter-utils'

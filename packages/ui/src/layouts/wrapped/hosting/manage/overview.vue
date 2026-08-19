@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Mclogs } from '@modrinth/api-client'
+import type { Mclogs } from '@freeplay/api-client'
 import { useStorage } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 

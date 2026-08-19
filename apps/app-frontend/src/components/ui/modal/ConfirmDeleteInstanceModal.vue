@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { TrashIcon, XIcon } from '@modrinth/assets'
+import { TrashIcon, XIcon } from '@freeplay/assets'
 import {
 	Admonition,
 	Avatar,
@@ -94,7 +94,7 @@ import {
 	NewModal,
 	useScrollIndicator,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { computed, nextTick, ref } from 'vue'
 
 import { getInstanceIconUrl } from '@/helpers/instance'

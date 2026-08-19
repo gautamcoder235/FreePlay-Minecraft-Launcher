@@ -1,5 +1,5 @@
-import { LinkIcon } from '@modrinth/assets'
-import { injectProjectPageContext } from '@modrinth/ui'
+import { LinkIcon } from '@freeplay/assets'
+import { injectProjectPageContext } from '@freeplay/ui'
 import type { Ref } from 'vue'
 import { computed } from 'vue'
 

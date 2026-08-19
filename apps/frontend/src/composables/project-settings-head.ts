@@ -3,7 +3,7 @@ import {
 	injectProjectPageContext,
 	type MessageDescriptor,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 const messages = defineMessages({
 	headTitle: {

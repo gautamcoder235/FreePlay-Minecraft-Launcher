@@ -48,8 +48,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
-import { IssuesIcon, SaveIcon, SpinnerIcon, XIcon } from '@modrinth/assets'
+import type { Archon } from '@freeplay/api-client'
+import { IssuesIcon, SaveIcon, SpinnerIcon, XIcon } from '@freeplay/assets'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { computed, nextTick, ref } from 'vue'
 

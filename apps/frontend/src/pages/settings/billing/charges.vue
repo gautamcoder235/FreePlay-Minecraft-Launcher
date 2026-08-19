@@ -51,7 +51,7 @@ import {
 	useFormatDateTime,
 	useFormatPrice,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 
 import { products } from '~/generated/state.json'

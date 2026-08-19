@@ -1,5 +1,5 @@
-import type { Labrinth } from '@modrinth/api-client'
-import type { TableColumn } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import type { TableColumn } from '@freeplay/ui'
 
 import { analyticsTableMessages, type FormatMessage } from '../analytics-messages'
 import { isAnalyticsTableBreakdownColumnKey } from './analytics-table-columns'

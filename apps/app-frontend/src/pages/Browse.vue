@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	CheckIcon,
 	ClipboardCopyIcon,
@@ -9,8 +9,8 @@ import {
 	PlusIcon,
 	ServerStackIcon,
 	SpinnerIcon,
-} from '@modrinth/assets'
-import type { BrowseInstallContentType, CardAction, ProjectType, Tags } from '@modrinth/ui'
+} from '@freeplay/assets'
+import type { BrowseInstallContentType, CardAction, ProjectType, Tags } from '@freeplay/ui'
 import {
 	BrowsePageLayout,
 	BrowseSidebar,
@@ -31,7 +31,7 @@ import {
 	useBrowseSearch,
 	useDebugLogger,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { Ref } from 'vue'
 import { computed, ref, shallowRef, watch } from 'vue'

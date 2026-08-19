@@ -263,16 +263,16 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth, SharedInstances } from '@modrinth/api-client'
+import type { Labrinth, SharedInstances } from '@freeplay/api-client'
 import {
 	CheckCircleIcon,
 	ClipboardCopyIcon,
 	ExternalIcon,
 	LoaderCircleIcon,
 	LockIcon,
-} from '@modrinth/assets'
-import { type ExtendedReport, reportQuickReplies } from '@modrinth/moderation'
-import { Button, ButtonLink, IconButton } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { type ExtendedReport, reportQuickReplies } from '@freeplay/moderation'
+import { Button, ButtonLink, IconButton } from '@freeplay/ui'
 import {
 	Avatar,
 	CollapsibleRegion,
@@ -285,8 +285,8 @@ import {
 	useFormatDateTime,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
-import { formatProjectType } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { formatProjectType } from '@freeplay/utils'
 import { computed, ref, watch } from 'vue'
 
 import { isStaff } from '~/helpers/users.js'

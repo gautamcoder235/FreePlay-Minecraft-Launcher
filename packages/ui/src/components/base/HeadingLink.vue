@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronRightIcon } from '@modrinth/assets'
+import { ChevronRightIcon } from '@freeplay/assets'
 
 import AutoLink from './AutoLink.vue'
 

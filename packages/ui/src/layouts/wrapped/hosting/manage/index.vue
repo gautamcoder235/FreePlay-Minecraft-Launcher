@@ -233,8 +233,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Archon, Labrinth } from '@modrinth/api-client'
-import { HammerIcon, LoaderCircleIcon, PlusIcon, SearchIcon } from '@modrinth/assets'
+import type { Archon, Labrinth } from '@freeplay/api-client'
+import { HammerIcon, LoaderCircleIcon, PlusIcon, SearchIcon } from '@freeplay/assets'
 import {
 	CopyCode,
 	defineMessages,
@@ -249,7 +249,7 @@ import {
 	StyledInput,
 	useServerBackupDownload,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useIntervalFn } from '@vueuse/core'
 import dayjs from 'dayjs'

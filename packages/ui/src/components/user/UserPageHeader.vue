@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	AffiliateIcon,
 	BadgeCheckIcon,
@@ -99,7 +99,7 @@ import {
 	InfoIcon,
 	MoreVerticalIcon,
 	ReportIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import { computed } from 'vue'
 
 import Avatar from '#ui/components/base/Avatar.vue'

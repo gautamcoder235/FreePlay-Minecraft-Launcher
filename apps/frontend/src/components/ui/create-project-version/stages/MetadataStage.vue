@@ -205,9 +205,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { Labrinth } from '@modrinth/api-client'
-import { EditIcon, getLoaderIcon, PlusIcon, UnknownIcon } from '@modrinth/assets'
-import { Button } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { EditIcon, getLoaderIcon, PlusIcon, UnknownIcon } from '@freeplay/assets'
+import { Button } from '@freeplay/ui'
 import {
 	defineMessages,
 	ENVIRONMENTS_COPY,
@@ -217,7 +217,7 @@ import {
 	type TabsTab,
 	TagItem,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import { useGeneratedState } from '~/composables/generated'
 import { injectManageVersionContext } from '~/providers/version/manage-version-modal'

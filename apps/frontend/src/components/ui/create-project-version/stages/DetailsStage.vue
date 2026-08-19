@@ -71,7 +71,7 @@ import {
 	Tabs,
 	type TabsTab,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 import { useImageUpload } from '~/composables/image-upload.ts'
 import { injectManageVersionContext } from '~/providers/version/manage-version-modal'

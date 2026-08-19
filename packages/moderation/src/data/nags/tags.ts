@@ -1,5 +1,5 @@
-import type { Labrinth } from '@modrinth/api-client'
-import { defineMessage, formatCategory, useVIntl } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { defineMessage, formatCategory, useVIntl } from '@freeplay/ui'
 
 import type { Nag, NagContext } from '../../types/nags'
 

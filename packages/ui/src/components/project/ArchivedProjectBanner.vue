@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArchiveIcon } from '@modrinth/assets'
+import { ArchiveIcon } from '@freeplay/assets'
 import { computed } from 'vue'
 
 import Admonition from '#ui/components/base/Admonition.vue'

@@ -34,9 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { PlusIcon } from '@modrinth/assets'
-import { Avatar, Button, TagItem } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { PlusIcon } from '@freeplay/assets'
+import { Avatar, Button, TagItem } from '@freeplay/ui'
 
 const emit = defineEmits<{
 	(e: 'onAddSuggestion'): void

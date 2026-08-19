@@ -1,6 +1,6 @@
-import type { Labrinth } from '@modrinth/api-client'
-import { DatabaseIcon } from '@modrinth/assets'
-import { ENVIRONMENTS_COPY, injectProjectPageContext, injectTags } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { DatabaseIcon } from '@freeplay/assets'
+import { ENVIRONMENTS_COPY, injectProjectPageContext, injectTags } from '@freeplay/ui'
 import { computed } from 'vue'
 
 import {

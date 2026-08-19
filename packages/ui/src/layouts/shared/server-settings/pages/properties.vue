@@ -292,8 +292,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
-import { SearchIcon, SpinnerIcon } from '@modrinth/assets'
+import type { Archon } from '@freeplay/api-client'
+import { SearchIcon, SpinnerIcon } from '@freeplay/assets'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import Fuse from 'fuse.js'
 import { computed, ref, watch } from 'vue'

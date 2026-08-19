@@ -92,7 +92,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { KeyIcon, MailIcon, SendIcon } from '@modrinth/assets'
+import { KeyIcon, MailIcon, SendIcon } from '@freeplay/assets'
 import {
 	Admonition,
 	Button,
@@ -102,7 +102,7 @@ import {
 	injectNotificationManager,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 import type { LocationQueryValue } from 'vue-router'
 

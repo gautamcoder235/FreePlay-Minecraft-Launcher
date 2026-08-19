@@ -160,8 +160,8 @@ import {
 	MoreHorizontalIcon,
 	ScaleIcon,
 	TrashIcon,
-} from '@modrinth/assets'
-import { moderationSettings } from '@modrinth/moderation'
+} from '@freeplay/assets'
+import { moderationSettings } from '@freeplay/moderation'
 import {
 	AutoLink,
 	Avatar,
@@ -169,8 +169,8 @@ import {
 	TeleportOverflowMenu,
 	useFormatDateTime,
 	useRelativeTime,
-} from '@modrinth/ui'
-import { renderString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { renderString } from '@freeplay/utils'
 
 import { isStaff } from '~/helpers/users.js'
 

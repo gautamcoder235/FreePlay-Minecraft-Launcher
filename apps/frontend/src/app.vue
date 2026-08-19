@@ -11,7 +11,7 @@
 	</NuxtLayout>
 </template>
 <script setup lang="ts">
-import { I18nDebugPanel, LoadingBar, NotificationPanel } from '@modrinth/ui'
+import { I18nDebugPanel, LoadingBar, NotificationPanel } from '@freeplay/ui'
 
 import AdsConsentNotification from '~/components/ui/AdsConsentNotification.vue'
 import { setupProviders } from '~/providers/setup.ts'

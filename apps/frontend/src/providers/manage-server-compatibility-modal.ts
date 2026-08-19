@@ -1,5 +1,5 @@
-import type { Labrinth, UploadProgress } from '@modrinth/api-client'
-import { ArrowLeftRightIcon, LeftArrowIcon, SaveIcon, SpinnerIcon, XIcon } from '@modrinth/assets'
+import type { Labrinth, UploadProgress } from '@freeplay/api-client'
+import { ArrowLeftRightIcon, LeftArrowIcon, SaveIcon, SpinnerIcon, XIcon } from '@freeplay/assets'
 import {
 	createContext,
 	injectModrinthClient,
@@ -7,7 +7,7 @@ import {
 	injectProjectPageContext,
 	type MultiStageModal,
 	type StageConfigInput,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import JSZip from 'jszip'
 import type { Ref, ShallowRef } from 'vue'
 import { markRaw, toRaw } from 'vue'

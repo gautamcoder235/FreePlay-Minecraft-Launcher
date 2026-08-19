@@ -89,16 +89,16 @@
 	</div>
 </template>
 <script setup>
-import { DownloadIcon, SpinnerIcon } from '@modrinth/assets'
+import { DownloadIcon, SpinnerIcon } from '@freeplay/assets'
 import {
 	ButtonLink,
 	injectModrinthClient,
 	injectProjectPageContext,
 	Pagination,
 	useFormatDateTime,
-} from '@modrinth/ui'
-import VersionFilterControl from '@modrinth/ui/src/components/version/VersionFilterControl.vue'
-import { renderHighlightedString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import VersionFilterControl from '@freeplay/ui/src/components/version/VersionFilterControl.vue'
+import { renderHighlightedString } from '@freeplay/utils'
 import { useQuery } from '@tanstack/vue-query'
 import { onMounted, watch } from 'vue'
 

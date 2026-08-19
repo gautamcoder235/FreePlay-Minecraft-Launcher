@@ -105,7 +105,7 @@
 </template>
 
 <script setup lang="ts">
-import { LogInIcon, RefreshCwIcon, SpinnerIcon, UserPlusIcon, XIcon } from '@modrinth/assets'
+import { LogInIcon, RefreshCwIcon, SpinnerIcon, UserPlusIcon, XIcon } from '@freeplay/assets'
 import {
 	Button,
 	commonMessages,
@@ -113,7 +113,7 @@ import {
 	IntlFormatted,
 	NewModal,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { ref } from 'vue'
 

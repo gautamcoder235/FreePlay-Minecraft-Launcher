@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { SettingsIcon } from '@modrinth/assets'
-import { ButtonLink, defineMessages, PagewideBanner, useVIntl } from '@modrinth/ui'
+import { SettingsIcon } from '@freeplay/assets'
+import { ButtonLink, defineMessages, PagewideBanner, useVIntl } from '@freeplay/ui'
 
 const { formatMessage } = useVIntl()
 

@@ -57,11 +57,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { FilterIcon } from '@modrinth/assets'
-import { formatLoader, useVIntl } from '@modrinth/ui'
-import Checkbox from '@modrinth/ui/src/components/base/Checkbox.vue'
-import ManySelect from '@modrinth/ui/src/components/base/ManySelect.vue'
+import type { Labrinth } from '@freeplay/api-client'
+import { FilterIcon } from '@freeplay/assets'
+import { formatLoader, useVIntl } from '@freeplay/ui'
+import Checkbox from '@freeplay/ui/src/components/base/Checkbox.vue'
+import ManySelect from '@freeplay/ui/src/components/base/ManySelect.vue'
 import { computed, ref } from 'vue'
 
 const { formatMessage } = useVIntl()

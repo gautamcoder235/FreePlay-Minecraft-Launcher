@@ -191,7 +191,7 @@
 </template>
 
 <script setup lang="ts">
-import { CodeIcon, RadioButtonCheckedIcon, RadioButtonIcon } from '@modrinth/assets'
+import { CodeIcon, RadioButtonCheckedIcon, RadioButtonIcon } from '@freeplay/assets'
 import {
 	Admonition,
 	Button,
@@ -202,8 +202,8 @@ import {
 	ThemeSelector,
 	Toggle,
 	useVIntl,
-} from '@modrinth/ui'
-import { formatProjectType } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { formatProjectType } from '@freeplay/utils'
 
 import type { DisplayLocation } from '~/plugins/cosmetics'
 import { isDarkTheme, type Theme } from '~/plugins/theme/index.ts'

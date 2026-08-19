@@ -72,7 +72,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { ChevronLeftIcon, ChevronRightIcon, EllipsisVerticalIcon } from '@modrinth/assets'
+import { ChevronLeftIcon, ChevronRightIcon, EllipsisVerticalIcon } from '@freeplay/assets'
 import { computed } from 'vue'
 
 import { Button, ButtonLink, IconButton } from './buttons'

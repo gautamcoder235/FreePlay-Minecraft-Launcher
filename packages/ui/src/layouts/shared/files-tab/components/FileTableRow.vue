@@ -114,7 +114,7 @@ import {
 	PaintbrushIcon,
 	RightArrowIcon,
 	TrashIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import { computed, ref } from 'vue'
 
 import { TeleportOverflowMenu } from '#ui/components/base/buttons'

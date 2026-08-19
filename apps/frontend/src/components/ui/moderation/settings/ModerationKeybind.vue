@@ -49,9 +49,9 @@
 </template>
 
 <script setup lang="ts">
-import { GlobeIcon, RotateCounterClockwiseIcon, ShieldCheckIcon } from '@modrinth/assets'
-import { type KeybindDefinition, toKeybindDefinition } from '@modrinth/moderation'
-import { IconButton } from '@modrinth/ui'
+import { GlobeIcon, RotateCounterClockwiseIcon, ShieldCheckIcon } from '@freeplay/assets'
+import { type KeybindDefinition, toKeybindDefinition } from '@freeplay/moderation'
+import { IconButton } from '@freeplay/ui'
 import { onUnmounted } from 'vue'
 
 const props = defineProps<{

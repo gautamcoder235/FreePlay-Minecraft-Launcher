@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { CheckIcon, PlusIcon, SearchIcon, SpinnerIcon, XIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { CheckIcon, PlusIcon, SearchIcon, SpinnerIcon, XIcon } from '@freeplay/assets'
 import { computed, nextTick, ref } from 'vue'
 
 import { NewModal, StyledInput } from '#ui/components'

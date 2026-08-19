@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { UploadIcon } from '@modrinth/assets'
+import { UploadIcon } from '@freeplay/assets'
 import { computed, ref } from 'vue'
 
 import { useFileDropTarget } from '#ui/composables/file-drop'

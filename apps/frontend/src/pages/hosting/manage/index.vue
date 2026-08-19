@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { ServersManagePageIndex } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { ServersManagePageIndex } from '@freeplay/ui'
 
 import { products } from '~/generated/state.json'
 

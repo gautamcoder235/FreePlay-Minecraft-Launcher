@@ -1,4 +1,4 @@
-import type { Archon } from '@modrinth/api-client'
+import type { Archon } from '@freeplay/api-client'
 import {
 	CardIcon,
 	ListIcon,
@@ -7,7 +7,7 @@ import {
 	TextQuoteIcon,
 	VersionIcon,
 	WrenchIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import type { Component } from 'vue'
 
 export type ServerSettingsTabId =

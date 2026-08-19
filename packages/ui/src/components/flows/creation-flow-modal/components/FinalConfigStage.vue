@@ -133,8 +133,8 @@
 </template>
 
 <script setup lang="ts">
-import { EyeIcon, EyeOffIcon, SettingsIcon } from '@modrinth/assets'
-import { commonMessages, defineMessages, IntlFormatted, useVIntl } from '@modrinth/ui'
+import { EyeIcon, EyeOffIcon, SettingsIcon } from '@freeplay/assets'
+import { commonMessages, defineMessages, IntlFormatted, useVIntl } from '@freeplay/ui'
 import { computed, ref, watch } from 'vue'
 
 import { useDebugLogger } from '#ui/composables/debug-logger'

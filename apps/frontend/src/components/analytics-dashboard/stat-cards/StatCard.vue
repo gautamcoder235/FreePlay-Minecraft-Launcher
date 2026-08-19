@@ -107,8 +107,8 @@ import {
 	TimerIcon,
 	TrendingDownIcon,
 	TrendingUpIcon,
-} from '@modrinth/assets'
-import { useVIntl } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { useVIntl } from '@freeplay/ui'
 
 import { analyticsStatCardMessages } from '../analytics-messages'
 

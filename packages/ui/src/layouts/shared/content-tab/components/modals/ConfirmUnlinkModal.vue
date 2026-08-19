@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { UnlinkIcon, XIcon } from '@modrinth/assets'
+import { UnlinkIcon, XIcon } from '@freeplay/assets'
 import { computed, ref } from 'vue'
 
 import Admonition from '#ui/components/base/Admonition.vue'

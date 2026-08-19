@@ -1,5 +1,5 @@
-import type { ISO3166, Labrinth } from '@modrinth/api-client'
-import type { DisplayProjectType } from '@modrinth/utils'
+import type { ISO3166, Labrinth } from '@freeplay/api-client'
+import type { DisplayProjectType } from '@freeplay/utils'
 
 import {
 	apiUrl,

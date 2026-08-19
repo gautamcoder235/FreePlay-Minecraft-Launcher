@@ -7,7 +7,7 @@ import {
 	SquarePlusIcon,
 	TrashIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Accordion,
 	Button,
@@ -18,7 +18,7 @@ import {
 	NewModal,
 	TagItem,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { computed, inject, nextTick, onActivated, onDeactivated, onMounted, ref, watch } from 'vue'
 
 import ContextMenu from '@/components/ui/ContextMenu.vue'

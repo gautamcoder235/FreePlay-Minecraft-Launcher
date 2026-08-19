@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RadioButtonCheckedIcon, RadioButtonIcon, SpinnerIcon } from '@modrinth/assets'
+import { RadioButtonCheckedIcon, RadioButtonIcon, SpinnerIcon } from '@freeplay/assets'
 import type Stripe from 'stripe'
 
 import FormattedPaymentMethod from './FormattedPaymentMethod.vue'

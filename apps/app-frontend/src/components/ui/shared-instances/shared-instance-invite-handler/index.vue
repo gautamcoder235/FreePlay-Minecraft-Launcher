@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { injectAuth } from '@modrinth/ui'
+import { injectAuth } from '@freeplay/ui'
 import { nextTick, ref } from 'vue'
 
 import FreePlayAccountRequiredModal from '@/components/ui/modal/FreePlayAccountRequiredModal.vue'

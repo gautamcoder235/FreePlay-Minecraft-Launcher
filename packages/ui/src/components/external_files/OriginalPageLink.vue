@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ExternalIcon } from '@modrinth/assets'
+import { ExternalIcon } from '@freeplay/assets'
 
 import { defineMessage, useVIntl } from '../../composables/i18n'
 

@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckIcon, SearchIcon, SpinnerIcon, XIcon } from '@modrinth/assets'
+import { CheckIcon, SearchIcon, SpinnerIcon, XIcon } from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -92,7 +92,7 @@ import {
 	NewModal,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { ref, watch } from 'vue'
 
 import { useLibrary } from '@/components/ui/library/use-library'

@@ -128,7 +128,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckIcon, PlusIcon, XIcon } from '@modrinth/assets'
+import { CheckIcon, PlusIcon, XIcon } from '@freeplay/assets'
 import {
 	Button,
 	Combobox,
@@ -138,8 +138,8 @@ import {
 	StyledInput,
 	TagItem,
 	Toggle,
-} from '@modrinth/ui'
-import { DEFAULT_CREDIT_EMAIL_MESSAGE } from '@modrinth/utils/utils.ts'
+} from '@freeplay/ui'
+import { DEFAULT_CREDIT_EMAIL_MESSAGE } from '@freeplay/utils/utils.ts'
 import { computed, ref } from 'vue'
 
 import { useBaseFetch } from '#imports'

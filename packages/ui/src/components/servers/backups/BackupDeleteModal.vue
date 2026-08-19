@@ -80,8 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Archon } from '@modrinth/api-client'
-import { TrashIcon, XIcon } from '@modrinth/assets'
+import type { Archon } from '@freeplay/api-client'
+import { TrashIcon, XIcon } from '@freeplay/assets'
 import { computed, nextTick, ref } from 'vue'
 
 import { Button } from '#ui/components/base/buttons'

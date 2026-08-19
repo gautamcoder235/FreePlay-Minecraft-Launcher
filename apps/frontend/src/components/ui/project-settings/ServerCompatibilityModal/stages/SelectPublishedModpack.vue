@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { getLoaderIcon } from '@modrinth/assets'
+import { getLoaderIcon } from '@freeplay/assets'
 import {
 	Combobox,
 	FormattedTag,
@@ -73,7 +73,7 @@ import {
 	injectProjectPageContext,
 	ProjectCombobox,
 	TagItem,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 import { computed, ref, watch } from 'vue'
 

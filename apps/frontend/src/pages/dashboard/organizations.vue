@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import { PlusIcon, UsersIcon } from '@modrinth/assets'
+import { PlusIcon, UsersIcon } from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -60,7 +60,7 @@ import {
 	defineMessages,
 	injectModrinthClient,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 
 import OrganizationCreateModal from '~/components/ui/create/OrganizationCreateModal.vue'

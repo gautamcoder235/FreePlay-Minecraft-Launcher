@@ -42,15 +42,15 @@
 </template>
 
 <script setup lang="ts">
-import { MessageIcon } from '@modrinth/assets'
+import { MessageIcon } from '@freeplay/assets'
 import {
 	Admonition,
 	ButtonLink,
 	defineMessages,
 	injectModrinthClient,
 	useVIntl,
-} from '@modrinth/ui'
-import { capitalizeString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { capitalizeString } from '@freeplay/utils'
 import { useQuery } from '@tanstack/vue-query'
 import { computed, watch } from 'vue'
 

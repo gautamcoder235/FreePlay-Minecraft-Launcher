@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { RotateCounterClockwiseIcon, SearchIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { RotateCounterClockwiseIcon, SearchIcon } from '@freeplay/assets'
 import { computed, ref, toValue } from 'vue'
 
 import Admonition from '#ui/components/base/Admonition.vue'

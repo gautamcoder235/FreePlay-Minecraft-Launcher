@@ -7,8 +7,8 @@ import {
 	ToggleRightIcon,
 	TwitterIcon,
 	YouTubeIcon,
-} from '@modrinth/assets'
-import { Button, ButtonLink } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { Button, ButtonLink } from '@freeplay/ui'
 import {
 	AutoLink,
 	defineMessage,
@@ -17,8 +17,8 @@ import {
 	IntlFormatted,
 	type MessageDescriptor,
 	useVIntl,
-} from '@modrinth/ui'
-import { commonSettingsMessages } from '@modrinth/ui/src/utils/common-messages.js'
+} from '@freeplay/ui'
+import { commonSettingsMessages } from '@freeplay/ui/src/utils/common-messages.js'
 
 import TextLogo from '~/components/brand/TextLogo.vue'
 

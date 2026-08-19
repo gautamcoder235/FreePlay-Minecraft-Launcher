@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ImportIcon, PlusIcon } from '@modrinth/assets'
-import { Button, defineMessages, IntlFormatted, useVIntl } from '@modrinth/ui'
+import { ImportIcon, PlusIcon } from '@freeplay/assets'
+import { Button, defineMessages, IntlFormatted, useVIntl } from '@freeplay/ui'
 import { inject, onMounted, onUnmounted, ref } from 'vue'
 
 import modrinthSocialIcon from '../../assets/welcome/modrinth-social-icon.png'

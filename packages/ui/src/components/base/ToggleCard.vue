@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SmartClickable, Toggle } from '@modrinth/ui'
+import { SmartClickable, Toggle } from '@freeplay/ui'
 import { computed, useId } from 'vue'
 
 const props = defineProps<{

@@ -95,17 +95,17 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	ClientIcon,
 	getLoaderIcon,
 	MonitorSmartphoneIcon,
 	ServerIcon,
 	UserIcon,
-} from '@modrinth/assets'
-import { FormattedTag, projectCompatibilityMessages, TagItem } from '@modrinth/ui'
-import type { GameVersionTag, PlatformTag } from '@modrinth/utils'
-import { getVersionsToDisplay } from '@modrinth/utils'
+} from '@freeplay/assets'
+import { FormattedTag, projectCompatibilityMessages, TagItem } from '@freeplay/ui'
+import type { GameVersionTag, PlatformTag } from '@freeplay/utils'
+import { getVersionsToDisplay } from '@freeplay/utils'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 

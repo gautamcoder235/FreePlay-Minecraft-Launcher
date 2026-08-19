@@ -209,7 +209,7 @@ import {
 	RightArrowIcon,
 	SaveIcon,
 	TrashIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import type { Component } from 'vue'
 import { computed, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
 

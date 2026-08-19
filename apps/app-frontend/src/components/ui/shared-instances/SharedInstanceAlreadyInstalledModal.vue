@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { DownloadIcon, RightArrowIcon, XIcon } from '@modrinth/assets'
+import { DownloadIcon, RightArrowIcon, XIcon } from '@freeplay/assets'
 import {
 	Button,
 	commonMessages,
@@ -36,7 +36,7 @@ import {
 	IntlFormatted,
 	NewModal,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { ref } from 'vue'
 
 const { formatMessage } = useVIntl()

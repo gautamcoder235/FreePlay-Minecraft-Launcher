@@ -15,15 +15,15 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	DropArea,
 	injectModrinthClient,
 	injectNotificationManager,
 	injectProjectPageContext,
 	MultiStageModal,
-} from '@modrinth/ui'
-import { acceptFileFromProjectType } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { acceptFileFromProjectType } from '@freeplay/utils'
 import type { ComponentExposed } from 'vue-component-type-helpers'
 
 import {

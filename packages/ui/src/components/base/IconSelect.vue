@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EditIcon, TrashIcon, UploadIcon } from '@modrinth/assets'
+import { EditIcon, TrashIcon, UploadIcon } from '@freeplay/assets'
 
 import { TeleportOverflowMenu } from '#ui/components/base/buttons'
 

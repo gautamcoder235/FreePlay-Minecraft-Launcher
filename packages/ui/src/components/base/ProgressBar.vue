@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SpinnerIcon from '@modrinth/assets/icons/spinner.svg'
+import SpinnerIcon from '@freeplay/assets/icons/spinner.svg'
 import { computed } from 'vue'
 
 const props = withDefaults(

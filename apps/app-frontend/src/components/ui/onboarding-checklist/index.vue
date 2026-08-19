@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { CheckIcon, RadioButtonIcon } from '@modrinth/assets'
-import { Accordion, defineMessages, useVIntl } from '@modrinth/ui'
+import { CheckIcon, RadioButtonIcon } from '@freeplay/assets'
+import { Accordion, defineMessages, useVIntl } from '@freeplay/ui'
 import { computed, onUnmounted, ref } from 'vue'
 
 import { injectOnboardingChecklist } from '@/providers/onboarding-checklist'

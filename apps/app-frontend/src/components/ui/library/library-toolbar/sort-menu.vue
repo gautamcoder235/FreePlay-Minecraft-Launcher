@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ArrowUpDownIcon, LayoutGridIcon } from '@modrinth/assets'
-import { Combobox, type ComboboxOption, defineMessages, useVIntl } from '@modrinth/ui'
+import { ArrowUpDownIcon, LayoutGridIcon } from '@freeplay/assets'
+import { Combobox, type ComboboxOption, defineMessages, useVIntl } from '@freeplay/ui'
 
 import {
 	type LibraryGroupBy,

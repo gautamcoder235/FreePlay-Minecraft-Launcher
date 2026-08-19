@@ -4,7 +4,7 @@ import {
 	type FeatureConfig,
 	type NuxtClientConfig,
 	NuxtModrinthClient,
-} from '@modrinth/api-client'
+} from '@freeplay/api-client'
 import type { H3Event } from 'h3'
 
 async function getRateLimitKeyFromSecretsStore(): Promise<string | undefined> {

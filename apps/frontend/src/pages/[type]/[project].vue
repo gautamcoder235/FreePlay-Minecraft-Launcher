@@ -571,8 +571,8 @@ import {
 	ServerPlusIcon,
 	SettingsIcon,
 	XIcon,
-} from '@modrinth/assets'
-import { getMarginTarget, moderationSettings } from '@modrinth/moderation'
+} from '@freeplay/assets'
+import { getMarginTarget, moderationSettings } from '@freeplay/moderation'
 import {
 	Admonition,
 	ArchivedProjectBanner,
@@ -611,8 +611,8 @@ import {
 	useRelativeTime,
 	useStickyObserver,
 	useVIntl,
-} from '@modrinth/ui'
-import { formatProjectType, isStaff } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { formatProjectType, isStaff } from '@freeplay/utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useLocalStorage } from '@vueuse/core'
 import { Tooltip } from 'floating-vue'

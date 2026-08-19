@@ -296,7 +296,7 @@ import {
 	TrashIcon,
 	UploadIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Button,
 	ButtonLink,
@@ -308,7 +308,7 @@ import {
 	NewModal as Modal,
 	StyledInput,
 	useFormatDateTime,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useEventListener } from '@vueuse/core'
 
 import AiImageWarningModal from '~/components/ui/AiImageWarningModal.vue'

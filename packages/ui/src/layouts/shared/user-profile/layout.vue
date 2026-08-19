@@ -417,7 +417,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	BanIcon,
 	BoxIcon,
@@ -428,12 +428,12 @@ import {
 	LockIcon,
 	SpinnerIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	isModrinthUser as checkIsModrinthUser,
 	isOfficialAccount as checkIsOfficialAccount,
 	UserBadge,
-} from '@modrinth/utils'
+} from '@freeplay/utils'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

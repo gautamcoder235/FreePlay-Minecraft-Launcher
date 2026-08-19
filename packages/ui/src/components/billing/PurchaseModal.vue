@@ -465,8 +465,8 @@ import {
 	SpinnerIcon,
 	UnknownIcon,
 	XIcon,
-} from '@modrinth/assets'
-import { calculateSavings, createStripeElements, getCurrency } from '@modrinth/utils'
+} from '@freeplay/assets'
+import { calculateSavings, createStripeElements, getCurrency } from '@freeplay/utils'
 import dayjs from 'dayjs'
 import { computed, nextTick, reactive, ref, watch } from 'vue'
 

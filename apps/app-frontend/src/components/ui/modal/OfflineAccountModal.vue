@@ -59,8 +59,8 @@
 </template>
 
 <script setup lang="ts">
-import { CheckIcon, SpinnerIcon } from '@modrinth/assets'
-import { Button, NewModal } from '@modrinth/ui'
+import { CheckIcon, SpinnerIcon } from '@freeplay/assets'
+import { Button, NewModal } from '@freeplay/ui'
 import { computed, ref, useTemplateRef } from 'vue'
 
 import { create_offline_account, set_default_user } from '@/helpers/auth'

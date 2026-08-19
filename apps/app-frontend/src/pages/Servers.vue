@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ServerStackIcon } from '@modrinth/assets'
+import { ServerStackIcon } from '@freeplay/assets'
 
 import FreePlayHostingView from '@/pages/hosting/FreePlayHostingView.vue'
 import { useRootBreadcrumb } from '@/providers/breadcrumbs'

@@ -1,4 +1,4 @@
-import { defineMessages, getLoaderMessage, type VIntlFormatters } from '@modrinth/ui'
+import { defineMessages, getLoaderMessage, type VIntlFormatters } from '@freeplay/ui'
 
 import type {
 	AnalyticsBreakdownPreset,

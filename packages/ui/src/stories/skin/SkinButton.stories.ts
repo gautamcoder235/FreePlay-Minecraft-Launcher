@@ -1,4 +1,4 @@
-import { EditIcon, TrashIcon } from '@modrinth/assets'
+import { EditIcon, TrashIcon } from '@freeplay/assets'
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 
 import { Button, IconButton } from '../../components/base/buttons'

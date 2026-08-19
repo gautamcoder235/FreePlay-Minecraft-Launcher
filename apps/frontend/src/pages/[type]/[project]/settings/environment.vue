@@ -25,15 +25,15 @@
 </template>
 
 <script setup lang="ts">
-import { SettingsIcon } from '@modrinth/assets'
+import { SettingsIcon } from '@freeplay/assets'
 import {
 	ButtonLink,
 	commonProjectSettingsMessages,
 	EnvironmentMigration,
 	injectProjectPageContext,
 	LoadingIndicator,
-} from '@modrinth/ui'
-import { isStaff } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { isStaff } from '@freeplay/utils'
 
 const { currentMember, projectV2, projectV3 } = injectProjectPageContext()
 

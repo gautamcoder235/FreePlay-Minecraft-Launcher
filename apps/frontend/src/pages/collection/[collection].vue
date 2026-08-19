@@ -400,7 +400,7 @@ import {
 	UpdatedIcon,
 	UploadIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -433,8 +433,8 @@ import {
 	useRelativeTime,
 	useSavable,
 	useVIntl,
-} from '@modrinth/ui'
-import { isAdmin, renderString } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { isAdmin, renderString } from '@freeplay/utils'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import dayjs from 'dayjs'
 import { onServerPrefetch } from 'vue'

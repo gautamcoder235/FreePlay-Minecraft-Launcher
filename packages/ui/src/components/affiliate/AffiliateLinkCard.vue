@@ -35,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { AffiliateIcon, XCircleIcon } from '@modrinth/assets'
+import type { Labrinth } from '@freeplay/api-client'
+import { AffiliateIcon, XCircleIcon } from '@freeplay/assets'
 
 import { Button } from '#ui/components/base/buttons'
 

@@ -282,8 +282,8 @@ import {
 	ShareIcon,
 	SpinnerIcon,
 	TrashIcon,
-} from '@modrinth/assets'
-import { moderationSettings } from '@modrinth/moderation'
+} from '@freeplay/assets'
+import { moderationSettings } from '@freeplay/moderation'
 import {
 	ButtonLink,
 	ConfirmModal,
@@ -292,8 +292,8 @@ import {
 	injectProjectPageContext,
 	ProjectPageVersions,
 	TeleportOverflowMenu,
-} from '@modrinth/ui'
-import { isStaff } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { isStaff } from '@freeplay/utils'
 import { onMounted, useTemplateRef, watch } from 'vue'
 
 import CreateProjectVersionModal from '~/components/ui/create-project-version/CreateProjectVersionModal.vue'

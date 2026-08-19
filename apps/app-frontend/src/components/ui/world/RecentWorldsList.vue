@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { LoaderCircleIcon } from '@modrinth/assets'
-import type { GameVersion } from '@modrinth/ui'
-import { defineMessages, GAME_MODES, injectNotificationManager, useVIntl } from '@modrinth/ui'
+import { LoaderCircleIcon } from '@freeplay/assets'
+import type { GameVersion } from '@freeplay/ui'
+import { defineMessages, GAME_MODES, injectNotificationManager, useVIntl } from '@freeplay/ui'
 import { platform } from '@tauri-apps/plugin-os'
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'

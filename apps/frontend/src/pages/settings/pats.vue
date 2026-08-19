@@ -206,7 +206,7 @@
 	</div>
 </template>
 <script setup>
-import { EditIcon, PlusIcon, SaveIcon, TrashIcon, XIcon } from '@modrinth/assets'
+import { EditIcon, PlusIcon, SaveIcon, TrashIcon, XIcon } from '@freeplay/assets'
 import {
 	Button,
 	Checkbox,
@@ -224,7 +224,7 @@ import {
 	useFormatDateTime,
 	useRelativeTime,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 
 import {

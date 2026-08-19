@@ -189,7 +189,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProjectStatus } from '@modrinth/utils'
+import type { ProjectStatus } from '@freeplay/utils'
 import dayjs from 'dayjs'
 import { computed } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'

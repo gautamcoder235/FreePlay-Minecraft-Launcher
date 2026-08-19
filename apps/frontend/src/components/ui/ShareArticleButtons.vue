@@ -59,8 +59,8 @@ import {
 	MailIcon,
 	MastodonIcon,
 	TwitterIcon,
-} from '@modrinth/assets'
-import { ButtonLink, IconButton } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { ButtonLink, IconButton } from '@freeplay/ui'
 
 const props = defineProps<{
 	title?: string

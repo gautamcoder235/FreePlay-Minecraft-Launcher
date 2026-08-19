@@ -137,7 +137,7 @@ import {
 	SettingsIcon,
 	ShirtIcon,
 	UserIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	commonMessages,
@@ -145,7 +145,7 @@ import {
 	IntlFormatted,
 	TeleportOverflowMenu,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { useRoute, useRouter } from 'vue-router'
 
 import NavButton from '@/components/ui/NavButton.vue'

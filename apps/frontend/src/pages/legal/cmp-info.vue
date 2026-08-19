@@ -167,7 +167,7 @@
 </template>
 
 <script lang="ts" setup>
-import { DatePicker, injectModrinthClient, useFormatDateTime, useFormatMoney } from '@modrinth/ui'
+import { DatePicker, injectModrinthClient, useFormatDateTime, useFormatMoney } from '@freeplay/ui'
 import { useQuery } from '@tanstack/vue-query'
 import dayjs from 'dayjs'
 import { computed, ref } from 'vue'

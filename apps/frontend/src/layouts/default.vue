@@ -864,7 +864,7 @@ import {
 	UserIcon,
 	UserSearchIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Avatar,
 	Button,
@@ -881,8 +881,8 @@ import {
 	TeleportOverflowMenu,
 	useHostingIntercom,
 	useVIntl,
-} from '@modrinth/ui'
-import { isAdmin, isStaff, UserBadge } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { isAdmin, isStaff, UserBadge } from '@freeplay/utils'
 import { useQuery } from '@tanstack/vue-query'
 
 import { getTaxThreshold } from '@/providers/creator-withdraw.ts'
@@ -1484,7 +1484,7 @@ const { cycle: changeTheme } = useTheme()
 
 <style lang="scss">
 @import '~/assets/styles/global.scss';
-// @import '@modrinth/assets';
+// @import '@freeplay/assets';
 
 .layout {
 	min-height: 100vh;

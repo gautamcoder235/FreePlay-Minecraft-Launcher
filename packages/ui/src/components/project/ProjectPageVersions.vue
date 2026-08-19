@@ -449,7 +449,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	CalendarIcon,
 	CircleAlertIcon,
@@ -457,7 +457,7 @@ import {
 	getLoaderIcon,
 	PlusIcon,
 	StarIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	AutoLink,
 	Pagination,
@@ -470,12 +470,12 @@ import {
 	useFormatDateTime,
 	VersionChannelIndicator,
 	VersionFilterControl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import {
 	type GameVersionTag,
 	getVersionGroupsForDisplay,
 	type VersionDisplayGroup,
-} from '@modrinth/utils'
+} from '@freeplay/utils'
 import { Menu } from 'floating-vue'
 import { computed, type Ref, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

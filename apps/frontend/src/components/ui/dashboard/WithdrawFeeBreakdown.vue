@@ -56,8 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import { LoaderCircleIcon } from '@modrinth/assets'
-import { defineMessages, useFormatMoney, useVIntl } from '@modrinth/ui'
+import { LoaderCircleIcon } from '@freeplay/assets'
+import { defineMessages, useFormatMoney, useVIntl } from '@freeplay/ui'
 import { computed } from 'vue'
 
 const props = withDefaults(

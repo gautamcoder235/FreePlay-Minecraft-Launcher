@@ -1,5 +1,5 @@
-import { BookTextIcon } from '@modrinth/assets'
-import { injectProjectPageContext } from '@modrinth/ui'
+import { BookTextIcon } from '@freeplay/assets'
+import { injectProjectPageContext } from '@freeplay/ui'
 import { computed } from 'vue'
 
 import { check, group, md, type MessageFn, stage, toggle } from '../../types/node'

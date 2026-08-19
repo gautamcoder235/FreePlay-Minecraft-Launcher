@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { HomeIcon, PlusIcon } from '@modrinth/assets'
-import { defineMessages, injectNotificationManager, useVIntl } from '@modrinth/ui'
+import { HomeIcon, PlusIcon } from '@freeplay/assets'
+import { defineMessages, injectNotificationManager, useVIntl } from '@freeplay/ui'
 import dayjs from 'dayjs'
 import { computed, inject, onActivated, ref } from 'vue'
 

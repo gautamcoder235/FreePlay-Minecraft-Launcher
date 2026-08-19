@@ -97,14 +97,14 @@ import {
 	SearchIcon,
 	SpinnerIcon,
 	XCircleIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Button,
 	defineMessages,
 	injectNotificationManager,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import { open } from '@tauri-apps/plugin-dialog'
 import { ref, watch } from 'vue'
 

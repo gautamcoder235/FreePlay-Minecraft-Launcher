@@ -116,9 +116,9 @@
 	</div>
 </template>
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { BinaryIcon, EditIcon, HashIcon, SearchIcon } from '@modrinth/assets'
-import { Button } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { BinaryIcon, EditIcon, HashIcon, SearchIcon } from '@freeplay/assets'
+import { Button } from '@freeplay/ui'
 import {
 	Combobox,
 	type ComboboxOption,
@@ -130,7 +130,7 @@ import {
 	NewModal,
 	StyledInput,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 
 const { formatMessage } = useVIntl()
 

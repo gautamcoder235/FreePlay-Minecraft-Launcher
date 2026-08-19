@@ -282,7 +282,7 @@ import {
 	TriangleAlertIcon,
 	UploadIcon,
 	XIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import { computed, ref, watch } from 'vue'
 
 import AutoLink from '#ui/components/base/AutoLink.vue'

@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { countText, MIN_DESCRIPTION_CHARS } from '@modrinth/moderation'
+import { countText, MIN_DESCRIPTION_CHARS } from '@freeplay/moderation'
 import {
 	commonProjectSettingsMessages,
 	ConfirmLeaveModal,
@@ -51,8 +51,8 @@ import {
 	UnsavedChangesPopup,
 	usePageLeaveSafety,
 	useSavable,
-} from '@modrinth/ui'
-import { TeamMemberPermission } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { TeamMemberPermission } from '@freeplay/utils'
 import { computed, useTemplateRef } from 'vue'
 
 import AiImageWarningModal from '~/components/ui/AiImageWarningModal.vue'

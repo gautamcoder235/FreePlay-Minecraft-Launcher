@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckIcon, HistoryIcon, SaveIcon, SpinnerIcon } from '@modrinth/assets'
+import { CheckIcon, HistoryIcon, SaveIcon, SpinnerIcon } from '@freeplay/assets'
 import { computed, onMounted, unref, useTemplateRef } from 'vue'
 import { useRoute } from 'vue-router'
 

@@ -231,7 +231,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
+import type { Labrinth } from '@freeplay/api-client'
 import {
 	EditIcon,
 	ExternalIcon,
@@ -240,8 +240,8 @@ import {
 	SearchIcon,
 	SpinnerIcon,
 	TrashIcon,
-} from '@modrinth/assets'
-import { Button, ButtonLink, IconButton } from '@modrinth/ui'
+} from '@freeplay/assets'
+import { Button, ButtonLink, IconButton } from '@freeplay/ui'
 import {
 	ConfirmModal,
 	DatePicker,
@@ -254,8 +254,8 @@ import {
 	StyledInput,
 	Table,
 	type TableColumn,
-} from '@modrinth/ui'
-import { isAdmin } from '@modrinth/utils'
+} from '@freeplay/ui'
+import { isAdmin } from '@freeplay/utils'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 

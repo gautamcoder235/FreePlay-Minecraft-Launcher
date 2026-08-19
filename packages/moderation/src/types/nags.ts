@@ -1,5 +1,5 @@
-import type { Labrinth } from '@modrinth/api-client'
-import type { MessageDescriptor } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import type { MessageDescriptor } from '@freeplay/ui'
 import type { FunctionalComponent, SVGAttributes } from 'vue'
 
 /**
@@ -83,7 +83,7 @@ export interface Nag {
 	 */
 	status: NagStatus
 	/**
-	 * An optional icon for the nag, usually from `@modrinth/assets`.
+	 * An optional icon for the nag, usually from `@freeplay/assets`.
 	 * If not specified it will use the default icon associated with the nag status.
 	 */
 	icon?: FunctionalComponent<SVGAttributes>

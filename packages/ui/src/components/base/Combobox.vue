@@ -197,7 +197,7 @@
 <script setup lang="ts" generic="T">
 import 'overlayscrollbars/overlayscrollbars.css'
 
-import { ChevronLeftIcon, SearchIcon } from '@modrinth/assets'
+import { ChevronLeftIcon, SearchIcon } from '@freeplay/assets'
 import { onClickOutside } from '@vueuse/core'
 import { OverlayScrollbars, type PartialOptions } from 'overlayscrollbars'
 import {

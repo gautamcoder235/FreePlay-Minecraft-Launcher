@@ -1,6 +1,6 @@
 <script setup>
-import { CheckIcon } from '@modrinth/assets'
-import { Badge, IconButton } from '@modrinth/ui'
+import { CheckIcon } from '@freeplay/assets'
+import { Badge, IconButton } from '@freeplay/ui'
 import { computed, ref } from 'vue'
 
 import { SwapIcon } from '@/assets/icons/index.js'

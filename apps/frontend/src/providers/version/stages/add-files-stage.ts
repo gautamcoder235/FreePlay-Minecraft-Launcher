@@ -1,5 +1,5 @@
-import { LeftArrowIcon, RightArrowIcon, XIcon } from '@modrinth/assets'
-import type { StageConfigInput } from '@modrinth/ui'
+import { LeftArrowIcon, RightArrowIcon, XIcon } from '@freeplay/assets'
+import type { StageConfigInput } from '@freeplay/ui'
 import { markRaw } from 'vue'
 
 import AddFilesStage from '~/components/ui/create-project-version/stages/AddFilesStage.vue'

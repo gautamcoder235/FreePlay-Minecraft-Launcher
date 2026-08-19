@@ -154,7 +154,7 @@ import {
 	SpinnerIcon,
 	TrashIcon,
 	UserIcon,
-} from '@modrinth/assets'
+} from '@freeplay/assets'
 import {
 	Accordion,
 	Avatar,
@@ -163,7 +163,7 @@ import {
 	IconButton,
 	injectNotificationManager,
 	useVIntl,
-} from '@modrinth/ui'
+} from '@freeplay/ui'
 import type { Ref } from 'vue'
 import { computed, ref, useTemplateRef } from 'vue'
 

@@ -164,9 +164,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Labrinth } from '@modrinth/api-client'
-import { ExternalIcon, InfoIcon, TagCategoryFlagIcon } from '@modrinth/assets'
-import { IntlFormatted, useScrollIndicator, useVIntl } from '@modrinth/ui'
+import type { Labrinth } from '@freeplay/api-client'
+import { ExternalIcon, InfoIcon, TagCategoryFlagIcon } from '@freeplay/assets'
+import { IntlFormatted, useScrollIndicator, useVIntl } from '@freeplay/ui'
 
 import type {
 	AnalyticsDashboardStat,

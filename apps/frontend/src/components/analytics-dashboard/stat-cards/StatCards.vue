@@ -42,8 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import { RightArrowIcon } from '@modrinth/assets'
-import { Admonition, ButtonLink, useFormatNumber, useVIntl } from '@modrinth/ui'
+import { RightArrowIcon } from '@freeplay/assets'
+import { Admonition, ButtonLink, useFormatNumber, useVIntl } from '@freeplay/ui'
 import { useLocalStorage } from '@vueuse/core'
 
 import {
