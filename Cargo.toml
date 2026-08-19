@@ -3,6 +3,10 @@ resolver = "2"
 members = [
   "crates/core/domain",
   "crates/core/application",
+  "crates/adapters/storage-sqlite",
+  "crates/adapters/keyring-vault",
+  "crates/adapters/minecraft-engine",
+  "crates/adapters/process-supervisor",
   "crates/desktop-api",
   "apps/app",
   "apps/app-playground",

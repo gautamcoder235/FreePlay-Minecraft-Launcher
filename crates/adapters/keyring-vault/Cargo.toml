@@ -1,0 +1,13 @@
+[package]
+name = "freeplay-keyring-vault"
+version = "0.1.0"
+edition = "2021"
+description = "OS Keyring Vault adapter implementing KeyringPort for FreePlay Launcher"
+license = "GPL-3.0"
+
+[dependencies]
+freeplay-domain = { path = "../../core/domain" }
+freeplay-application = { path = "../../core/application" }
+async-trait = "0.1"
+keyring = { version = "3.6", features = ["sync-secret-service"] }
+thiserror = "2.0"

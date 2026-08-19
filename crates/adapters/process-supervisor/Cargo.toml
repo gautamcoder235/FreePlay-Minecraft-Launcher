@@ -1,0 +1,13 @@
+[package]
+name = "freeplay-process-supervisor"
+version = "0.1.0"
+edition = "2021"
+description = "Child process supervisor and Minecraft launcher for FreePlay Launcher"
+license = "GPL-3.0"
+
+[dependencies]
+freeplay-domain = { path = "../../core/domain" }
+freeplay-application = { path = "../../core/application" }
+tokio = { version = "1.40", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2.0"

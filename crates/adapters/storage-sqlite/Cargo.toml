@@ -1,0 +1,17 @@
+[package]
+name = "freeplay-storage-sqlite"
+version = "0.1.0"
+edition = "2021"
+description = "SQLite storage adapter implementing StoragePort for FreePlay Launcher"
+license = "GPL-3.0"
+
+[dependencies]
+freeplay-domain = { path = "../../core/domain" }
+freeplay-application = { path = "../../core/application" }
+async-trait = "0.1"
+rusqlite = { version = "0.32", features = ["bundled", "chrono", "uuid"] }
+tokio = { version = "1.40", features = ["sync", "macros", "rt-multi-thread"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.10", features = ["v4", "serde"] }
+serde_json = "1.0"
+thiserror = "2.0"

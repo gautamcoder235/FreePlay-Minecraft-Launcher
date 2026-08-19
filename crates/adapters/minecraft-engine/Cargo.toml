@@ -1,0 +1,18 @@
+[package]
+name = "freeplay-minecraft-engine"
+version = "0.1.0"
+edition = "2021"
+description = "Mojang version manifest, library rule evaluator, and Java detector for FreePlay Launcher"
+license = "GPL-3.0"
+
+[dependencies]
+freeplay-domain = { path = "../../core/domain" }
+freeplay-application = { path = "../../core/application" }
+async-trait = "0.1"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tokio = { version = "1.40", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2.0"
+sha1 = "0.10"
