@@ -1,5 +1,4 @@
 import '@/helpers/tauri-shim'
-
 import 'floating-vue/dist/style.css'
 import 'overlayscrollbars/overlayscrollbars.css'
 

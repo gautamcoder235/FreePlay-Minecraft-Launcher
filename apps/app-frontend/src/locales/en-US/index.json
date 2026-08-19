@@ -156,7 +156,7 @@
     "message": "Advanced rendering"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Choose the color theme used by FreePlay Launcher."
+    "message": "Choose the color theme used by Modrinth App."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "Color theme"
@@ -180,7 +180,7 @@
     "message": "Jump into worlds or instances"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minimize FreePlay Launcher when Minecraft starts."
+    "message": "Minimize Modrinth App when Minecraft starts."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Minimize app"
@@ -339,7 +339,7 @@
     "message": "View instance"
   },
   "app.hosting.update-required.description": {
-    "message": "You need to update to use Modrinth Hosting through the FreePlay Launcher"
+    "message": "You need to update to use Modrinth Hosting through the Modrinth App"
   },
   "app.hosting.update-required.download": {
     "message": "Download to update"
@@ -348,7 +348,7 @@
     "message": "Excited Modrinth Bot"
   },
   "app.hosting.update-required.title": {
-    "message": "FreePlay Launcher update required"
+    "message": "Modrinth App update required"
   },
   "app.icon-editor.apply-icons-modal.apply-error": {
     "message": "Failed to apply random icons to instances."
@@ -363,7 +363,7 @@
     "message": "Close"
   },
   "app.icon-editor.apply-icons-modal.description": {
-    "message": "Create custom icons for your instances right in the FreePlay Launcher. Mix and match backgrounds with symbols from Minecraft and popular mods!"
+    "message": "Create custom icons for your instances right in the Modrinth App. Mix and match backgrounds with symbols from Minecraft and popular mods!"
   },
   "app.icon-editor.apply-icons-modal.instances-without-icons": {
     "message": "{count, plural, one {# instance doesn’t} other {# instances don’t}} have icons yet. Want us to give {count, plural, one {it} other {them}} random ones to get started?"
@@ -1215,13 +1215,13 @@
     "message": "Create new instance"
   },
   "app.nav.home": {
-    "message": "Home"
+    "message": "FreePlay Home"
   },
   "app.nav.modrinth-account": {
     "message": "FreePlay account"
   },
   "app.nav.modrinth-hosting": {
-    "message": "FreePlay Hosting"
+    "message": "FreePlay Server Hosting"
   },
   "app.nav.sign-in-to-modrinth-account": {
     "message": "Sign in to a FreePlay account"
@@ -1308,7 +1308,7 @@
     "message": "Restarting..."
   },
   "app.settings.app-version": {
-    "message": "FreePlay Launcher {version}"
+    "message": "Modrinth App {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Environment variables set when launching an instance."
@@ -1404,7 +1404,7 @@
     "message": "Ads make Modrinth possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance. You can opt out or manage your preferences below."
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "Show FreePlay Launcher as your current activity on Discord. This does not affect Rich Presence added to instances by mods. Requires an app restart."
+    "message": "Show Modrinth App as your current activity on Discord. This does not affect Rich Presence added to instances by mods. Requires an app restart."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
@@ -1449,7 +1449,7 @@
     "message": "Browse for an app directory"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Where FreePlay Launcher stores instances and other files. Changes take effect after restarting the app."
+    "message": "Where Modrinth App stores instances and other files. Changes take effect after restarting the app."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "Select a new app directory"
@@ -1659,7 +1659,7 @@
     "message": "Toggle on"
   },
   "app.survey.body": {
-    "message": "Would you mind answering a few questions about your experience with FreePlay Launcher?"
+    "message": "Would you mind answering a few questions about your experience with Modrinth App?"
   },
   "app.survey.footer": {
     "message": "This feedback will go directly to the Modrinth team and help guide future updates!"
@@ -1674,13 +1674,13 @@
     "message": "Hey there Modrinth user!"
   },
   "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} has finished downloading. Reload to update now, or automatically when you close FreePlay Launcher."
+    "message": "Modrinth App v{version} has finished downloading. Reload to update now, or automatically when you close Modrinth App."
   },
   "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} is available. Use your package manager to update for the latest features and fixes!"
+    "message": "Modrinth App v{version} is available. Use your package manager to update for the latest features and fixes!"
   },
   "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} is available now! Since you're on a metered network, we didn't automatically download it."
+    "message": "Modrinth App v{version} is available now! Since you're on a metered network, we didn't automatically download it."
   },
   "app.update-popup.changelog": {
     "message": "Changelog"
@@ -1836,7 +1836,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Sign in to a Modrinth account</link> to add friends and see what they're playing!"
+    "message": "<link>Sign in to a FreePlay account</link> to add friends and see what they're playing!"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "Linked shared instance"
@@ -1872,7 +1872,7 @@
     "message": "Unlink shared instance"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "This deletes the shared instance from Modrinth's servers. People using it in the FreePlay Launcher will stop receiving updates, but your local instance and its content will stay on this device."
+    "message": "This deletes the shared instance from Modrinth's servers. People using it in the Modrinth App will stop receiving updates, but your local instance and its content will stay on this device."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "Unpublishing shared instance"
@@ -2562,13 +2562,13 @@
     "message": "Sign in to Minecraft"
   },
   "minecraft-required.description": {
-    "message": "You need a Microsoft account that owns Minecraft before you can launch and play."
+    "message": "Play instantly for free with an offline player profile, or sign in with your official Microsoft account."
   },
   "minecraft-required.description-header": {
-    "message": "Sign in to a Microsoft account"
+    "message": "Ready to start playing?"
   },
   "minecraft-required.dont-have-account": {
-    "message": "Don’t have an account?"
+    "message": "Want an official account?"
   },
   "minecraft-required.get-minecraft": {
     "message": "Get Minecraft"
@@ -2577,7 +2577,7 @@
     "message": "Get support"
   },
   "minecraft-required.header": {
-    "message": "Minecraft required"
+    "message": "Minecraft account profile"
   },
   "minecraft-required.sign-in": {
     "message": "Sign in to Microsoft"

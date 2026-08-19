@@ -1,18 +1,26 @@
 <template>
-	<div data-tauri-drag-region class="app-header bg-bg-raised h-[--top-bar-height] flex select-none">
+	<div data-tauri-drag-region class="app-header bg-zinc-950/80 backdrop-blur-md border-b border-white/10 h-[--top-bar-height] flex select-none">
 		<div data-tauri-drag-region class="flex min-w-0 flex-1 items-center overflow-hidden p-2">
-			<!-- FreePlay Brand Logo -->
+			<!-- FreePlay Diamond Brand Logo -->
 			<div class="flex items-center gap-2.5 mr-3 pointer-events-none select-none pl-1">
-				<div class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-gradient-to-br from-[#6366f1] via-[#8b5cf6] to-[#06b6d4] shadow-[0_0_15px_rgba(99,102,241,0.5)] border border-white/20">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-3.5 h-3.5">
-						<path d="M4 6.5C4 5.11929 5.11929 4 6.5 4H17.5C18.8807 4 20 5.11929 20 6.5V11C20 15.4183 16.4183 19 12 19C7.58172 19 4 15.4183 4 11V6.5Z" fill="white" fill-opacity="0.25"/>
-						<path d="M8.5 8L16.5 12L8.5 16V8Z" fill="white"/>
+				<div class="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-500 shadow-[0_0_20px_rgba(99,102,241,0.5)] border border-white/20">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-4 h-4">
+						<path d="M12 2L2 9L12 22L22 9L12 2Z" fill="url(#diamond-grad)" fill-opacity="0.9" />
+						<path d="M12 2L2 9H22L12 2Z" fill="white" fill-opacity="0.3" />
+						<path d="M12 2L7 9L12 22L17 9L12 2Z" fill="white" fill-opacity="0.2" />
+						<defs>
+							<linearGradient id="diamond-grad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+								<stop stop-color="#818CF8"/>
+								<stop offset="0.5" stop-color="#C084FC"/>
+								<stop offset="1" stop-color="#22D3EE"/>
+							</linearGradient>
+						</defs>
 					</svg>
 				</div>
 				<div class="flex flex-col leading-none">
 					<span class="font-black tracking-wider text-sm text-contrast font-sans flex items-center gap-1.5">
 						FREEPLAY
-						<span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 border border-indigo-500/30 text-cyan-300 uppercase tracking-widest">Launcher</span>
+						<span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-gradient-to-r from-indigo-500/30 to-cyan-500/30 border border-indigo-400/40 text-cyan-300 uppercase tracking-widest shadow-[0_0_10px_rgba(34,211,238,0.2)]">Launcher</span>
 					</span>
 				</div>
 			</div>
@@ -22,7 +30,7 @@
 				<IconButton
 					type="outlined"
 					:label="formatMessage(messages.goBack)"
-					class="!h-7 !min-w-7 !w-7 !border !border-surface-4 !p-0 !opacity-100 hover:!border-brand/40 transition-colors"
+					class="!h-7 !min-w-7 !w-7 !border !border-white/10 !bg-white/[0.03] hover:!bg-white/10 hover:!border-indigo-500/50 !p-0 !opacity-100 cursor-pointer transition-all duration-200"
 					:disabled="!canNavigateBack"
 					@click="router.back()"
 				>
@@ -34,7 +42,7 @@
 				<IconButton
 					type="outlined"
 					:label="formatMessage(messages.goForward)"
-					class="!h-7 !min-w-7 !w-7 !border !border-surface-4 !p-0 !opacity-100 hover:!border-brand/40 transition-colors"
+					class="!h-7 !min-w-7 !w-7 !border !border-white/10 !bg-white/[0.03] hover:!bg-white/10 hover:!border-indigo-500/50 !p-0 !opacity-100 cursor-pointer transition-all duration-200"
 					:disabled="!canNavigateForward"
 					@click="router.forward()"
 				>
@@ -54,7 +62,7 @@
 				v-if="!forceSidebar && themeStore.toggleSidebar"
 				:type="sidebarToggled ? 'base' : 'quiet'"
 				:label="formatMessage(messages.nextImage)"
-				class="mr-3 transition-transform"
+				class="mr-3 transition-transform cursor-pointer"
 				:class="{ 'rotate-180': !sidebarToggled }"
 				@click="emit('toggleSidebar')"
 			>

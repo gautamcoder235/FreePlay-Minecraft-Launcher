@@ -9,14 +9,14 @@
 			'subpage-active': isSubpage && isSubpage(route),
 			disabled: disabled,
 		}"
-		class="w-12 h-12 text-primary rounded-full flex items-center justify-center text-2xl transition-all bg-transparent hover:bg-button-bg hover:text-contrast"
+		class="w-11 h-11 text-zinc-400 rounded-xl flex items-center justify-center text-xl cursor-pointer transition-all duration-200 bg-white/[0.02] hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 relative group"
 	>
 		<slot />
 	</RouterLink>
 	<button
 		v-else
 		v-bind="$attrs"
-		class="button-animation border-none text-primary cursor-pointer w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-all bg-transparent hover:bg-button-bg hover:text-contrast"
+		class="button-animation border-none text-zinc-400 cursor-pointer w-11 h-11 rounded-xl flex items-center justify-center text-xl transition-all duration-200 bg-white/[0.02] hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 relative group"
 		:disabled="disabled"
 		@click="to"
 	>
@@ -54,15 +54,15 @@ defineOptions({
 .router-link-active,
 .subpage-active {
 	svg {
-		filter: drop-shadow(0 0 0.5rem black);
+		filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6));
 	}
 }
 
 .router-link-active {
-	@apply text-[--color-button-text-selected] bg-[--color-button-bg-selected];
+	@apply text-indigo-300 bg-indigo-600/30 border border-indigo-500/50 shadow-[0_0_16px_rgba(99,102,241,0.4)];
 }
 
 .subpage-active {
-	@apply text-contrast bg-button-bg;
+	@apply text-indigo-300 bg-indigo-600/20 border border-indigo-500/30 shadow-[0_0_12px_rgba(99,102,241,0.3)];
 }
 </style>

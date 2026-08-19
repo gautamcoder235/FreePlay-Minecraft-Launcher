@@ -177,6 +177,73 @@ if (typeof window !== 'undefined') {
 					return { success: true, config: hostingState }
 				}
 
+				// Minecraft Skins IPC Commands
+				if (cmd === 'plugin:minecraft-skins|get_available_skins' || cmd === 'get_available_skins') {
+					return [
+						{
+							texture_key: 'steve',
+							name: 'Steve',
+							variant: 'CLASSIC',
+							texture: 'https://textures.minecraft.net/texture/1a4143fe1b5c92892994441584c6ef6e6c4331d2ffb511394b306b9b33a571',
+							source: 'default',
+							is_equipped: true,
+						},
+						{
+							texture_key: 'alex',
+							name: 'Alex',
+							variant: 'SLIM',
+							texture: 'https://textures.minecraft.net/texture/68291410d2961d6bc080d9c4943f778d10ed8b1a8d0e703ff3245459ec784',
+							source: 'default',
+							is_equipped: false,
+						},
+					]
+				}
+				if (cmd === 'plugin:minecraft-skins|get_available_capes' || cmd === 'get_available_capes') {
+					return [
+						{
+							id: 'minecon_2016',
+							name: 'MINECON 2016',
+							texture: 'https://textures.minecraft.net/texture/b05b3590caf77d3e494b415b70256dcd5d3fd32335d37a8fed8e2d29ed48a2c',
+							is_equipped: false,
+						},
+					]
+				}
+				if (cmd.includes('normalize_skin_texture')) {
+					return new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10])
+				}
+				if (cmd.includes('add_and_equip_custom_skin') || cmd.includes('save_custom_skin')) {
+					return {
+						texture_key: 'custom_skin_' + Date.now(),
+						name: 'Custom Skin',
+						variant: args.variant || 'CLASSIC',
+						texture: 'https://textures.minecraft.net/texture/1a4143fe1b5c92892994441584c6ef6e6c4331d2ffb511394b306b9b33a571',
+						source: 'custom',
+						is_equipped: true,
+					}
+				}
+				if (cmd.includes('equip_skin') || cmd.includes('remove_custom_skin') || cmd.includes('unequip_skin') || cmd.includes('flush_pending_skin_change')) {
+					return true
+				}
+
+				// JRE & Optimal Java IPC
+				if (cmd.includes('get_optimal_jre_key') || cmd.includes('get_optimal_jre')) {
+					return {
+						parsed_version: 21,
+						path: 'C:\\Program Files\\Java\\jdk-21\\bin\\java.exe',
+					}
+				}
+
+				// Metadata / Loader Manifest IPC
+				if (cmd.includes('get_loader_versions')) {
+					return {
+						gameVersions: [
+							{ id: '1.21.4', loaders: [{ id: '1.0.0', stable: true }] },
+							{ id: '1.20.1', loaders: [{ id: '0.15.0', stable: true }] },
+							{ id: '${modrinth.gameVersion}', loaders: [{ id: '0.16.0', stable: true }] },
+						],
+					}
+				}
+
 				// Array queries
 				if (
 					cmd.includes('get_users') ||

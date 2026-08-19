@@ -1,5 +1,5 @@
 <template>
-	<div class="app-sidebar-nav bg-bg-raised flex flex-col p-[0.5rem] pt-0 gap-[0.25rem] w-[--left-bar-width] select-none">
+	<div class="app-sidebar-nav bg-zinc-950/80 backdrop-blur-md border-r border-white/10 flex flex-col p-2 gap-2.5 w-[--left-bar-width] select-none">
 		<!-- Home / Library -->
 		<NavButton
 			v-tooltip.right="formatMessage(messages.home)"

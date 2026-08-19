@@ -4,47 +4,48 @@
 		header="Play as Offline Player"
 		max-width="480px"
 	>
-		<div class="flex flex-col gap-4 p-2">
-			<div class="flex items-center gap-4 bg-surface-2 p-3 rounded-xl border border-surface-5">
-				<div class="w-14 h-14 rounded-lg bg-surface-4 flex items-center justify-center overflow-hidden shrink-0 border border-white/10">
+		<div class="flex flex-col gap-4 p-2 bg-zinc-950/95 backdrop-blur-xl rounded-2xl border border-white/10 select-none">
+			<div class="flex items-center gap-4 bg-zinc-900/90 p-3.5 rounded-2xl border border-white/10 shadow-lg">
+				<div class="w-14 h-14 rounded-xl bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0 border border-white/20 shadow-inner">
 					<img
 						:src="`https://mc-heads.net/avatar/${cleanUsername || 'Steve'}/64`"
 						alt="Player Skin"
-						class="w-12 h-12 rounded"
+						class="w-12 h-12 rounded-lg object-cover shadow"
 					/>
 				</div>
 				<div class="flex flex-col">
-					<span class="font-semibold text-contrast text-base">{{ cleanUsername || 'Steve' }}</span>
-					<span class="text-xs text-secondary">Free Offline Profile (No Purchase Required)</span>
+					<span class="font-bold text-white text-base">{{ cleanUsername || 'Steve' }}</span>
+					<span class="text-xs text-indigo-300 font-medium">Free 1-Click Offline Profile (No Purchase Required)</span>
 				</div>
 			</div>
 
-			<div class="flex flex-col gap-1.5">
-				<label class="text-sm font-medium text-contrast">Player Nickname</label>
+			<div class="flex flex-col gap-2">
+				<label class="text-sm font-bold text-zinc-200">Player Nickname</label>
 				<input
 					v-model="username"
 					type="text"
 					placeholder="Enter nickname (e.g. ShadowCrafter)"
 					maxlength="16"
-					class="w-full px-3.5 py-2.5 bg-surface-2 border border-surface-5 focus:border-brand rounded-xl text-contrast placeholder-secondary outline-none transition-colors"
+					class="w-full px-4 py-2.5 bg-zinc-900 border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 rounded-xl text-white placeholder-zinc-500 outline-none transition-all duration-200 text-sm font-medium"
 					@keydown.enter="submit"
 				/>
-				<span class="text-xs text-secondary">
+				<span class="text-xs text-zinc-400">
 					Letters, numbers, and underscores only. Max 16 characters.
 				</span>
 			</div>
 
-			<div v-if="errorMessage" class="p-2.5 rounded-lg bg-red-950/40 border border-red-800/40 text-red-300 text-xs">
+			<div v-if="errorMessage" class="p-3 rounded-xl bg-red-950/60 border border-red-500/30 text-red-300 text-xs font-semibold">
 				{{ errorMessage }}
 			</div>
 
-			<div class="flex justify-end gap-2 mt-2">
-				<Button type="quiet" @click="modal?.hide()">
+			<div class="flex justify-end gap-3 mt-2">
+				<Button type="quiet" class="!px-4 cursor-pointer hover:!bg-white/10 transition-colors" @click="modal?.hide()">
 					Cancel
 				</Button>
 				<Button
 					type="colored"
 					color="brand"
+					class="!bg-emerald-600 hover:!bg-emerald-500 !font-bold cursor-pointer transition-all duration-200 shadow-lg shadow-emerald-950/60 !px-5"
 					:disabled="!isValid || isSubmitting"
 					@click="submit"
 				>
@@ -61,6 +62,7 @@
 import { CheckIcon, SpinnerIcon } from '@modrinth/assets'
 import { Button, NewModal } from '@modrinth/ui'
 import { computed, ref, useTemplateRef } from 'vue'
+
 import { create_offline_account, set_default_user } from '@/helpers/auth'
 
 const emit = defineEmits<{

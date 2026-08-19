@@ -1,10 +1,10 @@
 <template>
-	<div class="freeplay-control-room min-h-full flex flex-col gap-6 p-6 max-w-7xl mx-auto select-none">
-		<!-- Header Hero & Status -->
-		<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 p-6 rounded-2xl bg-surface-2/80 border border-surface-4 shadow-lg backdrop-blur-sm relative overflow-hidden">
-			<!-- Background Glow Accent -->
+	<div class="freeplay-control-room min-h-full flex flex-col gap-6 p-6 max-w-7xl mx-auto select-none text-zinc-100 font-sans">
+		<!-- Header Hero & Server Status Banner -->
+		<div class="relative overflow-hidden rounded-2xl bg-zinc-900/80 border border-white/10 shadow-2xl backdrop-blur-md p-6 lg:p-7 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+			<!-- Background Ambient Glow Accent -->
 			<div
-				class="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-3xl pointer-events-none transition-colors duration-700 opacity-20"
+				class="absolute -right-24 -top-24 w-96 h-96 rounded-full blur-3xl pointer-events-none transition-colors duration-700 opacity-25"
 				:class="{
 					'bg-emerald-500': serverState.status === 'online',
 					'bg-amber-500': serverState.status === 'starting',
@@ -13,23 +13,27 @@
 				}"
 			/>
 
-			<!-- Server Identity & Public IP -->
-			<div class="flex flex-col gap-2 z-10">
-				<div class="flex items-center gap-3">
-					<div class="flex items-center gap-2">
-						<h1 class="text-2xl font-bold tracking-tight text-contrast m-0 flex items-center gap-2">
-							FreePlay Server Control Room
-						</h1>
-					</div>
+			<!-- Server Identity & Public IP Section -->
+			<div class="flex flex-col gap-3 z-10 max-w-2xl">
+				<div class="flex flex-wrap items-center gap-3">
+					<h1 class="text-2xl lg:text-3xl font-extrabold tracking-tight text-white m-0 flex items-center gap-2.5">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+							<rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+							<rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+							<line x1="6" x2="6.01" y1="6" y2="6"/>
+							<line x1="6" x2="6.01" y1="18" y2="18"/>
+						</svg>
+						FreePlay Server Control Room
+					</h1>
 
 					<!-- Status Badge -->
 					<div
-						class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 border"
+						class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 border backdrop-blur-md"
 						:class="{
-							'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.2)]': serverState.status === 'online',
-							'bg-amber-500/10 text-amber-400 border-amber-500/30 animate-pulse': serverState.status === 'starting',
-							'bg-cyan-500/10 text-cyan-400 border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.2)]': serverState.status === 'tunneling',
-							'bg-surface-4 text-secondary border-surface-5': serverState.status === 'offline',
+							'bg-emerald-500/15 text-emerald-300 border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.25)]': serverState.status === 'online',
+							'bg-amber-500/15 text-amber-300 border-amber-500/40 animate-pulse': serverState.status === 'starting',
+							'bg-cyan-500/15 text-cyan-300 border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.25)]': serverState.status === 'tunneling',
+							'bg-zinc-800/80 text-zinc-400 border-zinc-700': serverState.status === 'offline',
 						}"
 					>
 						<span
@@ -38,165 +42,238 @@
 								'bg-emerald-400 animate-ping': serverState.status === 'online',
 								'bg-amber-400 animate-spin': serverState.status === 'starting',
 								'bg-cyan-400 animate-bounce': serverState.status === 'tunneling',
-								'bg-secondary': serverState.status === 'offline',
+								'bg-zinc-500': serverState.status === 'offline',
 							}"
 						/>
 						{{ serverState.status }}
 					</div>
 				</div>
 
-				<!-- Public IP Address Card -->
-				<div class="flex flex-wrap items-center gap-3 mt-1">
-					<div class="flex items-center gap-2 bg-surface-3/90 border border-surface-4/80 rounded-xl px-3 py-1.5 shadow-inner">
-						<span class="text-xs font-medium text-secondary">Public Address:</span>
-						<code class="font-mono text-sm font-bold text-contrast tracking-wide">
+				<!-- Public IP Address Join Card -->
+				<div class="flex flex-wrap items-center gap-3">
+					<div class="flex items-center gap-2.5 bg-zinc-950/80 border border-white/10 rounded-xl px-3.5 py-2 shadow-inner group hover:border-emerald-500/40 transition-colors duration-200">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="10"/>
+							<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+							<path d="M2 12h20"/>
+						</svg>
+						<span class="text-xs font-semibold text-zinc-400 uppercase tracking-wide">Public IP:</span>
+						<code class="font-mono text-sm font-bold text-white tracking-wide select-all">
 							{{ serverState.tunnel_enabled ? serverState.public_ip : `127.0.0.1:${serverState.local_port}` }}
 						</code>
 						<button
 							type="button"
-							class="ml-1 inline-flex items-center justify-center p-1.5 rounded-lg bg-surface-4 hover:bg-brand hover:text-black text-primary transition-all duration-200 cursor-pointer border-none"
-							title="Copy IP for friends"
+							class="inline-flex items-center justify-center p-1.5 rounded-lg bg-zinc-800 hover:bg-emerald-500 text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none active:scale-95 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
+							title="1-Click Copy Public IP for Friends"
 							@click="copyPublicIp"
 						>
-							<svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<svg v-if="!copied" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 								<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
 								<path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
 							</svg>
-							<svg v-else xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<svg v-else xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-zinc-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
 								<polyline points="20 6 9 17 4 12"/>
 							</svg>
 						</button>
 					</div>
 
-					<span v-if="copied" class="text-xs font-semibold text-emerald-400 transition-opacity">
-						Copied to clipboard!
-					</span>
+					<transition name="fade">
+						<span v-if="copied" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-lg">
+							Copied to clipboard!
+						</span>
+					</transition>
 
-					<div class="flex items-center gap-1.5 text-xs text-secondary bg-surface-3/60 px-2.5 py-1 rounded-lg border border-surface-4">
-						<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-						<span>Ping: <strong class="text-contrast">18 ms</strong></span>
+					<div class="flex items-center gap-1.5 text-xs text-zinc-400 bg-zinc-950/40 px-3 py-1.5 rounded-xl border border-white/5">
+						<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+						<span>Ping: <strong class="text-white font-mono">18 ms</strong></span>
 					</div>
 				</div>
 			</div>
 
-			<!-- Quick Server Actions -->
-			<div class="flex flex-wrap items-center gap-2.5 z-10 w-full lg:w-auto mt-2 lg:mt-0">
+			<!-- Quick Server Action Controls -->
+			<div class="flex flex-wrap items-center gap-3 z-10 w-full lg:w-auto shrink-0">
+				<!-- Start Button -->
 				<button
 					v-if="serverState.status === 'offline'"
 					type="button"
-					class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-highlight text-black font-bold text-sm shadow-md hover:shadow-brand/20 transition-all cursor-pointer border-none"
+					class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-zinc-950 font-extrabold text-sm shadow-lg shadow-emerald-950/50 hover:shadow-emerald-500/20 active:scale-[0.98] transition-all duration-200 cursor-pointer border-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none"
 					:disabled="actionLoading"
 					@click="startServer"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
 						<path d="M8 5v14l11-7z"/>
 					</svg>
-					Start Server
+					<span>Start Server</span>
 				</button>
 
+				<!-- Stop Button -->
 				<button
 					v-else
 					type="button"
-					class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 font-bold text-sm border border-rose-500/40 transition-all cursor-pointer"
+					class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 font-extrabold text-sm border border-rose-500/40 shadow-lg shadow-rose-950/40 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
 					:disabled="actionLoading"
 					@click="stopServer"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-						<rect x="6" y="6" width="12" height="12" rx="1"/>
+						<rect x="6" y="6" width="12" height="12" rx="1.5"/>
 					</svg>
-					Stop Server
+					<span>Stop Server</span>
 				</button>
 
+				<!-- Restart Button -->
 				<button
 					type="button"
-					class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-surface-3 hover:bg-surface-4 text-primary font-semibold text-sm border border-surface-4 transition-all cursor-pointer"
+					class="inline-flex items-center justify-center gap-2 px-4.5 py-3 rounded-xl bg-zinc-800/80 hover:bg-zinc-700 text-zinc-100 font-semibold text-sm border border-zinc-700 hover:border-zinc-600 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none"
 					:disabled="serverState.status === 'offline' || actionLoading"
 					@click="restartServer"
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
 						<path d="M3 3v5h5"/>
 						<path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
 						<path d="M16 21h5v-5"/>
 					</svg>
-					Restart
+					<span>Restart</span>
 				</button>
 
+				<!-- Open Folder Button -->
 				<button
 					type="button"
-					class="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-surface-3 hover:bg-surface-4 text-secondary hover:text-contrast font-medium text-sm border border-surface-4 transition-all cursor-pointer"
-					title="Open Server Directory"
+					class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-semibold text-sm border border-zinc-700 hover:border-zinc-600 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:outline-none"
+					title="Open Local Server Folder"
 					@click="openServerFolder"
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
 					</svg>
-					Folder
+					<span>Folder</span>
 				</button>
 			</div>
 		</div>
 
-		<!-- Live Metrics Row -->
-		<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-			<!-- CPU Usage Metric -->
-			<div class="p-4 rounded-xl bg-surface-2 border border-surface-4 flex flex-col gap-1.5">
-				<span class="text-xs text-secondary font-medium">CPU Load</span>
-				<div class="flex items-baseline justify-between">
-					<span class="text-xl font-bold text-contrast">{{ serverState.status === 'online' ? `${serverState.cpu_percent}%` : '0%' }}</span>
-					<span class="text-xs text-brand font-mono">4 Cores</span>
+		<!-- Metrics Dashboard Cards Grid -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+			<!-- CPU Load % Card -->
+			<div class="p-5 rounded-2xl bg-zinc-900/70 border border-white/5 hover:border-white/10 transition-all duration-200 flex flex-col gap-2.5 shadow-lg backdrop-blur-sm">
+				<div class="flex items-center justify-between">
+					<span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect width="16" height="16" x="4" y="4" rx="2"/>
+							<rect width="6" height="6" x="9" y="9" rx="1"/>
+							<path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>
+						</svg>
+						CPU Load
+					</span>
+					<span class="text-xs text-indigo-400 font-mono font-bold bg-indigo-500/10 px-2 py-0.5 rounded-md border border-indigo-500/20">4 Cores</span>
 				</div>
-				<div class="w-full bg-surface-4 rounded-full h-1.5 mt-1 overflow-hidden">
+				<div class="flex items-baseline justify-between">
+					<span class="text-2xl font-black text-white font-mono tracking-tight">
+						{{ serverState.status === 'online' ? `${serverState.cpu_percent}%` : '0%' }}
+					</span>
+					<span class="text-xs text-zinc-400">Target &lt; 85%</span>
+				</div>
+				<div class="w-full bg-zinc-800 rounded-full h-2 overflow-hidden p-0.5 border border-white/5">
 					<div
-						class="bg-brand h-full rounded-full transition-all duration-500"
+						class="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full rounded-full transition-all duration-500 ease-out shadow-[0_0_8px_rgba(99,102,241,0.5)]"
 						:style="{ width: `${serverState.status === 'online' ? serverState.cpu_percent : 0}%` }"
 					/>
 				</div>
 			</div>
 
-			<!-- RAM Allocation Metric -->
-			<div class="p-4 rounded-xl bg-surface-2 border border-surface-4 flex flex-col gap-1.5">
-				<span class="text-xs text-secondary font-medium">RAM Utilization</span>
+			<!-- RAM Utilization Slider Card -->
+			<div class="p-5 rounded-2xl bg-zinc-900/70 border border-white/5 hover:border-white/10 transition-all duration-200 flex flex-col gap-2.5 shadow-lg backdrop-blur-sm">
+				<div class="flex items-center justify-between">
+					<span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M6 19v-3"/><path d="M10 19v-3"/><path d="M14 19v-3"/><path d="M18 19v-3"/><path d="M8 11V9"/><path d="M16 11V9"/><rect width="18" height="12" x="3" y="4" rx="2"/>
+						</svg>
+						RAM Utilization
+					</span>
+					<span class="text-xs text-zinc-400 font-mono">Max {{ serverState.ram_gb }} GB</span>
+				</div>
 				<div class="flex items-baseline justify-between">
-					<span class="text-xl font-bold text-contrast font-mono">
+					<span class="text-2xl font-black text-white font-mono tracking-tight">
 						{{ serverState.status === 'online' ? `${(serverState.ram_used_mb / 1024).toFixed(1)} GB` : '0 GB' }}
 					</span>
-					<span class="text-xs text-secondary">of {{ serverState.ram_gb }} GB</span>
+					<span class="text-xs text-emerald-400 font-bold font-mono">
+						{{ serverState.status === 'online' ? `${Math.round((serverState.ram_used_mb / (serverState.ram_gb * 1024)) * 100)}%` : '0%' }}
+					</span>
 				</div>
-				<div class="w-full bg-surface-4 rounded-full h-1.5 mt-1 overflow-hidden">
+				<div class="w-full bg-zinc-800 rounded-full h-2 overflow-hidden p-0.5 border border-white/5">
 					<div
-						class="bg-emerald-400 h-full rounded-full transition-all duration-500"
+						class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500 ease-out shadow-[0_0_8px_rgba(16,185,129,0.5)]"
 						:style="{ width: `${serverState.status === 'online' ? (serverState.ram_used_mb / (serverState.ram_gb * 1024)) * 100 : 0}%` }"
 					/>
 				</div>
 			</div>
 
-			<!-- Active Players Metric -->
-			<div class="p-4 rounded-xl bg-surface-2 border border-surface-4 flex flex-col gap-1.5">
-				<span class="text-xs text-secondary font-medium">Players Online</span>
-				<div class="flex items-baseline justify-between">
-					<span class="text-xl font-bold text-contrast">
-						{{ serverState.status === 'online' ? onlinePlayers.length : 0 }} <span class="text-xs font-normal text-secondary">/ 20 Max</span>
+			<!-- Online Players List Card -->
+			<div class="p-5 rounded-2xl bg-zinc-900/70 border border-white/5 hover:border-white/10 transition-all duration-200 flex flex-col gap-2.5 shadow-lg backdrop-blur-sm">
+				<div class="flex items-center justify-between">
+					<span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+							<circle cx="9" cy="7" r="4"/>
+							<path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+							<path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+						</svg>
+						Online Players
 					</span>
-					<span class="text-xs text-emerald-400 font-semibold flex items-center gap-1">
-						<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Active
+					<span class="text-xs font-bold text-emerald-400 flex items-center gap-1">
+						<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+						Active
 					</span>
 				</div>
-				<div class="text-xs text-secondary truncate mt-1">
-					{{ serverState.status === 'online' && onlinePlayers.length > 0 ? onlinePlayers.map(p => p.name).join(', ') : 'No players currently' }}
+				<div class="flex items-baseline justify-between">
+					<span class="text-2xl font-black text-white font-mono tracking-tight">
+						{{ serverState.status === 'online' ? onlinePlayers.length : 0 }}
+						<span class="text-xs font-normal text-zinc-400">/ 20 Max</span>
+					</span>
+				</div>
+				<!-- Player Avatar Heads Preview Stack -->
+				<div class="flex items-center gap-1.5 overflow-x-auto py-0.5">
+					<template v-if="serverState.status === 'online' && onlinePlayers.length > 0">
+						<div
+							v-for="p in onlinePlayers"
+							:key="p.name"
+							class="relative group/avatar cursor-pointer"
+							:title="`${p.name} (${p.latency}ms)`"
+						>
+							<img
+								:src="`https://mc-heads.net/avatar/${p.name}/28`"
+								:alt="p.name"
+								class="w-7 h-7 rounded-lg border border-white/20 bg-zinc-800 object-cover hover:scale-110 transition-transform duration-200 shadow-md"
+								@error="(e) => handleAvatarError(e, p.name)"
+							/>
+							<span
+								class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border border-zinc-950"
+								:class="p.is_op ? 'bg-amber-400' : 'bg-emerald-400'"
+							/>
+						</div>
+					</template>
+					<span v-else class="text-xs text-zinc-500 italic">No players connected</span>
 				</div>
 			</div>
 
-			<!-- Uptime Metric -->
-			<div class="p-4 rounded-xl bg-surface-2 border border-surface-4 flex flex-col gap-1.5">
-				<span class="text-xs text-secondary font-medium">Session Uptime</span>
+			<!-- Session Uptime & TPS Card -->
+			<div class="p-5 rounded-2xl bg-zinc-900/70 border border-white/5 hover:border-white/10 transition-all duration-200 flex flex-col gap-2.5 shadow-lg backdrop-blur-sm">
+				<div class="flex items-center justify-between">
+					<span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="10"/>
+							<polyline points="12 6 12 12 16 14"/>
+						</svg>
+						Session Uptime
+					</span>
+					<span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">TPS 20.0</span>
+				</div>
 				<div class="flex items-baseline justify-between">
-					<span class="text-xl font-bold text-contrast font-mono">
+					<span class="text-2xl font-black text-white font-mono tracking-tight">
 						{{ serverState.status === 'online' ? formattedUptime : '00:00:00' }}
 					</span>
-					<span class="text-xs text-secondary">TPS: <strong class="text-contrast">20.0</strong></span>
 				</div>
-				<div class="text-xs text-secondary mt-1">
-					Engine: <strong class="text-contrast">{{ serverState.engine }} {{ serverState.version }}</strong>
+				<div class="text-xs text-zinc-400 truncate">
+					Engine: <strong class="text-zinc-200 font-semibold">{{ serverState.engine }} {{ serverState.version }}</strong>
 				</div>
 			</div>
 		</div>
@@ -206,30 +283,30 @@
 			<!-- Left Column: Server Configuration & Connected Players (5 cols) -->
 			<div class="lg:col-span-5 flex flex-col gap-6">
 				<!-- Server Configuration Card -->
-				<div class="p-5 rounded-2xl bg-surface-2 border border-surface-4 flex flex-col gap-5 shadow-sm">
-					<div class="flex items-center justify-between border-b border-surface-4 pb-3">
-						<h2 class="text-base font-bold text-contrast m-0 flex items-center gap-2">
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<div class="p-6 rounded-2xl bg-zinc-900/80 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-5">
+					<div class="flex items-center justify-between border-b border-white/10 pb-4">
+						<h2 class="text-base font-extrabold text-white m-0 flex items-center gap-2.5">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 								<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
 								<circle cx="12" cy="12" r="3"/>
 							</svg>
 							Server Settings
 						</h2>
-						<span class="text-xs text-secondary">Instant Hot-Reload</span>
+						<span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-white/5">Instant Hot-Reload</span>
 					</div>
 
 					<!-- Version Selector -->
-					<div class="flex flex-col gap-2">
-						<label class="text-xs font-semibold text-primary uppercase tracking-wider">Minecraft Version</label>
-						<div class="grid grid-cols-3 gap-2">
+					<div class="flex flex-col gap-2.5">
+						<label class="text-xs font-bold text-zinc-300 uppercase tracking-wider">Minecraft Version</label>
+						<div class="grid grid-cols-3 gap-2.5">
 							<button
 								v-for="ver in ['1.21.4', '1.20.1', '1.16.5']"
 								:key="ver"
 								type="button"
-								class="px-3 py-2 rounded-xl text-xs font-bold border transition-all text-center cursor-pointer"
+								class="px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all duration-200 text-center cursor-pointer active:scale-95 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
 								:class="serverState.version === ver
-									? 'bg-brand/20 border-brand text-brand shadow-sm'
-									: 'bg-surface-3 border-surface-4 text-secondary hover:text-contrast hover:bg-surface-4'"
+									? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-950/40'
+									: 'bg-zinc-800/60 border-zinc-700/80 text-zinc-300 hover:text-white hover:bg-zinc-800 hover:border-zinc-600'"
 								@click="updateVersion(ver)"
 							>
 								{{ ver }}
@@ -239,17 +316,17 @@
 					</div>
 
 					<!-- Engine Selector -->
-					<div class="flex flex-col gap-2">
-						<label class="text-xs font-semibold text-primary uppercase tracking-wider">Server Engine</label>
-						<div class="grid grid-cols-3 gap-2">
+					<div class="flex flex-col gap-2.5">
+						<label class="text-xs font-bold text-zinc-300 uppercase tracking-wider">Server Engine</label>
+						<div class="grid grid-cols-3 gap-2.5">
 							<button
 								v-for="eng in ['PaperMC', 'Fabric', 'Vanilla']"
 								:key="eng"
 								type="button"
-								class="px-3 py-2 rounded-xl text-xs font-bold border transition-all text-center cursor-pointer"
+								class="px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all duration-200 text-center cursor-pointer active:scale-95 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
 								:class="serverState.engine === eng
-									? 'bg-brand/20 border-brand text-brand shadow-sm'
-									: 'bg-surface-3 border-surface-4 text-secondary hover:text-contrast hover:bg-surface-4'"
+									? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-950/40'
+									: 'bg-zinc-800/60 border-zinc-700/80 text-zinc-300 hover:text-white hover:bg-zinc-800 hover:border-zinc-600'"
 								@click="updateEngine(eng)"
 							>
 								{{ eng }}
@@ -258,11 +335,11 @@
 						</div>
 					</div>
 
-					<!-- RAM Allocation Slider -->
-					<div class="flex flex-col gap-2">
+					<!-- Dedicated RAM Allocation Slider (2GB to 8GB) -->
+					<div class="flex flex-col gap-2.5">
 						<div class="flex items-center justify-between">
-							<label class="text-xs font-semibold text-primary uppercase tracking-wider">RAM Allocation</label>
-							<span class="text-sm font-bold text-contrast font-mono">{{ serverState.ram_gb }} GB Dedicated</span>
+							<label class="text-xs font-bold text-zinc-300 uppercase tracking-wider">Dedicated RAM Allocation</label>
+							<span class="text-sm font-extrabold text-white font-mono bg-zinc-800 px-2.5 py-0.5 rounded-lg border border-white/10">{{ serverState.ram_gb }} GB Dedicated</span>
 						</div>
 						<input
 							type="range"
@@ -270,10 +347,10 @@
 							max="8"
 							step="1"
 							:value="serverState.ram_gb"
-							class="w-full accent-brand cursor-pointer h-2 bg-surface-4 rounded-lg"
+							class="w-full accent-emerald-500 cursor-pointer h-2 bg-zinc-800 rounded-lg appearance-none focus:outline-none"
 							@input="onRamChange"
 						/>
-						<div class="flex justify-between text-[10px] text-secondary font-mono px-1">
+						<div class="flex justify-between text-[10px] text-zinc-400 font-mono px-1">
 							<span>2 GB (Lite)</span>
 							<span>4 GB (Balanced)</span>
 							<span>6 GB</span>
@@ -282,24 +359,24 @@
 					</div>
 
 					<!-- playit.gg Free Tunnel Toggle -->
-					<div class="p-4 rounded-xl bg-surface-3/80 border border-surface-4 flex items-center justify-between gap-4">
-						<div class="flex flex-col gap-0.5">
-							<div class="flex items-center gap-1.5">
-								<span class="text-sm font-bold text-contrast">Free playit.gg Tunnel</span>
-								<span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-400 uppercase">Anycast</span>
+					<div class="p-4 rounded-xl bg-zinc-950/60 border border-white/10 flex items-center justify-between gap-4">
+						<div class="flex flex-col gap-1">
+							<div class="flex items-center gap-2">
+								<span class="text-sm font-bold text-white">Free playit.gg Tunnel</span>
+								<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase">Anycast</span>
 							</div>
-							<p class="text-xs text-secondary m-0">Zero port-forwarding required. Friends can join with custom public address.</p>
+							<p class="text-xs text-zinc-400 m-0">Zero port-forwarding required. Friends can join with custom public address.</p>
 						</div>
 
 						<!-- Toggle Switch -->
 						<button
 							type="button"
-							class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none"
-							:class="serverState.tunnel_enabled ? 'bg-brand' : 'bg-surface-4'"
+							class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
+							:class="serverState.tunnel_enabled ? 'bg-emerald-500' : 'bg-zinc-700'"
 							@click="toggleTunnel"
 						>
 							<span
-								class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-black shadow-lg ring-0 transition duration-200 ease-in-out"
+								class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-zinc-950 shadow-lg ring-0 transition duration-200 ease-in-out"
 								:class="serverState.tunnel_enabled ? 'translate-x-5' : 'translate-x-0'"
 							/>
 						</button>
@@ -307,46 +384,46 @@
 				</div>
 
 				<!-- Connected Players Card -->
-				<div class="p-5 rounded-2xl bg-surface-2 border border-surface-4 flex flex-col gap-4 shadow-sm">
-					<div class="flex items-center justify-between border-b border-surface-4 pb-3">
-						<div class="flex items-center gap-2">
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<div class="p-6 rounded-2xl bg-zinc-900/80 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4">
+					<div class="flex items-center justify-between border-b border-white/10 pb-4">
+						<div class="flex items-center gap-2.5">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 								<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
 								<circle cx="9" cy="7" r="4"/>
 								<path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
 								<path d="M16 3.13a4 4 0 0 1 0 7.75"/>
 							</svg>
-							<h2 class="text-base font-bold text-contrast m-0">Connected Players</h2>
+							<h2 class="text-base font-extrabold text-white m-0">Connected Players</h2>
 						</div>
-						<span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-surface-3 text-secondary">
+						<span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-white/5">
 							{{ onlinePlayers.length }} / {{ serverState.players.length }} Online
 						</span>
 					</div>
 
-					<div class="flex flex-col gap-2">
+					<div class="flex flex-col gap-2.5">
 						<div
 							v-for="player in serverState.players"
 							:key="player.name"
-							class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3/70 border border-surface-4/60 hover:bg-surface-3 transition-colors"
+							class="flex items-center justify-between p-3 rounded-xl bg-zinc-950/60 border border-white/5 hover:border-white/15 transition-all duration-200"
 						>
 							<div class="flex items-center gap-3">
-								<div class="relative w-8 h-8 rounded-lg overflow-hidden bg-surface-4 border border-surface-5">
+								<div class="relative w-9 h-9 rounded-xl overflow-hidden bg-zinc-800 border border-white/10 shrink-0">
 									<img
-										:src="`https://mc-heads.net/avatar/${player.name}/32`"
+										:src="`https://mc-heads.net/avatar/${player.name}/36`"
 										:alt="player.name"
 										class="w-full h-full object-cover"
-										@error="(e) => (e.target as HTMLElement).style.display = 'none'"
+										@error="(e) => handleAvatarError(e, player.name)"
 									/>
 								</div>
 								<div class="flex flex-col">
-									<div class="flex items-center gap-1.5">
-										<span class="text-sm font-semibold text-contrast leading-none">{{ player.name }}</span>
-										<span v-if="player.is_op" class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 uppercase">OP</span>
+									<div class="flex items-center gap-2">
+										<span class="text-sm font-bold text-white leading-none">{{ player.name }}</span>
+										<span v-if="player.is_op" class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase">OP</span>
 									</div>
-									<span class="text-[11px] text-secondary mt-0.5 flex items-center gap-1">
+									<span class="text-[11px] text-zinc-400 mt-1 flex items-center gap-1.5 font-mono">
 										<span
 											class="w-1.5 h-1.5 rounded-full"
-											:class="player.online ? 'bg-emerald-400' : 'bg-surface-5'"
+											:class="player.online ? 'bg-emerald-400' : 'bg-zinc-600'"
 										/>
 										{{ player.online ? `${player.latency}ms ping` : 'Offline' }}
 									</span>
@@ -354,10 +431,10 @@
 							</div>
 
 							<!-- Moderation Quick Actions -->
-							<div class="flex items-center gap-1">
+							<div class="flex items-center gap-1.5">
 								<button
 									type="button"
-									class="px-2 py-1 rounded text-xs font-semibold bg-surface-4 hover:bg-surface-5 text-secondary hover:text-contrast border-none cursor-pointer"
+									class="px-2.5 py-1 rounded-lg text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-white/5 active:scale-95 transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:outline-none"
 									:title="player.is_op ? 'De-op' : 'Make OP'"
 									@click="sendQuickCommand(player.is_op ? `/deop ${player.name}` : `/op ${player.name}`)"
 								>
@@ -366,7 +443,7 @@
 								<button
 									v-if="player.online"
 									type="button"
-									class="px-2 py-1 rounded text-xs font-semibold bg-surface-4 hover:bg-rose-500/20 text-secondary hover:text-rose-300 border-none cursor-pointer"
+									class="px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-500/10 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 active:scale-95 transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
 									title="Kick Player"
 									@click="sendQuickCommand(`/kick ${player.name}`)"
 								>
@@ -380,36 +457,36 @@
 
 			<!-- Right Column: Interactive Live Console (7 cols) -->
 			<div class="lg:col-span-7 flex flex-col gap-4">
-				<div class="rounded-2xl bg-surface-2 border border-surface-4 overflow-hidden shadow-lg flex flex-col h-[680px]">
+				<div class="rounded-2xl bg-zinc-900/80 border border-white/10 overflow-hidden shadow-2xl backdrop-blur-md flex flex-col h-[700px]">
 					<!-- Terminal Header Bar -->
-					<div class="bg-surface-3/90 px-4 py-3 border-b border-surface-4 flex items-center justify-between">
-						<div class="flex items-center gap-2">
+					<div class="bg-zinc-950/90 px-4 py-3.5 border-b border-white/10 flex items-center justify-between shrink-0">
+						<div class="flex items-center gap-3">
 							<div class="flex items-center gap-1.5">
 								<span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
 								<span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
 								<span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
 							</div>
-							<span class="text-xs font-bold text-contrast ml-2 font-mono flex items-center gap-1.5">
-								<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<span class="text-xs font-extrabold text-white font-mono flex items-center gap-2 tracking-wide">
+								<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 									<polyline points="4 17 10 11 4 5"/>
 									<line x1="12" y1="19" x2="20" y2="19"/>
 								</svg>
-								Live Interactive Console
+								Interactive Live Console
 							</span>
 						</div>
 
 						<div class="flex items-center gap-2">
 							<button
 								type="button"
-								class="text-xs px-2.5 py-1 rounded-lg border border-surface-4 bg-surface-3 hover:bg-surface-4 text-secondary hover:text-contrast cursor-pointer"
-								:class="{ '!bg-brand/20 !border-brand !text-brand': autoScroll }"
+								class="text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-mono cursor-pointer transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
+								:class="{ '!bg-emerald-500/20 !border-emerald-500/50 !text-emerald-300 font-bold': autoScroll }"
 								@click="autoScroll = !autoScroll"
 							>
 								Auto-Scroll: {{ autoScroll ? 'ON' : 'OFF' }}
 							</button>
 							<button
 								type="button"
-								class="text-xs px-2.5 py-1 rounded-lg border border-surface-4 bg-surface-3 hover:bg-surface-4 text-secondary hover:text-contrast cursor-pointer"
+								class="text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-mono cursor-pointer transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
 								@click="clearLogs"
 							>
 								Clear
@@ -420,44 +497,49 @@
 					<!-- Terminal Log Viewer -->
 					<div
 						ref="terminalLogContainer"
-						class="flex-1 p-4 bg-[#0a0f14] overflow-y-auto font-mono text-xs leading-relaxed space-y-1 select-text scrollbar-thin scrollbar-thumb-surface-4"
+						class="flex-1 p-4 bg-[#090d12] overflow-y-auto font-mono text-xs leading-relaxed space-y-1.5 select-text scrollbar-thin scrollbar-thumb-zinc-800"
 					>
 						<div
 							v-for="(log, idx) in serverState.logs"
 							:key="idx"
-							class="whitespace-pre-wrap break-all"
+							class="whitespace-pre-wrap break-all transition-colors duration-150"
 						>
 							<!-- Highlight Syntax -->
-							<span v-if="log.includes('[INFO]')" class="text-slate-400">
-								<span class="text-cyan-400 font-medium">{{ log.split('[INFO]:')[0] }}[INFO]:</span>
-								<span class="text-slate-200">{{ log.split('[INFO]:')[1] }}</span>
+							<span v-if="log.includes('[INFO]')" class="text-zinc-300">
+								<span class="text-cyan-400 font-semibold">{{ log.substring(0, log.indexOf('[INFO]:') + 7) }}</span>
+								<span class="text-zinc-200">{{ log.substring(log.indexOf('[INFO]:') + 7) }}</span>
 							</span>
-							<span v-else-if="log.includes('[WARN]')" class="text-amber-400">
-								<span class="font-bold">{{ log }}</span>
+							<span v-else-if="log.includes('[WARN]')" class="text-amber-400 font-medium">
+								{{ log }}
 							</span>
-							<span v-else-if="log.includes('[ERROR]')" class="text-rose-400">
-								<span class="font-bold">{{ log }}</span>
+							<span v-else-if="log.includes('[ERROR]')" class="text-rose-400 font-bold">
+								{{ log }}
 							</span>
 							<span v-else-if="log.includes('[DONE]')" class="text-emerald-400 font-bold">
 								{{ log }}
 							</span>
-							<span v-else-if="log.includes('[Console]')" class="text-brand font-semibold">
+							<span v-else-if="log.includes('[Console]')" class="text-emerald-300 font-semibold">
 								{{ log }}
 							</span>
-							<span v-else class="text-slate-300">
+							<span v-else class="text-zinc-300">
 								{{ log }}
 							</span>
 						</div>
 					</div>
 
 					<!-- Quick Command Suggestion Chips -->
-					<div class="px-4 py-2.5 bg-surface-3/60 border-t border-surface-4 flex flex-wrap items-center gap-1.5">
-						<span class="text-[11px] font-semibold text-secondary mr-1">Quick:</span>
+					<div class="px-4 py-2.5 bg-zinc-950/80 border-t border-white/10 flex flex-wrap items-center gap-2 shrink-0">
+						<span class="text-xs font-bold text-zinc-400 uppercase tracking-wide mr-1 flex items-center gap-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+							</svg>
+							Quick:
+						</span>
 						<button
 							v-for="cmd in ['/op Alex', '/gamemode creative', '/time set day', '/whitelist off', '/weather clear', '/tps']"
 							:key="cmd"
 							type="button"
-							class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-surface-4/80 hover:bg-brand hover:text-black text-secondary hover:font-bold transition-colors cursor-pointer border-none"
+							class="text-xs font-mono px-2.5 py-1 rounded-lg bg-zinc-800/80 hover:bg-emerald-500 hover:text-zinc-950 text-zinc-300 font-semibold transition-all duration-150 cursor-pointer border border-white/5 active:scale-95 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
 							@click="sendQuickCommand(cmd)"
 						>
 							{{ cmd }}
@@ -465,20 +547,20 @@
 					</div>
 
 					<!-- Command Input Bar -->
-					<form class="p-3 bg-surface-3 border-t border-surface-4 flex items-center gap-2" @submit.prevent="submitCommand">
-						<span class="text-brand font-mono font-bold text-sm pl-2">&gt;</span>
+					<form class="p-3.5 bg-zinc-950 border-t border-white/10 flex items-center gap-3 shrink-0" @submit.prevent="submitCommand">
+						<span class="text-emerald-400 font-mono font-black text-base pl-2 select-none">&gt;</span>
 						<input
 							v-model="commandInput"
 							type="text"
 							placeholder="Type a server command... (e.g. /gamemode creative)"
-							class="flex-1 bg-surface-2 border border-surface-4 focus:border-brand rounded-xl px-3.5 py-2 text-sm text-contrast font-mono outline-none shadow-inner transition-colors"
+							class="flex-1 bg-zinc-900 border border-white/10 focus:border-emerald-500/80 rounded-xl px-4 py-2.5 text-sm text-white font-mono outline-none shadow-inner transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500/40"
 						/>
 						<button
 							type="submit"
-							class="px-4 py-2 rounded-xl bg-brand hover:bg-brand-highlight text-black font-bold text-xs shadow-sm transition-all cursor-pointer border-none flex items-center gap-1.5"
+							class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-extrabold text-xs shadow-md shadow-emerald-950/50 active:scale-95 transition-all duration-200 cursor-pointer border-none flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none"
 						>
 							<span>Send</span>
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
 								<line x1="22" y1="2" x2="11" y2="13"/>
 								<polygon points="22 2 15 22 11 13 2 9 22 2"/>
 							</svg>
@@ -571,6 +653,13 @@ function scrollToBottom() {
 			terminalLogContainer.value.scrollTop = terminalLogContainer.value.scrollHeight
 		}
 	})
+}
+
+function handleAvatarError(event: Event, name: string) {
+	const target = event.target as HTMLImageElement
+	if (target) {
+		target.style.display = 'none'
+	}
 }
 
 async function copyPublicIp() {
@@ -737,5 +826,15 @@ onUnmounted(() => {
 		opacity: 1;
 		transform: translateY(0);
 	}
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
 }
 </style>
