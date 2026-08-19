@@ -11,7 +11,6 @@ members = [
   "apps/app",
   "apps/app-playground",
   "apps/daedalus_client",
-  "apps/labrinth",
   "packages/app-lib",
   "packages/ariadne",
   "packages/component-derive",
@@ -24,6 +23,15 @@ members = [
   "packages/path-util",
   "packages/serde-binhum",
   "packages/xredis",
+]
+default-members = [
+  "crates/core/domain",
+  "crates/core/application",
+  "crates/adapters/storage-sqlite",
+  "crates/adapters/keyring-vault",
+  "crates/adapters/minecraft-engine",
+  "crates/adapters/process-supervisor",
+  "crates/desktop-api",
 ]
 
 [workspace.package]
