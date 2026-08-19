@@ -10,6 +10,22 @@ export type DomainError =
   | { kind: "cancelled" }
   | { kind: "internal"; details: string };
 
+export type AccountKind = "microsoft" | "offline";
+
+export type EntitlementStatus = "entitled" | "not_entitled" | "offline";
+
+export interface AccountIdentity {
+  id: string;
+  kind: AccountKind;
+  minecraft_username: String;
+  minecraft_uuid: string;
+  skin_url: string | null;
+  entitlement: EntitlementStatus;
+  is_active: boolean;
+  added_at: string;
+  last_used_at: string | null;
+}
+
 export type LoaderType =
   | { vanilla: Record<string, never> }
   | { fabric: { version: string } }

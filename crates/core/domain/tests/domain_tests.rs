@@ -55,6 +55,24 @@ fn test_server_eula_enforcement() {
 }
 
 #[test]
+fn test_offline_account_creation() {
+    // Notch's offline UUID is b50ad385-829d-3141-a216-7e7d7539ba7f
+    let account = freeplay_domain::AccountIdentity::new_offline("Notch".to_string()).unwrap();
+    assert_eq!(account.kind, freeplay_domain::AccountKind::Offline);
+    assert_eq!(account.minecraft_username, "Notch");
+    assert_eq!(
+        account.minecraft_uuid.to_string(),
+        "b50ad385-829d-3141-a216-7e7d7539ba7f"
+    );
+    assert_eq!(account.entitlement, freeplay_domain::EntitlementStatus::Offline);
+
+    // Invalid usernames (spaces, symbols, too long) should fail
+    assert!(freeplay_domain::AccountIdentity::new_offline("".to_string()).is_err());
+    assert!(freeplay_domain::AccountIdentity::new_offline("Invalid Name!".to_string()).is_err());
+    assert!(freeplay_domain::AccountIdentity::new_offline("TooLongUsernameOver16Chars".to_string()).is_err());
+}
+
+#[test]
 fn test_tunnel_lifecycle() {
     let mut tunnel = TunnelRun::new(freeplay_domain::ProviderKind::Playit);
     assert_eq!(tunnel.status, TunnelStatus::Disabled);

@@ -5,7 +5,7 @@ pub mod instance;
 pub mod server;
 pub mod tunnel;
 
-pub use account::{AccountId, AccountIdentity, EntitlementStatus};
+pub use account::{generate_offline_uuid, AccountId, AccountIdentity, AccountKind, EntitlementStatus};
 pub use content::{ContentType, EnvRequirement, EnvSupport, FileHash, ModpackFile, ModpackIndex};
 pub use error::DomainError;
 pub use instance::{
