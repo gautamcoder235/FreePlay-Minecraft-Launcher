@@ -1,6 +1,6 @@
 use freeplay_domain::{
     DomainError, Instance, InstanceRunState, LoaderType, ServerEngine, ServerProfile,
-    ServerRunState, TunnelConfig, TunnelRun, TunnelStatus,
+    ServerRunState, TunnelRun, TunnelStatus,
 };
 
 #[test]

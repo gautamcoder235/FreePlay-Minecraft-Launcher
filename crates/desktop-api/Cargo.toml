@@ -9,6 +9,6 @@ license = "GPL-3.0"
 freeplay-domain = { path = "../core/domain" }
 freeplay-application = { path = "../core/application" }
 serde = { version = "1.0", features = ["derive"] }
-specta = { version = "=2.0.0-rc.20", features = ["derive", "chrono", "uuid"] }
+specta = { version = "=2.0.0-rc.20", features = ["derive", "function", "chrono", "uuid"] }
 thiserror = "2.0"
 tokio = { version = "1.40", features = ["full"] }
