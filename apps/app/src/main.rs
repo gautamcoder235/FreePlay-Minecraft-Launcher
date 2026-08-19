@@ -275,6 +275,12 @@ fn main() {
             toggle_decorations,
             show_window,
             restart_app,
+            theseus::server_address::host_start_server,
+            theseus::server_address::host_stop_server,
+            theseus::server_address::host_send_command,
+            theseus::server_address::host_get_status,
+            theseus::server_address::host_start_tunnel,
+            theseus::server_address::host_stop_tunnel,
         ]);
 
     tracing::info!("Initializing app...");

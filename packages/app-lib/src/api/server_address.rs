@@ -168,6 +168,61 @@ pub async fn resolve_server_address(
     )
 }
 
+// =========================================================================
+// Server Hosting & Tunnel Tauri Commands
+// =========================================================================
+
+pub use crate::state::HostStatus;
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_start_server(
+    version: String,
+    server_type: String,
+    ram_mb: u32,
+    port: u16,
+) -> Result<()> {
+    let state = crate::State::get().await?;
+    let working_dir = state
+        .directories
+        .config_dir
+        .join("servers")
+        .join(format!("{}-{}", server_type.to_lowercase(), version));
+    state
+        .server_hosting
+        .start_server(version, server_type, ram_mb, port, working_dir)
+        .await
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_stop_server() -> Result<()> {
+    let state = crate::State::get().await?;
+    state.server_hosting.stop_server().await
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_send_command(command: String) -> Result<()> {
+    let state = crate::State::get().await?;
+    state.server_hosting.send_command(command).await
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_get_status() -> Result<HostStatus> {
+    let state = crate::State::get().await?;
+    Ok(state.server_hosting.get_status().await)
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_start_tunnel(port: u16) -> Result<()> {
+    let state = crate::State::get().await?;
+    state.server_hosting.start_tunnel(port).await
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_stop_tunnel() -> Result<()> {
+    let state = crate::State::get().await?;
+    state.server_hosting.stop_tunnel().await
+}
+
 #[cfg(test)]
 mod tests {
     use super::parse_server_address_inner;
@@ -193,3 +248,4 @@ mod tests {
         }
     }
 }
+

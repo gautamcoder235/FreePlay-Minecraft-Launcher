@@ -95,6 +95,9 @@ pub struct State {
     /// Friends socket
     pub friends_socket: FriendsSocket,
 
+    /// Dedicated server hosting & playit tunnel manager
+    pub server_hosting: Arc<ServerHostingState>,
+
     pub restart_after_pending_update: AtomicBool,
 
     pub(crate) pool: SqlitePool,
@@ -246,6 +249,8 @@ impl State {
 
         let friends_socket = FriendsSocket::new();
 
+        let server_hosting = Arc::new(ServerHostingState::new());
+
         Ok(Arc::new(Self {
             directories,
             fetch_semaphore,
@@ -258,6 +263,7 @@ impl State {
             discord_rpc,
             process_manager,
             friends_socket,
+            server_hosting,
             restart_after_pending_update: AtomicBool::new(false),
             pool,
             file_watcher,

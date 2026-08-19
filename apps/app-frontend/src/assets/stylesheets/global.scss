@@ -45,6 +45,30 @@
 	color-scheme: dark;
 	--view-width: calc(100% - 5rem);
 	--expanded-view-width: calc(100% - 13rem);
+
+	/* FreePlay Theme: Electric Indigo & Cyber Cyan Accents */
+	--color-brand: #6366f1;
+	--color-brand-highlight: #818cf8;
+	--color-brand-contrast: #ffffff;
+	--color-brand-bg: rgba(99, 102, 241, 0.15);
+	--color-brand-shadow: rgba(99, 102, 241, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+
+	/* FreePlay Obsidian Gaming Dark Surfaces */
+	--color-bg: #090b11;
+	--color-raised-bg: #0e121a;
+	--surface-1: #090b11;
+	--surface-1-5: #0e121a;
+	--surface-2: #141823;
+	--surface-2-5: #1a202e;
+	--surface-3: #22293b;
+	--surface-4: #2d364d;
+	--surface-5: #3b4664;
+	--brand-gradient-bg: linear-gradient(180deg, #0e121a 0%, #090b11 100%);
+	--brand-gradient-border: #22293b;
+	--brand-gradient-button: #141823;
+	--brand-gradient-fade-out-color: linear-gradient(to top, #090b11, transparent);
+
 	--medal-promotion-bg: #000;
 	--medal-promotion-bg-orange: rgba(208, 246, 255, 0.25);
 	--medal-promotion-text-orange: #42abff;

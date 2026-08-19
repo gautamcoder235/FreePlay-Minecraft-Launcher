@@ -537,7 +537,7 @@ const messages = defineMessages({
 	},
 	modrinthAccount: {
 		id: 'app.nav.modrinth-account',
-		defaultMessage: 'Modrinth account',
+		defaultMessage: 'FreePlay account',
 	},
 	signedInAs: {
 		id: 'app.nav.signed-in-as',
@@ -545,7 +545,7 @@ const messages = defineMessages({
 	},
 	signInToModrinthAccount: {
 		id: 'app.nav.sign-in-to-modrinth-account',
-		defaultMessage: 'Sign in to a Modrinth account',
+		defaultMessage: 'Sign in to a FreePlay account',
 	},
 	restarting: {
 		id: 'app.restarting',
@@ -553,7 +553,7 @@ const messages = defineMessages({
 	},
 	upgradeToModrinthPlus: {
 		id: 'app.nav.upgrade-to-modrinth-plus',
-		defaultMessage: 'Upgrade to Modrinth+',
+		defaultMessage: 'Upgrade to FreePlay+',
 	},
 	news: {
 		id: 'app.news.title',
@@ -654,6 +654,7 @@ async function setupApp() {
 	const version = await getVersion()
 	nativeDecorations.value = native_decorations
 	if (os.value !== 'MacOS') await getCurrentWindow().setDecorations(native_decorations)
+	await getCurrentWindow().setTitle('FreePlay Launcher').catch(() => {})
 
 	themeStore.setThemeState(theme)
 	themeStore.collapsedNavigation = collapsed_navigation
@@ -1797,7 +1798,18 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 		</div>
 		<div data-tauri-drag-region class="app-grid-statusbar bg-bg-raised h-[--top-bar-height] flex">
 			<div data-tauri-drag-region class="flex min-w-0 flex-1 items-center overflow-hidden p-2">
-				<TextLogo class="h-7 w-auto shrink-0 text-contrast pointer-events-none" />
+				<div class="flex items-center gap-2.5 mr-3 pointer-events-none select-none pl-1">
+					<div class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-gradient-to-br from-[#6366f1] via-[#8b5cf6] to-[#06b6d4] shadow-[0_0_15px_rgba(99,102,241,0.5)] border border-white/20">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-3.5 h-3.5">
+							<path d="M4 6.5C4 5.11929 5.11929 4 6.5 4H17.5C18.8807 4 20 5.11929 20 6.5V11C20 15.4183 16.4183 19 12 19C7.58172 19 4 15.4183 4 11V6.5Z" fill="white" fill-opacity="0.25"/>
+							<path d="M8.5 8L16.5 12L8.5 16V8Z" fill="white"/>
+						</svg>
+					</div>
+					<span class="font-black tracking-wider text-sm text-contrast font-sans flex items-center gap-1.5">
+						FREEPLAY
+						<span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 border border-indigo-500/30 text-cyan-300 uppercase tracking-widest">Launcher</span>
+					</span>
+				</div>
 				<div data-tauri-drag-region class="ml-2 flex shrink-0 items-center gap-2">
 					<IconButton
 						type="outlined"

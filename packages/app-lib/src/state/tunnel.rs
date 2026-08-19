@@ -59,3 +59,133 @@ impl Drop for TunnelSocket {
         }
     }
 }
+
+// =========================================================================
+// Server Hosting & Playit Tunnel Manager State
+// =========================================================================
+
+use freeplay_process_supervisor::{
+    DedicatedServerStatus, PlayitAgentStatus, PlayitTunnelSupervisor, ServerProcessSupervisor,
+};
+use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
+use tokio::sync::RwLock;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct HostStatus {
+    pub server_running: bool,
+    pub server_status: DedicatedServerStatus,
+    pub server_version: Option<String>,
+    pub server_type: Option<String>,
+    pub server_ram_mb: u32,
+    pub server_port: u16,
+    pub tunnel_status: PlayitAgentStatus,
+    pub claim_url: Option<String>,
+    pub public_address: Option<String>,
+    pub server_logs: Vec<String>,
+    pub tunnel_logs: Vec<String>,
+}
+
+pub struct ServerHostingState {
+    pub server_supervisor: Arc<ServerProcessSupervisor>,
+    pub tunnel_supervisor: Arc<PlayitTunnelSupervisor>,
+    pub current_version: Arc<RwLock<Option<String>>>,
+    pub current_server_type: Arc<RwLock<Option<String>>>,
+    pub current_ram_mb: Arc<RwLock<u32>>,
+    pub current_port: Arc<RwLock<u16>>,
+    pub current_working_dir: Arc<RwLock<Option<PathBuf>>>,
+}
+
+impl Default for ServerHostingState {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl ServerHostingState {
+    pub fn new() -> Self {
+        Self {
+            server_supervisor: Arc::new(ServerProcessSupervisor::new()),
+            tunnel_supervisor: Arc::new(PlayitTunnelSupervisor::new()),
+            current_version: Arc::new(RwLock::new(None)),
+            current_server_type: Arc::new(RwLock::new(None)),
+            current_ram_mb: Arc::new(RwLock::new(2048)),
+            current_port: Arc::new(RwLock::new(25565)),
+            current_working_dir: Arc::new(RwLock::new(None)),
+        }
+    }
+
+    pub async fn start_server(
+        &self,
+        version: String,
+        server_type: String,
+        ram_mb: u32,
+        port: u16,
+        working_dir: PathBuf,
+    ) -> crate::Result<()> {
+        *self.current_version.write().await = Some(version.clone());
+        *self.current_server_type.write().await = Some(server_type.clone());
+        *self.current_ram_mb.write().await = ram_mb;
+        *self.current_port.write().await = port;
+        *self.current_working_dir.write().await = Some(working_dir.clone());
+
+        self.server_supervisor
+            .start_server(&version, &server_type, ram_mb, port, &working_dir)
+            .await
+            .map_err(Into::into)
+    }
+
+    pub async fn stop_server(&self) -> crate::Result<()> {
+        self.server_supervisor.stop_server().await.map_err(Into::into)
+    }
+
+    pub async fn send_command(&self, command: String) -> crate::Result<()> {
+        self.server_supervisor
+            .send_console_command(&command)
+            .await
+            .map_err(Into::into)
+    }
+
+    pub async fn get_status(&self) -> HostStatus {
+        let server_running = self.server_supervisor.is_running().await;
+        let server_status = self.server_supervisor.get_status().await;
+        let server_version = self.current_version.read().await.clone();
+        let server_type = self.current_server_type.read().await.clone();
+        let server_ram_mb = *self.current_ram_mb.read().await;
+        let server_port = *self.current_port.read().await;
+        let tunnel_status = self.tunnel_supervisor.get_status().await;
+        let claim_url = self.tunnel_supervisor.get_claim_url().await;
+        let public_address = self.tunnel_supervisor.get_public_address().await;
+        let server_logs = self.server_supervisor.get_logs().await;
+        let tunnel_logs = self.tunnel_supervisor.get_logs().await;
+
+        HostStatus {
+            server_running,
+            server_status,
+            server_version,
+            server_type,
+            server_ram_mb,
+            server_port,
+            tunnel_status,
+            claim_url,
+            public_address,
+            server_logs,
+            tunnel_logs,
+        }
+    }
+
+    pub async fn start_tunnel(&self, port: u16) -> crate::Result<()> {
+        self.tunnel_supervisor
+            .start_playit_tunnel(port)
+            .await
+            .map_err(Into::into)
+    }
+
+    pub async fn stop_tunnel(&self) -> crate::Result<()> {
+        self.tunnel_supervisor
+            .stop_playit_tunnel()
+            .await
+            .map_err(Into::into)
+    }
+}
+

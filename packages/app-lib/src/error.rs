@@ -285,6 +285,19 @@ impl From<eyre::Report> for Error {
     }
 }
 
+impl From<freeplay_domain::DomainError> for Error {
+    fn from(err: freeplay_domain::DomainError) -> Self {
+        ErrorKind::OtherError(err.to_string()).into()
+    }
+}
+
+#[cfg(feature = "tauri")]
+impl From<Error> for tauri::ipc::InvokeError {
+    fn from(error: Error) -> Self {
+        tauri::ipc::InvokeError::from(error.to_string())
+    }
+}
+
 impl ErrorKind {
     pub fn as_error(self) -> Error {
         self.into()
