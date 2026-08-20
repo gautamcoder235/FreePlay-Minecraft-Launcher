@@ -82,6 +82,7 @@ pub struct HostStatus {
     pub tunnel_status: PlayitAgentStatus,
     pub claim_url: Option<String>,
     pub public_address: Option<String>,
+    pub tunnels: Vec<freeplay_process_supervisor::PlayitTunnelEntry>,
     pub server_logs: Vec<String>,
     pub tunnel_logs: Vec<String>,
     pub uptime_seconds: u64,
@@ -160,6 +161,7 @@ impl ServerHostingState {
         let tunnel_status = self.tunnel_supervisor.get_status().await;
         let claim_url = self.tunnel_supervisor.get_claim_url().await;
         let public_address = self.tunnel_supervisor.get_public_address().await;
+        let tunnels = self.tunnel_supervisor.get_tunnels().await;
         let server_logs = self.server_supervisor.get_logs().await;
         let tunnel_logs = self.tunnel_supervisor.get_logs().await;
         let uptime_seconds = self.server_supervisor.get_uptime_seconds().await;
@@ -174,6 +176,7 @@ impl ServerHostingState {
             tunnel_status,
             claim_url,
             public_address,
+            tunnels,
             server_logs,
             tunnel_logs,
             uptime_seconds,

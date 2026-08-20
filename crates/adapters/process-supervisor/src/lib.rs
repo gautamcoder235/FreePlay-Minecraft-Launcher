@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 use std::process::Stdio;
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
+use tokio::io::{AsyncBufReadExt, AsyncReadExt, AsyncWriteExt, BufReader};
 use tokio::process::{Child, ChildStdin, Command};
 use tokio::sync::{broadcast, mpsc, Mutex, RwLock};
 
@@ -647,11 +647,19 @@ pub enum PlayitAgentStatus {
     Error { message: String },
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct PlayitTunnelEntry {
+    pub domain: String,
+    pub target: String,
+    pub tunnel_type: String,
+}
+
 pub struct PlayitTunnelSupervisor {
     child: Arc<Mutex<Option<Child>>>,
     status: Arc<RwLock<PlayitAgentStatus>>,
     claim_url: Arc<RwLock<Option<String>>>,
     public_address: Arc<RwLock<Option<String>>>,
+    tunnels: Arc<RwLock<Vec<PlayitTunnelEntry>>>,
     logs: Arc<RwLock<VecDeque<String>>>,
     binary_path: Arc<RwLock<Option<PathBuf>>>,
     log_broadcaster: broadcast::Sender<String>,
@@ -671,6 +679,7 @@ impl PlayitTunnelSupervisor {
             status: Arc::new(RwLock::new(PlayitAgentStatus::Stopped)),
             claim_url: Arc::new(RwLock::new(None)),
             public_address: Arc::new(RwLock::new(None)),
+            tunnels: Arc::new(RwLock::new(Vec::new())),
             logs: Arc::new(RwLock::new(VecDeque::with_capacity(1000))),
             binary_path: Arc::new(RwLock::new(None)),
             log_broadcaster,
@@ -690,6 +699,24 @@ impl PlayitTunnelSupervisor {
     }
 
     pub async fn get_status(&self) -> PlayitAgentStatus {
+        let current = self.status.read().await.clone();
+        if matches!(current, PlayitAgentStatus::Stopped | PlayitAgentStatus::Starting) {
+            let has_system_pipe = if cfg!(windows) {
+                std::path::Path::new(r"\\.\pipe\playitd-system").exists()
+            } else {
+                false
+            };
+            if has_system_pipe && self.public_address.read().await.is_none() {
+                let pub_slot = self.public_address.clone();
+                let tunnels_slot = self.tunnels.clone();
+                let status_slot = self.status.clone();
+                let logs_slot = self.logs.clone();
+                let broadcaster = self.log_broadcaster.clone();
+                tokio::spawn(async move {
+                    query_playit_tunnels_once(r"\\.\pipe\freeplay_playit_ipc", pub_slot, tunnels_slot, status_slot, logs_slot, broadcaster).await;
+                });
+            }
+        }
         self.status.read().await.clone()
     }
 
@@ -698,7 +725,29 @@ impl PlayitTunnelSupervisor {
     }
 
     pub async fn get_public_address(&self) -> Option<String> {
-        self.public_address.read().await.clone()
+        let addr = self.public_address.read().await.clone();
+        if addr.is_none() {
+            let has_system_pipe = if cfg!(windows) {
+                std::path::Path::new(r"\\.\pipe\playitd-system").exists()
+            } else {
+                false
+            };
+            if has_system_pipe {
+                let pub_slot = self.public_address.clone();
+                let tunnels_slot = self.tunnels.clone();
+                let status_slot = self.status.clone();
+                let logs_slot = self.logs.clone();
+                let broadcaster = self.log_broadcaster.clone();
+                tokio::spawn(async move {
+                    query_playit_tunnels_once(r"\\.\pipe\freeplay_playit_ipc", pub_slot, tunnels_slot, status_slot, logs_slot, broadcaster).await;
+                });
+            }
+        }
+        addr
+    }
+
+    pub async fn get_tunnels(&self) -> Vec<PlayitTunnelEntry> {
+        self.tunnels.read().await.clone()
     }
 
     pub async fn get_logs(&self) -> Vec<String> {
@@ -787,13 +836,22 @@ impl PlayitTunnelSupervisor {
                 .to_string()
         };
 
+        let system_service_running = if cfg!(windows) {
+            std::path::Path::new(r"\\.\pipe\playitd-system").exists()
+        } else {
+            false
+        };
+
         #[cfg(windows)]
         {
             // CREATE_NO_WINDOW (0x08000000) for headless execution
             cmd.creation_flags(0x08000000);
             if is_cli_wrapper {
-                // If using the installed CLI wrapper tool, attach to stdout stream
-                cmd.arg("-s");
+                if system_service_running {
+                    cmd.arg("attach");
+                } else {
+                    cmd.arg("-s");
+                }
             } else {
                 cmd.arg("--socket-path").arg(&socket_path_str);
                 cmd.arg("--secret-path").arg(&secret_file);
@@ -803,7 +861,11 @@ impl PlayitTunnelSupervisor {
         #[cfg(not(windows))]
         {
             if is_cli_wrapper {
-                cmd.arg("-s");
+                if system_service_running {
+                    cmd.arg("attach");
+                } else {
+                    cmd.arg("-s");
+                }
             } else {
                 cmd.arg("--socket-path").arg(&socket_path_str);
                 cmd.arg("--secret-path").arg(&secret_file);
@@ -825,6 +887,7 @@ impl PlayitTunnelSupervisor {
         let status_clone = self.status.clone();
         let claim_clone = self.claim_url.clone();
         let pub_addr_clone = self.public_address.clone();
+        let tunnels_clone = self.tunnels.clone();
         let logs_clone = self.logs.clone();
         let broadcaster = self.log_broadcaster.clone();
         let child_clone = self.child.clone();
@@ -837,6 +900,7 @@ impl PlayitTunnelSupervisor {
                 let status_inner = status_clone.clone();
                 let claim_inner = claim_clone.clone();
                 let pub_addr_inner = pub_addr_clone.clone();
+                let tunnels_inner = tunnels_clone.clone();
                 let logs_inner = logs_clone.clone();
                 let broadcaster_inner = broadcaster.clone();
                 let secret_inner = secret_file_clone.clone();
@@ -868,11 +932,12 @@ impl PlayitTunnelSupervisor {
                         if line.contains("tunnels loaded") || line.contains("playit connected") {
                             let socket_path = socket_setup.clone();
                             let pub_addr_c = pub_addr_inner.clone();
+                            let tunnels_c = tunnels_inner.clone();
                             let status_c = status_inner.clone();
                             let logs_c = logs_inner.clone();
                             let broad_c = broadcaster_inner.clone();
                             tokio::spawn(async move {
-                                query_playit_tunnels_once(&socket_path, pub_addr_c, status_c, logs_c, broad_c).await;
+                                query_playit_tunnels_once(&socket_path, pub_addr_c, tunnels_c, status_c, logs_c, broad_c).await;
                             });
                         }
 
@@ -906,6 +971,7 @@ impl PlayitTunnelSupervisor {
                 let status_inner = status_clone.clone();
                 let claim_inner = claim_clone.clone();
                 let pub_addr_inner = pub_addr_clone.clone();
+                let tunnels_inner = tunnels_clone.clone();
                 let logs_inner = logs_clone.clone();
                 let broadcaster_inner = broadcaster.clone();
                 let secret_inner = secret_file_clone.clone();
@@ -937,11 +1003,12 @@ impl PlayitTunnelSupervisor {
                         if line.contains("tunnels loaded") || line.contains("playit connected") {
                             let socket_path = socket_setup.clone();
                             let pub_addr_c = pub_addr_inner.clone();
+                            let tunnels_c = tunnels_inner.clone();
                             let status_c = status_inner.clone();
                             let logs_c = logs_inner.clone();
                             let broad_c = broadcaster_inner.clone();
                             tokio::spawn(async move {
-                                query_playit_tunnels_once(&socket_path, pub_addr_c, status_c, logs_c, broad_c).await;
+                                query_playit_tunnels_once(&socket_path, pub_addr_c, tunnels_c, status_c, logs_c, broad_c).await;
                             });
                         }
 
@@ -973,82 +1040,35 @@ impl PlayitTunnelSupervisor {
 
             // Background active tunnel resolver to query tunnel status from daemon
             let pub_addr_resolver = pub_addr_clone.clone();
+            let tunnels_resolver = tunnels_clone.clone();
             let status_resolver = status_clone.clone();
             let logs_resolver = logs_clone.clone();
             let broadcaster_resolver = broadcaster.clone();
             let socket_resolver = socket_for_setup.clone();
 
             tasks.push(tokio::spawn(async move {
-                tokio::time::sleep(tokio::time::Duration::from_millis(1000)).await;
+                tokio::time::sleep(tokio::time::Duration::from_millis(500)).await;
 
                 for _ in 0..60 {
                     if pub_addr_resolver.read().await.is_some() {
                         break;
                     }
 
-                    let candidate_sockets = [
-                        Some(socket_resolver.clone()),
-                        if cfg!(windows) {
-                            Some(r"\\.\pipe\playitd-system".to_string())
-                        } else {
-                            None
-                        },
-                        None,
-                    ];
+                    query_playit_tunnels_once(
+                        &socket_resolver,
+                        pub_addr_resolver.clone(),
+                        tunnels_resolver.clone(),
+                        status_resolver.clone(),
+                        logs_resolver.clone(),
+                        broadcaster_resolver.clone(),
+                    )
+                    .await;
 
-                    for sock_opt in candidate_sockets.into_iter().flatten() {
-                        let mut attach_cmd = Command::new("playit");
-                        #[cfg(windows)]
-                        {
-                            attach_cmd.creation_flags(0x08000000);
-                        }
-                        if !sock_opt.is_empty() {
-                            attach_cmd.arg("--socket-path").arg(&sock_opt);
-                        }
-                        attach_cmd.arg("attach");
-                        attach_cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
-
-                        if let Ok(mut child) = attach_cmd.spawn() {
-                            if let Some(stdout) = child.stdout.take() {
-                                let mut reader = BufReader::new(stdout).lines();
-                                let mut found = false;
-                                for _ in 0..30 {
-                                    if let Ok(Ok(Some(line))) = tokio::time::timeout(
-                                        tokio::time::Duration::from_millis(400),
-                                        reader.next_line(),
-                                    )
-                                    .await
-                                    {
-                                        if let Some(public_addr) = extract_playit_public_address(&line) {
-                                            *pub_addr_resolver.write().await = Some(public_addr.clone());
-                                            *status_resolver.write().await =
-                                                PlayitAgentStatus::Connected {
-                                                    public_address: public_addr.clone(),
-                                                };
-                                            let msg = format!(
-                                                "[playit] Active Tunnel Connected: {public_addr}"
-                                            );
-                                            {
-                                                let mut lg = logs_resolver.write().await;
-                                                lg.push_back(msg.clone());
-                                            }
-                                            let _ = broadcaster_resolver.send(msg);
-                                            found = true;
-                                            break;
-                                        }
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                let _ = child.kill().await;
-                                if found {
-                                    break;
-                                }
-                            }
-                        }
+                    if pub_addr_resolver.read().await.is_some() {
+                        break;
                     }
 
-                    tokio::time::sleep(tokio::time::Duration::from_secs(3)).await;
+                    tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
                 }
             }));
 
@@ -1274,16 +1294,51 @@ pub fn ensure_eula_accepted(server_dir: &Path) -> Result<(), std::io::Error> {
     )
 }
 
-fn strip_ansi_escapes(s: &str) -> String {
+pub fn resolve_playit_cli_path() -> Option<PathBuf> {
+    let exe_name = if cfg!(windows) { "playit.exe" } else { "playit" };
+
+    // 1. Check system PATH
+    if let Ok(path_var) = std::env::var("PATH") {
+        for dir in std::env::split_paths(&path_var) {
+            let p = dir.join(exe_name);
+            if p.exists() {
+                return Some(p);
+            }
+        }
+    }
+
+    // 2. Check standard install locations
+    let candidates = [
+        PathBuf::from(r"C:\Program Files\playit_gg\bin\playit.exe"),
+        PathBuf::from(r"C:\Program Files\playit_gg\playit.exe"),
+        dirs::data_local_dir()
+            .unwrap_or_default()
+            .join("freeplay")
+            .join("tools")
+            .join(exe_name),
+    ];
+    for cand in &candidates {
+        if cand.exists() {
+            return Some(cand.clone());
+        }
+    }
+
+    None
+}
+
+pub fn strip_ansi_escapes(s: &str) -> String {
     let mut out = String::with_capacity(s.len());
     let mut in_escape = false;
     for c in s.chars() {
         if c == '\x1b' {
             in_escape = true;
         } else if in_escape {
-            if c.is_ascii_alphabetic() {
+            if c.is_ascii_alphabetic() || c == 'm' || c == 'H' || c == 'J' || c == 'K' || c == 'h' || c == 'l' {
                 in_escape = false;
+                out.push(' ');
             }
+        } else if c == '\r' || c == '\n' {
+            out.push(' ');
         } else {
             out.push(c);
         }
@@ -1372,14 +1427,63 @@ pub fn extract_playit_public_address(line: &str) -> Option<String> {
     None
 }
 
-/// Queries the running playit daemon via `playit attach` over IPC to immediately parse active tunnels
+/// Extracts all active playit public tunnels (Java, Bedrock, Voice, Map, etc.) from text
+pub fn extract_all_playit_tunnels(raw_text: &str) -> Vec<PlayitTunnelEntry> {
+    let clean_line = strip_ansi_escapes(raw_text);
+    let mut tunnels = Vec::new();
+    let mut seen = std::collections::HashSet::new();
+
+    let words: Vec<&str> = clean_line.split_whitespace().collect();
+    for (i, word) in words.iter().enumerate() {
+        if *word == "=>" && i > 0 && i + 1 < words.len() {
+            let left = words[i - 1].trim_matches(|c: char| {
+                c == '│' || c == '●' || c == ' ' || c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == ',' || c == '>' || c == '<' || c == '='
+            });
+            let right = words[i + 1].trim_matches(|c: char| {
+                c == '│' || c == '●' || c == ' ' || c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == ',' || c == '>' || c == '<' || c == '='
+            });
+
+            if (left.contains(".ply.gg") || left.contains(".joinmc.link") || left.contains(".playit.gg") || left.contains(".joinmc.net") || left.contains(".playit.link"))
+                && !seen.contains(left)
+            {
+                seen.insert(left.to_string());
+                let tunnel_type = if right.ends_with(":25565") || right == "25565" {
+                    "Minecraft Java Edition".to_string()
+                } else if right.ends_with(":19132") || right == "19132" {
+                    "Minecraft Bedrock (Geyser)".to_string()
+                } else if right.ends_with(":24454") || right == "24454" {
+                    "Simple Voice Chat".to_string()
+                } else if right.ends_with(":8123") || right == "8123" {
+                    "Dynmap Web".to_string()
+                } else if right.ends_with(":8100") || right == "8100" {
+                    "BlueMap Web".to_string()
+                } else {
+                    format!("Local Port {}", right.rsplit_once(':').map(|(_, p)| p).unwrap_or(right))
+                };
+
+                tunnels.push(PlayitTunnelEntry {
+                    domain: left.to_string(),
+                    target: right.to_string(),
+                    tunnel_type,
+                });
+            }
+        }
+    }
+
+    tunnels
+}
+
+/// Queries the running playit daemon via `playit attach` over IPC using raw chunk reading to parse active tunnels
 pub async fn query_playit_tunnels_once(
     socket_path: &str,
     pub_addr_slot: Arc<RwLock<Option<String>>>,
+    tunnels_slot: Arc<RwLock<Vec<PlayitTunnelEntry>>>,
     status_slot: Arc<RwLock<PlayitAgentStatus>>,
     logs_slot: Arc<RwLock<VecDeque<String>>>,
     broadcaster: broadcast::Sender<String>,
 ) {
+    let cli_path = resolve_playit_cli_path().unwrap_or_else(|| PathBuf::from(if cfg!(windows) { "playit.exe" } else { "playit" }));
+
     let candidate_sockets = [
         Some(socket_path.to_string()),
         if cfg!(windows) {
@@ -1391,7 +1495,7 @@ pub async fn query_playit_tunnels_once(
     ];
 
     for sock_opt in candidate_sockets.into_iter().flatten() {
-        let mut attach_cmd = Command::new("playit");
+        let mut attach_cmd = Command::new(&cli_path);
         #[cfg(windows)]
         {
             attach_cmd.creation_flags(0x08000000);
@@ -1403,38 +1507,61 @@ pub async fn query_playit_tunnels_once(
         attach_cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
 
         if let Ok(mut child) = attach_cmd.spawn() {
-            if let Some(stdout) = child.stdout.take() {
-                let mut reader = BufReader::new(stdout).lines();
-                let mut found = false;
-                for _ in 0..30 {
-                    if let Ok(Ok(Some(line))) = tokio::time::timeout(
-                        tokio::time::Duration::from_millis(350),
-                        reader.next_line(),
-                    )
-                    .await
-                    {
-                        if let Some(public_addr) = extract_playit_public_address(&line) {
-                            *pub_addr_slot.write().await = Some(public_addr.clone());
-                            *status_slot.write().await = PlayitAgentStatus::Connected {
-                                public_address: public_addr.clone(),
-                            };
-                            let msg = format!("[playit] Active Tunnel Connected: {public_addr}");
-                            {
-                                let mut lg = logs_slot.write().await;
-                                lg.push_back(msg.clone());
+            if let Some(mut stdout) = child.stdout.take() {
+                let mut buffer = [0u8; 8192];
+                let mut accumulated = Vec::new();
+
+                let start_time = tokio::time::Instant::now();
+                while start_time.elapsed() < tokio::time::Duration::from_millis(1500) {
+                    match tokio::time::timeout(tokio::time::Duration::from_millis(300), stdout.read(&mut buffer)).await {
+                        Ok(Ok(n)) if n > 0 => {
+                            accumulated.extend_from_slice(&buffer[..n]);
+                            let text = String::from_utf8_lossy(&accumulated);
+                            let all_tunnels = extract_all_playit_tunnels(&text);
+                            if !all_tunnels.is_empty() {
+                                let primary = all_tunnels.iter()
+                                    .find(|t| t.tunnel_type.contains("Java") || t.target.ends_with(":25565"))
+                                    .unwrap_or(&all_tunnels[0])
+                                    .domain
+                                    .clone();
+
+                                *pub_addr_slot.write().await = Some(primary.clone());
+                                *tunnels_slot.write().await = all_tunnels.clone();
+                                *status_slot.write().await = PlayitAgentStatus::Connected {
+                                    public_address: primary.clone(),
+                                };
+                                let msg = format!("[playit] Connected {} Active Tunnel(s). Primary: {primary}", all_tunnels.len());
+                                {
+                                    let mut lg = logs_slot.write().await;
+                                    lg.push_back(msg.clone());
+                                }
+                                let _ = broadcaster.send(msg);
+                                let _ = child.kill().await;
+                                return;
+                            } else if let Some(public_addr) = extract_playit_public_address(&text) {
+                                *pub_addr_slot.write().await = Some(public_addr.clone());
+                                *tunnels_slot.write().await = vec![PlayitTunnelEntry {
+                                    domain: public_addr.clone(),
+                                    target: "127.0.0.1:25565".to_string(),
+                                    tunnel_type: "Minecraft Java Edition".to_string(),
+                                }];
+                                *status_slot.write().await = PlayitAgentStatus::Connected {
+                                    public_address: public_addr.clone(),
+                                };
+                                let msg = format!("[playit] Active Tunnel Connected: {public_addr}");
+                                {
+                                    let mut lg = logs_slot.write().await;
+                                    lg.push_back(msg.clone());
+                                }
+                                let _ = broadcaster.send(msg);
+                                let _ = child.kill().await;
+                                return;
                             }
-                            let _ = broadcaster.send(msg);
-                            found = true;
-                            break;
                         }
-                    } else {
-                        break;
+                        _ => break,
                     }
                 }
                 let _ = child.kill().await;
-                if found {
-                    break;
-                }
             }
         }
     }
@@ -1912,8 +2039,26 @@ mod tests {
         let addr3 = extract_playit_public_address(line3);
         assert_eq!(addr3, Some("simmons-scanners.tun.ply.gg".to_string()));
 
-        let line4 = "Random log output from server";
-        assert_eq!(extract_playit_public_address(line4), None);
+        let line4 = "\x1b[?1049h\x1b[5;1H│\x1b[38;5;2;49m● simmons-scanners.tun.ply.gg => 127.0.0.1:25565\x1b[38;5;6;49m│\x1b[6;1H│● simmons-lang.tun.ply.gg:25631 => 127.0.0.1:19132";
+        let addr4 = extract_playit_public_address(line4);
+        assert_eq!(addr4, Some("simmons-scanners.tun.ply.gg".to_string()));
+
+        let line5 = "Random log output from server";
+        assert_eq!(extract_playit_public_address(line5), None);
+    }
+
+    #[test]
+    fn test_extract_all_playit_tunnels() {
+        let stream = "\x1b[?1049h\x1b[5;1H│\x1b[38;5;2;49m● simmons-scanners.tun.ply.gg => 127.0.0.1:25565\x1b[38;5;6;49m│\x1b[6;1H│● simmons-lang.tun.ply.gg:25631 => 127.0.0.1:19132";
+        let tunnels = extract_all_playit_tunnels(stream);
+        assert_eq!(tunnels.len(), 2);
+        assert_eq!(tunnels[0].domain, "simmons-scanners.tun.ply.gg");
+        assert_eq!(tunnels[0].target, "127.0.0.1:25565");
+        assert_eq!(tunnels[0].tunnel_type, "Minecraft Java Edition");
+
+        assert_eq!(tunnels[1].domain, "simmons-lang.tun.ply.gg:25631");
+        assert_eq!(tunnels[1].target, "127.0.0.1:19132");
+        assert_eq!(tunnels[1].tunnel_type, "Minecraft Bedrock (Geyser)");
     }
 
     #[tokio::test]

@@ -822,7 +822,46 @@
 								Click to Enable
 							</button>
 						</div>
+						<!-- Multi-Tunnel Layout (when multiple ports / tunnels configured on Playit) -->
 						<div
+							v-if="
+								serverState.tunnel_enabled &&
+								activeTunnels.length > 1
+							"
+							class="flex flex-col gap-1.5"
+						>
+							<div
+								v-for="tun in activeTunnels"
+								:key="tun.domain"
+								class="flex items-center justify-between bg-zinc-900/90 px-3 py-2 rounded-lg border border-white/5 group hover:border-sky-500/30 transition-all cursor-pointer"
+								:title="`Click to copy ${tun.tunnel_type}`"
+								@click="copyTunnel(tun.domain)"
+							>
+								<div class="flex items-center gap-2 min-w-0">
+									<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+									<span
+										class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 shrink-0"
+									>
+										{{ tun.tunnel_type }}
+									</span>
+									<code class="text-xs font-mono font-bold text-zinc-200 select-all truncate">
+										{{ tun.domain }}
+									</code>
+								</div>
+								<button
+									type="button"
+									class="p-1 px-2.5 rounded bg-zinc-800 hover:bg-sky-500 text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none ml-2 shrink-0 flex items-center gap-1 text-[11px] font-bold"
+									:class="{ '!bg-emerald-500 !text-zinc-950': copiedTunnelAddr === tun.domain }"
+									@click.stop="copyTunnel(tun.domain)"
+								>
+									<span>{{ copiedTunnelAddr === tun.domain ? 'Copied!' : 'Copy' }}</span>
+								</button>
+							</div>
+						</div>
+
+						<!-- Single Tunnel Layout -->
+						<div
+							v-else
 							class="flex items-center justify-between bg-zinc-900/90 px-3 py-2 rounded-lg border border-white/5 group hover:border-sky-500/30 transition-all cursor-pointer"
 							:title="
 								serverState.tunnel_enabled
@@ -1036,6 +1075,38 @@
 									<span class="text-zinc-300">
 										{{ tunnelDebug.lastPollTime || 'never' }}
 									</span>
+								</div>
+
+								<!-- All Active Tunnels Table -->
+								<div
+									v-if="activeTunnels.length > 0"
+									class="col-span-1 md:col-span-2 flex flex-col gap-1.5 p-2.5 rounded-lg bg-black/40 border border-white/5"
+								>
+									<span
+										class="text-zinc-400 text-[10px] font-sans font-bold uppercase tracking-wider flex items-center justify-between"
+									>
+										<span>Configured Anycast Tunnels ({{ activeTunnels.length }})</span>
+										<span class="text-emerald-400 font-mono text-[10px]">● Playit Edge Active</span>
+									</span>
+									<div class="flex flex-col gap-1.5 mt-1">
+										<div
+											v-for="tun in activeTunnels"
+											:key="tun.domain"
+											class="flex items-center justify-between px-2.5 py-1.5 rounded bg-zinc-900/90 border border-white/5 text-xs font-mono"
+										>
+											<div class="flex items-center gap-2">
+												<span class="text-emerald-400">●</span>
+												<span class="text-sky-300 font-bold">{{ tun.domain }}</span>
+												<span class="text-zinc-500">=&gt;</span>
+												<span class="text-zinc-400">{{ tun.target }}</span>
+											</div>
+											<span
+												class="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 font-sans font-semibold"
+											>
+												{{ tun.tunnel_type }}
+											</span>
+										</div>
+									</div>
 								</div>
 							</div>
 
@@ -2806,6 +2877,8 @@ const activeTab = ref<'overview' | 'console' | 'servers' | 'files' | 'backups' |
 	'overview',
 )
 const copied = ref(false)
+const copiedTunnelAddr = ref<string | null>(null)
+const activeTunnels = ref<Array<{ domain: string; target: string; tunnel_type: string }>>([])
 const isTunnelLoading = ref(false)
 const showTunnelDebug = ref(false)
 const tunnelDebug = ref<{
@@ -3217,6 +3290,7 @@ interface HostStatusIpc {
 	local_port?: number
 	public_address?: string
 	public_ip?: string
+	tunnels?: Array<{ domain: string; target: string; tunnel_type: string }>
 	claim_url?: string | null
 	tunnel_status?:
 		| string
@@ -3229,10 +3303,21 @@ interface HostStatusIpc {
 	uptime_seconds?: number
 }
 
+function copyTunnel(domain: string) {
+	navigator.clipboard.writeText(domain)
+	copiedTunnelAddr.value = domain
+	setTimeout(() => {
+		copiedTunnelAddr.value = null
+	}, 2000)
+}
+
 async function fetchStatus() {
 	try {
 		const res = await invoke<HostStatusIpc>('host_get_status')
 		if (res) {
+			if (Array.isArray(res.tunnels) && res.tunnels.length > 0) {
+				activeTunnels.value = res.tunnels
+			}
 			let normalizedStatus: 'offline' | 'starting' | 'online' | 'tunneling' = 'offline'
 			if (res.server_running) {
 				normalizedStatus = 'online'
