@@ -1,75 +1,113 @@
 <template>
-	<div class="flex flex-col gap-4">
-		<span class="font-semibold text-contrast">
-			{{ formatMessage(messages.knownProjectPrompt) }}
-		</span>
-		<Combobox
-			ref="projectSearchCombobox"
-			v-model="ctx.projectSearchProjectId.value"
-			v-tooltip="ctx.finishDisabled.value ? ctx.finishDisabledTooltip.value : undefined"
-			:options="ctx.projectSearchOptions.value"
-			searchable
-			show-search-icon
-			:show-chevron="false"
-			:disabled="ctx.finishDisabled.value"
-			:search-placeholder="formatMessage(messages.searchProjectPlaceholder)"
-			:no-options-message="
-				searchLoading
-					? formatMessage(commonMessages.loadingLabel)
-					: formatMessage(messages.noResultsFound)
-			"
-			:disable-search-filter="true"
-			@search-input="handleSearch"
-		>
-			<template #option-suffix="{ item }">
-				<div
-					class="flex shrink-0 items-center gap-1.5 text-sm font-semibold text-secondary opacity-0 transition-opacity group-hover/option:opacity-100 group-data-[focused=true]/option:opacity-100"
-				>
-					<span>
-						{{
-							formatMessage(
-								isModpackOption(item.value) ? messages.installModpack : messages.createInstance,
-							)
-						}}
-					</span>
-					<DownloadIcon v-if="isModpackOption(item.value)" class="size-5 shrink-0" />
-					<RightArrowIcon v-else class="size-5 shrink-0" />
+	<div class="flex flex-col gap-4 select-none">
+		<!-- Section 1: Search Spotlight Header -->
+		<div class="flex flex-col gap-2.5">
+			<div class="flex items-center justify-between">
+				<div class="flex items-center gap-2.5">
+					<div
+						class="p-1.5 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 text-indigo-400 border border-indigo-500/30 shadow-sm flex items-center justify-center"
+					>
+						<SparklesIcon class="w-3.5 h-3.5" />
+					</div>
+					<label class="text-sm font-bold text-white tracking-tight">
+						{{ formatMessage(messages.knownProjectPrompt) }}
+					</label>
 				</div>
-			</template>
-		</Combobox>
-
-		<div class="flex items-center gap-3">
-			<div class="h-[1px] w-full flex-1 bg-surface-5" />
-			<span class="text-sm text-secondary">{{ formatMessage(commonMessages.orLabel) }}</span>
-			<div class="h-[1px] w-full flex-1 bg-surface-5" />
+				<div
+					class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-pink-500/10 text-indigo-300 border border-indigo-500/30 text-[11px] font-semibold tracking-wide shadow-sm"
+				>
+					<span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+					<span>Quick Search</span>
+				</div>
+			</div>
+			<div
+				class="relative group rounded-2xl bg-[#0e131d]/90 border border-white/10 p-0.5 hover:border-white/20 focus-within:!border-indigo-500/60 focus-within:shadow-[0_0_25px_rgba(99,102,241,0.25)] transition-all duration-300"
+			>
+				<Combobox
+					ref="projectSearchCombobox"
+					v-model="ctx.projectSearchProjectId.value"
+					v-tooltip="ctx.finishDisabled.value ? ctx.finishDisabledTooltip.value : undefined"
+					:options="ctx.projectSearchOptions.value"
+					searchable
+					show-search-icon
+					:show-chevron="false"
+					:disabled="ctx.finishDisabled.value"
+					:search-placeholder="formatMessage(messages.searchProjectPlaceholder)"
+					:no-options-message="
+						searchLoading
+							? formatMessage(commonMessages.loadingLabel)
+							: formatMessage(messages.noResultsFound)
+					"
+					:disable-search-filter="true"
+					@search-input="handleSearch"
+				>
+					<template #option-suffix="{ item }">
+						<div
+							class="flex shrink-0 items-center gap-1.5 text-xs font-bold text-indigo-400 opacity-0 transition-opacity group-hover/option:opacity-100 group-data-[focused=true]/option:opacity-100"
+						>
+							<span>
+								{{
+									formatMessage(
+										isModpackOption(item.value) ? messages.installModpack : messages.createInstance,
+									)
+								}}
+							</span>
+							<DownloadIcon v-if="isModpackOption(item.value)" class="size-4 shrink-0" />
+							<RightArrowIcon v-else class="size-4 shrink-0" />
+						</div>
+					</template>
+				</Combobox>
+			</div>
 		</div>
 
-		<span class="font-semibold text-contrast">
-			{{ setupTypeTitle }}
-		</span>
+		<!-- Styled Divider -->
+		<div class="relative flex items-center justify-center my-0.5">
+			<div class="absolute inset-0 flex items-center">
+				<div class="w-full border-t border-white/10"></div>
+			</div>
+			<div
+				class="relative px-3.5 py-0.5 rounded-full bg-[#0e131d] border border-white/10 text-[10px] font-extrabold text-zinc-400 uppercase tracking-widest"
+			>
+				{{ formatMessage(commonMessages.orLabel) }} Choose Mode
+			</div>
+		</div>
+
+		<div class="flex items-center justify-between">
+			<span class="text-xs font-bold uppercase tracking-wider text-zinc-400">
+				{{ setupTypeTitle }}
+			</span>
+		</div>
 
 		<template v-if="ctx.flowType === 'instance'">
-			<div class="flex flex-col gap-3">
+			<div class="flex flex-col gap-2.5">
 				<BigOptionButton
 					:icon="BoxesIcon"
+					color-theme="sky"
+					badge="CUSTOM"
 					:title="formatMessage(messages.customSetupTitle)"
 					:description="formatMessage(messages.customSetupDescription)"
 					@click="setSetupType('custom')"
 				/>
 				<BigOptionButton
 					:icon="CompassIcon"
+					color-theme="cyan"
+					badge="EXPLORE"
 					:title="formatMessage(messages.modpackBaseTitle)"
 					:description="formatMessage(messages.modpackBaseDescription)"
 					@click="browseModpacks"
 				/>
 				<BigOptionButton
 					:icon="UploadIcon"
+					color-theme="indigo"
+					badge="ARCHIVE"
 					:title="formatMessage(messages.uploadModpackTitle)"
 					:description="formatMessage(messages.uploadModpackDescription)"
 					@click="triggerFileInput"
 				/>
 				<BigOptionButton
 					:icon="BoxImportIcon"
+					color-theme="amber"
+					badge="MIGRATE"
 					:title="formatMessage(messages.importInstanceTitle)"
 					:description="formatMessage(messages.importInstanceDescription)"
 					@click="ctx.setImportMode()"
@@ -78,27 +116,35 @@
 		</template>
 
 		<template v-else>
-			<div class="flex flex-col gap-3">
+			<div class="flex flex-col gap-2.5">
 				<BigOptionButton
 					:icon="CompassIcon"
+					color-theme="cyan"
+					badge="EXPLORE"
 					:title="formatMessage(messages.modpackBaseTitle)"
 					:description="formatMessage(messages.modpackBaseDescription)"
 					@click="browseModpacks"
 				/>
 				<BigOptionButton
 					:icon="UploadIcon"
+					color-theme="indigo"
+					badge="ARCHIVE"
 					:title="formatMessage(messages.uploadModpackTitle)"
 					:description="formatMessage(messages.uploadModpackDescription)"
 					@click="triggerFileInput"
 				/>
 				<BigOptionButton
 					:icon="BoxesIcon"
+					color-theme="sky"
+					badge="CUSTOM"
 					:title="formatMessage(messages.customSetupTitle)"
 					:description="formatMessage(messages.customSetupDescription)"
 					@click="setSetupType('custom')"
 				/>
 				<BigOptionButton
 					:icon="BoxIcon"
+					color-theme="purple"
+					badge="VANILLA"
 					:title="formatMessage(messages.vanillaMinecraftTitle)"
 					:description="formatMessage(messages.vanillaMinecraftDescription)"
 					@click="setSetupType('vanilla')"
@@ -116,6 +162,7 @@ import {
 	CompassIcon,
 	DownloadIcon,
 	RightArrowIcon,
+	SparklesIcon,
 	UploadIcon,
 } from '@freeplay/assets'
 import { commonMessages, defineMessages, useVIntl } from '@freeplay/ui'
@@ -294,7 +341,7 @@ async function search(query: string) {
 						h('img', {
 							src: hit.icon_url,
 							alt: hit.title,
-							class: 'h-5 w-5 rounded',
+							class: 'h-6 w-6 rounded-lg border border-white/10 object-cover shadow-sm bg-black/40',
 						}),
 				}),
 			),

@@ -971,9 +971,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "Máximo de escritas simultâneas"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "Instâncias"
-  },
   "app.settings.tabs.appearance": {
     "message": "Aparência"
   },
@@ -988,9 +985,6 @@
   },
   "app.settings.tabs.language": {
     "message": "Idioma"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "Privacidade"
   },
   "app.settings.tabs.resource-management": {
     "message": "Gerenciamento de recursos"
@@ -1873,11 +1867,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "Somente mods do cliente podem ser adicionados à instância do servidor"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Conta"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Visualização"
   }
 }

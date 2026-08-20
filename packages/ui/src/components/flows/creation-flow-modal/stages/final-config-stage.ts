@@ -26,6 +26,8 @@ export const stageConfig: StageConfigInput<CreationFlowContextValue> = {
 	leftButtonConfig: (ctx) => ({
 		label: ctx.formatMessage(commonMessages.backButton),
 		icon: LeftArrowIcon,
+		buttonClass:
+			'!bg-[#141923] hover:!bg-[#18202e] !border-white/10 hover:!border-white/20 !text-zinc-300 hover:!text-white rounded-xl transition-all active:scale-95',
 		onClick: () => {
 			if (ctx.onBack) {
 				ctx.onBack()
@@ -51,6 +53,9 @@ export const stageConfig: StageConfigInput<CreationFlowContextValue> = {
 			icon: isFinish ? PlusIcon : RightArrowIcon,
 			iconPosition: isFinish ? ('before' as const) : ('after' as const),
 			color: isReset ? ('red' as const) : isFinish ? ('brand' as const) : undefined,
+			buttonClass: isReset
+				? '!bg-red-600 hover:!bg-red-500 !text-white shadow-lg !shadow-red-950/60 font-bold !border-none rounded-xl transition-all active:scale-95'
+				: '!bg-sky-600 hover:!bg-sky-500 !text-white shadow-lg !shadow-sky-950/60 font-bold !border-none rounded-xl transition-all active:scale-95',
 			disabled:
 				isForwardBlocked(ctx) || ctx.isBackingUp.value || (isFinish && ctx.finishDisabled.value),
 			loading: isFinish && ctx.loading.value,

@@ -7,6 +7,7 @@ import type { Labrinth } from '@freeplay/api-client'
 import type { ContentItem, ContentOwner } from '@freeplay/ui'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 
+import { create_offline_account, set_default_user } from './auth.js'
 import type { InstallJobSnapshot, SharedInstanceUpdateDiff } from './install'
 import type {
 	CacheBehaviour,
@@ -379,6 +380,19 @@ export async function run(
 	instanceId: string,
 	serverAddress: string | null = null,
 ): Promise<unknown> {
+	try {
+		const activeSaved = localStorage.getItem('freeplay-active-player')
+		if (activeSaved) {
+			const activeProfile = JSON.parse(activeSaved)
+			if (activeProfile?.type === 'offline' && activeProfile?.name) {
+				await create_offline_account(activeProfile.name).catch(() => {})
+			} else if (activeProfile?.id) {
+				await set_default_user(activeProfile.id).catch(() => {})
+			}
+		}
+	} catch {
+		// ignore
+	}
 	return await invoke('plugin:instance|instance_run', { instanceId, serverAddress })
 }
 

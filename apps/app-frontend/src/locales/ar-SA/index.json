@@ -473,9 +473,6 @@
   "app.settings.tabs.language": {
     "message": "اللغة"
   },
-  "app.settings.tabs.privacy": {
-    "message": "الخصوصية"
-  },
   "app.settings.tabs.resource-management": {
     "message": "إدارة الموارد"
   },

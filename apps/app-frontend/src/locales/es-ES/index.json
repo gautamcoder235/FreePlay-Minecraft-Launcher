@@ -311,9 +311,6 @@
   "app.settings.tabs.language": {
     "message": "Idioma"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Privacidad"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Gestión de recursos"
   },

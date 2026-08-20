@@ -971,9 +971,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "最大并发写入数"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "实例"
-  },
   "app.settings.tabs.appearance": {
     "message": "外观"
   },
@@ -988,9 +985,6 @@
   },
   "app.settings.tabs.language": {
     "message": "语言"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "隐私"
   },
   "app.settings.tabs.resource-management": {
     "message": "资源管理"
@@ -1873,11 +1867,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "只能将客户端模组添加到服务器实例中"
-  },
-  "settings.sidebar.label.account": {
-    "message": "账户"
-  },
-  "settings.sidebar.label.display": {
-    "message": "显示"
   }
 }

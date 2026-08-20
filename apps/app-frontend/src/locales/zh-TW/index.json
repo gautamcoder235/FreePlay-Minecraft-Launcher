@@ -971,9 +971,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "並行寫入上限"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "實例"
-  },
   "app.settings.tabs.appearance": {
     "message": "外觀"
   },
@@ -988,9 +985,6 @@
   },
   "app.settings.tabs.language": {
     "message": "語言"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "隱私"
   },
   "app.settings.tabs.resource-management": {
     "message": "資源管理"
@@ -1873,11 +1867,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "只有用戶端模組可以被加到伺服器實例"
-  },
-  "settings.sidebar.label.account": {
-    "message": "帳號"
-  },
-  "settings.sidebar.label.display": {
-    "message": "顯示"
   }
 }

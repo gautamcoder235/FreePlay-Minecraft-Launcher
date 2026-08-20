@@ -731,9 +731,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Loader"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Name"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Instanzname eingeben"
   },

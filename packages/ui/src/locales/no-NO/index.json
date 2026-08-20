@@ -446,9 +446,6 @@
   "creation-flow.modal.custom-setup.loader-version-type.stable": {
     "defaultMessage": "Stabil"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Navn"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Skriv inn instansnavn"
   },

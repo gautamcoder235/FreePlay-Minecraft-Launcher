@@ -53,6 +53,9 @@
   "app.action-bar.install.summary.download-failed": {
     "message": "Download couldn't finish"
   },
+  "app.action-bar.install.summary.freeplay-unreachable": {
+    "message": "Couldn't reach FreePlay"
+  },
   "app.action-bar.install.summary.instance-not-found": {
     "message": "Instance couldn't be found"
   },
@@ -76,9 +79,6 @@
   },
   "app.action-bar.install.summary.minecraft-setup-failed": {
     "message": "Minecraft setup failed"
-  },
-  "app.action-bar.install.summary.freeplay-unreachable": {
-    "message": "Couldn't reach FreePlay"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "No permission to write"
@@ -1214,14 +1214,14 @@
   "app.nav.create-new-instance": {
     "message": "Create new instance"
   },
-  "app.nav.home": {
-    "message": "FreePlay Home"
-  },
   "app.nav.freeplay-account": {
     "message": "FreePlay account"
   },
   "app.nav.freeplay-hosting": {
     "message": "FreePlay Server Hosting"
+  },
+  "app.nav.home": {
+    "message": "FreePlay Home"
   },
   "app.nav.sign-in-to-freeplay-account": {
     "message": "Sign in to a FreePlay account"
@@ -1307,6 +1307,18 @@
   "app.restarting": {
     "message": "Restarting..."
   },
+  "app.settings.accounts.cloud-desc": {
+    "message": "Sync your cloud settings, modpacks, server bookmarks, and friends list."
+  },
+  "app.settings.accounts.cloud-title": {
+    "message": "FreePlay Cloud Account"
+  },
+  "app.settings.accounts.minecraft-desc": {
+    "message": "Manage your Microsoft authentication and custom 1-click offline nicknames."
+  },
+  "app.settings.accounts.minecraft-title": {
+    "message": "Minecraft & Offline Player Profiles"
+  },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
   },
@@ -1375,6 +1387,9 @@
   },
   "app.settings.default-instance-options.width.title": {
     "message": "Width"
+  },
+  "app.settings.default-instance-options.window-section.title": {
+    "message": "Game Window & Resolution"
   },
   "app.settings.default-instance-options.wrapper-hook.description": {
     "message": "Command used to wrap the Minecraft launch process."
@@ -1469,8 +1484,23 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "Maximum concurrent writes"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "Instances"
+  "app.settings.sidebar.label.accounts": {
+    "message": "Accounts & Privacy"
+  },
+  "app.settings.sidebar.label.app": {
+    "message": "App & Interface"
+  },
+  "app.settings.sidebar.label.developer": {
+    "message": "Developer"
+  },
+  "app.settings.sidebar.label.game": {
+    "message": "Game & Engine"
+  },
+  "app.settings.sidebar.label.storage": {
+    "message": "Storage & Network"
+  },
+  "app.settings.tabs.accounts": {
+    "message": "Accounts & Profiles"
   },
   "app.settings.tabs.appearance": {
     "message": "Appearance"
@@ -1488,10 +1518,10 @@
     "message": "Language"
   },
   "app.settings.tabs.privacy": {
-    "message": "Privacy"
+    "message": "Privacy & Integrations"
   },
   "app.settings.tabs.resource-management": {
-    "message": "Resource management"
+    "message": "Storage & Downloads"
   },
   "app.sidebar.playing-as": {
     "message": "Playing as"
@@ -1616,9 +1646,6 @@
   "app.skins.section.default-skins": {
     "message": "Default skins"
   },
-  "app.skins.section.minecon-earth-2017": {
-    "message": "MINECON Earth 2017"
-  },
   "app.skins.section.freeplay": {
     "message": "FreePlay"
   },
@@ -1627,6 +1654,9 @@
   },
   "app.skins.section.freeplay-pride.tooltip": {
     "message": "You received these skins for donating to a FreePlay Pride fundraiser during Pride Month."
+  },
+  "app.skins.section.minecon-earth-2017": {
+    "message": "MINECON Earth 2017"
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -1708,24 +1738,6 @@
   },
   "app.user.project.install-to-instance": {
     "message": "Install to instance"
-  },
-  "app.welcome-screen.create-instance": {
-    "message": "Create an instance"
-  },
-  "app.welcome-screen.description": {
-    "message": "Ready to start playing?"
-  },
-  "app.welcome-screen.import-from-launcher": {
-    "message": "Import from launcher"
-  },
-  "app.welcome-screen.import-prompt": {
-    "message": "Escaping another launcher?"
-  },
-  "app.welcome-screen.quick-create-hint": {
-    "message": "Press <shortcut>N</shortcut> to quick create an instance"
-  },
-  "app.welcome-screen.title": {
-    "message": "Welcome to FreePlay"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "example.freeplay.app"
@@ -2616,16 +2628,16 @@
     "message": "Waiting for browser confirmation..."
   },
   "onboarding-checklist.create-instance": {
-    "message": "Create first instance"
-  },
-  "onboarding-checklist.login-minecraft": {
-    "message": "Sign in to Minecraft"
+    "message": "Create First Instance"
   },
   "onboarding-checklist.login-freeplay": {
-    "message": "Sign in to FreePlay"
+    "message": "Connect FreePlay Cloud"
+  },
+  "onboarding-checklist.login-minecraft": {
+    "message": "Set Player Profile"
   },
   "onboarding-checklist.title": {
-    "message": "Getting started"
+    "message": "Launch Missions"
   },
   "search.filter.locked.instance": {
     "message": "Provided by the instance"
@@ -2641,11 +2653,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "Only client-side mods can be added to the server instance"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Account"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Display"
   }
 }

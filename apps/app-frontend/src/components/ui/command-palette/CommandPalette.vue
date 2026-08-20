@@ -1,0 +1,424 @@
+<script setup lang="ts">
+import {
+	BlocksIcon,
+	CompassIcon,
+	LayersIcon,
+	PlayIcon,
+	PlusIcon,
+	SearchIcon,
+	ServerStackIcon,
+	SettingsIcon,
+	ShirtIcon,
+	SparklesIcon,
+	UserIcon,
+} from '@freeplay/assets'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { list as listInstances, run as runInstance } from '@/helpers/instance'
+import type { GameInstance } from '@/helpers/types'
+
+const props = defineProps<{
+	modelValue: boolean
+}>()
+
+const emit = defineEmits<{
+	(e: 'update:modelValue', value: boolean): void
+	(e: 'create-instance' | 'open-settings' | 'add-offline-account' | 'open-icon-studio'): void
+}>()
+
+const router = useRouter()
+const searchQuery = ref('')
+const selectedIndex = ref(0)
+const inputRef = ref<HTMLInputElement | null>(null)
+const instances = ref<GameInstance[]>([])
+
+async function loadInstances() {
+	try {
+		instances.value = await listInstances()
+	} catch {
+		instances.value = []
+	}
+}
+
+watch(
+	() => props.modelValue,
+	(open) => {
+		if (open) {
+			searchQuery.value = ''
+			selectedIndex.value = 0
+			loadInstances()
+			nextTick(() => {
+				inputRef.value?.focus()
+			})
+		}
+	},
+)
+
+const navActions = [
+	{
+		id: 'nav-home',
+		category: 'Navigation',
+		title: 'Home & Instance Library',
+		icon: BlocksIcon,
+		action: () => {
+			close()
+			router.push('/')
+		},
+		badge: 'Home',
+	},
+	{
+		id: 'nav-modpacks',
+		category: 'Navigation',
+		title: 'Discover Modpacks',
+		icon: CompassIcon,
+		action: () => {
+			close()
+			router.push('/browse/modpack')
+		},
+		badge: 'Browse',
+	},
+	{
+		id: 'nav-mods',
+		category: 'Navigation',
+		title: 'Discover Mods',
+		icon: LayersIcon,
+		action: () => {
+			close()
+			router.push('/browse/mod')
+		},
+		badge: 'Mods',
+	},
+	{
+		id: 'nav-shaders',
+		category: 'Navigation',
+		title: 'Discover Shaders & Resource Packs',
+		icon: SparklesIcon,
+		action: () => {
+			close()
+			router.push('/browse/shader')
+		},
+		badge: 'Graphics',
+	},
+	{
+		id: 'nav-skins',
+		category: 'Navigation',
+		title: '3D Skin Studio & Cape Wardrobe',
+		icon: ShirtIcon,
+		action: () => {
+			close()
+			router.push('/skins')
+		},
+		badge: 'Skins',
+	},
+	{
+		id: 'nav-hosting',
+		category: 'Navigation',
+		title: 'Server Hosting & Multiplayer Tunnels',
+		icon: ServerStackIcon,
+		action: () => {
+			close()
+			router.push('/hosting/manage')
+		},
+		badge: 'Multiplayer',
+	},
+]
+
+const quickActions = [
+	{
+		id: 'action-create',
+		category: 'Quick Actions',
+		title: 'Create New Instance',
+		icon: PlusIcon,
+		action: () => {
+			close()
+			emit('create-instance')
+		},
+		badge: 'New',
+	},
+	{
+		id: 'action-icon-studio',
+		category: 'Quick Actions',
+		title: 'Custom Instance Icon Studio',
+		icon: SparklesIcon,
+		action: () => {
+			close()
+			emit('open-icon-studio')
+		},
+		badge: 'Studio',
+	},
+	{
+		id: 'action-offline-account',
+		category: 'Quick Actions',
+		title: 'Add Offline / Cracked Minecraft Account',
+		icon: UserIcon,
+		action: () => {
+			close()
+			emit('add-offline-account')
+		},
+		badge: 'Free',
+	},
+	{
+		id: 'action-settings',
+		category: 'Quick Actions',
+		title: 'App Settings & JVM Configuration',
+		icon: SettingsIcon,
+		action: () => {
+			close()
+			emit('open-settings')
+		},
+		badge: 'Config',
+	},
+]
+
+const filteredResults = computed(() => {
+	const q = searchQuery.value.toLowerCase().trim()
+
+	const instanceResults = instances.value
+		.filter(
+			(inst) =>
+				!q ||
+				inst.name.toLowerCase().includes(q) ||
+				(inst.loader && inst.loader.toLowerCase().includes(q)),
+		)
+		.map((inst) => ({
+			id: `instance-${inst.id}`,
+			category: 'Game Instances',
+			title: inst.name,
+			subtitle: `${inst.loader || 'Vanilla'} ${inst.game_version || ''}`,
+			icon: BlocksIcon,
+			action: () => {
+				close()
+				router.push(`/instance/${inst.id}`)
+			},
+			playAction: async (e: MouseEvent) => {
+				e.stopPropagation()
+				close()
+				try {
+					await runInstance(inst.id)
+				} catch (err) {
+					console.error(err)
+				}
+			},
+			badge: 'Playable',
+			isInstance: true,
+		}))
+
+	const filteredNav = navActions.filter(
+		(item) => !q || item.title.toLowerCase().includes(q) || item.category.toLowerCase().includes(q),
+	)
+	const filteredQuick = quickActions.filter(
+		(item) => !q || item.title.toLowerCase().includes(q) || item.category.toLowerCase().includes(q),
+	)
+
+	return [...instanceResults, ...filteredNav, ...filteredQuick]
+})
+
+function close() {
+	emit('update:modelValue', false)
+}
+
+function handleKeyDown(e: KeyboardEvent) {
+	if (e.key === 'ArrowDown') {
+		e.preventDefault()
+		if (filteredResults.value.length > 0) {
+			selectedIndex.value = (selectedIndex.value + 1) % filteredResults.value.length
+		}
+	} else if (e.key === 'ArrowUp') {
+		e.preventDefault()
+		if (filteredResults.value.length > 0) {
+			selectedIndex.value =
+				(selectedIndex.value - 1 + filteredResults.value.length) % filteredResults.value.length
+		}
+	} else if (e.key === 'Enter') {
+		e.preventDefault()
+		const item = filteredResults.value[selectedIndex.value]
+		if (item) {
+			item.action()
+		}
+	} else if (e.key === 'Escape') {
+		close()
+	}
+}
+
+function handleGlobalShortcut(e: KeyboardEvent) {
+	if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+		e.preventDefault()
+		emit('update:modelValue', !props.modelValue)
+	}
+}
+
+onMounted(() => {
+	window.addEventListener('keydown', handleGlobalShortcut)
+})
+
+onUnmounted(() => {
+	window.removeEventListener('keydown', handleGlobalShortcut)
+})
+</script>
+
+<template>
+	<Teleport to="body">
+		<Transition
+			enter-active-class="transition duration-150 ease-out"
+			enter-from-class="opacity-0 scale-95"
+			enter-to-class="opacity-100 scale-100"
+			leave-active-class="transition duration-100 ease-in"
+			leave-from-class="opacity-100 scale-100"
+			leave-to-class="opacity-0 scale-95"
+		>
+			<div
+				v-if="modelValue"
+				class="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/75 backdrop-blur-2xl select-none"
+				@click.self="close"
+				@keydown="handleKeyDown"
+			>
+				<div
+					class="w-full max-w-2xl overflow-hidden rounded-3xl bg-[#090B0F]/95 backdrop-blur-3xl border border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.9),0_0_50px_rgba(56,189,248,0.18)] flex flex-col max-h-[75vh]"
+				>
+					<!-- Search Header Spotlight with Curved Border -->
+					<div class="p-3 border-b border-white/10 bg-[#090B0F]/50">
+						<div
+							class="relative flex items-center px-3.5 py-2.5 rounded-2xl bg-[#0e131d] border border-white/10 focus-within:border-sky-500/40 focus-within:shadow-[0_0_15px_rgba(56,189,248,0.15)] transition-all duration-200"
+						>
+							<div
+								class="w-7 h-7 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 mr-2.5 shrink-0 shadow-inner"
+							>
+								<SearchIcon class="w-3.5 h-3.5" />
+							</div>
+							<input
+								ref="inputRef"
+								v-model="searchQuery"
+								type="text"
+								placeholder="Type a command, search instances, mods, or settings..."
+								class="w-full bg-transparent text-sm font-medium text-white placeholder-zinc-500 !outline-none !shadow-none !border-none"
+								@input="selectedIndex = 0"
+							/>
+							<span
+								class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg bg-white/5 text-zinc-400 border border-white/10 shrink-0 ml-2"
+							>
+								ESC
+							</span>
+						</div>
+					</div>
+
+					<!-- Results List -->
+					<div class="overflow-y-auto p-2.5 flex flex-col gap-1.5 scrollbar-thin">
+						<div
+							v-if="filteredResults.length === 0"
+							class="py-12 text-center text-zinc-500 text-xs font-mono"
+						>
+							No commands or instances found matching "<span class="text-white font-semibold">{{
+								searchQuery
+							}}</span
+							>"
+						</div>
+
+						<div
+							v-for="(item, idx) in filteredResults"
+							:key="item.id"
+							class="group flex items-center justify-between px-3.5 py-2.5 rounded-2xl cursor-pointer transition-all duration-150"
+							:class="[
+								selectedIndex === idx
+									? 'bg-gradient-to-r from-sky-500/20 via-sky-600/10 to-transparent border border-sky-500/50 shadow-[0_0_20px_rgba(56,189,248,0.15)] text-white'
+									: 'bg-[#141923]/60 hover:bg-[#141923] text-zinc-300 border border-white/5',
+							]"
+							@mouseenter="selectedIndex = idx"
+							@click="item.action"
+						>
+							<div class="flex items-center gap-3 min-w-0">
+								<div
+									class="flex items-center justify-center w-8 h-8 rounded-xl shrink-0 border transition-transform duration-150 group-hover:scale-105"
+									:class="[
+										selectedIndex === idx
+											? 'bg-sky-500/20 border-sky-400/40 text-sky-300 shadow-inner'
+											: 'bg-white/5 border-white/10 text-zinc-400',
+									]"
+								>
+									<component :is="item.icon" class="w-4 h-4" />
+								</div>
+								<div class="flex flex-col min-w-0">
+									<span class="text-xs font-bold truncate text-white tracking-wide">{{
+										item.title
+									}}</span>
+									<span
+										v-if="'subtitle' in item"
+										class="text-[11px] text-zinc-400 font-mono truncate"
+										>{{ item.subtitle }}</span
+									>
+								</div>
+							</div>
+
+							<div class="flex items-center gap-2 shrink-0 ml-3">
+								<button
+									v-if="'isInstance' in item"
+									type="button"
+									class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 active:scale-95 text-zinc-950 font-extrabold text-xs shadow-md shadow-sky-950/60 border-none cursor-pointer transition-all"
+									title="Launch Game"
+									@click="item.playAction"
+								>
+									<PlayIcon class="w-3 h-3 fill-current" />
+									Play
+								</button>
+								<span
+									class="text-[9px] font-extrabold font-mono px-2 py-0.5 rounded uppercase tracking-wider shrink-0"
+									:class="[
+										item.badge === 'Home' ||
+										item.badge === 'Playable' ||
+										item.badge === 'Free' ||
+										item.badge === 'New' ||
+										item.badge === 'Multiplayer'
+											? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
+											: item.badge === 'Browse' ||
+												  item.badge === 'Mods' ||
+												  item.badge === 'Graphics'
+												? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+												: item.badge === 'Skins'
+													? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+													: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+									]"
+								>
+									{{ item.badge || item.category }}
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Footer Helper -->
+					<div
+						class="flex items-center justify-between px-4 py-2.5 bg-[#090b0f] border-t border-white/5 text-[11px] text-zinc-400 font-mono"
+					>
+						<div class="flex items-center gap-3">
+							<span class="flex items-center gap-1">
+								<kbd
+									class="px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-[10px]"
+									>↑</kbd
+								>
+								<kbd
+									class="px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-[10px]"
+									>↓</kbd
+								>
+								Navigate
+							</span>
+							<span class="flex items-center gap-1">
+								<kbd
+									class="px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-[10px]"
+									>↵</kbd
+								>
+								Select
+							</span>
+						</div>
+						<span class="text-zinc-400">
+							Press
+							<kbd
+								class="px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-[10px]"
+								>⌘K / Ctrl+K</kbd
+							>
+							anywhere
+						</span>
+					</div>
+				</div>
+			</div>
+		</Transition>
+	</Teleport>
+</template>

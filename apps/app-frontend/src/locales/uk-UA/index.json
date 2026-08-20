@@ -971,9 +971,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "Максимум одночасних записів"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "Збірки"
-  },
   "app.settings.tabs.appearance": {
     "message": "Вигляд"
   },
@@ -988,9 +985,6 @@
   },
   "app.settings.tabs.language": {
     "message": "Мова"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "Конфіденційність"
   },
   "app.settings.tabs.resource-management": {
     "message": "Керування ресурсами"
@@ -1873,11 +1867,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "До профілю сервера можна додавати лише клієнтські моди"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Обліковий запис"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Дисплей"
   }
 }

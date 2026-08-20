@@ -29,9 +29,9 @@
 <script setup lang="ts">
 import type { Archon, Labrinth } from '@freeplay/api-client'
 import {
+	FreePlayServersPurchaseModal,
 	injectFreePlayClient,
 	injectNotificationManager,
-	FreePlayServersPurchaseModal,
 	useDebugLogger,
 } from '@freeplay/ui'
 import { useMutation, useQuery } from '@tanstack/vue-query'

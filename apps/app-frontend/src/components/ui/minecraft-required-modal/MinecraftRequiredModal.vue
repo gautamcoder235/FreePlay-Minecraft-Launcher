@@ -43,7 +43,14 @@
 							<rect width="9.25" height="9.25" fill="black" fill-opacity="0.9" />
 							<rect x="10.75" width="9.25" height="9.25" fill="black" fill-opacity="0.9" />
 							<rect y="10.75" width="9.25" height="9.25" fill="black" fill-opacity="0.9" />
-							<rect x="10.75" y="10.75" width="9.25" height="9.25" fill="black" fill-opacity="0.9" />
+							<rect
+								x="10.75"
+								y="10.75"
+								width="9.25"
+								height="9.25"
+								fill="black"
+								fill-opacity="0.9"
+							/>
 						</svg>
 						{{ formatMessage(messages.signIn) }}
 					</Button>

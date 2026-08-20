@@ -107,161 +107,216 @@ watch(
 )
 </script>
 <template>
-	<section>
-		<h2 class="m-0 text-xl font-semibold text-contrast">
-			{{ formatMessage(messages.startupAndNavigationTitle) }}
-		</h2>
-		<div class="mt-4 flex flex-col gap-6">
-			<div class="flex items-center justify-between gap-4">
-				<div>
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.minimizeLauncherTitle) }}
-					</h3>
-					<p class="m-0 mt-1">
-						{{ formatMessage(messages.minimizeLauncherDescription) }}
-					</p>
-				</div>
-				<Toggle id="minimize-launcher" v-model="settings.hide_on_process_start" />
+	<div class="flex flex-col gap-6">
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">
+					{{ formatMessage(messages.startupAndNavigationTitle) }}
+				</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Control launcher behavior when games start and navigating views.
+				</p>
 			</div>
 
-			<div class="flex items-center justify-between gap-4">
-				<div>
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.toggleSidebarTitle) }}
-					</h3>
-					<p class="m-0 mt-1">{{ formatMessage(messages.toggleSidebarDescription) }}</p>
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label
+							for="minimize-launcher"
+							class="text-sm font-semibold text-contrast cursor-pointer"
+						>
+							{{ formatMessage(messages.minimizeLauncherTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.minimizeLauncherDescription) }}
+						</p>
+					</div>
+					<Toggle id="minimize-launcher" v-model="settings.hide_on_process_start" />
 				</div>
-				<Toggle
-					id="toggle-sidebar"
-					:model-value="settings.toggle_sidebar"
-					@update:model-value="
-						(e) => {
-							settings.toggle_sidebar = !!e
-							themeStore.toggleSidebar = settings.toggle_sidebar
-						}
-					"
-				/>
-			</div>
-		</div>
-	</section>
 
-	<section class="mt-8 border-0 border-t border-solid border-divider pt-6">
-		<h2 class="m-0 text-xl font-semibold text-contrast">
-			{{ formatMessage(messages.contentTitle) }}
-		</h2>
-		<div class="mt-4 flex flex-col gap-6">
-			<div class="flex items-center justify-between gap-4">
-				<div>
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.jumpBackIntoWorldsTitle) }}
-					</h3>
-					<p class="m-0 mt-1">
-						{{ formatMessage(messages.jumpBackIntoWorldsDescription) }}
-					</p>
-				</div>
-				<Toggle
-					id="jump-back-into-worlds"
-					:model-value="themeStore.getFeatureFlag(worldsInHomeFlag)"
-					@update:model-value="
-						() => {
-							const newValue = !themeStore.getFeatureFlag(worldsInHomeFlag)
-							themeStore.featureFlags[worldsInHomeFlag] = newValue
-							settings.feature_flags[worldsInHomeFlag] = newValue
-						}
-					"
-				/>
-			</div>
+				<div class="h-px bg-surface-4/60 -mx-5" />
 
-			<div class="flex items-center justify-between gap-4">
-				<div>
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.showPlayTimeTitle) }}
-					</h3>
-					<p class="m-0 mt-1">{{ formatMessage(messages.showPlayTimeDescription) }}</p>
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label for="toggle-sidebar" class="text-sm font-semibold text-contrast cursor-pointer">
+							{{ formatMessage(messages.toggleSidebarTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.toggleSidebarDescription) }}
+						</p>
+					</div>
+					<Toggle
+						id="toggle-sidebar"
+						:model-value="settings.toggle_sidebar"
+						@update:model-value="
+							(e) => {
+								settings.toggle_sidebar = !!e
+								themeStore.toggleSidebar = settings.toggle_sidebar
+							}
+						"
+					/>
 				</div>
-				<Toggle
-					id="show-play-time"
-					:model-value="themeStore.getFeatureFlag(showPlayTimeFlag)"
-					@update:model-value="
-						() => {
-							const newValue = !themeStore.getFeatureFlag(showPlayTimeFlag)
-							themeStore.featureFlags[showPlayTimeFlag] = newValue
-							settings.feature_flags[showPlayTimeFlag] = newValue
-						}
-					"
-				/>
+			</div>
+		</section>
+
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">
+					{{ formatMessage(messages.contentTitle) }}
+				</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Manage home dashboard feed widgets and identity display.
+				</p>
 			</div>
 
-			<div class="flex items-center justify-between gap-4">
-				<div>
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.hideNametagTitle) }}
-					</h3>
-					<p class="m-0 mt-1">{{ formatMessage(messages.hideNametagDescription) }}</p>
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label
+							for="jump-back-into-worlds"
+							class="text-sm font-semibold text-contrast cursor-pointer"
+						>
+							{{ formatMessage(messages.jumpBackIntoWorldsTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.jumpBackIntoWorldsDescription) }}
+						</p>
+					</div>
+					<Toggle
+						id="jump-back-into-worlds"
+						:model-value="themeStore.getFeatureFlag(worldsInHomeFlag)"
+						@update:model-value="
+							() => {
+								const newValue = !themeStore.getFeatureFlag(worldsInHomeFlag)
+								themeStore.featureFlags[worldsInHomeFlag] = newValue
+								settings.feature_flags[worldsInHomeFlag] = newValue
+							}
+						"
+					/>
 				</div>
-				<Toggle
-					id="hide-nametag-skins-page"
-					:model-value="themeStore.hideNametagSkinsPage"
-					@update:model-value="
-						(e) => {
-							themeStore.hideNametagSkinsPage = !!e
-							settings.hide_nametag_skins_page = themeStore.hideNametagSkinsPage
-						}
-					"
-				/>
-			</div>
-		</div>
-	</section>
 
-	<section class="mt-8 border-0 border-t border-solid border-divider pt-6">
-		<h2 class="m-0 text-xl font-semibold text-contrast">
-			{{ formatMessage(messages.confirmationsTitle) }}
-		</h2>
-		<div class="mt-4 flex flex-col gap-6">
-			<div class="flex items-center justify-between gap-4">
-				<div>
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.unknownPackWarningTitle) }}
-					</h3>
-					<p class="m-0 mt-1">
-						{{ formatMessage(messages.unknownPackWarningDescription) }}
-					</p>
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label for="show-play-time" class="text-sm font-semibold text-contrast cursor-pointer">
+							{{ formatMessage(messages.showPlayTimeTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.showPlayTimeDescription) }}
+						</p>
+					</div>
+					<Toggle
+						id="show-play-time"
+						:model-value="themeStore.getFeatureFlag(showPlayTimeFlag)"
+						@update:model-value="
+							() => {
+								const newValue = !themeStore.getFeatureFlag(showPlayTimeFlag)
+								themeStore.featureFlags[showPlayTimeFlag] = newValue
+								settings.feature_flags[showPlayTimeFlag] = newValue
+							}
+						"
+					/>
 				</div>
-				<Toggle
-					id="warn-before-installing-unknown-modpacks"
-					:model-value="!themeStore.getFeatureFlag(skipUnknownPackWarningFlag)"
-					@update:model-value="
-						(e) => {
-							const warnBeforeUnknownPackInstall = !!e
-							const skipUnknownPackWarning = !warnBeforeUnknownPackInstall
-							themeStore.featureFlags[skipUnknownPackWarningFlag] = skipUnknownPackWarning
-							settings.feature_flags[skipUnknownPackWarningFlag] = skipUnknownPackWarning
-						}
-					"
-				/>
+
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label
+							for="hide-nametag-skins-page"
+							class="text-sm font-semibold text-contrast cursor-pointer"
+						>
+							{{ formatMessage(messages.hideNametagTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.hideNametagDescription) }}
+						</p>
+					</div>
+					<Toggle
+						id="hide-nametag-skins-page"
+						:model-value="themeStore.hideNametagSkinsPage"
+						@update:model-value="
+							(e) => {
+								themeStore.hideNametagSkinsPage = !!e
+								settings.hide_nametag_skins_page = themeStore.hideNametagSkinsPage
+							}
+						"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">
+					{{ formatMessage(messages.confirmationsTitle) }}
+				</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Configure warning dialogs and action confirmations.
+				</p>
 			</div>
 
-			<div class="flex items-center justify-between gap-4">
-				<div>
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.skipNonEssentialWarningsTitle) }}
-					</h3>
-					<p class="m-0 mt-1">
-						{{ formatMessage(messages.skipNonEssentialWarningsDescription) }}
-					</p>
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label
+							for="warn-before-installing-unknown-modpacks"
+							class="text-sm font-semibold text-contrast cursor-pointer"
+						>
+							{{ formatMessage(messages.unknownPackWarningTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.unknownPackWarningDescription) }}
+						</p>
+					</div>
+					<Toggle
+						id="warn-before-installing-unknown-modpacks"
+						:model-value="!themeStore.getFeatureFlag(skipUnknownPackWarningFlag)"
+						@update:model-value="
+							(e) => {
+								const warnBeforeUnknownPackInstall = !!e
+								const skipUnknownPackWarning = !warnBeforeUnknownPackInstall
+								themeStore.featureFlags[skipUnknownPackWarningFlag] = skipUnknownPackWarning
+								settings.feature_flags[skipUnknownPackWarningFlag] = skipUnknownPackWarning
+							}
+						"
+					/>
 				</div>
-				<Toggle
-					id="skip-non-essential-warnings"
-					:model-value="themeStore.getFeatureFlag(skipNonEssentialWarningsFlag)"
-					@update:model-value="
-						() => {
-							const newValue = !themeStore.getFeatureFlag(skipNonEssentialWarningsFlag)
-							themeStore.featureFlags[skipNonEssentialWarningsFlag] = newValue
-							settings.feature_flags[skipNonEssentialWarningsFlag] = newValue
-						}
-					"
-				/>
+
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label
+							for="skip-non-essential-warnings"
+							class="text-sm font-semibold text-contrast cursor-pointer"
+						>
+							{{ formatMessage(messages.skipNonEssentialWarningsTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.skipNonEssentialWarningsDescription) }}
+						</p>
+					</div>
+					<Toggle
+						id="skip-non-essential-warnings"
+						:model-value="themeStore.getFeatureFlag(skipNonEssentialWarningsFlag)"
+						@update:model-value="
+							() => {
+								const newValue = !themeStore.getFeatureFlag(skipNonEssentialWarningsFlag)
+								themeStore.featureFlags[skipNonEssentialWarningsFlag] = newValue
+								settings.feature_flags[skipNonEssentialWarningsFlag] = newValue
+							}
+						"
+					/>
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</div>
 </template>

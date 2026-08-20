@@ -482,9 +482,6 @@
   "app.settings.tabs.language": {
     "message": "Linguagem"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Privacidade"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Gestão de recursos"
   },

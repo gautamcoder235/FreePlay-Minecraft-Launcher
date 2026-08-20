@@ -968,9 +968,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "Massimo di scritture simultanee"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "Istanze"
-  },
   "app.settings.tabs.appearance": {
     "message": "Aspetto"
   },
@@ -985,9 +982,6 @@
   },
   "app.settings.tabs.language": {
     "message": "Lingua"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "Privacy"
   },
   "app.settings.tabs.resource-management": {
     "message": "Gestione delle risorse"
@@ -1870,11 +1864,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "Solo mod lato client possono essere aggiunte all'istanza del server"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Account"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Visualizzazione"
   }
 }

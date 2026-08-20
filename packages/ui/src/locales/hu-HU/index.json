@@ -644,9 +644,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Betöltő"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Név"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Add meg a játékprofil nevét"
   },

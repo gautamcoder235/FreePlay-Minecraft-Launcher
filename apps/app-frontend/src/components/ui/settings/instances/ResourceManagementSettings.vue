@@ -172,56 +172,170 @@ async function findLauncherDir() {
 
 <template>
 	<div class="flex flex-col gap-6">
-		<div class="flex flex-col gap-2.5">
-			<h2 class="m-0 text-lg font-semibold text-contrast">
-				{{ formatMessage(messages.appDirectoryTitle) }}
-			</h2>
-			<StyledInput
-				id="appDir"
-				v-model="settings.custom_dir"
-				:icon="BoxIcon"
-				type="text"
-				wrapper-class="w-full"
-			>
-				<template #right>
-					<IconButton
-						v-tooltip="formatMessage(messages.browseAppDirectory)"
-						:label="formatMessage(messages.browseAppDirectory)"
-						class="ml-1.5"
-						@click="findLauncherDir"
-					>
-						<FolderSearchIcon aria-hidden="true" />
-					</IconButton>
-				</template>
-			</StyledInput>
-			<p class="m-0 leading-tight text-secondary">
-				{{ formatMessage(messages.appDirectoryDescription) }}
-			</p>
-		</div>
-
-		<div class="flex items-center justify-between gap-4">
-			<div>
-				<h2 class="m-0 text-lg font-semibold text-contrast">
-					{{ formatMessage(messages.alwaysShowCopyDetailsTitle) }}
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">
+					{{ formatMessage(messages.appDirectoryTitle) }}
 				</h2>
-				<p class="m-0 mt-1">
-					{{ formatMessage(messages.alwaysShowCopyDetailsDescription) }}
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Manage data storage location and installation verbosity.
 				</p>
 			</div>
-			<Toggle
-				id="always-show-copy-details"
-				:model-value="themeStore.getFeatureFlag(alwaysShowCopyDetailsFlag)"
-				@update:model-value="
-					() => {
-						const newValue = !themeStore.getFeatureFlag(alwaysShowCopyDetailsFlag)
-						themeStore.featureFlags[alwaysShowCopyDetailsFlag] = newValue
-						settings.feature_flags[alwaysShowCopyDetailsFlag] = newValue
-					}
-				"
-			/>
-		</div>
 
-		<div class="flex flex-col gap-2.5">
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="flex flex-col gap-2">
+					<label for="appDir" class="text-sm font-semibold text-contrast">App data location</label>
+					<StyledInput
+						id="appDir"
+						v-model="settings.custom_dir"
+						:icon="BoxIcon"
+						type="text"
+						wrapper-class="w-full"
+					>
+						<template #right>
+							<IconButton
+								v-tooltip="formatMessage(messages.browseAppDirectory)"
+								:label="formatMessage(messages.browseAppDirectory)"
+								class="ml-1.5"
+								@click="findLauncherDir"
+							>
+								<FolderSearchIcon aria-hidden="true" />
+							</IconButton>
+						</template>
+					</StyledInput>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.appDirectoryDescription) }}
+					</p>
+				</div>
+
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label
+							for="always-show-copy-details"
+							class="text-sm font-semibold text-contrast cursor-pointer"
+						>
+							{{ formatMessage(messages.alwaysShowCopyDetailsTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.alwaysShowCopyDetailsDescription) }}
+						</p>
+					</div>
+					<Toggle
+						id="always-show-copy-details"
+						:model-value="themeStore.getFeatureFlag(alwaysShowCopyDetailsFlag)"
+						@update:model-value="
+							() => {
+								const newValue = !themeStore.getFeatureFlag(alwaysShowCopyDetailsFlag)
+								themeStore.featureFlags[alwaysShowCopyDetailsFlag] = newValue
+								settings.feature_flags[alwaysShowCopyDetailsFlag] = newValue
+							}
+						"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">Network & Disk I/O</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Tune download concurrency and file write threads.
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="flex flex-col gap-2">
+					<label for="max-downloads" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.maximumConcurrentDownloadsTitle) }}
+					</label>
+					<Slider
+						id="max-downloads"
+						v-model="settings.max_concurrent_downloads"
+						:min="1"
+						:max="10"
+						:step="1"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.maximumConcurrentDownloadsDescription) }}
+					</p>
+				</div>
+
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="flex flex-col gap-2">
+					<label for="max-writes" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.maximumConcurrentWritesTitle) }}
+					</label>
+					<Slider
+						id="max-writes"
+						v-model="settings.max_concurrent_writes"
+						:min="1"
+						:max="50"
+						:step="1"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.maximumConcurrentWritesDescription) }}
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">Maintenance & Backups</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Perform database backups and clean cached project assets.
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="flex items-center justify-between gap-4">
+					<div class="flex flex-col gap-0.5">
+						<span class="text-sm font-semibold text-contrast">
+							{{ formatMessage(messages.appCacheTitle) }}
+						</span>
+						<p class="m-0 text-xs text-secondary leading-relaxed max-w-lg">
+							{{ formatMessage(messages.appCacheDescription) }}
+						</p>
+					</div>
+					<Button
+						id="purge-cache"
+						type="colored"
+						color="red"
+						class="shrink-0"
+						@click="handlePurgeCacheClick"
+					>
+						<TrashIcon aria-hidden="true" />
+						{{ formatMessage(messages.purgeCache) }}
+					</Button>
+				</div>
+
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="flex items-center justify-between gap-4">
+					<div class="flex flex-col gap-0.5">
+						<span class="text-sm font-semibold text-contrast">
+							{{ formatMessage(messages.appDatabaseBackupsTitle) }}
+						</span>
+						<p class="m-0 text-xs text-secondary leading-relaxed max-w-lg">
+							{{ formatMessage(messages.appDatabaseBackupsDescription) }}
+						</p>
+					</div>
+					<Button id="open-db-backups-folder" class="shrink-0" @click="openDbBackupsFolder">
+						<FolderOpenIcon aria-hidden="true" />
+						{{ formatMessage(messages.openBackupsFolder) }}
+					</Button>
+				</div>
+			</div>
+
 			<ConfirmModalWrapper
 				ref="purgeCacheConfirmModal"
 				:title="formatMessage(messages.purgeCacheConfirmTitle)"
@@ -231,61 +345,6 @@ async function findLauncherDir() {
 				:show-ad-on-close="false"
 				@proceed="purgeCache"
 			/>
-			<h2 class="m-0 text-lg font-semibold text-contrast">
-				{{ formatMessage(messages.appCacheTitle) }}
-			</h2>
-			<Button id="purge-cache" class="w-fit" @click="handlePurgeCacheClick">
-				<TrashIcon aria-hidden="true" />
-				{{ formatMessage(messages.purgeCache) }}
-			</Button>
-			<p class="m-0 leading-tight text-secondary">
-				{{ formatMessage(messages.appCacheDescription) }}
-			</p>
-		</div>
-
-		<div class="flex flex-col gap-2.5">
-			<h2 class="m-0 text-lg font-semibold text-contrast mt-4">
-				{{ formatMessage(messages.maximumConcurrentDownloadsTitle) }}
-			</h2>
-			<Slider
-				id="max-downloads"
-				v-model="settings.max_concurrent_downloads"
-				:min="1"
-				:max="10"
-				:step="1"
-			/>
-			<p class="m-0 leading-tight text-secondary">
-				{{ formatMessage(messages.maximumConcurrentDownloadsDescription) }}
-			</p>
-		</div>
-
-		<div class="flex flex-col gap-2.5">
-			<h2 class="mt-0 m-0 text-lg font-semibold text-contrast">
-				{{ formatMessage(messages.maximumConcurrentWritesTitle) }}
-			</h2>
-			<Slider
-				id="max-writes"
-				v-model="settings.max_concurrent_writes"
-				:min="1"
-				:max="50"
-				:step="1"
-			/>
-			<p class="m-0 leading-tight text-secondary">
-				{{ formatMessage(messages.maximumConcurrentWritesDescription) }}
-			</p>
-		</div>
-
-		<div class="flex flex-col gap-2.5">
-			<h2 class="mt-0 m-0 text-lg font-semibold text-contrast">
-				{{ formatMessage(messages.appDatabaseBackupsTitle) }}
-			</h2>
-			<Button id="open-db-backups-folder" class="w-fit" @click="openDbBackupsFolder">
-				<FolderOpenIcon aria-hidden="true" />
-				{{ formatMessage(messages.openBackupsFolder) }}
-			</Button>
-			<p class="m-0 leading-tight text-secondary">
-				{{ formatMessage(messages.appDatabaseBackupsDescription) }}
-			</p>
-		</div>
+		</section>
 	</div>
 </template>

@@ -716,9 +716,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Lastare"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Namn"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Ange instansnamn"
   },

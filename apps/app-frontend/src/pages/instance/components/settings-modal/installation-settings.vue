@@ -304,7 +304,7 @@ provideInstallationSettings({
 			})
 			return result
 		}
-		const placeholder = manifest.gameVersions?.find((item) => item.id === '${freeplay.gameVersion}')
+		const placeholder = manifest.gameVersions?.find((item) => item.id.includes('gameVersion}'))
 		if (placeholder) {
 			const result = manifest.gameVersions?.some((item) => item.id === gameVersion)
 				? placeholder.loaders

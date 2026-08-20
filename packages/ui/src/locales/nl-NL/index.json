@@ -731,9 +731,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Loader"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Naam"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Naam van instantie invoeren"
   },

@@ -41,9 +41,30 @@ pub async fn run(
     )
     .await?;
 
-    let default_account = Credentials::get_default_credential(&state.pool)
-        .await?
-        .ok_or_else(|| crate::ErrorKind::NoCredentialsError.as_error())?;
+    let default_account = match Credentials::get_default_credential(&state.pool).await? {
+        Some(acc) => acc,
+        None => {
+            let all = Credentials::get_all(&state.pool).await?;
+            let active_key = all.iter().find(|u| u.value().active).map(|u| *u.key());
+            let non_player_key = all
+                .iter()
+                .find(|u| u.value().offline_profile.name.to_lowercase() != "player")
+                .map(|u| *u.key());
+            let any_key = all.iter().next().map(|u| *u.key());
+            let target_key = active_key.or(non_player_key).or(any_key);
+            if let Some(key) = target_key {
+                if let Some((_, mut user)) = all.remove(&key) {
+                    user.active = true;
+                    let _ = user.upsert(&state.pool).await;
+                    user
+                } else {
+                    crate::state::create_offline_account("Player".to_string(), &state.pool).await?
+                }
+            } else {
+                crate::state::create_offline_account("Player".to_string(), &state.pool).await?
+            }
+        }
+    };
 
     run_credentials(instance_id, &default_account, quick_play_type).await
 }
@@ -218,7 +239,9 @@ async fn run_credentials(
         mc_set_options.push(("fullscreen".to_string(), "true".to_string()));
     }
 
-    if let Some(project_id) = server_play_project_id(&context.link)
+    if credentials.access_token != "0"
+        && !credentials.refresh_token.is_empty()
+        && let Some(project_id) = server_play_project_id(&context.link)
         && !project_id.trim().is_empty()
     {
         let server_id = uuid::Uuid::new_v4().to_string();
@@ -267,7 +290,9 @@ async fn run_credentials(
         }
     }
 
-    crate::minecraft_skins::flush_pending_skin_change().await?;
+    if credentials.access_token != "0" && !credentials.refresh_token.is_empty() {
+        let _ = crate::minecraft_skins::flush_pending_skin_change().await;
+    }
     crate::launcher::launch_minecraft(
         &java_args,
         &launch_env_args,

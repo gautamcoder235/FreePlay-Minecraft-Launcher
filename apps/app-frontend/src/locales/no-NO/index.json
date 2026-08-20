@@ -215,9 +215,6 @@
   "app.settings.tabs.language": {
     "message": "Språk"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Personvern"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Ressursforvaltning"
   },

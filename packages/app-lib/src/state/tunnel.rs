@@ -84,6 +84,7 @@ pub struct HostStatus {
     pub public_address: Option<String>,
     pub server_logs: Vec<String>,
     pub tunnel_logs: Vec<String>,
+    pub uptime_seconds: u64,
 }
 
 pub struct ServerHostingState {
@@ -132,18 +133,21 @@ impl ServerHostingState {
         self.server_supervisor
             .start_server(&version, &server_type, ram_mb, port, &working_dir)
             .await
-            .map_err(Into::into)
+            .map_err(crate::Error::from)?;
+
+        Ok(())
     }
 
     pub async fn stop_server(&self) -> crate::Result<()> {
-        self.server_supervisor.stop_server().await.map_err(Into::into)
+        let _ = self.tunnel_supervisor.stop_playit_tunnel().await;
+        self.server_supervisor.stop_server().await.map_err(crate::Error::from)
     }
 
     pub async fn send_command(&self, command: String) -> crate::Result<()> {
         self.server_supervisor
             .send_console_command(&command)
             .await
-            .map_err(Into::into)
+            .map_err(crate::Error::from)
     }
 
     pub async fn get_status(&self) -> HostStatus {
@@ -158,6 +162,7 @@ impl ServerHostingState {
         let public_address = self.tunnel_supervisor.get_public_address().await;
         let server_logs = self.server_supervisor.get_logs().await;
         let tunnel_logs = self.tunnel_supervisor.get_logs().await;
+        let uptime_seconds = self.server_supervisor.get_uptime_seconds().await;
 
         HostStatus {
             server_running,
@@ -171,6 +176,7 @@ impl ServerHostingState {
             public_address,
             server_logs,
             tunnel_logs,
+            uptime_seconds,
         }
     }
 
@@ -178,14 +184,74 @@ impl ServerHostingState {
         self.tunnel_supervisor
             .start_playit_tunnel(port)
             .await
-            .map_err(Into::into)
+            .map_err(crate::Error::from)
     }
 
     pub async fn stop_tunnel(&self) -> crate::Result<()> {
         self.tunnel_supervisor
             .stop_playit_tunnel()
             .await
-            .map_err(Into::into)
+            .map_err(crate::Error::from)
+    }
+
+    pub async fn kill_server(&self) -> crate::Result<()> {
+        let _ = self.tunnel_supervisor.stop_playit_tunnel().await;
+        self.server_supervisor
+            .kill_server()
+            .await
+            .map_err(crate::Error::from)
+    }
+
+    pub async fn get_working_dir(&self) -> Option<std::path::PathBuf> {
+        self.current_working_dir.read().await.clone()
+    }
+
+    pub async fn set_working_dir(&self, path: std::path::PathBuf) {
+        *self.current_working_dir.write().await = Some(path);
+    }
+
+    pub async fn update_config(
+        &self,
+        version: Option<String>,
+        engine: Option<String>,
+        ram_gb: Option<u32>,
+        motd: Option<String>,
+        port: Option<u16>,
+    ) {
+        if let Some(v) = version {
+            *self.current_version.write().await = Some(v);
+        }
+        if let Some(e) = engine {
+            *self.current_server_type.write().await = Some(e);
+        }
+        if let Some(r) = ram_gb {
+            *self.current_ram_mb.write().await = r * 1024;
+        }
+        if let Some(p) = port {
+            *self.current_port.write().await = p;
+        }
+        if let Some(m) = motd {
+            if let Some(ref dir) = *self.current_working_dir.read().await {
+                let prop_file = dir.join("server.properties");
+                if prop_file.exists() {
+                    if let Ok(content) = std::fs::read_to_string(&prop_file) {
+                        let mut lines: Vec<String> =
+                            content.lines().map(|s| s.to_string()).collect();
+                        let mut found = false;
+                        for line in &mut lines {
+                            if line.trim().starts_with("motd=") {
+                                *line = format!("motd={}", m);
+                                found = true;
+                            }
+                        }
+                        if !found {
+                            lines.push(format!("motd={}", m));
+                        }
+                        let _ = std::fs::write(&prop_file, lines.join("\n") + "\n");
+                    }
+                }
+            }
+        }
     }
 }
 

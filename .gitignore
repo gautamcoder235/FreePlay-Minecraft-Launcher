@@ -97,3 +97,8 @@ packages/tooling-config/script-utils/import-sort.js
 
 # Local engineering rules
 OPEN_SOURCE_FIRST_RULE.md
+
+# Python cache
+__pycache__/
+*.pyc
+

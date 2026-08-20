@@ -1,18 +1,45 @@
 <template>
-	<div class="gallery">
-		<Card v-for="(image, index) in filteredGallery" :key="image.url" class="gallery-item">
-			<a @click="expandImage(image, index)">
-				<img :src="image.url" :alt="image.title" class="gallery-image" />
-			</a>
-			<div class="gallery-body">
-				<h3>{{ image.title }}</h3>
-				{{ image.description }}
+	<div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-4 w-full">
+		<div
+			v-for="(image, index) in filteredGallery"
+			:key="image.url"
+			class="group flex flex-col rounded-2xl bg-surface-2 border border-surface-4 shadow-sm overflow-hidden transition-all duration-300 hover:border-surface-5 hover:shadow-md cursor-pointer"
+			@click="expandImage(image, index)"
+		>
+			<div class="relative w-full aspect-[16/9] overflow-hidden bg-surface-3">
+				<img
+					:src="image.url"
+					:alt="image.title"
+					class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+				/>
+				<div
+					class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3"
+				>
+					<span class="text-white text-xs font-semibold flex items-center gap-1">
+						<ExpandIcon class="size-3.5" /> View full image
+					</span>
+				</div>
 			</div>
-			<span class="gallery-time">
-				<CalendarIcon />
-				{{ formatDate(new Date(image.created)) }}
-			</span>
-		</Card>
+			<div class="flex-1 p-4 flex flex-col justify-between gap-2">
+				<div>
+					<h3
+						v-if="image.title"
+						class="m-0 text-base font-bold text-contrast group-hover:text-brand transition-colors"
+					>
+						{{ image.title }}
+					</h3>
+					<p v-if="image.description" class="m-0 mt-1 text-xs text-secondary line-clamp-2">
+						{{ image.description }}
+					</p>
+				</div>
+				<span
+					class="flex items-center gap-1.5 text-xs text-secondary pt-2 border-t border-surface-4/40 mt-auto"
+				>
+					<CalendarIcon class="size-3.5" />
+					{{ formatDate(new Date(image.created)) }}
+				</span>
+			</div>
+		</div>
 	</div>
 	<Teleport to="#teleports">
 		<div v-if="expandedGalleryItem" class="expanded-image-modal" @click="hideImage">
@@ -92,7 +119,7 @@ import {
 	RightArrowIcon,
 	XIcon,
 } from '@freeplay/assets'
-import { ButtonLink, Card, IconButton, useFormatDateTime } from '@freeplay/ui'
+import { ButtonLink, IconButton, useFormatDateTime } from '@freeplay/ui'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import { release_ads_window_hold, take_ads_window_hold } from '@/helpers/ads.js'
@@ -198,38 +225,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.gallery {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-	width: 100%;
-	gap: 1rem;
-}
-
-.gallery-item {
-	padding: 0;
-	overflow: hidden;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-
-	.gallery-image {
-		width: 100%;
-		aspect-ratio: 2/1;
-		object-fit: cover;
-		object-position: center;
-	}
-
-	.gallery-body {
-		flex-grow: 1;
-		padding: 1rem;
-	}
-
-	.gallery-time {
-		padding: 0 1rem 1rem;
-		vertical-align: center;
-	}
-}
-
 .expanded-image-modal {
 	position: fixed;
 	z-index: 11;

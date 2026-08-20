@@ -19,7 +19,8 @@ const messages = defineMessages({
 	},
 	description: {
 		id: 'app.hosting.update-required.description',
-		defaultMessage: 'You need to update to use FreePlay Server Hosting through the FreePlay Launcher',
+		defaultMessage:
+			'You need to update to use FreePlay Server Hosting through the FreePlay Launcher',
 	},
 	downloadToUpdate: {
 		id: 'app.hosting.update-required.download',

@@ -1,3 +1,4 @@
+import { useAccountStore } from './account.ts'
 import { useTheming } from './theme.ts'
 
-export { useTheming }
+export { useAccountStore, useTheming }

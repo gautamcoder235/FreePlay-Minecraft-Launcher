@@ -380,9 +380,6 @@
   "app.settings.tabs.language": {
     "message": "Kieli"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Yksityisyys"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Resurssien hallinta"
   },

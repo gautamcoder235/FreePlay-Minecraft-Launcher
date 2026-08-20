@@ -731,9 +731,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Loader"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Nombre"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Introduce el nombre de la instancia"
   },

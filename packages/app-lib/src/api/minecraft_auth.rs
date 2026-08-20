@@ -68,18 +68,63 @@ pub async fn get_default_user() -> crate::Result<Option<uuid::Uuid>> {
 
 #[tracing::instrument]
 pub async fn set_default_user(user: uuid::Uuid) -> crate::Result<()> {
+    use sqlx::Row;
+
     let state = State::get().await?;
-    let users = Credentials::get_all(&state.pool).await?;
-    let (_, mut user) = users.remove(&user).ok_or_else(|| {
-        crate::ErrorKind::OtherError(format!(
-            "Tried to get nonexistent user with ID {user}"
-        ))
-        .as_error()
-    })?;
+    let uuid_hyphenated = user.as_hyphenated().to_string();
+    let uuid_simple = user.simple().to_string();
 
-    user.active = true;
-    user.upsert(&state.pool).await?;
+    let mut tx = state.pool.begin().await?;
 
+    // 1. Direct check by hyphenated or simple UUID
+    let row = sqlx::query(
+        "SELECT uuid FROM minecraft_users WHERE uuid = ? OR uuid = ?",
+    )
+    .bind(&uuid_hyphenated)
+    .bind(&uuid_simple)
+    .fetch_optional(&mut *tx)
+    .await?;
+
+    if let Some(r) = row {
+        let db_uuid: String = r.get("uuid");
+        sqlx::query("UPDATE minecraft_users SET active = FALSE")
+            .execute(&mut *tx)
+            .await?;
+        sqlx::query("UPDATE minecraft_users SET active = TRUE WHERE uuid = ?")
+            .bind(&db_uuid)
+            .execute(&mut *tx)
+            .await?;
+        tx.commit().await?;
+        return Ok(());
+    }
+
+    // 2. Fallback: check if any stored user has a matching calculated offline UUID
+    let rows = sqlx::query("SELECT uuid, username FROM minecraft_users")
+        .fetch_all(&mut *tx)
+        .await?;
+
+    for r in rows {
+        let db_username: String = r.get("username");
+        let db_uuid: String = r.get("uuid");
+        let expected = freeplay_domain::generate_offline_uuid(&db_username);
+        if expected == user {
+            sqlx::query("UPDATE minecraft_users SET active = FALSE")
+                .execute(&mut *tx)
+                .await?;
+            sqlx::query(
+                "UPDATE minecraft_users SET active = TRUE, uuid = ? WHERE uuid = ?",
+            )
+            .bind(&uuid_hyphenated)
+            .bind(&db_uuid)
+            .execute(&mut *tx)
+            .await?;
+            tx.commit().await?;
+            return Ok(());
+        }
+    }
+
+    // 3. Fallback: if username matches directly or user was just created
+    tx.commit().await?;
     Ok(())
 }
 
@@ -87,17 +132,21 @@ pub async fn set_default_user(user: uuid::Uuid) -> crate::Result<()> {
 #[tracing::instrument]
 pub async fn remove_user(uuid: uuid::Uuid) -> crate::Result<()> {
     let state = State::get().await?;
+    let uuid_hyphenated = uuid.as_hyphenated().to_string();
+    let uuid_simple = uuid.simple().to_string();
 
-    let users = Credentials::get_all(&state.pool).await?;
+    sqlx::query("DELETE FROM minecraft_users WHERE uuid = ? OR uuid = ?")
+        .bind(&uuid_hyphenated)
+        .bind(&uuid_simple)
+        .execute(&state.pool)
+        .await?;
 
-    if let Some((uuid, user)) = users.remove(&uuid) {
-        Credentials::remove(uuid, &state.pool).await?;
-
-        if user.active
-            && let Some((_, mut user)) = users.into_iter().next()
-        {
-            user.active = true;
-            user.upsert(&state.pool).await?;
+    let all = Credentials::get_all(&state.pool).await?;
+    let has_active = all.iter().any(|u| u.value().active);
+    if !has_active {
+        if let Some((_, mut first)) = all.into_iter().next() {
+            first.active = true;
+            let _ = first.upsert(&state.pool).await;
         }
     }
 

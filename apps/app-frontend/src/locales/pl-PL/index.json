@@ -857,9 +857,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.description": {
     "message": "Ilość plików, które aplikacja może zapisywać na dysku na raz. Zmniejsz tę wartość, jeśli często występują błędy wejścia/wyjścia. Wymaga ponownego uruchomienia aplikacji."
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "Instancje"
-  },
   "app.settings.tabs.appearance": {
     "message": "Wygląd"
   },
@@ -874,9 +871,6 @@
   },
   "app.settings.tabs.language": {
     "message": "Język"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "Prywatność"
   },
   "app.settings.tabs.resource-management": {
     "message": "Zarządzanie zasobami"
@@ -1660,11 +1654,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "Tylko mody po stronie klienta mogą być dodane do instancji serwera"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Konto"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Wyświetlanie"
   }
 }

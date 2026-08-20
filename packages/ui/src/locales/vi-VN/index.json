@@ -632,9 +632,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Loader"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Tên"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Nhập tên cấu hình"
   },

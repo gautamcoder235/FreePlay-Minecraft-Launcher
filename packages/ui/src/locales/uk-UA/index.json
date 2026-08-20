@@ -686,9 +686,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Завантажувач"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Ім'я"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Уведіть назву для збірки"
   },

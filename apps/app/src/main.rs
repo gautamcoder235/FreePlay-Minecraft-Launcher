@@ -170,6 +170,7 @@ fn main() {
             }
 
             if let Some(win) = app.get_window("main") {
+                let _ = win.show();
                 let _ = win.set_focus();
             }
         }))
@@ -277,10 +278,23 @@ fn main() {
             restart_app,
             theseus::server_address::host_start_server,
             theseus::server_address::host_stop_server,
+            theseus::server_address::host_kill_server,
             theseus::server_address::host_send_command,
             theseus::server_address::host_get_status,
             theseus::server_address::host_start_tunnel,
             theseus::server_address::host_stop_tunnel,
+            theseus::server_address::host_open_server_dir,
+            theseus::server_address::host_update_config,
+            theseus::server_address::host_read_file,
+            theseus::server_address::host_save_file,
+            theseus::server_address::host_get_files,
+            theseus::server_address::host_create_backup,
+            theseus::server_address::host_restore_backup,
+            theseus::server_address::host_get_backups,
+            theseus::server_address::host_list_servers,
+            theseus::server_address::host_create_server,
+            theseus::server_address::host_delete_server,
+            theseus::server_address::host_select_server,
         ]);
 
     tracing::info!("Initializing app...");

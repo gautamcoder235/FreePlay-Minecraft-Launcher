@@ -971,9 +971,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "最大同時書き込み数"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "インスタンス"
-  },
   "app.settings.tabs.appearance": {
     "message": "表示設定"
   },
@@ -988,9 +985,6 @@
   },
   "app.settings.tabs.language": {
     "message": "言語"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "プライバシー設定"
   },
   "app.settings.tabs.resource-management": {
     "message": "リソース管理"
@@ -1873,11 +1867,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "サーバーインスタンスにはクライアント側Modのみ追加可能"
-  },
-  "settings.sidebar.label.account": {
-    "message": "アカウント"
-  },
-  "settings.sidebar.label.display": {
-    "message": "ディスプレイ"
   }
 }

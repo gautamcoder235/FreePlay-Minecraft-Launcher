@@ -12,7 +12,7 @@ withDefaults(
 	<div
 		class="gap-3"
 		:class="{
-			'flex flex-col': layout === 'list',
+			'grid grid-cols-1 md:grid-cols-2': layout === 'list',
 			'grid grid-project-list': layout === 'grid' || layout === 'gallery',
 		}"
 		role="list"

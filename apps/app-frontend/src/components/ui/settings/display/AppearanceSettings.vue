@@ -56,53 +56,87 @@ watch(
 )
 </script>
 <template>
-	<h2 class="m-0 text-lg font-semibold text-contrast">
-		{{ formatMessage(messages.colorThemeTitle) }}
-	</h2>
+	<div class="flex flex-col gap-6">
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">
+					{{ formatMessage(messages.colorThemeTitle) }}
+				</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					{{ formatMessage(messages.colorThemeDescription) }}
+				</p>
+			</div>
 
-	<p class="m-0 mt-1">{{ formatMessage(messages.colorThemeDescription) }}</p>
+			<div class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm">
+				<ThemeSelector
+					:update-color-theme="
+						(theme: ColorTheme) => {
+							themeStore.setThemeState(theme)
+							settings.theme = theme
+						}
+					"
+					:current-theme="settings.theme"
+					:theme-options="themeOptions"
+					system-theme-color="system"
+				/>
+			</div>
+		</section>
 
-	<ThemeSelector
-		:update-color-theme="
-			(theme: ColorTheme) => {
-				themeStore.setThemeState(theme)
-				settings.theme = theme
-			}
-		"
-		:current-theme="settings.theme"
-		:theme-options="themeOptions"
-		system-theme-color="system"
-	/>
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">Visual & Window Effects</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Customize rendering performance and window styling.
+				</p>
+			</div>
 
-	<div class="mt-6 flex items-center justify-between">
-		<div>
-			<h2 class="m-0 text-lg font-semibold text-contrast">
-				{{ formatMessage(messages.advancedRenderingTitle) }}
-			</h2>
-			<p class="m-0 mt-1">
-				{{ formatMessage(messages.advancedRenderingDescription) }}
-			</p>
-		</div>
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label
+							for="advanced-rendering"
+							class="text-sm font-semibold text-contrast cursor-pointer"
+						>
+							{{ formatMessage(messages.advancedRenderingTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.advancedRenderingDescription) }}
+						</p>
+					</div>
 
-		<Toggle
-			id="advanced-rendering"
-			:model-value="themeStore.advancedRendering"
-			@update:model-value="
-				(e) => {
-					themeStore.advancedRendering = !!e
-					settings.advanced_rendering = themeStore.advancedRendering
-				}
-			"
-		/>
-	</div>
+					<Toggle
+						id="advanced-rendering"
+						:model-value="themeStore.advancedRendering"
+						@update:model-value="
+							(e) => {
+								themeStore.advancedRendering = !!e
+								settings.advanced_rendering = themeStore.advancedRendering
+							}
+						"
+					/>
+				</div>
 
-	<div v-if="os !== 'MacOS'" class="mt-6 flex items-center justify-between gap-4">
-		<div>
-			<h2 class="m-0 text-lg font-semibold text-contrast">
-				{{ formatMessage(messages.nativeDecorationsTitle) }}
-			</h2>
-			<p class="m-0 mt-1">{{ formatMessage(messages.nativeDecorationsDescription) }}</p>
-		</div>
-		<Toggle id="native-decorations" v-model="settings.native_decorations" />
+				<template v-if="os !== 'MacOS'">
+					<div class="h-px bg-surface-4/60 -mx-5" />
+
+					<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+						<div class="flex flex-col gap-0.5">
+							<label
+								for="native-decorations"
+								class="text-sm font-semibold text-contrast cursor-pointer"
+							>
+								{{ formatMessage(messages.nativeDecorationsTitle) }}
+							</label>
+							<p class="m-0 text-xs text-secondary leading-relaxed">
+								{{ formatMessage(messages.nativeDecorationsDescription) }}
+							</p>
+						</div>
+						<Toggle id="native-decorations" v-model="settings.native_decorations" />
+					</div>
+				</template>
+			</div>
+		</section>
 	</div>
 </template>

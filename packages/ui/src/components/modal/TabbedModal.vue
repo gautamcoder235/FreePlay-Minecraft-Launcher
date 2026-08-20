@@ -101,7 +101,7 @@ defineExpose({ show, hide, selectedTab, setTab })
 		</template>
 		<div class="grid grid-cols-[auto_1fr] p-6 pb-3 pr-0">
 			<div
-				class="flex min-w-[200px] max-h-[min(65vh,600px)] flex-col border-0 border-r-[1px] border-solid border-divider pr-4"
+				class="flex min-w-[220px] max-h-[min(68vh,640px)] flex-col border-0 border-r border-solid border-surface-4 pr-4"
 			>
 				<div class="relative min-h-0 flex-1">
 					<Transition
@@ -120,13 +120,13 @@ defineExpose({ show, hide, selectedTab, setTab })
 
 					<div
 						ref="sidebarScrollContainer"
-						class="flex h-full flex-col gap-1 overflow-y-auto"
+						class="flex h-full flex-col gap-1 overflow-y-auto pr-1"
 						@scroll="checkSidebarScrollState"
 					>
 						<template v-for="(tab, index) in visibleTabs" :key="index">
 							<div
 								v-if="startsCategory(index) && tab.category"
-								class="px-4 pb-1 pt-2 text-xs font-bold uppercase tracking-wide text-secondary"
+								class="px-3.5 pt-3.5 pb-1 text-[11px] font-bold uppercase tracking-wider text-secondary select-none"
 							>
 								{{ formatMessage(tab.category) }}
 							</div>
@@ -135,18 +135,39 @@ defineExpose({ show, hide, selectedTab, setTab })
 								:href="tab.href ?? undefined"
 								:target="tab.href ? '_blank' : undefined"
 								:rel="tab.href ? 'noopener noreferrer' : undefined"
-								:class="`flex gap-2 items-center text-left rounded-xl px-4 py-2 border-none text-nowrap font-semibold cursor-pointer active:scale-[0.97] transition-all no-underline ${!tab.href && selectedTab === index ? 'bg-button-bgSelected text-button-textSelected' : 'bg-transparent text-button-text hover:bg-button-bg hover:text-contrast'}`"
+								:class="[
+									'group relative flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl text-left font-medium text-sm transition-all duration-150 ease-out cursor-pointer select-none no-underline border-none',
+									!tab.href && selectedTab === index
+										? 'bg-surface-3 text-contrast font-semibold shadow-xs'
+										: 'bg-transparent text-primary hover:bg-surface-3/60 hover:text-contrast hover:translate-x-0.5 active:scale-[0.98]',
+								]"
 								@click="!tab.href && setTab(index)"
 							>
-								<component :is="tab.icon" class="w-4 h-4 flex-shrink-0" />
-								<span>{{ formatMessage(tab.name) }}</span>
+								<span
+									v-if="!tab.href && selectedTab === index"
+									class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-full bg-brand shadow-[0_0_8px_rgba(27,217,106,0.5)]"
+									aria-hidden="true"
+								/>
+								<component
+									:is="tab.icon"
+									class="size-4 shrink-0 transition-colors duration-150"
+									:class="
+										!tab.href && selectedTab === index
+											? 'text-brand'
+											: 'text-secondary group-hover:text-contrast'
+									"
+								/>
+								<span class="truncate flex-1">{{ formatMessage(tab.name) }}</span>
 								<span
 									v-if="tab.badge"
-									class="rounded-full px-1.5 py-0.5 text-xs font-bold bg-brand-highlight text-brand-green"
+									class="rounded-full px-2 py-0.5 text-[11px] font-bold bg-brand-highlight text-brand-green border border-brand/20"
 								>
 									{{ formatMessage(tab.badge) }}
 								</span>
-								<RightArrowIcon v-if="tab.href" class="size-4 ml-auto" />
+								<RightArrowIcon
+									v-if="tab.href"
+									class="size-3.5 text-secondary ml-auto opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all"
+								/>
 							</component>
 						</template>
 					</div>
@@ -168,7 +189,7 @@ defineExpose({ show, hide, selectedTab, setTab })
 
 				<slot name="footer" />
 			</div>
-			<div class="relative min-h-[min(65vh,600px)]">
+			<div class="relative min-h-[min(68vh,640px)]">
 				<Transition
 					enter-active-class="transition-all duration-200 ease-out"
 					enter-from-class="opacity-0 max-h-0"

@@ -1431,13 +1431,13 @@ async fn sync_cape(
     Ok(())
 }
 
-#[tauri::command]
+#[cfg_attr(feature = "tauri", tauri::command)]
 pub async fn set_offline_user_skin(
-    state: tauri::State<'_, State>,
     username: String,
     png_bytes: Vec<u8>,
     is_slim: bool,
 ) -> crate::Result<()> {
+    let state = crate::State::get().await?;
     let store = crate::state::minecraft_skins::offline::OfflineSkinStore::new(state.directories.config_dir.join("skins"));
     let variant = if is_slim {
         crate::state::minecraft_skins::offline::SkinVariant::Slim
@@ -1448,21 +1448,22 @@ pub async fn set_offline_user_skin(
     Ok(())
 }
 
-#[tauri::command]
+#[cfg_attr(feature = "tauri", tauri::command)]
 pub async fn get_offline_user_skin(
-    state: tauri::State<'_, State>,
     username: String,
 ) -> crate::Result<Option<crate::state::minecraft_skins::offline::OfflineSkinMetadata>> {
+    let state = crate::State::get().await?;
     let store = crate::state::minecraft_skins::offline::OfflineSkinStore::new(state.directories.config_dir.join("skins"));
     Ok(store.get_skin(&username))
 }
 
-#[tauri::command]
+#[cfg_attr(feature = "tauri", tauri::command)]
 pub async fn remove_offline_user_skin(
-    state: tauri::State<'_, State>,
     username: String,
 ) -> crate::Result<()> {
+    let state = crate::State::get().await?;
     let store = crate::state::minecraft_skins::offline::OfflineSkinStore::new(state.directories.config_dir.join("skins"));
     store.delete_skin(&username)?;
     Ok(())
 }
+

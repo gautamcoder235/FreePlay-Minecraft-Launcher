@@ -1,11 +1,11 @@
 <template>
-	<Card>
+	<div class="rounded-2xl bg-surface-2 border border-surface-4 p-6 sm:p-8 shadow-sm transition-all">
 		<ProjectPageDescription :description="project.body" />
-	</Card>
+	</div>
 </template>
 
 <script setup>
-import { Card, ProjectPageDescription } from '@freeplay/ui'
+import { ProjectPageDescription } from '@freeplay/ui'
 
 defineProps({
 	project: {

@@ -19,4 +19,3 @@ const serverBreadcrumb = useBreadcrumb({
 })
 provideBreadcrumbParent(serverBreadcrumb)
 </script>
-

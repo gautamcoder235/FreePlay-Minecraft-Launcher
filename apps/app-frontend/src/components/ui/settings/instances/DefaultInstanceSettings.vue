@@ -16,6 +16,10 @@ const { handleError } = injectNotificationManager()
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+	windowSectionTitle: {
+		id: 'app.settings.default-instance-options.window-section.title',
+		defaultMessage: 'Game Window & Resolution',
+	},
 	fullscreenTitle: {
 		id: 'app.settings.default-instance-options.fullscreen.title',
 		defaultMessage: 'Fullscreen',
@@ -179,184 +183,227 @@ watch(
 </script>
 
 <template>
-	<div>
-		<div class="flex flex-col gap-6">
-			<div class="flex items-center justify-between gap-4">
-				<div class="flex flex-col gap-1">
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.fullscreenTitle) }}
-					</h3>
-					<p class="m-0 leading-tight">
-						{{ formatMessage(messages.fullscreenDescription) }}
+	<div class="flex flex-col gap-6">
+		<!-- Window & Resolution -->
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">
+					{{ formatMessage(messages.windowSectionTitle) }}
+				</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Configure default resolution and fullscreen launch mode.
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
+					<div class="flex flex-col gap-0.5">
+						<label for="fullscreen" class="text-sm font-semibold text-contrast cursor-pointer">
+							{{ formatMessage(messages.fullscreenTitle) }}
+						</label>
+						<p class="m-0 text-xs text-secondary leading-relaxed">
+							{{ formatMessage(messages.fullscreenDescription) }}
+						</p>
+					</div>
+					<Toggle id="fullscreen" v-model="settings.force_fullscreen" />
+				</div>
+
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+					<div class="flex flex-col gap-1.5">
+						<label for="width" class="text-sm font-semibold text-contrast">
+							{{ formatMessage(messages.widthTitle) }}
+						</label>
+						<StyledInput
+							id="width"
+							v-model="settings.game_resolution[0]"
+							:disabled="settings.force_fullscreen"
+							autocomplete="off"
+							type="number"
+							:placeholder="formatMessage(messages.widthPlaceholder)"
+						/>
+						<p class="m-0 text-xs text-secondary leading-tight">
+							{{ formatMessage(messages.widthDescription) }}
+						</p>
+					</div>
+
+					<div class="flex flex-col gap-1.5">
+						<label for="height" class="text-sm font-semibold text-contrast">
+							{{ formatMessage(messages.heightTitle) }}
+						</label>
+						<StyledInput
+							id="height"
+							v-model="settings.game_resolution[1]"
+							:disabled="settings.force_fullscreen"
+							autocomplete="off"
+							type="number"
+							:placeholder="formatMessage(messages.heightPlaceholder)"
+						/>
+						<p class="m-0 text-xs text-secondary leading-tight">
+							{{ formatMessage(messages.heightDescription) }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Memory & Launch Arguments -->
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">Memory & Java Configuration</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Set default RAM allocation, launch flags, and environment variables.
+				</p>
+			</div>
+
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="flex flex-col gap-2">
+					<label for="max-memory" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.memoryAllocationTitle) }}
+					</label>
+					<Slider
+						id="max-memory"
+						v-model="settings.memory.maximum"
+						:min="512"
+						:max="maxMemory"
+						:step="64"
+						:snap-points="snapPoints"
+						:snap-range="512"
+						unit="MB"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.memoryAllocationDescription) }}
 					</p>
 				</div>
 
-				<Toggle id="fullscreen" v-model="settings.force_fullscreen" />
-			</div>
+				<div class="h-px bg-surface-4/60 -mx-5" />
 
-			<div class="flex items-center justify-between gap-4">
-				<div class="flex flex-col gap-1">
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.widthTitle) }}
-					</h3>
-					<p class="m-0 leading-tight">
-						{{ formatMessage(messages.widthDescription) }}
+				<div class="flex flex-col gap-2">
+					<label for="java-args" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.javaArgumentsTitle) }}
+					</label>
+					<StyledInput
+						id="java-args"
+						v-model="settings.launchArgs"
+						autocomplete="off"
+						type="text"
+						:placeholder="formatMessage(messages.javaArgumentsPlaceholder)"
+						wrapper-class="w-full"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.javaArgumentsDescription) }}
 					</p>
 				</div>
 
-				<StyledInput
-					id="width"
-					v-model="settings.game_resolution[0]"
-					:disabled="settings.force_fullscreen"
-					autocomplete="off"
-					type="number"
-					:placeholder="formatMessage(messages.widthPlaceholder)"
-				/>
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="flex flex-col gap-2">
+					<label for="env-vars" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.environmentVariablesTitle) }}
+					</label>
+					<StyledInput
+						id="env-vars"
+						v-model="settings.envVars"
+						autocomplete="off"
+						type="text"
+						:placeholder="formatMessage(messages.environmentVariablesPlaceholder)"
+						wrapper-class="w-full"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.environmentVariablesDescription) }}
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Lifecycle Hooks -->
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">Lifecycle Hooks</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Execute automated custom scripts before or after game launch.
+				</p>
 			</div>
 
-			<div class="flex items-center justify-between gap-4">
-				<div class="flex flex-col gap-1">
-					<h3 class="m-0 text-lg font-semibold text-contrast">
-						{{ formatMessage(messages.heightTitle) }}
-					</h3>
-					<p class="m-0 leading-tight">
-						{{ formatMessage(messages.heightDescription) }}
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-5"
+			>
+				<div class="flex flex-col gap-2">
+					<label for="pre-launch" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.preLaunchHookTitle) }}
+					</label>
+					<StyledInput
+						id="pre-launch"
+						v-model="settings.hooks.pre_launch"
+						autocomplete="off"
+						type="text"
+						:placeholder="formatMessage(messages.preLaunchHookPlaceholder)"
+						wrapper-class="w-full"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.preLaunchHookDescription) }}
 					</p>
 				</div>
 
-				<StyledInput
-					id="height"
-					v-model="settings.game_resolution[1]"
-					:disabled="settings.force_fullscreen"
-					autocomplete="off"
-					type="number"
-					:placeholder="formatMessage(messages.heightPlaceholder)"
-				/>
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="flex flex-col gap-2">
+					<label for="wrapper" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.wrapperHookTitle) }}
+					</label>
+					<StyledInput
+						id="wrapper"
+						v-model="settings.hooks.wrapper"
+						autocomplete="off"
+						type="text"
+						:placeholder="formatMessage(messages.wrapperHookPlaceholder)"
+						wrapper-class="w-full"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.wrapperHookDescription) }}
+					</p>
+				</div>
+
+				<div class="h-px bg-surface-4/60 -mx-5" />
+
+				<div class="flex flex-col gap-2">
+					<label for="post-exit" class="text-sm font-semibold text-contrast">
+						{{ formatMessage(messages.postExitHookTitle) }}
+					</label>
+					<StyledInput
+						id="post-exit"
+						v-model="settings.hooks.post_exit"
+						autocomplete="off"
+						type="text"
+						:placeholder="formatMessage(messages.postExitHookPlaceholder)"
+						wrapper-class="w-full"
+					/>
+					<p class="m-0 text-xs text-secondary leading-relaxed">
+						{{ formatMessage(messages.postExitHookDescription) }}
+					</p>
+				</div>
+
+				<div
+					class="p-3.5 rounded-xl bg-surface-3 border border-surface-4/80 text-xs text-secondary leading-relaxed"
+				>
+					<p class="m-0 font-semibold text-contrast mb-1.5">
+						{{ formatMessage(messages.hookVariablesDescription) }}
+					</p>
+					<ul class="m-0 pl-4 space-y-1">
+						<li>{{ formatMessage(messages.instanceNameDescription) }}</li>
+						<li>{{ formatMessage(messages.instanceIdDescription) }}</li>
+						<li>{{ formatMessage(messages.instanceDirDescription) }}</li>
+						<li>{{ formatMessage(messages.instanceMcDirDescription) }}</li>
+						<li>{{ formatMessage(messages.instanceJavaDescription) }}</li>
+						<li>{{ formatMessage(messages.instanceJavaArgsDescription) }}</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-
-		<hr class="my-6 bg-button-border border-none h-[1px]" />
-
-		<div class="flex flex-col gap-6">
-			<div class="flex flex-col gap-2.5">
-				<h2 class="m-0 text-lg font-semibold text-contrast">
-					{{ formatMessage(messages.memoryAllocationTitle) }}
-				</h2>
-				<Slider
-					id="max-memory"
-					v-model="settings.memory.maximum"
-					:min="512"
-					:max="maxMemory"
-					:step="64"
-					:snap-points="snapPoints"
-					:snap-range="512"
-					unit="MB"
-				/>
-				<p class="m-0 mt-1 leading-tight">
-					{{ formatMessage(messages.memoryAllocationDescription) }}
-				</p>
-			</div>
-
-			<div class="flex flex-col gap-2.5">
-				<h2 class="m-0 text-lg font-semibold text-contrast">
-					{{ formatMessage(messages.javaArgumentsTitle) }}
-				</h2>
-				<StyledInput
-					id="java-args"
-					v-model="settings.launchArgs"
-					autocomplete="off"
-					type="text"
-					:placeholder="formatMessage(messages.javaArgumentsPlaceholder)"
-					wrapper-class="w-full"
-				/>
-				<p class="m-0 leading-tight">
-					{{ formatMessage(messages.javaArgumentsDescription) }}
-				</p>
-			</div>
-
-			<div class="flex flex-col gap-2.5">
-				<h2 class="m-0 text-lg font-semibold text-contrast">
-					{{ formatMessage(messages.environmentVariablesTitle) }}
-				</h2>
-				<StyledInput
-					id="env-vars"
-					v-model="settings.envVars"
-					autocomplete="off"
-					type="text"
-					:placeholder="formatMessage(messages.environmentVariablesPlaceholder)"
-					wrapper-class="w-full"
-				/>
-				<p class="m-0 leading-tight">
-					{{ formatMessage(messages.environmentVariablesDescription) }}
-				</p>
-			</div>
-		</div>
-
-		<hr class="my-6 bg-button-border border-none h-[1px]" />
-
-		<div class="flex flex-col gap-6">
-			<div class="flex flex-col gap-2.5">
-				<h3 class="m-0 text-lg font-semibold text-contrast">
-					{{ formatMessage(messages.preLaunchHookTitle) }}
-				</h3>
-				<StyledInput
-					id="pre-launch"
-					v-model="settings.hooks.pre_launch"
-					autocomplete="off"
-					type="text"
-					:placeholder="formatMessage(messages.preLaunchHookPlaceholder)"
-					wrapper-class="w-full"
-				/>
-				<p class="m-0 leading-tight">
-					{{ formatMessage(messages.preLaunchHookDescription) }}
-				</p>
-			</div>
-
-			<div class="flex flex-col gap-2.5">
-				<h3 class="m-0 text-lg font-semibold text-contrast">
-					{{ formatMessage(messages.wrapperHookTitle) }}
-				</h3>
-				<StyledInput
-					id="wrapper"
-					v-model="settings.hooks.wrapper"
-					autocomplete="off"
-					type="text"
-					:placeholder="formatMessage(messages.wrapperHookPlaceholder)"
-					wrapper-class="w-full"
-				/>
-				<p class="m-0 leading-tight">
-					{{ formatMessage(messages.wrapperHookDescription) }}
-				</p>
-			</div>
-
-			<div class="flex flex-col gap-2.5">
-				<h3 class="m-0 text-lg font-semibold text-contrast">
-					{{ formatMessage(messages.postExitHookTitle) }}
-				</h3>
-				<StyledInput
-					id="post-exit"
-					v-model="settings.hooks.post_exit"
-					autocomplete="off"
-					type="text"
-					:placeholder="formatMessage(messages.postExitHookPlaceholder)"
-					wrapper-class="w-full"
-				/>
-				<p class="m-0 leading-tight">
-					{{ formatMessage(messages.postExitHookDescription) }}
-				</p>
-			</div>
-
-			<div class="m-0 leading-tight">
-				{{ formatMessage(messages.hookVariablesDescription) }}
-				<ul>
-					<li>{{ formatMessage(messages.instanceNameDescription) }}</li>
-					<li>{{ formatMessage(messages.instanceIdDescription) }}</li>
-					<li>{{ formatMessage(messages.instanceDirDescription) }}</li>
-					<li>{{ formatMessage(messages.instanceMcDirDescription) }}</li>
-					<li>{{ formatMessage(messages.instanceJavaDescription) }}</li>
-					<li>{{ formatMessage(messages.instanceJavaArgsDescription) }}</li>
-				</ul>
-			</div>
-		</div>
+		</section>
 	</div>
 </template>

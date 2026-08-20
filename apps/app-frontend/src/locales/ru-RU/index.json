@@ -962,9 +962,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "Лимит одновременных записей"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "Сборки"
-  },
   "app.settings.tabs.appearance": {
     "message": "Внешний вид"
   },
@@ -979,9 +976,6 @@
   },
   "app.settings.tabs.language": {
     "message": "Язык"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "Конфиденциальность"
   },
   "app.settings.tabs.resource-management": {
     "message": "Управление ресурсами"
@@ -1861,11 +1855,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "В серверной сборке доступны только клиентские моды"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Аккаунт"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Отображение"
   }
 }

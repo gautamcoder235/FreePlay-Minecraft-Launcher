@@ -13,7 +13,6 @@ import {
 import type { BrowseInstallContentType, CardAction, ProjectType, Tags } from '@freeplay/ui'
 import {
 	BrowsePageLayout,
-	BrowseSidebar,
 	commonMessages,
 	CreationFlowModal,
 	defineMessages,
@@ -34,7 +33,7 @@ import {
 } from '@freeplay/ui'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { Ref } from 'vue'
-import { computed, ref, shallowRef, watch } from 'vue'
+import { computed, onActivated, onMounted, ref, shallowRef, watch } from 'vue'
 import type { LocationQuery } from 'vue-router'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -356,6 +355,16 @@ async function refreshInstalledProjectIds() {
 	installedProjectIds.value = ids
 }
 
+const instancesList = ref<GameInstance[]>([])
+
+async function refreshInstancesList() {
+	try {
+		instancesList.value = (await listInstances()) || []
+	} catch (err) {
+		debugLog('failed to load instances list for selector', err)
+	}
+}
+
 async function initInstanceContext() {
 	debugLog('initInstanceContext', {
 		queryI: route.query.i,
@@ -367,6 +376,7 @@ async function initInstanceContext() {
 	await Promise.all([
 		initServerContext(),
 		refreshInstalledProjectIds(),
+		refreshInstancesList(),
 		route.query.i ? instanceQuery.suspense().catch(handleError) : Promise.resolve(),
 	])
 
@@ -1208,7 +1218,29 @@ useAppEvent('instance', async (event) => {
 		await refreshInstalledProjectIds()
 		await searchState.refreshSearch()
 	}
+
+	await refreshInstancesList()
 })
+
+useAppEvent('instance_groups_changed', async () => {
+	await refreshInstancesList()
+})
+
+onMounted(() => {
+	void refreshInstancesList()
+})
+
+onActivated(() => {
+	void refreshInstancesList()
+	void refreshInstalledProjectIds()
+})
+
+watch(
+	() => route.path,
+	() => {
+		void refreshInstancesList()
+	},
+)
 
 function getProjectBrowseQuery() {
 	if (!browseRouteActive.value) {
@@ -1247,10 +1279,38 @@ const dismissedPhotosensitivityFilterWarning = computed({
 	},
 })
 
+const instanceOptions = computed(() => [
+	{ value: '', label: 'All Instances (Browse)' },
+	...instancesList.value.map((inst) => ({
+		value: inst.id,
+		label: inst.name,
+		subLabel: `${inst.loader ? inst.loader.toUpperCase() + ' ' : ''}${inst.game_version || ''}`,
+		icon: inst.icon_path ? getInstanceIconUrl(inst.icon_path) : undefined,
+	})),
+])
+
+const selectedInstanceId = computed(() => (route.query.i as string) || '')
+
+function handleSelectInstance(instanceId: string | null) {
+	const currentQuery = { ...route.query }
+	if (instanceId) {
+		currentQuery.i = instanceId
+	} else {
+		delete currentQuery.i
+	}
+	router.push({
+		path: route.path,
+		query: currentQuery,
+	})
+}
+
 provideBrowseManager({
 	tags,
 	projectType,
 	...searchState,
+	instanceOptions,
+	selectedInstanceId,
+	onSelectInstance: handleSelectInstance,
 	advancedFiltersCollapsed,
 	dismissedPhotosensitivityFilterWarning,
 	getProjectLink: (result: Labrinth.Search.v3.ResultSearchProject) => ({
@@ -1321,7 +1381,7 @@ provideBrowseManager({
 </script>
 
 <template>
-	<div class="flex flex-col gap-3 p-6">
+	<div class="flex flex-col gap-4 p-6 max-w-[1600px] mx-auto w-full">
 		<BrowsePageLayout>
 			<template #after>
 				<ContextMenu ref="contextMenuRef" @option-clicked="handleOptionsClick">
@@ -1348,8 +1408,5 @@ provideBrowseManager({
 			@browse-modpacks="() => {}"
 			@create="handleServerModpackFlowCreate"
 		/>
-		<Teleport v-if="browseRouteActive" to="#sidebar-teleport-target">
-			<BrowseSidebar />
-		</Teleport>
 	</div>
 </template>

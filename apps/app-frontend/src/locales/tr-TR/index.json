@@ -788,9 +788,6 @@
   "app.settings.tabs.language": {
     "message": "Dil"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Gizlilik"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Kaynak yönetimi"
   },
@@ -1459,11 +1456,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "Sunucu örneğine yalnızca istemci tarafında çalışan modlar eklenebilir"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Hesap"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Göster"
   }
 }

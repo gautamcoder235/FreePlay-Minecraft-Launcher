@@ -106,6 +106,12 @@ export interface BrowseManagerContext {
 	}>
 
 	loadingComponent?: Component
+
+	instanceOptions?: ComputedRef<
+		{ value: string; label: string; subLabel?: string; icon?: string | null }[]
+	>
+	selectedInstanceId?: ComputedRef<string | null> | Ref<string | null>
+	onSelectInstance?: (instanceId: string | null) => void
 }
 
 export const [injectBrowseManager, provideBrowseManager] = createContext<BrowseManagerContext>(

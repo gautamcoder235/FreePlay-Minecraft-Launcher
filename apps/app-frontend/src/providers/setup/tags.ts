@@ -9,16 +9,29 @@ export function setupTagsProvider(notificationManager: AbstractWebNotificationMa
 
 	const gameVersions = ref([])
 	const loaders = ref([])
-	get_game_versions()
-		.then((v) => {
-			gameVersions.value = v
-		})
-		.catch(handleError)
-	get_loaders()
-		.then((v) => {
-			loaders.value = v
-		})
-		.catch(handleError)
+
+	async function fetchTags() {
+		try {
+			const [versions, loaderList] = await Promise.all([
+				get_game_versions().catch((err) => {
+					handleError(err)
+					return []
+				}),
+				get_loaders().catch((err) => {
+					handleError(err)
+					return []
+				}),
+			])
+			if (versions) gameVersions.value = versions
+			if (loaderList) loaders.value = loaderList
+		} catch (error) {
+			handleError(error)
+		}
+	}
 
 	provideTags({ gameVersions, loaders })
+
+	return {
+		fetchTags,
+	}
 }

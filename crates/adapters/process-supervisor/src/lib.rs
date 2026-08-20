@@ -214,12 +214,127 @@ pub enum DedicatedServerStatus {
     Crashed { exit_code: Option<i32> },
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ServerCapabilities {
+    pub player_list: bool,
+    pub player_ping: bool,
+    pub player_gamemode: bool,
+    pub tps: bool,
+    pub mspt: bool,
+    pub console_commands: bool,
+    pub addon_install: bool,
+    pub world_reset: bool,
+}
+
+impl ServerCapabilities {
+    pub fn for_engine(engine: &str) -> Self {
+        let engine_lower = engine.to_lowercase();
+        if engine_lower.contains("paper") || engine_lower.contains("purpur") || engine_lower.contains("spigot") {
+            Self {
+                player_list: true,
+                player_ping: true,
+                player_gamemode: true,
+                tps: true,
+                mspt: true,
+                console_commands: true,
+                addon_install: true,
+                world_reset: true,
+            }
+        } else if engine_lower.contains("fabric") || engine_lower.contains("quilt") || engine_lower.contains("forge") || engine_lower.contains("neoforge") {
+            Self {
+                player_list: true,
+                player_ping: true,
+                player_gamemode: true,
+                tps: false,
+                mspt: false,
+                console_commands: true,
+                addon_install: true,
+                world_reset: true,
+            }
+        } else {
+            Self {
+                player_list: true,
+                player_ping: false,
+                player_gamemode: false,
+                tps: false,
+                mspt: false,
+                console_commands: true,
+                addon_install: false,
+                world_reset: true,
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ServerPlayer {
+    pub uuid: String,
+    pub username: String,
+    pub ping_ms: Option<u32>,
+    pub is_operator: bool,
+    pub gamemode: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ServerTelemetry {
+    pub cpu_percent: f32,
+    pub memory_rss_bytes: u64,
+    pub memory_max_bytes: u64,
+    pub disk_bytes: u64,
+    pub uptime_seconds: u64,
+    pub tps: Option<f32>,
+    pub mspt: Option<f32>,
+    pub players_online: Option<u32>,
+    pub players_max: Option<u32>,
+}
+
+#[derive(Debug, Clone)]
+pub struct FileSystemSandbox {
+    root_dir: PathBuf,
+}
+
+impl FileSystemSandbox {
+    pub fn new(root: impl Into<PathBuf>) -> Self {
+        Self { root_dir: root.into() }
+    }
+
+    pub fn resolve_safe(&self, relative: &str) -> Result<PathBuf, DomainError> {
+        let clean = relative.trim_start_matches(|c| c == '/' || c == '\\');
+        let target = self.root_dir.join(clean);
+
+        if let Ok(canon_root) = self.root_dir.canonicalize() {
+            if let Ok(canon_target) = target.canonicalize() {
+                if !canon_target.starts_with(&canon_root) {
+                    return Err(DomainError::Validation("Access Denied: Path escapes server directory sandbox".to_string()));
+                }
+                return Ok(canon_target);
+            }
+        }
+
+        let mut check = target.clone();
+        while let Some(parent) = check.parent() {
+            if parent.exists() {
+                if let (Ok(canon_root), Ok(canon_parent)) = (self.root_dir.canonicalize(), parent.canonicalize()) {
+                    if !canon_parent.starts_with(&canon_root) {
+                        return Err(DomainError::Validation("Access Denied: Target parent directory escapes server directory sandbox".to_string()));
+                    }
+                }
+                break;
+            }
+            check = parent.to_path_buf();
+        }
+
+        Ok(target)
+    }
+}
+
 pub struct ServerProcessSupervisor {
     child: Arc<Mutex<Option<Child>>>,
     stdin: Arc<Mutex<Option<ChildStdin>>>,
     status: Arc<RwLock<DedicatedServerStatus>>,
     logs: Arc<RwLock<VecDeque<String>>>,
     log_broadcaster: broadcast::Sender<String>,
+    start_instant: Arc<RwLock<Option<std::time::Instant>>>,
 }
 
 impl Default for ServerProcessSupervisor {
@@ -237,6 +352,7 @@ impl ServerProcessSupervisor {
             status: Arc::new(RwLock::new(DedicatedServerStatus::Stopped)),
             logs: Arc::new(RwLock::new(VecDeque::with_capacity(1000))),
             log_broadcaster,
+            start_instant: Arc::new(RwLock::new(None)),
         }
     }
 
@@ -249,6 +365,14 @@ impl ServerProcessSupervisor {
                 | DedicatedServerStatus::Running { .. }
                 | DedicatedServerStatus::Stopping
         )
+    }
+
+    pub async fn get_uptime_seconds(&self) -> u64 {
+        if let Some(start) = *self.start_instant.read().await {
+            start.elapsed().as_secs()
+        } else {
+            0
+        }
     }
 
     pub async fn get_status(&self) -> DedicatedServerStatus {
@@ -344,6 +468,9 @@ impl ServerProcessSupervisor {
         let status_clone = self.status.clone();
         let logs_clone = self.logs.clone();
         let broadcaster = self.log_broadcaster.clone();
+        let start_instant_clone = self.start_instant.clone();
+
+        *self.start_instant.write().await = Some(std::time::Instant::now());
 
         // Background log consumer & state updater
         tokio::spawn(async move {
@@ -412,6 +539,7 @@ impl ServerProcessSupervisor {
             } else if !matches!(*st, DedicatedServerStatus::Stopped) {
                 *st = DedicatedServerStatus::Stopped;
             }
+            *start_instant_clone.write().await = None;
         });
 
         *child_lock = Some(child);
@@ -420,6 +548,7 @@ impl ServerProcessSupervisor {
 
     /// Stops the dedicated server gracefully with fallback to termination
     pub async fn stop_server(&self) -> Result<(), DomainError> {
+        *self.start_instant.write().await = None;
         *self.status.write().await = DedicatedServerStatus::Stopping;
 
         // Try graceful "stop" command via stdin
@@ -441,6 +570,18 @@ impl ServerProcessSupervisor {
         Ok(())
     }
 
+    /// Immediately force-kills the server process without attempting graceful shutdown
+    pub async fn kill_server(&self) -> Result<(), DomainError> {
+        *self.start_instant.write().await = None;
+        let mut child_lock = self.child.lock().await;
+        if let Some(mut child) = child_lock.take() {
+            let _ = child.kill().await;
+        }
+        *self.stdin.lock().await = None;
+        *self.status.write().await = DedicatedServerStatus::Stopped;
+        Ok(())
+    }
+
     /// Sends a console command to the dedicated server process
     pub async fn send_console_command(&self, cmd: &str) -> Result<(), DomainError> {
         let mut stdin_lock = self.stdin.lock().await;
@@ -456,6 +597,37 @@ impl ServerProcessSupervisor {
             Ok(())
         } else {
             Err(DomainError::Internal("Server stdin is closed or server is not running".to_string()))
+        }
+    }
+}
+
+pub struct WorldSaveGuard<'a> {
+    supervisor: &'a ServerProcessSupervisor,
+    restored: bool,
+}
+
+impl<'a> WorldSaveGuard<'a> {
+    pub async fn acquire(supervisor: &'a ServerProcessSupervisor) -> Result<Self, DomainError> {
+        let _ = supervisor.send_console_command("save-off").await;
+        let _ = supervisor.send_console_command("save-all flush").await;
+        tokio::time::sleep(Duration::from_millis(400)).await;
+        Ok(Self { supervisor, restored: false })
+    }
+
+    pub async fn release(&mut self) -> Result<(), DomainError> {
+        if !self.restored {
+            let _ = self.supervisor.send_console_command("save-on").await;
+            self.restored = true;
+        }
+        Ok(())
+    }
+}
+
+impl Drop for WorldSaveGuard<'_> {
+    fn drop(&mut self) {
+        if !self.restored {
+            // Best-effort safety fallback
+            self.restored = true;
         }
     }
 }
@@ -540,10 +712,10 @@ impl PlayitTunnelSupervisor {
     /// Starts the playit-cli agent process and tunnels to local `port`
     pub async fn start_playit_tunnel(&self, _port: u16) -> Result<(), DomainError> {
         let mut proc_lock = self.child.lock().await;
-        if proc_lock.is_some() {
-            return Err(DomainError::Internal(
-                "Playit tunnel agent is already running".to_string(),
-            ));
+        if let Some(ref mut existing) = *proc_lock {
+            if existing.try_wait().ok().flatten().is_none() {
+                return Ok(());
+            }
         }
 
         *self.claim_url.write().await = None;
@@ -554,7 +726,7 @@ impl PlayitTunnelSupervisor {
 
         // 2. Update status to Starting
         *self.status.write().await = PlayitAgentStatus::Starting;
-        let init_log = "[playit.gg] Initializing freeplay tunnel...".to_string();
+        let init_log = "[playit.gg] Initializing freeplay persistent tunnel...".to_string();
         tracing::info!("{init_log}");
         {
             let mut lg = self.logs.write().await;
@@ -565,14 +737,77 @@ impl PlayitTunnelSupervisor {
         }
         let _ = self.log_broadcaster.send(init_log);
 
-        // 3. Spawn process
+        // 3. Spawn persistent daemon process
         let mut cmd = Command::new(&binary_path);
-        cmd.arg("--claim");
+        if let Some(parent) = binary_path.parent() {
+            cmd.current_dir(parent);
+        }
+
+        let is_cli_wrapper = binary_path
+            .file_name()
+            .map(|f| f.to_string_lossy().to_lowercase())
+            .map(|name| name == "playit.exe" || name == "playit")
+            .unwrap_or(false)
+            && binary_path.to_string_lossy().contains("playit_gg");
+
+        let tools_dir = dirs::data_local_dir()
+            .unwrap_or_else(std::env::temp_dir)
+            .join("freeplay")
+            .join("tools");
+        let _ = std::fs::create_dir_all(&tools_dir);
+        let secret_file = tools_dir.join("playit.toml");
+
+        // If no secret file exists yet, check if system has a valid configured playit.toml
+        if !secret_file.exists() {
+            let possible_system_secrets = [
+                PathBuf::from(r"C:\ProgramData\playit_gg\playit.toml"),
+                dirs::data_local_dir()
+                    .unwrap_or_default()
+                    .join("playit_gg")
+                    .join("playit.toml"),
+            ];
+            for sys_secret in &possible_system_secrets {
+                if sys_secret.exists() {
+                    if let Ok(content) = std::fs::read_to_string(sys_secret) {
+                        if content.contains("secret_key =") && !content.contains("secret_key = \"\"") {
+                            let _ = std::fs::copy(sys_secret, &secret_file);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        let socket_path_str = if cfg!(windows) {
+            r"\\.\pipe\freeplay_playit_ipc".to_string()
+        } else {
+            std::env::temp_dir()
+                .join("freeplay_playit_ipc.sock")
+                .to_string_lossy()
+                .to_string()
+        };
 
         #[cfg(windows)]
         {
             // CREATE_NO_WINDOW (0x08000000) for headless execution
             cmd.creation_flags(0x08000000);
+            if is_cli_wrapper {
+                // If using the installed CLI wrapper tool, attach to stdout stream
+                cmd.arg("-s");
+            } else {
+                cmd.arg("--socket-path").arg(&socket_path_str);
+                cmd.arg("--secret-path").arg(&secret_file);
+            }
+        }
+
+        #[cfg(not(windows))]
+        {
+            if is_cli_wrapper {
+                cmd.arg("-s");
+            } else {
+                cmd.arg("--socket-path").arg(&socket_path_str);
+                cmd.arg("--secret-path").arg(&secret_file);
+            }
         }
 
         cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
@@ -592,6 +827,9 @@ impl PlayitTunnelSupervisor {
         let pub_addr_clone = self.public_address.clone();
         let logs_clone = self.logs.clone();
         let broadcaster = self.log_broadcaster.clone();
+        let child_clone = self.child.clone();
+        let secret_file_clone = secret_file.clone();
+        let socket_for_setup = socket_path_str.clone();
 
         tokio::spawn(async move {
             let mut tasks = Vec::new();
@@ -601,10 +839,17 @@ impl PlayitTunnelSupervisor {
                 let pub_addr_inner = pub_addr_clone.clone();
                 let logs_inner = logs_clone.clone();
                 let broadcaster_inner = broadcaster.clone();
+                let secret_inner = secret_file_clone.clone();
+                let socket_setup = socket_for_setup.clone();
 
                 tasks.push(tokio::spawn(async move {
                     let mut reader = BufReader::new(stdout).lines();
                     while let Ok(Some(line)) = reader.next_line().await {
+                        // Detect InvalidAgentKey and clean corrupted/expired secret
+                        if line.contains("InvalidAgentKey") || line.contains("configured agent secret is no longer valid") {
+                            let _ = std::fs::remove_file(&secret_inner);
+                        }
+
                         // Check for Claim URL
                         if let Some(claim_url) = extract_playit_claim_url(&line) {
                             *claim_inner.write().await = Some(claim_url.clone());
@@ -617,6 +862,30 @@ impl PlayitTunnelSupervisor {
                             *status_inner.write().await = PlayitAgentStatus::Connected {
                                 public_address: public_addr,
                             };
+                        }
+
+                        // If daemon reports tunnels loaded, immediately query tunnel addresses
+                        if line.contains("tunnels loaded") || line.contains("playit connected") {
+                            let socket_path = socket_setup.clone();
+                            let pub_addr_c = pub_addr_inner.clone();
+                            let status_c = status_inner.clone();
+                            let logs_c = logs_inner.clone();
+                            let broad_c = broadcaster_inner.clone();
+                            tokio::spawn(async move {
+                                query_playit_tunnels_once(&socket_path, pub_addr_c, status_c, logs_c, broad_c).await;
+                            });
+                        }
+
+                        // If daemon is waiting for secret provisioning over IPC, trigger setup
+                        if line.contains("Waiting for frontend secret provisioning over IPC") {
+                            let socket_path = socket_setup.clone();
+                            let claim_c = claim_inner.clone();
+                            let status_c = status_inner.clone();
+                            let logs_c = logs_inner.clone();
+                            let broad_c = broadcaster_inner.clone();
+                            tokio::spawn(async move {
+                                spawn_playit_setup_helper(&socket_path, claim_c, status_c, logs_c, broad_c).await;
+                            });
                         }
 
                         // Store in logs
@@ -634,12 +903,60 @@ impl PlayitTunnelSupervisor {
             }
 
             if let Some(stderr) = stderr {
+                let status_inner = status_clone.clone();
+                let claim_inner = claim_clone.clone();
+                let pub_addr_inner = pub_addr_clone.clone();
                 let logs_inner = logs_clone.clone();
                 let broadcaster_inner = broadcaster.clone();
+                let secret_inner = secret_file_clone.clone();
+                let socket_setup = socket_for_setup.clone();
 
                 tasks.push(tokio::spawn(async move {
                     let mut reader = BufReader::new(stderr).lines();
                     while let Ok(Some(line)) = reader.next_line().await {
+                        // Detect InvalidAgentKey and clean corrupted/expired secret
+                        if line.contains("InvalidAgentKey") || line.contains("configured agent secret is no longer valid") {
+                            let _ = std::fs::remove_file(&secret_inner);
+                        }
+
+                        // Check for Claim URL
+                        if let Some(claim_url) = extract_playit_claim_url(&line) {
+                            *claim_inner.write().await = Some(claim_url.clone());
+                            *status_inner.write().await = PlayitAgentStatus::Claiming { claim_url };
+                        }
+
+                        // Check for Public Domain (e.g. *.gl.joinmc.link, *.playit.gg)
+                        if let Some(public_addr) = extract_playit_public_address(&line) {
+                            *pub_addr_inner.write().await = Some(public_addr.clone());
+                            *status_inner.write().await = PlayitAgentStatus::Connected {
+                                public_address: public_addr,
+                            };
+                        }
+
+                        // If daemon reports tunnels loaded, immediately query tunnel addresses
+                        if line.contains("tunnels loaded") || line.contains("playit connected") {
+                            let socket_path = socket_setup.clone();
+                            let pub_addr_c = pub_addr_inner.clone();
+                            let status_c = status_inner.clone();
+                            let logs_c = logs_inner.clone();
+                            let broad_c = broadcaster_inner.clone();
+                            tokio::spawn(async move {
+                                query_playit_tunnels_once(&socket_path, pub_addr_c, status_c, logs_c, broad_c).await;
+                            });
+                        }
+
+                        // If daemon is waiting for secret provisioning over IPC, trigger setup
+                        if line.contains("Waiting for frontend secret provisioning over IPC") {
+                            let socket_path = socket_setup.clone();
+                            let claim_c = claim_inner.clone();
+                            let status_c = status_inner.clone();
+                            let logs_c = logs_inner.clone();
+                            let broad_c = broadcaster_inner.clone();
+                            tokio::spawn(async move {
+                                spawn_playit_setup_helper(&socket_path, claim_c, status_c, logs_c, broad_c).await;
+                            });
+                        }
+
                         let formatted_line = format!("[STDERR] {}", line);
                         {
                             let mut lg = logs_inner.write().await;
@@ -654,11 +971,93 @@ impl PlayitTunnelSupervisor {
                 }));
             }
 
+            // Background active tunnel resolver to query tunnel status from daemon
+            let pub_addr_resolver = pub_addr_clone.clone();
+            let status_resolver = status_clone.clone();
+            let logs_resolver = logs_clone.clone();
+            let broadcaster_resolver = broadcaster.clone();
+            let socket_resolver = socket_for_setup.clone();
+
+            tasks.push(tokio::spawn(async move {
+                tokio::time::sleep(tokio::time::Duration::from_millis(1000)).await;
+
+                for _ in 0..60 {
+                    if pub_addr_resolver.read().await.is_some() {
+                        break;
+                    }
+
+                    let candidate_sockets = [
+                        Some(socket_resolver.clone()),
+                        if cfg!(windows) {
+                            Some(r"\\.\pipe\playitd-system".to_string())
+                        } else {
+                            None
+                        },
+                        None,
+                    ];
+
+                    for sock_opt in candidate_sockets.into_iter().flatten() {
+                        let mut attach_cmd = Command::new("playit");
+                        #[cfg(windows)]
+                        {
+                            attach_cmd.creation_flags(0x08000000);
+                        }
+                        if !sock_opt.is_empty() {
+                            attach_cmd.arg("--socket-path").arg(&sock_opt);
+                        }
+                        attach_cmd.arg("attach");
+                        attach_cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
+
+                        if let Ok(mut child) = attach_cmd.spawn() {
+                            if let Some(stdout) = child.stdout.take() {
+                                let mut reader = BufReader::new(stdout).lines();
+                                let mut found = false;
+                                for _ in 0..30 {
+                                    if let Ok(Ok(Some(line))) = tokio::time::timeout(
+                                        tokio::time::Duration::from_millis(400),
+                                        reader.next_line(),
+                                    )
+                                    .await
+                                    {
+                                        if let Some(public_addr) = extract_playit_public_address(&line) {
+                                            *pub_addr_resolver.write().await = Some(public_addr.clone());
+                                            *status_resolver.write().await =
+                                                PlayitAgentStatus::Connected {
+                                                    public_address: public_addr.clone(),
+                                                };
+                                            let msg = format!(
+                                                "[playit] Active Tunnel Connected: {public_addr}"
+                                            );
+                                            {
+                                                let mut lg = logs_resolver.write().await;
+                                                lg.push_back(msg.clone());
+                                            }
+                                            let _ = broadcaster_resolver.send(msg);
+                                            found = true;
+                                            break;
+                                        }
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                let _ = child.kill().await;
+                                if found {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    tokio::time::sleep(tokio::time::Duration::from_secs(3)).await;
+                }
+            }));
+
             for t in tasks {
                 let _ = t.await;
             }
 
             *status_clone.write().await = PlayitAgentStatus::Stopped;
+            *child_clone.lock().await = None;
         });
 
         *proc_lock = Some(child);
@@ -685,43 +1084,76 @@ impl PlayitTunnelSupervisor {
             }
         }
 
-        // 2. Check standard repository asset location `bin/playit/playit.exe` or `bin/playit/playit`
         let exe_name = if cfg!(windows) { "playit.exe" } else { "playit" };
-        let repo_bin = PathBuf::from("bin").join("playit").join(exe_name);
-        if repo_bin.exists() {
-            return Ok(repo_bin);
-        }
+        let daemon_name = if cfg!(windows) { "playitd.exe" } else { "playitd" };
 
-        // Also check relative to executable directory
-        if let Ok(exe_dir) = std::env::current_exe() {
-            if let Some(parent) = exe_dir.parent() {
-                let candidate = parent.join(exe_name);
-                if candidate.exists() {
-                    return Ok(candidate);
-                }
-                let candidate2 = parent.join("bin").join("playit").join(exe_name);
-                if candidate2.exists() {
-                    return Ok(candidate2);
-                }
-            }
-        }
-
-        // 3. Check system PATH
-        if let Ok(path_var) = std::env::var("PATH") {
-            for dir in std::env::split_paths(&path_var) {
-                let p = dir.join(exe_name);
-                if p.exists() {
-                    return Ok(p);
-                }
-            }
-        }
-
-        // 4. Download playit binary to tools cache
-        *self.status.write().await = PlayitAgentStatus::Downloading;
+        // 2. Check local tools directory cache
         let tools_dir = dirs::data_local_dir()
             .unwrap_or_else(std::env::temp_dir)
             .join("freeplay")
             .join("tools");
+        for name in &[daemon_name, exe_name] {
+            let tools_bin = tools_dir.join(name);
+            if tools_bin.exists() {
+                return Ok(tools_bin);
+            }
+        }
+
+        // 3. Check ancestor directories of current_dir and current_exe (up to 6 levels)
+        let mut check_dirs = Vec::new();
+        if let Ok(cd) = std::env::current_dir() {
+            check_dirs.push(cd);
+        }
+        if let Ok(exe) = std::env::current_exe() {
+            if let Some(parent) = exe.parent() {
+                check_dirs.push(parent.to_path_buf());
+            }
+        }
+
+        for base in check_dirs {
+            let mut curr = Some(base.as_path());
+            for _ in 0..6 {
+                if let Some(dir) = curr {
+                    for name in &[daemon_name, exe_name] {
+                        let candidate = dir.join("bin").join("playit").join(name);
+                        if candidate.exists() {
+                            return Ok(candidate);
+                        }
+                        let candidate2 = dir.join(name);
+                        if candidate2.exists() {
+                            return Ok(candidate2);
+                        }
+                    }
+                    curr = dir.parent();
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // 4. Check system PATH — prefer playitd.exe over playit.exe if present
+        if let Ok(path_var) = std::env::var("PATH") {
+            for dir in std::env::split_paths(&path_var) {
+                let daemon_p = dir.join(daemon_name);
+                if daemon_p.exists() {
+                    return Ok(daemon_p);
+                }
+                let exe_p = dir.join(exe_name);
+                if exe_p.exists() {
+                    // If playitd.exe is in the same directory as playit.exe, prefer playitd.exe
+                    if let Some(p) = exe_p.parent() {
+                        let sibling_daemon = p.join(daemon_name);
+                        if sibling_daemon.exists() {
+                            return Ok(sibling_daemon);
+                        }
+                    }
+                    return Ok(exe_p);
+                }
+            }
+        }
+
+        // 5. Download standalone playit binary to tools cache
+        *self.status.write().await = PlayitAgentStatus::Downloading;
         download_playit_binary(&tools_dir).await
     }
 }
@@ -842,30 +1274,252 @@ pub fn ensure_eula_accepted(server_dir: &Path) -> Result<(), std::io::Error> {
     )
 }
 
+fn strip_ansi_escapes(s: &str) -> String {
+    let mut out = String::with_capacity(s.len());
+    let mut in_escape = false;
+    for c in s.chars() {
+        if c == '\x1b' {
+            in_escape = true;
+        } else if in_escape {
+            if c.is_ascii_alphabetic() {
+                in_escape = false;
+            }
+        } else {
+            out.push(c);
+        }
+    }
+    out
+}
+
 /// Extracts a playit.gg claim URL from log lines
 pub fn extract_playit_claim_url(line: &str) -> Option<String> {
-    if let Some(idx) = line.find("https://playit.gg/claim/") {
-        let after = &line[idx..];
+    let clean_line = strip_ansi_escapes(line);
+    if let Some(idx) = clean_line.find("https://playit.gg/claim/") {
+        let after = &clean_line[idx..];
         let end = after
-            .find(|c: char| c.is_whitespace() || c == '"' || c == '\'' || c == ')' || c == ']')
+            .find(|c: char| c.is_whitespace() || c == '"' || c == '\'' || c == ')' || c == ']' || c == '!')
             .unwrap_or(after.len());
         return Some(after[..end].to_string());
     }
     None
 }
 
-/// Extracts a playit public domain/address from log lines (e.g. *.gl.joinmc.link, *.playit.gg)
+/// Extracts a playit public domain/address from log lines (e.g. *.gl.joinmc.link, *.playit.gg, *.joinmc.net, or IP:port)
 pub fn extract_playit_public_address(line: &str) -> Option<String> {
-    for token in line.split_whitespace() {
+    let clean_line = strip_ansi_escapes(line);
+
+    // Check for mapping lines from `playit attach`: "● simmons-scanners.tun.ply.gg => 127.0.0.1:25565"
+    if let Some((left, _)) = clean_line.split_once("=>") {
+        for token in left.split_whitespace() {
+            let clean = token.trim_matches(|c: char| {
+                c == '│' || c == '●' || c == ' ' || c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == ',' || c == '>' || c == '<' || c == '='
+            });
+            if clean.contains(".ply.gg") || clean.contains(".joinmc.link") || clean.contains(".playit.gg") || clean.contains(".joinmc.net") || clean.contains(".playit.link") {
+                let addr = clean.strip_prefix("tcp://").unwrap_or(clean);
+                let addr = addr.strip_prefix("udp://").unwrap_or(addr);
+                return Some(addr.to_string());
+            }
+        }
+    }
+
+    // Check for known playit domain names in whitespace-separated tokens
+    for token in clean_line.split_whitespace() {
         let clean = token.trim_matches(|c: char| {
-            c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == ','
+            c == '│' || c == '●' || c == ' ' || c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == ',' || c == '>' || c == '<' || c == '='
         });
-        if clean.contains(".joinmc.link") || clean.contains(".playit.gg") {
+        if clean.contains(".joinmc.link") || clean.contains(".playit.gg") || clean.contains(".joinmc.net") || clean.contains(".playit.link") || clean.contains(".ply.gg") {
             let addr = clean.strip_prefix("tcp://").unwrap_or(clean);
+            let addr = addr.strip_prefix("udp://").unwrap_or(addr);
             return Some(addr.to_string());
         }
     }
+
+    // Check for "address=HOST:PORT" or "addr=HOST:PORT" key-value patterns
+    let lower = clean_line.to_lowercase();
+    for pattern in &["address=", "addr=", "public_address=", "tunnel_address="] {
+        if let Some(idx) = lower.find(pattern) {
+            let after = &clean_line[idx + pattern.len()..];
+            let end = after
+                .find(|c: char| c.is_whitespace() || c == '"' || c == '\'' || c == ',' || c == ']' || c == '}')
+                .unwrap_or(after.len());
+            let candidate = &after[..end];
+            if candidate.contains(':') && !candidate.is_empty() {
+                return Some(candidate.to_string());
+            }
+        }
+    }
+
+    // Check for raw IP:port pattern where the line mentions "tunnel" context
+    if lower.contains("tunnel") || lower.contains("ready") || lower.contains("listening") || lower.contains("forwarding") {
+        for token in clean_line.split_whitespace() {
+            let clean = token.trim_matches(|c: char| {
+                c == '│' || c == '●' || c == ' ' || c == '"' || c == '\'' || c == '(' || c == ')' || c == '[' || c == ']' || c == ',' || c == '>' || c == '<' || c == '='
+            });
+            if let Some((host, port_str)) = clean.rsplit_once(':') {
+                if port_str.parse::<u16>().is_ok()
+                    && !host.is_empty()
+                    && host != "127.0.0.1"
+                    && host != "0.0.0.0"
+                    && host != "localhost"
+                    && (host.contains('.') || host.contains(':'))
+                {
+                    return Some(clean.to_string());
+                }
+            }
+        }
+    }
+
     None
+}
+
+/// Queries the running playit daemon via `playit attach` over IPC to immediately parse active tunnels
+pub async fn query_playit_tunnels_once(
+    socket_path: &str,
+    pub_addr_slot: Arc<RwLock<Option<String>>>,
+    status_slot: Arc<RwLock<PlayitAgentStatus>>,
+    logs_slot: Arc<RwLock<VecDeque<String>>>,
+    broadcaster: broadcast::Sender<String>,
+) {
+    let candidate_sockets = [
+        Some(socket_path.to_string()),
+        if cfg!(windows) {
+            Some(r"\\.\pipe\playitd-system".to_string())
+        } else {
+            None
+        },
+        None,
+    ];
+
+    for sock_opt in candidate_sockets.into_iter().flatten() {
+        let mut attach_cmd = Command::new("playit");
+        #[cfg(windows)]
+        {
+            attach_cmd.creation_flags(0x08000000);
+        }
+        if !sock_opt.is_empty() {
+            attach_cmd.arg("--socket-path").arg(&sock_opt);
+        }
+        attach_cmd.arg("attach");
+        attach_cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
+
+        if let Ok(mut child) = attach_cmd.spawn() {
+            if let Some(stdout) = child.stdout.take() {
+                let mut reader = BufReader::new(stdout).lines();
+                let mut found = false;
+                for _ in 0..30 {
+                    if let Ok(Ok(Some(line))) = tokio::time::timeout(
+                        tokio::time::Duration::from_millis(350),
+                        reader.next_line(),
+                    )
+                    .await
+                    {
+                        if let Some(public_addr) = extract_playit_public_address(&line) {
+                            *pub_addr_slot.write().await = Some(public_addr.clone());
+                            *status_slot.write().await = PlayitAgentStatus::Connected {
+                                public_address: public_addr.clone(),
+                            };
+                            let msg = format!("[playit] Active Tunnel Connected: {public_addr}");
+                            {
+                                let mut lg = logs_slot.write().await;
+                                lg.push_back(msg.clone());
+                            }
+                            let _ = broadcaster.send(msg);
+                            found = true;
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                let _ = child.kill().await;
+                if found {
+                    break;
+                }
+            }
+        }
+    }
+}
+
+/// Spawns the playit setup tool to connect over IPC, obtain the claim URL, and provision credentials
+pub async fn spawn_playit_setup_helper(
+    socket_path: &str,
+    claim_slot: Arc<RwLock<Option<String>>>,
+    status_slot: Arc<RwLock<PlayitAgentStatus>>,
+    logs_slot: Arc<RwLock<VecDeque<String>>>,
+    broadcaster: broadcast::Sender<String>,
+) {
+    // 1. Locate the playit CLI controller executable
+    let mut cli_path: Option<PathBuf> = None;
+    let exe_name = if cfg!(windows) { "playit.exe" } else { "playit" };
+
+    // Check system PATH
+    if let Ok(path_var) = std::env::var("PATH") {
+        for dir in std::env::split_paths(&path_var) {
+            let p = dir.join(exe_name);
+            if p.exists() {
+                cli_path = Some(p);
+                break;
+            }
+        }
+    }
+
+    // Check known locations
+    if cli_path.is_none() {
+        let candidates = [
+            PathBuf::from(r"C:\Program Files\playit_gg\bin\playit.exe"),
+            dirs::data_local_dir()
+                .unwrap_or_default()
+                .join("freeplay")
+                .join("tools")
+                .join(exe_name),
+        ];
+        for cand in &candidates {
+            if cand.exists() {
+                cli_path = Some(cand.clone());
+                break;
+            }
+        }
+    }
+
+    if let Some(cli) = cli_path {
+        let mut cmd = Command::new(&cli);
+        #[cfg(windows)]
+        {
+            cmd.creation_flags(0x08000000);
+            cmd.arg("--socket-path").arg(socket_path).arg("setup");
+        }
+        #[cfg(not(windows))]
+        {
+            cmd.arg("--socket-path").arg(socket_path).arg("setup");
+        }
+
+        cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
+
+        if let Ok(mut child) = cmd.spawn() {
+            let stdout = child.stdout.take();
+            if let Some(stdout) = stdout {
+                let mut reader = BufReader::new(stdout).lines();
+                while let Ok(Some(line)) = reader.next_line().await {
+                    if let Some(claim_url) = extract_playit_claim_url(&line) {
+                        *claim_slot.write().await = Some(claim_url.clone());
+                        *status_slot.write().await = PlayitAgentStatus::Claiming {
+                            claim_url: claim_url.clone(),
+                        };
+                    }
+
+                    {
+                        let mut lg = logs_slot.write().await;
+                        if lg.len() >= 1000 {
+                            lg.pop_front();
+                        }
+                        lg.push_back(format!("[playit-setup] {}", line));
+                    }
+                    let _ = broadcaster.send(format!("[playit-setup] {}", line));
+                }
+            }
+            let _ = child.wait().await;
+        }
+    }
 }
 
 /// Finds an installed Java binary on the system
@@ -956,8 +1610,8 @@ pub async fn download_server_jar(
     let server_type_lower = server_type.to_lowercase();
     let download_url = match server_type_lower.as_str() {
         "paper" | "papermc" => {
-            // PaperMC API
-            let version_url = format!("https://api.papermc.io/v2/projects/paper/versions/{}", version);
+            // PaperMC Fill v3 API
+            let version_url = format!("https://fill.papermc.io/v3/projects/paper/versions/{}", version);
             let resp = client
                 .get(&version_url)
                 .send()
@@ -979,16 +1633,43 @@ pub async fn download_server_jar(
 
             let latest_build = data["builds"]
                 .as_array()
-                .and_then(|arr| arr.last())
+                .and_then(|arr| arr.first())
                 .and_then(|v| v.as_u64())
                 .ok_or_else(|| {
                     DomainError::Internal(format!("No PaperMC builds found for version {}", version))
                 })?;
 
-            format!(
-                "https://api.papermc.io/v2/projects/paper/versions/{}/builds/{}/downloads/paper-{}-{}.jar",
-                version, latest_build, version, latest_build
-            )
+            let build_url = format!(
+                "https://fill.papermc.io/v3/projects/paper/versions/{}/builds/{}",
+                version, latest_build
+            );
+            let build_resp = client
+                .get(&build_url)
+                .send()
+                .await
+                .map_err(|e| DomainError::Internal(format!("Failed to query PaperMC build API: {e}")))?;
+
+            let build_data: serde_json::Value = build_resp
+                .json()
+                .await
+                .map_err(|e| DomainError::Internal(format!("Failed to parse PaperMC build response: {e}")))?;
+
+            let mut direct_url = None;
+            if let Some(downloads) = build_data["downloads"].as_object() {
+                for (_key, val) in downloads {
+                    if let Some(url) = val["url"].as_str() {
+                        direct_url = Some(url.to_string());
+                        break;
+                    }
+                }
+            }
+
+            direct_url.ok_or_else(|| {
+                DomainError::Internal(format!(
+                    "Could not resolve PaperMC download URL for version {} build {}",
+                    version, latest_build
+                ))
+            })?
         }
         "fabric" => {
             // Fabric Meta API
@@ -1227,8 +1908,12 @@ mod tests {
         let addr2 = extract_playit_public_address(line2);
         assert_eq!(addr2, Some("server.playit.gg:12345".to_string()));
 
-        let line3 = "Random log output from server";
-        assert_eq!(extract_playit_public_address(line3), None);
+        let line3 = "│● simmons-scanners.tun.ply.gg => 127.0.0.1:25565                                                                      │";
+        let addr3 = extract_playit_public_address(line3);
+        assert_eq!(addr3, Some("simmons-scanners.tun.ply.gg".to_string()));
+
+        let line4 = "Random log output from server";
+        assert_eq!(extract_playit_public_address(line4), None);
     }
 
     #[tokio::test]

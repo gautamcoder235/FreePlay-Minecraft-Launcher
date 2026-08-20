@@ -425,9 +425,6 @@
   "app.settings.tabs.language": {
     "message": "Ngôn ngữ"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Quyền riêng tư"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Quản lý tài nguyên"
   },

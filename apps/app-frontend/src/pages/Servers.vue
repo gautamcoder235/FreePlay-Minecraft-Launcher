@@ -8,7 +8,7 @@ useRootBreadcrumb({
 	slot: 'root',
 	id: 'servers',
 	label: 'Server Hosting',
-	to: '/hosting/manage/',
+	to: '/hosting/manage',
 	visual: { type: 'icon', component: ServerStackIcon },
 })
 </script>
@@ -18,4 +18,3 @@ useRootBreadcrumb({
 		<FreePlayHostingView />
 	</div>
 </template>
-

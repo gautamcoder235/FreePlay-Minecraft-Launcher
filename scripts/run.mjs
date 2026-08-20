@@ -13,8 +13,9 @@ if (!scriptName) {
 }
 
 const scriptPath = join(__dirname, `${scriptName}.ts`)
+const quotedScriptPath = `"${scriptPath}"`
 
-const child = spawn('pnpx', ['tsx', scriptPath, ...args], {
+const child = spawn('pnpx', ['tsx', quotedScriptPath, ...args], {
 	stdio: 'inherit',
 	shell: true,
 })

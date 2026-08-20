@@ -707,9 +707,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Loader"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Nome"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Inserisci il nome dell'istanza"
   },

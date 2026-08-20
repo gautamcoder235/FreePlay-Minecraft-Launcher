@@ -322,7 +322,7 @@ import {
 	XIcon,
 	YouTubeIcon,
 } from '@freeplay/assets'
-import { markdownCommands, freeplayMarkdownEditorKeymap } from '@freeplay/utils/codemirror'
+import { freeplayMarkdownEditorKeymap, markdownCommands } from '@freeplay/utils/codemirror'
 import { renderHighlightedString } from '@freeplay/utils/highlightjs'
 import { type Component, computed, onBeforeUnmount, onMounted, ref, toRef, useId, watch } from 'vue'
 

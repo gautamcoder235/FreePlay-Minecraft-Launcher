@@ -158,9 +158,6 @@
   "app.settings.tabs.language": {
     "message": "Limbă"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Confidențialitate"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Administrare resurse"
   },

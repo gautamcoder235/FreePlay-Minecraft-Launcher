@@ -378,4 +378,3 @@ export const freeplayMarkdownEditorKeymap: KeyBinding[] = [
 	{ key: 'Mod-Shift-.', run: toggleQuote },
 ]
 export const modrinthMarkdownEditorKeymap = freeplayMarkdownEditorKeymap
-

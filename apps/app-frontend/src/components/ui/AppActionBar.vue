@@ -17,7 +17,7 @@
 		</div>
 		<AppUpdateButton />
 		<div
-			class="flex border-solid border-surface-5 text-sm items-center gap-2 py-1.5 px-3 rounded-xl border"
+			class="flex bg-[#141923]/90 border border-white/10 text-xs items-center gap-2 py-1 px-3 rounded-xl shadow-sm backdrop-blur-md"
 		>
 			<template v-if="selectedProcess">
 				<OnlineIndicatorIcon />

@@ -25,27 +25,44 @@ watch(
 )
 </script>
 <template>
-	<div class="flex flex-col gap-2.5">
-		<div v-for="option in options" :key="option" class="flex items-center justify-between">
-			<div>
-				<h2 class="m-0 text-lg font-semibold text-contrast capitalize">
-					{{ option.replaceAll('_', ' ') }}
-				</h2>
+	<div class="flex flex-col gap-6">
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">Developer Feature Flags</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Toggle experimental features and developer debug tooling.
+				</p>
 			</div>
-			<div class="flex items-center gap-2">
-				<Button
-					type="quiet"
-					:disabled="themeStore.getFeatureFlag(option) === DEFAULT_FEATURE_FLAGS[option]"
-					@click="setFeatureFlag(option, DEFAULT_FEATURE_FLAGS[option])"
-				>
-					Reset to default
-				</Button>
-				<Toggle
-					id="advanced-rendering"
-					:model-value="themeStore.getFeatureFlag(option)"
-					@update:model-value="() => setFeatureFlag(option, !themeStore.getFeatureFlag(option))"
-				/>
+
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-4"
+			>
+				<template v-for="(option, index) in options" :key="option">
+					<div class="grid grid-cols-[1fr_auto] items-center gap-4">
+						<span class="text-sm font-semibold text-contrast capitalize">
+							{{ option.replaceAll('_', ' ') }}
+						</span>
+						<div class="flex items-center gap-2">
+							<Button
+								type="quiet"
+								size="sm"
+								:disabled="themeStore.getFeatureFlag(option) === DEFAULT_FEATURE_FLAGS[option]"
+								@click="setFeatureFlag(option, DEFAULT_FEATURE_FLAGS[option])"
+							>
+								Reset
+							</Button>
+							<Toggle
+								:id="`flag-${option}`"
+								:model-value="themeStore.getFeatureFlag(option)"
+								@update:model-value="
+									() => setFeatureFlag(option, !themeStore.getFeatureFlag(option))
+								"
+							/>
+						</div>
+					</div>
+					<div v-if="index < options.length - 1" class="h-px bg-surface-4/60 -mx-5" />
+				</template>
 			</div>
-		</div>
+		</section>
 	</div>
 </template>

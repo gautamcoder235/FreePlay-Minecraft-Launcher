@@ -518,9 +518,6 @@
   "app.settings.tabs.language": {
     "message": "Sprog"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Privatliv"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Ressourcestyring"
   },

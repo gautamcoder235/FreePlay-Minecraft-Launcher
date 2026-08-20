@@ -31,4 +31,3 @@ export const isModrinthUser = isFreePlayUser
 export const isOfficialAccount = (userId) => {
 	return OFFICIAL_ACCOUNT_IDS.includes(userId)
 }
-

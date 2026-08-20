@@ -70,14 +70,22 @@ impl PlayitAgent {
         let mut cmd = Command::new(&self.binary_path);
         if let Some(ref secret) = config.secret_key {
             cmd.arg("--secret").arg(secret);
-        } else {
-            cmd.arg("--claim");
+        }
+        if let Some(parent) = self.binary_path.parent() {
+            cmd.current_dir(parent);
         }
 
         #[cfg(windows)]
         {
             // CREATE_NO_WINDOW (0x08000000) ensures zero console window pops up (100% headless)
             cmd.creation_flags(0x08000000);
+            cmd.arg("--socket-path").arg(r"\\.\pipe\freeplay_playit_ipc");
+        }
+
+        #[cfg(not(windows))]
+        {
+            let temp_socket = std::env::temp_dir().join("freeplay_playit_ipc.sock");
+            cmd.arg("--socket-path").arg(temp_socket);
         }
 
         cmd.stdout(Stdio::piped()).stderr(Stdio::piped());

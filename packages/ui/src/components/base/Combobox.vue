@@ -1,7 +1,7 @@
 <template>
 	<div ref="containerRef" class="relative inline-block w-full">
 		<!-- Searchable mode: input trigger -->
-		<div v-if="searchable" class="relative w-full rounded-xl bg-surface-4">
+		<div v-if="searchable" class="relative w-full rounded-xl bg-transparent">
 			<!--
 				Selection mirror: horizontal padding must match StyledInput (filled + left icon uses `pl-10`,
 				else `pl-3`) and `searchableInputClass` when the chevron is shown (`!pr-9`), or the overlay
@@ -71,9 +71,15 @@
 		>
 			<div class="flex min-w-0 items-center gap-2">
 				<slot name="prefix"></slot>
+				<img
+					v-if="showIconInSelected && typeof selectedOption?.icon === 'string'"
+					:src="selectedOption.icon"
+					class="h-5 w-5 shrink-0 rounded object-cover"
+					alt=""
+				/>
 				<component
 					:is="selectedOption?.icon"
-					v-if="showIconInSelected && selectedOption?.icon"
+					v-else-if="showIconInSelected && selectedOption?.icon"
 					class="h-5 w-5 shrink-0"
 				/>
 				<span
@@ -101,10 +107,10 @@
 				<div
 					v-if="shouldRenderDropdown"
 					ref="dropdownRef"
-					class="fixed z-[9999] flex flex-col overflow-hidden rounded-[14px] bg-surface-4 border border-solid border-surface-5"
+					class="fixed z-[9999] flex flex-col overflow-hidden rounded-2xl bg-[#0e131d]/98 backdrop-blur-3xl border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(99,102,241,0.2)]"
 					:class="[
 						props.dropdownClass,
-						openDirection === 'up' ? 'shadow-[0_-25px_50px_-12px_rgb(0,0,0,0.25)]' : 'shadow-2xl',
+						openDirection === 'up' ? 'shadow-[0_-25px_50px_-12px_rgb(0,0,0,0.5)]' : 'shadow-2xl',
 					]"
 					:style="dropdownStyle"
 					:role="listbox ? 'listbox' : 'menu'"
@@ -114,7 +120,7 @@
 					<div
 						v-if="filteredOptions.length > 0"
 						ref="optionsScrollbarRef"
-						class="combobox-options-scrollbar bg-surface-4"
+						class="combobox-options-scrollbar bg-transparent p-1.5"
 						data-overlayscrollbars-initialize
 						@mousedown.prevent.stop
 					>
@@ -124,9 +130,9 @@
 							:style="{ maxHeight: `${maxHeight}px` }"
 							data-overlayscrollbars-viewport
 						>
-							<div ref="optionsListRef" class="flex flex-col">
+							<div ref="optionsListRef" class="flex flex-col gap-1">
 								<template v-for="(item, index) in filteredOptions" :key="item.key">
-									<div v-if="item.type === 'divider'" class="h-px bg-surface-5"></div>
+									<div v-if="item.type === 'divider'" class="h-px bg-white/10 my-1"></div>
 									<component
 										:is="item.type === 'link' ? 'a' : 'span'"
 										v-else
@@ -137,7 +143,7 @@
 										:aria-selected="listbox && item.value === modelValue"
 										:aria-disabled="item.disabled || undefined"
 										:data-focused="focusedIndex === index"
-										class="group/option flex items-center gap-2.5 cursor-pointer px-4 py-3 text-left transition-all duration-150"
+										class="group/option flex items-center gap-2.5 cursor-pointer px-3.5 py-2.5 rounded-xl text-left transition-all duration-150"
 										:class="getOptionClasses(item, index)"
 										tabindex="-1"
 										@mousedown.prevent
@@ -151,24 +157,29 @@
 											:is-selected="!!(listbox && item.value === modelValue)"
 										>
 											<div class="flex w-full items-center justify-between gap-2">
-												<div class="flex items-center gap-2">
+												<div class="flex items-center gap-2.5 min-w-0">
+													<img
+														v-if="typeof item.icon === 'string'"
+														:src="item.icon"
+														class="h-6 w-6 rounded-lg border border-white/10 shrink-0 bg-black/40 object-cover shadow-sm"
+														alt=""
+													/>
 													<component
 														:is="item.icon"
-														v-if="item.icon"
-														class="h-5 w-5"
-														:class="item.value === modelValue ? 'text-green' : 'text-primary'"
+														v-else-if="item.icon"
+														class="h-6 w-6 rounded-lg border border-white/10 shrink-0 bg-black/40 object-cover shadow-sm"
+														:class="item.value === modelValue ? 'text-sky-400' : 'text-zinc-300'"
 													/>
-													<div class="flex flex-col gap-1.5">
+													<div class="flex flex-col gap-0.5 min-w-0">
 														<span
-															class="font-semibold leading-tight"
-															:class="item.value === modelValue ? 'text-green' : 'text-primary'"
+															class="font-bold text-xs truncate tracking-wide"
+															:class="item.value === modelValue ? 'text-white' : 'text-zinc-200'"
 														>
 															{{ item.label }}
 														</span>
 														<span
 															v-if="item.subLabel"
-															class="text-sm"
-															:class="item.value === modelValue ? 'text-green' : 'text-secondary'"
+															class="text-[11px] font-mono text-zinc-400 truncate"
 														>
 															{{ item.subLabel }}
 														</span>
@@ -183,7 +194,7 @@
 						</div>
 					</div>
 
-					<div v-else-if="searchQuery" class="p-4 text-center text-sm text-secondary">
+					<div v-else-if="searchQuery" class="p-4 text-center text-xs font-mono text-zinc-400">
 						{{ noOptionsMessage }}
 					</div>
 
@@ -455,8 +466,9 @@ function getOptionClasses(item: ComboboxOption<T> & { key: string }, _index: num
 	return [
 		item.class,
 		{
-			'bg-surface-4 text-contrast hover:brightness-[115%] focus:brightness-[115%]': !isSelected,
-			'bg-highlight-green text-green hover:bg-highlight-green focus:bg-highlight-green': isSelected,
+			'bg-transparent hover:bg-white/[0.06] text-zinc-200 hover:text-white border border-transparent':
+				!isSelected,
+			'bg-sky-500/20 text-white font-bold border border-sky-500/40 shadow-sm': isSelected,
 			'cursor-not-allowed opacity-50 pointer-events-none': item.disabled,
 		},
 	]

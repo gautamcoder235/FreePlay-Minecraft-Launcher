@@ -497,9 +497,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Loader"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Nume"
-  },
   "creation-flow.modal.custom-setup.options.no-versions-available": {
     "defaultMessage": "Nu exista versiuni disponibile"
   },

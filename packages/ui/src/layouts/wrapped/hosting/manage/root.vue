@@ -351,8 +351,8 @@ import ServerSettingsModal from '#ui/components/servers/ServerSettingsModal.vue'
 import {
 	hasServerPermission,
 	useDebugLogger,
-	useLoadingBarToken,
 	useFreePlayServersConsole,
+	useLoadingBarToken,
 	useReadyState,
 	useServerImage,
 	useServerProject,

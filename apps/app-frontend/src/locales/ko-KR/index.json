@@ -968,9 +968,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "최대 동시 쓰기 수"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "인스턴스"
-  },
   "app.settings.tabs.appearance": {
     "message": "모양"
   },
@@ -985,9 +982,6 @@
   },
   "app.settings.tabs.language": {
     "message": "언어"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "개인정보"
   },
   "app.settings.tabs.resource-management": {
     "message": "리소스 관리"
@@ -1846,11 +1840,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "서버 인스턴스에는 클라이언트 전용 모드만 추가할 수 있습니다"
-  },
-  "settings.sidebar.label.account": {
-    "message": "계정"
-  },
-  "settings.sidebar.label.display": {
-    "message": "디스플레이"
   }
 }

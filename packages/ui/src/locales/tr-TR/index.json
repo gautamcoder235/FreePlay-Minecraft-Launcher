@@ -710,9 +710,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Yükleyici"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Ad"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Kurulum adı girin"
   },

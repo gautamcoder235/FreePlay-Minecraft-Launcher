@@ -842,6 +842,9 @@
   "creation-flow.modal.custom-setup.icon.select": {
     "defaultMessage": "Upload"
   },
+  "creation-flow.modal.custom-setup.instance-profile.title": {
+    "defaultMessage": "Instance Profile"
+  },
   "creation-flow.modal.custom-setup.loader-version-type.latest": {
     "defaultMessage": "Latest"
   },
@@ -862,9 +865,6 @@
   },
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Loader"
-  },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Name"
   },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Enter instance name"
@@ -972,7 +972,10 @@
     "defaultMessage": "Superflat"
   },
   "creation-flow.modal.import-instance.action.add": {
-    "defaultMessage": "Add"
+    "defaultMessage": "Scan & add"
+  },
+  "creation-flow.modal.import-instance.click-to-browse": {
+    "defaultMessage": "Click to scan"
   },
   "creation-flow.modal.import-instance.custom-launcher.name": {
     "defaultMessage": "Custom ({pathName})"
@@ -980,14 +983,38 @@
   "creation-flow.modal.import-instance.detecting-launcher-instances": {
     "defaultMessage": "Detecting launcher instances..."
   },
+  "creation-flow.modal.import-instance.dropzone.description": {
+    "defaultMessage": "Drag and drop .mrpack, .zip or scan custom launcher directory"
+  },
+  "creation-flow.modal.import-instance.dropzone.pick-archive": {
+    "defaultMessage": "Import .mrpack / .zip"
+  },
+  "creation-flow.modal.import-instance.dropzone.scan-folder": {
+    "defaultMessage": "Scan folder..."
+  },
+  "creation-flow.modal.import-instance.dropzone.title": {
+    "defaultMessage": "Import archive or scan folder"
+  },
+  "creation-flow.modal.import-instance.empty-count": {
+    "defaultMessage": "0 found"
+  },
+  "creation-flow.modal.import-instance.found-count": {
+    "defaultMessage": "instances"
+  },
+  "creation-flow.modal.import-instance.instances-found-pill": {
+    "defaultMessage": "instances detected"
+  },
   "creation-flow.modal.import-instance.launcher-instances.title": {
     "defaultMessage": "Launcher instances"
   },
   "creation-flow.modal.import-instance.launcher-path.add": {
-    "defaultMessage": "Add launcher path"
+    "defaultMessage": "Add custom launcher path"
   },
   "creation-flow.modal.import-instance.launcher-path.placeholder": {
-    "defaultMessage": "Path to launcher..."
+    "defaultMessage": "Path to launcher directory..."
+  },
+  "creation-flow.modal.import-instance.launcher-sources.title": {
+    "defaultMessage": "Detected launcher sources"
   },
   "creation-flow.modal.import-instance.notification.no-instances-found.text": {
     "defaultMessage": "No importable instances were found at the specified path."
@@ -995,17 +1022,35 @@
   "creation-flow.modal.import-instance.notification.no-instances-found.title": {
     "defaultMessage": "No instances found"
   },
+  "creation-flow.modal.import-instance.search.no-match": {
+    "defaultMessage": "No instances match \"{query}\""
+  },
   "creation-flow.modal.import-instance.search.placeholder": {
-    "defaultMessage": "Search instance name"
+    "defaultMessage": "Search instance name..."
+  },
+  "creation-flow.modal.import-instance.search.reset": {
+    "defaultMessage": "Reset search"
   },
   "creation-flow.modal.import-instance.selection.clear-all": {
     "defaultMessage": "Clear all"
   },
   "creation-flow.modal.modpack.action.browse": {
-    "defaultMessage": "Browse modpacks"
+    "defaultMessage": "Browse modpacks catalog"
+  },
+  "creation-flow.modal.modpack.action.browse-description": {
+    "defaultMessage": "Explore thousands of curated modpacks with filters."
   },
   "creation-flow.modal.modpack.action.import": {
-    "defaultMessage": "Import modpack"
+    "defaultMessage": "Import modpack file"
+  },
+  "creation-flow.modal.modpack.action.import-description": {
+    "defaultMessage": "Load an .mrpack file directly from your local computer."
+  },
+  "creation-flow.modal.modpack.clear-selection": {
+    "defaultMessage": "Change"
+  },
+  "creation-flow.modal.modpack.install-selected": {
+    "defaultMessage": "Install Modpack"
   },
   "creation-flow.modal.modpack.known-modpack.prompt": {
     "defaultMessage": "Already know the modpack you want to install?"
@@ -1014,7 +1059,16 @@
     "defaultMessage": "No results found"
   },
   "creation-flow.modal.modpack.search.placeholder": {
-    "defaultMessage": "Search for modpack"
+    "defaultMessage": "Search for modpack..."
+  },
+  "creation-flow.modal.modpack.selected-modpack.title": {
+    "defaultMessage": "Selected Modpack"
+  },
+  "creation-flow.modal.modpack.version.label": {
+    "defaultMessage": "Modpack version"
+  },
+  "creation-flow.modal.modpack.version.placeholder": {
+    "defaultMessage": "Select specific version..."
   },
   "creation-flow.modal.project.known-project.prompt": {
     "defaultMessage": "Already know what you want to play?"
@@ -1166,6 +1220,9 @@
   "external-files.permissions-card.editor.example-spdx-license": {
     "defaultMessage": "e.g. MPL-1.1"
   },
+  "external-files.permissions-card.editor.freeplay-link-to-work": {
+    "defaultMessage": "This appears to be a FreePlay link. If this content is available on FreePlay, your pack was likely exported incorrectly. If you downloaded it from another site, try downloading the FreePlay version instead; sometimes they are not identical files."
+  },
   "external-files.permissions-card.editor.input-optional": {
     "defaultMessage": "(optional)"
   },
@@ -1180,9 +1237,6 @@
   },
   "external-files.permissions-card.editor.link-to-work-url-placeholder": {
     "defaultMessage": "link-to-work"
-  },
-  "external-files.permissions-card.editor.freeplay-link-to-work": {
-    "defaultMessage": "This appears to be a FreePlay link. If this content is available on FreePlay, your pack was likely exported incorrectly. If you downloaded it from another site, try downloading the FreePlay version instead; sometimes they are not identical files."
   },
   "external-files.permissions-card.editor.notes-label": {
     "defaultMessage": "Notes"
@@ -2930,14 +2984,14 @@
   "omorphia.component.badge.label.failed": {
     "defaultMessage": "Failed"
   },
+  "omorphia.component.badge.label.freeplay-team": {
+    "defaultMessage": "FreePlay Team"
+  },
   "omorphia.component.badge.label.listed": {
     "defaultMessage": "Public"
   },
   "omorphia.component.badge.label.moderator": {
     "defaultMessage": "Moderator"
-  },
-  "omorphia.component.badge.label.freeplay-team": {
-    "defaultMessage": "FreePlay Team"
   },
   "omorphia.component.badge.label.pending": {
     "defaultMessage": "Pending"
@@ -5051,11 +5105,11 @@
   "servers.list-empty.already-have-server-label": {
     "defaultMessage": "Already have a server?"
   },
-  "servers.list-empty.learn-more-link": {
-    "defaultMessage": "Learn more"
-  },
   "servers.list-empty.freeplay-hosting-label": {
     "defaultMessage": "FreePlay Hosting"
+  },
+  "servers.list-empty.learn-more-link": {
+    "defaultMessage": "Learn more"
   },
   "servers.list-empty.new-server-button": {
     "defaultMessage": "New server"

@@ -392,9 +392,6 @@
   "app.settings.tabs.language": {
     "message": "Jazyk"
   },
-  "app.settings.tabs.privacy": {
-    "message": "Soukromí"
-  },
   "app.settings.tabs.resource-management": {
     "message": "Správa zdrojů"
   },

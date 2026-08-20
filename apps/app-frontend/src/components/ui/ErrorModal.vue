@@ -9,16 +9,9 @@ import {
 	WrenchIcon,
 	XIcon,
 } from '@freeplay/assets'
-import {
-	Button,
-	ButtonLink,
-	Collapsible,
-	IconButton,
-	injectNotificationManager,
-} from '@freeplay/ui'
+import { Button, Collapsible, IconButton, injectNotificationManager } from '@freeplay/ui'
 import { computed, ref } from 'vue'
 
-import { ChatIcon } from '@/assets/icons'
 import ModalWrapper from '@/components/ui/modal/ModalWrapper.vue'
 import { trackEvent } from '@/helpers/analytics'
 import { login as login_flow, set_default_user } from '@/helpers/auth.js'
@@ -35,7 +28,6 @@ const errorCollapsed = ref(false)
 
 const title = ref('An error occurred')
 const errorType = ref('unknown')
-const supportLink = ref('https://support.freeplay.app')
 const metadata = ref({})
 
 defineExpose({
@@ -46,8 +38,6 @@ defineExpose({
 		if (errorVal.message && errorVal.message.includes('Minecraft authentication error:')) {
 			title.value = 'Unable to sign in to Minecraft'
 			errorType.value = 'minecraft_auth'
-			supportLink.value =
-				'https://support.freeplay.app/en/articles/9038231-minecraft-sign-in-issues'
 
 			if (
 				errorVal.message.includes('existing connection was forcibly closed') ||
@@ -61,7 +51,6 @@ defineExpose({
 		} else if (errorVal.message && errorVal.message.includes('Move directory error:')) {
 			title.value = 'Could not change app directory'
 			errorType.value = 'directory_move'
-			supportLink.value = 'https://support.freeplay.app'
 
 			if (errorVal.message.includes('directory is not writable')) {
 				metadata.value.readOnly = true
@@ -73,16 +62,13 @@ defineExpose({
 		} else if (errorVal.message && errorVal.message.includes('No loader version selected for')) {
 			title.value = 'No loader selected'
 			errorType.value = 'no_loader_version'
-			supportLink.value = 'https://support.freeplay.app'
 			metadata.value.instanceId = context.instanceId
 		} else if (source === 'state_init') {
 			title.value = 'Error initializing FreePlay Launcher'
 			errorType.value = 'state_init'
-			supportLink.value = 'https://support.freeplay.app'
 		} else {
 			title.value = 'An error occurred'
 			errorType.value = 'unknown'
-			supportLink.value = 'https://support.freeplay.app'
 			metadata.value = {}
 		}
 
@@ -148,7 +134,7 @@ const debugInfo = computed(() => error.value.message ?? error.value ?? 'No error
 const copied = ref(false)
 
 async function copyToClipboard(text) {
-	await navigator.clipboard.writeText(text)
+	navigator.clipboard.writeText(text)
 	copied.value = true
 	setTimeout(() => {
 		copied.value = false
@@ -165,28 +151,16 @@ async function copyToClipboard(text) {
 						<h3>Network issues</h3>
 						<p>
 							It looks like there were issues with the FreePlay Launcher connecting to Microsoft's
-							servers. This is often the result of a poor connection, so we recommend trying again
-							to see if it works. If issues continue to persist, follow the steps in
-							<a
-								href="https://support.freeplay.app/en/articles/9038231-minecraft-sign-in-issues#h_e71a5f805f"
-							>
-								our support article
-							</a>
-							to troubleshoot.
+							servers. This is often the result of a poor connection, so we recommend checking your
+							connection and trying again.
 						</p>
 					</template>
 					<template v-else-if="metadata.hostsFile">
 						<h3>Network issues</h3>
 						<p>
-							The FreePlay Launcher tried to connect to Microsoft / Xbox / Minecraft services, but the
-							remote server rejected the connection. This may indicate that these services are
-							blocked by the hosts file. Please visit
-							<a
-								href="https://support.freeplay.app/en/articles/9038231-minecraft-sign-in-issues#h_d694a29256"
-							>
-								our support article
-							</a>
-							for steps on how to fix the issue.
+							The FreePlay Launcher tried to connect to Microsoft / Xbox / Minecraft services, but
+							the remote server rejected the connection. This may indicate that these services are
+							blocked by your network or system firewall / hosts file.
 						</p>
 					</template>
 					<template v-else>
@@ -232,7 +206,7 @@ async function copyToClipboard(text) {
 					<template v-else>
 						<p>
 							The FreePlay Launcher is unable to migrate to the new directory you selected. Please
-							contact support for help or cancel the directory change.
+							cancel the directory change or choose another directory.
 						</p>
 					</template>
 
@@ -268,20 +242,8 @@ async function copyToClipboard(text) {
 				<template v-else>
 					{{ debugInfo }}
 				</template>
-				<template v-if="hasDebugInfo">
-					<div class="w-full h-[1px] bg-surface-5 mb-3"></div>
-					<p>
-						If nothing is working and you need help, visit
-						<a :href="supportLink">our support page</a>
-						and start a chat using the widget in the bottom right and we will be more than happy to
-						assist! Make sure to provide the following debug information to the agent:
-					</p>
-				</template>
 			</div>
 			<div class="flex items-center gap-2">
-				<ButtonLink :href="supportLink" @click="errorModal.hide()"
-					><ChatIcon /> Get support</ButtonLink
-				>
 				<Button v-if="closable" @click="errorModal.hide()"><XIcon /> Close</Button>
 			</div>
 			<template v-if="hasDebugInfo">

@@ -176,17 +176,20 @@
 						{
 							label: formatMessage(messages.descriptionTab),
 							href: projectDescriptionHref,
+							icon: BookIcon,
 						},
 						{
 							label: formatMessage(messages.versionsTab),
 							href: versionsHref,
 							subpages: ['version'],
 							shown: projectV3?.minecraft_server == null,
+							icon: VersionIcon,
 						},
 						{
 							label: formatMessage(messages.galleryTab),
 							href: projectGalleryHref,
 							shown: data.gallery.length > 0,
+							icon: ImageIcon,
 						},
 					]"
 				/>
@@ -242,6 +245,7 @@
 
 <script setup>
 import {
+	BookIcon,
 	BookmarkIcon,
 	CheckIcon,
 	ClipboardCopyIcon,
@@ -249,12 +253,14 @@ import {
 	ExternalIcon,
 	GlobeIcon,
 	HeartIcon,
+	ImageIcon,
 	MoreVerticalIcon,
 	PlayIcon,
 	PlusIcon,
 	ReportIcon,
 	SpinnerIcon,
 	StopCircleIcon,
+	VersionIcon,
 } from '@freeplay/assets'
 import {
 	BrowseInstallHeader,
@@ -1105,6 +1111,6 @@ const handleOptionsClick = (args) => {
 }
 
 .project-sidebar-section {
-	@apply p-4 flex flex-col gap-2 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid;
+	@apply p-4 flex flex-col gap-2 border-0 border-b border-surface-4 border-solid;
 }
 </style>

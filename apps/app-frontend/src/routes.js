@@ -17,7 +17,8 @@ export default new createRouter({
 			component: Pages.Index,
 		},
 		{
-			path: '/hosting/manage/',
+			path: '/hosting/manage',
+			alias: ['/hosting/manage/', '/servers'],
 			name: 'Servers',
 			component: Pages.Servers,
 		},

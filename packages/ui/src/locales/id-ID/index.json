@@ -596,9 +596,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Pemuat"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Nama"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Masukkan nama instans"
   },

@@ -731,9 +731,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "載入器"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "名稱"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "輸入實例名稱"
   },

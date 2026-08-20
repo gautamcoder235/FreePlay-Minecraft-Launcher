@@ -142,11 +142,11 @@ import {
 
 import borisAvatar from '#ui/assets/servers/server-list-empty/boris.png'
 import fetchAvatar from '#ui/assets/servers/server-list-empty/fetch.png'
+import freeplaySmpIcon from '#ui/assets/servers/server-list-empty/freeplay-smp.png'
 import geometricallyAvatar from '#ui/assets/servers/server-list-empty/geometrically.png'
 import imb11Avatar from '#ui/assets/servers/server-list-empty/imb11.png'
 import joshAvatar from '#ui/assets/servers/server-list-empty/josh.png'
 import michaelAvatar from '#ui/assets/servers/server-list-empty/michael.png'
-import freeplaySmpIcon from '#ui/assets/servers/server-list-empty/freeplay-smp.png'
 import prospectorAvatar from '#ui/assets/servers/server-list-empty/prospector.png'
 import sayaAvatar from '#ui/assets/servers/server-list-empty/saya.png'
 import trumanAvatar from '#ui/assets/servers/server-list-empty/truman.png'

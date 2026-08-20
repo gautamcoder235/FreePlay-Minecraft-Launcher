@@ -1,17 +1,23 @@
 <template>
-	<div v-if="count > 1" class="flex items-center gap-1">
+	<div v-if="count > 1" class="flex items-center gap-1 shrink-0">
 		<template v-if="page > 1">
 			<ButtonLink
 				v-if="linkFunction"
 				aria-label="Previous Page"
 				:href="linkFunction(page - 1)"
 				type="quiet"
-				class="!w-9 !px-0 !rounded-full"
+				class="!w-9 !px-0 !rounded-full shrink-0"
 				@click.prevent="switchPage(page - 1)"
 			>
 				<ChevronLeftIcon aria-hidden="true" />
 			</ButtonLink>
-			<IconButton v-else label="Previous Page" type="quiet" @click="switchPage(page - 1)">
+			<IconButton
+				v-else
+				label="Previous Page"
+				type="quiet"
+				class="shrink-0"
+				@click="switchPage(page - 1)"
+			>
 				<ChevronLeftIcon aria-hidden="true" />
 			</IconButton>
 		</template>
@@ -22,7 +28,7 @@
 				'page-number': page !== item,
 				shrink: item !== '-' && item > 99,
 			}"
-			class="page-number-container"
+			class="page-number-container shrink-0"
 		>
 			<div v-if="item === '-'" class="rotate-90 grid place-content-center">
 				<EllipsisVerticalIcon />
@@ -35,7 +41,7 @@
 					:color="page === item ? 'brand' : undefined"
 					:interaction="page === item ? 'filled' : undefined"
 					:aria-current="page === item ? 'page' : undefined"
-					:class="['!min-w-9 !rounded-full', page === item ? '!bg-brand-highlight' : '']"
+					:class="['!min-w-9 !rounded-full shrink-0', page === item ? '!bg-brand-highlight' : '']"
 					@click.prevent="page !== item ? switchPage(item) : null"
 				>
 					{{ item }}
@@ -46,7 +52,7 @@
 					:color="page === item ? 'brand' : undefined"
 					:interaction="page === item ? 'filled' : undefined"
 					:aria-current="page === item ? 'page' : undefined"
-					:class="['!min-w-9 !rounded-full', page === item ? '!bg-brand-highlight' : '']"
+					:class="['!min-w-9 !rounded-full shrink-0', page === item ? '!bg-brand-highlight' : '']"
 					@click="page !== item ? switchPage(item) : null"
 				>
 					{{ item }}
@@ -60,12 +66,18 @@
 				aria-label="Next Page"
 				:href="linkFunction(page + 1)"
 				type="quiet"
-				class="!w-9 !px-0 !rounded-full"
+				class="!w-9 !px-0 !rounded-full shrink-0"
 				@click.prevent="switchPage(page + 1)"
 			>
 				<ChevronRightIcon aria-hidden="true" />
 			</ButtonLink>
-			<IconButton v-else label="Next Page" type="quiet" @click="switchPage(page + 1)">
+			<IconButton
+				v-else
+				label="Next Page"
+				type="quiet"
+				class="shrink-0"
+				@click="switchPage(page + 1)"
+			>
 				<ChevronRightIcon aria-hidden="true" />
 			</IconButton>
 		</template>

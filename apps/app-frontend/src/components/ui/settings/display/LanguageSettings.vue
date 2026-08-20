@@ -44,31 +44,46 @@ async function onLocaleChange(newLocale: string) {
 </script>
 
 <template>
-	<h2 class="m-0 text-lg font-semibold text-contrast">
-		{{ formatMessage(commonSettingsMessages.language) }}
-	</h2>
+	<div class="flex flex-col gap-6">
+		<section class="flex flex-col gap-3">
+			<div class="flex flex-col">
+				<h2 class="m-0 text-base font-bold text-contrast">
+					{{ formatMessage(commonSettingsMessages.language) }}
+				</h2>
+				<p class="m-0 text-xs text-secondary mt-0.5">
+					Select your preferred launcher display language.
+				</p>
+			</div>
 
-	<Admonition type="warning" class="mt-2 mb-4">
-		{{ formatMessage(languageSelectorMessages.languageWarning, { platform }) }}
-	</Admonition>
+			<div
+				class="rounded-2xl bg-surface-2 border border-surface-4 p-5 shadow-sm flex flex-col gap-4"
+			>
+				<Admonition type="warning" class="m-0">
+					{{ formatMessage(languageSelectorMessages.languageWarning, { platform }) }}
+				</Admonition>
 
-	<p class="m-0 mb-4">
-		<IntlFormatted
-			:message-id="languageSelectorMessages.languagesDescription"
-			:values="{ platform }"
-		>
-			<template #~crowdin-link="{ children }">
-				<AutoLink to="https://translate.freeplay.app">
-					<component :is="() => children" />
-				</AutoLink>
-			</template>
-		</IntlFormatted>
-	</p>
+				<p class="m-0 text-xs text-secondary leading-relaxed">
+					<IntlFormatted
+						:message-id="languageSelectorMessages.languagesDescription"
+						:values="{ platform }"
+					>
+						<template #~crowdin-link="{ children }">
+							<AutoLink to="https://translate.freeplay.app" class="text-brand hover:underline">
+								<component :is="() => children" />
+							</AutoLink>
+						</template>
+					</IntlFormatted>
+				</p>
 
-	<LanguageSelector
-		:current-locale="settings.locale"
-		:locales="LOCALES"
-		:on-locale-change="onLocaleChange"
-		:is-changing="$isChanging"
-	/>
+				<div class="pt-2 border-t border-surface-4/60">
+					<LanguageSelector
+						:current-locale="settings.locale"
+						:locales="LOCALES"
+						:on-locale-change="onLocaleChange"
+						:is-changing="$isChanging"
+					/>
+				</div>
+			</div>
+		</section>
+	</div>
 </template>

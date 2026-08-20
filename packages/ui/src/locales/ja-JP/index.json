@@ -728,9 +728,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "ローダー"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "名前"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "インスタンス名を入力"
   },

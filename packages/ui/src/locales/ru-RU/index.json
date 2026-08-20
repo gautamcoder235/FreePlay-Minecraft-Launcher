@@ -671,9 +671,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Загрузчик"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Название"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Введите название сборки"
   },

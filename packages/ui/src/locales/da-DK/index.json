@@ -434,9 +434,6 @@
   "creation-flow.modal.custom-setup.icon.select": {
     "defaultMessage": "Vælg ikon"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Navn"
-  },
   "creation-flow.modal.final-config.difficulty.easy": {
     "defaultMessage": "Nemt"
   },

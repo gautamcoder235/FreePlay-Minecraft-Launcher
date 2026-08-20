@@ -698,9 +698,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "Učitavač"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "Ime"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "Ukucaj ime instance"
   },

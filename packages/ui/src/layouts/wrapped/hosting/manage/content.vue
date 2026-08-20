@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Archon, type Labrinth, FreePlayApiError } from '@freeplay/api-client'
+import { type Archon, FreePlayApiError, type Labrinth } from '@freeplay/api-client'
 import { ClipboardCopyIcon } from '@freeplay/assets'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, nextTick, ref, watch } from 'vue'

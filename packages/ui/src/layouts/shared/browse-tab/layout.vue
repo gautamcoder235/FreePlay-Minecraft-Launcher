@@ -10,6 +10,7 @@ import LoadingIndicator from '#ui/components/base/LoadingIndicator.vue'
 import NavTabs from '#ui/components/base/NavTabs.vue'
 import Pagination from '#ui/components/base/Pagination.vue'
 import StyledInput from '#ui/components/base/StyledInput.vue'
+import Toggle from '#ui/components/base/Toggle.vue'
 import ProjectCard from '#ui/components/project/card/ProjectCard.vue'
 import ProjectCardList from '#ui/components/project/ProjectCardList.vue'
 import SearchFilterControl from '#ui/components/search/SearchFilterControl.vue'
@@ -39,12 +40,110 @@ const sortOptions = computed<ComboboxOption<SortType>[]>(() =>
 	})),
 )
 
-const maxResultsOptions = computed<ComboboxOption<number>[]>(() =>
+const _maxResultsOptions = computed<ComboboxOption<number>[]>(() =>
 	(ctx.maxResultsOptions?.value ?? [5, 10, 15, 20, 50, 100]).map((n) => ({
 		value: n,
 		label: String(n),
 	})),
 )
+
+const categoryFilter = computed(() =>
+	ctx.isServerType.value
+		? ctx.serverFilterTypes.value.find((f) => f.id.includes('category'))
+		: ctx.filters.value.find((f) => f.id.startsWith('category')),
+)
+
+const categoryOptions = computed(() => categoryFilter.value?.options ?? [])
+
+const loaderFilter = computed(() =>
+	ctx.filters.value.find((f) => f.id === 'loader' || f.id === 'server_loader'),
+)
+
+const versionFilter = computed(() =>
+	ctx.filters.value.find((f) => f.id === 'game_version' || f.id === 'server_game_version'),
+)
+
+const environmentFilter = computed(() => ctx.filters.value.find((f) => f.id === 'environment'))
+
+function isOptionSelected(filterId: string, optionId: string): boolean {
+	const current = ctx.isServerType.value ? ctx.serverCurrentFilters.value : ctx.currentFilters.value
+	return current.some((f) => f.type === filterId && f.option === optionId)
+}
+
+function toggleOption(filterId: string, optionId: string) {
+	const current = ctx.isServerType.value ? ctx.serverCurrentFilters.value : ctx.currentFilters.value
+	const idx = current.findIndex((f) => f.type === filterId && f.option === optionId)
+	if (idx >= 0) {
+		current.splice(idx, 1)
+	} else {
+		current.push({ type: filterId, option: optionId })
+	}
+}
+
+function selectSingleOption(filterId: string, optionId: string | null) {
+	const current = ctx.isServerType.value ? ctx.serverCurrentFilters.value : ctx.currentFilters.value
+	for (let i = current.length - 1; i >= 0; i--) {
+		if (current[i].type === filterId) {
+			current.splice(i, 1)
+		}
+	}
+	if (optionId) {
+		current.push({ type: filterId, option: optionId })
+	}
+}
+
+const selectedLoader = computed(() => {
+	if (!loaderFilter.value) return ''
+	const current = ctx.isServerType.value ? ctx.serverCurrentFilters.value : ctx.currentFilters.value
+	const found = current.find((f) => f.type === loaderFilter.value!.id)
+	return found?.option ?? ''
+})
+
+const loaderOptions = computed<ComboboxOption<string>[]>(() => [
+	{ value: '', label: 'All Loaders' },
+	...(loaderFilter.value?.options ?? []).map((o) => ({
+		value: o.id,
+		label: o.formatted_name ?? o.name ?? o.id,
+	})),
+])
+
+const selectedLoaderOption = computed(
+	() => loaderOptions.value.find((o) => o.value === selectedLoader.value) ?? loaderOptions.value[0],
+)
+
+const selectedVersion = computed(() => {
+	if (!versionFilter.value) return ''
+	const current = ctx.isServerType.value ? ctx.serverCurrentFilters.value : ctx.currentFilters.value
+	const found = current.find((f) => f.type === versionFilter.value!.id)
+	return found?.option ?? ''
+})
+
+const versionOptions = computed<ComboboxOption<string>[]>(() => [
+	{ value: '', label: 'All Versions' },
+	...(versionFilter.value?.options ?? []).map((o) => ({
+		value: o.id,
+		label: o.formatted_name ?? o.name ?? o.id,
+	})),
+])
+
+const selectedVersionOption = computed(
+	() =>
+		versionOptions.value.find((o) => o.value === selectedVersion.value) ?? versionOptions.value[0],
+)
+
+const selectedEnvironment = computed(() => {
+	if (!environmentFilter.value) return ''
+	const current = ctx.isServerType.value ? ctx.serverCurrentFilters.value : ctx.currentFilters.value
+	const found = current.find((f) => f.type === environmentFilter.value!.id)
+	return found?.option ?? ''
+})
+
+const instanceOptions = computed<ComboboxOption<string>[]>(() => toValue(ctx.instanceOptions) ?? [])
+
+const selectedInstanceId = computed(() => {
+	const raw = toValue(ctx.selectedInstanceId)
+	return raw !== undefined && raw !== null ? String(raw) : ''
+})
 
 const messages = defineMessages({
 	searchPlaceholder: {
@@ -138,27 +237,53 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 	</template>
 	<SelectedProjectsFloatingBar v-if="ctx.installContext?.value && ctx.variant !== 'web'" />
 
-	<NavTabs
-		v-if="ctx.showProjectTypeTabs.value"
-		:links="ctx.selectableProjectTypes.value"
-		:replace="ctx.variant === 'app'"
-	/>
+	<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+		<NavTabs
+			v-if="ctx.showProjectTypeTabs.value"
+			:links="ctx.selectableProjectTypes.value"
+			:replace="ctx.variant === 'app'"
+			class="!m-0 shrink-0"
+		/>
 
-	<StyledInput
-		v-model="ctx.query.value"
-		:icon="SearchIcon"
-		type="text"
-		autocomplete="off"
-		:placeholder="
-			formatMessage(messages.searchPlaceholder, {
-				projectType: formatProjectTypeSentence(formatMessage, ctx.projectType.value, 2),
-			})
-		"
-		clearable
-		wrapper-class="w-full"
-		:input-class="ctx.variant === 'web' ? '!h-12' : 'h-12'"
-		@clear="ctx.clearSearch()"
-	/>
+		<div class="flex-1 max-w-md md:ml-auto">
+			<StyledInput
+				v-model="ctx.query.value"
+				:icon="SearchIcon"
+				type="text"
+				autocomplete="off"
+				:placeholder="
+					formatMessage(messages.searchPlaceholder, {
+						projectType: formatProjectTypeSentence(formatMessage, ctx.projectType.value, 2),
+					})
+				"
+				clearable
+				wrapper-class="w-full !bg-surface-2 border border-surface-4 rounded-xl"
+				input-class="!h-10 text-xs"
+				@clear="ctx.clearSearch()"
+			/>
+		</div>
+	</div>
+
+	<div
+		v-if="categoryFilter && categoryOptions.length > 0"
+		class="flex flex-wrap items-center gap-1.5 py-1 select-none"
+	>
+		<button
+			v-for="opt in categoryOptions"
+			:key="opt.id"
+			type="button"
+			class="h-7 px-3 rounded-xl border text-xs font-semibold flex items-center gap-1.5 cursor-pointer whitespace-nowrap transition-all duration-200 active:scale-95 shrink-0"
+			:class="
+				isOptionSelected(categoryFilter.id, opt.id)
+					? 'bg-brand border-brand text-brand-inverted shadow-[0_0_12px_var(--color-brand-shadow)] font-bold'
+					: 'bg-surface-2 border-surface-4 text-secondary hover:text-contrast hover:border-surface-5 hover:bg-surface-3'
+			"
+			@click="toggleOption(categoryFilter.id, opt.id)"
+		>
+			<component :is="opt.icon" v-if="opt.icon" class="w-3.5 h-3.5" />
+			<span>{{ opt.formatted_name ?? opt.name ?? opt.id }}</span>
+		</button>
+	</div>
 
 	<Admonition
 		v-if="ctx.linkOverridesAdvancedPrefs.value"
@@ -175,62 +300,143 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 		</template>
 	</Admonition>
 
-	<div class="flex flex-wrap items-center gap-2">
-		<Combobox
-			:model-value="ctx.effectiveCurrentSortType.value"
-			:options="sortOptions"
-			trigger-type="base"
-			:class="
-				ctx.variant === 'web'
-					? '!w-[16rem] min-w-max max-w-full flex-grow md:flex-grow-0'
-					: '!w-[16rem] min-w-max max-w-full'
-			"
-			@update:model-value="(val: SortType) => (ctx.effectiveCurrentSortType.value = val)"
-		>
-			<template #prefix>
-				<span class="font-semibold text-primary">{{
-					formatMessage(commonMessages.sortByLabel)
-				}}</span>
-			</template>
-		</Combobox>
+	<div
+		class="flex flex-wrap items-center justify-between gap-2.5 p-2.5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm"
+	>
+		<div class="flex flex-wrap items-center gap-2 min-w-0 flex-1">
+			<!-- Target Instance Selector Option -->
+			<Combobox
+				v-if="instanceOptions.length > 0"
+				:model-value="selectedInstanceId"
+				:options="instanceOptions"
+				trigger-type="base"
+				class="!w-[13.5rem] min-w-0"
+				@update:model-value="(val: string) => ctx.onSelectInstance?.(val || null)"
+			>
+				<template #prefix>
+					<span class="font-semibold text-secondary text-xs">Instance:</span>
+				</template>
+			</Combobox>
 
-		<Combobox
-			:model-value="ctx.maxResults.value"
-			:options="maxResultsOptions"
-			trigger-type="base"
-			:class="
-				ctx.variant === 'web'
-					? '!w-[9rem] min-w-max max-w-full flex-grow md:flex-grow-0'
-					: '!w-[9rem] min-w-max max-w-full'
-			"
-			:placeholder="formatMessage(commonMessages.viewLabel)"
-			@update:model-value="(val: number) => (ctx.maxResults.value = val)"
-		>
-			<template #prefix>
-				<span class="font-semibold text-primary">{{ formatMessage(messages.viewPrefix) }}</span>
-			</template>
-		</Combobox>
+			<!-- 1st Option: Version Dropdown -->
+			<Combobox
+				v-if="versionFilter"
+				:model-value="selectedVersionOption"
+				:options="versionOptions"
+				trigger-type="base"
+				class="!w-[10.5rem] min-w-0"
+				@update:model-value="
+					(val: ComboboxOption<string>) =>
+						versionFilter ? selectSingleOption(versionFilter.id, val.value || null) : null
+				"
+			>
+				<template #prefix>
+					<span class="font-semibold text-secondary text-xs">Version:</span>
+				</template>
+			</Combobox>
 
-		<div v-if="ctx.filtersMenuOpen && !ctx.filtersMenuOpen.value" class="lg:hidden">
-			<Button @click="ctx.filtersMenuOpen.value = true">
-				{{ formatMessage(messages.filterResults) }}
-			</Button>
+			<!-- 3rd Option: Sort By Dropdown (Together with Version) -->
+			<Combobox
+				:model-value="ctx.effectiveCurrentSortType.value"
+				:options="sortOptions"
+				trigger-type="base"
+				class="!w-[12.5rem] min-w-0"
+				@update:model-value="(val: SortType) => (ctx.effectiveCurrentSortType.value = val)"
+			>
+				<template #prefix>
+					<span class="font-semibold text-secondary text-xs">{{
+						formatMessage(commonMessages.sortByLabel)
+					}}</span>
+				</template>
+			</Combobox>
+
+			<!-- Loader Dropdown -->
+			<Combobox
+				v-if="loaderFilter"
+				:model-value="selectedLoaderOption"
+				:options="loaderOptions"
+				trigger-type="base"
+				class="!w-[10rem] min-w-0"
+				@update:model-value="
+					(val: ComboboxOption<string>) =>
+						loaderFilter ? selectSingleOption(loaderFilter.id, val.value || null) : null
+				"
+			>
+				<template #prefix>
+					<span class="font-semibold text-secondary text-xs">Loader:</span>
+				</template>
+			</Combobox>
+
+			<!-- Environment Switch -->
+			<div
+				v-if="environmentFilter"
+				class="flex items-center p-0.5 rounded-xl bg-surface-3 border border-surface-4 select-none h-8 shrink-0"
+			>
+				<button
+					type="button"
+					class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border-none"
+					:class="
+						selectedEnvironment === ''
+							? 'bg-brand text-brand-inverted shadow-sm'
+							: 'text-secondary hover:text-contrast bg-transparent'
+					"
+					@click="selectSingleOption(environmentFilter.id, null)"
+				>
+					All
+				</button>
+				<button
+					type="button"
+					class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border-none"
+					:class="
+						selectedEnvironment === 'client'
+							? 'bg-brand text-brand-inverted shadow-sm'
+							: 'text-secondary hover:text-contrast bg-transparent'
+					"
+					@click="selectSingleOption(environmentFilter.id, 'client')"
+				>
+					Client
+				</button>
+				<button
+					type="button"
+					class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border-none"
+					:class="
+						selectedEnvironment === 'server'
+							? 'bg-brand text-brand-inverted shadow-sm'
+							: 'text-secondary hover:text-contrast bg-transparent'
+					"
+					@click="selectSingleOption(environmentFilter.id, 'server')"
+				>
+					Server
+				</button>
+			</div>
+
+			<!-- Hide Installed Toggle -->
+			<label
+				v-if="ctx.showHideInstalled?.value"
+				class="flex items-center gap-2 px-3 py-1 rounded-xl bg-surface-3 border border-surface-4 text-xs font-semibold text-secondary cursor-pointer select-none hover:border-surface-5 hover:text-contrast transition-all h-8 shrink-0"
+			>
+				<Toggle v-model="ctx.hideInstalled.value" size="sm" />
+				<span class="text-xs">{{ ctx.hideInstalledLabel?.value || 'Hide Installed' }}</span>
+			</label>
 		</div>
 
-		<IconButton
-			v-if="ctx.cycleDisplayMode"
-			label="Change display mode"
-			@click="ctx.cycleDisplayMode!()"
-		>
-			<slot name="display-mode-icon" />
-		</IconButton>
+		<div class="flex items-center gap-2 shrink-0 ml-auto pl-1">
+			<IconButton
+				v-if="ctx.cycleDisplayMode"
+				label="Change display mode"
+				class="!h-8 !w-8"
+				@click="ctx.cycleDisplayMode!()"
+			>
+				<slot name="display-mode-icon" />
+			</IconButton>
 
-		<Pagination
-			:page="ctx.currentPage.value"
-			:count="ctx.pageCount.value"
-			:class="ctx.variant === 'web' ? 'mx-auto sm:ml-auto sm:mr-0' : 'ml-auto'"
-			@switch-page="ctx.setPage"
-		/>
+			<Pagination
+				:page="ctx.currentPage.value"
+				:count="ctx.pageCount.value"
+				class="shrink-0"
+				@switch-page="ctx.setPage"
+			/>
+		</div>
 	</div>
 
 	<SearchFilterControl
@@ -253,12 +459,21 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 		:provided-message="lockedMessages?.providedBy"
 	/>
 
-	<div class="search">
-		<section v-if="ctx.loading.value" class="offline">
+	<div class="search flex flex-col gap-4">
+		<section
+			v-if="ctx.loading.value"
+			class="flex flex-col items-center justify-center p-16 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm text-center"
+		>
 			<component :is="ctx.loadingComponent ?? LoadingIndicator" />
 		</section>
-		<section v-else-if="ctx.offline?.value && ctx.totalHits.value === 0" class="offline">
-			{{ formatMessage(messages.offline) }}
+		<section
+			v-else-if="ctx.offline?.value && ctx.totalHits.value === 0"
+			class="flex flex-col items-center justify-center p-12 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm text-center gap-2"
+		>
+			<p class="m-0 text-base font-bold text-contrast">{{ formatMessage(messages.offline) }}</p>
+			<p class="m-0 text-xs text-secondary">
+				You are currently offline. Check your network connection.
+			</p>
 		</section>
 		<section
 			v-else-if="
@@ -266,9 +481,12 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 					? ctx.serverHits.value.length === 0
 					: ctx.projectHits.value.length === 0
 			"
-			class="offline"
+			class="flex flex-col items-center justify-center p-12 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm text-center gap-2"
 		>
-			<p>{{ formatMessage(messages.noResults) }}</p>
+			<p class="m-0 text-base font-bold text-contrast">{{ formatMessage(messages.noResults) }}</p>
+			<p class="m-0 text-xs text-secondary">
+				Try adjusting your filters or searching for something else.
+			</p>
 		</section>
 
 		<ProjectCardList v-else :layout="ctx.effectiveLayout.value">

@@ -101,47 +101,40 @@
 			v-else
 			:class="[
 				baseCardStyle,
-				'p-4 grid grid-project-card-list gap-x-3 gap-y-2',
+				'p-4 flex flex-col justify-between gap-3 min-h-[152px] overflow-hidden',
 				{ 'has-actions': !!$slots.actions },
 			]"
 		>
-			<Avatar
-				:src="iconUrl"
-				size="100px"
-				class="project-card__icon grid-project-card-list__icon ease-brightness"
-				no-shadow
-			/>
-			<div class="flex flex-col gap-2 grid-project-card-list__info">
-				<div class="flex gap-2 items-center">
-					<ProjectCardTitle :title="title" />
-					<ProjectCardAuthor v-if="author" :author="author" />
-					<ProjectStatusBadge v-if="status" :status="status" />
+			<div class="flex items-start gap-3 w-full min-w-0">
+				<Avatar
+					:src="iconUrl"
+					size="64px"
+					class="project-card__icon ease-brightness shrink-0 mt-0.5"
+					no-shadow
+				/>
+				<div class="flex flex-col gap-1.5 min-w-0 flex-1">
+					<div class="flex items-center gap-2 min-w-0 flex-wrap">
+						<ProjectCardTitle :title="title" compact />
+						<ProjectCardAuthor v-if="author" :author="author" />
+						<ProjectStatusBadge v-if="status" :status="status" />
+					</div>
+					<div class="project-card-summary m-0 font-normal line-clamp-2 text-secondary text-sm">
+						{{ summary }}
+					</div>
 				</div>
-				<div class="project-card-summary m-0 font-normal line-clamp-2">
-					{{ summary }}
+
+				<div
+					v-if="!!$slots.actions"
+					class="flex gap-1 shrink-0 ml-auto empty:hidden smart-clickable:allow-pointer-events"
+				>
+					<slot name="actions" />
 				</div>
 			</div>
 
 			<div
-				v-if="!!$slots.actions"
-				class="flex gap-1 shrink-0 ml-auto empty:hidden smart-clickable:allow-pointer-events grid-project-card-list__actions"
+				class="mt-auto pt-2 flex items-center gap-x-3 gap-y-1.5 flex-wrap border-t border-surface-4/40 overflow-hidden"
 			>
-				<slot name="actions" />
-			</div>
-			<div
-				class="flex flex-col gap-3 items-end shrink-0 ml-auto empty:hidden grid-project-card-list__stats"
-				:class="{ 'mt-3': !!$slots.actions }"
-			>
-				<div
-					v-if="downloads !== undefined || followers !== undefined"
-					class="flex items-center gap-3"
-				>
-					<ProjectCardStats :downloads="downloads" :followers="followers" />
-				</div>
-				<ProjectCardDate v-if="date && autoDisplayDate" :type="autoDisplayDate" :date="date" />
-			</div>
-			<div class="mt-auto flex items-center gap-3 grid-project-card-list__tags">
-				<div class="flex items-center gap-2 w-full">
+				<div class="flex items-center gap-1.5 min-w-0 overflow-hidden flex-wrap">
 					<template v-if="isServerProject">
 						<ServerOnlinePlayers
 							v-if="serverOnlinePlayers !== undefined"
@@ -154,26 +147,22 @@
 							:recent-plays="serverRecentPlays"
 							:hide-label="true"
 						/>
-					</template>
-					<div class="flex items-center gap-1">
-						<template v-if="isServerProject">
-							<ServerPing v-if="serverPing && serverStatusOnline" :ping="serverPing" />
-							<ServerRegion
-								v-if="serverRegion"
-								:region="serverRegion"
-								class="smart-clickable:allow-pointer-events"
-							/>
-						</template>
-						<ProjectCardEnvironment v-if="environment" :environment="environment" />
-						<ProjectCardTags
-							v-if="tags"
-							:tags="tags"
-							:extra-tags="extraTags"
-							:exclude-loaders="excludeLoaders"
-							:deprioritized-tags="deprioritizedTags"
-							:max-tags="(maxTags || (!!$slots.actions ? 4 : 5)) + (!!environment ? 0 : 1)"
+						<ServerPing v-if="serverPing && serverStatusOnline" :ping="serverPing" />
+						<ServerRegion
+							v-if="serverRegion"
+							:region="serverRegion"
+							class="smart-clickable:allow-pointer-events"
 						/>
-					</div>
+					</template>
+					<ProjectCardEnvironment v-if="environment" :environment="environment" class="shrink-0" />
+					<ProjectCardTags
+						v-if="tags"
+						:tags="tags"
+						:extra-tags="extraTags"
+						:exclude-loaders="excludeLoaders"
+						:deprioritized-tags="deprioritizedTags"
+						:max-tags="maxTags || (environment ? 2 : 3)"
+					/>
 					<ServerModpackContent
 						v-if="serverModpackContent"
 						:name="serverModpackContent.name"
@@ -182,6 +171,18 @@
 						:show-custom-modpack-tooltip="serverModpackContent.showCustomModpackTooltip"
 						class="text-primary"
 					/>
+				</div>
+
+				<div
+					class="flex items-center gap-3 shrink-0 ml-auto text-xs text-secondary whitespace-nowrap"
+				>
+					<div
+						v-if="downloads !== undefined || followers !== undefined"
+						class="flex items-center gap-3"
+					>
+						<ProjectCardStats :downloads="downloads" :followers="followers" />
+					</div>
+					<ProjectCardDate v-if="date && autoDisplayDate" :type="autoDisplayDate" :date="date" />
 				</div>
 			</div>
 		</div>
@@ -308,100 +309,8 @@ const cssColor = computed(() => {
 	container-type: inline-size;
 }
 
-.grid-project-card-list {
-	grid-template:
-		'icon info stats stats'
-		'icon info stats stats'
-		'icon tags tags tags';
-	grid-template-columns: auto 1fr auto auto;
-}
-
-.grid-project-card-list.has-actions {
-	grid-template:
-		'icon info actions actions'
-		'icon info dummy stats'
-		'icon tags tags stats';
-	grid-template-columns: auto 1fr auto auto;
-}
-
-.grid-project-card-list__icon {
-	grid-area: icon;
-}
-
-.grid-project-card-list__info {
-	grid-area: info;
-}
-
-.grid-project-card-list__actions {
-	grid-area: actions;
-}
-
-.grid-project-card-list__stats {
-	grid-area: stats;
-}
-
-.grid-project-card-list__tags {
-	grid-area: tags;
-}
-
-@container (width < 850px) {
-	.project-card__icon {
-		--_override-size: 64px;
-	}
-
-	.grid-project-card-list {
-		grid-template:
-			'icon info stats'
-			'icon info stats'
-			'tags tags tags';
-		grid-template-columns: auto 1fr auto;
-	}
-
-	.grid-project-card-list.has-actions {
-		grid-template:
-			'icon info actions'
-			'icon info stats'
-			'tags tags stats';
-		grid-template-columns: auto 1fr auto;
-	}
-}
-
-@container (width < 550px) {
-	.project-card__icon {
-		--_override-size: 64px;
-	}
-
-	.grid-project-card-list {
-		grid-template:
-			'icon info'
-			'icon info'
-			'tags tags'
-			'stats stats';
-		grid-template-columns: auto 1fr;
-	}
-
-	.grid-project-card-list.has-actions {
-		grid-template:
-			'icon info'
-			'icon info'
-			'tags tags'
-			'stats stats'
-			'actions actions';
-		grid-template-columns: auto 1fr;
-	}
-
-	.grid-project-card-list__stats,
-	.grid-project-card-list__actions {
-		@apply items-start w-full;
-	}
-
-	.grid-project-card-list__info {
-		@apply gap-0.5;
-	}
-
-	.project-card-summary {
-		@apply text-sm;
-	}
+.project-card__icon {
+	--_override-size: 64px;
 }
 
 /*noinspection CssUnresolvedCustomProperty*/

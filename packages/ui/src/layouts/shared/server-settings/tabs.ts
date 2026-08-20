@@ -1,8 +1,8 @@
 import type { Archon } from '@freeplay/api-client'
 import {
 	CardIcon,
-	ListIcon,
 	FreePlayIcon,
+	ListIcon,
 	SettingsIcon,
 	TextQuoteIcon,
 	VersionIcon,

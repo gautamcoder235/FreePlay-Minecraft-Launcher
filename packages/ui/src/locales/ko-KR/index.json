@@ -731,9 +731,6 @@
   "creation-flow.modal.custom-setup.loader.label": {
     "defaultMessage": "로더"
   },
-  "creation-flow.modal.custom-setup.name.label": {
-    "defaultMessage": "이름"
-  },
   "creation-flow.modal.custom-setup.name.placeholder": {
     "defaultMessage": "인스턴스 이름 입력"
   },

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { BanIcon, SpinnerIcon, TagCategoryWandSparklesIcon, XIcon } from '@freeplay/assets'
 import {
-	Avatar,
-	Button,
 	defineMessages,
 	IconButton,
 	injectNotificationManager,
@@ -152,24 +150,27 @@ defineExpose({ show, hide })
 		:aria-label="formatMessage(messages.title)"
 		:on-after-hide="handleHide"
 		:disable-close="applying"
-		class="!overflow-hidden !rounded-[20px]"
+		class="!overflow-hidden !rounded-3xl !border !border-white/10 !bg-[#090B0F]/95 !backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(6,182,212,0.15)]"
 	>
-		<div class="grid h-[384px] w-[768px] max-w-full grid-cols-2">
-			<section class="flex min-w-0 flex-col gap-6 bg-surface-3 p-8">
+		<div class="grid h-[400px] w-[768px] max-w-full grid-cols-2">
+			<section class="flex min-w-0 flex-col gap-6 bg-[#141923]/95 p-8 select-none">
 				<div
-					class="flex h-8 w-fit items-center rounded-full border border-solid border-brand bg-brand-highlight px-2.5 text-sm font-base leading-5 text-brand"
+					class="flex h-7 w-fit items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 text-xs font-black uppercase tracking-wider text-cyan-300 font-mono shadow-inner"
 				>
 					{{ formatMessage(messages.badge) }}
 				</div>
 
-				<div class="flex min-w-0 flex-col gap-4">
-					<h2 class="m-0 text-2xl font-semibold leading-6 text-contrast">
+				<div class="flex min-w-0 flex-col gap-3">
+					<h2 class="m-0 text-2xl font-black tracking-tight text-white">
 						{{ formatMessage(messages.title) }}
 					</h2>
-					<p class="m-0 leading-6 text-primary">
+					<p class="m-0 text-xs text-zinc-400 leading-relaxed">
 						{{ formatMessage(messages.description) }}
 					</p>
-					<p v-if="iconlessInstanceIds.length" class="m-0 leading-6 text-primary">
+					<p
+						v-if="iconlessInstanceIds.length"
+						class="m-0 text-xs font-semibold text-sky-400 leading-relaxed"
+					>
 						{{
 							formatMessage(messages.instancesWithoutIcons, {
 								count: iconlessInstanceIds.length,
@@ -178,53 +179,57 @@ defineExpose({ show, hide })
 					</p>
 				</div>
 
-				<div class="flex mt-auto items-center gap-2.5">
-					<Button size="lg" :disabled="applying" @click="hide">
+				<div class="flex mt-auto items-center gap-3">
+					<button
+						type="button"
+						class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
+						:disabled="applying"
+						@click="hide"
+					>
 						<template v-if="iconlessInstanceIds.length === 0">
 							{{ formatMessage(messages.close) }}
 						</template>
 						<template v-else>
-							<BanIcon />
+							<BanIcon class="w-3.5 h-3.5" />
 							{{ formatMessage(messages.skip) }}
 						</template>
-					</Button>
-					<Button
+					</button>
+					<button
 						v-if="iconlessInstanceIds.length !== 0"
-						type="colored"
-						color="brand"
-						size="lg"
+						type="button"
+						class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 font-black text-xs transition-all duration-200 cursor-pointer shadow-lg shadow-sky-950/60 active:scale-95 border-none flex items-center gap-2"
 						:disabled="loading || applying"
 						@click="applyIcons"
 					>
-						<SpinnerIcon v-if="applying" class="animate-spin" />
-						<TagCategoryWandSparklesIcon v-else />
+						<SpinnerIcon v-if="applying" class="animate-spin w-4 h-4" />
+						<TagCategoryWandSparklesIcon v-else class="w-4 h-4" />
 						{{ formatMessage(messages.randomIcons) }}
-					</Button>
+					</button>
 				</div>
 			</section>
 
 			<section
-				class="relative flex min-w-0 items-center justify-center border-0 border-l border-solid border-surface-5 bg-surface-2 p-10"
+				class="relative flex min-w-0 items-center justify-center border-0 border-l border-white/10 bg-[#0e131d]/90 p-8 select-none"
 			>
 				<IconButton
 					type="quiet"
 					size="sm"
 					:label="formatMessage(messages.close)"
-					class="!absolute right-6 top-6 z-10"
+					class="!absolute right-4 top-4 z-10 !bg-white/5 hover:!bg-white/10 !text-zinc-400 hover:!text-white rounded-xl"
 					:disabled="applying"
 					@click="hide"
 				>
 					<XIcon />
 				</IconButton>
 
-				<div class="grid size-60 grid-cols-3 grid-rows-3 gap-4" aria-hidden="true">
-					<Avatar
+				<div class="grid size-60 grid-cols-3 grid-rows-3 gap-3" aria-hidden="true">
+					<div
 						v-for="(icon, index) in icons"
 						:key="index"
-						:src="icon"
-						size="100%"
-						class="min-h-0 min-w-0 !rounded-2xl"
-					/>
+						class="min-h-0 min-w-0 rounded-2xl border border-white/10 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-200"
+					>
+						<img :src="icon" class="w-full h-full object-cover" />
+					</div>
 				</div>
 			</section>
 		</div>

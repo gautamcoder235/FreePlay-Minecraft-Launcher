@@ -30,6 +30,8 @@ export const stageConfig: StageConfigInput<CreationFlowContextValue> = {
 	leftButtonConfig: (ctx) => ({
 		label: ctx.formatMessage(commonMessages.backButton),
 		icon: LeftArrowIcon,
+		buttonClass:
+			'!bg-[#141923] hover:!bg-[#18202e] !border-white/10 hover:!border-white/20 !text-zinc-300 hover:!text-white rounded-xl transition-all active:scale-95',
 		onClick: () => ctx.modal.value?.setStage('setup-type'),
 	}),
 	rightButtonConfig: (ctx) => {
@@ -46,6 +48,8 @@ export const stageConfig: StageConfigInput<CreationFlowContextValue> = {
 				icon: PlusIcon,
 				iconPosition: 'before' as const,
 				color: 'brand' as const,
+				buttonClass:
+					'!bg-sky-600 hover:!bg-sky-500 !text-white shadow-lg !shadow-sky-950/60 font-bold !border-none rounded-xl transition-all active:scale-95',
 				disabled: disabled || ctx.finishDisabled.value,
 				loading: ctx.loading.value,
 				tooltip: ctx.finishDisabled.value ? ctx.finishDisabledTooltip.value : undefined,
@@ -61,6 +65,9 @@ export const stageConfig: StageConfigInput<CreationFlowContextValue> = {
 			icon: goesToNextStage ? RightArrowIcon : null,
 			iconPosition: 'after' as const,
 			color: goesToNextStage ? undefined : ('brand' as const),
+			buttonClass: goesToNextStage
+				? '!bg-sky-600 hover:!bg-sky-500 !text-white shadow-lg !shadow-sky-950/60 font-bold !border-none rounded-xl transition-all active:scale-95'
+				: '!bg-sky-600 hover:!bg-sky-500 !text-white shadow-lg !shadow-sky-950/60 font-bold !border-none rounded-xl transition-all active:scale-95',
 			disabled: disabled || finishDisabled,
 			tooltip: finishDisabled ? ctx.finishDisabledTooltip.value : undefined,
 			onClick: () => {

@@ -971,9 +971,6 @@
   "app.settings.resource-management.maximum-concurrent-writes.title": {
     "message": "Maximális egyidejű írási műveletek"
   },
-  "app.settings.sidebar.label.instances": {
-    "message": "Példányok"
-  },
   "app.settings.tabs.appearance": {
     "message": "Megjelenés"
   },
@@ -988,9 +985,6 @@
   },
   "app.settings.tabs.language": {
     "message": "Nyelv"
-  },
-  "app.settings.tabs.privacy": {
-    "message": "Adatvédelem"
   },
   "app.settings.tabs.resource-management": {
     "message": "Erőforráskezelés"
@@ -1858,11 +1852,5 @@
   },
   "search.filter.locked.server-environment.title": {
     "message": "Szerverpéldányokhoz csak szerveroldali modok adhatók hozzá"
-  },
-  "settings.sidebar.label.account": {
-    "message": "Fiók"
-  },
-  "settings.sidebar.label.display": {
-    "message": "Kijelző"
   }
 }

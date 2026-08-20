@@ -238,11 +238,11 @@ import { HammerIcon, LoaderCircleIcon, PlusIcon, SearchIcon } from '@freeplay/as
 import {
 	CopyCode,
 	defineMessages,
+	FreePlayServersPurchaseModal,
 	injectAuth,
 	injectFreePlayClient,
 	injectNotificationManager,
 	IntlFormatted,
-	FreePlayServersPurchaseModal,
 	ResubscribeModal,
 	ServerListEmpty,
 	ServersGuestPlanModal,

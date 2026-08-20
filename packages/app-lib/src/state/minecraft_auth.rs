@@ -300,7 +300,10 @@ impl Credentials {
         &mut self,
         exec: impl sqlx::Executor<'_, Database = sqlx::Sqlite> + Copy,
     ) -> crate::Result<()> {
-        if self.access_token == "0" {
+        if self.access_token == "0"
+            || self.access_token.is_empty()
+            || self.refresh_token.is_empty()
+        {
             return Ok(());
         }
 
@@ -384,7 +387,10 @@ impl Credentials {
         &self,
         cache_intent: OnlineProfileCacheIntent,
     ) -> Option<Arc<MinecraftProfile>> {
-        if self.access_token == "0" {
+        if self.access_token == "0"
+            || self.access_token.is_empty()
+            || self.refresh_token.is_empty()
+        {
             return Some(Arc::new(self.offline_profile.clone()));
         }
         let max_age = cache_intent.max_age();
@@ -506,6 +512,13 @@ impl Credentials {
         let credentials = Self::get_active(exec).await?;
 
         if let Some(mut creds) = credentials {
+            if creds.access_token == "0"
+                || creds.access_token.is_empty()
+                || creds.refresh_token.is_empty()
+            {
+                return Ok(Some(creds));
+            }
+
             let res = creds.refresh(exec).await;
 
             match res {
@@ -563,27 +576,43 @@ impl Credentials {
         .fetch_optional(exec)
         .await?;
 
-        Ok(match res {
-            Some(x) => {
-                let mut credentials = Self {
-                    offline_profile: MinecraftProfile {
-                        id: Uuid::parse_str(&x.uuid).unwrap_or_default(),
-                        name: x.username,
-                        ..MinecraftProfile::default()
-                    },
-                    access_token: x.access_token,
-                    refresh_token: x.refresh_token,
-                    expires: Utc
-                        .timestamp_opt(x.expires, 0)
-                        .single()
-                        .unwrap_or_else(Utc::now),
-                    active: x.active == 1,
-                };
-                credentials.refresh(exec).await.ok();
-                Some(credentials)
-            }
-            None => None,
-        })
+        if let Some(x) = res {
+            let mut credentials = Self {
+                offline_profile: MinecraftProfile {
+                    id: Uuid::parse_str(&x.uuid).unwrap_or_default(),
+                    name: x.username,
+                    ..MinecraftProfile::default()
+                },
+                access_token: x.access_token,
+                refresh_token: x.refresh_token,
+                expires: Utc
+                    .timestamp_opt(x.expires, 0)
+                    .single()
+                    .unwrap_or_else(Utc::now),
+                active: x.active == 1,
+            };
+            credentials.refresh(exec).await.ok();
+            return Ok(Some(credentials));
+        }
+
+        let all = Self::get_all(exec).await?;
+        if let Some(entry) = all.iter().next() {
+            let mut credentials = Self {
+                offline_profile: MinecraftProfile {
+                    id: entry.value().offline_profile.id,
+                    name: entry.value().offline_profile.name.clone(),
+                    ..MinecraftProfile::default()
+                },
+                access_token: entry.value().access_token.clone(),
+                refresh_token: entry.value().refresh_token.clone(),
+                expires: entry.value().expires,
+                active: entry.value().active,
+            };
+            credentials.refresh(exec).await.ok();
+            return Ok(Some(credentials));
+        }
+
+        Ok(None)
     }
 
     pub async fn get_all(
@@ -599,7 +628,7 @@ impl Credentials {
         .fetch(exec)
         .try_fold(DashMap::new(), |acc, x| {
             let uuid = Uuid::parse_str(&x.uuid).unwrap_or_default();
-            let mut credentials = Self {
+            let credentials = Self {
                 offline_profile: MinecraftProfile {
                     id: uuid,
                     name: x.username,
@@ -615,9 +644,7 @@ impl Credentials {
             };
 
             async move {
-                credentials.refresh(exec).await.ok();
                 acc.insert(uuid, credentials);
-
                 Ok(acc)
             }
         })

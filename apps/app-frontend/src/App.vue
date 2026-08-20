@@ -9,45 +9,39 @@ import {
 	VerboseLoggingFeature,
 } from '@freeplay/api-client'
 import {
-	ArrowBigUpDashIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 	CompassIcon,
-	LogInIcon,
 	LogOutIcon,
-	NewspaperIcon,
 	PlayIcon,
 	PlusIcon,
 	RefreshCwIcon,
-	RightArrowIcon,
+	SearchIcon,
 	ServerStackIcon,
 	SettingsIcon,
 	ShirtIcon,
+	SparklesIcon,
 	UserIcon,
 } from '@freeplay/assets'
 import {
 	Admonition,
 	Avatar,
-	ButtonLink,
 	commonMessages,
 	ContentInstallModal,
 	ContentUpdaterModal,
 	CreationFlowModal,
 	defineMessages,
 	I18nDebugPanel,
-	IconButton,
 	IntlFormatted,
 	LoadingBar,
-	NewsArticleCard,
 	NotificationPanel,
 	PopupNotificationPanel,
-	provideModalBehavior,
 	provideFreePlayClient,
+	provideModalBehavior,
 	provideNotificationManager,
 	providePageContext,
 	providePopupNotificationManager,
 	TeleportOverflowMenu,
-	TextLogo,
 	useDebugLogger,
 	useFormatBytes,
 	useHostingIntercom,
@@ -67,7 +61,7 @@ import { RouterView, useRoute, useRouter } from 'vue-router'
 
 import AccountsCard from '@/components/ui/AccountsCard.vue'
 import AppActionBar from '@/components/ui/AppActionBar.vue'
-import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
+import CommandPalette from '@/components/ui/command-palette/CommandPalette.vue'
 import ErrorModal from '@/components/ui/ErrorModal.vue'
 import FriendsList from '@/components/ui/friends/FriendsList.vue'
 import HostingUpdateRequired from '@/components/ui/HostingUpdateRequired.vue'
@@ -77,18 +71,17 @@ import IconEditorModal from '@/components/ui/instance_settings/icon-editor-modal
 import MinecraftAuthErrorModal from '@/components/ui/minecraft-auth-error-modal/MinecraftAuthErrorModal.vue'
 import MinecraftRequiredModal from '@/components/ui/minecraft-required-modal/MinecraftRequiredModal.vue'
 import AppSettingsModal from '@/components/ui/modal/AppSettingsModal.vue'
+import FreePlayAccountRequiredModal from '@/components/ui/modal/FreePlayAccountRequiredModal.vue'
 import InstallToPlayModal from '@/components/ui/modal/InstallToPlayModal.vue'
 import ModpackAlreadyInstalledModal from '@/components/ui/modal/ModpackAlreadyInstalledModal.vue'
-import FreePlayAccountRequiredModal from '@/components/ui/modal/FreePlayAccountRequiredModal.vue'
+import OfflineAccountModal from '@/components/ui/modal/OfflineAccountModal.vue'
 import UpdateToPlayModal from '@/components/ui/modal/UpdateToPlayModal.vue'
 import NavButton from '@/components/ui/NavButton.vue'
-import NewIconEditorNotification from '@/components/ui/new-icon-editor-notification/index.vue'
-import { shouldShowNewIconEditorNotification } from '@/components/ui/new-icon-editor-notification/show-notification'
-import OnboardingChecklist from '@/components/ui/onboarding-checklist/index.vue'
-import PrideFundraiserBanner from '@/components/ui/PrideFundraiserBanner.vue'
+import ApplyNewIconsModal from '@/components/ui/new-icon-editor-notification/apply-new-icons-modal.vue'
 import PromotionWrapper from '@/components/ui/PromotionWrapper.vue'
 import QuickInstanceSwitcher from '@/components/ui/QuickInstanceSwitcher.vue'
 import SharedInstanceInviteHandler from '@/components/ui/shared-instances/shared-instance-invite-handler/index.vue'
+import SideHudDashboard from '@/components/ui/SideHudDashboard.vue'
 import SplashScreen from '@/components/ui/SplashScreen.vue'
 import SurveyPopup from '@/components/ui/SurveyPopup.vue'
 import WindowControls from '@/components/ui/WindowControls.vue'
@@ -98,7 +91,6 @@ import { config } from '@/config'
 import {
 	hide_ads_window,
 	init_ads_window,
-	perform_ads_consent_action,
 	release_ads_window_hold,
 	should_show_ads_consent_popup,
 	take_ads_window_hold,
@@ -148,7 +140,7 @@ import { setupAppEventsProvider } from '@/providers/setup/app-events'
 import { setupAuthProvider } from '@/providers/setup/auth'
 import { setupLoadingStateProvider } from '@/providers/setup/loading-state'
 import { useError } from '@/store/error.js'
-import { useTheming } from '@/store/state'
+import { useAccountStore, useTheming } from '@/store/state'
 import { appMessages } from '@/utils/app-messages'
 
 import { generateSkinPreviews } from './helpers/rendering/batch-skin-renderer'
@@ -158,6 +150,7 @@ import { AppPopupNotificationManager } from './providers/app-popup-notifications
 import { appSettingsModalOpenProfileKey } from './providers/app-settings-modal'
 
 const themeStore = useTheming()
+const accountStore = useAccountStore()
 const router = useRouter()
 const route = useRoute()
 const { channel: appEventChannel, events: appEvents } = setupAppEventsProvider()
@@ -165,6 +158,14 @@ const breadcrumbManager = createBreadcrumbManager()
 provideBreadcrumbManager(breadcrumbManager)
 const canNavigateBack = ref(false)
 const canNavigateForward = ref(false)
+const showCommandPalette = ref(false)
+provide('openCommandPalette', () => {
+	showCommandPalette.value = true
+})
+const globalOfflineAccountModal = ref(null)
+provide('showOfflineAccountModal', () => {
+	globalOfflineAccountModal.value?.show()
+})
 
 function updateHistoryNavigationState() {
 	const historyState = window.history.state
@@ -196,32 +197,44 @@ updateHistoryNavigationState()
 const APP_LEFT_NAV_WIDTH = '4rem'
 const APP_SIDEBAR_WIDTH = 300
 const INTERCOM_BUBBLE_DEFAULT_PADDING = 20
-const PRIDE_FUNDRAISER_END_DATE = new Date('2026-07-01T00:00:00Z').getTime()
 const credentials = ref()
 let credentialsRefreshId = 0
-const sidebarToggled = ref(true)
-watch(
-	() => themeStore.toggleSidebar,
-	(toggleSidebar) => {
-		sidebarToggled.value = !toggleSidebar
-	},
+const userSidebarPreference = ref(
+	localStorage.getItem('freeplay-sidebar-open') !== null
+		? localStorage.getItem('freeplay-sidebar-open') === 'true'
+		: false,
 )
+
+function toggleRightSidebar() {
+	userSidebarPreference.value = !userSidebarPreference.value
+	localStorage.setItem('freeplay-sidebar-open', String(userSidebarPreference.value))
+}
+
+provide('toggleRightSidebar', toggleRightSidebar)
+
+const isOnline = ref(typeof navigator !== 'undefined' ? navigator.onLine : true)
+function updateOnlineStatus() {
+	isOnline.value = navigator.onLine
+}
+if (typeof window !== 'undefined') {
+	window.addEventListener('online', updateOnlineStatus)
+	window.addEventListener('offline', updateOnlineStatus)
+}
+
 const forceSidebar = computed(
-	() =>
-		route.path.startsWith('/browse') ||
-		route.path.startsWith('/project') ||
-		route.path.startsWith('/user'),
+	() => route.path.startsWith('/project') || route.path.startsWith('/user'),
 )
-const sidebarVisible = computed(() => sidebarToggled.value || forceSidebar.value)
+
+const sidebarVisible = computed(() => {
+	if (forceSidebar.value) return true
+	return userSidebarPreference.value
+})
 const hostingRouteActive = computed(() => route.path.startsWith('/hosting'))
 const hostingUpdateRequired = computed(
 	() =>
 		hostingRouteActive.value &&
 		!!appUpdateState.availableUpdate.value &&
 		appUpdateState.updatesEnabled.value,
-)
-const prideFundraiserEnabled = computed(
-	() => themeStore.getFeatureFlag('pride_fundraiser') && Date.now() < PRIDE_FUNDRAISER_END_DATE,
 )
 const hostingIntercomIdentityKey = computed(() => {
 	const rawServerId = route.params.id
@@ -334,6 +347,7 @@ provideModalBehavior({
 })
 
 const creationIconEditorModal = ref(null)
+const applyNewIconsModal = ref(null)
 const creationGeneratedIcon = ref(null)
 const creationIconTarget = ref('creation-flow')
 
@@ -349,6 +363,7 @@ const {
 	handleModpackDuplicateCreateAnyway,
 	handleModpackDuplicateGoToInstance,
 	onboardingChecklist,
+	fetchTags,
 } = setupProviders(
 	tauriApiClient,
 	notificationManager,
@@ -357,8 +372,8 @@ const {
 	(iconPath) =>
 		creationGeneratedIcon.value?.path === iconPath ? creationGeneratedIcon.value.config : null,
 )
-const { hasLoggedIntoMinecraft, hasLoggedIntoFreePlay, showChecklist } = onboardingChecklist
-const showFriendsList = computed(() => !showChecklist.value || hasLoggedIntoFreePlay.value)
+const { hasLoggedIntoFreePlay } = onboardingChecklist
+const showFriendsList = computed(() => hasLoggedIntoFreePlay.value)
 
 async function randomizeCreationIcon() {
 	const generated = await creationIconEditorModal.value?.randomizeAndSave()
@@ -396,7 +411,6 @@ function onCreationIconSaved(iconPath, config) {
 	context.instanceIconPath.value = iconPath
 }
 
-const news = ref([])
 const displayedServerInviteNotifications = new Set()
 const serverInvitePopupNotificationIds = new Set()
 let liveNotificationGeneration = 0
@@ -442,6 +456,13 @@ const authUnreachable = computed(() => {
 	return false
 })
 
+function handleSidebarKeydown(e) {
+	if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+		e.preventDefault()
+		toggleRightSidebar()
+	}
+}
+
 onMounted(async () => {
 	await useCheckDisableMouseover()
 	try {
@@ -453,6 +474,7 @@ onMounted(async () => {
 	document.querySelector('body').addEventListener('click', handleClick)
 	document.querySelector('body').addEventListener('auxclick', handleAuxClick)
 	document.addEventListener('fullscreenchange', handleFullscreenChange)
+	window.addEventListener('keydown', handleSidebarKeydown)
 
 	checkUpdates()
 })
@@ -460,6 +482,7 @@ onMounted(async () => {
 onUnmounted(async () => {
 	document.querySelector('body').removeEventListener('click', handleClick)
 	document.querySelector('body').removeEventListener('auxclick', handleAuxClick)
+	window.removeEventListener('keydown', handleSidebarKeydown)
 	document.removeEventListener('fullscreenchange', handleFullscreenChange)
 	clearDelayedUpdatePopup()
 
@@ -577,12 +600,10 @@ function handleAdsConsentRequired(_required) {
 async function setupApp() {
 	await onboardingChecklist.initialize()
 
-	if (shouldShowNewIconEditorNotification(showChecklist.value)) {
-		addPopupNotification({
-			contentType: 'custom',
-			component: NewIconEditorNotification,
-			autoCloseMs: null,
-		})
+	try {
+		localStorage.setItem('new-icon-editor-notification-shown', 'true')
+	} catch {
+		// ignore
 	}
 
 	const {
@@ -610,7 +631,9 @@ async function setupApp() {
 	const version = await getVersion()
 	nativeDecorations.value = native_decorations
 	if (os.value !== 'MacOS') await getCurrentWindow().setDecorations(native_decorations)
-	await getCurrentWindow().setTitle('FreePlay Launcher').catch(() => {})
+	await getCurrentWindow()
+		.setTitle('FreePlay Launcher')
+		.catch(() => {})
 
 	themeStore.setThemeState(theme)
 	themeStore.collapsedNavigation = collapsed_navigation
@@ -619,6 +642,7 @@ async function setupApp() {
 	themeStore.toggleSidebar = toggle_sidebar
 	themeStore.devMode = developer_mode
 	themeStore.featureFlags = feature_flags
+
 	stateInitialized.value = true
 
 	isMaximized.value = await getCurrentWindow().isMaximized()
@@ -642,37 +666,9 @@ async function setupApp() {
 		document.getElementsByTagName('html')[0].classList.add('windows')
 	}
 
-	fetch(`https://api.freeplay.app/appCriticalAnnouncement.json?version=${version}`)
-		.then((response) => response.json())
-		.then((res) => {
-			if (res && res.header && res.body) {
-				criticalErrorMessage.value = res
-			}
-		})
-		.catch(() => {
-			console.log(
-				`No critical announcement found at https://api.freeplay.app/appCriticalAnnouncement.json?version=${version}`,
-			)
-		})
-
-	fetch(`https://freeplay.app/news/feed/articles.json`)
-		.then((response) => response.json())
-		.then((res) => {
-			if (res && res.articles) {
-				news.value = res.articles
-					.map((article) => ({
-						...article,
-						path: article.link,
-					}))
-					.slice(0, 4)
-			}
-		})
-		.catch((error) => {
-			console.error('Failed to fetch news articles', error)
-		})
-
 	get_opening_command().then(handleCommand)
 	fetchCredentials()
+	fetchTags()
 
 	try {
 		const skins = (await get_available_skins()) ?? []
@@ -689,26 +685,6 @@ async function setupApp() {
 	}
 }
 
-const stateFailed = ref(false)
-initialize_state(appEventChannel)
-	.then(() => {
-		setupApp().catch((err) => {
-			stateFailed.value = true
-			console.error(err)
-			error.showError(err, null, false, 'state_init')
-		})
-	})
-	.catch((err) => {
-		stateFailed.value = true
-		console.error('Failed to initialize app', err)
-		error.showError(err, null, false, 'state_init')
-	})
-
-const handleClose = async () => {
-	await saveWindowState(StateFlags.ALL)
-	await getCurrentWindow().close()
-}
-
 const loading = setupLoadingStateProvider()
 loading.setEnabled(false)
 let initialLoadToken = loading.begin()
@@ -716,6 +692,37 @@ let routerToken = null
 let suspenseToken = null
 
 let suspensePending = false
+
+const stateFailed = ref(false)
+initialize_state(appEventChannel)
+	.then(async () => {
+		try {
+			await setupApp()
+		} catch (err) {
+			stateFailed.value = true
+			console.error(err)
+			error.showError(err, null, false, 'state_init')
+		} finally {
+			if (initialLoadToken) {
+				loading.end(initialLoadToken)
+				initialLoadToken = null
+			}
+		}
+	})
+	.catch((err) => {
+		stateFailed.value = true
+		console.error('Failed to initialize app', err)
+		error.showError(err, null, false, 'state_init')
+		if (initialLoadToken) {
+			loading.end(initialLoadToken)
+			initialLoadToken = null
+		}
+	})
+
+const handleClose = async () => {
+	await saveWindowState(StateFlags.ALL)
+	await getCurrentWindow().close()
+}
 
 const sidebarOverlayScrollbarsOptions = Object.freeze({
 	overflow: {
@@ -737,11 +744,7 @@ router.afterEach((to, from, failure) => {
 		failed: failure,
 	})
 	setTimeout(() => {
-		if (!suspensePending && stateInitialized.value) {
-			if (initialLoadToken) {
-				loading.end(initialLoadToken)
-				initialLoadToken = null
-			}
+		if (!suspensePending) {
 			if (routerToken) {
 				loading.end(routerToken)
 				routerToken = null
@@ -771,15 +774,6 @@ const queryClient = useQueryClient()
 
 watch(stateInitialized, (ready) => {
 	if (ready) {
-		if (initialLoadToken) {
-			loading.end(initialLoadToken)
-			initialLoadToken = null
-		}
-		if (routerToken) {
-			loading.end(routerToken)
-			routerToken = null
-		}
-
 		queryClient.prefetchQuery({
 			queryKey: ['servers'],
 			queryFn: async () => {
@@ -1045,7 +1039,12 @@ watch(
 	{ immediate: true },
 )
 
-onMounted(() => {
+onMounted(async () => {
+	try {
+		await getCurrentWindow().show()
+	} catch {
+		// ignore
+	}
 	invoke('show_window')
 
 	error.setErrorModal(errorModal.value)
@@ -1059,6 +1058,8 @@ onMounted(() => {
 	setServerAddServerToInstanceModal(addServerToInstanceModal.value)
 	setServerInstallToPlayModal(installToPlayModal.value)
 	setServerUpdateToPlayModal(updateToPlayModal.value)
+
+	accountStore.init()
 })
 
 const accounts = ref(null)
@@ -1641,177 +1642,350 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			:config="creationGeneratedIcon?.config"
 			@saved="onCreationIconSaved"
 		/>
+		<ApplyNewIconsModal ref="applyNewIconsModal" />
 		<UnknownPackWarningModal ref="unknownPackWarningModal" />
+		<OfflineAccountModal ref="globalOfflineAccountModal" @created="() => accountStore.refresh()" />
+		<CommandPalette
+			v-model="showCommandPalette"
+			@create-instance="() => installationModal?.show()"
+			@open-settings="() => appSettingsModal?.show()"
+			@add-offline-account="() => globalOfflineAccountModal?.show()"
+			@open-icon-studio="() => applyNewIconsModal?.show()"
+		/>
 		<div
-			class="app-grid-navbar bg-bg-raised flex flex-col p-[0.5rem] pt-0 gap-[0.25rem] w-[--left-bar-width]"
+			class="app-grid-navbar bg-[#090b0f] border-r border-white/10 flex flex-col items-center py-3 px-2 gap-2 w-[--left-bar-width] select-none"
 		>
-			<NavButton
-				v-tooltip.right="formatMessage(messages.home)"
-				to="/"
-				:is-primary="(route) => route.path === '/'"
-				:is-subpage="
-					() =>
-						(route.path.startsWith('/browse') || route.path.startsWith('/project')) && route.query.i
-				"
+			<!-- Top Primary Navigation Group -->
+			<div class="flex flex-col items-center gap-1.5 w-full">
+				<!-- Library / Home -->
+				<NavButton
+					v-tooltip.right="formatMessage(messages.home)"
+					to="/"
+					:is-primary="(route) => route.path === '/'"
+					:is-subpage="
+						() =>
+							(route.path.startsWith('/browse') || route.path.startsWith('/project')) &&
+							route.query.i
+					"
+				>
+					<PlayIcon class="w-5 h-5" />
+				</NavButton>
+
+				<!-- Discover Content -->
+				<NavButton
+					v-tooltip.right="formatMessage(commonMessages.discoverContentLabel)"
+					to="/browse/modpack"
+					:is-primary="() => route.path.startsWith('/browse') && !route.query.i && !route.query.sid"
+					:is-subpage="
+						(route) => route.path.startsWith('/project') && !route.query.i && !route.query.sid
+					"
+				>
+					<CompassIcon class="w-5 h-5" />
+				</NavButton>
+
+				<!-- 3D Skin Studio -->
+				<NavButton v-tooltip.right="formatMessage(appMessages.skinSelectorLabel)" to="/skins">
+					<ShirtIcon class="w-5 h-5" />
+				</NavButton>
+
+				<!-- Server Control Room & Tunnels -->
+				<NavButton
+					v-tooltip.right="formatMessage(messages.freeplayHosting)"
+					to="/hosting/manage"
+					:is-primary="(r) => r.path === '/hosting/manage' || r.path === '/hosting/manage/'"
+					:is-subpage="
+						(r) =>
+							(r.path.startsWith('/hosting/manage/') && r.path !== '/hosting/manage/') ||
+							((r.path.startsWith('/browse') || r.path.startsWith('/project')) && r.query.sid)
+					"
+				>
+					<ServerStackIcon class="w-5 h-5" />
+				</NavButton>
+			</div>
+
+			<!-- Divider -->
+			<div
+				class="w-7 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1"
+			></div>
+
+			<!-- Quick Actions: + Create Instance -->
+			<button
+				v-tooltip.right="formatMessage(messages.createNewInstance)"
+				type="button"
+				class="w-11 h-11 rounded-2xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 hover:text-sky-300 border border-sky-500/30 hover:border-sky-400/50 flex items-center justify-center cursor-pointer shadow-md shadow-sky-950/40 hover:scale-105 active:scale-95 transition-all duration-200"
+				:disabled="offline"
+				@click="() => installationModal?.show()"
 			>
-				<PlayIcon />
-			</NavButton>
-			<NavButton
-				v-tooltip.right="formatMessage(commonMessages.discoverContentLabel)"
-				to="/browse/modpack"
-				:is-primary="() => route.path.startsWith('/browse') && !route.query.i && !route.query.sid"
-				:is-subpage="
-					(route) => route.path.startsWith('/project') && !route.query.i && !route.query.sid
-				"
-			>
-				<CompassIcon />
-			</NavButton>
-			<NavButton v-tooltip.right="formatMessage(appMessages.skinSelectorLabel)" to="/skins">
-				<ShirtIcon />
-			</NavButton>
-			<NavButton
-				v-tooltip.right="formatMessage(messages.freeplayHosting)"
-				to="/hosting/manage"
-				:is-primary="(r) => r.path === '/hosting/manage' || r.path === '/hosting/manage/'"
-				:is-subpage="
-					(r) =>
-						(r.path.startsWith('/hosting/manage/') && r.path !== '/hosting/manage/') ||
-						((r.path.startsWith('/browse') || r.path.startsWith('/project')) && r.query.sid)
-				"
-			>
-				<ServerStackIcon />
-			</NavButton>
+				<PlusIcon class="w-5 h-5" />
+			</button>
+
 			<suspense>
 				<QuickInstanceSwitcher />
 			</suspense>
-			<NavButton
-				v-tooltip.right="formatMessage(messages.createNewInstance)"
-				:to="() => installationModal?.show()"
-				:disabled="offline"
-			>
-				<PlusIcon />
-			</NavButton>
+
+			<!-- Spacer -->
 			<div class="flex flex-grow"></div>
-			<NavButton
-				v-tooltip.right="formatMessage(commonMessages.settingsLabel)"
-				:to="() => appSettingsModal?.show()"
-			>
-				<SettingsIcon />
-			</NavButton>
-			<TeleportOverflowMenu
-				v-if="credentials?.user"
-				v-tooltip.right="formatMessage(messages.freeplayAccount)"
-				type="quiet"
-				size="xl"
-				:label="formatMessage(messages.moreOptions)"
-				:options="[
-					{
-						id: 'view-profile',
-						label: formatMessage(messages.signedInAs, {
-							username: credentials.user.username,
-						}),
-						action: () => router.push(`/user/${encodeURIComponent(credentials.user.username)}`),
-					},
-					{
-						id: 'sign-out',
-						label: formatMessage(commonMessages.signOutButton),
-						tone: 'red',
-						action: () => logOut(),
-					},
-				]"
-				placement="right-end"
-				:distance="4"
-			>
-				<Avatar :src="credentials?.user?.avatar_url" alt="" size="32px" circle />
-				<template #view-profile>
-					<UserIcon />
-					<span class="inline-flex items-center gap-1">
-						<IntlFormatted
-							:message-id="messages.signedInAs"
-							:values="{ username: credentials?.user?.username }"
-						>
-							<template #user="{ children }">
-								<span class="inline-flex items-center gap-1 text-contrast font-semibold">
-									<Avatar :src="credentials?.user?.avatar_url" alt="" size="20px" circle />
-									<component :is="() => children" />
-								</span>
-							</template>
-						</IntlFormatted>
-					</span>
-				</template>
-				<template #sign-out>
-					<LogOutIcon />
-					{{ formatMessage(commonMessages.signOutButton) }}
-				</template>
-			</TeleportOverflowMenu>
-			<NavButton
-				v-else
-				v-tooltip.right="formatMessage(messages.signInToFreePlayAccount)"
-				:to="() => requestSignIn()"
-			>
-				<LogInIcon class="text-brand" />
-			</NavButton>
+
+			<!-- Bottom Station: Settings & Profile -->
+			<div
+				class="w-7 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1"
+			></div>
+
+			<div class="flex flex-col items-center gap-1.5 w-full">
+				<!-- Settings -->
+				<button
+					v-tooltip.right="formatMessage(commonMessages.settingsLabel)"
+					type="button"
+					class="w-11 h-11 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-transparent hover:border-white/10 flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200 group"
+					@click="() => appSettingsModal?.show()"
+				>
+					<SettingsIcon class="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
+				</button>
+
+				<!-- User Account / Profile -->
+				<TeleportOverflowMenu
+					v-if="credentials?.user"
+					v-tooltip.right="formatMessage(messages.freeplayAccount)"
+					type="quiet"
+					size="xl"
+					:label="formatMessage(messages.moreOptions)"
+					:options="[
+						{
+							id: 'view-profile',
+							label: formatMessage(messages.signedInAs, {
+								username: credentials.user.username,
+							}),
+							action: () => router.push(`/user/${encodeURIComponent(credentials.user.username)}`),
+						},
+						{
+							id: 'sign-out',
+							label: formatMessage(commonMessages.signOutButton),
+							tone: 'red',
+							action: () => logOut(),
+						},
+					]"
+					placement="right-end"
+					:distance="4"
+				>
+					<div
+						class="relative w-11 h-11 rounded-2xl p-0.5 border border-sky-500/40 hover:border-sky-400 flex items-center justify-center cursor-pointer transition-all shadow-[0_0_12px_rgba(56,189,248,0.3)]"
+					>
+						<Avatar :src="credentials?.user?.avatar_url" alt="" size="34px" circle />
+						<span
+							class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-sky-400 border border-zinc-950 shadow-[0_0_6px_rgba(56,189,248,0.8)]"
+						></span>
+					</div>
+					<template #view-profile>
+						<UserIcon />
+						<span class="inline-flex items-center gap-1">
+							<IntlFormatted
+								:message-id="messages.signedInAs"
+								:values="{ username: credentials?.user?.username }"
+							>
+								<template #user="{ children }">
+									<span class="inline-flex items-center gap-1 text-contrast font-semibold">
+										<Avatar :src="credentials?.user?.avatar_url" alt="" size="20px" circle />
+										<component :is="() => children" />
+									</span>
+								</template>
+							</IntlFormatted>
+						</span>
+					</template>
+					<template #sign-out>
+						<LogOutIcon />
+						{{ formatMessage(commonMessages.signOutButton) }}
+					</template>
+				</TeleportOverflowMenu>
+
+				<!-- Offline / Login Trigger -->
+				<button
+					v-else
+					v-tooltip.right="'Player Accounts & Sign In'"
+					type="button"
+					class="w-11 h-11 rounded-2xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 hover:text-sky-300 border border-sky-500/30 hover:border-sky-400/50 flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md shadow-sky-950/40"
+					@click="() => globalOfflineAccountModal?.show()"
+				>
+					<UserIcon class="w-5 h-5" />
+				</button>
+			</div>
 		</div>
-		<div data-tauri-drag-region class="app-grid-statusbar bg-bg-raised h-[--top-bar-height] flex">
-			<div data-tauri-drag-region class="flex min-w-0 flex-1 items-center overflow-hidden p-2">
-				<div class="flex items-center gap-2.5 mr-3 pointer-events-none select-none pl-1">
-					<div class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-gradient-to-br from-[#6366f1] via-[#8b5cf6] to-[#06b6d4] shadow-[0_0_15px_rgba(99,102,241,0.5)] border border-white/20">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-3.5 h-3.5">
-							<path d="M4 6.5C4 5.11929 5.11929 4 6.5 4H17.5C18.8807 4 20 5.11929 20 6.5V11C20 15.4183 16.4183 19 12 19C7.58172 19 4 15.4183 4 11V6.5Z" fill="white" fill-opacity="0.25"/>
-							<path d="M8.5 8L16.5 12L8.5 16V8Z" fill="white"/>
+		<div
+			data-tauri-drag-region
+			class="app-grid-statusbar bg-[#090b0f] border-b border-white/10 h-[--top-bar-height] flex items-center justify-between px-3 select-none"
+		>
+			<!-- Zone 1: Brand & Navigation Hub -->
+			<div data-tauri-drag-region class="flex items-center gap-3 shrink-0 min-w-0">
+				<!-- Brand Badge -->
+				<div class="flex items-center gap-2 pointer-events-none select-none">
+					<div
+						class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-[#141923] shadow-[0_0_15px_rgba(56,189,248,0.4)] border border-sky-500/40 p-1"
+					>
+						<svg
+							viewBox="0 0 100 100"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-full h-full"
+						>
+							<defs>
+								<linearGradient id="fp-top-brand-top" x1="0%" y1="0%" x2="100%" y2="100%">
+									<stop offset="0%" stop-color="#a5f3fc" />
+									<stop offset="100%" stop-color="#38bdf8" />
+								</linearGradient>
+								<linearGradient id="fp-top-brand-left" x1="0%" y1="0%" x2="100%" y2="100%">
+									<stop offset="0%" stop-color="#38bdf8" />
+									<stop offset="100%" stop-color="#0284c7" />
+								</linearGradient>
+								<linearGradient id="fp-top-brand-right" x1="0%" y1="0%" x2="100%" y2="100%">
+									<stop offset="0%" stop-color="#22d3ee" />
+									<stop offset="100%" stop-color="#0891b2" />
+								</linearGradient>
+								<linearGradient id="fp-top-brand-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
+									<stop offset="0%" stop-color="#0ea5e9" />
+									<stop offset="100%" stop-color="#0369a1" />
+								</linearGradient>
+								<linearGradient id="fp-top-brand-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
+									<stop offset="0%" stop-color="#06b6d4" />
+									<stop offset="100%" stop-color="#0e7490" />
+								</linearGradient>
+							</defs>
+							<g transform="translate(12, 12)">
+								<polygon
+									points="38,4 58,22 38,34 18,22"
+									fill="url(#fp-top-brand-top)"
+									opacity="0.95"
+								/>
+								<polygon
+									points="18,22 38,34 38,54 8,36"
+									fill="url(#fp-top-brand-left)"
+									opacity="0.9"
+								/>
+								<polygon
+									points="58,22 38,34 38,54 68,36"
+									fill="url(#fp-top-brand-right)"
+									opacity="0.95"
+								/>
+								<polygon
+									points="8,36 38,54 38,72"
+									fill="url(#fp-top-brand-front-left)"
+									opacity="0.85"
+								/>
+								<polygon
+									points="68,36 38,54 38,72"
+									fill="url(#fp-top-brand-front-right)"
+									opacity="0.9"
+								/>
+								<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.45" />
+								<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.25" />
+								<line
+									x1="38"
+									y1="4"
+									x2="38"
+									y2="72"
+									stroke="rgba(255,255,255,0.5)"
+									stroke-width="1.5"
+								/>
+							</g>
 						</svg>
 					</div>
-					<span class="font-black tracking-wider text-sm text-contrast font-sans flex items-center gap-1.5">
+					<span
+						class="font-black tracking-wider text-xs text-white font-sans flex items-center gap-1.5"
+					>
 						FREEPLAY
-						<span class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 border border-indigo-500/30 text-cyan-300 uppercase tracking-widest">Launcher</span>
+						<span
+							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30"
+						>
+							PRO
+						</span>
 					</span>
 				</div>
-				<div data-tauri-drag-region class="ml-2 flex shrink-0 items-center gap-2">
-					<IconButton
-						type="outlined"
-						:label="formatMessage(messages.goBack)"
-						class="!h-7 !min-w-7 !w-7 !border !border-surface-4 !p-0 !opacity-100"
+
+				<!-- Connected Navigation Pill (Back & Forward) -->
+				<div
+					data-tauri-drag-region
+					class="flex items-center gap-0.5 bg-white/[0.04] p-0.5 rounded-xl border border-white/10"
+				>
+					<button
+						type="button"
+						class="w-6 h-6 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer border-none transition-all active:scale-95"
 						:disabled="!canNavigateBack"
+						title="Go Back"
 						@click="router.back()"
 					>
-						<ChevronLeftIcon
-							class="!size-4 !text-primary"
-							:class="{ 'opacity-20': !canNavigateBack }"
-						/>
-					</IconButton>
-					<IconButton
-						type="outlined"
-						:label="formatMessage(messages.goForward)"
-						class="!h-7 !min-w-7 !w-7 !border !border-surface-4 !p-0 !opacity-100"
+						<ChevronLeftIcon class="w-3.5 h-3.5" />
+					</button>
+					<button
+						type="button"
+						class="w-6 h-6 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer border-none transition-all active:scale-95"
 						:disabled="!canNavigateForward"
+						title="Go Forward"
 						@click="router.forward()"
 					>
-						<ChevronRightIcon
-							class="!size-4 !text-primary"
-							:class="{ 'opacity-20': !canNavigateForward }"
-						/>
-					</IconButton>
+						<ChevronRightIcon class="w-3.5 h-3.5" />
+					</button>
 				</div>
-				<Breadcrumbs />
 			</div>
-			<section data-tauri-drag-region class="flex shrink-0 ml-auto items-center">
-				<IconButton
-					v-if="!forceSidebar && themeStore.toggleSidebar"
-					:type="sidebarToggled ? 'base' : 'quiet'"
-					:label="formatMessage(messages.nextImage)"
-					class="mr-3 transition-transform"
-					:class="{ 'rotate-180': !sidebarToggled }"
-					@click="sidebarToggled = !sidebarToggled"
+
+			<!-- Zone 2: Centered Global Command & Search Bar -->
+			<div data-tauri-drag-region class="flex items-center justify-center flex-1 min-w-0 px-4">
+				<button
+					type="button"
+					class="w-full max-w-sm sm:max-w-md flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-sky-500/40 text-zinc-400 hover:text-zinc-200 text-xs font-medium transition-all duration-200 cursor-pointer select-none shadow-sm group active:scale-[0.99]"
+					@click="showCommandPalette = true"
 				>
-					<RightArrowIcon />
-				</IconButton>
-				<div class="flex mr-3">
+					<div class="flex items-center gap-2 min-w-0">
+						<SearchIcon
+							class="w-3.5 h-3.5 text-sky-400 group-hover:text-sky-300 transition-colors shrink-0"
+						/>
+						<span class="truncate">Search instances, mods, servers...</span>
+					</div>
+					<kbd
+						class="px-2 py-0.5 rounded-md bg-white/10 text-zinc-300 font-mono text-[10px] font-semibold border border-white/10 shrink-0 ml-2 group-hover:bg-sky-500/20 group-hover:text-sky-300 group-hover:border-sky-500/30 transition-all"
+					>
+						⌘K
+					</kbd>
+				</button>
+			</div>
+
+			<!-- Zone 3: Live Telemetry, Actions & Window Controls -->
+			<div data-tauri-drag-region class="flex shrink-0 items-center gap-2">
+				<!-- Process Telemetry Pill -->
+				<div class="flex items-center">
 					<Suspense>
 						<AppActionBar />
 					</Suspense>
 				</div>
+
+				<!-- Sidebar HUD Panel Toggle Button -->
+				<button
+					type="button"
+					class="h-7 px-2.5 rounded-xl border flex items-center gap-1.5 cursor-pointer transition-all duration-200 active:scale-95 text-xs font-semibold select-none shadow-sm"
+					:class="
+						sidebarVisible
+							? 'bg-sky-600/20 border-sky-500/40 text-sky-300 shadow-[0_0_12px_rgba(56,189,248,0.3)]'
+							: 'bg-white/[0.04] border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.08]'
+					"
+					:title="sidebarVisible ? 'Close HUD Panel (Ctrl+B)' : 'Open HUD Panel (Ctrl+B)'"
+					@click="toggleRightSidebar"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+						<line x1="15" y1="3" x2="15" y2="21" />
+					</svg>
+					<span class="hidden sm:inline">HUD</span>
+				</button>
+
+				<!-- Frameless Window Controls -->
 				<WindowControls />
-			</section>
+			</div>
 		</div>
 	</div>
 	<div
@@ -1878,33 +2052,77 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			</RouterView>
 		</div>
 		<div
-			class="app-sidebar mt-px shrink-0 flex flex-col border-0 border-l-[1px] border-[--brand-gradient-border] border-solid"
+			v-if="sidebarVisible"
+			class="app-sidebar mt-px shrink-0 flex flex-col border-0 border-l-[1px] border-[--brand-gradient-border] border-solid h-[calc(100vh-var(--top-bar-height))] overflow-hidden"
 			:class="{ 'has-plus': hasPlus }"
 		>
 			<div
 				v-overlay-scrollbars="sidebarOverlayScrollbarsOptions"
-				class="app-sidebar-scrollable flex-grow shrink relative"
-				:class="{ 'pb-12': !hasPlus }"
+				class="app-sidebar-scrollable flex-1 min-h-0 relative"
 				data-overlayscrollbars-initialize
 			>
-				<OnboardingChecklist
-					@create-instance="installationModal?.show()"
-					@login-minecraft="accounts?.login()"
-					@login-freeplay="signIn"
-				/>
+				<!-- ID Login & Player Identity Listing (Prominent Top Card) -->
+				<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
+					<div class="flex items-center justify-between px-1">
+						<span
+							class="text-[10px] font-extrabold uppercase tracking-widest text-zinc-400 font-mono flex items-center gap-1.5"
+						>
+							<UserIcon class="w-3.5 h-3.5 text-sky-400" />
+							Player Identities
+						</span>
+						<span
+							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-sky-500/15 text-sky-300 border border-sky-500/25 font-mono"
+						>
+							ACTIVE ID
+						</span>
+					</div>
+					<suspense>
+						<AccountsCard ref="accounts" />
+					</suspense>
+				</div>
+				<!-- Quick Actions Deck -->
+				<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
+					<div class="flex items-center justify-between px-1">
+						<span
+							class="text-[10px] font-extrabold uppercase tracking-widest text-zinc-400 font-mono"
+							>Quick Tools</span
+						>
+						<span
+							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-sky-500/15 text-sky-300 border border-sky-500/25 font-mono"
+							>HUD</span
+						>
+					</div>
+					<div class="grid grid-cols-3 gap-1.5">
+						<button
+							type="button"
+							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[#141923] hover:bg-sky-500/10 border border-white/10 hover:border-sky-500/40 text-zinc-300 hover:text-sky-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+							@click="globalOfflineAccountModal?.show()"
+						>
+							<UserIcon class="w-4 h-4 text-sky-400" />
+							<span class="truncate w-full">+ Offline</span>
+						</button>
+						<button
+							type="button"
+							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[#141923] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-zinc-300 hover:text-amber-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+							@click="applyNewIconsModal?.show()"
+						>
+							<SparklesIcon class="w-4 h-4 text-amber-400" />
+							<span class="truncate w-full">Icon Studio</span>
+						</button>
+						<button
+							type="button"
+							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[#141923] hover:bg-violet-500/10 border border-white/10 hover:border-violet-500/40 text-zinc-300 hover:text-violet-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+							@click="showCommandPalette = true"
+						>
+							<SearchIcon class="w-4 h-4 text-violet-400" />
+							<span class="truncate w-full">⌘K Search</span>
+						</button>
+					</div>
+				</div>
+				<!-- Rich Live HUD & Telemetry Companion -->
+				<SideHudDashboard />
 				<div id="sidebar-teleport-target" class="sidebar-teleport-content"></div>
 				<div class="sidebar-default-content" :class="{ 'sidebar-enabled': sidebarVisible }">
-					<div
-						v-show="hasLoggedIntoMinecraft"
-						class="p-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid"
-					>
-						<h3 class="text-base text-primary font-medium m-0">
-							{{ formatMessage(messages.playingAs) }}
-						</h3>
-						<suspense>
-							<AccountsCard ref="accounts" />
-						</suspense>
-					</div>
 					<div
 						v-show="showFriendsList"
 						class="p-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid"
@@ -1913,38 +2131,28 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 							<FriendsList :credentials="credentials" :sign-in="() => requestSignIn()" />
 						</suspense>
 					</div>
-					<PrideFundraiserBanner
-						v-if="prideFundraiserEnabled"
-						class="p-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid"
-					/>
-					<div v-if="news && news.length > 0" class="p-4 flex flex-col items-center">
-						<h3 class="text-base mb-4 text-primary font-medium m-0 text-left w-full">
-							{{ formatMessage(messages.news) }}
-						</h3>
-						<div class="space-y-4 flex flex-col items-center w-full">
-							<NewsArticleCard
-								v-for="(item, index) in news"
-								:key="`news-${index}`"
-								:article="item"
-							/>
-							<ButtonLink
-								type="colored"
-								color="brand"
-								size="xl"
-								href="https://freeplay.app/news"
-								target="_blank"
-								class="my-4"
-							>
-								<NewspaperIcon />
-								{{ formatMessage(messages.viewAllNews) }}
-							</ButtonLink>
-						</div>
-					</div>
 				</div>
 			</div>
 			<template v-if="showAd">
 				<PromotionWrapper />
 			</template>
+
+			<!-- Fixed Persistent Bottom Line Footer -->
+			<div
+				class="app-sidebar-footer px-4 py-2.5 bg-[#090b0f] border-t border-white/10 flex items-center justify-between text-[10px] text-zinc-500 font-mono shrink-0 select-none"
+			>
+				<span>FreePlay Pro v1.0</span>
+				<span
+					class="flex items-center gap-1.5 font-bold"
+					:class="isOnline ? 'text-emerald-400' : 'text-amber-400'"
+				>
+					<span
+						class="w-1.5 h-1.5 rounded-full"
+						:class="isOnline ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'"
+					></span>
+					{{ isOnline ? 'Connected' : 'Offline Mode' }}
+				</span>
+			</div>
 		</div>
 	</div>
 	<I18nDebugPanel />
@@ -2052,7 +2260,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 
 	display: grid;
 	grid-template-columns: 1fr 0px;
-	// transition: grid-template-columns 0.4s ease-in-out;
+	// transition: grid-template-columns: 0.4s ease-in-out;
 
 	&.sidebar-enabled {
 		grid-template-columns: 1fr 300px;
@@ -2069,27 +2277,13 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 	width: 300px;
 	position: relative;
 	height: calc(100vh - var(--top-bar-height));
-	background: var(--brand-gradient-bg);
+	background: #090b0f;
+	border-left: 1px solid rgba(255, 255, 255, 0.08);
 
-	--color-button-bg: var(--brand-gradient-button);
-	--color-button-bg-hover: var(--brand-gradient-border);
-	--color-divider: var(--brand-gradient-border);
-	--color-divider-dark: var(--brand-gradient-border);
-}
-
-.app-sidebar::after {
-	content: '';
-	position: absolute;
-	bottom: 250px;
-	left: 0;
-	right: 0;
-	height: 5rem;
-	background: var(--brand-gradient-fade-out-color);
-	pointer-events: none;
-}
-
-.app-sidebar.has-plus::after {
-	display: none;
+	--color-button-bg: #141923;
+	--color-button-bg-hover: #1c2331;
+	--color-divider: rgba(255, 255, 255, 0.08);
+	--color-divider-dark: rgba(255, 255, 255, 0.08);
 }
 
 .disable-advanced-rendering {

@@ -1,5 +1,7 @@
 <template>
-	<div class="app-sidebar-nav bg-zinc-950/80 backdrop-blur-md border-r border-white/10 flex flex-col p-2 gap-2.5 w-[--left-bar-width] select-none">
+	<div
+		class="app-sidebar-nav bg-[#090b0f] border-r border-white/10 flex flex-col p-2 gap-2.5 w-[--left-bar-width] select-none"
+	>
 		<!-- Home / Library -->
 		<NavButton
 			v-tooltip.right="formatMessage(messages.home)"
@@ -116,11 +118,7 @@
 			</template>
 		</TeleportOverflowMenu>
 
-		<NavButton
-			v-else
-			v-tooltip.right="formatMessage(messages.signIn)"
-			:to="() => emit('signIn')"
-		>
+		<NavButton v-else v-tooltip.right="formatMessage(messages.signIn)" :to="() => emit('signIn')">
 			<LogInIcon class="text-brand" />
 		</NavButton>
 	</div>
@@ -153,15 +151,12 @@ import QuickInstanceSwitcher from '@/components/ui/QuickInstanceSwitcher.vue'
 import { appMessages } from '@/utils/app-messages'
 
 defineProps<{
-	credentials?: any
+	credentials?: Record<string, unknown> | null
 	offline?: boolean
 }>()
 
 const emit = defineEmits<{
-	(e: 'showCreationModal'): void
-	(e: 'showAppSettings'): void
-	(e: 'signIn'): void
-	(e: 'logout'): void
+	(e: 'showCreationModal' | 'showAppSettings' | 'signIn' | 'logout'): void
 }>()
 
 const router = useRouter()
@@ -173,8 +168,14 @@ const messages = defineMessages({
 	hosting: { id: 'app.nav.freeplay-hosting', defaultMessage: 'FreePlay Server Hosting' },
 	createNewInstance: { id: 'app.nav.create-new-instance', defaultMessage: 'Create new instance' },
 	account: { id: 'app.nav.freeplay-account', defaultMessage: 'FreePlay account' },
-	signedInAs: { id: 'app.nav.signed-in-as', defaultMessage: 'Signed in as <user>{username}</user>' },
-	signIn: { id: 'app.nav.sign-in-to-freeplay-account', defaultMessage: 'Sign in to a FreePlay account' },
+	signedInAs: {
+		id: 'app.nav.signed-in-as',
+		defaultMessage: 'Signed in as <user>{username}</user>',
+	},
+	signIn: {
+		id: 'app.nav.sign-in-to-freeplay-account',
+		defaultMessage: 'Sign in to a FreePlay account',
+	},
 	moreOptions: { id: 'app.navigation.more-options', defaultMessage: 'More options' },
 })
 </script>
