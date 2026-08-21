@@ -20,7 +20,6 @@ import {
 	ServerStackIcon,
 	SettingsIcon,
 	ShirtIcon,
-	SparklesIcon,
 	UserIcon,
 } from '@freeplay/assets'
 import {
@@ -77,7 +76,6 @@ import ModpackAlreadyInstalledModal from '@/components/ui/modal/ModpackAlreadyIn
 import OfflineAccountModal from '@/components/ui/modal/OfflineAccountModal.vue'
 import UpdateToPlayModal from '@/components/ui/modal/UpdateToPlayModal.vue'
 import NavButton from '@/components/ui/NavButton.vue'
-import ApplyNewIconsModal from '@/components/ui/new-icon-editor-notification/apply-new-icons-modal.vue'
 import PromotionWrapper from '@/components/ui/PromotionWrapper.vue'
 import QuickInstanceSwitcher from '@/components/ui/QuickInstanceSwitcher.vue'
 import SharedInstanceInviteHandler from '@/components/ui/shared-instances/shared-instance-invite-handler/index.vue'
@@ -347,7 +345,6 @@ provideModalBehavior({
 })
 
 const creationIconEditorModal = ref(null)
-const applyNewIconsModal = ref(null)
 const creationGeneratedIcon = ref(null)
 const creationIconTarget = ref('creation-flow')
 
@@ -1642,7 +1639,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			:config="creationGeneratedIcon?.config"
 			@saved="onCreationIconSaved"
 		/>
-		<ApplyNewIconsModal ref="applyNewIconsModal" />
 		<UnknownPackWarningModal ref="unknownPackWarningModal" />
 		<OfflineAccountModal ref="globalOfflineAccountModal" @created="() => accountStore.refresh()" />
 		<CommandPalette
@@ -1650,7 +1646,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			@create-instance="() => installationModal?.show()"
 			@open-settings="() => appSettingsModal?.show()"
 			@add-offline-account="() => globalOfflineAccountModal?.show()"
-			@open-icon-studio="() => applyNewIconsModal?.show()"
 		/>
 		<div
 			class="app-grid-navbar bg-[#090b0f] border-r border-white/10 flex flex-col items-center py-3 px-2 gap-2 w-[--left-bar-width] select-none"
@@ -2092,7 +2087,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 							>HUD</span
 						>
 					</div>
-					<div class="grid grid-cols-3 gap-1.5">
+					<div class="grid grid-cols-2 gap-1.5">
 						<button
 							type="button"
 							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[#141923] hover:bg-sky-500/10 border border-white/10 hover:border-sky-500/40 text-zinc-300 hover:text-sky-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
@@ -2100,14 +2095,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 						>
 							<UserIcon class="w-4 h-4 text-sky-400" />
 							<span class="truncate w-full">+ Offline</span>
-						</button>
-						<button
-							type="button"
-							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[#141923] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-zinc-300 hover:text-amber-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
-							@click="applyNewIconsModal?.show()"
-						>
-							<SparklesIcon class="w-4 h-4 text-amber-400" />
-							<span class="truncate w-full">Icon Studio</span>
 						</button>
 						<button
 							type="button"

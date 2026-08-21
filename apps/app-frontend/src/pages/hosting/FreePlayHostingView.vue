@@ -824,10 +824,7 @@
 						</div>
 						<!-- Multi-Tunnel Layout (when multiple ports / tunnels configured on Playit) -->
 						<div
-							v-if="
-								serverState.tunnel_enabled &&
-								activeTunnels.length > 1
-							"
+							v-if="serverState.tunnel_enabled && activeTunnels.length > 1"
 							class="flex flex-col gap-1.5"
 						>
 							<div

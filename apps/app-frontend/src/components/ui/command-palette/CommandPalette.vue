@@ -24,7 +24,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: boolean): void
-	(e: 'create-instance' | 'open-settings' | 'add-offline-account' | 'open-icon-studio'): void
+	(e: 'create-instance' | 'open-settings' | 'add-offline-account'): void
 }>()
 
 const router = useRouter()
@@ -135,17 +135,6 @@ const quickActions = [
 			emit('create-instance')
 		},
 		badge: 'New',
-	},
-	{
-		id: 'action-icon-studio',
-		category: 'Quick Actions',
-		title: 'Custom Instance Icon Studio',
-		icon: SparklesIcon,
-		action: () => {
-			close()
-			emit('open-icon-studio')
-		},
-		badge: 'Studio',
 	},
 	{
 		id: 'action-offline-account',
