@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api/core'
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 
 defineProps<{
 	serverStatus: 'offline' | 'starting' | 'online' | 'tunneling'
@@ -10,9 +10,13 @@ const isSaving = ref(false)
 const saveSuccess = ref(false)
 const isRawMode = ref(false)
 const rawContent = ref('')
+const searchQuery = ref('')
+const selectedCategory = ref<string>('all')
 
 const isDifficultyOpen = ref(false)
 const isGamemodeOpen = ref(false)
+const isLevelTypeOpen = ref(false)
+const isOpLevelOpen = ref(false)
 
 const difficultyOptions = [
 	{ id: 'peaceful', label: 'Peaceful', desc: 'No hostile mobs, automatic health regeneration' },
@@ -36,64 +40,376 @@ const gamemodeOptions = [
 	{ id: 'spectator', label: 'Spectator', desc: 'Invisible fly-through mode for observing players' },
 ]
 
-function toggleDifficulty() {
-	isDifficultyOpen.value = !isDifficultyOpen.value
-	isGamemodeOpen.value = false
-}
+const levelTypeOptions = [
+	{
+		id: 'minecraft:normal',
+		label: 'Default / Normal',
+		desc: 'Standard terrain generation with hills, oceans & biomes',
+	},
+	{
+		id: 'minecraft:flat',
+		label: 'Superflat',
+		desc: 'Completely flat world suitable for building & testing',
+	},
+	{
+		id: 'minecraft:large_biomes',
+		label: 'Large Biomes',
+		desc: 'Biomes are 4x larger than default',
+	},
+	{
+		id: 'minecraft:amplified',
+		label: 'Amplified',
+		desc: 'Extreme mountainous terrain reaching world height',
+	},
+	{
+		id: 'minecraft:single_biome_surface',
+		label: 'Single Biome',
+		desc: 'World composed of a single uniform biome',
+	},
+]
 
-function toggleGamemode() {
-	isGamemodeOpen.value = !isGamemodeOpen.value
-	isDifficultyOpen.value = false
-}
+const opLevelOptions = [
+	{ id: 1, label: 'Level 1 - Bypass Spawn Protection', desc: 'Can bypass spawn protection blocks' },
+	{
+		id: 2,
+		label: 'Level 2 - Basic Commands',
+		desc: 'Access to /clear, /difficulty, /effect, /gamemode, /give',
+	},
+	{ id: 3, label: 'Level 3 - Moderation', desc: 'Access to /ban, /kick, /op, /deop' },
+	{
+		id: 4,
+		label: 'Level 4 - Server Admin',
+		desc: 'Full access to /stop, /save-all, and server management',
+	},
+]
 
-function selectDifficulty(val: string) {
-	form.difficulty = val
-	isDifficultyOpen.value = false
-}
-
-function selectGamemode(val: string) {
-	form.gamemode = val
-	isGamemodeOpen.value = false
-}
+const categories = [
+	{ id: 'all', label: 'All Settings', icon: '⚡' },
+	{ id: 'gameplay', label: 'Gameplay & Rules', icon: '🎮' },
+	{ id: 'world', label: 'World & Generation', icon: '🌍' },
+	{ id: 'security', label: 'Access & Security', icon: '🔒' },
+	{ id: 'performance', label: 'Performance & Limits', icon: '🚀' },
+	{ id: 'spawning', label: 'Spawning & Entities', icon: '👾' },
+	{ id: 'network', label: 'Network & Advanced', icon: '📡' },
+]
 
 const form = reactive({
+	// MOTD
+	motd: 'A FreePlay Minecraft Server',
+
+	// Gameplay
 	difficulty: 'normal',
 	gamemode: 'survival',
 	hardcore: false,
 	pvp: true,
 	allow_flight: true,
-	view_distance: 10,
-	simulation_distance: 10,
-	spawn_protection: 16,
+	force_gamemode: false,
+	enable_command_block: true,
+	announce_player_achievements: true,
+
+	// World
+	level_name: 'world',
+	level_seed: '',
+	level_type: 'minecraft:normal',
+	generate_structures: true,
 	allow_nether: true,
+	spawn_protection: 16,
+	max_world_size: 29999984,
+
+	// Security & Access
 	online_mode: false,
 	white_list: false,
-	enable_command_block: true,
+	enforce_whitelist: false,
 	max_players: 20,
+	op_permission_level: 4,
+	player_idle_timeout: 0,
+	hide_online_players: false,
+
+	// Performance
+	view_distance: 10,
+	simulation_distance: 10,
+	entity_broadcast_range_percentage: 100,
+	network_compression_threshold: 256,
+	max_tick_time: 60000,
+	sync_chunk_writes: true,
+
+	// Spawning
 	spawn_monsters: true,
 	spawn_animals: true,
 	spawn_npcs: true,
-	motd: 'A FreePlay Minecraft Server',
+
+	// Network
 	server_port: 25565,
+	enable_rcon: false,
+	rcon_port: 25575,
+	rcon_password: '',
+	enable_query: false,
+	query_port: 25565,
+	resource_pack: '',
+	resource_pack_sha1: '',
+	require_resource_pack: false,
 })
+
+function parsePropertiesFile(content: string) {
+	const lines = content.split(/\r?\n/)
+	for (const line of lines) {
+		const trimmed = line.trim()
+		if (!trimmed || trimmed.startsWith('#')) continue
+		const eqIdx = trimmed.indexOf('=')
+		if (eqIdx === -1) continue
+		const key = trimmed.slice(0, eqIdx).trim()
+		const val = trimmed.slice(eqIdx + 1).trim()
+
+		switch (key) {
+			case 'motd':
+				form.motd = val
+				break
+			case 'difficulty':
+				form.difficulty = val.toLowerCase()
+				break
+			case 'gamemode':
+				form.gamemode = val.toLowerCase()
+				break
+			case 'hardcore':
+				form.hardcore = val.toLowerCase() === 'true'
+				break
+			case 'pvp':
+				form.pvp = val.toLowerCase() === 'true'
+				break
+			case 'allow-flight':
+				form.allow_flight = val.toLowerCase() === 'true'
+				break
+			case 'force-gamemode':
+				form.force_gamemode = val.toLowerCase() === 'true'
+				break
+			case 'enable-command-block':
+				form.enable_command_block = val.toLowerCase() === 'true'
+				break
+			case 'announce-player-achievements':
+				form.announce_player_achievements = val.toLowerCase() === 'true'
+				break
+			case 'level-name':
+				form.level_name = val
+				break
+			case 'level-seed':
+				form.level_seed = val
+				break
+			case 'level-type':
+				form.level_type = val
+				break
+			case 'generate-structures':
+				form.generate_structures = val.toLowerCase() === 'true'
+				break
+			case 'allow-nether':
+				form.allow_nether = val.toLowerCase() === 'true'
+				break
+			case 'spawn-protection':
+				form.spawn_protection = parseInt(val, 10) || 0
+				break
+			case 'max-world-size':
+				form.max_world_size = parseInt(val, 10) || 29999984
+				break
+			case 'online-mode':
+				form.online_mode = val.toLowerCase() === 'true'
+				break
+			case 'white-list':
+				form.white_list = val.toLowerCase() === 'true'
+				break
+			case 'enforce-whitelist':
+				form.enforce_whitelist = val.toLowerCase() === 'true'
+				break
+			case 'max-players':
+				form.max_players = parseInt(val, 10) || 20
+				break
+			case 'op-permission-level':
+				form.op_permission_level = parseInt(val, 10) || 4
+				break
+			case 'player-idle-timeout':
+				form.player_idle_timeout = parseInt(val, 10) || 0
+				break
+			case 'hide-online-players':
+				form.hide_online_players = val.toLowerCase() === 'true'
+				break
+			case 'view-distance':
+				form.view_distance = parseInt(val, 10) || 10
+				break
+			case 'simulation-distance':
+				form.simulation_distance = parseInt(val, 10) || 10
+				break
+			case 'entity-broadcast-range-percentage':
+				form.entity_broadcast_range_percentage = parseInt(val, 10) || 100
+				break
+			case 'network-compression-threshold':
+				form.network_compression_threshold = parseInt(val, 10) || 256
+				break
+			case 'max-tick-time':
+				form.max_tick_time = parseInt(val, 10) || 60000
+				break
+			case 'sync-chunk-writes':
+				form.sync_chunk_writes = val.toLowerCase() === 'true'
+				break
+			case 'spawn-monsters':
+				form.spawn_monsters = val.toLowerCase() === 'true'
+				break
+			case 'spawn-animals':
+				form.spawn_animals = val.toLowerCase() === 'true'
+				break
+			case 'spawn-npcs':
+				form.spawn_npcs = val.toLowerCase() === 'true'
+				break
+			case 'server-port':
+				form.server_port = parseInt(val, 10) || 25565
+				break
+			case 'enable-rcon':
+				form.enable_rcon = val.toLowerCase() === 'true'
+				break
+			case 'rcon.port':
+				form.rcon_port = parseInt(val, 10) || 25575
+				break
+			case 'rcon.password':
+				form.rcon_password = val
+				break
+			case 'enable-query':
+				form.enable_query = val.toLowerCase() === 'true'
+				break
+			case 'query.port':
+				form.query_port = parseInt(val, 10) || 25565
+				break
+			case 'resource-pack':
+				form.resource_pack = val
+				break
+			case 'resource-pack-sha1':
+				form.resource_pack_sha1 = val
+				break
+			case 'require-resource-pack':
+				form.require_resource_pack = val.toLowerCase() === 'true'
+				break
+		}
+	}
+}
+
+function serializePropertiesFile(): string {
+	const map: Record<string, string | number | boolean> = {
+		motd: form.motd,
+		'server-port': form.server_port,
+		difficulty: form.difficulty,
+		gamemode: form.gamemode,
+		hardcore: form.hardcore,
+		pvp: form.pvp,
+		'allow-flight': form.allow_flight,
+		'force-gamemode': form.force_gamemode,
+		'enable-command-block': form.enable_command_block,
+		'announce-player-achievements': form.announce_player_achievements,
+		'level-name': form.level_name,
+		'level-seed': form.level_seed,
+		'level-type': form.level_type,
+		'generate-structures': form.generate_structures,
+		'allow-nether': form.allow_nether,
+		'spawn-protection': form.spawn_protection,
+		'max-world-size': form.max_world_size,
+		'online-mode': form.online_mode,
+		'white-list': form.white_list,
+		'enforce-whitelist': form.enforce_whitelist,
+		'max-players': form.max_players,
+		'op-permission-level': form.op_permission_level,
+		'player-idle-timeout': form.player_idle_timeout,
+		'hide-online-players': form.hide_online_players,
+		'view-distance': form.view_distance,
+		'simulation-distance': form.simulation_distance,
+		'entity-broadcast-range-percentage': form.entity_broadcast_range_percentage,
+		'network-compression-threshold': form.network_compression_threshold,
+		'max-tick-time': form.max_tick_time,
+		'sync-chunk-writes': form.sync_chunk_writes,
+		'spawn-monsters': form.spawn_monsters,
+		'spawn-animals': form.spawn_animals,
+		'spawn-npcs': form.spawn_npcs,
+		'enable-rcon': form.enable_rcon,
+		'rcon.port': form.rcon_port,
+		'rcon.password': form.rcon_password,
+		'enable-query': form.enable_query,
+		'query.port': form.query_port,
+		'resource-pack': form.resource_pack,
+		'resource-pack-sha1': form.resource_pack_sha1,
+		'require-resource-pack': form.require_resource_pack,
+	}
+
+	const lines = [
+		'# Minecraft server properties',
+		`# Generated by FreePlay Launcher - ${new Date().toISOString()}`,
+	]
+	for (const [k, v] of Object.entries(map)) {
+		lines.push(`${k}=${v}`)
+	}
+	return lines.join('\n')
+}
+
+// Live formatted MOTD renderer (replaces § and & formatting codes with HTML spans)
+const renderedMotd = computed(() => {
+	const raw = form.motd || 'A FreePlay Minecraft Server'
+	const colorCodes: Record<string, string> = {
+		'0': '#000000',
+		'1': '#0000AA',
+		'2': '#00AA00',
+		'3': '#00AAAA',
+		'4': '#AA0000',
+		'5': '#AA00AA',
+		'6': '#FFAA00',
+		'7': '#AAAAAA',
+		'8': '#555555',
+		'9': '#5555FF',
+		a: '#55FF55',
+		b: '#55FFFF',
+		c: '#FF5555',
+		d: '#FF55FF',
+		e: '#FFFF55',
+		f: '#FFFFFF',
+	}
+
+	let html = ''
+	let currentColor = '#FFFFFF'
+	let isBold = false
+	let isItalic = false
+
+	const tokens = raw.split(/([§&][0-9a-fk-or])/gi)
+	for (const token of tokens) {
+		if (token.startsWith('§') || token.startsWith('&')) {
+			const code = token.charAt(1).toLowerCase()
+			if (colorCodes[code]) {
+				currentColor = colorCodes[code]
+				isBold = false
+				isItalic = false
+			} else if (code === 'l') {
+				isBold = true
+			} else if (code === 'o') {
+				isItalic = true
+			} else if (code === 'r') {
+				currentColor = '#FFFFFF'
+				isBold = false
+				isItalic = false
+			}
+		} else if (token) {
+			const style = `color: ${currentColor}; font-weight: ${isBold ? 'bold' : 'normal'}; font-style: ${isItalic ? 'italic' : 'normal'};`
+			html += `<span style="${style}">${token.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>`
+		}
+	}
+	return html || '<span style="color:#ffffff;">A FreePlay Minecraft Server</span>'
+})
+
+function matchesSearch(terms: string[]): boolean {
+	if (!searchQuery.value.trim()) return true
+	const q = searchQuery.value.toLowerCase().trim()
+	return terms.some((t) => t.toLowerCase().includes(q))
+}
 
 async function loadProperties() {
 	try {
-		const res = await invoke<Record<string, unknown>>('host_get_server_properties')
-		if (res && typeof res === 'object') {
-			Object.assign(form, res)
-		}
-	} catch (e) {
-		console.debug('Failed to load server properties via API:', e)
-	}
-
-	try {
 		const raw = await invoke<string>('host_read_file', { path: 'server.properties' })
-		if (typeof raw === 'string') {
+		if (typeof raw === 'string' && raw.trim().length > 0) {
 			rawContent.value = raw
+			parsePropertiesFile(raw)
 		}
 	} catch (e) {
-		console.debug('Raw properties file read failed:', e)
+		console.debug('Failed to read server.properties file:', e)
 	}
 }
 
@@ -101,11 +417,9 @@ async function saveProperties() {
 	isSaving.value = true
 	saveSuccess.value = false
 	try {
-		if (isRawMode.value) {
-			await invoke('host_save_file', { path: 'server.properties', content: rawContent.value })
-		} else {
-			await invoke('host_save_server_properties', { properties: form })
-		}
+		const toSave = isRawMode.value ? rawContent.value : serializePropertiesFile()
+		await invoke('host_save_file', { path: 'server.properties', content: toSave })
+		rawContent.value = toSave
 		saveSuccess.value = true
 		setTimeout(() => {
 			saveSuccess.value = false
@@ -123,509 +437,997 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="flex flex-col gap-4">
-		<!-- Header & Mode Switcher -->
+	<div class="flex flex-col gap-5">
+		<!-- Top Control Ribbon -->
 		<div
-			class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm"
+			class="flex flex-wrap items-center justify-between gap-4 p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm"
 		>
-			<div class="flex flex-col gap-0.5">
-				<h3 class="text-sm font-bold text-contrast m-0 flex items-center gap-2">
-					Visual server.properties Editor
+			<div class="flex flex-col gap-1">
+				<div class="flex items-center gap-2.5">
+					<h3 class="text-base font-black text-contrast m-0 tracking-tight">
+						Server Properties & Engine Configuration
+					</h3>
 					<span
 						v-if="serverStatus === 'online'"
-						class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30"
+						class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wide"
 					>
-						Restart required to apply changes
+						Restart required to apply
 					</span>
-				</h3>
+				</div>
 				<p class="text-xs text-secondary m-0">
-					Configure dedicated Minecraft engine parameters with automatic syntax validation.
+					Customize gameplay rules, world generation, access security, and dedicated server
+					mechanics.
 				</p>
 			</div>
 
-			<div class="flex items-center gap-2">
+			<div class="flex items-center gap-3">
+				<!-- Search Bar -->
+				<div v-if="!isRawMode" class="relative flex items-center">
+					<input
+						v-model="searchQuery"
+						type="text"
+						placeholder="Search properties (e.g. pvp, port, seed)..."
+						class="w-64 pl-8 pr-7 py-1.5 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs placeholder:text-zinc-500 focus:outline-none focus:border-brand transition-all"
+					/>
+					<span class="absolute left-2.5 text-zinc-500 text-xs">🔍</span>
+					<button
+						v-if="searchQuery"
+						type="button"
+						class="absolute right-2 text-zinc-400 hover:text-white text-xs cursor-pointer border-none bg-transparent"
+						@click="searchQuery = ''"
+					>
+						✕
+					</button>
+				</div>
+
+				<!-- Mode Switcher -->
 				<button
 					type="button"
-					class="px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer"
+					class="px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer select-none"
 					:class="
 						isRawMode
-							? 'bg-brand text-brand-inverted border-brand'
+							? 'bg-brand text-brand-inverted border-brand shadow-sm'
 							: 'bg-surface-3 text-secondary border-surface-4 hover:text-contrast'
 					"
 					@click="isRawMode = !isRawMode"
 				>
-					{{ isRawMode ? 'Switch to Form GUI' : 'Switch to Raw File' }}
+					{{ isRawMode ? 'Switch to Visual GUI' : 'Switch to Raw File' }}
 				</button>
 
+				<!-- Save Button -->
 				<button
 					type="button"
-					class="px-4 py-1.5 rounded-xl bg-brand text-brand-inverted text-xs font-bold border-none hover:bg-brand-highlight transition-all cursor-pointer flex items-center gap-1.5 shadow-sm active:scale-95 disabled:opacity-50"
+					class="px-4 py-1.5 rounded-xl bg-brand text-brand-inverted text-xs font-bold border-none hover:bg-brand-highlight transition-all cursor-pointer flex items-center gap-1.5 shadow-sm active:scale-95 disabled:opacity-50 select-none"
 					:disabled="isSaving"
 					@click="saveProperties"
 				>
-					<span v-if="saveSuccess" class="text-emerald-300">✓ Saved!</span>
+					<span v-if="saveSuccess" class="text-emerald-300 font-bold">✓ Saved!</span>
 					<span v-else-if="isSaving">Saving...</span>
 					<span v-else>Save Configuration</span>
 				</button>
 			</div>
 		</div>
 
-		<!-- RAW TEXT MODE -->
+		<!-- RAW TEXT FILE MODE -->
 		<div v-if="isRawMode" class="flex flex-col gap-2">
+			<div class="flex items-center justify-between text-xs text-zinc-400 px-1">
+				<span>Direct editing of <code>server.properties</code></span>
+				<span>Lines will be saved verbatim to disk</span>
+			</div>
 			<textarea
 				v-model="rawContent"
-				rows="22"
+				rows="24"
 				class="w-full font-mono text-xs p-4 rounded-2xl bg-surface-3 border border-surface-4 text-contrast focus:outline-none focus:border-brand transition-all resize-y leading-relaxed"
 				placeholder="# Minecraft server properties..."
 			/>
 		</div>
 
-		<!-- VISUAL FORM MODE -->
-		<div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			<!-- CARD 1: GAMEPLAY & RULES -->
+		<!-- VISUAL GUI FORM MODE -->
+		<div v-else class="flex flex-col gap-5">
+			<!-- Hero Card: Live MOTD & Server Card Preview -->
 			<div
-				class="p-4 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
+				v-if="!searchQuery && (selectedCategory === 'all' || selectedCategory === 'network')"
+				class="p-5 rounded-2xl bg-gradient-to-br from-[#121622] to-[#0d1017] border border-surface-4 shadow-md flex flex-col gap-4"
 			>
-				<div class="flex items-center gap-2 pb-2 border-b border-surface-4">
-					<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-						>Gameplay & Core Rules</span
-					>
+				<div class="flex items-center justify-between">
+					<div class="flex items-center gap-2">
+						<span class="text-base">🏷️</span>
+						<span class="text-xs font-bold text-contrast uppercase tracking-wider"
+							>Server Brand & MOTD Message</span
+						>
+					</div>
+					<span class="text-[11px] text-zinc-400 font-mono">motd={{ form.motd }}</span>
 				</div>
 
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-					<!-- Custom Difficulty Dropdown -->
-					<div class="relative flex flex-col gap-1.5">
-						<label class="text-xs font-semibold text-secondary">Difficulty</label>
-						<button
-							type="button"
-							class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all duration-150 focus:outline-none focus:border-brand"
-							:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isDifficultyOpen }"
-							@click="toggleDifficulty"
-						>
-							<div class="flex items-center gap-2">
-								<span class="font-bold capitalize">{{ form.difficulty }}</span>
-							</div>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="w-3.5 h-3.5 text-secondary transition-transform duration-200"
-								:class="{ 'rotate-180 text-brand': isDifficultyOpen }"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<polyline points="6 9 12 15 18 9" />
-							</svg>
-						</button>
-
-						<!-- Custom Difficulty Menu -->
-						<transition name="fade">
-							<div
-								v-if="isDifficultyOpen"
-								class="absolute top-[calc(100%+4px)] left-0 right-0 z-50 p-1.5 rounded-2xl bg-[#0e121a] border border-white/15 shadow-2xl backdrop-blur-xl flex flex-col gap-1"
-							>
-								<div
-									v-for="opt in difficultyOptions"
-									:key="opt.id"
-									class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
-									:class="
-										form.difficulty === opt.id
-											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
-											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
-									"
-									@click="selectDifficulty(opt.id)"
-								>
-									<div class="flex flex-col">
-										<span class="text-xs">{{ opt.label }}</span>
-										<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
-											opt.desc
-										}}</span>
-									</div>
-									<svg
-										v-if="form.difficulty === opt.id"
-										xmlns="http://www.w3.org/2000/svg"
-										class="w-4 h-4 text-sky-400 shrink-0"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<polyline points="20 6 9 17 4 12" />
-									</svg>
-								</div>
-							</div>
-						</transition>
-					</div>
-
-					<!-- Custom Gamemode Dropdown -->
-					<div class="relative flex flex-col gap-1.5">
-						<label class="text-xs font-semibold text-secondary">Default Gamemode</label>
-						<button
-							type="button"
-							class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all duration-150 focus:outline-none focus:border-brand"
-							:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isGamemodeOpen }"
-							@click="toggleGamemode"
-						>
-							<div class="flex items-center gap-2">
-								<span class="font-bold capitalize">{{ form.gamemode }}</span>
-							</div>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="w-3.5 h-3.5 text-secondary transition-transform duration-200"
-								:class="{ 'rotate-180 text-brand': isGamemodeOpen }"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<polyline points="6 9 12 15 18 9" />
-							</svg>
-						</button>
-
-						<!-- Custom Gamemode Menu -->
-						<transition name="fade">
-							<div
-								v-if="isGamemodeOpen"
-								class="absolute top-[calc(100%+4px)] left-0 right-0 z-50 p-1.5 rounded-2xl bg-[#0e121a] border border-white/15 shadow-2xl backdrop-blur-xl flex flex-col gap-1"
-							>
-								<div
-									v-for="opt in gamemodeOptions"
-									:key="opt.id"
-									class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
-									:class="
-										form.gamemode === opt.id
-											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
-											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
-									"
-									@click="selectGamemode(opt.id)"
-								>
-									<div class="flex flex-col">
-										<span class="text-xs">{{ opt.label }}</span>
-										<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
-											opt.desc
-										}}</span>
-									</div>
-									<svg
-										v-if="form.gamemode === opt.id"
-										xmlns="http://www.w3.org/2000/svg"
-										class="w-4 h-4 text-sky-400 shrink-0"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<polyline points="20 6 9 17 4 12" />
-									</svg>
-								</div>
-							</div>
-						</transition>
-					</div>
-				</div>
-
-				<div class="flex flex-col gap-2 pt-1">
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.pvp = !form.pvp"
-					>
-						<span class="text-xs font-semibold text-contrast">Player vs Player (PvP)</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.pvp
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
-						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.pvp ? 'translate-x-4' : 'translate-x-0'"
-							/>
-						</button>
-					</div>
-
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.hardcore = !form.hardcore"
-					>
-						<span class="text-xs font-semibold text-contrast">Hardcore Mode</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.hardcore
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
-						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.hardcore ? 'translate-x-4' : 'translate-x-0'"
-							/>
-						</button>
-					</div>
-
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.allow_flight = !form.allow_flight"
-					>
-						<span class="text-xs font-semibold text-contrast">Allow Player Flight</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.allow_flight
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
-						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.allow_flight ? 'translate-x-4' : 'translate-x-0'"
-							/>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<!-- CARD 2: WORLD & SIMULATION -->
-			<div
-				class="p-4 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
-			>
-				<div class="flex items-center gap-2 pb-2 border-b border-surface-4">
-					<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-						>World & Simulation</span
-					>
-				</div>
-
-				<div class="flex flex-col gap-2">
-					<div class="flex items-center justify-between">
-						<span class="text-xs font-semibold text-secondary">View Distance</span>
-						<span class="text-xs font-bold text-contrast font-mono"
-							>{{ form.view_distance }} chunks</span
-						>
-					</div>
-					<input
-						v-model.number="form.view_distance"
-						type="range"
-						min="4"
-						max="32"
-						step="1"
-						class="w-full accent-sky-500 cursor-pointer h-1.5 bg-surface-3 rounded-lg appearance-none"
-					/>
-				</div>
-
-				<div class="flex flex-col gap-2">
-					<div class="flex items-center justify-between">
-						<span class="text-xs font-semibold text-secondary">Simulation Distance</span>
-						<span class="text-xs font-bold text-contrast font-mono"
-							>{{ form.simulation_distance }} chunks</span
-						>
-					</div>
-					<input
-						v-model.number="form.simulation_distance"
-						type="range"
-						min="3"
-						max="16"
-						step="1"
-						class="w-full accent-sky-500 cursor-pointer h-1.5 bg-surface-3 rounded-lg appearance-none"
-					/>
-				</div>
-
-				<div class="flex flex-col gap-2 pt-1">
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.allow_nether = !form.allow_nether"
-					>
-						<span class="text-xs font-semibold text-contrast">Allow Nether Dimension</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.allow_nether
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
-						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.allow_nether ? 'translate-x-4' : 'translate-x-0'"
-							/>
-						</button>
-					</div>
-
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4"
-					>
-						<span class="text-xs font-semibold text-contrast">Spawn Protection Radius</span>
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+					<!-- MOTD Input -->
+					<div class="flex flex-col gap-2">
+						<label class="text-xs font-semibold text-secondary">
+							Message of the Day (Supports Color Codes e.g. &amp;a, &amp;b, &amp;l)
+						</label>
 						<input
-							v-model.number="form.spawn_protection"
-							type="number"
-							min="0"
-							max="64"
-							class="w-16 px-2 py-1 rounded-lg bg-surface-2 border border-surface-4 text-contrast text-xs text-center font-mono focus:outline-none focus:border-brand"
+							v-model="form.motd"
+							type="text"
+							class="w-full px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand transition-all"
+							placeholder="&amp;bA FreePlay &amp;aMinecraft Server"
 						/>
+						<div class="flex items-center gap-2 text-[10px] text-zinc-400">
+							<span>Codes:</span>
+							<span class="text-emerald-400 font-mono">&amp;a Green</span>
+							<span class="text-sky-400 font-mono">&amp;b Aqua</span>
+							<span class="text-rose-400 font-mono">&amp;c Red</span>
+							<span class="text-amber-400 font-mono">&amp;e Yellow</span>
+							<span class="text-purple-400 font-mono">&amp;d Pink</span>
+							<span class="text-white font-bold font-mono">&amp;l Bold</span>
+						</div>
+					</div>
+
+					<!-- Simulated Minecraft Server List Preview -->
+					<div class="flex flex-col gap-1.5">
+						<span class="text-xs font-semibold text-secondary">Multiplayer List Preview</span>
+						<div
+							class="p-3 rounded-xl bg-[#080b11] border border-white/10 flex items-center justify-between gap-3 shadow-inner"
+						>
+							<div class="flex items-center gap-3">
+								<div
+									class="w-10 h-10 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-xl shrink-0"
+								>
+									🧊
+								</div>
+								<div class="flex flex-col font-mono text-xs leading-snug truncate">
+									<span class="font-bold text-white tracking-wide">FreePlay Server</span>
+									<!-- eslint-disable-next-line vue/no-v-html -->
+									<span class="text-xs" v-html="renderedMotd" />
+								</div>
+							</div>
+							<div
+								class="flex flex-col items-end gap-1 shrink-0 font-mono text-[11px] text-zinc-400"
+							>
+								<div class="flex items-center gap-1 text-emerald-400">
+									<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+									<span>0/{{ form.max_players }}</span>
+								</div>
+								<span class="text-[10px] text-zinc-500">:{{ form.server_port }}</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<!-- CARD 3: ACCESS & SECURITY -->
-			<div
-				class="p-4 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
-			>
-				<div class="flex items-center gap-2 pb-2 border-b border-surface-4">
-					<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-						>Access & Security</span
-					>
-				</div>
+			<!-- Category Filter Pills -->
+			<div v-if="!searchQuery" class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+				<button
+					v-for="cat in categories"
+					:key="cat.id"
+					type="button"
+					class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none flex items-center gap-1.5"
+					:class="
+						selectedCategory === cat.id
+							? 'bg-brand text-brand-inverted border-brand shadow-sm scale-100'
+							: 'bg-surface-2 text-secondary border-surface-4 hover:border-surface-5 hover:text-contrast'
+					"
+					@click="selectedCategory = cat.id"
+				>
+					<span>{{ cat.icon }}</span>
+					<span>{{ cat.label }}</span>
+				</button>
+			</div>
 
-				<div class="flex flex-col gap-2">
-					<div class="flex items-center justify-between">
-						<span class="text-xs font-semibold text-secondary">Max Players</span>
-						<span class="text-xs font-bold text-contrast font-mono"
-							>{{ form.max_players }} slots</span
-						>
-					</div>
-					<input
-						v-model.number="form.max_players"
-						type="range"
-						min="1"
-						max="100"
-						step="1"
-						class="w-full accent-sky-500 cursor-pointer h-1.5 bg-surface-3 rounded-lg appearance-none"
-					/>
-				</div>
-
-				<div class="flex flex-col gap-2 pt-1">
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.online_mode = !form.online_mode"
-					>
-						<div class="flex flex-col">
-							<span class="text-xs font-semibold text-contrast">Online Mode (Mojang Auth)</span>
-							<span class="text-[10px] text-secondary"
-								>Disable to allow offline / non-Mojang accounts to join</span
+			<!-- Grid of Organized Setting Cards -->
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+				<!-- SECTION 1: GAMEPLAY & CORE RULES -->
+				<div
+					v-if="
+						(selectedCategory === 'all' || selectedCategory === 'gameplay') &&
+						matchesSearch([
+							'difficulty',
+							'gamemode',
+							'pvp',
+							'hardcore',
+							'flight',
+							'command',
+							'achievements',
+							'rules',
+						])
+					"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
+				>
+					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
+						<div class="flex items-center gap-2">
+							<span class="text-base">🎮</span>
+							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
+								>Gameplay & Core Rules</span
 							>
+						</div>
+						<span class="text-[10px] text-zinc-500 font-mono">6 settings</span>
+					</div>
+
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+						<!-- Difficulty Dropdown -->
+						<div class="relative flex flex-col gap-1.5">
+							<div class="flex items-center justify-between">
+								<label class="text-xs font-semibold text-secondary">Difficulty</label>
+								<span class="text-[10px] text-zinc-500 font-mono">difficulty</span>
+							</div>
+							<button
+								type="button"
+								class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all focus:outline-none"
+								:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isDifficultyOpen }"
+								@click="isDifficultyOpen = !isDifficultyOpen"
+							>
+								<span class="font-bold capitalize">{{ form.difficulty }}</span>
+								<span class="text-zinc-400 text-xs">▼</span>
+							</button>
+
+							<transition name="fade">
+								<div
+									v-if="isDifficultyOpen"
+									class="absolute top-[calc(100%+4px)] left-0 right-0 z-50 p-1.5 rounded-2xl bg-[#0e121a] border border-white/15 shadow-2xl backdrop-blur-xl flex flex-col gap-1"
+								>
+									<div
+										v-for="opt in difficultyOptions"
+										:key="opt.id"
+										class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
+										:class="
+											form.difficulty === opt.id
+												? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+												: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
+										"
+										@click="
+											form.difficulty = opt.id
+											isDifficultyOpen = false
+										"
+									>
+										<div class="flex flex-col">
+											<span class="text-xs">{{ opt.label }}</span>
+											<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
+												opt.desc
+											}}</span>
+										</div>
+										<span v-if="form.difficulty === opt.id" class="text-sky-400 text-xs font-bold"
+											>✓</span
+										>
+									</div>
+								</div>
+							</transition>
+						</div>
+
+						<!-- Gamemode Dropdown -->
+						<div class="relative flex flex-col gap-1.5">
+							<div class="flex items-center justify-between">
+								<label class="text-xs font-semibold text-secondary">Default Gamemode</label>
+								<span class="text-[10px] text-zinc-500 font-mono">gamemode</span>
+							</div>
+							<button
+								type="button"
+								class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all focus:outline-none"
+								:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isGamemodeOpen }"
+								@click="isGamemodeOpen = !isGamemodeOpen"
+							>
+								<span class="font-bold capitalize">{{ form.gamemode }}</span>
+								<span class="text-zinc-400 text-xs">▼</span>
+							</button>
+
+							<transition name="fade">
+								<div
+									v-if="isGamemodeOpen"
+									class="absolute top-[calc(100%+4px)] left-0 right-0 z-50 p-1.5 rounded-2xl bg-[#0e121a] border border-white/15 shadow-2xl backdrop-blur-xl flex flex-col gap-1"
+								>
+									<div
+										v-for="opt in gamemodeOptions"
+										:key="opt.id"
+										class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
+										:class="
+											form.gamemode === opt.id
+												? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+												: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
+										"
+										@click="
+											form.gamemode = opt.id
+											isGamemodeOpen = false
+										"
+									>
+										<div class="flex flex-col">
+											<span class="text-xs">{{ opt.label }}</span>
+											<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
+												opt.desc
+											}}</span>
+										</div>
+										<span v-if="form.gamemode === opt.id" class="text-sky-400 text-xs font-bold"
+											>✓</span
+										>
+									</div>
+								</div>
+							</transition>
+						</div>
+					</div>
+
+					<!-- Gameplay Toggles -->
+					<div class="flex flex-col gap-2 pt-1">
+						<!-- PvP Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.pvp = !form.pvp"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Player vs Player (PvP)</span>
+								<span class="text-[10px] text-secondary"
+									>Allow players to attack and harm each other</span
+								>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.pvp ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.pvp }"
+								/>
+							</div>
+						</div>
+
+						<!-- Hardcore Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.hardcore = !form.hardcore"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Hardcore Mode</span>
+								<span class="text-[10px] text-secondary"
+									>Players are permanently banned upon death</span
+								>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.hardcore ? 'bg-rose-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.hardcore }"
+								/>
+							</div>
+						</div>
+
+						<!-- Flight Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.allow_flight = !form.allow_flight"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Allow Survival Flight</span>
+								<span class="text-[10px] text-secondary"
+									>Prevents automatic kicking for modded or Elytra flight</span
+								>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.allow_flight ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.allow_flight }"
+								/>
+							</div>
+						</div>
+
+						<!-- Command Blocks Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.enable_command_block = !form.enable_command_block"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Enable Command Blocks</span>
+								<span class="text-[10px] text-secondary"
+									>Allows execution of automated command block redstone logic</span
+								>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.enable_command_block ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.enable_command_block }"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- SECTION 2: WORLD & GENERATION -->
+				<div
+					v-if="
+						(selectedCategory === 'all' || selectedCategory === 'world') &&
+						matchesSearch(['world', 'seed', 'nether', 'spawn', 'level', 'structures', 'protection'])
+					"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
+				>
+					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
+						<div class="flex items-center gap-2">
+							<span class="text-base">🌍</span>
+							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
+								>World & Generation</span
+							>
+						</div>
+						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
+					</div>
+
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+						<!-- World Name -->
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">World Folder Name</label>
+							<input
+								v-model="form.level_name"
+								type="text"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
+								placeholder="world"
+							/>
+						</div>
+
+						<!-- World Seed -->
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">World Seed (Optional)</label>
+							<input
+								v-model="form.level_seed"
+								type="text"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
+								placeholder="Leave blank for random"
+							/>
+						</div>
+					</div>
+
+					<!-- World Type Dropdown -->
+					<div class="relative flex flex-col gap-1.5">
+						<div class="flex items-center justify-between">
+							<label class="text-xs font-semibold text-secondary">World Generator Type</label>
+							<span class="text-[10px] text-zinc-500 font-mono">level-type</span>
 						</div>
 						<button
 							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.online_mode
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
+							class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all focus:outline-none"
+							:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isLevelTypeOpen }"
+							@click="isLevelTypeOpen = !isLevelTypeOpen"
 						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.online_mode ? 'translate-x-4' : 'translate-x-0'"
-							/>
+							<span class="font-bold">{{
+								levelTypeOptions.find((l) => l.id === form.level_type)?.label || form.level_type
+							}}</span>
+							<span class="text-zinc-400 text-xs">▼</span>
 						</button>
+
+						<transition name="fade">
+							<div
+								v-if="isLevelTypeOpen"
+								class="absolute top-[calc(100%+4px)] left-0 right-0 z-50 p-1.5 rounded-2xl bg-[#0e121a] border border-white/15 shadow-2xl backdrop-blur-xl flex flex-col gap-1"
+							>
+								<div
+									v-for="opt in levelTypeOptions"
+									:key="opt.id"
+									class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
+									:class="
+										form.level_type === opt.id
+											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
+									"
+									@click="
+										form.level_type = opt.id
+										isLevelTypeOpen = false
+									"
+								>
+									<div class="flex flex-col">
+										<span class="text-xs">{{ opt.label }}</span>
+										<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
+											opt.desc
+										}}</span>
+									</div>
+									<span v-if="form.level_type === opt.id" class="text-sky-400 text-xs font-bold"
+										>✓</span
+									>
+								</div>
+							</div>
+						</transition>
 					</div>
 
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.enable_command_block = !form.enable_command_block"
-					>
-						<span class="text-xs font-semibold text-contrast">Enable Command Blocks</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.enable_command_block
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
+					<div class="flex flex-col gap-2 pt-1">
+						<!-- Nether Dimension Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.allow_nether = !form.allow_nether"
 						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.enable_command_block ? 'translate-x-4' : 'translate-x-0'"
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Allow Nether Dimension</span>
+								<span class="text-[10px] text-secondary"
+									>Allows portals to transport players to the Nether</span
+								>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.allow_nether ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.allow_nether }"
+								/>
+							</div>
+						</div>
+
+						<!-- Spawn Protection Radius Slider -->
+						<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
+							<div class="flex items-center justify-between">
+								<div class="flex flex-col">
+									<span class="text-xs font-semibold text-contrast">Spawn Protection Radius</span>
+									<span class="text-[10px] text-secondary"
+										>Prevents non-OP players from editing spawn area</span
+									>
+								</div>
+								<span class="text-xs font-bold text-sky-400 font-mono"
+									>{{ form.spawn_protection }} blocks</span
+								>
+							</div>
+							<input
+								v-model.number="form.spawn_protection"
+								type="range"
+								min="0"
+								max="64"
+								step="1"
+								class="w-full accent-sky-500 cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
 							/>
-						</button>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- CARD 4: ENTITY SPAWNING -->
-			<div
-				class="p-4 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
-			>
-				<div class="flex items-center gap-2 pb-2 border-b border-surface-4">
-					<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-						>Entity Spawning</span
+				<!-- SECTION 3: ACCESS & SECURITY -->
+				<div
+					v-if="
+						(selectedCategory === 'all' || selectedCategory === 'security') &&
+						matchesSearch([
+							'online',
+							'mojang',
+							'auth',
+							'whitelist',
+							'players',
+							'slots',
+							'op',
+							'timeout',
+							'idle',
+						])
+					"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
+				>
+					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
+						<div class="flex items-center gap-2">
+							<span class="text-base">🔒</span>
+							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
+								>Access, Security & Slots</span
+							>
+						</div>
+						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
+					</div>
+
+					<!-- Max Players Slider -->
+					<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
+						<div class="flex items-center justify-between">
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Max Player Slots</span>
+								<span class="text-[10px] text-secondary">Maximum concurrent players allowed</span>
+							</div>
+							<span class="text-sm font-black text-sky-400 font-mono"
+								>{{ form.max_players }} players</span
+							>
+						</div>
+						<input
+							v-model.number="form.max_players"
+							type="range"
+							min="1"
+							max="100"
+							step="1"
+							class="w-full accent-sky-500 cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
+						/>
+					</div>
+
+					<!-- Online Mode Toggle -->
+					<div
+						class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+						@click="form.online_mode = !form.online_mode"
 					>
+						<div class="flex flex-col">
+							<div class="flex items-center gap-2">
+								<span class="text-xs font-semibold text-contrast">Online Mode (Mojang Auth)</span>
+								<span
+									class="px-1.5 py-0.2 rounded text-[9px] font-bold"
+									:class="
+										form.online_mode
+											? 'bg-emerald-500/20 text-emerald-300'
+											: 'bg-sky-500/20 text-sky-300'
+									"
+								>
+									{{ form.online_mode ? 'Official Only' : 'Offline / Cracked Enabled' }}
+								</span>
+							</div>
+							<span class="text-[10px] text-secondary"
+								>Turn OFF to allow offline / local FreePlay accounts to join</span
+							>
+						</div>
+						<div
+							class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+							:class="form.online_mode ? 'bg-sky-500' : 'bg-zinc-700'"
+						>
+							<div
+								class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+								:class="{ 'translate-x-4.5': form.online_mode }"
+							/>
+						</div>
+					</div>
+
+					<!-- Whitelist Toggles -->
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.white_list = !form.white_list"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Server Whitelist</span>
+								<span class="text-[10px] text-secondary">Only listed players</span>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.white_list ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.white_list }"
+								/>
+							</div>
+						</div>
+
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.enforce_whitelist = !form.enforce_whitelist"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Enforce Whitelist</span>
+								<span class="text-[10px] text-secondary">Kick non-whitelisted</span>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.enforce_whitelist ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.enforce_whitelist }"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<!-- OP Permission Level Dropdown -->
+					<div class="relative flex flex-col gap-1.5">
+						<label class="text-xs font-semibold text-secondary">Default OP Permission Level</label>
+						<button
+							type="button"
+							class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all focus:outline-none"
+							:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isOpLevelOpen }"
+							@click="isOpLevelOpen = !isOpLevelOpen"
+						>
+							<span class="font-bold">{{
+								opLevelOptions.find((o) => o.id === form.op_permission_level)?.label ||
+								`Level ${form.op_permission_level}`
+							}}</span>
+							<span class="text-zinc-400 text-xs">▼</span>
+						</button>
+
+						<transition name="fade">
+							<div
+								v-if="isOpLevelOpen"
+								class="absolute top-[calc(100%+4px)] left-0 right-0 z-50 p-1.5 rounded-2xl bg-[#0e121a] border border-white/15 shadow-2xl backdrop-blur-xl flex flex-col gap-1"
+							>
+								<div
+									v-for="opt in opLevelOptions"
+									:key="opt.id"
+									class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
+									:class="
+										form.op_permission_level === opt.id
+											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
+									"
+									@click="
+										form.op_permission_level = opt.id
+										isOpLevelOpen = false
+									"
+								>
+									<div class="flex flex-col">
+										<span class="text-xs">{{ opt.label }}</span>
+										<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
+											opt.desc
+										}}</span>
+									</div>
+									<span
+										v-if="form.op_permission_level === opt.id"
+										class="text-sky-400 text-xs font-bold"
+										>✓</span
+									>
+								</div>
+							</div>
+						</transition>
+					</div>
 				</div>
 
-				<div class="flex flex-col gap-2">
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.spawn_monsters = !form.spawn_monsters"
-					>
-						<span class="text-xs font-semibold text-contrast">Spawn Monsters</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.spawn_monsters
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
-						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.spawn_monsters ? 'translate-x-4' : 'translate-x-0'"
-							/>
-						</button>
+				<!-- SECTION 4: PERFORMANCE & LIMITS -->
+				<div
+					v-if="
+						(selectedCategory === 'all' || selectedCategory === 'performance') &&
+						matchesSearch([
+							'distance',
+							'view',
+							'simulation',
+							'chunks',
+							'performance',
+							'tick',
+							'compression',
+						])
+					"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
+				>
+					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
+						<div class="flex items-center gap-2">
+							<span class="text-base">🚀</span>
+							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
+								>Performance & Chunk Limits</span
+							>
+						</div>
+						<span class="text-[10px] text-zinc-500 font-mono">4 settings</span>
 					</div>
 
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.spawn_animals = !form.spawn_animals"
-					>
-						<span class="text-xs font-semibold text-contrast">Spawn Passive Animals</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.spawn_animals
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
-						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.spawn_animals ? 'translate-x-4' : 'translate-x-0'"
-							/>
-						</button>
+					<!-- View Distance -->
+					<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
+						<div class="flex items-center justify-between">
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">View Distance</span>
+								<span class="text-[10px] text-secondary">Radius of chunks sent to client</span>
+							</div>
+							<span class="text-xs font-bold text-emerald-400 font-mono"
+								>{{ form.view_distance }} chunks</span
+							>
+						</div>
+						<input
+							v-model.number="form.view_distance"
+							type="range"
+							min="4"
+							max="32"
+							step="1"
+							class="w-full accent-emerald-500 cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
+						/>
 					</div>
 
-					<div
-						class="flex items-center justify-between p-2.5 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
-						@click="form.spawn_npcs = !form.spawn_npcs"
-					>
-						<span class="text-xs font-semibold text-contrast">Spawn Villagers & NPCs</span>
-						<button
-							type="button"
-							class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out p-0.5 items-center pointer-events-none"
-							:class="
-								form.spawn_npcs
-									? 'bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
-									: 'bg-zinc-800 border border-white/10'
-							"
-						>
-							<span
-								class="pointer-events-none inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out"
-								:class="form.spawn_npcs ? 'translate-x-4' : 'translate-x-0'"
+					<!-- Simulation Distance -->
+					<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
+						<div class="flex items-center justify-between">
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Simulation Distance</span>
+								<span class="text-[10px] text-secondary">Radius of active entity ticking</span>
+							</div>
+							<span class="text-xs font-bold text-emerald-400 font-mono"
+								>{{ form.simulation_distance }} chunks</span
+							>
+						</div>
+						<input
+							v-model.number="form.simulation_distance"
+							type="range"
+							min="3"
+							max="16"
+							step="1"
+							class="w-full accent-emerald-500 cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
+						/>
+					</div>
+
+					<!-- Network Compression Threshold -->
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">Compression Threshold</label>
+							<input
+								v-model.number="form.network_compression_threshold"
+								type="number"
+								min="64"
+								max="1024"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
 							/>
-						</button>
+						</div>
+
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">Max Tick Time (ms)</label>
+							<input
+								v-model.number="form.max_tick_time"
+								type="number"
+								min="-1"
+								max="120000"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
+							/>
+						</div>
+					</div>
+				</div>
+
+				<!-- SECTION 5: ENTITY & MOB SPAWNING -->
+				<div
+					v-if="
+						(selectedCategory === 'all' || selectedCategory === 'spawning') &&
+						matchesSearch(['spawn', 'monsters', 'animals', 'villagers', 'mobs', 'entities', 'npcs'])
+					"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
+				>
+					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
+						<div class="flex items-center gap-2">
+							<span class="text-base">👾</span>
+							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
+								>Entity & Mob Spawning</span
+							>
+						</div>
+						<span class="text-[10px] text-zinc-500 font-mono">3 settings</span>
+					</div>
+
+					<div class="flex flex-col gap-2.5">
+						<!-- Spawn Monsters Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.spawn_monsters = !form.spawn_monsters"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Spawn Hostile Monsters</span>
+								<span class="text-[10px] text-secondary"
+									>Zombies, Skeletons, Creepers, Endermen</span
+								>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.spawn_monsters ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.spawn_monsters }"
+								/>
+							</div>
+						</div>
+
+						<!-- Spawn Animals Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.spawn_animals = !form.spawn_animals"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Spawn Passive Animals</span>
+								<span class="text-[10px] text-secondary">Cows, Pigs, Sheep, Chickens, Horses</span>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.spawn_animals ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.spawn_animals }"
+								/>
+							</div>
+						</div>
+
+						<!-- Spawn NPCs Toggle -->
+						<div
+							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+							@click="form.spawn_npcs = !form.spawn_npcs"
+						>
+							<div class="flex flex-col">
+								<span class="text-xs font-semibold text-contrast">Spawn Villagers & NPCs</span>
+								<span class="text-[10px] text-secondary"
+									>Trading villagers and wandering traders</span
+								>
+							</div>
+							<div
+								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+								:class="form.spawn_npcs ? 'bg-sky-500' : 'bg-zinc-700'"
+							>
+								<div
+									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+									:class="{ 'translate-x-4.5': form.spawn_npcs }"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- SECTION 6: NETWORK & PORTS -->
+				<div
+					v-if="
+						(selectedCategory === 'all' || selectedCategory === 'network') &&
+						matchesSearch(['port', 'rcon', 'query', 'resource', 'network', 'pack', 'sha1'])
+					"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-4"
+				>
+					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
+						<div class="flex items-center gap-2">
+							<span class="text-base">📡</span>
+							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
+								>Network, Ports & Resources</span
+							>
+						</div>
+						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
+					</div>
+
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+						<!-- Server Port -->
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">Local Server Port</label>
+							<input
+								v-model.number="form.server_port"
+								type="number"
+								min="1024"
+								max="65535"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand font-bold"
+							/>
+						</div>
+
+						<!-- Query Port -->
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">GS4 Query Port</label>
+							<input
+								v-model.number="form.query_port"
+								type="number"
+								min="1024"
+								max="65535"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
+							/>
+						</div>
+					</div>
+
+					<!-- Server Resource Pack URL -->
+					<div class="flex flex-col gap-1.5">
+						<label class="text-xs font-semibold text-secondary"
+							>Direct Resource Pack URL (Optional)</label
+						>
+						<input
+							v-model="form.resource_pack"
+							type="text"
+							class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
+							placeholder="https://example.com/texturepack.zip"
+						/>
+					</div>
+
+					<!-- RCON Remote Console Toggle -->
+					<div
+						class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
+						@click="form.enable_rcon = !form.enable_rcon"
+					>
+						<div class="flex flex-col">
+							<span class="text-xs font-semibold text-contrast">Enable Remote RCON Console</span>
+							<span class="text-[10px] text-secondary"
+								>Allows external server administration tools to connect</span
+							>
+						</div>
+						<div
+							class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
+							:class="form.enable_rcon ? 'bg-sky-500' : 'bg-zinc-700'"
+						>
+							<div
+								class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
+								:class="{ 'translate-x-4.5': form.enable_rcon }"
+							/>
+						</div>
+					</div>
+
+					<div v-if="form.enable_rcon" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">RCON Port</label>
+							<input
+								v-model.number="form.rcon_port"
+								type="number"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
+							/>
+						</div>
+
+						<div class="flex flex-col gap-1.5">
+							<label class="text-xs font-semibold text-secondary">RCON Password</label>
+							<input
+								v-model="form.rcon_password"
+								type="password"
+								class="w-full px-3 py-2 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs font-mono focus:outline-none focus:border-brand"
+								placeholder="Enter secure password"
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
