@@ -258,7 +258,7 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 				"
 				clearable
 				wrapper-class="w-full !bg-surface-2 border border-surface-4 hover:border-surface-5 focus-within:!border-brand focus-within:!shadow-[0_0_16px_var(--color-brand-shadow)] rounded-2xl transition-all shadow-sm"
-				input-class="!h-11 text-sm font-medium pl-3"
+				input-class="!h-11 text-sm font-medium"
 				@clear="ctx.clearSearch()"
 			/>
 		</div>
