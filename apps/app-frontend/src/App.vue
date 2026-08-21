@@ -901,6 +901,22 @@ const freeplayLoginModal = ref()
 const appSettingsModal = ref()
 provide(appSettingsModalOpenProfileKey, () => appSettingsModal.value?.showProfile())
 
+function openCreateInstanceModal() {
+	installationModal.value?.show()
+}
+
+function openAppSettingsModal() {
+	appSettingsModal.value?.show()
+}
+
+function openAccountsModal() {
+	appSettingsModal.value?.showProfile()
+}
+
+function openOfflineAccountModal() {
+	globalOfflineAccountModal.value?.show()
+}
+
 watch(incompatibilityWarningModal, (modal) => {
 	if (modal) {
 		setContentIncompatibilityWarningModal(modal)
@@ -1643,9 +1659,10 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 		<OfflineAccountModal ref="globalOfflineAccountModal" @created="() => accountStore.refresh()" />
 		<CommandPalette
 			v-model="showCommandPalette"
-			@create-instance="() => installationModal?.show()"
-			@open-settings="() => appSettingsModal?.show()"
-			@add-offline-account="() => globalOfflineAccountModal?.show()"
+			@create-instance="openCreateInstanceModal"
+			@open-settings="openAppSettingsModal"
+			@open-accounts="openAccountsModal"
+			@add-offline-account="openOfflineAccountModal"
 		/>
 		<div
 			class="app-grid-navbar bg-[#090b0f] border-r border-white/10 flex flex-col items-center py-3 px-2 gap-2 w-[--left-bar-width] select-none"
