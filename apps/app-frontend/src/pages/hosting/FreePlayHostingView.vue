@@ -265,7 +265,7 @@
 							/>
 							<span
 								>Local Port:
-								<strong class="text-white font-mono">:{{ serverState.local_port }}</strong></span
+								<strong class="text-white font-mono">{{ serverState.local_port }}</strong></span
 							>
 						</div>
 
@@ -632,7 +632,7 @@
 					</div>
 					<div class="flex items-baseline justify-between">
 						<span class="text-3xl font-black text-white font-mono tracking-tight">
-							:{{ serverState.local_port }}
+							{{ serverState.local_port }}
 						</span>
 						<span class="text-xs font-semibold text-sky-400">Standard</span>
 					</div>
@@ -1575,7 +1575,7 @@
 								</div>
 								<span class="text-xs text-zinc-400 font-mono"
 									>{{ server.engine }} {{ server.version }} &bull; {{ server.ram_gb }} GB RAM &bull;
-									Port :{{ server.port }}</span
+									Port {{ server.port }}</span
 								>
 							</div>
 						</div>
@@ -2630,7 +2630,7 @@
 						<div class="flex flex-col">
 							<span class="font-bold text-sm text-white">{{ s.name }}</span>
 							<span class="text-[11px] text-zinc-400 font-mono"
-								>{{ s.engine }} {{ s.version }} &bull; Port :{{ s.port }}</span
+								>{{ s.engine }} {{ s.version }} &bull; Port {{ s.port }}</span
 							>
 						</div>
 						<span v-if="activeServer?.id === s.id" class="text-xs font-bold text-sky-400"
