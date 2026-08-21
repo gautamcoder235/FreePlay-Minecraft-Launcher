@@ -1542,10 +1542,7 @@
 						<button
 							type="button"
 							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md shadow-purple-950/40 cursor-pointer transition-all active:scale-95"
-							@click="
-								showAddonCatalog = true
-								searchModrinthAddons()
-							"
+							@click="openAddonCatalog"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -1714,10 +1711,7 @@
 					<button
 						type="button"
 						class="mt-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md cursor-pointer transition-all active:scale-95"
-						@click="
-							showAddonCatalog = true
-							searchModrinthAddons()
-						"
+						@click="openAddonCatalog"
 					>
 						Browse Addons Catalog
 					</button>
@@ -4781,6 +4775,11 @@ async function importLocalAddon() {
 	} catch (e) {
 		console.error('Failed to import local addon:', e)
 	}
+}
+
+function openAddonCatalog() {
+	showAddonCatalog.value = true
+	searchModrinthAddons()
 }
 
 async function searchModrinthAddons() {
