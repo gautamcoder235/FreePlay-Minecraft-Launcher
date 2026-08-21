@@ -237,52 +237,62 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 	</template>
 	<SelectedProjectsFloatingBar v-if="ctx.installContext?.value && ctx.variant !== 'web'" />
 
-	<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-		<NavTabs
-			v-if="ctx.showProjectTypeTabs.value"
-			:links="ctx.selectableProjectTypes.value"
-			:replace="ctx.variant === 'app'"
-			class="!m-0 shrink-0"
-		/>
-
-		<div class="flex-1 max-w-xl md:ml-auto">
-			<StyledInput
-				v-model="ctx.query.value"
-				:icon="SearchIcon"
-				type="text"
-				autocomplete="off"
-				:placeholder="
-					formatMessage(messages.searchPlaceholder, {
-						projectType: formatProjectTypeSentence(formatMessage, ctx.projectType.value, 2),
-					})
-				"
-				clearable
-				wrapper-class="w-full !bg-surface-2 border border-surface-4 hover:border-surface-5 focus-within:!border-brand focus-within:!shadow-[0_0_16px_var(--color-brand-shadow)] rounded-2xl transition-all shadow-sm"
-				input-class="!h-11 text-sm font-medium"
-				@clear="ctx.clearSearch()"
+	<!-- Sticky top bar: NavTabs + Search bar + Category tags -->
+	<div
+		class="sticky z-10 -mx-6 px-6 pb-2.5 bg-bg/95 backdrop-blur-md flex flex-col gap-3 transition-all border-b border-surface-4/20"
+		:class="[
+			!(ctx.installContext?.value && ctx.variant !== 'web')
+				? 'top-0 -mt-6 pt-6'
+				: 'top-[73px] pt-2',
+		]"
+	>
+		<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+			<NavTabs
+				v-if="ctx.showProjectTypeTabs.value"
+				:links="ctx.selectableProjectTypes.value"
+				:replace="ctx.variant === 'app'"
+				class="!m-0 shrink-0"
 			/>
-		</div>
-	</div>
 
-	<!-- Category tags bar with stable minimum height to prevent vertical jumping between sections with different tag counts -->
-	<div class="min-h-[4.25rem] flex flex-wrap content-start items-center gap-1.5 py-1 select-none">
-		<template v-if="categoryFilter && categoryOptions.length > 0">
-			<button
-				v-for="opt in categoryOptions"
-				:key="opt.id"
-				type="button"
-				class="h-7 px-3 rounded-xl border text-xs font-semibold flex items-center gap-1.5 cursor-pointer whitespace-nowrap transition-all duration-200 active:scale-95 shrink-0"
-				:class="
-					isOptionSelected(categoryFilter.id, opt.id)
-						? 'bg-brand border-brand text-brand-inverted shadow-[0_0_12px_var(--color-brand-shadow)] font-bold'
-						: 'bg-surface-2 border-surface-4 text-secondary hover:text-contrast hover:border-surface-5 hover:bg-surface-3'
-				"
-				@click="toggleOption(categoryFilter.id, opt.id)"
-			>
-				<component :is="opt.icon" v-if="opt.icon" class="w-3.5 h-3.5" />
-				<span>{{ opt.formatted_name ?? opt.name ?? opt.id }}</span>
-			</button>
-		</template>
+			<div class="flex-1 max-w-xl md:ml-auto">
+				<StyledInput
+					v-model="ctx.query.value"
+					:icon="SearchIcon"
+					type="text"
+					autocomplete="off"
+					:placeholder="
+						formatMessage(messages.searchPlaceholder, {
+							projectType: formatProjectTypeSentence(formatMessage, ctx.projectType.value, 2),
+						})
+					"
+					clearable
+					wrapper-class="w-full !bg-surface-2 border border-surface-4 hover:border-surface-5 focus-within:!border-brand focus-within:!shadow-[0_0_16px_var(--color-brand-shadow)] rounded-2xl transition-all shadow-sm"
+					input-class="!h-11 text-sm font-medium"
+					@clear="ctx.clearSearch()"
+				/>
+			</div>
+		</div>
+
+		<!-- Category tags bar with stable minimum height to prevent vertical jumping between sections with different tag counts -->
+		<div class="min-h-[4.25rem] flex flex-wrap content-start items-center gap-1.5 py-1 select-none">
+			<template v-if="categoryFilter && categoryOptions.length > 0">
+				<button
+					v-for="opt in categoryOptions"
+					:key="opt.id"
+					type="button"
+					class="h-7 px-3 rounded-xl border text-xs font-semibold flex items-center gap-1.5 cursor-pointer whitespace-nowrap transition-all duration-200 active:scale-95 shrink-0"
+					:class="
+						isOptionSelected(categoryFilter.id, opt.id)
+							? 'bg-brand border-brand text-brand-inverted shadow-[0_0_12px_var(--color-brand-shadow)] font-bold'
+							: 'bg-surface-2 border-surface-4 text-secondary hover:text-contrast hover:border-surface-5 hover:bg-surface-3'
+					"
+					@click="toggleOption(categoryFilter.id, opt.id)"
+				>
+					<component :is="opt.icon" v-if="opt.icon" class="w-3.5 h-3.5" />
+					<span>{{ opt.formatted_name ?? opt.name ?? opt.id }}</span>
+				</button>
+			</template>
+		</div>
 	</div>
 
 	<Admonition
