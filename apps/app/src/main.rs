@@ -117,7 +117,7 @@ fn main() {
             if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
                 std::env::set_var(
                     "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
-                    "--disable-features=CalculateNativeWinOcclusion --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --force-dark-mode",
+                    "--force-dark-mode",
                 );
             }
         }
