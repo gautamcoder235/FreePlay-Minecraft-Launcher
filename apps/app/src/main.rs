@@ -281,6 +281,7 @@ fn main() {
             theseus::server_address::host_kill_server,
             theseus::server_address::host_send_command,
             theseus::server_address::host_get_status,
+            theseus::server_address::host_get_telemetry,
             theseus::server_address::host_start_tunnel,
             theseus::server_address::host_stop_tunnel,
             theseus::server_address::host_open_server_dir,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api/core'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 const props = defineProps<{
 	serverStatus: 'offline' | 'starting' | 'online' | 'tunneling'
@@ -25,20 +25,19 @@ const telemetry = ref<TelemetryData>({
 	memory_max_bytes: props.dedicatedRamGb * 1024 * 1024 * 1024,
 	disk_bytes: 482000000,
 	uptime_seconds: 0,
-	tps: 20.0,
-	mspt: 12.4,
+	tps: null,
+	mspt: null,
 	players_online: 0,
 	players_max: 20,
 })
 
-const cpuHistory = ref<number[]>([12, 14, 15, 18, 14, 16, 20, 15, 14, 13, 14, 15])
-const memoryHistory = ref<number[]>([
-	2800, 3100, 3200, 3400, 3600, 3750, 3890, 3890, 3900, 3920, 3890, 3890,
-])
+const cpuHistory = ref<number[]>(Array(16).fill(0))
+const memoryHistory = ref<number[]>(Array(16).fill(0))
 
 let pollTimer: ReturnType<typeof setInterval> | null = null
 
 const formattedMemoryUsed = computed(() => {
+	if (props.serverStatus !== 'online' && props.serverStatus !== 'starting') return '0 MB'
 	const mb = Math.round(telemetry.value.memory_rss_bytes / (1024 * 1024))
 	if (mb > 1024) {
 		return `${(mb / 1024).toFixed(1)} GB`
@@ -47,12 +46,12 @@ const formattedMemoryUsed = computed(() => {
 })
 
 const formattedMemoryMax = computed(() => {
-	return `${props.dedicatedRamGb} GB`
+	return `${props.dedicatedRamGb || 4} GB`
 })
 
 const memoryPercent = computed(() => {
-	if (props.serverStatus !== 'online') return 0
-	const max = props.dedicatedRamGb * 1024 * 1024 * 1024
+	if (props.serverStatus !== 'online' && props.serverStatus !== 'starting') return 0
+	const max = (props.dedicatedRamGb || 4) * 1024 * 1024 * 1024
 	if (max === 0) return 0
 	return Math.min(100, Math.round((telemetry.value.memory_rss_bytes / max) * 100))
 })
@@ -91,12 +90,27 @@ function generateSvgPoints(
 		.join(' ')
 }
 
+function generateSvgAreaPoints(
+	data: number[],
+	min: number,
+	max: number,
+	width = 300,
+	height = 60,
+): string {
+	if (data.length < 2) return `0,${height} ${width},${height}`
+	const polylinePoints = generateSvgPoints(data, min, max, width, height)
+	return `0,${height} ${polylinePoints} ${width},${height}`
+}
+
 async function fetchTelemetry() {
-	if (props.serverStatus !== 'online') {
+	if (props.serverStatus === 'offline') {
 		telemetry.value.cpu_percent = 0
 		telemetry.value.memory_rss_bytes = 0
+		telemetry.value.uptime_seconds = 0
 		telemetry.value.tps = null
 		telemetry.value.mspt = null
+		cpuHistory.value = Array(16).fill(0)
+		memoryHistory.value = Array(16).fill(0)
 		return
 	}
 
@@ -117,6 +131,23 @@ async function fetchTelemetry() {
 		console.debug('Failed to fetch telemetry:', e)
 	}
 }
+
+watch(
+	() => props.serverStatus,
+	(status) => {
+		if (status === 'offline') {
+			telemetry.value.cpu_percent = 0
+			telemetry.value.memory_rss_bytes = 0
+			telemetry.value.uptime_seconds = 0
+			telemetry.value.tps = null
+			telemetry.value.mspt = null
+			cpuHistory.value = Array(16).fill(0)
+			memoryHistory.value = Array(16).fill(0)
+		} else {
+			fetchTelemetry()
+		}
+	},
+)
 
 onMounted(() => {
 	fetchTelemetry()
@@ -141,9 +172,17 @@ onUnmounted(() => {
 				>
 				<div class="flex items-baseline gap-2">
 					<span class="text-xl font-black text-contrast font-mono">
-						{{ serverStatus === 'online' ? telemetry.cpu_percent.toFixed(1) : '0.0' }}%
+						{{
+							serverStatus === 'online' || serverStatus === 'starting'
+								? telemetry.cpu_percent.toFixed(1)
+								: '0.0'
+						}}%
 					</span>
-					<span class="text-[10px] text-emerald-400 font-bold">Process Load</span>
+					<span
+						class="text-[10px] font-bold"
+						:class="serverStatus === 'online' ? 'text-emerald-400' : 'text-zinc-500'"
+						>Process Load</span
+					>
 				</div>
 			</div>
 
@@ -156,7 +195,11 @@ onUnmounted(() => {
 				>
 				<div class="flex items-baseline gap-2">
 					<span class="text-xl font-black text-contrast font-mono">
-						{{ serverStatus === 'online' ? formattedMemoryUsed : '0 MB' }}
+						{{
+							serverStatus === 'online' || serverStatus === 'starting'
+								? formattedMemoryUsed
+								: '0 MB'
+						}}
 					</span>
 					<span class="text-[10px] text-secondary">/ {{ formattedMemoryMax }}</span>
 				</div>
@@ -211,12 +254,22 @@ onUnmounted(() => {
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2">
-						<span class="w-2 h-2 rounded-full bg-emerald-400" />
+						<span
+							class="w-2 h-2 rounded-full"
+							:class="serverStatus === 'online' ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-600'"
+						/>
 						<span class="text-xs font-bold text-contrast">Real-Time CPU Usage (Last 60s)</span>
 					</div>
-					<span class="text-xs font-mono text-secondary"
-						>{{ telemetry.cpu_percent.toFixed(1) }}%</span
+					<span
+						class="text-xs font-mono font-bold"
+						:class="serverStatus === 'online' ? 'text-emerald-400' : 'text-zinc-500'"
 					>
+						{{
+							serverStatus === 'online' || serverStatus === 'starting'
+								? telemetry.cpu_percent.toFixed(1)
+								: '0.0'
+						}}%
+					</span>
 				</div>
 
 				<div
@@ -227,6 +280,16 @@ onUnmounted(() => {
 						viewBox="0 0 300 60"
 						preserveAspectRatio="none"
 					>
+						<defs>
+							<linearGradient id="cpu-chart-grad" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0%" stop-color="#10b981" stop-opacity="0.35" />
+								<stop offset="100%" stop-color="#10b981" stop-opacity="0.0" />
+							</linearGradient>
+						</defs>
+						<polygon
+							fill="url(#cpu-chart-grad)"
+							:points="generateSvgAreaPoints(cpuHistory, 0, 100, 300, 60)"
+						/>
 						<polyline
 							fill="none"
 							stroke="#10b981"
@@ -245,12 +308,22 @@ onUnmounted(() => {
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2">
-						<span class="w-2 h-2 rounded-full bg-indigo-400" />
+						<span
+							class="w-2 h-2 rounded-full"
+							:class="serverStatus === 'online' ? 'bg-indigo-400 animate-pulse' : 'bg-zinc-600'"
+						/>
 						<span class="text-xs font-bold text-contrast">Physical RAM Allocation & RSS</span>
 					</div>
-					<span class="text-xs font-mono text-secondary"
-						>{{ memoryPercent }}% ({{ formattedMemoryUsed }})</span
+					<span
+						class="text-xs font-mono font-bold"
+						:class="serverStatus === 'online' ? 'text-indigo-400' : 'text-zinc-500'"
 					>
+						{{
+							serverStatus === 'online' || serverStatus === 'starting'
+								? `${memoryPercent}% (${formattedMemoryUsed})`
+								: '0% (0 MB)'
+						}}
+					</span>
 				</div>
 
 				<div
@@ -261,13 +334,39 @@ onUnmounted(() => {
 						viewBox="0 0 300 60"
 						preserveAspectRatio="none"
 					>
+						<defs>
+							<linearGradient id="mem-chart-grad" x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0%" stop-color="#6366f1" stop-opacity="0.35" />
+								<stop offset="100%" stop-color="#6366f1" stop-opacity="0.0" />
+							</linearGradient>
+						</defs>
+						<polygon
+							fill="url(#mem-chart-grad)"
+							:points="
+								generateSvgAreaPoints(
+									memoryHistory,
+									0,
+									Math.max(1, (dedicatedRamGb || 4) * 1024),
+									300,
+									60,
+								)
+							"
+						/>
 						<polyline
 							fill="none"
 							stroke="#6366f1"
 							stroke-width="2.5"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							:points="generateSvgPoints(memoryHistory, 0, dedicatedRamGb * 1024, 300, 60)"
+							:points="
+								generateSvgPoints(
+									memoryHistory,
+									0,
+									Math.max(1, (dedicatedRamGb || 4) * 1024),
+									300,
+									60,
+								)
+							"
 						/>
 					</svg>
 				</div>
@@ -287,16 +386,27 @@ onUnmounted(() => {
 				<div class="flex flex-col">
 					<span class="text-[11px] font-bold text-secondary uppercase">Tick Budget</span>
 					<span class="text-sm font-bold text-contrast font-mono">
-						{{ telemetry.mspt ? telemetry.mspt.toFixed(1) : '12.4' }}ms / 50.0ms (Max)
+						{{
+							serverStatus === 'online' && telemetry.mspt
+								? telemetry.mspt.toFixed(1)
+								: serverStatus === 'online'
+									? '12.4'
+									: '—'
+						}}ms / 50.0ms (Max)
 					</span>
 				</div>
 			</div>
 
 			<div class="flex items-center gap-2">
 				<span
-					class="px-2.5 py-1 rounded-xl text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+					class="px-2.5 py-1 rounded-xl text-xs font-bold"
+					:class="
+						serverStatus === 'online'
+							? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+							: 'bg-zinc-500/15 text-zinc-400 border border-zinc-500/30'
+					"
 				>
-					✓ System Health Optimal
+					{{ serverStatus === 'online' ? '✓ System Health Optimal' : '● Server Standby' }}
 				</span>
 			</div>
 		</div>

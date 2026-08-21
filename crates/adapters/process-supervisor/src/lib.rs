@@ -383,6 +383,11 @@ impl ServerProcessSupervisor {
         self.logs.read().await.iter().cloned().collect()
     }
 
+    pub async fn get_child_pid(&self) -> Option<u32> {
+        let child_guard = self.child.lock().await;
+        child_guard.as_ref().and_then(|c| c.id())
+    }
+
     pub fn subscribe_logs(&self) -> broadcast::Receiver<String> {
         self.log_broadcaster.subscribe()
     }

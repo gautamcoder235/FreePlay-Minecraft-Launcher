@@ -172,7 +172,7 @@ pub async fn resolve_server_address(
 // Server Hosting & Tunnel Tauri Commands
 // =========================================================================
 
-pub use crate::state::HostStatus;
+pub use crate::state::{HostStatus, ServerTelemetry};
 
 #[cfg_attr(feature = "tauri", tauri::command)]
 pub async fn host_start_server(
@@ -209,6 +209,12 @@ pub async fn host_stop_server() -> Result<()> {
 pub async fn host_send_command(command: String) -> Result<()> {
     let state = crate::State::get().await?;
     state.server_hosting.send_command(command).await
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_get_telemetry() -> Result<ServerTelemetry> {
+    let state = crate::State::get().await?;
+    Ok(state.server_hosting.get_telemetry().await)
 }
 
 #[cfg_attr(feature = "tauri", tauri::command)]
