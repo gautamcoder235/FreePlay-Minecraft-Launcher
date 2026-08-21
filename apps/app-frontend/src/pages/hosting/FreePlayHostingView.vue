@@ -1169,11 +1169,13 @@
 											'text-amber-300': log.includes('[WARN]') || log.includes('claim'),
 											'text-emerald-400 font-semibold':
 												log.includes('connected') || log.includes('tunnel ready'),
-											'text-cyan-400': log.includes('playit') || log.includes('[INFO]'),
-											'text-zinc-400':
+											'text-sky-400 font-medium': log.includes('playit') || log.includes('[INFO]'),
+											'text-sky-400/90':
 												!log.includes('[ERROR]') &&
 												!log.includes('[WARN]') &&
-												!log.includes('[INFO]'),
+												!log.includes('[INFO]') &&
+												!log.includes('connected') &&
+												!log.includes('tunnel ready'),
 										}"
 									>
 										{{ log }}
@@ -1237,8 +1239,12 @@
 							'text-rose-400 font-bold': log.includes('[ERROR]') || log.includes('[STDERR]'),
 							'text-amber-400': log.includes('[WARN]'),
 							'text-emerald-400 font-semibold': log.includes('[DONE]') || log.includes('Done ('),
-							'text-cyan-400': log.includes('[INFO]') || log.includes('playit.gg'),
-							'text-zinc-300': !log.includes('[INFO]') && !log.includes('[ERROR]'),
+							'text-sky-400 font-medium': log.includes('[INFO]') || log.includes('playit.gg'),
+							'text-sky-400/90':
+								!log.includes('[INFO]') &&
+								!log.includes('[ERROR]') &&
+								!log.includes('[WARN]') &&
+								!log.includes('[DONE]'),
 						}"
 					>
 						{{ log }}
@@ -1367,11 +1373,11 @@
 						:key="idx"
 						class="whitespace-pre-wrap break-all transition-colors duration-150"
 					>
-						<span v-if="log.includes('[INFO]') || log.includes('INFO')" class="text-zinc-300">
-							<span class="text-cyan-400 font-semibold">{{
-								log.substring(0, Math.min(30, log.length))
-							}}</span>
-							<span class="text-zinc-200">{{ log.substring(Math.min(30, log.length)) }}</span>
+						<span
+							v-if="log.includes('[INFO]') || log.includes('INFO')"
+							class="text-sky-400 font-medium"
+						>
+							{{ log }}
 						</span>
 						<span
 							v-else-if="log.includes('[WARN]') || log.includes('WARN')"
@@ -1389,14 +1395,14 @@
 						</span>
 						<span
 							v-else-if="log.includes('[DONE]') || log.includes('Done (')"
-							class="text-sky-400 font-bold bg-sky-500/10 px-1 py-0.5 rounded"
+							class="text-emerald-400 font-bold bg-emerald-500/10 px-1 py-0.5 rounded"
 						>
 							{{ log }}
 						</span>
 						<span v-else-if="log.includes('[Console]')" class="text-sky-300 font-semibold">
 							{{ log }}
 						</span>
-						<span v-else class="text-zinc-300">
+						<span v-else class="text-sky-400 font-medium">
 							{{ log }}
 						</span>
 					</div>
