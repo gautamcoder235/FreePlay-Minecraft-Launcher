@@ -411,7 +411,7 @@ export function useBrowseSearch(options: UseBrowseSearchOptions): BrowseSearchSt
 	}
 
 	function onFilterChange() {
-		nextTick(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+		// Keep scroll position stable when changing filters/sections
 	}
 
 	watch(

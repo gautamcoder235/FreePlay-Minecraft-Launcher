@@ -237,7 +237,7 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 	</template>
 	<SelectedProjectsFloatingBar v-if="ctx.installContext?.value && ctx.variant !== 'web'" />
 
-	<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+	<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 		<NavTabs
 			v-if="ctx.showProjectTypeTabs.value"
 			:links="ctx.selectableProjectTypes.value"
@@ -245,7 +245,7 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 			class="!m-0 shrink-0"
 		/>
 
-		<div class="flex-1 max-w-md md:ml-auto">
+		<div class="flex-1 max-w-xl md:ml-auto">
 			<StyledInput
 				v-model="ctx.query.value"
 				:icon="SearchIcon"
@@ -257,32 +257,32 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 					})
 				"
 				clearable
-				wrapper-class="w-full !bg-surface-2 border border-surface-4 rounded-xl"
-				input-class="!h-10 text-xs"
+				wrapper-class="w-full !bg-surface-2 border border-surface-4 hover:border-surface-5 focus-within:!border-brand focus-within:!shadow-[0_0_16px_var(--color-brand-shadow)] rounded-2xl transition-all shadow-sm"
+				input-class="!h-11 text-sm font-medium pl-3"
 				@clear="ctx.clearSearch()"
 			/>
 		</div>
 	</div>
 
-	<div
-		v-if="categoryFilter && categoryOptions.length > 0"
-		class="flex flex-wrap items-center gap-1.5 py-1 select-none"
-	>
-		<button
-			v-for="opt in categoryOptions"
-			:key="opt.id"
-			type="button"
-			class="h-7 px-3 rounded-xl border text-xs font-semibold flex items-center gap-1.5 cursor-pointer whitespace-nowrap transition-all duration-200 active:scale-95 shrink-0"
-			:class="
-				isOptionSelected(categoryFilter.id, opt.id)
-					? 'bg-brand border-brand text-brand-inverted shadow-[0_0_12px_var(--color-brand-shadow)] font-bold'
-					: 'bg-surface-2 border-surface-4 text-secondary hover:text-contrast hover:border-surface-5 hover:bg-surface-3'
-			"
-			@click="toggleOption(categoryFilter.id, opt.id)"
-		>
-			<component :is="opt.icon" v-if="opt.icon" class="w-3.5 h-3.5" />
-			<span>{{ opt.formatted_name ?? opt.name ?? opt.id }}</span>
-		</button>
+	<!-- Category tags bar with stable minimum height to prevent vertical jumping between sections with different tag counts -->
+	<div class="min-h-[4.25rem] flex flex-wrap content-start items-center gap-1.5 py-1 select-none">
+		<template v-if="categoryFilter && categoryOptions.length > 0">
+			<button
+				v-for="opt in categoryOptions"
+				:key="opt.id"
+				type="button"
+				class="h-7 px-3 rounded-xl border text-xs font-semibold flex items-center gap-1.5 cursor-pointer whitespace-nowrap transition-all duration-200 active:scale-95 shrink-0"
+				:class="
+					isOptionSelected(categoryFilter.id, opt.id)
+						? 'bg-brand border-brand text-brand-inverted shadow-[0_0_12px_var(--color-brand-shadow)] font-bold'
+						: 'bg-surface-2 border-surface-4 text-secondary hover:text-contrast hover:border-surface-5 hover:bg-surface-3'
+				"
+				@click="toggleOption(categoryFilter.id, opt.id)"
+			>
+				<component :is="opt.icon" v-if="opt.icon" class="w-3.5 h-3.5" />
+				<span>{{ opt.formatted_name ?? opt.name ?? opt.id }}</span>
+			</button>
+		</template>
 	</div>
 
 	<Admonition

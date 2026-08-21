@@ -149,6 +149,10 @@ export default new createRouter({
 	linkExactActiveClass: 'router-link-exact-active',
 	scrollBehavior(to, from) {
 		if (to.path === from.path) return
+		// Preserve scroll position when switching between browse tabs/sections
+		if (to.path.startsWith('/browse') && from.path.startsWith('/browse')) {
+			return false
+		}
 		// Sometimes Vue's scroll behavior is not working as expected, so we need to manually scroll to top (especially on Linux)
 		document.querySelector('.app-viewport')?.scrollTo(0, 0)
 		return {
