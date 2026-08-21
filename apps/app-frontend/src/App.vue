@@ -48,7 +48,6 @@ import { renderString } from '@freeplay/utils'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { getVersion } from '@tauri-apps/api/app'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
-import { listen } from '@tauri-apps/api/event'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { type } from '@tauri-apps/plugin-os'
@@ -364,29 +363,18 @@ function handleSidebarKeydown(e) {
 	}
 }
 
-let unlistenWindowRestored = null
-
 onMounted(async () => {
 	await useCheckDisableMouseover()
 
 	document.querySelector('body').addEventListener('click', handleClick)
 	document.querySelector('body').addEventListener('auxclick', handleAuxClick)
 	window.addEventListener('keydown', handleSidebarKeydown)
-
-	unlistenWindowRestored = await listen('window-restored', () => {
-		const el = document.documentElement
-		el.style.transform = 'translateZ(0)'
-		requestAnimationFrame(() => {
-			el.style.transform = ''
-		})
-	})
 })
 
 onUnmounted(async () => {
 	document.querySelector('body').removeEventListener('click', handleClick)
 	document.querySelector('body').removeEventListener('auxclick', handleAuxClick)
 	window.removeEventListener('keydown', handleSidebarKeydown)
-	unlistenWindowRestored?.()
 })
 
 const { formatMessage } = useVIntl()

@@ -95,7 +95,7 @@
 				"zoomHotkeysEnabled": false,
 				"decorations": false,
 				"shadow": true,
-				"backgroundColor": [5, 2, 10, 255]
+				"backgroundColor": "#090b0f"
 			}
 		],
 		"security": {
