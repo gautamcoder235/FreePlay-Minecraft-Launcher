@@ -296,12 +296,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} dự án đã được thêm"
   },
-  "app.instance.mods.share-text": {
-    "message": "Kiểm tra dự án tôi đang sử dụng trong modpack của mình!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Chia sẻ hồ sơ modpack"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "Tải lên thành công"
   },
@@ -403,9 +397,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Các bản cài Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Ngôn ngữ"
   },
   "app.settings.tabs.resource-management": {
     "message": "Quản lý tài nguyên"

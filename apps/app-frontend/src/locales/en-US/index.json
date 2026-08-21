@@ -134,6 +134,12 @@
   "app.action-bar.view-logs": {
     "message": "View logs"
   },
+  "app.appearance-settings.accent-theme.description": {
+    "message": "Personalize highlights, launch buttons, glowing auras, and active indicators."
+  },
+  "app.appearance-settings.accent-theme.title": {
+    "message": "Accent color palette"
+  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Enable visual effects such as background blur. This may reduce performance without hardware acceleration."
   },
@@ -141,7 +147,7 @@
     "message": "Advanced rendering"
   },
   "app.appearance-settings.color-theme.description": {
-    "message": "Choose the color theme used by FreePlay Launcher."
+    "message": "Choose the base color theme used by FreePlay Launcher."
   },
   "app.appearance-settings.color-theme.title": {
     "message": "Color theme"
@@ -157,6 +163,12 @@
   },
   "app.appearance-settings.hide-nametag.title": {
     "message": "Hide nametag"
+  },
+  "app.appearance-settings.high-contrast.description": {
+    "message": "Sharpen 1px border visibility across cards, modal backdrops, and navigation panels for maximum clarity."
+  },
+  "app.appearance-settings.high-contrast.title": {
+    "message": "High-contrast borders"
   },
   "app.appearance-settings.jump-back-into-worlds.description": {
     "message": "Show recently played worlds or instances in the \"Jump in\" section on the Home page."
@@ -187,12 +199,6 @@
   },
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Skip non-essential warnings"
-  },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Hide the right sidebar by default and add a button to show or hide it."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Hide right sidebar"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Show a safety warning before installing a FreePlay Pack (.mrpack) that isn't hosted on FreePlay."
@@ -589,12 +595,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count} projects were added"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Check out the projects I'm using in my modpack!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Sharing modpack content"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Successfully uploaded"
@@ -1286,12 +1286,6 @@
   "app.restarting": {
     "message": "Restarting..."
   },
-  "app.settings.accounts.cloud-desc": {
-    "message": "Sync your cloud settings, modpacks, server bookmarks, and friends list."
-  },
-  "app.settings.accounts.cloud-title": {
-    "message": "FreePlay Cloud Account"
-  },
   "app.settings.accounts.minecraft-desc": {
     "message": "Manage your Microsoft authentication and custom 1-click offline nicknames."
   },
@@ -1480,9 +1474,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java installations"
-  },
-  "app.settings.tabs.language": {
-    "message": "Language"
   },
   "app.settings.tabs.privacy": {
     "message": "Privacy & Integrations"

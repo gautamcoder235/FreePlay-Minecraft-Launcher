@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Niet-essentiële waarschuwingen overslaan"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Verberg de rechterzijbalk standaard en voeg een knop toe om deze weer te geven of te verbergen."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Rechterzijbalk verbergen"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Geef een veiligheidswaarschuwing weer voordat een FreePlay-pakket (.mrpack) wordt geïnstalleerd dat niet op FreePlay wordt gehost."
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count} Projecten waren toegevoegd"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Bekijk de projecten die ik in mijn modpack gebruik!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Modpack-inhoud delen"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Succesvol geüpload"
@@ -952,9 +940,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java installaties"
-  },
-  "app.settings.tabs.language": {
-    "message": "Taal"
   },
   "app.settings.tabs.resource-management": {
     "message": "Bronnenbeheer"

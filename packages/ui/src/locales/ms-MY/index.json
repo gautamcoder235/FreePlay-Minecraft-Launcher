@@ -473,21 +473,6 @@
   "content.page-layout.please-wait": {
     "defaultMessage": "Sila tunggu"
   },
-  "content.page-layout.share.file-names": {
-    "defaultMessage": "Nama fail"
-  },
-  "content.page-layout.share.label": {
-    "defaultMessage": "Kongsi"
-  },
-  "content.page-layout.share.markdown-links": {
-    "defaultMessage": "Pautan Markdown"
-  },
-  "content.page-layout.share.project-links": {
-    "defaultMessage": "Pautan projek"
-  },
-  "content.page-layout.share.project-names": {
-    "defaultMessage": "Nama projek"
-  },
   "content.page-layout.update-all": {
     "defaultMessage": "Kemas kini semua"
   },

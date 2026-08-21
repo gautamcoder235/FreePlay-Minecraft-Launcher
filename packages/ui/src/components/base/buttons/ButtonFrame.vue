@@ -44,7 +44,7 @@ const iconOnlySizeClasses: Record<ButtonSize, string> = {
 const typeClasses: Record<ButtonType, string> = {
 	base: 'button-frame--base bg-surface-4 text-contrast [&>svg]:text-primary',
 	colored:
-		'button-frame--colored bg-[--button-color] text-[var(--color-accent-contrast)] [&>svg]:text-inherit',
+		'button-frame--colored bg-[--button-color] text-[var(--color-accent-contrast,#ffffff)] [&>svg]:text-inherit font-semibold',
 	'colored-text':
 		'button-frame--colored-text bg-surface-4 text-[--button-color] [&>svg]:text-inherit',
 	outlined:

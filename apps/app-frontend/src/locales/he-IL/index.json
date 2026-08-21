@@ -95,12 +95,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} פרויקטים נוספו"
   },
-  "app.instance.mods.share-text": {
-    "message": "בדוק את הפרויקטים שאני משתמש בהם בחבילת המודים שלי!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "משתף את התוכן של חבילת המודים"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "הועלה בהצלחה"
   },
@@ -157,9 +151,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "התקנות ג'אווה"
-  },
-  "app.settings.tabs.language": {
-    "message": "שפה"
   },
   "app.settings.tabs.resource-management": {
     "message": "ניהול משאבים"

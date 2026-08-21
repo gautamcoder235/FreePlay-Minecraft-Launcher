@@ -957,6 +957,70 @@ pub async fn host_select_server(server_id: String) -> Result<()> {
     Ok(())
 }
 
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_get_server_icon(server_id: Option<String>) -> Result<Option<String>> {
+    use base64::Engine;
+    use base64::prelude::BASE64_STANDARD;
+
+    let state = crate::State::get().await?;
+    let dir = crate::server_addons::get_target_server_dir(&state, server_id.as_deref()).await?;
+    let icon_path = dir.join("server-icon.png");
+
+    if icon_path.exists() {
+        if let Ok(bytes) = tokio::fs::read(&icon_path).await {
+            let encoded = BASE64_STANDARD.encode(&bytes);
+            return Ok(Some(format!("data:image/png;base64,{}", encoded)));
+        }
+    }
+
+    Ok(None)
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_set_server_icon(
+    server_id: Option<String>,
+    icon_base64: String,
+) -> Result<String> {
+    use base64::Engine;
+    use base64::prelude::BASE64_STANDARD;
+
+    let state = crate::State::get().await?;
+    let dir = crate::server_addons::get_target_server_dir(&state, server_id.as_deref()).await?;
+    tokio::fs::create_dir_all(&dir).await.ok();
+
+    let icon_path = dir.join("server-icon.png");
+
+    let clean_b64 = if let Some((_, rest)) = icon_base64.split_once("base64,") {
+        rest
+    } else {
+        &icon_base64
+    };
+
+    let bytes = BASE64_STANDARD.decode(clean_b64.trim()).map_err(|e| {
+        crate::ErrorKind::InputError(format!("Invalid base64 image data: {e}"))
+    })?;
+
+    tokio::fs::write(&icon_path, &bytes).await.map_err(|e| {
+        crate::ErrorKind::OtherError(format!("Failed to write server-icon.png: {e}"))
+    })?;
+
+    let encoded = BASE64_STANDARD.encode(&bytes);
+    Ok(format!("data:image/png;base64,{}", encoded))
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_delete_server_icon(server_id: Option<String>) -> Result<()> {
+    let state = crate::State::get().await?;
+    let dir = crate::server_addons::get_target_server_dir(&state, server_id.as_deref()).await?;
+    let icon_path = dir.join("server-icon.png");
+
+    if icon_path.exists() {
+        tokio::fs::remove_file(&icon_path).await.ok();
+    }
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::parse_server_address_inner;

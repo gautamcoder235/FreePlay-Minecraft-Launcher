@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Только опасные предупреждения"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Скрывать панель справа при запуске и переключать кнопкой."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Скрытие панели справа"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Предупреждать о рисках перед установкой файлов .mrpack, не размещённых на FreePlay."
   },
@@ -400,12 +394,6 @@
   },
   "app.instance.mods.project-was-added": {
     "message": "«{name}» добавлен"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Что в моей сборке:"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Содержимое сборки"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Успешно загружено"
@@ -943,9 +931,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Расположение Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Язык"
   },
   "app.settings.tabs.resource-management": {
     "message": "Управление ресурсами"

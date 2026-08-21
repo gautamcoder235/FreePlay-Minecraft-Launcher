@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "重要でない警告をスキップ"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "右サイドバーをデフォルトで非表示にし、表示／非表示を切り替えるボタンを追加します。"
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "右のサイドバーを隠す"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "FreePlay以外でホストされているFreePlayパック（.mrpack）をインストールする前に、安全警告を表示します。"
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count}件のプロジェクトが追加されました"
-  },
-  "app.instance.mods.share-text": {
-    "message": "私のModパックで使われているプロジェクトをチェック！"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Modパックのコンテンツを共有"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "アップロードに成功しました"
@@ -952,9 +940,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Javaのインストール設定"
-  },
-  "app.settings.tabs.language": {
-    "message": "言語"
   },
   "app.settings.tabs.resource-management": {
     "message": "リソース管理"

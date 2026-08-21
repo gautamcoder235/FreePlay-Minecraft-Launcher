@@ -51,7 +51,7 @@ const emit = defineEmits<{
 
 const props = defineProps<{
 	instance: GameInstance
-	last_played: Dayjs
+	lastPlayed: Dayjs
 	newlyAdded?: boolean
 }>()
 
@@ -184,7 +184,7 @@ onMounted(() => {
 					</span>
 					<BulletDivider class="shrink-0" />
 					<div
-						v-tooltip="!newlyAdded ? formatDateTime(last_played.toDate()) : null"
+						v-tooltip="!newlyAdded ? formatDateTime(lastPlayed.toDate()) : null"
 						class="w-fit shrink-0"
 						:class="{
 							'cursor-help smart-clickable:allow-pointer-events': !newlyAdded,
@@ -193,8 +193,8 @@ onMounted(() => {
 						<template v-if="newlyAdded">
 							{{ formatMessage(messages.neverPlayed) }}
 						</template>
-						<template v-else-if="last_played">
-							{{ formatRelativeTime(last_played.toISOString?.()) }}
+						<template v-else-if="lastPlayed">
+							{{ formatRelativeTime(lastPlayed.toISOString?.()) }}
 						</template>
 						<template v-else>{{ formatMessage(messages.neverPlayed) }}</template>
 					</div>

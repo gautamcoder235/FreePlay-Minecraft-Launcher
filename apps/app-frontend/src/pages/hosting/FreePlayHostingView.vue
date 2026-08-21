@@ -4,7 +4,7 @@
 	>
 		<!-- Sticky Top Header & Navigation Hub (Stays pinned at the top on scroll) -->
 		<header
-			class="sticky top-0 z-40 flex flex-col gap-3 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-[#090B0F]/95 backdrop-blur-2xl border-b border-white/5"
+			class="sticky top-0 z-40 flex flex-col gap-3 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-[var(--surface-1)]/95 backdrop-blur-2xl border-b border-white/5"
 		>
 			<!-- Top Server HUD Header Bar -->
 			<div
@@ -14,7 +14,7 @@
 				<div
 					class="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-3xl pointer-events-none transition-all duration-700 opacity-20"
 					:class="{
-						'bg-sky-500': serverState.status === 'online',
+						'bg-[var(--color-brand)]': serverState.status === 'online',
 						'bg-amber-500': serverState.status === 'starting',
 						'bg-indigo-500': serverState.status === 'tunneling',
 						'bg-rose-500/60': serverState.status === 'offline',
@@ -26,7 +26,7 @@
 					<div class="flex flex-wrap items-center gap-3">
 						<div class="flex items-center gap-2.5">
 							<div
-								class="w-9 h-9 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+								class="w-9 h-9 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									class="w-3.5 h-3.5 text-cyan-400"
+									class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))]"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
@@ -93,7 +93,7 @@
 						<div
 							class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 border backdrop-blur-md shadow-sm"
 							:class="{
-								'bg-sky-500/15 text-sky-300 border-sky-500/40 shadow-[0_0_16px_rgba(56,189,248,0.3)]':
+								'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]':
 									serverState.status === 'online',
 								'bg-amber-500/15 text-amber-300 border-amber-500/40 animate-pulse shadow-[0_0_16px_rgba(245,158,11,0.25)]':
 									serverState.status === 'starting',
@@ -105,12 +105,12 @@
 							<span class="relative flex h-2 w-2">
 								<span
 									v-if="serverState.status === 'online'"
-									class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"
+									class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand)] opacity-75"
 								/>
 								<span
 									class="relative inline-flex rounded-full h-2 w-2"
 									:class="{
-										'bg-sky-400': serverState.status === 'online',
+										'bg-[var(--color-brand)]': serverState.status === 'online',
 										'bg-amber-400 animate-spin': serverState.status === 'starting',
 										'bg-indigo-400 animate-bounce': serverState.status === 'tunneling',
 										'bg-zinc-500': serverState.status === 'offline',
@@ -132,11 +132,11 @@
 					<div class="flex flex-wrap items-center gap-2.5 text-xs">
 						<!-- 1-Click IP Address Copy Pill -->
 						<div
-							class="flex items-center gap-2 bg-[#090B0F]/90 border border-white/10 rounded-xl px-3 py-1.5 shadow-inner hover:border-sky-500/40 transition-colors duration-200"
+							class="flex items-center gap-2 bg-[var(--surface-1)]/90 border border-white/10 rounded-xl px-3 py-1.5 shadow-inner hover:border-[var(--color-brand-shadow)] transition-colors duration-200"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="w-3.5 h-3.5 text-sky-400 shrink-0"
+								class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))] shrink-0"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -148,31 +148,12 @@
 								<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
 								<path d="M2 12h20" />
 							</svg>
-							<span class="font-semibold text-zinc-400 uppercase tracking-wide text-[10px]"
-								>Host:</span
-							>
-							<code
-								class="font-mono text-xs font-bold tracking-wide select-all"
-								:class="serverState.claim_url ? 'text-amber-300' : 'text-white'"
-							>
-								{{
-									serverState.tunnel_enabled &&
-									serverState.public_ip &&
-									serverState.public_ip !== 'Not Active'
-										? serverState.public_ip
-										: serverState.claim_url
-											? 'Claim Required'
-											: serverState.tunnel_enabled
-												? isTunnelLoading
-													? 'Connecting Public Tunnel...'
-													: serverState.status === 'online'
-														? 'Routing Anycast...'
-														: serverState.status === 'offline'
-															? 'Tunnel Auto-Routes On Start'
-															: `127.0.0.1:${serverState.local_port}`
-												: `127.0.0.1:${serverState.local_port}`
-								}}
-							</code>
+							<span class="text-zinc-400 font-mono">
+								HOST:
+								<strong class="text-white select-all">{{
+									serverState.public_ip || '127.0.0.1:' + serverState.local_port
+								}}</strong>
+							</span>
 							<a
 								v-if="serverState.claim_url"
 								:href="serverState.claim_url"
@@ -198,7 +179,7 @@
 							<button
 								v-else
 								type="button"
-								class="inline-flex items-center justify-center p-1 rounded-md bg-zinc-800 hover:bg-sky-500 text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none active:scale-95 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
+								class="inline-flex items-center justify-center p-1 rounded-md bg-zinc-800 hover:bg-[var(--color-brand)] text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none"
 								title="1-Click Copy Public IP for Friends"
 								@click="copyPublicIp"
 							>
@@ -235,7 +216,7 @@
 						<transition name="fade">
 							<span
 								v-if="copied"
-								class="font-bold text-sky-400 bg-sky-500/10 border border-sky-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1.5"
+								class="font-bold text-[var(--color-brand-highlight,var(--color-brand))] bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] px-2.5 py-1 rounded-lg flex items-center gap-1.5"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -255,12 +236,14 @@
 
 						<!-- Port Counter -->
 						<div
-							class="flex items-center gap-1.5 bg-[#090B0F]/70 px-2.5 py-1.5 rounded-xl border border-white/5 text-zinc-400"
+							class="flex items-center gap-1.5 bg-[var(--surface-1)]/70 px-2.5 py-1.5 rounded-xl border border-white/5 text-zinc-400"
 						>
 							<span
 								class="w-2 h-2 rounded-full"
 								:class="
-									serverState.status === 'online' ? 'bg-sky-400 animate-pulse' : 'bg-zinc-600'
+									serverState.status === 'online'
+										? 'bg-[var(--color-brand)] animate-pulse'
+										: 'bg-zinc-600'
 								"
 							/>
 							<span
@@ -271,7 +254,7 @@
 
 						<!-- Online Player Head Avatars Preview -->
 						<div
-							class="flex items-center gap-2 bg-[#090B0F]/70 px-2.5 py-1.5 rounded-xl border border-white/5"
+							class="flex items-center gap-2 bg-[var(--surface-1)]/70 px-2.5 py-1.5 rounded-xl border border-white/5"
 						>
 							<span class="text-zinc-400">Players:</span>
 							<strong class="text-white font-mono">{{ onlinePlayers.length }}</strong>
@@ -285,7 +268,7 @@
 					<button
 						v-if="serverState.status === 'offline'"
 						type="button"
-						class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 font-black text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(56,189,248,0.35)] hover:shadow-[0_0_25px_rgba(56,189,248,0.5)] active:scale-[0.98] transition-all duration-200 cursor-pointer border-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none"
+						class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-black text-xs uppercase tracking-wider active:scale-[0.98] transition-all duration-200 cursor-pointer border-none focus-visible:outline-none"
 						:disabled="actionLoading"
 						@click="startServer"
 					>
@@ -479,10 +462,10 @@
 					v-for="tab in tabs"
 					:key="tab.id"
 					type="button"
-					class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 whitespace-nowrap cursor-pointer active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
+					class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 whitespace-nowrap cursor-pointer active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none"
 					:class="
 						activeTab === tab.id
-							? 'bg-gradient-to-r from-sky-500/20 to-cyan-500/20 text-white border border-sky-500/40 shadow-[0_0_15px_rgba(56,189,248,0.2)]'
+							? 'bg-[var(--color-brand-bg)] text-white border border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]'
 							: 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 border border-transparent'
 					"
 					@click="switchTab(tab.id)"
@@ -490,7 +473,11 @@
 					<component
 						:is="tab.icon"
 						class="w-4 h-4"
-						:class="activeTab === tab.id ? 'text-sky-400' : 'text-zinc-400'"
+						:class="
+							activeTab === tab.id
+								? 'text-[var(--color-brand-highlight,var(--color-brand))]'
+								: 'text-zinc-400'
+						"
 					/>
 					<span>{{ tab.label }}</span>
 				</button>
@@ -503,7 +490,7 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 				<!-- Server Status Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-sky-500/30 transition-all duration-200"
+					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -511,7 +498,7 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="w-4 h-4 text-sky-400"
+								class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -527,7 +514,7 @@
 							Server Process
 						</span>
 						<span
-							class="text-[10px] text-sky-300 font-mono font-bold bg-sky-500/15 px-2 py-0.5 rounded-md border border-sky-500/30"
+							class="text-[10px] text-[var(--color-brand-highlight,var(--color-brand))] font-mono font-bold bg-[var(--color-brand-bg)] px-2 py-0.5 rounded-md border border-[var(--color-brand-shadow)]"
 							>{{ serverState.engine }}</span
 						>
 					</div>
@@ -546,14 +533,11 @@
 							{{ serverState.status === 'online' ? 'Active' : 'Standby' }}
 						</span>
 					</div>
-					<div class="text-[11px] text-zinc-400 truncate">
-						Version: <strong class="text-zinc-200">{{ serverState.version }}</strong>
-					</div>
 				</div>
 
 				<!-- RAM Allocation Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-sky-500/30 transition-all duration-200"
+					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -561,7 +545,7 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="w-4 h-4 text-sky-400"
+								class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -585,7 +569,9 @@
 						<span class="text-3xl font-black text-white font-mono tracking-tight">
 							{{ serverState.ram_gb }} GB
 						</span>
-						<span class="text-xs text-sky-400 font-bold font-mono">
+						<span
+							class="text-xs text-[var(--color-brand-highlight,var(--color-brand))] font-bold font-mono"
+						>
 							{{ serverState.ram_gb * 1024 }} MB
 						</span>
 					</div>
@@ -593,9 +579,10 @@
 						class="w-full bg-zinc-950 rounded-full h-2 overflow-hidden p-0.5 border border-white/5"
 					>
 						<div
-							class="bg-gradient-to-r from-sky-500 to-cyan-400 h-full rounded-full transition-all duration-500 ease-out"
+							class="h-full rounded-full transition-all duration-500 ease-out"
 							:style="{
 								width: `${serverState.status === 'online' ? 75 : 0}%`,
+								background: 'var(--loading-bar-gradient)',
 							}"
 						/>
 					</div>
@@ -603,7 +590,7 @@
 
 				<!-- Port & Network Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-sky-500/30 transition-all duration-200"
+					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -611,7 +598,7 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="w-4 h-4 text-sky-400"
+								class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -626,7 +613,7 @@
 							Network Port
 						</span>
 						<span
-							class="text-[10px] text-sky-300 font-mono font-bold bg-sky-500/15 px-2 py-0.5 rounded-md border border-sky-500/30"
+							class="text-[10px] text-[var(--color-brand-highlight,var(--color-brand))] font-mono font-bold bg-[var(--color-brand-bg)] px-2 py-0.5 rounded-md border border-[var(--color-brand-shadow)]"
 							>TCP &amp; UDP</span
 						>
 					</div>
@@ -634,7 +621,10 @@
 						<span class="text-3xl font-black text-white font-mono tracking-tight">
 							{{ serverState.local_port }}
 						</span>
-						<span class="text-xs font-semibold text-sky-400">Standard</span>
+						<span
+							class="text-xs font-semibold text-[var(--color-brand-highlight,var(--color-brand))]"
+							>Standard</span
+						>
 					</div>
 					<div class="text-[11px] text-zinc-400 truncate">
 						Tunnel:
@@ -646,7 +636,7 @@
 
 				<!-- Session Uptime Clock Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-cyan-500/30 transition-all duration-200"
+					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -654,7 +644,7 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="w-4 h-4 text-cyan-400"
+								class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -668,7 +658,7 @@
 							Session Uptime
 						</span>
 						<span
-							class="text-[10px] text-cyan-300 font-mono font-bold bg-cyan-500/15 px-2 py-0.5 rounded-md border border-cyan-500/30"
+							class="text-[10px] text-[var(--color-brand-highlight,var(--color-brand))] font-mono font-bold bg-[var(--color-brand-bg)] px-2 py-0.5 rounded-md border border-[var(--color-brand-shadow)]"
 							>Live Clock</span
 						>
 					</div>
@@ -676,12 +666,6 @@
 						<span class="text-3xl font-black text-white font-mono tracking-tight">
 							{{ serverState.status === 'online' ? formattedUptime : '00:00:00' }}
 						</span>
-					</div>
-					<div class="text-xs text-zinc-400 truncate">
-						Directory:
-						<strong class="text-zinc-200 font-mono text-[10px]">{{
-							activeServer?.path || 'Default'
-						}}</strong>
 					</div>
 				</div>
 			</div>
@@ -695,7 +679,7 @@
 				>
 					<div class="flex items-center gap-3">
 						<div
-							class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+							class="w-10 h-10 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -719,7 +703,7 @@
 									FreePlay LAN &amp; Anycast P2P Tunnel
 								</h2>
 								<span
-									class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 uppercase tracking-wide"
+									class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] uppercase tracking-wide"
 									>playit.gg Protocol</span
 								>
 							</div>
@@ -734,16 +718,20 @@
 					<div class="flex items-center gap-3">
 						<span
 							class="text-xs font-semibold"
-							:class="serverState.tunnel_enabled ? 'text-sky-300' : 'text-zinc-500'"
+							:class="
+								serverState.tunnel_enabled
+									? 'text-[var(--color-brand-highlight,var(--color-brand))]'
+									: 'text-zinc-500'
+							"
 						>
 							{{ serverState.tunnel_enabled ? 'Tunnel Active' : 'Tunnel Disabled' }}
 						</span>
 						<button
 							type="button"
-							class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none p-0.5 items-center"
+							class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none p-0.5 items-center"
 							:class="
 								serverState.tunnel_enabled
-									? 'bg-sky-500 shadow-[0_0_14px_rgba(56,189,248,0.5)]'
+									? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
 									: 'bg-zinc-800 border border-white/10'
 							"
 							@click="toggleTunnel"
@@ -758,7 +746,9 @@
 
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<!-- Public Invite Link Copy Card -->
-					<div class="p-4 rounded-xl bg-[#090B0F]/80 border border-white/5 flex flex-col gap-2">
+					<div
+						class="p-4 rounded-xl bg-[var(--surface-1)]/80 border border-white/5 flex flex-col gap-2"
+					>
 						<div class="flex items-center justify-between">
 							<span class="text-xs font-bold text-zinc-400 uppercase tracking-wider"
 								>Shareable Public Address</span
@@ -799,10 +789,10 @@
 							</a>
 							<span
 								v-else-if="serverState.tunnel_enabled"
-								class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30 flex items-center gap-1"
+								class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] flex items-center gap-1"
 							>
 								<span
-									class="w-1.5 h-1.5 rounded-full bg-sky-400"
+									class="w-1.5 h-1.5 rounded-full bg-[var(--color-brand)]"
 									:class="serverState.status === 'online' ? 'animate-pulse' : ''"
 								/>
 								{{
@@ -816,7 +806,7 @@
 							<button
 								v-else
 								type="button"
-								class="text-[10px] font-bold text-sky-400 hover:text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 px-2 py-0.5 rounded border border-sky-500/30 transition-all cursor-pointer"
+								class="text-[10px] font-bold text-[var(--color-brand-highlight,var(--color-brand))] hover:text-white bg-[var(--color-brand-bg)] hover:bg-[var(--color-brand)]/80 px-2 py-0.5 rounded border border-[var(--color-brand-shadow)] transition-all cursor-pointer"
 								@click="toggleTunnel"
 							>
 								Click to Enable
@@ -830,14 +820,14 @@
 							<div
 								v-for="tun in activeTunnels"
 								:key="tun.domain"
-								class="flex items-center justify-between bg-zinc-900/90 px-3 py-2 rounded-lg border border-white/5 group hover:border-sky-500/30 transition-all cursor-pointer"
+								class="flex items-center justify-between bg-zinc-900/90 px-3 py-2 rounded-lg border border-white/5 group hover:border-[var(--color-brand-shadow)] transition-all cursor-pointer"
 								:title="`Click to copy ${tun.tunnel_type}`"
 								@click="copyTunnel(tun.domain)"
 							>
 								<div class="flex items-center gap-2 min-w-0">
 									<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
 									<span
-										class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 shrink-0"
+										class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] shrink-0"
 									>
 										{{ tun.tunnel_type }}
 									</span>
@@ -847,7 +837,7 @@
 								</div>
 								<button
 									type="button"
-									class="p-1 px-2.5 rounded bg-zinc-800 hover:bg-sky-500 text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none ml-2 shrink-0 flex items-center gap-1 text-[11px] font-bold"
+									class="p-1 px-2.5 rounded bg-zinc-800 hover:bg-[var(--color-brand)] text-zinc-300 hover:text-[var(--color-accent-contrast,#ffffff)] transition-all duration-200 cursor-pointer border-none ml-2 shrink-0 flex items-center gap-1 text-[11px] font-bold"
 									:class="{ '!bg-emerald-500 !text-zinc-950': copiedTunnelAddr === tun.domain }"
 									@click.stop="copyTunnel(tun.domain)"
 								>
@@ -859,7 +849,7 @@
 						<!-- Single Tunnel Layout -->
 						<div
 							v-else
-							class="flex items-center justify-between bg-zinc-900/90 px-3 py-2 rounded-lg border border-white/5 group hover:border-sky-500/30 transition-all cursor-pointer"
+							class="flex items-center justify-between bg-zinc-900/90 px-3 py-2 rounded-lg border border-white/5 group hover:border-[var(--color-brand-shadow)] transition-all cursor-pointer"
 							:title="
 								serverState.tunnel_enabled
 									? 'Click to copy address'
@@ -879,10 +869,10 @@
 									serverState.tunnel_enabled &&
 									serverState.public_ip &&
 									serverState.public_ip !== 'Not Active'
-										? 'text-sky-300'
+										? 'text-[var(--color-brand-highlight,var(--color-brand))]'
 										: serverState.claim_url
 											? 'text-amber-300'
-											: 'text-sky-400'
+											: 'text-[var(--color-brand-highlight,var(--color-brand))]'
 								"
 							>
 								{{
@@ -903,8 +893,10 @@
 							</code>
 							<button
 								type="button"
-								class="p-1 px-2 rounded bg-zinc-800 hover:bg-sky-500 text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none ml-2 shrink-0 flex items-center gap-1 text-xs font-bold"
-								:class="{ '!bg-sky-500 !text-zinc-950': copied }"
+								class="p-1 px-2 rounded bg-zinc-800 hover:bg-[var(--color-brand)] text-zinc-300 hover:text-[var(--color-accent-contrast,#ffffff)] transition-all duration-200 cursor-pointer border-none ml-2 shrink-0 flex items-center gap-1 text-xs font-bold"
+								:class="{
+									'!bg-[var(--color-brand)] !text-[var(--color-accent-contrast,#ffffff)]': copied,
+								}"
 								title="Copy Invite Address"
 								@click.stop="copyPublicIp"
 							>
@@ -925,7 +917,7 @@
 								<svg
 									v-else
 									xmlns="http://www.w3.org/2000/svg"
-									class="w-3.5 h-3.5"
+									class="w-3.5 h-3.5 text-zinc-950"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
@@ -941,13 +933,13 @@
 						<!-- Claim URL Banner if present -->
 						<div
 							v-if="serverState.claim_url"
-							class="flex items-center justify-between p-2 rounded-lg bg-sky-500/10 border border-sky-500/30 text-xs text-sky-300"
+							class="flex items-center justify-between p-2 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] text-xs text-[var(--color-brand-highlight,var(--color-brand))]"
 						>
 							<span class="truncate">Claim tunnel for custom address:</span>
 							<a
 								:href="serverState.claim_url"
 								target="_blank"
-								class="px-2 py-0.5 rounded bg-sky-600 hover:bg-sky-500 text-white font-bold text-[11px] shrink-0 no-underline"
+								class="px-2 py-0.5 rounded bg-[var(--color-brand)] hover:opacity-90 text-[var(--color-accent-contrast,#ffffff)] font-bold text-[11px] shrink-0 no-underline"
 							>
 								Claim Setup
 							</a>
@@ -955,14 +947,18 @@
 					</div>
 
 					<!-- Direct LAN Address -->
-					<div class="p-4 rounded-xl bg-[#090B0F]/80 border border-white/5 flex flex-col gap-2">
+					<div
+						class="p-4 rounded-xl bg-[var(--surface-1)]/80 border border-white/5 flex flex-col gap-2"
+					>
 						<span class="text-xs font-bold text-zinc-400 uppercase tracking-wider"
 							>Local Direct Join</span
 						>
 						<div
 							class="flex items-center justify-between bg-zinc-900/90 px-3 py-2 rounded-lg border border-white/5"
 						>
-							<code class="text-xs font-mono font-bold text-sky-400 select-all">
+							<code
+								class="text-xs font-mono font-bold text-[var(--color-brand-highlight,var(--color-brand))] select-all"
+							>
 								127.0.0.1:{{ serverState.local_port }}
 							</code>
 							<span class="text-[10px] font-bold text-zinc-500 uppercase">Localhost</span>
@@ -1010,7 +1006,7 @@
 					<transition name="fade">
 						<div
 							v-if="showTunnelDebug"
-							class="mt-3 p-4 rounded-xl bg-[#090B0F] border border-amber-500/20 flex flex-col gap-3 text-xs font-mono"
+							class="mt-3 p-4 rounded-xl bg-[var(--surface-1)] border border-amber-500/20 flex flex-col gap-3 text-xs font-mono"
 						>
 							<!-- Status Grid -->
 							<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -1093,7 +1089,10 @@
 										>
 											<div class="flex items-center gap-2">
 												<span class="text-emerald-400">●</span>
-												<span class="text-sky-300 font-bold">{{ tun.domain }}</span>
+												<span
+													class="text-[var(--color-brand-highlight,var(--color-brand))] font-bold"
+													>{{ tun.domain }}</span
+												>
 												<span class="text-zinc-500">=&gt;</span>
 												<span class="text-zinc-400">{{ tun.target }}</span>
 											</div>
@@ -1137,7 +1136,9 @@
 								>
 								<span class="text-zinc-500"
 									>public_ip:
-									<strong class="text-sky-300">{{ serverState.public_ip }}</strong></span
+									<strong class="text-[var(--color-brand-highlight,var(--color-brand))]">{{
+										serverState.public_ip
+									}}</strong></span
 								>
 							</div>
 
@@ -1150,7 +1151,7 @@
 									>
 									<button
 										type="button"
-										class="text-[10px] font-bold text-sky-400 hover:text-sky-300 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/30 cursor-pointer transition-all"
+										class="text-[10px] font-bold text-[var(--color-brand-highlight,var(--color-brand))] hover:text-white bg-[var(--color-brand-bg)] px-2 py-0.5 rounded border border-[var(--color-brand-shadow)] cursor-pointer transition-all"
 										@click="fetchStatus()"
 									>
 										Refresh Now
@@ -1169,8 +1170,8 @@
 											'text-amber-300': log.includes('[WARN]') || log.includes('claim'),
 											'text-emerald-400 font-semibold':
 												log.includes('connected') || log.includes('tunnel ready'),
-											'text-sky-400 font-medium': log.includes('playit') || log.includes('[INFO]'),
-											'text-sky-400/90':
+											'text-zinc-300 font-medium': log.includes('playit') || log.includes('[INFO]'),
+											'text-zinc-400':
 												!log.includes('[ERROR]') &&
 												!log.includes('[WARN]') &&
 												!log.includes('[INFO]') &&
@@ -1206,7 +1207,7 @@
 					<h3 class="text-sm font-extrabold text-white m-0 flex items-center gap-2">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="w-4 h-4 text-sky-400"
+							class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -1221,7 +1222,7 @@
 					</h3>
 					<button
 						type="button"
-						class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer bg-transparent border-none"
+						class="text-xs font-bold text-[var(--color-brand-highlight,var(--color-brand))] hover:opacity-80 flex items-center gap-1 cursor-pointer bg-transparent border-none"
 						@click="activeTab = 'console'"
 					>
 						Open Full Interactive Console &rarr;
@@ -1229,7 +1230,7 @@
 				</div>
 
 				<div
-					class="p-3.5 rounded-xl bg-[#090B0F] border border-white/5 font-mono text-xs space-y-1 overflow-y-auto max-h-48 scrollbar-thin"
+					class="p-3.5 rounded-xl bg-[var(--surface-1)] border border-white/5 font-mono text-xs space-y-1 overflow-y-auto max-h-48 scrollbar-thin"
 				>
 					<div
 						v-for="(log, idx) in serverState.logs.slice(-8)"
@@ -1239,8 +1240,8 @@
 							'text-rose-400 font-bold': log.includes('[ERROR]') || log.includes('[STDERR]'),
 							'text-amber-400': log.includes('[WARN]'),
 							'text-emerald-400 font-semibold': log.includes('[DONE]') || log.includes('Done ('),
-							'text-sky-400 font-medium': log.includes('[INFO]') || log.includes('playit.gg'),
-							'text-sky-400/90':
+							'text-zinc-300 font-medium': log.includes('[INFO]') || log.includes('playit.gg'),
+							'text-zinc-400':
 								!log.includes('[INFO]') &&
 								!log.includes('[ERROR]') &&
 								!log.includes('[WARN]') &&
@@ -1263,7 +1264,7 @@
 			>
 				<!-- Terminal Top Header Bar -->
 				<div
-					class="bg-[#090B0F] px-4 py-3.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3 shrink-0"
+					class="bg-[var(--surface-1)] px-4 py-3.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3 shrink-0"
 				>
 					<div class="flex items-center gap-3">
 						<div class="flex items-center gap-1.5">
@@ -1274,7 +1275,7 @@
 								class="w-3 h-3 rounded-full bg-amber-500 inline-block shadow-[0_0_8px_rgba(245,158,11,0.4)]"
 							></span>
 							<span
-								class="w-3 h-3 rounded-full bg-sky-500 inline-block shadow-[0_0_8px_rgba(56,189,248,0.4)]"
+								class="w-3 h-3 rounded-full bg-[var(--color-brand)] inline-block shadow-[var(--accent-glow)]"
 							></span>
 						</div>
 						<span
@@ -1282,7 +1283,7 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="w-4 h-4 text-sky-400"
+								class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -1309,7 +1310,7 @@
 								class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase transition-colors cursor-pointer border-none"
 								:class="
 									logFilter === flt
-										? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
+										? 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)]'
 										: 'text-zinc-400 hover:text-zinc-200'
 								"
 								@click="logFilter = flt"
@@ -1320,9 +1321,10 @@
 
 						<button
 							type="button"
-							class="text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-mono cursor-pointer transition-colors active:scale-95 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
+							class="text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-mono cursor-pointer transition-colors active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none"
 							:class="{
-								'!bg-sky-500/20 !border-sky-500/50 !text-sky-300 font-bold': autoScroll,
+								'!bg-[var(--color-brand-bg)] !border-[var(--color-brand-shadow)] !text-[var(--color-brand-highlight,var(--color-brand))] font-bold':
+									autoScroll,
 							}"
 							@click="autoScroll = !autoScroll"
 						>
@@ -1337,7 +1339,7 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="w-3.5 h-3.5 text-cyan-400"
+								class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))]"
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
@@ -1375,7 +1377,7 @@
 					>
 						<span
 							v-if="log.includes('[INFO]') || log.includes('INFO')"
-							class="text-sky-400 font-medium"
+							class="text-zinc-300 font-medium"
 						>
 							{{ log }}
 						</span>
@@ -1399,10 +1401,13 @@
 						>
 							{{ log }}
 						</span>
-						<span v-else-if="log.includes('[Console]')" class="text-sky-300 font-semibold">
+						<span
+							v-else-if="log.includes('[Console]')"
+							class="text-[var(--color-brand-highlight,var(--color-brand))] font-semibold"
+						>
 							{{ log }}
 						</span>
-						<span v-else class="text-sky-400 font-medium">
+						<span v-else class="text-zinc-300 font-medium">
 							{{ log }}
 						</span>
 					</div>
@@ -1413,7 +1418,7 @@
 
 				<!-- Quick Command Suggestion Bar -->
 				<div
-					class="px-4 py-2 bg-[#090B0F] border-t border-white/10 flex flex-wrap items-center gap-2 shrink-0"
+					class="px-4 py-2 bg-[var(--surface-1)] border-t border-white/10 flex flex-wrap items-center gap-2 shrink-0"
 				>
 					<span
 						class="text-xs font-bold text-zinc-400 uppercase tracking-wide mr-1 flex items-center gap-1"
@@ -1436,7 +1441,7 @@
 						v-for="cmd in quickCommands"
 						:key="cmd"
 						type="button"
-						class="text-xs font-mono px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-sky-500 hover:text-zinc-950 text-zinc-300 font-semibold transition-all duration-150 cursor-pointer border border-white/5 active:scale-95 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
+						class="text-xs font-mono px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-[var(--color-brand)] hover:text-[var(--color-accent-contrast,#ffffff)] text-zinc-300 font-semibold transition-all duration-150 cursor-pointer border border-white/5 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none"
 						@click="sendQuickCommand(cmd)"
 					>
 						{{ cmd }}
@@ -1445,21 +1450,24 @@
 
 				<!-- Command Input Bar -->
 				<form
-					class="p-3.5 bg-[#090B0F] border-t border-white/10 flex items-center gap-3 shrink-0"
+					class="p-3.5 bg-[var(--surface-1)] border-t border-white/10 flex items-center gap-3 shrink-0"
 					@submit.prevent="submitCommand"
 				>
-					<span class="text-sky-400 font-mono font-black text-base pl-2 select-none">&gt;</span>
+					<span
+						class="text-[var(--color-brand-highlight,var(--color-brand))] font-mono font-black text-base pl-2 select-none"
+						>&gt;</span
+					>
 					<input
 						v-model="commandInput"
 						type="text"
 						placeholder="Type a server command... (e.g. help, list, save-all, whitelist add Player)"
-						class="flex-1 bg-zinc-900 border border-white/10 focus:border-sky-500/80 rounded-xl px-4 py-2.5 text-sm text-white font-mono outline-none shadow-inner transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-sky-500/40"
+						class="flex-1 bg-zinc-900 border border-white/10 focus:border-[var(--color-brand)]/80 rounded-xl px-4 py-2.5 text-sm text-white font-mono outline-none shadow-inner transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/40"
 						@keydown.up="navigateHistory(-1)"
 						@keydown.down="navigateHistory(1)"
 					/>
 					<button
 						type="submit"
-						class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 font-extrabold text-xs shadow-md shadow-sky-950/50 active:scale-95 transition-all duration-200 cursor-pointer border-none flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none"
+						class="px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-95 transition-all duration-200 cursor-pointer border-none flex items-center gap-2 focus-visible:outline-none"
 					>
 						<span>Send</span>
 						<svg
@@ -1491,7 +1499,7 @@
 
 		<!-- TAB: VISUAL SERVER PROPERTIES -->
 		<div v-if="activeTab === 'properties'" class="flex flex-col gap-4">
-			<ServerPropertiesEditor :server-status="serverState.status" />
+			<ServerPropertiesEditor :server-status="serverState.status" :server-id="activeServer?.id" />
 		</div>
 
 		<!-- TAB: ADDONS (PLUGINS & MODS) -->
@@ -1531,10 +1539,6 @@
 									{{ serverState.engine }} {{ serverState.version }}
 								</span>
 							</div>
-							<p class="text-xs text-zinc-400 m-0">
-								Manage and install plugins, mods, and datapacks with atomic downloads and
-								compatibility validation.
-							</p>
 						</div>
 					</div>
 
@@ -1738,15 +1742,29 @@
 								:class="!addon.enabled ? 'opacity-60 bg-zinc-950/20' : ''"
 							>
 								<td class="py-3 px-3">
-									<div class="flex items-center gap-2.5">
+									<div class="flex items-center gap-3">
 										<div
-											class="w-7 h-7 rounded-lg bg-zinc-800/80 border border-white/10 flex items-center justify-center text-purple-400 font-bold shrink-0"
+											class="w-9 h-9 rounded-xl bg-surface-3 border border-white/10 flex items-center justify-center shrink-0 overflow-hidden shadow-sm"
 										>
-											{{ addon.name.charAt(0).toUpperCase() }}
+											<img
+												v-if="addon.icon_url"
+												:src="addon.icon_url"
+												:alt="addon.name"
+												class="w-full h-full object-cover rounded-xl"
+												loading="lazy"
+											/>
+											<div
+												v-else
+												class="w-full h-full flex items-center justify-center bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] font-bold text-xs"
+											>
+												{{ addon.name.charAt(0).toUpperCase() }}
+											</div>
 										</div>
-										<div class="flex flex-col">
-											<span class="text-white font-bold">{{ addon.name }}</span>
-											<span class="text-[11px] text-zinc-400">{{ addon.filename }}</span>
+										<div class="flex flex-col min-w-0">
+											<span class="text-white font-bold truncate text-sm">{{ addon.name }}</span>
+											<span class="text-[11px] text-zinc-400 font-mono truncate">{{
+												addon.filename
+											}}</span>
 										</div>
 									</div>
 								</td>
@@ -1867,16 +1885,12 @@
 					</div>
 					<div>
 						<h2 class="text-base font-extrabold text-white m-0">Server Instances</h2>
-						<p class="text-xs text-zinc-400 m-0">
-							Create, configure, and switch between dedicated Minecraft servers with custom file
-							locations.
-						</p>
 					</div>
 				</div>
 
 				<button
 					type="button"
-					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-400 hover:from-cyan-400 hover:to-sky-300 text-zinc-950 font-extrabold text-xs shadow-[0_0_15px_rgba(6,182,212,0.3)] active:scale-[0.98] transition-all cursor-pointer border-none"
+					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-[0.98] transition-all cursor-pointer border-none"
 					@click="showCreateModal = true"
 				>
 					<svg
@@ -1901,14 +1915,14 @@
 					class="p-5 rounded-2xl bg-[#141923]/90 border transition-all duration-200 flex flex-col justify-between gap-4"
 					:class="
 						activeServer?.id === server.id
-							? 'border-sky-500/50 shadow-[0_0_20px_rgba(56,189,248,0.15)] bg-[#141923]'
+							? 'border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)] bg-[#141923]'
 							: 'border-white/10 hover:border-white/20'
 					"
 				>
 					<div class="flex items-start justify-between gap-3">
 						<div class="flex items-center gap-3">
 							<div
-								class="w-10 h-10 rounded-xl bg-zinc-800 border border-white/10 flex items-center justify-center text-sky-400 font-black text-sm"
+								class="w-10 h-10 rounded-xl bg-zinc-800 border border-white/10 flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] font-black text-sm"
 							>
 								MC
 							</div>
@@ -1917,7 +1931,7 @@
 									<h3 class="text-sm font-bold text-white m-0">{{ server.name }}</h3>
 									<span
 										v-if="activeServer?.id === server.id"
-										class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30 uppercase"
+										class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] uppercase"
 										>Active</span
 									>
 								</div>
@@ -1932,7 +1946,7 @@
 							<button
 								v-if="activeServer?.id !== server.id"
 								type="button"
-								class="px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 text-xs font-bold border border-sky-500/30 cursor-pointer"
+								class="px-3 py-1.5 rounded-lg bg-[var(--color-brand-bg)] hover:opacity-80 text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold border border-[var(--color-brand-shadow)] cursor-pointer"
 								@click="selectServer(server)"
 							>
 								Select
@@ -1961,7 +1975,7 @@
 					</div>
 
 					<div
-						class="flex items-center justify-between text-[11px] font-mono text-zinc-400 bg-[#090B0F] px-3 py-2 rounded-xl border border-white/5"
+						class="flex items-center justify-between text-[11px] font-mono text-zinc-400 bg-[var(--surface-1)] px-3 py-2 rounded-xl border border-white/5"
 					>
 						<span class="truncate">Path: {{ server.path }}</span>
 					</div>
@@ -2277,7 +2291,7 @@
 			>
 				<div class="flex items-center gap-3">
 					<div
-						class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+						class="w-10 h-10 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -2296,15 +2310,12 @@
 					</div>
 					<div>
 						<h2 class="text-base font-extrabold text-white m-0">World Snapshot Backups</h2>
-						<p class="text-xs text-zinc-400 m-0">
-							Create compressed zip archives of your world directory and restore anytime.
-						</p>
 					</div>
 				</div>
 
 				<button
 					type="button"
-					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-zinc-950 font-extrabold text-xs shadow-[0_0_15px_rgba(245,158,11,0.3)] active:scale-[0.98] transition-all cursor-pointer border-none"
+					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-[0.98] transition-all cursor-pointer border-none"
 					@click="createBackup"
 				>
 					<svg
@@ -2328,11 +2339,11 @@
 				<div
 					v-for="backup in backupsList"
 					:key="backup.id"
-					class="flex items-center justify-between p-4 rounded-xl bg-[#090B0F]/80 border border-white/5 hover:border-white/15 transition-all duration-200"
+					class="flex items-center justify-between p-4 rounded-xl bg-[var(--surface-1)]/80 border border-white/5 hover:border-white/15 transition-all duration-200"
 				>
 					<div class="flex items-center gap-3.5">
 						<div
-							class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center text-amber-400"
+							class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -2360,7 +2371,7 @@
 					<div class="flex items-center gap-2">
 						<button
 							type="button"
-							class="px-3.5 py-1.5 rounded-lg bg-zinc-800 hover:bg-amber-500 hover:text-zinc-950 text-zinc-300 font-bold text-xs transition-colors cursor-pointer border border-white/5 active:scale-95"
+							class="px-3.5 py-1.5 rounded-lg bg-[var(--color-brand-bg)] hover:bg-[var(--color-brand)] hover:text-[var(--color-accent-contrast,#ffffff)] text-[var(--color-brand-highlight,var(--color-brand))] font-bold text-xs transition-colors cursor-pointer border border-[var(--color-brand-shadow)] active:scale-95"
 							@click="restoreBackup(backup)"
 						>
 							Restore
@@ -2382,7 +2393,7 @@
 			<div class="flex items-center justify-between border-b border-white/10 pb-4">
 				<div class="flex items-center gap-2.5">
 					<div
-						class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400"
+						class="w-8 h-8 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -2404,9 +2415,6 @@
 						<h2 class="text-base font-extrabold text-white m-0">
 							Server Engine &amp; Performance Settings
 						</h2>
-						<p class="text-xs text-zinc-400 m-0">
-							Configure dedicated memory, loader version, ports, and custom storage location.
-						</p>
 					</div>
 				</div>
 			</div>
@@ -2425,7 +2433,7 @@
 								serverState.version || activeServer?.version || '1.21.4'
 							}}</span>
 							<span
-								class="text-[10px] font-semibold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-md uppercase tracking-wider font-mono"
+								class="text-[10px] font-semibold text-[var(--color-brand-highlight,var(--color-brand))] bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] px-2 py-0.5 rounded-md uppercase tracking-wider font-mono"
 							>
 								Installed
 							</span>
@@ -2467,7 +2475,8 @@
 								class="text-sm font-extrabold text-white font-mono bg-zinc-800 px-3 py-0.5 rounded-lg border border-white/10"
 								>{{ serverState.ram_gb }} GB Dedicated</span
 							>
-							<span class="text-xs text-sky-400 font-mono font-bold"
+							<span
+								class="text-xs text-[var(--color-brand-highlight,var(--color-brand))] font-mono font-bold"
 								>({{ serverState.ram_gb * 1024 }} MB)</span
 							>
 						</div>
@@ -2483,8 +2492,11 @@
 							>
 								<!-- Progress Active Fill -->
 								<div
-									class="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-sky-600 via-sky-500 to-cyan-400 rounded-full transition-all duration-75"
-									:style="{ width: `${((serverState.ram_gb - 2) / 14) * 100}%` }"
+									class="absolute left-0 top-0 bottom-0 rounded-full transition-all duration-75"
+									:style="{
+										width: `${((serverState.ram_gb - 2) / 14) * 100}%`,
+										background: 'var(--loading-bar-gradient)',
+									}"
 								/>
 							</div>
 
@@ -2523,7 +2535,7 @@
 
 							<!-- Custom Pixel-Perfect Thumb -->
 							<div
-								class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-sky-400 border-2 border-white shadow-[0_0_10px_rgba(56,189,248,0.9)] pointer-events-none z-20 transition-all duration-75"
+								class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--color-brand)] border-2 border-white shadow-[var(--accent-glow)] pointer-events-none z-20 transition-all duration-75"
 								:style="{ left: `${((serverState.ram_gb - 2) / 14) * 100}%` }"
 							/>
 
@@ -2557,7 +2569,7 @@
 									class="w-3.5 h-3.5 transition-all duration-150 mb-0.5"
 									:class="
 										serverState.ram_gb === preset.val
-											? 'text-sky-400 scale-125 drop-shadow-[0_0_8px_rgba(56,189,248,1)]'
+											? 'text-[var(--color-brand-highlight,var(--color-brand))] scale-125 drop-shadow-[0_0_8px_var(--color-brand)]'
 											: 'text-zinc-600 group-hover:text-zinc-400'
 									"
 									viewBox="0 0 24 24"
@@ -2571,14 +2583,18 @@
 									class="font-bold transition-colors duration-150 whitespace-nowrap"
 									:class="
 										serverState.ram_gb === preset.val
-											? 'text-sky-300 font-extrabold scale-105'
+											? 'text-[var(--color-brand-highlight,var(--color-brand))] font-extrabold scale-105'
 											: 'text-zinc-400 group-hover:text-zinc-200'
 									"
 								>
 									{{ preset.val }} GB
 									<span
 										class="font-normal text-[9px]"
-										:class="serverState.ram_gb === preset.val ? 'text-sky-400' : 'text-zinc-500'"
+										:class="
+											serverState.ram_gb === preset.val
+												? 'text-[var(--color-brand-highlight,var(--color-brand))]'
+												: 'text-zinc-500'
+										"
 									>
 										({{ preset.tag }})
 									</span>
@@ -2596,7 +2612,7 @@
 					<input
 						v-model.number="serverState.local_port"
 						type="number"
-						class="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none focus:border-sky-500"
+						class="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none focus:border-[var(--color-brand)]"
 						@change="updateConfig"
 					/>
 				</div>
@@ -2609,7 +2625,7 @@
 					<input
 						v-model="serverState.motd"
 						type="text"
-						class="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none focus:border-sky-500"
+						class="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none focus:border-[var(--color-brand)]"
 						@change="updateConfig"
 					/>
 				</div>
@@ -2925,7 +2941,7 @@
 					</button>
 					<button
 						type="button"
-						class="px-5 py-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 text-xs font-extrabold cursor-pointer border-none shadow-lg"
+						class="px-5 py-2 rounded-xl btn-accent-primary text-xs font-extrabold cursor-pointer border-none shadow-lg"
 						@click="submitCreateServer"
 					>
 						Create Server
@@ -2970,7 +2986,7 @@
 						class="p-3 rounded-xl border flex items-center justify-between transition-all cursor-pointer"
 						:class="
 							activeServer?.id === s.id
-								? 'bg-sky-500/10 border-sky-500/40 text-sky-300'
+								? 'bg-[var(--color-brand-bg)] border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))]'
 								: 'bg-zinc-900/80 border-white/5 text-zinc-300 hover:border-white/20'
 						"
 						@click="handleSelectServerModal(s)"
@@ -2981,7 +2997,9 @@
 								>{{ s.engine }} {{ s.version }} &bull; Port {{ s.port }}</span
 							>
 						</div>
-						<span v-if="activeServer?.id === s.id" class="text-xs font-bold text-sky-400"
+						<span
+							v-if="activeServer?.id === s.id"
+							class="text-xs font-bold text-[var(--color-brand-highlight,var(--color-brand))]"
 							>Selected</span
 						>
 					</div>
@@ -2990,7 +3008,7 @@
 				<div class="flex items-center justify-between border-t border-white/10 pt-3">
 					<button
 						type="button"
-						class="px-4 py-2 rounded-xl bg-cyan-500 text-zinc-950 font-bold text-xs cursor-pointer border-none"
+						class="px-4 py-2 rounded-xl btn-accent-primary font-bold text-xs cursor-pointer border-none"
 						@click="handleOpenCreateModalFromServerList"
 					>
 						+ Create New
@@ -3058,7 +3076,7 @@
 											editingFile.name
 										}}</span>
 										<span
-											class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono"
+											class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] font-mono"
 										>
 											{{ formatFileSize(editingFile.size) }}
 										</span>
@@ -3072,11 +3090,11 @@
 							<div class="flex items-center gap-2.5">
 								<button
 									type="button"
-									class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-500 hover:from-cyan-300 hover:to-sky-400 text-zinc-950 font-bold text-xs cursor-pointer border-none shadow-md hover:shadow-cyan-500/20 transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50"
+									class="px-4 py-2 rounded-xl btn-accent-primary font-bold text-xs cursor-pointer border-none shadow-md transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50"
 									:disabled="isFileSaving"
 									@click="saveFileEditor"
 								>
-									<span v-if="fileSaveSuccess" class="text-zinc-950 font-bold">✓ Saved!</span>
+									<span v-if="fileSaveSuccess" class="font-bold">✓ Saved!</span>
 									<span v-else-if="isFileSaving">Saving...</span>
 									<span v-else>Save Changes</span>
 								</button>
@@ -3165,7 +3183,7 @@
 					>
 						<!-- Modal Header -->
 						<div
-							class="flex items-center justify-between p-5 border-b border-white/10 bg-[#090B0F]/80"
+							class="flex items-center justify-between p-5 border-b border-white/10 bg-[var(--surface-1)]/80"
 						>
 							<div class="flex items-center gap-3">
 								<div
@@ -3217,7 +3235,7 @@
 						</div>
 
 						<!-- Search & Category Filters -->
-						<div class="p-4 border-b border-white/10 bg-[#090B0F]/40 flex flex-col gap-3">
+						<div class="p-4 border-b border-white/10 bg-[var(--surface-1)]/40 flex flex-col gap-3">
 							<div class="flex items-center gap-2">
 								<input
 									v-model="browseCatalogQuery"
@@ -3385,6 +3403,7 @@ import InviteShareModal from '@/components/hosting/InviteShareModal.vue'
 import PlayerManagerTab from '@/components/hosting/PlayerManagerTab.vue'
 import ServerPropertiesEditor from '@/components/hosting/ServerPropertiesEditor.vue'
 import ServerTelemetryHub from '@/components/hosting/ServerTelemetryHub.vue'
+import { get_project_v3 } from '@/helpers/cache.js'
 import { get_game_versions } from '@/helpers/tags'
 
 interface ServerState {
@@ -3442,6 +3461,7 @@ interface ServerAddonEntry {
 	installed_at: string
 	enabled: boolean
 	dependencies: string[]
+	icon_url?: string | null
 }
 
 const serverState = ref<ServerState>({
@@ -4699,13 +4719,72 @@ function isAddonInstalled(projectId?: string | null): boolean {
 	return serverAddons.value.some((a) => a.project_id === projectId || a.id === projectId)
 }
 
+async function enrichAddonIcons(addons: ServerAddonEntry[]) {
+	const missing = addons.filter((a) => !a.icon_url)
+	if (missing.length === 0) return
+
+	for (const addon of missing) {
+		try {
+			if (addon.project_id) {
+				const proj = await get_project_v3(addon.project_id, 'must_revalidate').catch(() => null)
+				if (proj?.icon_url) {
+					addon.icon_url = proj.icon_url
+					await invoke('host_update_addon_entry', {
+						serverId: activeServer.value?.id,
+						addonId: addon.id,
+						iconUrl: proj.icon_url,
+						projectId: addon.project_id,
+						name: proj.title || addon.name,
+					}).catch(() => {})
+					continue
+				}
+			}
+
+			// Clean filename to search Modrinth (e.g. "ViaVersion-5.12.0-SNAPSHOT.jar" -> "ViaVersion")
+			const cleanName =
+				addon.name
+					.replace(/[-_v\d.]+(\.jar|\.zip)?$/i, '')
+					.replace(/\.jar|\.zip$/i, '')
+					.replace(/\s+/g, ' ')
+					.trim() || addon.name
+
+			const searchUrl = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(cleanName)}&limit=1`
+			const res = await fetch(searchUrl, { headers: { 'User-Agent': 'FreePlayLauncher/1.0' } })
+			if (res.ok) {
+				const data = await res.json()
+				if (data.hits && data.hits.length > 0) {
+					const hit = data.hits[0]
+					if (hit.icon_url) {
+						addon.icon_url = hit.icon_url
+						if (!addon.project_id) {
+							addon.project_id = hit.project_id
+						}
+						await invoke('host_update_addon_entry', {
+							serverId: activeServer.value?.id,
+							addonId: addon.id,
+							iconUrl: hit.icon_url,
+							projectId: hit.project_id,
+							name: hit.title || addon.name,
+						}).catch(() => {})
+					}
+				}
+			}
+		} catch (e) {
+			console.debug('Failed to resolve addon icon for', addon.name, e)
+		}
+	}
+}
+
 async function fetchServerAddons() {
 	loadingAddons.value = true
 	try {
 		const res = await invoke<ServerAddonEntry[]>('host_list_installed_addons', {
 			serverId: activeServer.value?.id,
 		})
-		if (res) serverAddons.value = res
+		if (res) {
+			serverAddons.value = res
+			enrichAddonIcons(serverAddons.value)
+		}
 	} catch (e) {
 		console.error('Failed to fetch server addons:', e)
 	} finally {
@@ -4856,6 +4935,7 @@ async function installModrinthAddon(project: Record<string, unknown>) {
 				targetVersion.dependencies?.map(
 					(d: Record<string, unknown>) => d.project_id || d.version_id,
 				) || [],
+			iconUrl: project.icon_url || project.iconUrl || null,
 		})
 
 		if (serverState.value.status === 'online') {

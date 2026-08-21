@@ -4,18 +4,13 @@ import {
 	ArrowUpZAIcon,
 	ClockArrowDownIcon,
 	ClockArrowUpIcon,
-	CodeIcon,
 	CompassIcon,
 	DownloadIcon,
 	DropdownIcon,
-	FileIcon,
 	FolderOpenIcon,
-	LinkIcon,
 	OrganizationIcon,
 	RefreshCwIcon,
 	SearchIcon,
-	ShareIcon,
-	TextCursorInputIcon,
 	TrashIcon,
 	UserIcon,
 } from '@freeplay/assets'
@@ -140,26 +135,6 @@ const messages = defineMessages({
 	emptyHint: {
 		id: 'content.page-layout.empty.hint',
 		defaultMessage: 'Browse or upload {contentType} to get started',
-	},
-	shareProjectNames: {
-		id: 'content.page-layout.share.project-names',
-		defaultMessage: 'Project names',
-	},
-	shareFileNames: {
-		id: 'content.page-layout.share.file-names',
-		defaultMessage: 'File names',
-	},
-	shareProjectLinks: {
-		id: 'content.page-layout.share.project-links',
-		defaultMessage: 'Project links',
-	},
-	shareMarkdownLinks: {
-		id: 'content.page-layout.share.markdown-links',
-		defaultMessage: 'Markdown links',
-	},
-	share: {
-		id: 'content.page-layout.share.label',
-		defaultMessage: 'Share',
 	},
 	sortByLabel: {
 		id: 'content.page-layout.sort.label',
@@ -1316,55 +1291,6 @@ const confirmUnlinkModal = ref<InstanceType<typeof ConfirmUnlinkModal>>()
 					<DownloadIcon />
 					<span class="bar-label">{{ formatMessage(commonMessages.updateButton) }}</span>
 				</Button>
-
-				<TeleportOverflowMenu
-					v-if="ctx.shareItems"
-					type="quiet"
-					:label="formatMessage(commonMessages.moreOptionsButton)"
-					:options="[
-						{
-							id: 'share-names',
-							label: formatMessage(messages.shareProjectNames),
-							action: () => ctx.shareItems!(selectedItems, 'names'),
-						},
-						{
-							id: 'share-file-names',
-							label: formatMessage(messages.shareFileNames),
-							action: () => ctx.shareItems!(selectedItems, 'file-names'),
-						},
-						{
-							id: 'share-urls',
-							label: formatMessage(messages.shareProjectLinks),
-							action: () => ctx.shareItems!(selectedItems, 'urls'),
-						},
-						{
-							id: 'share-markdown',
-							label: formatMessage(messages.shareMarkdownLinks),
-							action: () => ctx.shareItems!(selectedItems, 'markdown'),
-						},
-					]"
-					class="!w-auto !px-2.5 !rounded-xl"
-				>
-					<ShareIcon />
-					<span class="bar-label">{{ formatMessage(messages.share) }}</span>
-					<DropdownIcon />
-					<template #share-names>
-						<TextCursorInputIcon />
-						{{ formatMessage(messages.shareProjectNames) }}
-					</template>
-					<template #share-file-names>
-						<FileIcon />
-						{{ formatMessage(messages.shareFileNames) }}
-					</template>
-					<template #share-urls>
-						<LinkIcon />
-						{{ formatMessage(messages.shareProjectLinks) }}
-					</template>
-					<template #share-markdown>
-						<CodeIcon />
-						{{ formatMessage(messages.shareMarkdownLinks) }}
-					</template>
-				</TeleportOverflowMenu>
 			</template>
 
 			<template #actions-end>

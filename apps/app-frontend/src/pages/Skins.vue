@@ -1115,9 +1115,6 @@ await loadSkins()
 					>
 						{{ formatMessage(appMessages.skinSelectorLabel) }}
 					</h1>
-					<p class="m-0 text-sm text-zinc-400">
-						Preview in interactive 3D, customize model variants, and manage your skin vault
-					</p>
 				</div>
 			</div>
 
@@ -1167,7 +1164,7 @@ await loadSkins()
 						class="px-3 py-1 text-xs font-semibold rounded-lg transition-all"
 						:class="
 							activeFilterCategory === 'default'
-								? 'bg-sky-500 text-zinc-950 shadow-md shadow-sky-500/20'
+								? 'bg-[var(--color-brand)] text-[var(--color-accent-contrast,#ffffff)] shadow-md'
 								: 'text-zinc-400 hover:text-white'
 						"
 						@click="activeFilterCategory = 'default'"
@@ -1178,7 +1175,7 @@ await loadSkins()
 
 				<!-- Upload Button -->
 				<button
-					class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 active:scale-95 text-zinc-950 font-bold text-sm shadow-lg shadow-sky-950/60 transition-all flex items-center gap-2 cursor-pointer border-none"
+					class="px-4 py-2 rounded-xl btn-accent-primary font-bold text-sm transition-all flex items-center gap-2 cursor-pointer border-none active:scale-95"
 					@click="openAddSkinFileBrowser"
 				>
 					<svg
@@ -1205,12 +1202,12 @@ await loadSkins()
 			<!-- Left 3D Studio Pod (col 1 to 5) -->
 			<div class="lg:col-span-5 sticky top-4 flex flex-col gap-4">
 				<div
-					class="relative overflow-hidden rounded-3xl bg-[#141923]/90 border border-white/10 shadow-2xl backdrop-blur-2xl p-5 flex flex-col items-center gap-4 transition-all duration-300"
+					class="relative overflow-hidden rounded-3xl bg-[var(--surface-2)] border border-white/10 shadow-2xl backdrop-blur-2xl p-5 flex flex-col items-center gap-4 transition-all duration-300"
 				>
 					<!-- Ambient Studio Aura -->
 					<div
 						class="absolute -right-20 -top-20 w-64 h-64 rounded-full blur-3xl pointer-events-none opacity-25 transition-all duration-700"
-						:class="hasPendingSkinChange ? 'bg-amber-500' : 'bg-sky-500'"
+						:class="hasPendingSkinChange ? 'bg-amber-500' : 'bg-[var(--color-brand)]'"
 					/>
 
 					<!-- Studio Header Meta Bar -->
@@ -1236,7 +1233,7 @@ await loadSkins()
 							</span>
 							<span
 								v-if="currentCape"
-								class="px-2 py-0.5 rounded-md text-[11px] font-mono font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30"
+								class="px-2 py-0.5 rounded-md text-[11px] font-mono font-semibold bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)]"
 							>
 								Cape: {{ currentCape.name }}
 							</span>
@@ -1259,7 +1256,7 @@ await loadSkins()
 						>
 							<template v-if="hasPendingSkinChange" #nametag-badge>
 								<div
-									class="flex items-center justify-center gap-1.5 rounded-full border border-solid border-sky-500/50 bg-sky-500/20 px-3 py-1 text-xs font-bold leading-none text-sky-400 backdrop-blur-md shadow-lg shadow-sky-500/20"
+									class="flex items-center justify-center gap-1.5 rounded-full border border-solid border-[var(--color-brand-shadow)] bg-[var(--color-brand-bg)] px-3 py-1 text-xs font-bold leading-none text-[var(--color-brand-highlight,var(--color-brand))] backdrop-blur-md shadow-lg"
 								>
 									<EyeIcon class="size-4 shrink-0" />
 									{{ formatMessage(messages.previewingBadge) }}
@@ -1285,8 +1282,8 @@ await loadSkins()
 								class="flex-1 px-5 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer border-none"
 								:class="
 									hasPendingSkinChange
-										? 'bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 shadow-lg shadow-sky-950/60 active:scale-95'
-										: 'bg-sky-500/20 text-sky-300 border border-sky-500/30 cursor-default'
+										? 'btn-accent-primary'
+										: 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] cursor-default'
 								"
 								:disabled="isApplyingSkin || isSkinManagementReadOnly || !hasPendingSkinChange"
 								@click="applySelectedSkin"

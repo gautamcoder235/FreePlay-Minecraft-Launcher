@@ -83,12 +83,6 @@
   "app.appearance-settings.show-play-time.description": {
     "message": "Magpapakita ang katagal ng iyong paglalaro sa isang instansiya."
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Pagpapagana na mata-toggle ang sidebar."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "I-toggle ang sidebar"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Kung susubukan mong mag-install ng FreePlay Pack file (.mrpack) na hindi naka-host sa FreePlay, titiyakin namin na nakaaalam ka sa mga panganib bago ito ma-install."
   },
@@ -185,12 +179,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} proyekto ang nadagdag"
   },
-  "app.instance.mods.share-text": {
-    "message": "Tingnan ang mga proyektong ginagamit ko sa aking modpack!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Binabahagi ang kontento ng modpack"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "Matagumpay na na-upload"
   },
@@ -253,9 +241,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Mga instalasyon ng Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Wika"
   },
   "app.settings.tabs.resource-management": {
     "message": "Pamamahala ng paglalaan"

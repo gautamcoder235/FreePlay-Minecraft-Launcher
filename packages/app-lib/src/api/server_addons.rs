@@ -19,6 +19,7 @@ pub struct ServerAddonEntry {
 	pub installed_at: String,
 	pub enabled: bool,
 	pub dependencies: Vec<String>,
+	pub icon_url: Option<String>,
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
@@ -184,6 +185,7 @@ pub async fn reconcile_registry(server_dir: &Path, engine: &str, mut registry: A
 						installed_at: chrono::Local::now().format("%Y-%m-%d %H:%M").to_string(),
 						enabled: !is_disabled,
 						dependencies: Vec::new(),
+						icon_url: None,
 					});
 				}
 			}
@@ -298,6 +300,7 @@ pub async fn host_install_addon(
 	addon_type: String,
 	game_version: Option<String>,
 	dependencies: Option<Vec<String>>,
+	icon_url: Option<String>,
 ) -> Result<ServerAddonEntry> {
 	validate_safe_filename(&filename)?;
 	let state = State::get().await?;
@@ -337,6 +340,7 @@ pub async fn host_install_addon(
 		installed_at: chrono::Local::now().format("%Y-%m-%d %H:%M").to_string(),
 		enabled: true,
 		dependencies: dependencies.unwrap_or_default(),
+		icon_url,
 	};
 
 	registry.addons.push(new_entry.clone());
@@ -411,6 +415,7 @@ pub async fn host_import_addon(
 		installed_at: chrono::Local::now().format("%Y-%m-%d %H:%M").to_string(),
 		enabled: true,
 		dependencies: Vec::new(),
+		icon_url: None,
 	};
 
 	registry.addons.push(new_entry.clone());
@@ -500,5 +505,31 @@ pub async fn host_toggle_addon(
 	}
 	save_registry(&server_dir, &registry).await.ok();
 
+	Ok(())
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_update_addon_entry(
+	server_id: Option<String>,
+	addon_id: String,
+	icon_url: Option<String>,
+	project_id: Option<String>,
+	name: Option<String>,
+) -> Result<()> {
+	let state = State::get().await?;
+	let server_dir = get_target_server_dir(&state, server_id.as_deref()).await?;
+	let mut registry = load_registry(&server_dir).await;
+	if let Some(entry) = registry.addons.iter_mut().find(|a| a.id == addon_id || a.filename == addon_id) {
+		if let Some(url) = icon_url {
+			entry.icon_url = Some(url);
+		}
+		if let Some(pid) = project_id {
+			entry.project_id = Some(pid);
+		}
+		if let Some(n) = name {
+			entry.name = n;
+		}
+	}
+	save_registry(&server_dir, &registry).await.ok();
 	Ok(())
 }

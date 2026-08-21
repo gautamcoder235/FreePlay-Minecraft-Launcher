@@ -96,6 +96,21 @@
 				"decorations": false,
 				"shadow": true,
 				"backgroundColor": "#090b0f"
+			},
+			{
+				"title": "FreePlay Overlay",
+				"label": "overlay",
+				"url": "/overlay",
+				"width": 1400,
+				"height": 900,
+				"resizable": true,
+				"visible": false,
+				"decorations": false,
+				"shadow": false,
+				"transparent": true,
+				"alwaysOnTop": true,
+				"skipTaskbar": true,
+				"zoomHotkeysEnabled": false
 			}
 		],
 		"security": {

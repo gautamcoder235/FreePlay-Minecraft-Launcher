@@ -257,6 +257,7 @@ fn main() {
         .plugin(api::files::init())
         .plugin(api::friends::init())
         .plugin(api::worlds::init())
+        .plugin(api::overlay::init())
         .manage(PendingUpdateData::default())
         .invoke_handler(tauri::generate_handler![
             initialize_state,
@@ -292,11 +293,15 @@ fn main() {
             theseus::server_address::host_create_server,
             theseus::server_address::host_delete_server,
             theseus::server_address::host_select_server,
+            theseus::server_address::host_get_server_icon,
+            theseus::server_address::host_set_server_icon,
+            theseus::server_address::host_delete_server_icon,
             theseus::server_addons::host_list_installed_addons,
             theseus::server_addons::host_install_addon,
             theseus::server_addons::host_import_addon,
             theseus::server_addons::host_delete_addon,
             theseus::server_addons::host_toggle_addon,
+            theseus::server_addons::host_update_addon_entry,
         ]);
 
     tracing::info!("Initializing app...");

@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Cacher les alertes non essentielles"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Cache la barre à droite par défaut et ajouter un bouton pour la montrer ou cacher."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Cache la barre latérale droite"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Montre un avertissement de sécurité avant d'installer un FreePlay Pack (.mrpack) qui n'est pas sur FreePlay."
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count} projets ont été ajoutés"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Jette un coup d'œil aux projets que j'utilise dans mon modpack !"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Le contenu de mon modpack"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Mis en ligne avec succès"
@@ -952,9 +940,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Installations de Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Langue"
   },
   "app.settings.tabs.resource-management": {
     "message": "Gestion des ressources"

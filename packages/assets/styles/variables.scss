@@ -217,7 +217,8 @@ html {
 }
 
 .light-mode,
-.light {
+.light,
+:root[data-theme='light'] {
 	@extend .light-properties;
 }
 
@@ -399,29 +400,48 @@ html {
 	--hover-brightness: 1.25;
 }
 
-.oled-mode {
+.oled-mode,
+.oled,
+:root[data-theme='oled'] {
 	@extend .dark-mode;
 	--surface-1: #000000;
 	--surface-1-5: #050506;
-	--surface-2: #09090a;
-	--surface-2-5: #0c0d11;
-	--surface-3: #101013;
-	--surface-4: #1b1b20;
-	--surface-5: #25262b;
+	--surface-2: #07080b;
+	--surface-2-5: #0b0d13;
+	--surface-3: #10131c;
+	--surface-4: #171b26;
+	--surface-5: #212636;
 
-	--color-ad: #0d1828;
+	--bg-canvas: #000000;
+	--bg-sidebar: #000000;
+	--bg-card: #07080b;
+	--bg-card-hover: #0f1118;
+	--bg-elevated: #141722;
+	--bg-modal: #0a0c12;
 
-	--brand-gradient-bg: linear-gradient(0deg, rgba(14, 40, 60, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
-	--brand-gradient-strong-bg: linear-gradient(
-		270deg,
-		rgba(9, 14, 24, 0.6) 10%,
-		rgba(15, 23, 42, 0.5) 100%
-	);
+	--border-subtle: rgba(255, 255, 255, 0.1);
+	--border-default: rgba(255, 255, 255, 0.16);
+	--border-hover: rgba(255, 255, 255, 0.28);
 
-	--color-gradient-button-bg: linear-gradient(180deg, #1b1b20 0%, #25262b 100%);
+	--color-bg: #000000;
+	--color-raised-bg: #07080b;
+	--color-super-raised-bg: #10131c;
+	--color-button-bg: #141722;
+	--color-button-border: rgba(255, 255, 255, 0.14);
+
+	--color-ad: #0a0e18;
+
+	--brand-gradient-bg: linear-gradient(180deg, #07080b 0%, #000000 100%);
+	--brand-gradient-strong-bg: linear-gradient(270deg, #000000 10%, #07080b 100%);
+	--brand-gradient-button: rgba(255, 255, 255, 0.06);
+	--brand-gradient-fade-out-color: linear-gradient(to top, #000000, transparent);
+
+	--color-gradient-button-bg: linear-gradient(180deg, #10131c 0%, #07080b 100%);
 }
 
-.retro-mode {
+.retro-mode,
+.retro,
+:root[data-theme='retro'] {
 	@extend .dark-mode;
 	--surface-1: #191917;
 	--surface-2: rgb(22, 22, 21);
@@ -433,6 +453,13 @@ html {
 	--color-base: #c3c4b3;
 	--color-secondary: #9b9e98;
 	--color-contrast: #e6e2d1;
+
+	--bg-canvas: #191917;
+	--bg-sidebar: #151513;
+	--bg-card: #22221f;
+	--bg-card-hover: #2d2d2a;
+	--bg-elevated: #363632;
+	--bg-modal: #1d1e1c;
 
 	--color-brand: #4d9227;
 	--color-brand-highlight: #25421e;
@@ -491,4 +518,120 @@ html {
 	--glow-emerald: 0 0 24px rgba(56, 189, 248, 0.35);
 	--glow-amber: 0 0 24px rgba(245, 158, 11, 0.35);
 	--glow-indigo: 0 0 24px rgba(99, 102, 241, 0.35);
+}
+
+:root[data-high-contrast='true'] {
+	--border-subtle: rgba(255, 255, 255, 0.2);
+	--border-default: rgba(255, 255, 255, 0.3);
+	--border-hover: rgba(255, 255, 255, 0.45);
+	--color-button-border: rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   ACCENT PALETTES ENGINE (8 MINECRAFT-INSPIRED PRESETS)
+   ========================================================================== */
+
+:root[data-accent='sky'],
+:root:not([data-accent]) {
+	--color-brand: #0ea5e9;
+	--color-brand-highlight: #38bdf8;
+	--color-brand-contrast: #ffffff;
+	--color-accent-contrast: #ffffff;
+	--color-brand-bg: rgba(14, 165, 233, 0.15);
+	--color-brand-shadow: rgba(14, 165, 233, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #06b6d4 100%);
+	--loading-bar-gradient: linear-gradient(to right, #0ea5e9 0%, #38bdf8 100%);
+	--accent-glow: 0 0 24px rgba(56, 189, 248, 0.35);
+	--accent-primary: #38bdf8;
+}
+
+:root[data-accent='emerald'] {
+	--color-brand: #10b981;
+	--color-brand-highlight: #34d399;
+	--color-brand-contrast: #ffffff;
+	--color-accent-contrast: #ffffff;
+	--color-brand-bg: rgba(16, 185, 129, 0.15);
+	--color-brand-shadow: rgba(16, 185, 129, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+	--loading-bar-gradient: linear-gradient(to right, #059669 0%, #34d399 100%);
+	--accent-glow: 0 0 24px rgba(16, 185, 129, 0.35);
+	--accent-primary: #10b981;
+}
+
+:root[data-accent='amethyst'] {
+	--color-brand: #8b5cf6;
+	--color-brand-highlight: #a78bfa;
+	--color-brand-contrast: #ffffff;
+	--color-accent-contrast: #ffffff;
+	--color-brand-bg: rgba(139, 92, 246, 0.15);
+	--color-brand-shadow: rgba(139, 92, 246, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #c084fc 100%);
+	--loading-bar-gradient: linear-gradient(to right, #7c3aed 0%, #a78bfa 100%);
+	--accent-glow: 0 0 24px rgba(139, 92, 246, 0.35);
+	--accent-primary: #8b5cf6;
+}
+
+:root[data-accent='crimson'] {
+	--color-brand: #f43f5e;
+	--color-brand-highlight: #fb7185;
+	--color-brand-contrast: #ffffff;
+	--color-accent-contrast: #ffffff;
+	--color-brand-bg: rgba(244, 63, 94, 0.15);
+	--color-brand-shadow: rgba(244, 63, 94, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #e11d48 0%, #f43f5e 50%, #fb7185 100%);
+	--loading-bar-gradient: linear-gradient(to right, #e11d48 0%, #fb7185 100%);
+	--accent-glow: 0 0 24px rgba(244, 63, 94, 0.35);
+	--accent-primary: #f43f5e;
+}
+
+:root[data-accent='amber'] {
+	--color-brand: #f59e0b;
+	--color-brand-highlight: #fbbf24;
+	--color-brand-contrast: #ffffff;
+	--color-accent-contrast: #ffffff;
+	--color-brand-bg: rgba(245, 158, 11, 0.15);
+	--color-brand-shadow: rgba(245, 158, 11, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+	--loading-bar-gradient: linear-gradient(to right, #d97706 0%, #fbbf24 100%);
+	--accent-glow: 0 0 24px rgba(245, 158, 11, 0.35);
+	--accent-primary: #f59e0b;
+}
+
+:root[data-accent='neon'] {
+	--color-brand: #84cc16;
+	--color-brand-highlight: #a3e635;
+	--color-brand-contrast: #000000;
+	--color-accent-contrast: #000000;
+	--color-brand-bg: rgba(132, 204, 22, 0.15);
+	--color-brand-shadow: rgba(132, 204, 22, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #65a30d 0%, #84cc16 50%, #bef264 100%);
+	--loading-bar-gradient: linear-gradient(to right, #65a30d 0%, #a3e635 100%);
+	--accent-glow: 0 0 24px rgba(132, 204, 22, 0.35);
+	--accent-primary: #84cc16;
+}
+
+:root[data-accent='cyan'] {
+	--color-brand: #06b6d4;
+	--color-brand-highlight: #22d3ee;
+	--color-brand-contrast: #ffffff;
+	--color-accent-contrast: #ffffff;
+	--color-brand-bg: rgba(6, 182, 212, 0.15);
+	--color-brand-shadow: rgba(6, 182, 212, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #67e8f9 100%);
+	--loading-bar-gradient: linear-gradient(to right, #0891b2 0%, #22d3ee 100%);
+	--accent-glow: 0 0 24px rgba(6, 182, 212, 0.35);
+	--accent-primary: #06b6d4;
+}
+
+:root[data-accent='rose'] {
+	--color-brand: #ec4899;
+	--color-brand-highlight: #f472b6;
+	--color-brand-contrast: #ffffff;
+	--color-accent-contrast: #ffffff;
+	--color-brand-bg: rgba(236, 72, 153, 0.15);
+	--color-brand-shadow: rgba(236, 72, 153, 0.35);
+	--color-brand-gradient: linear-gradient(135deg, #db2777 0%, #ec4899 50%, #f472b6 100%);
+	--loading-bar-gradient: linear-gradient(to right, #db2777 0%, #f472b6 100%);
+	--accent-glow: 0 0 24px rgba(236, 72, 153, 0.35);
+	--accent-primary: #ec4899;
 }

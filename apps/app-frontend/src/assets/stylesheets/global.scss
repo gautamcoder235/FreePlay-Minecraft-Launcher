@@ -46,17 +46,20 @@
 	--view-width: calc(100% - 5rem);
 	--expanded-view-width: calc(100% - 13rem);
 
-	/* FreePlay Theme: Soft Electric Sky & Cyber Cyan Accents */
+	/* Default Accent fallback (Sky Diamond) */
 	--color-brand: #0ea5e9;
 	--color-brand-highlight: #38bdf8;
 	--color-brand-contrast: #ffffff;
 	--color-brand-bg: rgba(14, 165, 233, 0.15);
 	--color-brand-shadow: rgba(14, 165, 233, 0.35);
 	--color-brand-gradient: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #06b6d4 100%);
+	--loading-bar-gradient: linear-gradient(to right, #0ea5e9 0%, #38bdf8 100%);
+	--accent-glow: 0 0 24px rgba(56, 189, 248, 0.35);
+	--accent-primary: #38bdf8;
 
-	/* FreePlay Obsidian Gaming Dark Surfaces */
-	--color-bg: #090b0f;
-	--color-raised-bg: #090b0f;
+	/* Default Dark Obsidian fallback */
+	--color-bg: var(--surface-1, #090b0f);
+	--color-raised-bg: var(--surface-1, #090b0f);
 	--surface-1: #090b0f;
 	--surface-1-5: #0e131d;
 	--surface-2: #141923;
@@ -64,10 +67,22 @@
 	--surface-3: #1c2333;
 	--surface-4: #242c3f;
 	--surface-5: #323b52;
-	--brand-gradient-bg: linear-gradient(180deg, #0e131d 0%, #090b0f 100%);
-	--brand-gradient-border: rgba(255, 255, 255, 0.08);
-	--brand-gradient-button: #141923;
-	--brand-gradient-fade-out-color: linear-gradient(to top, #090b0f, transparent);
+
+	--bg-canvas: var(--surface-1);
+	--bg-sidebar: var(--surface-1);
+	--bg-card: var(--surface-2);
+	--bg-card-hover: var(--surface-3);
+	--bg-elevated: var(--surface-4);
+	--bg-modal: var(--surface-2);
+
+	--border-subtle: rgba(255, 255, 255, 0.08);
+	--border-default: rgba(255, 255, 255, 0.12);
+	--border-hover: rgba(255, 255, 255, 0.22);
+
+	--brand-gradient-bg: linear-gradient(180deg, var(--surface-1-5) 0%, var(--surface-1) 100%);
+	--brand-gradient-border: var(--border-subtle);
+	--brand-gradient-button: var(--surface-2);
+	--brand-gradient-fade-out-color: linear-gradient(to top, var(--surface-1), transparent);
 
 	--medal-promotion-bg: #000;
 	--medal-promotion-bg-orange: rgba(208, 246, 255, 0.25);
@@ -77,6 +92,142 @@
 		rgba(66, 170, 255, 0.15),
 		rgba(0, 0, 0, 0) 100%
 	);
+}
+
+/* OLED Black Mode High-Contrast Overrides */
+:root[data-theme='oled'],
+.oled-mode {
+	color-scheme: dark;
+	--color-bg: #000000;
+	--color-raised-bg: #000000;
+	--surface-1: #000000;
+	--surface-1-5: #050506;
+	--surface-2: #07080b;
+	--surface-2-5: #0b0d13;
+	--surface-3: #10131c;
+	--surface-4: #171b26;
+	--surface-5: #212636;
+
+	--bg-canvas: #000000;
+	--bg-sidebar: #000000;
+	--bg-card: #07080b;
+	--bg-card-hover: #0f1118;
+	--bg-elevated: #141722;
+	--bg-modal: #0a0c12;
+
+	--border-subtle: rgba(255, 255, 255, 0.1);
+	--border-default: rgba(255, 255, 255, 0.16);
+	--border-hover: rgba(255, 255, 255, 0.28);
+
+	--brand-gradient-bg: linear-gradient(180deg, #07080b 0%, #000000 100%);
+	--brand-gradient-fade-out-color: linear-gradient(to top, #000000, transparent);
+}
+
+/* Semantic Theme Utility Classes */
+.bg-theme-canvas {
+	background-color: var(--bg-canvas, var(--surface-1)) !important;
+}
+
+.bg-theme-sidebar {
+	background-color: var(--bg-sidebar, var(--surface-1)) !important;
+}
+
+.bg-theme-card {
+	background-color: var(--bg-card, var(--surface-2)) !important;
+}
+
+.bg-theme-elevated {
+	background-color: var(--bg-elevated, var(--surface-3)) !important;
+}
+
+.border-theme-subtle {
+	border-color: var(--border-subtle, rgba(255, 255, 255, 0.08)) !important;
+}
+
+.border-theme-default {
+	border-color: var(--border-default, rgba(255, 255, 255, 0.12)) !important;
+}
+
+.text-theme-brand {
+	color: var(--color-brand) !important;
+}
+
+.bg-theme-brand {
+	background-color: var(--color-brand) !important;
+}
+
+.bg-theme-brand-bg {
+	background-color: var(--color-brand-bg) !important;
+}
+
+.border-theme-brand {
+	border-color: var(--color-brand) !important;
+}
+
+.shadow-theme-glow {
+	box-shadow: var(--accent-glow, 0 0 24px var(--color-brand-shadow)) !important;
+}
+
+/* Universal Accent Action Utilities */
+.btn-accent-primary {
+	background: var(--color-brand-gradient, var(--color-brand)) !important;
+	color: var(--color-accent-contrast, #ffffff) !important;
+	border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	box-shadow: var(--accent-glow, 0 0 20px var(--color-brand-shadow)) !important;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+	&:hover:not(:disabled) {
+		filter: brightness(1.1);
+		transform: translateY(-1px) scale(1.01);
+		box-shadow:
+			0 0 28px var(--color-brand-shadow),
+			0 4px 12px rgba(0, 0, 0, 0.4) !important;
+	}
+
+	&:active:not(:disabled) {
+		transform: scale(0.98);
+		filter: brightness(0.95);
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		filter: grayscale(0.6);
+	}
+}
+
+.btn-accent-secondary {
+	background-color: var(--color-brand-bg, rgba(14, 165, 233, 0.15)) !important;
+	color: var(--color-brand-highlight, var(--color-brand)) !important;
+	border: 1px solid var(--color-brand-shadow, rgba(14, 165, 233, 0.35)) !important;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background-color: var(--color-brand-shadow, rgba(14, 165, 233, 0.25)) !important;
+		color: #ffffff !important;
+		border-color: var(--color-brand-highlight) !important;
+	}
+
+	&:active:not(:disabled) {
+		transform: scale(0.98);
+	}
+}
+
+.badge-accent {
+	background-color: var(--color-brand-bg, rgba(14, 165, 233, 0.15)) !important;
+	color: var(--color-brand-highlight, var(--color-brand)) !important;
+	border: 1px solid var(--color-brand-shadow, rgba(14, 165, 233, 0.35)) !important;
+}
+
+.glow-accent {
+	box-shadow: var(--accent-glow, 0 0 24px var(--color-brand-shadow)) !important;
+}
+
+.text-accent-gradient {
+	background: var(--color-brand-gradient, var(--color-brand)) !important;
+	-webkit-background-clip: text !important;
+	-webkit-text-fill-color: transparent !important;
 }
 
 body {

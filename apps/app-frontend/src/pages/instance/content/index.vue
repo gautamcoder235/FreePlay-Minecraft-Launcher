@@ -9,12 +9,6 @@
 					@cancel="resolveUnknownFileWarning(false)"
 					@continue="handleUnknownFileContinue"
 				/>
-				<ShareModalWrapper
-					ref="shareModal"
-					:share-title="formatMessage(messages.shareTitle)"
-					:share-text="formatMessage(messages.shareText)"
-					:open-in-new-tab="false"
-				/>
 				<ManagedContentModal
 					ref="managedContentModal"
 					:header="managedContentModalHeader"
@@ -124,7 +118,6 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import ExportModal from '@/components/ui/ExportModal.vue'
-import ShareModalWrapper from '@/components/ui/modal/ShareModalWrapper.vue'
 import { useManagedContentPolicy } from '@/composables/instances/use-managed-content-policy'
 import { useAppEvent } from '@/composables/use-app-event'
 import { trackEvent } from '@/helpers/analytics'
@@ -166,14 +159,6 @@ const messages = defineMessages({
 	sharedContentHeader: {
 		id: 'app.instance.content.managed-content.shared-header',
 		defaultMessage: 'Shared content',
-	},
-	shareTitle: {
-		id: 'app.instance.mods.share-title',
-		defaultMessage: 'Sharing modpack content',
-	},
-	shareText: {
-		id: 'app.instance.mods.share-text',
-		defaultMessage: "Check out the projects I'm using in my modpack!",
 	},
 	successfullyUploaded: {
 		id: 'app.instance.mods.successfully-uploaded',
@@ -346,7 +331,6 @@ const isPackLocked = computed(
 		instance.value?.link?.type === 'server_project_modpack',
 )
 
-const shareModal = ref<InstanceType<typeof ShareModalWrapper> | null>()
 const exportModal = ref(null)
 const contentUpdaterModal = ref<InstanceType<typeof ContentUpdaterModal> | null>()
 const managedContentModal = ref<InstanceType<typeof ManagedContentModal> | null>()
@@ -1440,40 +1424,6 @@ async function unpairInstance() {
 	await initProjects()
 }
 
-async function handleShareItems(
-	items: ContentItem[],
-	format: 'names' | 'file-names' | 'urls' | 'markdown',
-) {
-	const source = items.length > 0 ? items : projects.value
-	let text: string
-	switch (format) {
-		case 'names':
-			text = source.map((x) => x.project?.title ?? x.file_name).join('\n')
-			break
-		case 'file-names':
-			text = source.map((x) => x.file_name).join('\n')
-			break
-		case 'urls':
-			text = source
-				.filter((x) => x.project?.slug)
-				.map((x) => `https://freeplay.app/${x.project_type}/${x.project?.slug}`)
-				.join('\n')
-			break
-		case 'markdown':
-			text = source
-				.map((x) => {
-					const name = x.project?.title ?? x.file_name
-					if (x.project?.slug) {
-						return `[${name}](https://freeplay.app/${x.project_type}/${x.project.slug})`
-					}
-					return name
-				})
-				.join('\n')
-			break
-	}
-	await shareModal.value?.show(text)
-}
-
 function getOverflowOptions(item: ContentItem): OverflowMenuOption[] {
 	const options: OverflowMenuOption[] = []
 
@@ -1632,7 +1582,6 @@ provideContentManager({
 	openManagedContentSettings: openSettings,
 	switchVersion: handleSwitchVersion,
 	getOverflowOptions,
-	shareItems: handleShareItems,
 	getItemId: getContentItemId,
 	mapToTableItem: (item: ContentItem) => ({
 		id: getContentItemId(item),

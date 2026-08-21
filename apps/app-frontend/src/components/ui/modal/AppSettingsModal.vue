@@ -4,7 +4,6 @@ import {
 	FreePlayIcon,
 	GameIcon,
 	GaugeIcon,
-	LanguagesIcon,
 	PaintbrushIcon,
 	Settings2Icon,
 	ShieldIcon,
@@ -29,7 +28,6 @@ import PrivacySettings from '@/components/ui/settings/account/PrivacySettings.vu
 import AppearanceSettings from '@/components/ui/settings/display/AppearanceSettings.vue'
 import BehaviorSettings from '@/components/ui/settings/display/BehaviorSettings.vue'
 import FeatureFlagSettings from '@/components/ui/settings/display/FeatureFlagSettings.vue'
-import LanguageSettings from '@/components/ui/settings/display/LanguageSettings.vue'
 import DefaultInstanceSettings from '@/components/ui/settings/instances/DefaultInstanceSettings.vue'
 import JavaSettings from '@/components/ui/settings/instances/JavaSettings.vue'
 import ResourceManagementSettings from '@/components/ui/settings/instances/ResourceManagementSettings.vue'
@@ -93,16 +91,6 @@ const tabs = [
 		category: tabCategories.app,
 		icon: Settings2Icon,
 		content: BehaviorSettings,
-	},
-	{
-		name: defineMessage({
-			id: 'app.settings.tabs.language',
-			defaultMessage: 'Language',
-		}),
-		category: tabCategories.app,
-		icon: LanguagesIcon,
-		content: LanguageSettings,
-		badge: commonMessages.beta,
 	},
 
 	// 2. Game & Engine

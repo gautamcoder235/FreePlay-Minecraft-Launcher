@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "跳过非必要的警告"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "默认隐藏右侧边栏，并添加一个按钮来显示或隐藏它。"
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "隐藏右侧边栏"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "在安装非 FreePlay 托管的 FreePlay 整合包文件 (.mrpack) 前显示安全警告。"
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "已添加 {count} 个项目"
-  },
-  "app.instance.mods.share-text": {
-    "message": "查看我在整合包中使用的项目！"
-  },
-  "app.instance.mods.share-title": {
-    "message": "分享整合包内容"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "上传成功"
@@ -952,9 +940,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java 管理"
-  },
-  "app.settings.tabs.language": {
-    "message": "语言"
   },
   "app.settings.tabs.resource-management": {
     "message": "资源管理"

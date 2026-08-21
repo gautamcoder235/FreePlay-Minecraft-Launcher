@@ -132,15 +132,15 @@ onUnmounted(() => {
 
 <template>
 	<div class="p-3 flex flex-col gap-3 select-none text-white">
-		<!-- RECENT INSTANCE (Emerald / Teal) -->
+		<!-- RECENT INSTANCE (Dynamic Accent) -->
 		<div
 			v-if="heroInstance"
-			class="relative overflow-hidden rounded-2xl bg-[#141923] border border-white/10 p-3.5 flex flex-col gap-3 shadow-xl group hover:border-emerald-500/30 transition-all duration-200"
+			class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)] border border-white/10 p-3.5 flex flex-col gap-3 shadow-xl group hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 		>
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<div
-						class="p-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
+						class="p-1.5 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))]"
 					>
 						<BlocksIcon class="w-3.5 h-3.5" />
 					</div>
@@ -150,7 +150,7 @@ onUnmounted(() => {
 				</div>
 				<router-link
 					:to="`/instance/${heroInstance.id}`"
-					class="text-[10px] font-bold text-zinc-400 hover:text-emerald-400 transition-colors flex items-center gap-0.5"
+					class="text-[10px] font-bold text-zinc-400 hover:text-[var(--color-brand-highlight,var(--color-brand))] transition-colors flex items-center gap-0.5"
 				>
 					Manage <ChevronRightIcon class="w-2.5 h-2.5" />
 				</router-link>
@@ -158,7 +158,7 @@ onUnmounted(() => {
 
 			<div class="flex items-center gap-3 p-2 rounded-xl bg-black/30 border border-white/5">
 				<div
-					class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-300 font-bold text-sm shrink-0 shadow-md"
+					class="w-10 h-10 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] font-bold text-sm shrink-0 shadow-md"
 				>
 					{{ heroInstance.name.substring(0, 2).toUpperCase() }}
 				</div>
@@ -172,11 +172,11 @@ onUnmounted(() => {
 
 			<button
 				type="button"
-				class="w-full py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 cursor-pointer border-none shadow-lg active:scale-95 transition-all"
+				class="w-full py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer border-none shadow-lg active:scale-95 transition-all"
 				:class="
 					isHeroRunning
-						? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-950/60'
-						: 'bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-zinc-950 shadow-emerald-950/60 font-black'
+						? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-950/60 font-bold'
+						: 'btn-accent-primary font-black'
 				"
 				@click="isHeroRunning ? handleStopHero() : handleLaunch(heroInstance.id)"
 			>
@@ -189,11 +189,11 @@ onUnmounted(() => {
 		<!-- WIDGET 2 (FALLBACK): NO INSTANCES - CREATE CTA (Soft Blueish / Sky) -->
 		<div
 			v-else
-			class="relative overflow-hidden rounded-2xl bg-[#141923] border border-white/10 p-3.5 flex flex-col gap-2.5 shadow-xl group hover:border-sky-500/30 transition-all duration-200"
+			class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)] border border-white/10 p-3.5 flex flex-col gap-2.5 shadow-xl group hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 		>
 			<div class="flex items-center gap-2">
 				<div
-					class="p-1.5 rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400 shadow-inner"
+					class="p-1.5 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))] shadow-inner"
 				>
 					<PlusIcon class="w-3.5 h-3.5" />
 				</div>
@@ -208,7 +208,7 @@ onUnmounted(() => {
 
 			<button
 				type="button"
-				class="w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-sky-950/50 hover:shadow-[0_0_15px_rgba(56,189,248,0.4)] transition-all cursor-pointer border-none active:scale-95"
+				class="w-full py-2.5 rounded-xl btn-accent-primary font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer border-none active:scale-95"
 				@click="showCreationModal?.()"
 			>
 				<PlusIcon class="w-3.5 h-3.5" />

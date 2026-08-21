@@ -359,7 +359,7 @@ onMounted(() => {
 				<InstanceItem
 					v-else
 					:instance="item.instance"
-					:last_played="item.sort_time"
+					:last-played="item.sort_time"
 					:newly-added="item.newly_added"
 					@play="() => markInstancePlayed(item)"
 				/>

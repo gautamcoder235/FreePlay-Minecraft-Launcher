@@ -150,10 +150,10 @@ defineExpose({ show, hide })
 		:aria-label="formatMessage(messages.title)"
 		:on-after-hide="handleHide"
 		:disable-close="applying"
-		class="!overflow-hidden !rounded-3xl !border !border-white/10 !bg-[#090B0F]/95 !backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(6,182,212,0.15)]"
+		class="!overflow-hidden !rounded-3xl !border !border-[var(--border-default)] !bg-[var(--surface-1)]/95 !backdrop-blur-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(6,182,212,0.15)]"
 	>
 		<div class="grid h-[400px] w-[768px] max-w-full grid-cols-2">
-			<section class="flex min-w-0 flex-col gap-6 bg-[#141923]/95 p-8 select-none">
+			<section class="flex min-w-0 flex-col gap-6 bg-[var(--surface-2)]/95 p-8 select-none">
 				<div
 					class="flex h-7 w-fit items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 text-xs font-black uppercase tracking-wider text-cyan-300 font-mono shadow-inner"
 				>
@@ -182,7 +182,7 @@ defineExpose({ show, hide })
 				<div class="flex mt-auto items-center gap-3">
 					<button
 						type="button"
-						class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
+						class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-[var(--border-subtle)] text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
 						:disabled="applying"
 						@click="hide"
 					>
@@ -197,7 +197,7 @@ defineExpose({ show, hide })
 					<button
 						v-if="iconlessInstanceIds.length !== 0"
 						type="button"
-						class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 font-black text-xs transition-all duration-200 cursor-pointer shadow-lg shadow-sky-950/60 active:scale-95 border-none flex items-center gap-2"
+						class="px-5 py-2.5 rounded-xl btn-accent-primary font-black text-xs transition-all duration-200 cursor-pointer active:scale-95 border-none flex items-center gap-2"
 						:disabled="loading || applying"
 						@click="applyIcons"
 					>
@@ -209,7 +209,7 @@ defineExpose({ show, hide })
 			</section>
 
 			<section
-				class="relative flex min-w-0 items-center justify-center border-0 border-l border-white/10 bg-[#0e131d]/90 p-8 select-none"
+				class="relative flex min-w-0 items-center justify-center border-0 border-l border-[var(--border-subtle)] bg-[var(--surface-1-5)]/90 p-8 select-none"
 			>
 				<IconButton
 					type="quiet"

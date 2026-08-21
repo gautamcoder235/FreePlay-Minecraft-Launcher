@@ -126,8 +126,8 @@ const progressPercent = computed(() =>
 			<!-- Progress Bar Track -->
 			<div class="w-full h-1 bg-zinc-800/80 overflow-hidden">
 				<div
-					class="h-full bg-gradient-to-r from-sky-500 via-cyan-400 to-indigo-500 transition-all duration-500"
-					:style="{ width: `${progressPercent}%` }"
+					class="h-full transition-all duration-500"
+					:style="{ width: `${progressPercent}%`, background: 'var(--loading-bar-gradient)' }"
 				></div>
 			</div>
 
@@ -139,8 +139,8 @@ const progressPercent = computed(() =>
 					class="group relative flex items-center justify-between p-2.5 rounded-xl border transition-all duration-200"
 					:class="
 						step.complete
-							? 'bg-sky-500/[0.04] border-sky-500/20 text-zinc-300'
-							: 'bg-zinc-900/80 border-white/5 hover:border-indigo-500/40 hover:bg-zinc-800/60 text-white cursor-pointer shadow-sm active:scale-[0.99]'
+							? 'bg-[var(--color-brand-bg)] border-[var(--color-brand-shadow)] text-zinc-300'
+							: 'bg-zinc-900/80 border-white/5 hover:border-[var(--color-brand-shadow)] hover:bg-zinc-800/60 text-white cursor-pointer shadow-sm active:scale-[0.99]'
 					"
 					@click="!step.complete && step.action()"
 				>

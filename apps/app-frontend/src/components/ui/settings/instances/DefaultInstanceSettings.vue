@@ -7,6 +7,7 @@ import {
 	Toggle,
 	useVIntl,
 } from '@freeplay/ui'
+import type { ComputedRef, Ref } from 'vue'
 import { ref, watch } from 'vue'
 
 import useMemorySlider from '@/composables/useMemorySlider'
@@ -151,23 +152,56 @@ const messages = defineMessages({
 	},
 })
 
-const fetchSettings = await get()
-fetchSettings.launchArgs = fetchSettings.extra_launch_args.join(' ')
+const fetchSettings = (await get()) || {}
+if (!fetchSettings.extra_launch_args) {
+	fetchSettings.extra_launch_args = []
+}
+if (!fetchSettings.custom_env_vars) {
+	fetchSettings.custom_env_vars = []
+}
+if (!fetchSettings.memory) {
+	fetchSettings.memory = {
+		minimum: null,
+		maximum: 4096,
+	}
+} else if (!fetchSettings.memory.maximum) {
+	fetchSettings.memory.maximum = 4096
+}
+if (!fetchSettings.hooks) {
+	fetchSettings.hooks = {
+		pre_launch: '',
+		wrapper: '',
+		post_exit: '',
+	}
+}
+if (!fetchSettings.game_resolution) {
+	fetchSettings.game_resolution = [854, 480]
+}
+
+fetchSettings.launchArgs = (fetchSettings.extra_launch_args || []).join(' ')
 fetchSettings.envVars = serializeEnvVars(fetchSettings.custom_env_vars)
 
 const settings = ref(fetchSettings)
 
-const { maxMemory, snapPoints } = (await useMemorySlider().catch(handleError)) as unknown as {
-	maxMemory: number
-	snapPoints: number[]
-}
+const memorySliderResult = (await useMemorySlider().catch(handleError)) as unknown as
+	| {
+			maxMemory: Ref<number>
+			snapPoints: Ref<number[]> | ComputedRef<number[]>
+	  }
+	| undefined
+
+const maxMemory = memorySliderResult?.maxMemory ?? ref(16384)
+const snapPoints = memorySliderResult?.snapPoints ?? ref([2048, 4096, 8192, 16384])
 
 watch(
 	settings,
 	async () => {
 		const setSettings = JSON.parse(JSON.stringify(settings.value))
 
-		setSettings.extra_launch_args = setSettings.launchArgs.trim().split(/\s+/).filter(Boolean)
+		setSettings.extra_launch_args = (setSettings.launchArgs || '')
+			.trim()
+			.split(/\s+/)
+			.filter(Boolean)
 		setSettings.custom_env_vars = parseEnvVars(setSettings.envVars)
 		delete setSettings.launchArgs
 		delete setSettings.envVars
@@ -270,9 +304,13 @@ watch(
 						id="max-memory"
 						v-model="settings.memory.maximum"
 						:min="512"
-						:max="maxMemory"
+						:max="typeof maxMemory === 'number' ? maxMemory : maxMemory?.value || 16384"
 						:step="64"
-						:snap-points="snapPoints"
+						:snap-points="
+							Array.isArray(snapPoints)
+								? snapPoints
+								: snapPoints?.value || [2048, 4096, 8192, 16384]
+						"
 						:snap-range="512"
 						unit="MB"
 					/>

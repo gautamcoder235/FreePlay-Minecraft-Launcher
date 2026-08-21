@@ -100,6 +100,7 @@ import { setupAppEventsProvider } from '@/providers/setup/app-events'
 import { setupAuthProvider } from '@/providers/setup/auth'
 import { setupLoadingStateProvider } from '@/providers/setup/loading-state'
 import { useError } from '@/store/error.js'
+import { useOverlayStore } from '@/store/overlay'
 import { useAccountStore, useTheming } from '@/store/state'
 import { appMessages } from '@/utils/app-messages'
 
@@ -110,6 +111,8 @@ import { AppPopupNotificationManager } from './providers/app-popup-notifications
 import { appSettingsModalOpenProfileKey } from './providers/app-settings-modal'
 
 const themeStore = useTheming()
+themeStore.setThemeClass()
+const _overlayStore = useOverlayStore()
 const accountStore = useAccountStore()
 const router = useRouter()
 const route = useRoute()
@@ -448,7 +451,7 @@ async function setupApp() {
 	const {
 		native_decorations,
 		theme,
-		locale,
+		locale: _locale,
 		telemetry: _telemetry,
 		collapsed_navigation,
 		hide_nametag_skins_page,
@@ -458,10 +461,8 @@ async function setupApp() {
 		feature_flags,
 	} = await getSettings()
 
-	// Initialize locale from saved settings
-	if (locale) {
-		i18n.global.locale.value = locale
-	}
+	// Launcher language is strictly English
+	i18n.global.locale.value = 'en-US'
 
 	os.value = await getOS()
 	const dev = await isDev()
@@ -1093,7 +1094,7 @@ const restarting = ref(false)
 			@add-offline-account="openOfflineAccountModal"
 		/>
 		<div
-			class="app-grid-navbar bg-[#090b0f] border-r border-white/10 flex flex-col items-center py-3 px-2 gap-2 w-[--left-bar-width] select-none"
+			class="app-grid-navbar bg-[var(--surface-1)] border-r border-[var(--border-subtle)] flex flex-col items-center py-3 px-2 gap-2 w-[--left-bar-width] select-none"
 		>
 			<!-- Top Primary Navigation Group -->
 			<div class="flex flex-col items-center gap-1.5 w-full">
@@ -1155,7 +1156,7 @@ const restarting = ref(false)
 			<button
 				v-tooltip.right="formatMessage(messages.createNewInstance)"
 				type="button"
-				class="w-11 h-11 rounded-2xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 hover:text-sky-300 border border-sky-500/30 hover:border-sky-400/50 flex items-center justify-center cursor-pointer shadow-md shadow-sky-950/40 hover:scale-105 active:scale-95 transition-all duration-200"
+				class="w-11 h-11 rounded-2xl bg-[var(--color-brand-bg)] hover:opacity-90 text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] flex items-center justify-center cursor-pointer shadow-md hover:scale-105 active:scale-95 transition-all duration-200"
 				:disabled="offline"
 				@click="() => installationModal?.show()"
 			>
@@ -1211,11 +1212,11 @@ const restarting = ref(false)
 					:distance="4"
 				>
 					<div
-						class="relative w-11 h-11 rounded-2xl p-0.5 border border-sky-500/40 hover:border-sky-400 flex items-center justify-center cursor-pointer transition-all shadow-[0_0_12px_rgba(56,189,248,0.3)]"
+						class="relative w-11 h-11 rounded-2xl p-0.5 border border-[var(--color-brand-shadow)] hover:border-[var(--color-brand)] flex items-center justify-center cursor-pointer transition-all shadow-[var(--accent-glow)]"
 					>
 						<Avatar :src="credentials?.user?.avatar_url" alt="" size="34px" circle />
 						<span
-							class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-sky-400 border border-zinc-950 shadow-[0_0_6px_rgba(56,189,248,0.8)]"
+							class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[var(--color-brand)] border border-zinc-950 shadow-[var(--accent-glow)]"
 						></span>
 					</div>
 					<template #view-profile>
@@ -1245,7 +1246,7 @@ const restarting = ref(false)
 					v-else
 					v-tooltip.right="'Player Accounts & Sign In'"
 					type="button"
-					class="w-11 h-11 rounded-2xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 hover:text-sky-300 border border-sky-500/30 hover:border-sky-400/50 flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md shadow-sky-950/40"
+					class="w-11 h-11 rounded-2xl bg-[var(--color-brand-bg)] hover:bg-[var(--color-brand-bg)]/80 text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md shadow-[var(--accent-glow)]"
 					@click="() => globalOfflineAccountModal?.show()"
 				>
 					<UserIcon class="w-5 h-5" />
@@ -1254,7 +1255,7 @@ const restarting = ref(false)
 		</div>
 		<div
 			data-tauri-drag-region
-			class="app-grid-statusbar bg-[#090b0f] border-b border-white/10 h-[--top-bar-height] flex items-center justify-between px-3 select-none"
+			class="app-grid-statusbar bg-[var(--surface-1)] border-b border-[var(--border-subtle)] h-[--top-bar-height] flex items-center justify-between px-3 select-none"
 		>
 			<!-- Zone 1: Brand & Navigation Hub -->
 			<div data-tauri-drag-region class="flex items-center gap-3 shrink-0 min-w-0">
@@ -1404,14 +1405,13 @@ const restarting = ref(false)
 						<AppActionBar />
 					</Suspense>
 				</div>
-
 				<!-- Sidebar HUD Panel Toggle Button -->
 				<button
 					type="button"
 					class="h-7 px-2.5 rounded-xl border flex items-center gap-1.5 cursor-pointer transition-all duration-200 active:scale-95 text-xs font-semibold select-none shadow-sm"
 					:class="
 						sidebarVisible
-							? 'bg-sky-600/20 border-sky-500/40 text-sky-300 shadow-[0_0_12px_rgba(56,189,248,0.3)]'
+							? 'bg-[var(--color-brand-bg)] border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]'
 							: 'bg-white/[0.04] border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.08]'
 					"
 					:title="sidebarVisible ? 'Close HUD Panel (Ctrl+B)' : 'Open HUD Panel (Ctrl+B)'"
@@ -1510,50 +1510,27 @@ const restarting = ref(false)
 			>
 				<!-- ID Login & Player Identity Listing (Prominent Top Card) -->
 				<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
-					<div class="flex items-center justify-between px-1">
-						<span
-							class="text-[10px] font-extrabold uppercase tracking-widest text-zinc-400 font-mono flex items-center gap-1.5"
-						>
-							<UserIcon class="w-3.5 h-3.5 text-sky-400" />
-							Player Identities
-						</span>
-						<span
-							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-sky-500/15 text-sky-300 border border-sky-500/25 font-mono"
-						>
-							ACTIVE ID
-						</span>
-					</div>
 					<suspense>
 						<AccountsCard ref="accounts" />
 					</suspense>
 				</div>
 				<!-- Quick Actions Deck -->
 				<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
-					<div class="flex items-center justify-between px-1">
-						<span
-							class="text-[10px] font-extrabold uppercase tracking-widest text-zinc-400 font-mono"
-							>Quick Tools</span
-						>
-						<span
-							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-sky-500/15 text-sky-300 border border-sky-500/25 font-mono"
-							>HUD</span
-						>
-					</div>
 					<div class="grid grid-cols-2 gap-1.5">
 						<button
 							type="button"
-							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[#141923] hover:bg-sky-500/10 border border-white/10 hover:border-sky-500/40 text-zinc-300 hover:text-sky-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[var(--surface-2)] hover:bg-[var(--color-brand-bg)] border border-white/10 hover:border-[var(--color-brand-shadow)] text-zinc-300 hover:text-[var(--color-brand-highlight,var(--color-brand))] text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
 							@click="globalOfflineAccountModal?.show()"
 						>
-							<UserIcon class="w-4 h-4 text-sky-400" />
+							<UserIcon class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]" />
 							<span class="truncate w-full">+ Offline</span>
 						</button>
 						<button
 							type="button"
-							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[#141923] hover:bg-violet-500/10 border border-white/10 hover:border-violet-500/40 text-zinc-300 hover:text-violet-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[var(--surface-2)] hover:bg-white/10 border border-white/10 hover:border-white/20 text-zinc-300 hover:text-white text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
 							@click="showCommandPalette = true"
 						>
-							<SearchIcon class="w-4 h-4 text-violet-400" />
+							<SearchIcon class="w-4 h-4 text-zinc-400" />
 							<span class="truncate w-full">⌘K Search</span>
 						</button>
 					</div>
@@ -1575,7 +1552,7 @@ const restarting = ref(false)
 
 			<!-- Fixed Persistent Bottom Line Footer -->
 			<div
-				class="app-sidebar-footer px-4 py-2.5 bg-[#090b0f] border-t border-white/10 flex items-center justify-between text-[10px] text-zinc-500 font-mono shrink-0 select-none"
+				class="app-sidebar-footer px-4 py-2.5 bg-[var(--surface-1)] border-t border-[var(--border-subtle)] flex items-center justify-between text-[10px] text-zinc-500 font-mono shrink-0 select-none"
 			>
 				<span>FreePlay Pro v1.0</span>
 				<span
@@ -1713,13 +1690,13 @@ const restarting = ref(false)
 	width: 300px;
 	position: relative;
 	height: calc(100vh - var(--top-bar-height));
-	background: #090b0f;
-	border-left: 1px solid rgba(255, 255, 255, 0.08);
+	background: var(--bg-sidebar, var(--surface-1));
+	border-left: 1px solid var(--border-subtle);
 
-	--color-button-bg: #141923;
-	--color-button-bg-hover: #1c2331;
-	--color-divider: rgba(255, 255, 255, 0.08);
-	--color-divider-dark: rgba(255, 255, 255, 0.08);
+	--color-button-bg: var(--surface-2);
+	--color-button-bg-hover: var(--surface-3);
+	--color-divider: var(--border-subtle);
+	--color-divider-dark: var(--border-subtle);
 }
 
 .disable-advanced-rendering {

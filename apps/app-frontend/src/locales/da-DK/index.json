@@ -158,9 +158,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Spring ikke nødvendige advarseler over"
   },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Gem højre sidebar"
-  },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Advar mig før jeg installere en ukendt modpacks"
   },
@@ -329,12 +326,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} projekter blev tilføjet"
   },
-  "app.instance.mods.share-text": {
-    "message": "Tjek ud disse projekter jeg bruger i min modpack!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Deler modpack indhold"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "Uploadet"
   },
@@ -499,9 +490,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Javainstallationer"
-  },
-  "app.settings.tabs.language": {
-    "message": "Sprog"
   },
   "app.settings.tabs.resource-management": {
     "message": "Ressourcestyring"

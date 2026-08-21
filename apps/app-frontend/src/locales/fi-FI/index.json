@@ -269,12 +269,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} projektia lisättiin"
   },
-  "app.instance.mods.share-text": {
-    "message": "Tsekkaa projektit joita käytän minun modipaketissani!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Jaetaan modipaketti sisältöä"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "Onnistuneesti ladattu"
   },
@@ -373,9 +367,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java asennukset"
-  },
-  "app.settings.tabs.language": {
-    "message": "Kieli"
   },
   "app.settings.tabs.resource-management": {
     "message": "Resurssien hallinta"

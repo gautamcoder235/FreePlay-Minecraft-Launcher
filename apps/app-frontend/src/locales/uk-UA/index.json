@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Пропустити несуттєві попередження"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Приховувати праву бічну панель за замовчуванням і додати кнопку для її показання або приховування."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Приховати праву бічну панель"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Показувати попередження про безпеку перед встановленням FreePlay Pack (.mrpack), який не розміщено на FreePlay."
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count} проєктів було додано"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Погляньте на проєкти, які я використовую у своїй збірці!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Поширення вмісту збірки"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Успішно вивантажено"
@@ -952,9 +940,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Інсталяції Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Мова"
   },
   "app.settings.tabs.resource-management": {
     "message": "Керування ресурсами"

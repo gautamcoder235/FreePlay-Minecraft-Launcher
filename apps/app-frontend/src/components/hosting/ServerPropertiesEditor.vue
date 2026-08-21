@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api/core'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 
-defineProps<{
+const props = defineProps<{
 	serverStatus: 'offline' | 'starting' | 'online' | 'tunneling'
+	serverId?: string
 }>()
+
+const serverIconUrl = ref<string | null>(null)
+const isUploadingIcon = ref(false)
+const fileInputRef = ref<HTMLInputElement | null>(null)
 
 const isSaving = ref(false)
 const saveSuccess = ref(false)
@@ -84,13 +89,13 @@ const opLevelOptions = [
 ]
 
 const categories = [
-	{ id: 'all', label: 'All Settings', icon: '⚡' },
-	{ id: 'gameplay', label: 'Gameplay & Rules', icon: '🎮' },
-	{ id: 'world', label: 'World & Generation', icon: '🌍' },
-	{ id: 'security', label: 'Access & Security', icon: '🔒' },
-	{ id: 'performance', label: 'Performance & Limits', icon: '🚀' },
-	{ id: 'spawning', label: 'Spawning & Entities', icon: '👾' },
-	{ id: 'network', label: 'Network & Advanced', icon: '📡' },
+	{ id: 'all', label: 'All Settings' },
+	{ id: 'gameplay', label: 'Gameplay & Rules' },
+	{ id: 'world', label: 'World & Generation' },
+	{ id: 'security', label: 'Access & Security' },
+	{ id: 'performance', label: 'Performance & Limits' },
+	{ id: 'spawning', label: 'Spawning & Entities' },
+	{ id: 'network', label: 'Network & Advanced' },
 ]
 
 const form = reactive({
@@ -451,8 +456,87 @@ async function saveProperties() {
 	}
 }
 
+async function fetchServerIcon() {
+	try {
+		const icon = await invoke<string | null>('host_get_server_icon', {
+			serverId: props.serverId,
+		})
+		serverIconUrl.value = icon || null
+	} catch (e) {
+		console.debug('Failed to fetch server icon:', e)
+	}
+}
+
+function triggerIconUpload() {
+	fileInputRef.value?.click()
+}
+
+async function handleIconFile(e: Event) {
+	const file = (e.target as HTMLInputElement).files?.[0]
+	if (!file) return
+
+	isUploadingIcon.value = true
+	try {
+		const base64Data = await new Promise<string>((resolve, reject) => {
+			const reader = new FileReader()
+			reader.onload = (readerEvent) => {
+				const img = new Image()
+				img.onload = () => {
+					const canvas = document.createElement('canvas')
+					canvas.width = 64
+					canvas.height = 64
+					const ctx = canvas.getContext('2d')
+					if (!ctx) {
+						reject(new Error('Canvas context not available'))
+						return
+					}
+					ctx.imageSmoothingEnabled = true
+					ctx.imageSmoothingQuality = 'high'
+					ctx.drawImage(img, 0, 0, 64, 64)
+					resolve(canvas.toDataURL('image/png'))
+				}
+				img.onerror = () => reject(new Error('Failed to load image'))
+				img.src = readerEvent.target?.result as string
+			}
+			reader.onerror = () => reject(new Error('Failed to read file'))
+			reader.readAsDataURL(file)
+		})
+
+		const savedUrl = await invoke<string>('host_set_server_icon', {
+			serverId: props.serverId,
+			iconBase64: base64Data,
+		})
+		serverIconUrl.value = savedUrl
+	} catch (err) {
+		console.error('Failed to update server icon:', err)
+		alert(`Failed to set server icon: ${err instanceof Error ? err.message : String(err)}`)
+	} finally {
+		isUploadingIcon.value = false
+		if (fileInputRef.value) fileInputRef.value.value = ''
+	}
+}
+
+async function resetServerIcon() {
+	try {
+		await invoke('host_delete_server_icon', {
+			serverId: props.serverId,
+		})
+		serverIconUrl.value = null
+	} catch (err) {
+		console.error('Failed to delete server icon:', err)
+	}
+}
+
+watch(
+	() => props.serverId,
+	() => {
+		fetchServerIcon()
+	},
+)
+
 onMounted(() => {
 	loadProperties()
+	fetchServerIcon()
 })
 </script>
 
@@ -474,10 +558,6 @@ onMounted(() => {
 						Restart required to apply
 					</span>
 				</div>
-				<p class="text-xs text-secondary m-0">
-					Customize gameplay rules, world generation, access security, and dedicated server
-					mechanics.
-				</p>
 			</div>
 
 			<div class="flex items-center gap-3">
@@ -489,14 +569,38 @@ onMounted(() => {
 						placeholder="Search properties (e.g. pvp, port, seed)..."
 						class="w-64 pl-8 pr-7 py-1.5 rounded-xl bg-surface-3 border border-surface-4 text-contrast text-xs placeholder:text-zinc-500 focus:outline-none focus:border-brand transition-all"
 					/>
-					<span class="absolute left-2.5 text-zinc-500 text-xs">🔍</span>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5 text-zinc-500 absolute left-2.5 pointer-events-none"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle cx="11" cy="11" r="8" />
+						<line x1="21" y1="21" x2="16.65" y2="16.65" />
+					</svg>
 					<button
 						v-if="searchQuery"
 						type="button"
-						class="absolute right-2 text-zinc-400 hover:text-white text-xs cursor-pointer border-none bg-transparent"
+						class="absolute right-2 text-zinc-400 hover:text-white text-xs cursor-pointer border-none bg-transparent flex items-center justify-center p-0.5"
 						@click="searchQuery = ''"
 					>
-						✕
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-3.5 h-3.5"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="18" y1="6" x2="6" y2="18" />
+							<line x1="6" y1="6" x2="18" y2="18" />
+						</svg>
 					</button>
 				</div>
 
@@ -506,7 +610,7 @@ onMounted(() => {
 					class="px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer select-none"
 					:class="
 						isRawMode
-							? 'bg-brand text-brand-inverted border-brand shadow-sm'
+							? 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]'
 							: 'bg-surface-3 text-secondary border-surface-4 hover:text-contrast'
 					"
 					@click="isRawMode = !isRawMode"
@@ -517,11 +621,11 @@ onMounted(() => {
 				<!-- Save Button -->
 				<button
 					type="button"
-					class="px-4 py-1.5 rounded-xl bg-brand text-brand-inverted text-xs font-bold border-none hover:bg-brand-highlight transition-all cursor-pointer flex items-center gap-1.5 shadow-sm active:scale-95 disabled:opacity-50 select-none"
+					class="px-4 py-1.5 rounded-xl btn-accent-primary text-xs font-bold border-none transition-all cursor-pointer flex items-center gap-1.5 shadow-sm active:scale-95 disabled:opacity-50 select-none"
 					:disabled="isSaving"
 					@click="saveProperties"
 				>
-					<span v-if="saveSuccess" class="text-emerald-300 font-bold">✓ Saved!</span>
+					<span v-if="saveSuccess" class="font-bold">✓ Saved!</span>
 					<span v-else-if="isSaving">Saving...</span>
 					<span v-else>Save Configuration</span>
 				</button>
@@ -551,9 +655,27 @@ onMounted(() => {
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2">
-						<span class="text-base">🏷️</span>
+						<div
+							class="w-6 h-6 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-3.5 h-3.5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"
+								/>
+								<path d="M7 7h.01" />
+							</svg>
+						</div>
 						<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-							>Server Brand & MOTD Message</span
+							>Server Brand &amp; MOTD Message</span
 						>
 					</div>
 					<span class="text-[11px] text-zinc-400 font-mono">motd={{ form.motd }}</span>
@@ -584,20 +706,114 @@ onMounted(() => {
 
 					<!-- Simulated Minecraft Server List Preview -->
 					<div class="flex flex-col gap-1.5">
-						<span class="text-xs font-semibold text-secondary">Multiplayer List Preview</span>
-						<div
-							class="p-3 rounded-xl bg-[#080b11] border border-white/10 flex items-center justify-between gap-3 shadow-inner"
-						>
-							<div class="flex items-center gap-3">
-								<div
-									class="w-10 h-10 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-xl shrink-0"
+						<div class="flex items-center justify-between">
+							<span class="text-xs font-semibold text-secondary">Multiplayer List Preview</span>
+							<div class="flex items-center gap-2">
+								<button
+									v-if="serverIconUrl"
+									type="button"
+									class="text-[10px] text-zinc-400 hover:text-rose-400 font-semibold cursor-pointer border-none bg-transparent transition-colors"
+									@click="resetServerIcon"
 								>
-									🧊
+									Reset Icon
+								</button>
+								<button
+									type="button"
+									class="text-[10px] text-[var(--color-brand-highlight,var(--color-brand))] hover:underline font-semibold cursor-pointer border-none bg-transparent flex items-center gap-1"
+									@click="triggerIconUpload"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="w-3 h-3"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+										<polyline points="17 8 12 3 7 8" />
+										<line x1="12" y1="3" x2="12" y2="15" />
+									</svg>
+									<span>{{ serverIconUrl ? 'Change Icon' : 'Upload Icon (64x64)' }}</span>
+								</button>
+							</div>
+						</div>
+
+						<!-- Hidden file input for custom server icon -->
+						<input
+							ref="fileInputRef"
+							type="file"
+							accept="image/png,image/jpeg,image/webp,image/gif"
+							class="hidden"
+							@change="handleIconFile"
+						/>
+
+						<div
+							class="p-3 rounded-xl bg-[#080b11] border border-white/10 flex items-center justify-between gap-3 shadow-inner group/server"
+						>
+							<div class="flex items-center gap-3 min-w-0">
+								<!-- Interactive Server Icon Box -->
+								<div
+									class="relative w-12 h-12 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center shrink-0 overflow-hidden shadow-sm cursor-pointer group/icon transition-transform active:scale-95"
+									:title="
+										serverIconUrl
+											? 'Click to change server icon (64x64 PNG)'
+											: 'Click to upload custom server icon'
+									"
+									@click="triggerIconUpload"
+								>
+									<img
+										v-if="serverIconUrl"
+										:src="serverIconUrl"
+										alt="Server Icon"
+										class="w-full h-full object-cover rounded-xl [image-rendering:pixelated]"
+									/>
+									<svg
+										v-else
+										xmlns="http://www.w3.org/2000/svg"
+										class="w-6 h-6 text-[var(--color-brand-highlight,var(--color-brand))]"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<path
+											d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+										/>
+										<polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+										<line x1="12" y1="22.08" x2="12" y2="12" />
+									</svg>
+
+									<!-- Upload Overlay on Hover -->
+									<div
+										class="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover/icon:opacity-100 flex flex-col items-center justify-center transition-opacity text-white"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="w-4 h-4"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2.2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+											<polyline points="17 8 12 3 7 8" />
+											<line x1="12" y1="3" x2="12" y2="15" />
+										</svg>
+										<span class="text-[8px] font-bold mt-0.5">Edit</span>
+									</div>
 								</div>
+
 								<div class="flex flex-col font-mono text-xs leading-snug truncate">
-									<span class="font-bold text-white tracking-wide">FreePlay Server</span>
+									<span class="font-bold text-white tracking-wide truncate">FreePlay Server</span>
 									<!-- eslint-disable-next-line vue/no-v-html -->
-									<span class="text-xs" v-html="renderedMotd" />
+									<span class="text-xs truncate" v-html="renderedMotd" />
 								</div>
 							</div>
 							<div
@@ -623,12 +839,123 @@ onMounted(() => {
 					class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none flex items-center gap-1.5"
 					:class="
 						selectedCategory === cat.id
-							? 'bg-brand text-brand-inverted border-brand shadow-sm scale-100'
+							? 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)] scale-100'
 							: 'bg-surface-2 text-secondary border-surface-4 hover:border-surface-5 hover:text-contrast'
 					"
 					@click="selectedCategory = cat.id"
 				>
-					<span>{{ cat.icon }}</span>
+					<svg
+						v-if="cat.id === 'all'"
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+					</svg>
+					<svg
+						v-else-if="cat.id === 'gameplay'"
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<line x1="6" y1="12" x2="10" y2="12" />
+						<line x1="8" y1="10" x2="8" y2="14" />
+						<line x1="15" y1="13" x2="15.01" y2="13" />
+						<line x1="18" y1="11" x2="18.01" y2="11" />
+						<rect x="2" y="6" width="20" height="12" rx="6" />
+					</svg>
+					<svg
+						v-else-if="cat.id === 'world'"
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle cx="12" cy="12" r="10" />
+						<line x1="2" y1="12" x2="22" y2="12" />
+						<path
+							d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+						/>
+					</svg>
+					<svg
+						v-else-if="cat.id === 'security'"
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+						<path d="M7 11V7a5 5 0 0 1 10 0v4" />
+					</svg>
+					<svg
+						v-else-if="cat.id === 'performance'"
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="m12 14 4-4" />
+						<path d="M3.34 19a10 10 0 1 1 17.32 0" />
+					</svg>
+					<svg
+						v-else-if="cat.id === 'spawning'"
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M9 10h.01" />
+						<path d="M15 10h.01" />
+						<path d="M10 2v2" />
+						<path d="M14 2v2" />
+						<path d="M12 17a4 4 0 0 1-4-4V7a4 4 0 0 1 8 0v6a4 4 0 0 1-4 4Z" />
+						<path d="M18 13a6 6 0 0 0-12 0" />
+						<path d="M6 13v4" />
+						<path d="M18 13v4" />
+					</svg>
+					<svg
+						v-else-if="cat.id === 'network'"
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-3.5 h-3.5"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+						<path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+						<circle cx="12" cy="12" r="2" />
+						<path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+						<path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1" />
+					</svg>
 					<span>{{ cat.label }}</span>
 				</button>
 			</div>
@@ -654,9 +981,28 @@ onMounted(() => {
 				>
 					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
 						<div class="flex items-center gap-2">
-							<span class="text-base">🎮</span>
+							<div
+								class="w-6 h-6 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-3.5 h-3.5"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<line x1="6" y1="12" x2="10" y2="12" />
+									<line x1="8" y1="10" x2="8" y2="14" />
+									<line x1="15" y1="13" x2="15.01" y2="13" />
+									<line x1="18" y1="11" x2="18.01" y2="11" />
+									<rect x="2" y="6" width="20" height="12" rx="6" />
+								</svg>
+							</div>
 							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-								>Gameplay & Core Rules</span
+								>Gameplay &amp; Core Rules</span
 							>
 						</div>
 						<span class="text-[10px] text-zinc-500 font-mono">6 settings</span>
@@ -672,7 +1018,10 @@ onMounted(() => {
 							<button
 								type="button"
 								class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all focus:outline-none"
-								:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isDifficultyOpen }"
+								:class="{
+									'border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]':
+										isDifficultyOpen,
+								}"
 								@click="isDifficultyOpen = !isDifficultyOpen"
 							>
 								<span class="font-bold capitalize">{{ form.difficulty }}</span>
@@ -690,7 +1039,7 @@ onMounted(() => {
 										class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
 										:class="
 											form.difficulty === opt.id
-												? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+												? 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] font-bold'
 												: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 										"
 										@click="selectDifficulty(opt.id)"
@@ -701,7 +1050,9 @@ onMounted(() => {
 												opt.desc
 											}}</span>
 										</div>
-										<span v-if="form.difficulty === opt.id" class="text-sky-400 text-xs font-bold"
+										<span
+											v-if="form.difficulty === opt.id"
+											class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
 											>✓</span
 										>
 									</div>
@@ -718,7 +1069,9 @@ onMounted(() => {
 							<button
 								type="button"
 								class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all focus:outline-none"
-								:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isGamemodeOpen }"
+								:class="{
+									'border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]': isGamemodeOpen,
+								}"
 								@click="isGamemodeOpen = !isGamemodeOpen"
 							>
 								<span class="font-bold capitalize">{{ form.gamemode }}</span>
@@ -736,7 +1089,7 @@ onMounted(() => {
 										class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
 										:class="
 											form.gamemode === opt.id
-												? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+												? 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] font-bold'
 												: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 										"
 										@click="selectGamemode(opt.id)"
@@ -747,7 +1100,9 @@ onMounted(() => {
 												opt.desc
 											}}</span>
 										</div>
-										<span v-if="form.gamemode === opt.id" class="text-sky-400 text-xs font-bold"
+										<span
+											v-if="form.gamemode === opt.id"
+											class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
 											>✓</span
 										>
 									</div>
@@ -771,7 +1126,9 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.pvp ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.pvp ? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]' : 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -815,7 +1172,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.allow_flight ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.allow_flight
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -837,7 +1198,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.enable_command_block ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.enable_command_block
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -858,9 +1223,28 @@ onMounted(() => {
 				>
 					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
 						<div class="flex items-center gap-2">
-							<span class="text-base">🌍</span>
+							<div
+								class="w-6 h-6 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-3.5 h-3.5"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<circle cx="12" cy="12" r="10" />
+									<line x1="2" y1="12" x2="22" y2="12" />
+									<path
+										d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+									/>
+								</svg>
+							</div>
 							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-								>World & Generation</span
+								>World &amp; Generation</span
 							>
 						</div>
 						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
@@ -919,7 +1303,7 @@ onMounted(() => {
 									class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
 									:class="
 										form.level_type === opt.id
-											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+											? 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] font-bold'
 											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 									"
 									@click="selectLevelType(opt.id)"
@@ -930,7 +1314,9 @@ onMounted(() => {
 											opt.desc
 										}}</span>
 									</div>
-									<span v-if="form.level_type === opt.id" class="text-sky-400 text-xs font-bold"
+									<span
+										v-if="form.level_type === opt.id"
+										class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
 										>✓</span
 									>
 								</div>
@@ -952,7 +1338,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.allow_nether ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.allow_nether
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -970,7 +1360,8 @@ onMounted(() => {
 										>Prevents non-OP players from editing spawn area</span
 									>
 								</div>
-								<span class="text-xs font-bold text-sky-400 font-mono"
+								<span
+									class="text-xs font-bold text-[var(--color-brand-highlight,var(--color-brand))] font-mono"
 									>{{ form.spawn_protection }} blocks</span
 								>
 							</div>
@@ -980,7 +1371,7 @@ onMounted(() => {
 								min="0"
 								max="64"
 								step="1"
-								class="w-full accent-sky-500 cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
+								class="w-full accent-[var(--color-brand)] cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
 							/>
 						</div>
 					</div>
@@ -1006,9 +1397,25 @@ onMounted(() => {
 				>
 					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
 						<div class="flex items-center gap-2">
-							<span class="text-base">🔒</span>
+							<div
+								class="w-6 h-6 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-3.5 h-3.5"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+									<path d="M7 11V7a5 5 0 0 1 10 0v4" />
+								</svg>
+							</div>
 							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-								>Access, Security & Slots</span
+								>Access, Security &amp; Slots</span
 							>
 						</div>
 						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
@@ -1021,7 +1428,8 @@ onMounted(() => {
 								<span class="text-xs font-semibold text-contrast">Max Player Slots</span>
 								<span class="text-[10px] text-secondary">Maximum concurrent players allowed</span>
 							</div>
-							<span class="text-sm font-black text-sky-400 font-mono"
+							<span
+								class="text-sm font-black text-[var(--color-brand-highlight,var(--color-brand))] font-mono"
 								>{{ form.max_players }} players</span
 							>
 						</div>
@@ -1031,7 +1439,7 @@ onMounted(() => {
 							min="1"
 							max="100"
 							step="1"
-							class="w-full accent-sky-500 cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
+							class="w-full accent-[var(--color-brand)] cursor-pointer h-1.5 bg-surface-2 rounded-lg appearance-none"
 						/>
 					</div>
 
@@ -1048,7 +1456,7 @@ onMounted(() => {
 									:class="
 										form.online_mode
 											? 'bg-emerald-500/20 text-emerald-300'
-											: 'bg-sky-500/20 text-sky-300'
+											: 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))]'
 									"
 								>
 									{{ form.online_mode ? 'Official Only' : 'Offline / Cracked Enabled' }}
@@ -1060,7 +1468,11 @@ onMounted(() => {
 						</div>
 						<div
 							class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-							:class="form.online_mode ? 'bg-sky-500' : 'bg-zinc-700'"
+							:class="
+								form.online_mode
+									? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+									: 'bg-zinc-700'
+							"
 						>
 							<div
 								class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -1081,7 +1493,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.white_list ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.white_list
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -1100,7 +1516,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.enforce_whitelist ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.enforce_whitelist
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -1116,7 +1536,9 @@ onMounted(() => {
 						<button
 							type="button"
 							class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-3 border border-surface-4 hover:border-brand/50 text-contrast text-xs font-medium cursor-pointer transition-all focus:outline-none"
-							:class="{ 'border-brand shadow-[0_0_12px_rgba(56,189,248,0.2)]': isOpLevelOpen }"
+							:class="{
+								'border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]': isOpLevelOpen,
+							}"
 							@click="isOpLevelOpen = !isOpLevelOpen"
 						>
 							<span class="font-bold">{{
@@ -1137,7 +1559,7 @@ onMounted(() => {
 									class="p-2 rounded-xl flex items-center justify-between gap-2 transition-all cursor-pointer select-none"
 									:class="
 										form.op_permission_level === opt.id
-											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
+											? 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] font-bold'
 											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 									"
 									@click="selectOpLevel(opt.id)"
@@ -1150,7 +1572,7 @@ onMounted(() => {
 									</div>
 									<span
 										v-if="form.op_permission_level === opt.id"
-										class="text-sky-400 text-xs font-bold"
+										class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
 										>✓</span
 									>
 								</div>
@@ -1177,9 +1599,25 @@ onMounted(() => {
 				>
 					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
 						<div class="flex items-center gap-2">
-							<span class="text-base">🚀</span>
+							<div
+								class="w-6 h-6 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-3.5 h-3.5"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="m12 14 4-4" />
+									<path d="M3.34 19a10 10 0 1 1 17.32 0" />
+								</svg>
+							</div>
 							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-								>Performance & Chunk Limits</span
+								>Performance &amp; Chunk Limits</span
 							>
 						</div>
 						<span class="text-[10px] text-zinc-500 font-mono">4 settings</span>
@@ -1263,9 +1701,31 @@ onMounted(() => {
 				>
 					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
 						<div class="flex items-center gap-2">
-							<span class="text-base">👾</span>
+							<div
+								class="w-6 h-6 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-3.5 h-3.5"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M9 10h.01" />
+									<path d="M15 10h.01" />
+									<path d="M10 2v2" />
+									<path d="M14 2v2" />
+									<path d="M12 17a4 4 0 0 1-4-4V7a4 4 0 0 1 8 0v6a4 4 0 0 1-4 4Z" />
+									<path d="M18 13a6 6 0 0 0-12 0" />
+									<path d="M6 13v4" />
+									<path d="M18 13v4" />
+								</svg>
+							</div>
 							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-								>Entity & Mob Spawning</span
+								>Entity &amp; Mob Spawning</span
 							>
 						</div>
 						<span class="text-[10px] text-zinc-500 font-mono">3 settings</span>
@@ -1285,7 +1745,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.spawn_monsters ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.spawn_monsters
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -1305,7 +1769,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.spawn_animals ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.spawn_animals
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -1327,7 +1795,11 @@ onMounted(() => {
 							</div>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-								:class="form.spawn_npcs ? 'bg-sky-500' : 'bg-zinc-700'"
+								:class="
+									form.spawn_npcs
+										? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+										: 'bg-zinc-700'
+								"
 							>
 								<div
 									class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"
@@ -1348,9 +1820,28 @@ onMounted(() => {
 				>
 					<div class="flex items-center justify-between pb-3 border-b border-surface-4">
 						<div class="flex items-center gap-2">
-							<span class="text-base">📡</span>
+							<div
+								class="w-6 h-6 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-3.5 h-3.5"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+									<path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+									<circle cx="12" cy="12" r="2" />
+									<path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+									<path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1" />
+								</svg>
+							</div>
 							<span class="text-xs font-bold text-contrast uppercase tracking-wider"
-								>Network, Ports & Resources</span
+								>Network, Ports &amp; Resources</span
 							>
 						</div>
 						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
@@ -1408,7 +1899,11 @@ onMounted(() => {
 						</div>
 						<div
 							class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
-							:class="form.enable_rcon ? 'bg-sky-500' : 'bg-zinc-700'"
+							:class="
+								form.enable_rcon
+									? 'bg-[var(--color-brand)] shadow-[var(--accent-glow)]'
+									: 'bg-zinc-700'
+							"
 						>
 							<div
 								class="w-4.5 h-4.5 rounded-full bg-white transition-transform duration-200 shadow-sm"

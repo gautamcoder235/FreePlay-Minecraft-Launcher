@@ -256,21 +256,26 @@ function handlePageOption({ option }: { option: string }) {
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
 			<!-- TILE 1: 2x2 HERO INSTANCE CAPSULE -->
 			<div
-				class="lg:col-span-2 relative overflow-hidden rounded-3xl bg-[#141923]/90 backdrop-blur-xl border border-white/10 shadow-2xl p-6 lg:p-7 flex flex-col justify-between group transition-all duration-300 hover:border-sky-500/30 min-h-[250px]"
+				class="lg:col-span-2 relative overflow-hidden rounded-3xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] shadow-2xl p-6 lg:p-7 flex flex-col justify-between group transition-all duration-300 min-h-[250px]"
+				:style="{
+					borderColor: isHeroRunning ? undefined : undefined,
+				}"
 			>
-				<!-- Subtle Ambient Radial Glow Backdrop -->
+				<!-- Subtle Ambient Radial Glow Backdrop in active accent -->
 				<div
-					class="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-sky-500/10 blur-3xl pointer-events-none -z-10 group-hover:bg-sky-500/20 transition-all duration-500"
+					class="absolute -right-20 -top-20 w-96 h-96 rounded-full blur-3xl pointer-events-none -z-10 opacity-15 group-hover:opacity-25 transition-all duration-500"
+					:style="{ background: themeStore.currentAccentPreset.color }"
 				></div>
 				<div
-					class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none -z-10"
+					class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full blur-3xl pointer-events-none -z-10 opacity-10"
+					:style="{ background: themeStore.currentAccentPreset.color }"
 				></div>
 
 				<!-- Top Badges & Metadata -->
 				<div class="flex items-start justify-between gap-4 z-10">
 					<div class="flex items-center gap-3.5 min-w-0">
 						<div
-							class="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1c2331] to-[#0d1117] border border-white/15 shadow-xl overflow-hidden shrink-0 group-hover:border-sky-400/40 transition-colors"
+							class="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--surface-3)] to-[var(--surface-1)] border border-[var(--border-default)] shadow-xl overflow-hidden shrink-0 transition-colors"
 						>
 							<img
 								v-if="heroInstance?.icon_path"
@@ -278,27 +283,27 @@ function handlePageOption({ option }: { option: string }) {
 								alt="Instance Icon"
 								class="w-full h-full object-cover"
 							/>
-							<BlocksIcon v-else class="w-7 h-7 text-sky-400" />
+							<BlocksIcon v-else class="w-7 h-7 text-[var(--color-brand)]" />
 						</div>
 						<div class="flex flex-col min-w-0">
 							<div class="flex items-center gap-2">
 								<span
 									v-if="isHeroRunning"
-									class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-sky-500/20 text-sky-300 border border-sky-400/40 uppercase tracking-widest animate-pulse"
+									class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500/20 text-rose-300 border border-rose-400/40 uppercase tracking-widest animate-pulse"
 								>
-									<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+									<span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
 									Live Game Active
 								</span>
 								<span
 									v-else
-									class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/5 text-zinc-300 border border-white/10 uppercase tracking-widest font-mono"
+									class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/5 text-zinc-300 border border-[var(--border-subtle)] uppercase tracking-widest font-mono"
 								>
 									{{ heroInstance?.loader || 'Vanilla' }}
 									{{ heroInstance?.game_version || 'Latest' }}
 								</span>
 							</div>
 							<h2
-								class="text-2xl font-black text-white tracking-tight mt-1 hover:text-sky-400 transition-colors cursor-pointer truncate"
+								class="text-2xl font-black text-white tracking-tight mt-1 hover:text-[var(--color-brand)] transition-colors cursor-pointer truncate"
 								@click="heroInstance && router.push(`/instance/${heroInstance.id}`)"
 							>
 								{{ heroInstance?.name || 'No Instance Created' }}
@@ -309,7 +314,7 @@ function handlePageOption({ option }: { option: string }) {
 					<!-- Quick Action Configure Button -->
 					<button
 						v-if="heroInstance"
-						class="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-zinc-300 hover:text-white transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+						class="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-[var(--border-default)] text-zinc-300 hover:text-white transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
 						title="Instance Configuration"
 						@click="router.push(`/instance/${heroInstance.id}`)"
 					>
@@ -333,7 +338,7 @@ function handlePageOption({ option }: { option: string }) {
 					<div
 						class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300 font-medium"
 					>
-						<LayersIcon class="w-3.5 h-3.5 text-sky-400" />
+						<LayersIcon class="w-3.5 h-3.5 text-[var(--color-brand)]" />
 						<span>High-Speed Native Engine</span>
 					</div>
 					<div
@@ -346,18 +351,26 @@ function handlePageOption({ option }: { option: string }) {
 
 				<!-- Bottom Action Row: Launch & Tools -->
 				<div
-					class="flex flex-wrap items-center justify-between gap-4 pt-3.5 border-t border-white/10 z-10"
+					class="flex flex-wrap items-center justify-between gap-4 pt-3.5 border-t border-[var(--border-subtle)] z-10"
 				>
 					<div class="flex items-center gap-3">
 						<!-- Primary 1-Click Launch Button -->
 						<button
 							v-if="heroInstance"
-							class="inline-flex items-center justify-center gap-2.5 px-7 py-3 rounded-2xl font-black text-xs uppercase tracking-wider text-white shadow-xl cursor-pointer transition-all duration-200 active:scale-[0.98] border"
+							class="inline-flex items-center justify-center gap-2.5 px-7 py-3 rounded-2xl font-black text-xs uppercase tracking-wider text-white shadow-xl cursor-pointer transition-all duration-200 active:scale-[0.98] border border-white/20"
 							:class="[
 								isHeroRunning
 									? 'bg-rose-600 hover:bg-rose-500 shadow-rose-950/60 border-rose-400/40'
-									: 'bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-blue-500 shadow-sky-950/70 border-sky-400/40 hover:shadow-[0_0_30px_rgba(56,189,248,0.4)]',
+									: 'hover:scale-[1.02]',
 							]"
+							:style="
+								!isHeroRunning
+									? {
+											background: themeStore.currentAccentPreset.gradient,
+											boxShadow: themeStore.currentAccentPreset.glow,
+										}
+									: {}
+							"
 							:disabled="isLaunching"
 							@click="handleLaunchHero"
 						>
@@ -391,7 +404,11 @@ function handlePageOption({ option }: { option: string }) {
 
 						<button
 							v-else
-							class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-sky-950/60 cursor-pointer border border-sky-400/30 active:scale-95 transition-all"
+							class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-white font-bold text-xs uppercase tracking-wider shadow-lg cursor-pointer border border-white/20 active:scale-95 transition-all"
+							:style="{
+								background: themeStore.currentAccentPreset.gradient,
+								boxShadow: themeStore.currentAccentPreset.glow,
+							}"
 							@click="showCreationModal?.()"
 						>
 							<PlusIcon class="w-4 h-4" />
@@ -401,7 +418,7 @@ function handlePageOption({ option }: { option: string }) {
 						<!-- Secondary Mod Manager Button -->
 						<button
 							v-if="heroInstance"
-							class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] text-zinc-200 font-semibold text-xs border border-white/10 transition-all cursor-pointer active:scale-95"
+							class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] text-zinc-200 font-semibold text-xs border border-[var(--border-default)] transition-all cursor-pointer active:scale-95"
 							@click="router.push(`/instance/${heroInstance.id}`)"
 						>
 							<LayersIcon class="w-3.5 h-3.5 text-zinc-400" />
@@ -422,7 +439,7 @@ function handlePageOption({ option }: { option: string }) {
 
 			<!-- TILE 2: CUSTOM 3D WARDROBE & PLAYER HUB -->
 			<div
-				class="relative overflow-visible rounded-3xl bg-[#141923]/90 backdrop-blur-xl border border-white/10 shadow-2xl p-6 flex flex-col justify-between group transition-all duration-300 hover:border-amber-500/30 min-h-[250px]"
+				class="relative overflow-visible rounded-3xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] shadow-2xl p-6 flex flex-col justify-between group transition-all duration-300 hover:border-amber-500/30 min-h-[250px]"
 			>
 				<!-- Atmospheric Glow Backdrop -->
 				<div
@@ -478,10 +495,10 @@ function handlePageOption({ option }: { option: string }) {
 							<!-- Floating Profile Switcher Popover -->
 							<div
 								v-if="showAccountDropdown && accountStore.accountCount > 1"
-								class="absolute right-0 top-full mt-2 w-72 p-2.5 rounded-2xl bg-[#0c1017]/95 border border-white/20 shadow-2xl backdrop-blur-2xl flex flex-col gap-1.5 z-50"
+								class="absolute right-0 top-full mt-2 w-72 p-2.5 rounded-2xl bg-[var(--surface-3)]/95 border border-[var(--border-default)] shadow-2xl backdrop-blur-2xl flex flex-col gap-1.5 z-50"
 							>
 								<div
-									class="flex items-center justify-between px-2 py-1 border-b border-white/10 mb-0.5"
+									class="flex items-center justify-between px-2 py-1 border-b border-[var(--border-subtle)] mb-0.5"
 								>
 									<span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400"
 										>Select Profile</span
@@ -511,7 +528,7 @@ function handlePageOption({ option }: { option: string }) {
 											/>
 											<div class="flex flex-col min-w-0">
 												<span
-													class="text-xs truncate font-bold group-hover/item:text-sky-300 transition-colors"
+													class="text-xs truncate font-bold group-hover/item:text-[var(--color-brand-highlight)] transition-colors"
 													>{{ acc.name }}</span
 												>
 												<span class="text-[9px] text-zinc-400 font-mono">
@@ -521,7 +538,7 @@ function handlePageOption({ option }: { option: string }) {
 										</div>
 										<RadioButtonCheckedIcon
 											v-if="acc.active"
-											class="w-4 h-4 text-sky-400 shrink-0"
+											class="w-4 h-4 text-[var(--color-brand)] shrink-0"
 										/>
 										<RadioButtonIcon
 											v-else
@@ -543,7 +560,7 @@ function handlePageOption({ option }: { option: string }) {
 
 				<!-- 3D Skin Avatar Banner (Compact Horizontal Stage) -->
 				<div
-					class="relative my-3 flex items-center gap-3.5 p-3 rounded-2xl bg-gradient-to-b from-white/[0.04] to-black/40 border border-white/10 shadow-inner z-10"
+					class="relative my-3 flex items-center gap-3.5 p-3 rounded-2xl bg-gradient-to-b from-white/[0.04] to-black/40 border border-[var(--border-subtle)] shadow-inner z-10"
 				>
 					<div class="relative group/avatar cursor-pointer shrink-0" @click="router.push('/skins')">
 						<div
@@ -563,7 +580,7 @@ function handlePageOption({ option }: { option: string }) {
 								class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
 							></span>
 							<span
-								class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-[#141923]"
+								class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-[var(--surface-2)]"
 							></span>
 						</span>
 					</div>
@@ -595,10 +612,10 @@ function handlePageOption({ option }: { option: string }) {
 				<div class="grid grid-cols-2 gap-2 z-10">
 					<button
 						type="button"
-						class="py-2.5 px-2 rounded-xl bg-gradient-to-r from-sky-500/20 to-blue-500/20 hover:from-sky-500/30 hover:to-blue-500/30 border border-sky-400/40 text-sky-200 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-all active:scale-98 shadow-sm truncate"
+						class="py-2.5 px-2 rounded-xl btn-accent-secondary font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-all active:scale-98 shadow-sm truncate"
 						@click="offlineAccountModal?.show()"
 					>
-						<UserIcon class="w-3.5 h-3.5 text-sky-400 shrink-0" />
+						<UserIcon class="w-3.5 h-3.5 text-current shrink-0" />
 						<span class="truncate">+ Add Account</span>
 					</button>
 
@@ -618,7 +635,7 @@ function handlePageOption({ option }: { option: string }) {
 			<!-- WIDGET 1: SERVER TUNNELS & MULTIPLAYER -->
 			<router-link
 				to="/hosting/manage"
-				class="relative overflow-hidden rounded-2xl bg-[#141923]/90 backdrop-blur-xl border border-white/10 p-5 flex flex-col justify-between group hover:border-indigo-500/40 hover:shadow-[0_0_25px_rgba(99,102,241,0.2)] transition-all duration-200 min-h-[160px]"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between group hover:border-indigo-500/40 hover:shadow-[0_0_25px_rgba(99,102,241,0.2)] transition-all duration-200 min-h-[160px]"
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
@@ -652,17 +669,22 @@ function handlePageOption({ option }: { option: string }) {
 			<!-- WIDGET 2: CONTENT DISCOVERY MODPACKS -->
 			<router-link
 				to="/browse/modpack"
-				class="relative overflow-hidden rounded-2xl bg-[#141923]/90 backdrop-blur-xl border border-white/10 p-5 flex flex-col justify-between group hover:border-sky-500/40 hover:shadow-[0_0_25px_rgba(56,189,248,0.2)] transition-all duration-200 min-h-[160px]"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between group hover:border-[var(--color-brand)]/50 transition-all duration-200 min-h-[160px]"
+				:style="{
+					boxShadow: undefined,
+				}"
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
-						<div class="p-2 rounded-xl bg-sky-500/10 border border-sky-400/20 text-sky-400">
+						<div
+							class="p-2 rounded-xl bg-[var(--color-brand)]/10 border border-[var(--color-brand)]/25 text-[var(--color-brand)]"
+						>
 							<CompassIcon class="w-4 h-4" />
 						</div>
 						<span class="text-xs font-bold text-white uppercase tracking-wider">Browse Index</span>
 					</div>
 					<span
-						class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 font-mono"
+						class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-zinc-300 border border-[var(--border-subtle)] font-mono"
 						>Modrinth</span
 					>
 				</div>
@@ -673,7 +695,7 @@ function handlePageOption({ option }: { option: string }) {
 					</p>
 				</div>
 				<span
-					class="text-xs font-bold text-sky-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+					class="text-xs font-bold text-[var(--color-brand)] flex items-center gap-1 group-hover:translate-x-1 transition-transform"
 				>
 					Explore Catalog <ChevronRightIcon class="w-3 h-3" />
 				</span>
@@ -681,7 +703,7 @@ function handlePageOption({ option }: { option: string }) {
 
 			<!-- WIDGET 3: TELEMETRY & JVM ALLOCATOR -->
 			<div
-				class="relative overflow-hidden rounded-2xl bg-[#141923]/90 backdrop-blur-xl border border-white/10 p-5 flex flex-col justify-between group hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.25)] transition-all duration-200 min-h-[160px]"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between group hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.25)] transition-all duration-200 min-h-[160px]"
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
@@ -709,7 +731,7 @@ function handlePageOption({ option }: { option: string }) {
 					<!-- RAM Visual Progress Bar -->
 					<div class="w-full h-2 rounded-full bg-white/10 mt-2 overflow-hidden">
 						<div
-							class="h-full bg-gradient-to-r from-sky-500 to-amber-500 rounded-full"
+							class="h-full bg-gradient-to-r from-[var(--color-brand)] to-amber-500 rounded-full"
 							:style="{
 								width: `${Math.min(100, (allocatedMemoryMb / (totalSystemRamGb * 1024)) * 100)}%`,
 							}"
@@ -724,19 +746,17 @@ function handlePageOption({ option }: { option: string }) {
 
 			<!-- WIDGET 4: INSTANCE CREATION SHORTCUT -->
 			<div
-				class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950/40 via-[#141923] to-[#141923] border border-indigo-500/30 p-5 flex flex-col justify-between cursor-pointer group hover:border-indigo-400/60 hover:shadow-[0_0_25px_rgba(99,102,241,0.3)] transition-all duration-200 min-h-[160px]"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between cursor-pointer group hover:border-[var(--color-brand)]/60 transition-all duration-200 min-h-[160px]"
 				@click="showCreationModal?.()"
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
 						<div
-							class="p-2 rounded-xl bg-indigo-500/20 border border-indigo-400/40 text-indigo-300"
+							class="p-2 rounded-xl bg-[var(--color-brand)]/20 border border-[var(--color-brand)]/40 text-[var(--color-brand)]"
 						>
 							<PlusIcon class="w-4 h-4" />
 						</div>
-						<span class="text-xs font-bold text-indigo-200 uppercase tracking-wider"
-							>New Instance</span
-						>
+						<span class="text-xs font-bold text-white uppercase tracking-wider">New Instance</span>
 					</div>
 				</div>
 				<div class="my-2">
@@ -746,7 +766,7 @@ function handlePageOption({ option }: { option: string }) {
 					</p>
 				</div>
 				<span
-					class="text-xs font-bold text-indigo-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+					class="text-xs font-bold text-[var(--color-brand)] flex items-center gap-1 group-hover:translate-x-1 transition-transform"
 				>
 					+ Launch Setup Wizard <ChevronRightIcon class="w-3 h-3" />
 				</span>
@@ -760,7 +780,7 @@ function handlePageOption({ option }: { option: string }) {
 		/>
 
 		<!-- COMPLETE INSTANCES LIBRARY SECTION -->
-		<div class="mt-4 pt-6 border-t border-white/10">
+		<div class="mt-4 pt-6 border-t border-[var(--border-subtle)]">
 			<div class="flex items-center justify-between mb-4">
 				<div class="flex items-center gap-3">
 					<h3 class="text-lg font-extrabold text-white tracking-tight m-0">Instance Library</h3>

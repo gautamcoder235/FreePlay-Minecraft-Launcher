@@ -701,6 +701,7 @@ export function createContentInstall(opts: {
 						targetVersion.dependencies?.map(
 							(d: Record<string, unknown>) => d.project_id || d.version_id,
 						) || [],
+					iconUrl: currentProject.icon_url || null,
 				})
 
 				if (storeInstance) {

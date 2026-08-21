@@ -51,14 +51,16 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div class="flex flex-col min-h-full px-6 py-8 select-none relative overflow-y-auto bg-[#090b0f]">
+	<div
+		class="flex flex-col min-h-full px-6 py-8 select-none relative overflow-y-auto bg-[var(--surface-1)]"
+	>
 		<!-- Ambient Background Cyber Glows -->
 		<div class="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
 			<div
-				class="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-sky-600/20 via-blue-600/20 to-cyan-500/20 rounded-full blur-[100px] opacity-70"
+				class="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[var(--color-brand)]/20 via-[var(--color-brand-highlight)]/15 to-transparent rounded-full blur-[100px] opacity-70"
 			></div>
 			<div
-				class="absolute bottom-10 right-1/4 w-72 h-72 bg-sky-500/10 rounded-full blur-[90px]"
+				class="absolute bottom-10 right-1/4 w-72 h-72 bg-[var(--color-brand)]/10 rounded-full blur-[90px]"
 			></div>
 		</div>
 
@@ -70,10 +72,10 @@ onUnmounted(() => {
 				<!-- 3D Diamond Jewel Gem Container -->
 				<div class="relative group cursor-pointer" @click="showCreationModal?.()">
 					<div
-						class="absolute -inset-2 rounded-3xl bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-400 opacity-60 blur-xl group-hover:opacity-90 transition duration-500"
+						class="absolute -inset-2 rounded-3xl bg-[var(--color-brand-gradient)] opacity-60 blur-xl group-hover:opacity-90 transition duration-500"
 					></div>
 					<div
-						class="relative w-24 h-24 rounded-3xl bg-[#141923] border border-white/20 p-2 flex items-center justify-center shadow-2xl backdrop-blur-xl group-hover:scale-105 transition-transform duration-300"
+						class="relative w-24 h-24 rounded-3xl bg-[var(--surface-2)] border border-[var(--border-default)] p-2 flex items-center justify-center shadow-2xl backdrop-blur-xl group-hover:scale-105 transition-transform duration-300"
 					>
 						<svg
 							viewBox="0 0 100 100"
@@ -84,60 +86,53 @@ onUnmounted(() => {
 							<defs>
 								<linearGradient id="fp-welcome-top" x1="0%" y1="0%" x2="100%" y2="100%">
 									<stop offset="0%" stop-color="#a5f3fc" />
-									<stop offset="100%" stop-color="#38bdf8" />
+									<stop offset="100%" stop-color="var(--color-brand-highlight)" />
 								</linearGradient>
 								<linearGradient id="fp-welcome-left" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#38bdf8" />
-									<stop offset="100%" stop-color="#0284c7" />
+									<stop offset="0%" stop-color="var(--color-brand-highlight)" />
+									<stop offset="100%" stop-color="var(--color-brand)" />
 								</linearGradient>
 								<linearGradient id="fp-welcome-right" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#22d3ee" />
-									<stop offset="100%" stop-color="#0891b2" />
+									<stop offset="0%" stop-color="var(--color-brand-highlight)" />
+									<stop offset="100%" stop-color="var(--color-brand)" />
 								</linearGradient>
 								<linearGradient id="fp-welcome-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#0ea5e9" />
-									<stop offset="100%" stop-color="#0369a1" />
+									<stop offset="0%" stop-color="var(--color-brand)" />
+									<stop offset="100%" stop-color="var(--color-brand)" />
 								</linearGradient>
 								<linearGradient id="fp-welcome-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#06b6d4" />
-									<stop offset="100%" stop-color="#0e7490" />
+									<stop offset="0%" stop-color="var(--color-brand)" />
+									<stop offset="100%" stop-color="var(--color-brand)" />
 								</linearGradient>
 							</defs>
 							<g transform="translate(12, 12)">
 								<polygon
 									points="38,4 58,22 38,34 18,22"
 									fill="url(#fp-welcome-top)"
-									opacity="0.95"
+									stroke="rgba(255,255,255,0.4)"
+									stroke-width="1"
 								/>
 								<polygon
-									points="18,22 38,34 38,54 8,36"
+									points="18,22 38,34 38,62 18,50"
 									fill="url(#fp-welcome-left)"
+									stroke="rgba(255,255,255,0.2)"
+									stroke-width="1"
+								/>
+								<polygon
+									points="38,34 58,22 58,50 38,62"
+									fill="url(#fp-welcome-right)"
+									stroke="rgba(255,255,255,0.2)"
+									stroke-width="1"
+								/>
+								<polygon
+									points="18,50 38,62 38,72 18,60"
+									fill="url(#fp-welcome-front-left)"
 									opacity="0.9"
 								/>
 								<polygon
-									points="58,22 38,34 38,54 68,36"
-									fill="url(#fp-welcome-right)"
-									opacity="0.95"
-								/>
-								<polygon
-									points="8,36 38,54 38,72"
-									fill="url(#fp-welcome-front-left)"
-									opacity="0.85"
-								/>
-								<polygon
-									points="68,36 38,54 38,72"
+									points="38,62 58,50 58,60 38,72"
 									fill="url(#fp-welcome-front-right)"
 									opacity="0.9"
-								/>
-								<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.45" />
-								<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.25" />
-								<line
-									x1="38"
-									y1="4"
-									x2="38"
-									y2="72"
-									stroke="rgba(255,255,255,0.5)"
-									stroke-width="1.5"
 								/>
 							</g>
 						</svg>
@@ -147,18 +142,17 @@ onUnmounted(() => {
 				<!-- Header Titles -->
 				<div class="flex flex-col items-center gap-2">
 					<div
-						class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141923] border border-sky-500/30 text-xs font-bold text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+						class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface-2)] border border-[var(--color-brand-shadow)] text-xs font-bold text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]"
 					>
-						<span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+						<span
+							class="w-2 h-2 rounded-full bg-[var(--color-brand-highlight,var(--color-brand))] animate-pulse"
+						></span>
 						Next-Gen High Performance Minecraft Hub
 					</div>
 
 					<h1 class="m-0 text-3xl sm:text-4xl font-black tracking-tight text-white">
 						Welcome to
-						<span
-							class="bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-300 bg-clip-text text-transparent"
-							>FreePlay Pro</span
-						>
+						<span class="text-accent-gradient">FreePlay Pro</span>
 					</h1>
 					<p class="m-0 text-sm sm:text-base text-zinc-400 max-w-lg leading-relaxed">
 						Blazing fast modpack launching, zero-port-forward server hosting, and 1-click offline
@@ -169,15 +163,15 @@ onUnmounted(() => {
 
 			<!-- BENTO GATEWAY GRID (4 TACTICAL TILES) -->
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-				<!-- TILE 1: CREATE NEW INSTANCE (Sky Blue / Electric Cyan) -->
+				<!-- TILE 1: CREATE NEW INSTANCE (Dynamic Accent) -->
 				<div
-					class="group relative overflow-hidden rounded-3xl bg-[#141923] border border-white/10 hover:border-sky-500/40 p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[0_0_30px_rgba(56,189,248,0.2)] transition-all duration-300 cursor-pointer"
+					class="group relative overflow-hidden rounded-3xl bg-[var(--surface-2)] border border-[var(--border-default)] hover:border-[var(--color-brand-shadow)] p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[var(--accent-glow)] transition-all duration-300 cursor-pointer"
 					@click="showCreationModal?.()"
 				>
 					<div class="flex items-start justify-between">
 						<div class="flex items-center gap-3">
 							<div
-								class="p-3 rounded-2xl bg-sky-500/15 border border-sky-500/30 text-sky-400 group-hover:scale-110 transition-transform shadow-inner"
+								class="p-3 rounded-2xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))] group-hover:scale-110 transition-transform shadow-inner"
 							>
 								<PlusIcon class="w-6 h-6" />
 							</div>
@@ -187,7 +181,7 @@ onUnmounted(() => {
 							</div>
 						</div>
 						<span
-							class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/30 font-mono text-[10px] font-bold"
+							class="px-2 py-0.5 rounded-md bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] font-mono text-[10px] font-bold"
 						>
 							FAST 1-CLICK
 						</span>
@@ -198,7 +192,9 @@ onUnmounted(() => {
 						shader support.
 					</p>
 
-					<div class="flex items-center justify-between pt-2 border-t border-white/5">
+					<div
+						class="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)]"
+					>
 						<span class="text-xs text-zinc-500 font-mono flex items-center gap-1">
 							Press
 							<kbd
@@ -209,7 +205,7 @@ onUnmounted(() => {
 						</span>
 						<button
 							type="button"
-							class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 font-black text-xs flex items-center gap-1.5 shadow-md shadow-sky-950/50 transition-all group-hover:shadow-[0_0_15px_rgba(56,189,248,0.5)] cursor-pointer border-none"
+							class="px-4 py-2 rounded-xl btn-accent-primary font-black text-xs flex items-center gap-1.5 cursor-pointer border-none"
 						>
 							Launchpad &rarr;
 						</button>
@@ -218,7 +214,7 @@ onUnmounted(() => {
 
 				<!-- TILE 2: ZERO-PORT SERVER CONTROL ROOM (Digital Violet / Purple) -->
 				<div
-					class="group relative overflow-hidden rounded-3xl bg-[#141923] border border-white/10 hover:border-violet-500/40 p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-pointer"
+					class="group relative overflow-hidden rounded-3xl bg-[var(--surface-2)] border border-[var(--border-default)] hover:border-violet-500/40 p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-pointer"
 					@click="router.push('/hosting/manage')"
 				>
 					<div class="flex items-start justify-between">
@@ -247,7 +243,9 @@ onUnmounted(() => {
 						friends.
 					</p>
 
-					<div class="flex items-center justify-between pt-2 border-t border-white/5">
+					<div
+						class="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)]"
+					>
 						<span class="text-xs text-violet-300 font-mono flex items-center gap-1">
 							<span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
 							Global Anycast Edge Ready
@@ -263,7 +261,7 @@ onUnmounted(() => {
 
 				<!-- TILE 3: DISCOVER MODPACKS & MODS (Warm Amber / Gold) -->
 				<div
-					class="group relative overflow-hidden rounded-3xl bg-[#141923] border border-white/10 hover:border-amber-500/40 p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-300 cursor-pointer"
+					class="group relative overflow-hidden rounded-3xl bg-[var(--surface-2)] border border-[var(--border-default)] hover:border-amber-500/40 p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-300 cursor-pointer"
 					@click="router.push('/browse/modpack')"
 				>
 					<div class="flex items-start justify-between">
@@ -289,7 +287,9 @@ onUnmounted(() => {
 						Explore community-crafted content with 1-click automatic dependency resolution.
 					</p>
 
-					<div class="flex items-center justify-between pt-2 border-t border-white/5">
+					<div
+						class="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)]"
+					>
 						<span class="text-xs text-zinc-400 font-mono">Fabulously Optimized • Prominence</span>
 						<button
 							type="button"
@@ -302,7 +302,7 @@ onUnmounted(() => {
 
 				<!-- TILE 4: FAST LAUNCHER IMPORTER (Mint Emerald / Neon Green) -->
 				<div
-					class="group relative overflow-hidden rounded-3xl bg-[#141923] border border-white/10 hover:border-emerald-500/40 p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] transition-all duration-300 cursor-pointer"
+					class="group relative overflow-hidden rounded-3xl bg-[var(--surface-2)] border border-[var(--border-default)] hover:border-emerald-500/40 p-6 flex flex-col justify-between gap-4 shadow-xl hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] transition-all duration-300 cursor-pointer"
 					@click="showImportModal?.()"
 				>
 					<div class="flex items-start justify-between">
@@ -329,7 +329,9 @@ onUnmounted(() => {
 						resource packs.
 					</p>
 
-					<div class="flex items-center justify-between pt-2 border-t border-white/5">
+					<div
+						class="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)]"
+					>
 						<span class="text-xs text-zinc-400 font-mono">100% Automatic Detection</span>
 						<button
 							type="button"
@@ -343,7 +345,7 @@ onUnmounted(() => {
 
 			<!-- BOTTOM TACTICAL KEYBOARD HUD -->
 			<div
-				class="flex flex-wrap items-center justify-center gap-6 py-2 px-6 rounded-2xl bg-[#141923]/60 border border-white/5 text-xs text-zinc-400 font-mono"
+				class="flex flex-wrap items-center justify-center gap-6 py-2 px-6 rounded-2xl bg-[var(--surface-2)]/60 border border-[var(--border-subtle)] text-xs text-zinc-400 font-mono"
 			>
 				<span class="flex items-center gap-1.5">
 					<kbd

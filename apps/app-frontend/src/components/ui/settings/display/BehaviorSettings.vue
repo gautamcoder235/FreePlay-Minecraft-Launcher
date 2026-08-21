@@ -4,15 +4,9 @@ import { ref, watch } from 'vue'
 
 import { get, set } from '@/helpers/settings.ts'
 import { useTheming } from '@/store/state'
-import type { FeatureFlag } from '@/store/theme.ts'
 
 const themeStore = useTheming()
 const { formatMessage } = useVIntl()
-
-const worldsInHomeFlag: FeatureFlag = 'worlds_in_home'
-const skipNonEssentialWarningsFlag: FeatureFlag = 'skip_non_essential_warnings'
-const skipUnknownPackWarningFlag: FeatureFlag = 'skip_unknown_pack_warning'
-const showPlayTimeFlag: FeatureFlag = 'show_instance_play_time'
 
 const messages = defineMessages({
 	startupAndNavigationTitle: {
@@ -42,14 +36,6 @@ const messages = defineMessages({
 	defaultLandingPageLibrary: {
 		id: 'app.appearance-settings.default-landing-page.library',
 		defaultMessage: 'Library',
-	},
-	toggleSidebarTitle: {
-		id: 'app.appearance-settings.toggle-sidebar.title',
-		defaultMessage: 'Hide right sidebar',
-	},
-	toggleSidebarDescription: {
-		id: 'app.appearance-settings.toggle-sidebar.description',
-		defaultMessage: 'Hide the right sidebar by default and add a button to show or hide it.',
 	},
 	jumpBackIntoWorldsTitle: {
 		id: 'app.appearance-settings.jump-back-into-worlds.title',
@@ -135,29 +121,6 @@ watch(
 					</div>
 					<Toggle id="minimize-launcher" v-model="settings.hide_on_process_start" />
 				</div>
-
-				<div class="h-px bg-surface-4/60 -mx-5" />
-
-				<div class="grid grid-cols-[1fr_auto] items-center gap-6">
-					<div class="flex flex-col gap-0.5">
-						<label for="toggle-sidebar" class="text-sm font-semibold text-contrast cursor-pointer">
-							{{ formatMessage(messages.toggleSidebarTitle) }}
-						</label>
-						<p class="m-0 text-xs text-secondary leading-relaxed">
-							{{ formatMessage(messages.toggleSidebarDescription) }}
-						</p>
-					</div>
-					<Toggle
-						id="toggle-sidebar"
-						:model-value="settings.toggle_sidebar"
-						@update:model-value="
-							(e) => {
-								settings.toggle_sidebar = !!e
-								themeStore.toggleSidebar = settings.toggle_sidebar
-							}
-						"
-					/>
-				</div>
 			</div>
 		</section>
 
@@ -188,12 +151,11 @@ watch(
 					</div>
 					<Toggle
 						id="jump-back-into-worlds"
-						:model-value="themeStore.getFeatureFlag(worldsInHomeFlag)"
+						:model-value="themeStore.getFeatureFlag('worlds_in_home')"
 						@update:model-value="
-							() => {
-								const newValue = !themeStore.getFeatureFlag(worldsInHomeFlag)
-								themeStore.featureFlags[worldsInHomeFlag] = newValue
-								settings.feature_flags[worldsInHomeFlag] = newValue
+							(val) => {
+								themeStore.setFeatureFlag('worlds_in_home', !!val)
+								if (settings.feature_flags) settings.feature_flags.worlds_in_home = !!val
 							}
 						"
 					/>
@@ -212,12 +174,11 @@ watch(
 					</div>
 					<Toggle
 						id="show-play-time"
-						:model-value="themeStore.getFeatureFlag(showPlayTimeFlag)"
+						:model-value="themeStore.getFeatureFlag('show_instance_play_time')"
 						@update:model-value="
-							() => {
-								const newValue = !themeStore.getFeatureFlag(showPlayTimeFlag)
-								themeStore.featureFlags[showPlayTimeFlag] = newValue
-								settings.feature_flags[showPlayTimeFlag] = newValue
+							(val) => {
+								themeStore.setFeatureFlag('show_instance_play_time', !!val)
+								if (settings.feature_flags) settings.feature_flags.show_instance_play_time = !!val
 							}
 						"
 					/>
@@ -241,9 +202,9 @@ watch(
 						id="hide-nametag-skins-page"
 						:model-value="themeStore.hideNametagSkinsPage"
 						@update:model-value="
-							(e) => {
-								themeStore.hideNametagSkinsPage = !!e
-								settings.hide_nametag_skins_page = themeStore.hideNametagSkinsPage
+							(val) => {
+								themeStore.setHideNametag(!!val)
+								settings.hide_nametag_skins_page = !!val
 							}
 						"
 					/>
@@ -278,13 +239,13 @@ watch(
 					</div>
 					<Toggle
 						id="warn-before-installing-unknown-modpacks"
-						:model-value="!themeStore.getFeatureFlag(skipUnknownPackWarningFlag)"
+						:model-value="!themeStore.getFeatureFlag('skip_unknown_pack_warning')"
 						@update:model-value="
-							(e) => {
-								const warnBeforeUnknownPackInstall = !!e
-								const skipUnknownPackWarning = !warnBeforeUnknownPackInstall
-								themeStore.featureFlags[skipUnknownPackWarningFlag] = skipUnknownPackWarning
-								settings.feature_flags[skipUnknownPackWarningFlag] = skipUnknownPackWarning
+							(val) => {
+								const skipVal = !val
+								themeStore.setFeatureFlag('skip_unknown_pack_warning', skipVal)
+								if (settings.feature_flags)
+									settings.feature_flags.skip_unknown_pack_warning = skipVal
 							}
 						"
 					/>
@@ -306,12 +267,12 @@ watch(
 					</div>
 					<Toggle
 						id="skip-non-essential-warnings"
-						:model-value="themeStore.getFeatureFlag(skipNonEssentialWarningsFlag)"
+						:model-value="themeStore.getFeatureFlag('skip_non_essential_warnings')"
 						@update:model-value="
-							() => {
-								const newValue = !themeStore.getFeatureFlag(skipNonEssentialWarningsFlag)
-								themeStore.featureFlags[skipNonEssentialWarningsFlag] = newValue
-								settings.feature_flags[skipNonEssentialWarningsFlag] = newValue
+							(val) => {
+								themeStore.setFeatureFlag('skip_non_essential_warnings', !!val)
+								if (settings.feature_flags)
+									settings.feature_flags.skip_non_essential_warnings = !!val
 							}
 						"
 					/>

@@ -83,9 +83,6 @@ export interface ContentManagerContext {
 	// Per-item overflow menu (optional)
 	getOverflowOptions?: (item: ContentItem) => OverflowMenuOption[]
 
-	// Share support (optional — when undefined, share button becomes hidden entirely)
-	shareItems?: (items: ContentItem[], format: 'names' | 'file-names' | 'urls' | 'markdown') => void
-
 	// Stable per-row identity. ContentItem.id can be a content hash, so it is not always unique.
 	getItemId?: (item: ContentItem) => string
 

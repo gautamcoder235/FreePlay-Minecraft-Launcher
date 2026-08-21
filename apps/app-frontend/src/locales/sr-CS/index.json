@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Preskači nebitna upozorenja"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Sakrij desnu bočnu traku podrazumevano i dodaj dugme da se prikaže i sakrije."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Sakrij desnu bočnu traku"
-  },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Upozoti me prije instalacije nepoznatih modpackova"
   },
@@ -356,12 +350,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} projekata je dodato"
   },
-  "app.instance.mods.share-text": {
-    "message": "Pogledaj ove projekte koje ja koristim u svom modpacku!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Deljenje sadržaja modpacka"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "Uspešno otpremljeno"
   },
@@ -484,9 +472,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java instalacije"
-  },
-  "app.settings.tabs.language": {
-    "message": "Jezik"
   },
   "app.settings.tabs.resource-management": {
     "message": "Upravljanje resursima"

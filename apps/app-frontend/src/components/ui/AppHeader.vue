@@ -1,32 +1,27 @@
 <template>
 	<div
 		data-tauri-drag-region
-		class="app-header bg-[#090b0f] border-b border-white/10 h-[--top-bar-height] flex select-none"
+		class="app-header bg-[var(--surface-1)] border-b border-[var(--border-subtle)] h-[--top-bar-height] flex select-none transition-colors duration-200"
 	>
 		<div data-tauri-drag-region class="flex min-w-0 flex-1 items-center overflow-hidden p-2">
 			<!-- FreePlay Diamond Brand Logo -->
 			<div class="flex items-center gap-2.5 mr-3 pointer-events-none select-none pl-1">
 				<div
-					class="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-sky-500 via-blue-600 to-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.4)] border border-white/20"
+					class="relative flex items-center justify-center w-8 h-8 rounded-xl shadow-lg border border-white/20 transition-all duration-300"
+					:style="{
+						background: themeStore.currentAccentPreset.gradient,
+						boxShadow: themeStore.currentAccentPreset.glow,
+					}"
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-4 h-4">
-						<path d="M12 2L2 9L12 22L22 9L12 2Z" fill="url(#diamond-grad)" fill-opacity="0.9" />
-						<path d="M12 2L2 9H22L12 2Z" fill="white" fill-opacity="0.3" />
-						<path d="M12 2L7 9L12 22L17 9L12 2Z" fill="white" fill-opacity="0.2" />
-						<defs>
-							<linearGradient
-								id="diamond-grad"
-								x1="2"
-								y1="2"
-								x2="22"
-								y2="22"
-								gradientUnits="userSpaceOnUse"
-							>
-								<stop stop-color="#38BDF8" />
-								<stop offset="0.5" stop-color="#0EA5E9" />
-								<stop offset="1" stop-color="#22D3EE" />
-							</linearGradient>
-						</defs>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						class="w-4 h-4 text-white"
+					>
+						<path d="M12 2L2 9L12 22L22 9L12 2Z" fill="currentColor" fill-opacity="0.95" />
+						<path d="M12 2L2 9H22L12 2Z" fill="white" fill-opacity="0.4" />
+						<path d="M12 2L7 9L12 22L17 9L12 2Z" fill="white" fill-opacity="0.25" />
 					</svg>
 				</div>
 				<div class="flex flex-col leading-none">
@@ -35,7 +30,8 @@
 					>
 						FREEPLAY
 						<span
-							class="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-gradient-to-r from-sky-500/30 to-cyan-500/30 border border-sky-400/40 text-cyan-300 uppercase tracking-widest shadow-[0_0_10px_rgba(34,211,238,0.2)]"
+							class="text-[9px] font-extrabold px-1.5 py-0.5 rounded text-white uppercase tracking-widest transition-all duration-300"
+							:style="{ background: themeStore.currentAccentPreset.gradient }"
 							>Launcher</span
 						>
 					</span>
@@ -47,7 +43,7 @@
 				<IconButton
 					type="outlined"
 					:label="formatMessage(messages.goBack)"
-					class="!h-7 !min-w-7 !w-7 !border !border-white/10 !bg-white/[0.03] hover:!bg-white/10 hover:!border-sky-500/50 !p-0 !opacity-100 cursor-pointer transition-all duration-200"
+					class="!h-7 !min-w-7 !w-7 !border !border-[var(--border-default)] !bg-white/[0.03] hover:!bg-white/10 hover:!border-[var(--color-brand)]/50 !p-0 !opacity-100 cursor-pointer transition-all duration-200"
 					:disabled="!canNavigateBack"
 					@click="router.back()"
 				>
@@ -59,7 +55,7 @@
 				<IconButton
 					type="outlined"
 					:label="formatMessage(messages.goForward)"
-					class="!h-7 !min-w-7 !w-7 !border !border-white/10 !bg-white/[0.03] hover:!bg-white/10 hover:!border-sky-500/50 !p-0 !opacity-100 cursor-pointer transition-all duration-200"
+					class="!h-7 !min-w-7 !w-7 !border !border-[var(--border-default)] !bg-white/[0.03] hover:!bg-white/10 hover:!border-[var(--color-brand)]/50 !p-0 !opacity-100 cursor-pointer transition-all duration-200"
 					:disabled="!canNavigateForward"
 					@click="router.forward()"
 				>

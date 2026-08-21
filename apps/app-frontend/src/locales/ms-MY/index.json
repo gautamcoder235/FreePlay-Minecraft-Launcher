@@ -89,12 +89,6 @@
   "app.appearance-settings.skip-non-essential-warnings.description": {
     "message": "Melangkau pengesahan berisiko rendah secara automatik seperti pemasangan pek mod pendua, pemadaman kandungan biasa, kemas kini pukal, menyahpautkan pek mod dan gesaan pembaikan. Amaran berbahaya masih akan ditunjukkan."
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Membolehkan keupayaan untuk menogol bar sisi."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Togol bar sisi"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Jika anda cuba memasang fail FreePlay Pack (.mrpack) yang tidak dihoskan pada FreePlay, kami akan memastikan anda memahami risikonya sebelum memasangnya."
   },
@@ -215,12 +209,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} projek telah ditambahkan"
   },
-  "app.instance.mods.share-text": {
-    "message": "Lihat projek-projek yang saya gunakan dalam pek mod saya!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Berkongsi kandungan pek mod"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "Berjaya dimuat naik"
   },
@@ -307,9 +295,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Pemasangan Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Bahasa"
   },
   "app.settings.tabs.resource-management": {
     "message": "Pengurusan sumber"

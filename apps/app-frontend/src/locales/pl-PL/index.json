@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Pomiń mało znaczące ostrzeżenia"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Domyślnie ukrywa prawy pasek boczny i dodaje guzik pozwalający go pokazywać lub ukrywać."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Ukryj prawy pasek boczny"
-  },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Ostrzegaj mnie przed instalowaniem nieznanych paczek modów"
   },
@@ -397,12 +391,6 @@
   },
   "app.instance.mods.project-was-added": {
     "message": "Dodano \"{name}\""
-  },
-  "app.instance.mods.share-text": {
-    "message": "Sprawdź projekty, których używam w mojej paczce modów!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Udostępnianie zawartości paczki modów"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Przesyłanie zakończone sukcesem"
@@ -841,9 +829,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Instalacje Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Język"
   },
   "app.settings.tabs.resource-management": {
     "message": "Zarządzanie zasobami"

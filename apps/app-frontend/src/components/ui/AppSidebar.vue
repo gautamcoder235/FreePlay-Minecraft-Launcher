@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="app-sidebar-nav bg-[#090b0f] border-r border-white/10 flex flex-col p-2 gap-2.5 w-[--left-bar-width] select-none"
+		class="app-sidebar-nav bg-[var(--surface-1)] border-r border-[var(--border-subtle)] flex flex-col p-2 gap-2.5 w-[--left-bar-width] select-none transition-colors duration-200"
 	>
 		<!-- Home / Library -->
 		<NavButton

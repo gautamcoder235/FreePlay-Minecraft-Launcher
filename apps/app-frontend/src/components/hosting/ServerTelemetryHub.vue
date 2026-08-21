@@ -310,13 +310,19 @@ onUnmounted(() => {
 					<div class="flex items-center gap-2">
 						<span
 							class="w-2 h-2 rounded-full"
-							:class="serverStatus === 'online' ? 'bg-indigo-400 animate-pulse' : 'bg-zinc-600'"
+							:class="
+								serverStatus === 'online' ? 'bg-[var(--color-brand)] animate-pulse' : 'bg-zinc-600'
+							"
 						/>
 						<span class="text-xs font-bold text-contrast">Physical RAM Allocation & RSS</span>
 					</div>
 					<span
 						class="text-xs font-mono font-bold"
-						:class="serverStatus === 'online' ? 'text-indigo-400' : 'text-zinc-500'"
+						:class="
+							serverStatus === 'online'
+								? 'text-[var(--color-brand-highlight,var(--color-brand))]'
+								: 'text-zinc-500'
+						"
 					>
 						{{
 							serverStatus === 'online' || serverStatus === 'starting'
@@ -336,8 +342,8 @@ onUnmounted(() => {
 					>
 						<defs>
 							<linearGradient id="mem-chart-grad" x1="0" y1="0" x2="0" y2="1">
-								<stop offset="0%" stop-color="#6366f1" stop-opacity="0.35" />
-								<stop offset="100%" stop-color="#6366f1" stop-opacity="0.0" />
+								<stop offset="0%" stop-color="var(--color-brand)" stop-opacity="0.35" />
+								<stop offset="100%" stop-color="var(--color-brand)" stop-opacity="0.0" />
 							</linearGradient>
 						</defs>
 						<polygon
@@ -354,7 +360,7 @@ onUnmounted(() => {
 						/>
 						<polyline
 							fill="none"
-							stroke="#6366f1"
+							stroke="var(--color-brand)"
 							stroke-width="2.5"
 							stroke-linecap="round"
 							stroke-linejoin="round"

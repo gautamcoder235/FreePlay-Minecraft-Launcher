@@ -144,6 +144,11 @@ export default new createRouter({
 				},
 			],
 		},
+		{
+			path: '/overlay',
+			name: 'InGameOverlay',
+			component: () => import('@/pages/overlay/InGameOverlayView.vue'),
+		},
 	],
 	linkActiveClass: 'router-link-active',
 	linkExactActiveClass: 'router-link-exact-active',

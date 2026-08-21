@@ -19,12 +19,11 @@ import { get, set } from '@/helpers/settings.ts'
 import { showAppDbBackupsFolder } from '@/helpers/utils.js'
 import { useTheming } from '@/store/state'
 
-const { handleError } = injectNotificationManager()
+const { addNotification, handleError } = injectNotificationManager()
 const { formatMessage } = useVIntl()
 const themeStore = useTheming()
 const settings = ref(await get())
 const purgeCacheConfirmModal = ref(null)
-const alwaysShowCopyDetailsFlag = 'always_show_copy_details'
 
 const messages = defineMessages({
 	appDirectoryTitle: {
@@ -122,26 +121,35 @@ watch(
 )
 
 async function purgeCache() {
-	await purge_cache_types([
-		'project',
-		'project_v3',
-		'version',
-		'user',
-		'team',
-		'organization',
-		'file',
-		'loader_manifest',
-		'minecraft_manifest',
-		'categories',
-		'report_types',
-		'loaders',
-		'game_versions',
-		'donation_platforms',
-		'file_hash',
-		'file_update',
-		'search_results',
-		'search_results_v3',
-	]).catch(handleError)
+	try {
+		await purge_cache_types([
+			'project',
+			'project_v3',
+			'version',
+			'user',
+			'team',
+			'organization',
+			'file',
+			'loader_manifest',
+			'minecraft_manifest',
+			'categories',
+			'report_types',
+			'loaders',
+			'game_versions',
+			'donation_platforms',
+			'file_hash',
+			'file_update',
+			'search_results',
+			'search_results_v3',
+		])
+		addNotification?.({
+			title: 'Cache Purged',
+			text: 'Application cache has been cleared successfully.',
+			color: 'green',
+		})
+	} catch (e) {
+		handleError(e)
+	}
 }
 
 function handlePurgeCacheClick() {
@@ -226,12 +234,11 @@ async function findLauncherDir() {
 					</div>
 					<Toggle
 						id="always-show-copy-details"
-						:model-value="themeStore.getFeatureFlag(alwaysShowCopyDetailsFlag)"
+						:model-value="themeStore.getFeatureFlag('always_show_copy_details')"
 						@update:model-value="
-							() => {
-								const newValue = !themeStore.getFeatureFlag(alwaysShowCopyDetailsFlag)
-								themeStore.featureFlags[alwaysShowCopyDetailsFlag] = newValue
-								settings.feature_flags[alwaysShowCopyDetailsFlag] = newValue
+							(val) => {
+								themeStore.setFeatureFlag('always_show_copy_details', !!val)
+								if (settings.feature_flags) settings.feature_flags.always_show_copy_details = !!val
 							}
 						"
 					/>

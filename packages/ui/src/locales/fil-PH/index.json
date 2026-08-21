@@ -257,15 +257,6 @@
   "content.page-layout.please-wait": {
     "defaultMessage": "Mangyaring maghintay"
   },
-  "content.page-layout.share.label": {
-    "defaultMessage": "Ibahagi"
-  },
-  "content.page-layout.share.markdown-links": {
-    "defaultMessage": "Mga markdown link"
-  },
-  "content.page-layout.share.project-links": {
-    "defaultMessage": "Mga link ng proyekto"
-  },
   "content.selection-bar.all-already-disabled": {
     "defaultMessage": "Nakapatay na ang lahat ng piniling konento"
   },

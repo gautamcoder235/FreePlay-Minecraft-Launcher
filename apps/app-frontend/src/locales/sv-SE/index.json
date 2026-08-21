@@ -173,12 +173,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Hoppa över icke nödvändiga varningar"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Dölj det högra sidofältet och lägg till en knapp för att visa eller dölja det."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Dölj högra sidofält"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Visa en säkerhetsvarning innan du installerar ett FreePlay Pack (.mrpack) som inte finns på FreePlay."
   },
@@ -394,12 +388,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count} projekt lades till"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Kolla in projekten jag använder i mitt modpaket!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Delar innehåll från modpaket"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Uppladdning lyckades"
@@ -847,9 +835,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java-installationer"
-  },
-  "app.settings.tabs.language": {
-    "message": "Språk"
   },
   "app.settings.tabs.resource-management": {
     "message": "Resurshantering"

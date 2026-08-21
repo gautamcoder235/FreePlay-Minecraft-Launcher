@@ -24,6 +24,7 @@ pub mod utils;
 pub mod cache;
 pub mod files;
 pub mod friends;
+pub mod overlay;
 pub mod worlds;
 
 mod oauth_utils;

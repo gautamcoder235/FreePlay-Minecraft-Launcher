@@ -13,6 +13,7 @@ import { overlayScrollbarsDirective } from '@/directives/overlayScrollbars'
 import i18nPlugin from '@/plugins/i18n'
 import i18nDebugPlugin from '@/plugins/i18n-debug'
 import router from '@/routes'
+import { useTheming } from '@/store/theme'
 
 const vueScan = new VueScanPlugin({
 	enabled: false, // Enable or disable the tracker
@@ -22,6 +23,8 @@ const vueScan = new VueScanPlugin({
 })
 
 const pinia = createPinia()
+const themeStore = useTheming(pinia)
+themeStore.setThemeClass()
 
 let app = createApp(App)
 

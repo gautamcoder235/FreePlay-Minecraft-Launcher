@@ -12,7 +12,9 @@
 		</div>
 
 		<!-- Dual Auth Tab Switcher -->
-		<div class="grid grid-cols-2 gap-1.5 p-1 bg-[#090B0F] rounded-xl border border-white/10">
+		<div
+			class="grid grid-cols-2 gap-1.5 p-1 bg-[var(--surface-1)] rounded-xl border border-[var(--border-subtle)]"
+		>
 			<button
 				type="button"
 				class="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-bold cursor-pointer transition-all duration-200 border border-transparent"
@@ -45,7 +47,7 @@
 		<div v-if="activeAuthTab === 'microsoft'" class="flex flex-col gap-2">
 			<button
 				type="button"
-				class="w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 text-zinc-950 font-extrabold text-xs flex items-center justify-center gap-2 cursor-pointer border-none shadow-md shadow-sky-950/50 transition-all active:scale-95"
+				class="w-full py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs flex items-center justify-center gap-2 cursor-pointer border-none shadow-md transition-all active:scale-95"
 				:disabled="loginDisabled"
 				@click="login()"
 			>
@@ -57,7 +59,7 @@
 		<div v-else class="flex flex-col gap-2">
 			<button
 				type="button"
-				class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-zinc-950 font-extrabold text-xs flex items-center justify-center gap-2 cursor-pointer border-none shadow-md shadow-emerald-950/50 transition-all active:scale-95"
+				class="w-full py-2.5 rounded-xl btn-accent-secondary font-extrabold text-xs flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-95"
 				@click="offlineModal?.show()"
 			>
 				<UserIcon class="w-4 h-4" />
@@ -84,7 +86,7 @@
 							class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
 						></span>
 						<span
-							class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 border-2 border-[#141923]"
+							class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 border-2 border-[var(--surface-2)]"
 						></span>
 					</span>
 				</div>
@@ -118,7 +120,7 @@
 							selectedAccount &&
 							(selectedAccount.profile.id === account.profile.id ||
 								selectedAccount.profile.name.toLowerCase() === account.profile.name.toLowerCase())
-								? 'bg-surface-3 border-sky-500/40 text-contrast shadow-sm font-semibold'
+								? 'bg-surface-3 border-[var(--color-brand-shadow)] text-contrast shadow-sm font-semibold'
 								: 'bg-transparent hover:bg-surface-3/60 border-transparent text-secondary hover:text-contrast',
 						]"
 						@click="setAccount(account)"
@@ -129,7 +131,7 @@
 								(selectedAccount.profile.id === account.profile.id ||
 									selectedAccount.profile.name.toLowerCase() === account.profile.name.toLowerCase())
 							"
-							class="w-4 h-4 text-sky-400 shrink-0"
+							class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))] shrink-0"
 						/>
 						<RadioButtonIcon v-else class="w-4 h-4 text-secondary/60 shrink-0" />
 						<img
@@ -155,19 +157,19 @@
 			<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-4/60">
 				<button
 					type="button"
-					class="w-full flex items-center justify-center gap-1.5 p-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-bold cursor-pointer transition-all duration-200 active:scale-95 shadow-sm"
+					class="w-full flex items-center justify-center gap-1.5 p-2 rounded-xl btn-accent-secondary text-xs font-bold cursor-pointer transition-all duration-200 active:scale-95 shadow-sm"
 					@click="offlineModal?.show()"
 				>
-					<PlusIcon class="w-3.5 h-3.5 text-emerald-400" />
+					<PlusIcon class="w-3.5 h-3.5" />
 					Offline
 				</button>
 				<button
 					type="button"
-					class="w-full flex items-center justify-center gap-1.5 p-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-xs font-bold cursor-pointer transition-all duration-200 active:scale-95 shadow-sm"
+					class="w-full flex items-center justify-center gap-1.5 p-2 rounded-xl btn-accent-primary text-xs font-bold cursor-pointer transition-all duration-200 active:scale-95 shadow-sm"
 					:disabled="loginDisabled"
 					@click="login()"
 				>
-					<LogInIcon class="w-3.5 h-3.5 text-sky-400" />
+					<LogInIcon class="w-3.5 h-3.5" />
 					Microsoft
 				</button>
 			</div>

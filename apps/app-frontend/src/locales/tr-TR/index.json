@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Gerekli olmayan uyarıları atla"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Sağ kenar çubuğunu varsayılan olarak gizleyin ve onu göstermek ya da gizlemek için bir düğme ekleyin."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Sağ kenar çubuğunu gizle"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "FreePlay'te yayınlanmayan bir FreePlay Pack (.mrpack) kurulmadan önce bir güvenlik uyarısı göster."
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count} projeler eklendi"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Modpaketimde kullandığım projelere göz at!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Mod paketi içeriğini paylaşıyorsunuz"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Başarıyla yüklendi"
@@ -757,9 +745,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java kurulumları"
-  },
-  "app.settings.tabs.language": {
-    "message": "Dil"
   },
   "app.settings.tabs.resource-management": {
     "message": "Kaynak yönetimi"

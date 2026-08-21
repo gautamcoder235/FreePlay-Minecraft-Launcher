@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "Lényegtelen figyelmeztetések kihagyása"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "Alapértelmezés szerint elrejti a jobb oldalsávot, és hozzáad egy gombot a megjelenítéséhez vagy elrejtéséhez."
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "Jobb oldalsáv elrejtése"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "Biztonsági figyelmeztetést jelenít meg, mielőtt olyan FreePlay Csomagfájlt (.mrpack) telepítenél, amely nem a FreePlayról származik."
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "{count} projekt került hozzáadásra"
-  },
-  "app.instance.mods.share-text": {
-    "message": "Nézd meg, milyen projekteket használok a modcsomagomban!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Modcsomag-tartalmak megosztása"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "Sikeresen feltöltve"
@@ -952,9 +940,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Telepített Java példányok"
-  },
-  "app.settings.tabs.language": {
-    "message": "Nyelv"
   },
   "app.settings.tabs.resource-management": {
     "message": "Erőforráskezelés"

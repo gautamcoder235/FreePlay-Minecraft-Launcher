@@ -435,15 +435,18 @@ onUnmounted(() => {
 				@keydown="handleKeyDown"
 			>
 				<div
-					class="w-full max-w-2xl overflow-hidden rounded-3xl bg-[#090B0F]/95 backdrop-blur-3xl border border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.9),0_0_50px_rgba(56,189,248,0.18)] flex flex-col max-h-[75vh]"
+					class="w-full max-w-2xl overflow-hidden rounded-3xl bg-[var(--surface-1)]/95 backdrop-blur-3xl border border-[var(--border-default)] shadow-[0_30px_70px_rgba(0,0,0,0.9),0_0_50px_var(--color-brand-shadow)] flex flex-col max-h-[75vh]"
 				>
 					<!-- Search Header Spotlight with Curved Border -->
-					<div class="p-3 border-b border-white/10 bg-[#090B0F]/50">
+					<div class="p-3 border-b border-[var(--border-subtle)] bg-[var(--surface-1)]/50">
 						<div
-							class="relative flex items-center px-3.5 py-2.5 rounded-2xl bg-[#0e131d] border border-white/10 focus-within:border-sky-500/40 focus-within:shadow-[0_0_15px_rgba(56,189,248,0.15)] transition-all duration-200"
+							class="relative flex items-center px-3.5 py-2.5 rounded-2xl bg-[var(--surface-1-5)] border border-[var(--border-subtle)] focus-within:border-[var(--color-brand)]/50 transition-all duration-200"
+							:style="{
+								boxShadow: '0 0 15px var(--color-brand-bg)',
+							}"
 						>
 							<div
-								class="w-7 h-7 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 mr-2.5 shrink-0 shadow-inner"
+								class="w-7 h-7 rounded-xl bg-[var(--color-brand)]/10 border border-[var(--color-brand)]/30 flex items-center justify-center text-[var(--color-brand)] mr-2.5 shrink-0 shadow-inner"
 							>
 								<SearchIcon class="w-3.5 h-3.5" />
 							</div>
@@ -457,7 +460,7 @@ onUnmounted(() => {
 								@input="selectedIndex = 0"
 							/>
 							<span
-								class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg bg-white/5 text-zinc-400 border border-white/10 shrink-0 ml-2"
+								class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg bg-white/5 text-zinc-400 border border-[var(--border-subtle)] shrink-0 ml-2"
 							>
 								ESC
 							</span>
@@ -482,8 +485,8 @@ onUnmounted(() => {
 							class="group flex items-center justify-between px-3.5 py-2.5 rounded-2xl cursor-pointer transition-all duration-150"
 							:class="[
 								selectedIndex === idx
-									? 'bg-gradient-to-r from-sky-500/20 via-sky-600/10 to-transparent border border-sky-500/50 shadow-[0_0_20px_rgba(56,189,248,0.15)] text-white'
-									: 'bg-[#141923]/60 hover:bg-[#141923] text-zinc-300 border border-white/5',
+									? 'bg-gradient-to-r from-[var(--color-brand)]/20 via-[var(--color-brand)]/10 to-transparent border border-[var(--color-brand)]/50 text-white'
+									: 'bg-[var(--surface-2)]/60 hover:bg-[var(--surface-2)] text-zinc-300 border border-[var(--border-subtle)]',
 							]"
 							@mouseenter="selectedIndex = idx"
 							@click="item.action"
@@ -493,8 +496,8 @@ onUnmounted(() => {
 									class="flex items-center justify-center w-8 h-8 rounded-xl shrink-0 border transition-transform duration-150 group-hover:scale-105"
 									:class="[
 										selectedIndex === idx
-											? 'bg-sky-500/20 border-sky-400/40 text-sky-300 shadow-inner'
-											: 'bg-white/5 border-white/10 text-zinc-400',
+											? 'bg-[var(--color-brand)]/20 border-[var(--color-brand)]/40 text-[var(--color-brand-highlight)] shadow-inner'
+											: 'bg-white/5 border-[var(--border-subtle)] text-zinc-400',
 									]"
 								>
 									<component :is="item.icon" class="w-4 h-4" />
@@ -515,7 +518,7 @@ onUnmounted(() => {
 								<button
 									v-if="'isInstance' in item"
 									type="button"
-									class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-300 hover:to-blue-400 active:scale-95 text-zinc-950 font-extrabold text-xs shadow-md shadow-sky-950/60 border-none cursor-pointer transition-all"
+									class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl btn-accent-primary font-extrabold text-xs border-none cursor-pointer active:scale-95"
 									title="Launch Game"
 									@click="item.playAction"
 								>

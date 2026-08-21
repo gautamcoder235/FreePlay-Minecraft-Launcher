@@ -332,12 +332,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "{count} projetos foram adicionados"
   },
-  "app.instance.mods.share-text": {
-    "message": "Vê os projetos que estou a usar no meu modpack!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "Partilhar conteúdo do modpack"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "Carregado com sucesso"
   },
@@ -457,9 +451,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Instalações Java"
-  },
-  "app.settings.tabs.language": {
-    "message": "Linguagem"
   },
   "app.settings.tabs.resource-management": {
     "message": "Gestão de recursos"

@@ -194,12 +194,6 @@
   "app.instance.mods.projects-were-added": {
     "message": "เพิ่ม {count} โปรเจกต์เรียบร้อยแล้ว"
   },
-  "app.instance.mods.share-text": {
-    "message": "มาตรวจดูโปรเจกต์ต่าง ๆ ที่ฉันใช้ในแพ็กม็อดนี้กัน!"
-  },
-  "app.instance.mods.share-title": {
-    "message": "แบ่งปันเนื้อหาแพ็กม็อด"
-  },
   "app.instance.mods.successfully-uploaded": {
     "message": "อัปโหลดสำเร็จ"
   },
@@ -262,9 +256,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "การจัดการ Java ที่ติดตั้ง"
-  },
-  "app.settings.tabs.language": {
-    "message": "ภาษา"
   },
   "app.settings.tabs.resource-management": {
     "message": "การจัดการทรัพยากร"

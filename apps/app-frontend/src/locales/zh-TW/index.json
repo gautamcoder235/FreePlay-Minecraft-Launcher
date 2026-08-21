@@ -182,12 +182,6 @@
   "app.appearance-settings.skip-non-essential-warnings.title": {
     "message": "跳過非必要的警告"
   },
-  "app.appearance-settings.toggle-sidebar.description": {
-    "message": "預設隱藏右側邊欄，並新增顯示或隱藏按鈕。"
-  },
-  "app.appearance-settings.toggle-sidebar.title": {
-    "message": "隱藏右側邊欄"
-  },
   "app.appearance-settings.unknown-pack-warning.description": {
     "message": "在安裝非託管於 FreePlay 的 FreePlay Pack（.mrpack）之前，顯示安全警告。"
   },
@@ -403,12 +397,6 @@
   },
   "app.instance.mods.projects-were-added": {
     "message": "已新增 {count} 個專案"
-  },
-  "app.instance.mods.share-text": {
-    "message": "快來看看我在模組包中使用的專案！"
-  },
-  "app.instance.mods.share-title": {
-    "message": "分享模組包內容"
   },
   "app.instance.mods.successfully-uploaded": {
     "message": "已成功上傳"
@@ -952,9 +940,6 @@
   },
   "app.settings.tabs.java-installations": {
     "message": "Java 安裝"
-  },
-  "app.settings.tabs.language": {
-    "message": "語言"
   },
   "app.settings.tabs.resource-management": {
     "message": "資源管理"
