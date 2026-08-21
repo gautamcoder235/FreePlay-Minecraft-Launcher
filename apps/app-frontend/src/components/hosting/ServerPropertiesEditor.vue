@@ -401,6 +401,26 @@ function matchesSearch(terms: string[]): boolean {
 	return terms.some((t) => t.toLowerCase().includes(q))
 }
 
+function selectDifficulty(id: string) {
+	form.difficulty = id
+	isDifficultyOpen.value = false
+}
+
+function selectGamemode(id: string) {
+	form.gamemode = id
+	isGamemodeOpen.value = false
+}
+
+function selectLevelType(id: string) {
+	form.level_type = id
+	isLevelTypeOpen.value = false
+}
+
+function selectOpLevel(id: number) {
+	form.op_permission_level = id
+	isOpLevelOpen.value = false
+}
+
 async function loadProperties() {
 	try {
 		const raw = await invoke<string>('host_read_file', { path: 'server.properties' })
@@ -673,10 +693,7 @@ onMounted(() => {
 												? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
 												: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 										"
-										@click="
-											form.difficulty = opt.id
-											isDifficultyOpen = false
-										"
+										@click="selectDifficulty(opt.id)"
 									>
 										<div class="flex flex-col">
 											<span class="text-xs">{{ opt.label }}</span>
@@ -722,10 +739,7 @@ onMounted(() => {
 												? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
 												: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 										"
-										@click="
-											form.gamemode = opt.id
-											isGamemodeOpen = false
-										"
+										@click="selectGamemode(opt.id)"
 									>
 										<div class="flex flex-col">
 											<span class="text-xs">{{ opt.label }}</span>
@@ -908,10 +922,7 @@ onMounted(() => {
 											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
 											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 									"
-									@click="
-										form.level_type = opt.id
-										isLevelTypeOpen = false
-									"
+									@click="selectLevelType(opt.id)"
 								>
 									<div class="flex flex-col">
 										<span class="text-xs">{{ opt.label }}</span>
@@ -1129,10 +1140,7 @@ onMounted(() => {
 											? 'bg-sky-500/20 text-sky-200 border border-sky-500/30 font-bold'
 											: 'hover:bg-zinc-800/80 text-zinc-300 hover:text-white border border-transparent'
 									"
-									@click="
-										form.op_permission_level = opt.id
-										isOpLevelOpen = false
-									"
+									@click="selectOpLevel(opt.id)"
 								>
 									<div class="flex flex-col">
 										<span class="text-xs">{{ opt.label }}</span>
