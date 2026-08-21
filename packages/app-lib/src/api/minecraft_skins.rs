@@ -267,9 +267,10 @@ pub enum UrlOrBlob {
 pub async fn get_available_capes() -> crate::Result<Vec<Cape>> {
     let state = State::get().await?;
 
-    let selected_credentials = Credentials::get_default_credential(&state.pool)
-        .await?
-        .ok_or(ErrorKind::NoCredentialsError)?;
+    let selected_credentials = match Credentials::get_default_credential(&state.pool).await? {
+        Some(c) => c,
+        None => return Ok(Vec::new()),
+    };
 
     let Some(profile) = selected_credentials.online_profile_fresh().await
     else {
@@ -330,10 +331,42 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
             profile.id
         });
 
+    let is_offline = selected_credentials.access_token == "0"
+        || selected_credentials.access_token.is_empty()
+        || selected_credentials.refresh_token.is_empty();
+
+    let offline_skin_info = if is_offline {
+        let store = crate::state::minecraft_skins::offline::OfflineSkinStore::new(
+            state.directories.config_dir.join("skins"),
+        );
+        if let Some(meta) = store.get_skin(&selected_credentials.offline_profile.name) {
+            if let Some(path) = store.get_skin_file_path(&selected_credentials.offline_profile.name) {
+                if let Ok(bytes) = std::fs::read(path) {
+                    let variant = match meta.variant {
+                        crate::state::minecraft_skins::offline::SkinVariant::Slim => {
+                            MinecraftSkinVariant::Slim
+                        }
+                        _ => MinecraftSkinVariant::Classic,
+                    };
+                    let texture_key: Arc<str> = Arc::from(format!("offline-{}", meta.texture_hash));
+                    let texture = png_util::blob_to_data_url(bytes.into()).unwrap_or_default();
+                    Some((texture_key, variant, texture))
+                } else {
+                    None
+                }
+            } else {
+                None
+            }
+        } else {
+            None
+        }
+    } else {
+        None
+    };
+
     let current_skin = online_profile
         .as_ref()
-        .map(|profile| profile.current_skin())
-        .transpose()?;
+        .and_then(|profile| profile.current_skin().ok());
     let current_cape_id = online_profile
         .as_ref()
         .and_then(|profile| profile.current_cape())
@@ -353,6 +386,8 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
                 Arc::clone(&fallback_default_skin.texture_key)
             } else if let Some(current_skin) = current_skin {
                 current_skin.texture_key()
+            } else if let Some((ref key, _, _)) = offline_skin_info {
+                Arc::clone(key)
             } else {
                 Arc::clone(&fallback_default_skin.texture_key)
             }
@@ -365,6 +400,8 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
                 fallback_default_skin.variant
             } else if let Some(current_skin) = current_skin {
                 current_skin.variant
+            } else if let Some((_, variant, _)) = offline_skin_info {
+                variant
             } else {
                 fallback_default_skin.variant
             }
@@ -501,7 +538,7 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
         });
     }
 
-    // Keep the active Mojang skin visible even if the app has never saved it.
+    // Keep the active Mojang or offline skin visible even if the app has never saved it.
     if !found_equipped_skin {
         if let Some(mut skin) = pending_skin {
             skin.is_equipped = true;
@@ -515,6 +552,17 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
                 cape_id: current_cape_id,
                 texture: Arc::clone(&current_skin.url),
                 source: SkinSource::CustomExternal,
+                is_equipped: true,
+            });
+        } else if let Some((key, variant, texture)) = offline_skin_info {
+            available_skins.push(Skin {
+                texture_key: key,
+                name: Some(Arc::from(selected_credentials.offline_profile.name.clone())),
+                section: None,
+                variant,
+                cape_id: None,
+                texture: Arc::from(texture),
+                source: SkinSource::Custom,
                 is_equipped: true,
             });
         }

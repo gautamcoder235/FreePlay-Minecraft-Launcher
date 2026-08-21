@@ -102,3 +102,20 @@ OPEN_SOURCE_FIRST_RULE.md
 __pycache__/
 *.pyc
 
+# Binary tools and execution files
+bin/
+/bin/
+
+# AI Agent folders, rules & skills
+.agent/
+.agents/
+OPEN_SOURCE_FIRST_RULE.md
+
+# Generated outputs, showcases and temporary mockups
+outputs/
+/outputs/
+apps/app-frontend/public/concept.html
+apps/app-frontend/public/gallery.html
+scripts/build_gallery.js
+scripts/generate_concept.js
+
