@@ -631,11 +631,11 @@ function handlePageOption({ option }: { option: string }) {
 		</div>
 
 		<!-- SECOND ROW BENTO WIDGETS -->
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 			<!-- WIDGET 1: SERVER TUNNELS & MULTIPLAYER -->
 			<router-link
 				to="/hosting/manage"
-				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between group hover:border-indigo-500/40 hover:shadow-[0_0_25px_rgba(99,102,241,0.2)] transition-all duration-200 min-h-[160px]"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-4 flex flex-col justify-between group hover:border-indigo-500/40 hover:shadow-[0_0_25px_rgba(99,102,241,0.15)] transition-all duration-200 min-h-[135px]"
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
@@ -653,11 +653,8 @@ function handlePageOption({ option }: { option: string }) {
 						>P2P LAN</span
 					>
 				</div>
-				<div class="my-2">
-					<span class="text-sm font-bold text-white block">Zero-Config Multiplayer</span>
-					<p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">
-						Host singleplayer worlds online with friends in 1-click.
-					</p>
+				<div class="my-1">
+					<span class="text-sm font-extrabold text-white block">Zero-Config Multiplayer</span>
 				</div>
 				<span
 					class="text-xs font-bold text-indigo-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
@@ -669,10 +666,7 @@ function handlePageOption({ option }: { option: string }) {
 			<!-- WIDGET 2: CONTENT DISCOVERY MODPACKS -->
 			<router-link
 				to="/browse/modpack"
-				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between group hover:border-[var(--color-brand)]/50 transition-all duration-200 min-h-[160px]"
-				:style="{
-					boxShadow: undefined,
-				}"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-4 flex flex-col justify-between group hover:border-[var(--color-brand)]/50 transition-all duration-200 min-h-[135px]"
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
@@ -688,11 +682,8 @@ function handlePageOption({ option }: { option: string }) {
 						>Modrinth</span
 					>
 				</div>
-				<div class="my-2">
-					<span class="text-sm font-bold text-white block">50,000+ Modpacks & Mods</span>
-					<p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">
-						Fabulously Optimized, Create, Cobblemon, and shaders.
-					</p>
+				<div class="my-1">
+					<span class="text-sm font-extrabold text-white block">50,000+ Modpacks &amp; Mods</span>
 				</div>
 				<span
 					class="text-xs font-bold text-[var(--color-brand)] flex items-center gap-1 group-hover:translate-x-1 transition-transform"
@@ -703,7 +694,7 @@ function handlePageOption({ option }: { option: string }) {
 
 			<!-- WIDGET 3: TELEMETRY & JVM ALLOCATOR -->
 			<div
-				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between group hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.25)] transition-all duration-200 min-h-[160px]"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-4 flex flex-col justify-between group hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.15)] transition-all duration-200 min-h-[135px]"
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
@@ -719,17 +710,17 @@ function handlePageOption({ option }: { option: string }) {
 						>JVM</span
 					>
 				</div>
-				<div class="my-2">
+				<div class="my-1">
 					<div class="flex items-baseline justify-between">
 						<span class="text-base font-extrabold text-white font-mono"
 							>{{ (allocatedMemoryMb / 1024).toFixed(1) }} GB</span
 						>
 						<span class="text-xs text-zinc-400 font-mono"
-							>of {{ totalSystemRamGb.toFixed(1) }} GB System</span
+							>of {{ totalSystemRamGb.toFixed(1) }} GB</span
 						>
 					</div>
 					<!-- RAM Visual Progress Bar -->
-					<div class="w-full h-2 rounded-full bg-white/10 mt-2 overflow-hidden">
+					<div class="w-full h-1.5 rounded-full bg-white/10 mt-1.5 overflow-hidden">
 						<div
 							class="h-full bg-gradient-to-r from-[var(--color-brand)] to-amber-500 rounded-full"
 							:style="{
@@ -746,7 +737,7 @@ function handlePageOption({ option }: { option: string }) {
 
 			<!-- WIDGET 4: INSTANCE CREATION SHORTCUT -->
 			<div
-				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-5 flex flex-col justify-between cursor-pointer group hover:border-[var(--color-brand)]/60 transition-all duration-200 min-h-[160px]"
+				class="relative overflow-hidden rounded-2xl bg-[var(--surface-2)]/90 backdrop-blur-xl border border-[var(--border-default)] p-4 flex flex-col justify-between cursor-pointer group hover:border-[var(--color-brand)]/60 transition-all duration-200 min-h-[135px]"
 				@click="showCreationModal?.()"
 			>
 				<div class="flex items-center justify-between">
@@ -759,16 +750,13 @@ function handlePageOption({ option }: { option: string }) {
 						<span class="text-xs font-bold text-white uppercase tracking-wider">New Instance</span>
 					</div>
 				</div>
-				<div class="my-2">
-					<span class="text-sm font-bold text-white block">Create Custom Setup</span>
-					<p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">
-						Choose Fabric, Forge, NeoForge, or Vanilla version.
-					</p>
+				<div class="my-1">
+					<span class="text-sm font-extrabold text-white block">Create Custom Setup</span>
 				</div>
 				<span
 					class="text-xs font-bold text-[var(--color-brand)] flex items-center gap-1 group-hover:translate-x-1 transition-transform"
 				>
-					+ Launch Setup Wizard <ChevronRightIcon class="w-3 h-3" />
+					Launch Setup Wizard <ChevronRightIcon class="w-3 h-3" />
 				</span>
 			</div>
 		</div>
