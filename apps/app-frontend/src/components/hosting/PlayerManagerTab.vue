@@ -1,4 +1,20 @@
 <script setup lang="ts">
+import {
+	BanIcon,
+	ChevronDownIcon,
+	ClockIcon,
+	CompassIcon,
+	EyeIcon,
+	HeartIcon,
+	MessageIcon,
+	SignalIcon,
+	SkullIcon,
+	SparklesIcon,
+	StarIcon,
+	TagCategoryGamepad2Icon,
+	TrashIcon,
+	UserXIcon,
+} from '@freeplay/assets'
 import { invoke } from '@tauri-apps/api/core'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
@@ -707,10 +723,10 @@ watch(
 							/>
 							<span
 								v-if="player.is_op"
-								class="absolute -top-1 -right-1 w-4.5 h-4.5 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center text-[10px] font-black shadow-[0_0_8px_rgba(245,158,11,0.6)]"
+								class="absolute -top-1 -right-1 w-4.5 h-4.5 rounded-full bg-amber-500 text-zinc-950 flex items-center justify-center shadow-[0_0_8px_rgba(245,158,11,0.6)]"
 								title="Server Operator"
 							>
-								★
+								<StarIcon class="w-3 h-3 text-zinc-950 fill-current" />
 							</span>
 						</div>
 
@@ -724,7 +740,7 @@ watch(
 									v-if="player.is_op"
 									class="px-2 py-0.5 rounded-md text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_10px_rgba(245,158,11,0.2)] flex items-center gap-1"
 								>
-									<span>★</span>
+									<StarIcon class="w-3 h-3 text-amber-400 fill-current" />
 									<span>OPERATOR</span>
 								</span>
 
@@ -741,19 +757,7 @@ watch(
 							<div class="flex items-center gap-3 text-xs text-zinc-400 flex-wrap">
 								<!-- Latency / Ping -->
 								<span class="flex items-center gap-1 font-mono text-[11px] text-zinc-300">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										class="w-3.5 h-3.5 text-emerald-400"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-									>
-										<path d="M2 20h.01" />
-										<path d="M7 20v-4" />
-										<path d="M12 20v-8" />
-										<path d="M17 20V4" />
-									</svg>
+									<SignalIcon class="w-3.5 h-3.5 text-emerald-400 shrink-0" />
 									<span>{{ player.ping ?? player.latency ?? 15 }}ms</span>
 								</span>
 
@@ -761,9 +765,22 @@ watch(
 
 								<!-- Gamemode Tag -->
 								<span
-									class="px-2 py-0.5 rounded bg-zinc-800/80 text-zinc-300 text-[11px] font-semibold border border-white/5"
+									class="px-2 py-0.5 rounded bg-zinc-800/80 text-zinc-300 text-[11px] font-semibold border border-white/5 flex items-center gap-1.5"
 								>
-									🎮 {{ player.gamemode || 'Survival' }}
+									<SparklesIcon
+										v-if="player.gamemode?.toLowerCase() === 'creative'"
+										class="w-3 h-3 text-amber-400 shrink-0"
+									/>
+									<CompassIcon
+										v-else-if="player.gamemode?.toLowerCase() === 'adventure'"
+										class="w-3 h-3 text-cyan-400 shrink-0"
+									/>
+									<EyeIcon
+										v-else-if="player.gamemode?.toLowerCase() === 'spectator'"
+										class="w-3 h-3 text-indigo-400 shrink-0"
+									/>
+									<TagCategoryGamepad2Icon v-else class="w-3 h-3 text-purple-400 shrink-0" />
+									<span>{{ player.gamemode || 'Survival' }}</span>
 								</span>
 
 								<span v-if="player.ip" class="text-zinc-600">•</span>
@@ -790,7 +807,10 @@ watch(
 							:title="player.is_op ? 'Demote Operator' : 'Promote to Operator'"
 							@click="toggleOp(player)"
 						>
-							<span>★</span>
+							<StarIcon
+								class="w-3.5 h-3.5 shrink-0"
+								:class="player.is_op ? 'text-amber-400 fill-current' : 'text-zinc-400'"
+							/>
 							<span>{{ player.is_op ? 'De-OP' : 'Make OP' }}</span>
 						</button>
 
@@ -798,42 +818,48 @@ watch(
 						<div class="relative group/gm">
 							<button
 								type="button"
-								class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-zinc-300 hover:text-white hover:border-white/20 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+								class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-zinc-300 hover:text-white hover:border-white/20 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
 								title="Change Gamemode"
 							>
 								<span>Mode</span>
-								<span class="text-[10px] text-zinc-500">▼</span>
+								<ChevronDownIcon
+									class="w-3.5 h-3.5 text-zinc-400 group-hover/gm:text-white transition-colors shrink-0"
+								/>
 							</button>
 							<div
-								class="absolute right-0 top-full mt-1 hidden group-hover/gm:flex flex-col bg-[#0D1117] border border-white/15 rounded-xl shadow-2xl p-1 z-30 min-w-32"
+								class="absolute right-0 top-full mt-1 hidden group-hover/gm:flex flex-col bg-[#0D1117] border border-white/15 rounded-xl shadow-2xl p-1 z-30 min-w-36"
 							>
 								<button
 									type="button"
-									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer"
+									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer flex items-center gap-2"
 									@click="setGamemode(player, 'Survival')"
 								>
-									Survival
+									<TagCategoryGamepad2Icon class="w-3.5 h-3.5 text-purple-400" />
+									<span>Survival</span>
 								</button>
 								<button
 									type="button"
-									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer"
+									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer flex items-center gap-2"
 									@click="setGamemode(player, 'Creative')"
 								>
-									Creative
+									<SparklesIcon class="w-3.5 h-3.5 text-amber-400" />
+									<span>Creative</span>
 								</button>
 								<button
 									type="button"
-									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer"
+									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer flex items-center gap-2"
 									@click="setGamemode(player, 'Adventure')"
 								>
-									Adventure
+									<CompassIcon class="w-3.5 h-3.5 text-cyan-400" />
+									<span>Adventure</span>
 								</button>
 								<button
 									type="button"
-									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer"
+									class="px-3 py-1.5 rounded-lg text-left text-xs font-semibold text-zinc-300 hover:bg-cyan-500 hover:text-zinc-950 border-none transition-colors cursor-pointer flex items-center gap-2"
 									@click="setGamemode(player, 'Spectator')"
 								>
-									Spectator
+									<EyeIcon class="w-3.5 h-3.5 text-indigo-400" />
+									<span>Spectator</span>
 								</button>
 							</div>
 						</div>
@@ -841,88 +867,88 @@ watch(
 						<!-- Heal Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
 							title="Heal and Feed Player"
 							@click="healPlayer(player)"
 						>
-							<span>❤️</span>
+							<HeartIcon class="w-3.5 h-3.5 text-emerald-400 shrink-0" />
 							<span class="hidden sm:inline">Heal</span>
 						</button>
 
 						<!-- Clear Inv Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
 							title="Clear Player Inventory"
 							@click="clearInventory(player)"
 						>
-							<span>🎒</span>
+							<TrashIcon class="w-3.5 h-3.5 text-amber-400 shrink-0" />
 							<span class="hidden sm:inline">Clear</span>
 						</button>
 
 						<!-- Kill Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-rose-400 hover:bg-rose-500/10 hover:border-rose-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
 							title="Kill Player"
 							@click="killPlayer(player)"
 						>
-							<span>☠️</span>
+							<SkullIcon class="w-3.5 h-3.5 text-rose-400 shrink-0" />
 							<span class="hidden sm:inline">Kill</span>
 						</button>
 
 						<!-- Teleport Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
 							title="Teleport Player"
 							@click="openTeleport(player)"
 						>
-							<span>🌐</span>
+							<CompassIcon class="w-3.5 h-3.5 text-cyan-400 shrink-0" />
 							<span class="hidden sm:inline">TP</span>
 						</button>
 
 						<!-- Direct Whisper Message Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-sky-400 hover:bg-sky-500/10 hover:border-sky-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-sky-400 hover:bg-sky-500/10 hover:border-sky-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
 							title="Send Private Message"
 							@click="openMessage(player)"
 						>
-							<span>💬</span>
+							<MessageIcon class="w-3.5 h-3.5 text-sky-400 shrink-0" />
 							<span class="hidden sm:inline">Msg</span>
 						</button>
 
 						<!-- Timeout Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-orange-400 hover:bg-orange-500/10 hover:border-orange-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+							class="px-2.5 py-1.5 rounded-xl bg-[#0D1117] border border-white/10 text-orange-400 hover:bg-orange-500/10 hover:border-orange-500/30 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5"
 							title="Temporary Timeout / Mute"
 							@click="openTimeout(player)"
 						>
-							<span>⏱️</span>
+							<ClockIcon class="w-3.5 h-3.5 text-orange-400 shrink-0" />
 							<span class="hidden sm:inline">Timeout</span>
 						</button>
 
 						<!-- Kick Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500 hover:text-zinc-950 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+							class="px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500 hover:text-zinc-950 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
 							title="Kick Player from Server"
 							@click="openKick(player)"
 						>
-							<span>👢</span>
+							<UserXIcon class="w-3.5 h-3.5 shrink-0" />
 							<span>Kick</span>
 						</button>
 
 						<!-- Ban Button -->
 						<button
 							type="button"
-							class="px-2.5 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500 hover:text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+							class="px-2.5 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500 hover:text-white text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
 							title="Ban Player from Server"
 							@click="openBan(player)"
 						>
-							<span>🔨</span>
+							<BanIcon class="w-3.5 h-3.5 shrink-0" />
 							<span>Ban</span>
 						</button>
 					</div>
@@ -1085,7 +1111,7 @@ watch(
 			>
 				<div class="flex items-center justify-between">
 					<h3 class="text-base font-black text-white m-0 flex items-center gap-2">
-						<span>👢</span>
+						<UserXIcon class="w-5 h-5 text-amber-400 shrink-0" />
 						<span>Kick Player: {{ selectedPlayer?.name }}</span>
 					</h3>
 					<button
@@ -1136,7 +1162,7 @@ watch(
 			>
 				<div class="flex items-center justify-between">
 					<h3 class="text-base font-black text-rose-400 m-0 flex items-center gap-2">
-						<span>🔨</span>
+						<BanIcon class="w-5 h-5 text-rose-400 shrink-0" />
 						<span>Ban Player: {{ selectedPlayer?.name }}</span>
 					</h3>
 					<button
@@ -1199,7 +1225,7 @@ watch(
 			>
 				<div class="flex items-center justify-between">
 					<h3 class="text-base font-black text-orange-400 m-0 flex items-center gap-2">
-						<span>⏱️</span>
+						<ClockIcon class="w-5 h-5 text-orange-400 shrink-0" />
 						<span>Timeout Player: {{ selectedPlayer?.name }}</span>
 					</h3>
 					<button
