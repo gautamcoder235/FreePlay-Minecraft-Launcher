@@ -224,6 +224,33 @@ pub async fn host_get_status() -> Result<HostStatus> {
 }
 
 #[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_get_players() -> Result<Vec<freeplay_process_supervisor::TrackedPlayer>> {
+    let state = crate::State::get().await?;
+    Ok(state.server_hosting.server_supervisor.get_online_players().await)
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_player_action(action: String, player: String, param: Option<String>) -> Result<()> {
+    let state = crate::State::get().await?;
+    state
+        .server_hosting
+        .server_supervisor
+        .execute_player_action(&action, &player, param.as_deref())
+        .await
+        .map_err(crate::Error::from)
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
+pub async fn host_get_moderation_lists() -> Result<freeplay_process_supervisor::ModerationLists> {
+    let state = crate::State::get().await?;
+    Ok(state
+        .server_hosting
+        .server_supervisor
+        .get_moderation_lists()
+        .await)
+}
+
+#[cfg_attr(feature = "tauri", tauri::command)]
 pub async fn host_start_tunnel(port: u16) -> Result<HostStatus> {
     let state = crate::State::get().await?;
     state.server_hosting.start_tunnel(port).await?;

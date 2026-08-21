@@ -86,6 +86,7 @@ pub struct HostStatus {
     pub server_logs: Vec<String>,
     pub tunnel_logs: Vec<String>,
     pub uptime_seconds: u64,
+    pub players: Vec<freeplay_process_supervisor::TrackedPlayer>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -178,6 +179,7 @@ impl ServerHostingState {
         let server_logs = self.server_supervisor.get_logs().await;
         let tunnel_logs = self.tunnel_supervisor.get_logs().await;
         let uptime_seconds = self.server_supervisor.get_uptime_seconds().await;
+        let players = self.server_supervisor.get_online_players().await;
 
         HostStatus {
             server_running,
@@ -193,6 +195,7 @@ impl ServerHostingState {
             server_logs,
             tunnel_logs,
             uptime_seconds,
+            players,
         }
     }
 
@@ -201,6 +204,7 @@ impl ServerHostingState {
         let uptime_seconds = self.server_supervisor.get_uptime_seconds().await;
         let max_ram_mb = *self.current_ram_mb.read().await;
         let memory_max_bytes = (max_ram_mb as u64) * 1024 * 1024;
+        let players = self.server_supervisor.get_online_players().await;
 
         let mut cpu_percent = 0.0;
         let mut memory_rss_bytes = 0;
@@ -228,7 +232,7 @@ impl ServerHostingState {
             uptime_seconds,
             tps: if is_running { Some(20.0) } else { None },
             mspt: if is_running { Some(12.4) } else { None },
-            players_online: if is_running { Some(0) } else { None },
+            players_online: if is_running { Some(players.len() as u32) } else { None },
             players_max: if is_running { Some(20) } else { None },
         }
     }

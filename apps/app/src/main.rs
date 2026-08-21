@@ -114,6 +114,19 @@ async fn set_restart_after_pending_update(
 // if Tauri app is called with arguments, then those arguments will be treated as commands
 // ie: deep links or filepaths for .mrpacks
 fn main() {
+    #[cfg(target_os = "windows")]
+    {
+        // Prevent WebView2 from destroying its DWM swapchain/compositor when minimized, eliminating the black flash on unminimize/fullscreen
+        if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
+            unsafe {
+                std::env::set_var(
+                    "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
+                    "--disable-features=CalculateNativeWinOcclusion --disable-backgrounding-occluded-windows",
+                );
+            }
+        }
+    }
+
     #[cfg(feature = "export-app-events")]
     theseus::export_app_event_bindings(
         std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -281,6 +294,9 @@ fn main() {
             theseus::server_address::host_kill_server,
             theseus::server_address::host_send_command,
             theseus::server_address::host_get_status,
+            theseus::server_address::host_get_players,
+            theseus::server_address::host_player_action,
+            theseus::server_address::host_get_moderation_lists,
             theseus::server_address::host_get_telemetry,
             theseus::server_address::host_start_tunnel,
             theseus::server_address::host_stop_tunnel,

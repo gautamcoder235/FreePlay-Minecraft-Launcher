@@ -3239,16 +3239,20 @@ const propertiesIcon = () =>
 
 const showInviteShareModal = ref(false)
 
-const tabs = [
-	{ id: 'overview', label: 'Overview', icon: overviewIcon },
-	{ id: 'console', label: 'Live Console', icon: consoleIcon },
-	{ id: 'players', label: 'Players', icon: playersIcon },
-	{ id: 'properties', label: 'Server Properties', icon: propertiesIcon },
-	{ id: 'servers', label: 'Server Instances', icon: serversIcon },
-	{ id: 'files', label: 'File Manager', icon: filesIcon },
-	{ id: 'backups', label: 'Backups', icon: backupsIcon },
-	{ id: 'settings', label: 'Settings & Ports', icon: settingsIcon },
-] as const
+const tabs = computed(() => [
+	{ id: 'overview' as const, label: 'Overview', icon: overviewIcon },
+	{ id: 'console' as const, label: 'Live Console', icon: consoleIcon },
+	{
+		id: 'players' as const,
+		label: `Players (${serverState.value.players?.length ?? 0})`,
+		icon: playersIcon,
+	},
+	{ id: 'properties' as const, label: 'Server Properties', icon: propertiesIcon },
+	{ id: 'servers' as const, label: 'Server Instances', icon: serversIcon },
+	{ id: 'files' as const, label: 'File Manager', icon: filesIcon },
+	{ id: 'backups' as const, label: 'Backups', icon: backupsIcon },
+	{ id: 'settings' as const, label: 'Settings & Ports', icon: settingsIcon },
+])
 
 const onlinePlayers = computed(() => serverState.value.players.filter((p) => p.online !== false))
 
@@ -3304,6 +3308,15 @@ interface HostStatusIpc {
 	server_logs?: string[]
 	logs?: string[]
 	uptime_seconds?: number
+	players?: Array<{
+		name: string
+		uuid: string
+		ip?: string
+		joined_at?: number
+		is_op?: boolean
+		ping?: number
+		gamemode?: string
+	}>
 }
 
 function copyTunnel(domain: string) {
@@ -3351,6 +3364,10 @@ async function fetchStatus() {
 
 			if (res.server_port || res.local_port)
 				serverState.value.local_port = res.server_port || res.local_port || 25565
+
+			if (Array.isArray(res.players)) {
+				serverState.value.players = res.players
+			}
 
 			// Parse tunnel_status — Rust PlayitAgentStatus is an externally-tagged serde enum:
 			//   unit variants → string:  "stopped", "downloading", "starting"

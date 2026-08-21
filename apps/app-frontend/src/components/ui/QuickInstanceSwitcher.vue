@@ -198,13 +198,15 @@ const dividerTooltip = computed(() => {
 			v-tooltip.right="instance.name"
 			class="quick-instance-item"
 		>
-			<NavButton :to="`/instance/${encodeURIComponent(instance.id)}`" class="relative">
-				<Avatar
-					:src="getInstanceIconUrl(instance.icon_path)"
-					size="28px"
-					:tint-by="instance.id"
-					:class="`transition-all ${instance.install_stage !== 'installed' ? `brightness-[0.25] scale-[0.85]` : `group-hover:brightness-75`}`"
-				/>
+			<NavButton :to="`/instance/${encodeURIComponent(instance.id)}`" class="relative !p-0">
+				<div class="w-full h-full rounded-2xl overflow-hidden flex items-center justify-center">
+					<Avatar
+						:src="getInstanceIconUrl(instance.icon_path)"
+						size="100%"
+						:tint-by="instance.id"
+						:class="`w-full h-full object-cover transition-all ${instance.install_stage !== 'installed' ? `brightness-[0.25] scale-[0.85]` : `group-hover:brightness-75`}`"
+					/>
+				</div>
 				<div
 					v-if="instance.install_stage !== 'installed'"
 					class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
@@ -252,7 +254,7 @@ const dividerTooltip = computed(() => {
 
 .quick-instance-item {
 	height: 3rem;
-	overflow: hidden;
+	overflow: visible;
 
 	& + & {
 		margin-top: 0.25rem;
@@ -261,6 +263,7 @@ const dividerTooltip = computed(() => {
 
 .quick-instance-enter-active,
 .quick-instance-leave-active {
+	overflow: hidden;
 	transition:
 		opacity 0.25s ease,
 		transform 0.25s ease,

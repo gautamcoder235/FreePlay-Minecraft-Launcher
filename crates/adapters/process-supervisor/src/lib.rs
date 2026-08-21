@@ -1,6 +1,6 @@
 pub mod launch_builder;
 
-use std::collections::VecDeque;
+use std::collections::{HashMap, VecDeque};
 use std::path::{Path, PathBuf};
 use std::process::Stdio;
 use std::sync::Arc;
@@ -266,6 +266,35 @@ impl ServerCapabilities {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct TrackedPlayer {
+    pub name: String,
+    pub uuid: String,
+    pub ip: Option<String>,
+    pub joined_at: u64,
+    pub is_op: bool,
+    pub ping: Option<u32>,
+    pub gamemode: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BannedPlayerEntry {
+    pub name: String,
+    pub uuid: Option<String>,
+    pub reason: String,
+    pub source: Option<String>,
+    pub expires: Option<String>,
+    pub date: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ModerationLists {
+    pub ops: Vec<String>,
+    pub whitelist: Vec<String>,
+    pub whitelist_enabled: bool,
+    pub banned_players: Vec<BannedPlayerEntry>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ServerPlayer {
     pub uuid: String,
@@ -328,6 +357,203 @@ impl FileSystemSandbox {
     }
 }
 
+fn is_valid_mc_name(name: &str) -> bool {
+    name.len() >= 2
+        && name.len() <= 32
+        && name.chars().all(|c| c.is_ascii_alphanumeric() || c == '_' || c == '.')
+        && !name.eq_ignore_ascii_case("server")
+        && !name.eq_ignore_ascii_case("console")
+        && !name.eq_ignore_ascii_case("thread")
+        && !name.eq_ignore_ascii_case("warn")
+        && !name.eq_ignore_ascii_case("info")
+        && !name.eq_ignore_ascii_case("error")
+}
+
+fn strip_log_prefix(line: &str) -> &str {
+    let mut s = line.trim();
+    if let Some(idx) = s.find("]: ") {
+        s = &s[idx + 3..];
+    } else if let Some(idx) = s.find("] ") {
+        s = &s[idx + 2..];
+    }
+    s.trim()
+}
+
+fn parse_player_join_log(line: &str) -> Option<(String, Option<String>, Option<String>)> {
+    let clean_line = strip_log_prefix(line);
+
+    if clean_line.ends_with("joined the game") || clean_line.contains(" joined the game") {
+        if let Some(idx) = clean_line.find(" joined the game") {
+            let before_joined = &clean_line[..idx];
+            let name = before_joined.split_whitespace().last().unwrap_or(before_joined).trim();
+            let name = name.trim_start_matches('[').trim_end_matches(']');
+            if !name.is_empty() && is_valid_mc_name(name) {
+                return Some((name.to_string(), None, None));
+            }
+        }
+    }
+
+    if clean_line.contains("logged in with entity id") {
+        let before_logged = clean_line.split("logged in with entity id").next().unwrap_or("").trim();
+        let target_part = before_logged.split_whitespace().last().unwrap_or(before_logged);
+        if let Some(bracket_idx) = target_part.find('[') {
+            let name = target_part[..bracket_idx].trim();
+            let mut ip = None;
+            if let Some(end_bracket) = target_part.find(']') {
+                let addr = &target_part[bracket_idx + 1..end_bracket];
+                let clean_ip = addr.trim_start_matches('/');
+                if let Some(colon) = clean_ip.find(':') {
+                    ip = Some(clean_ip[..colon].to_string());
+                } else if !clean_ip.is_empty() {
+                    ip = Some(clean_ip.to_string());
+                }
+            }
+            if !name.is_empty() && is_valid_mc_name(name) {
+                return Some((name.to_string(), None, ip));
+            }
+        } else if !target_part.is_empty() && is_valid_mc_name(target_part) {
+            return Some((target_part.to_string(), None, None));
+        }
+    }
+
+    None
+}
+
+fn parse_player_uuid_log(line: &str) -> Option<(String, String)> {
+    let clean = strip_log_prefix(line);
+    if clean.contains("UUID of player ") && clean.contains(" is ") {
+        let parts: Vec<&str> = clean.split("UUID of player ").collect();
+        if parts.len() > 1 {
+            let rest = parts[1];
+            let name_and_uuid: Vec<&str> = rest.split(" is ").collect();
+            if name_and_uuid.len() == 2 {
+                let name = name_and_uuid[0].trim();
+                let uuid = name_and_uuid[1].trim();
+                if is_valid_mc_name(name) && !uuid.is_empty() {
+                    return Some((name.to_string(), uuid.to_string()));
+                }
+            }
+        }
+    }
+    None
+}
+
+fn parse_player_leave_log(line: &str) -> Option<String> {
+    let clean = strip_log_prefix(line);
+
+    if clean.contains(" left the game") {
+        if let Some(idx) = clean.find(" left the game") {
+            let name_part = &clean[..idx];
+            let name = name_part.split_whitespace().last().unwrap_or(name_part).trim();
+            if !name.is_empty() && is_valid_mc_name(name) {
+                return Some(name.to_string());
+            }
+        }
+    }
+
+    if clean.contains(" lost connection:") {
+        if let Some(idx) = clean.find(" lost connection:") {
+            let name_part = &clean[..idx];
+            let name = name_part.split_whitespace().last().unwrap_or(name_part).trim();
+            if !name.is_empty() && is_valid_mc_name(name) {
+                return Some(name.to_string());
+            }
+        }
+    }
+
+    if clean.starts_with("Disconnecting ") {
+        let rest = clean.trim_start_matches("Disconnecting ").trim();
+        let name = rest.split(':').next().unwrap_or("").trim();
+        if !name.is_empty() && is_valid_mc_name(name) {
+            return Some(name.to_string());
+        }
+    }
+
+    if clean.starts_with("Kicked ") {
+        let rest = clean.trim_start_matches("Kicked ").trim();
+        let name = rest.split(':').next().unwrap_or("").split_whitespace().next().unwrap_or("").trim();
+        if !name.is_empty() && is_valid_mc_name(name) {
+            return Some(name.to_string());
+        }
+    }
+
+    None
+}
+
+fn parse_player_op_log(line: &str) -> Option<(String, bool)> {
+    let clean = strip_log_prefix(line);
+    if clean.contains("Made ") && clean.contains(" a server operator") {
+        if let Some(start) = clean.find("Made ") {
+            let rest = &clean[start + 5..];
+            if let Some(end) = rest.find(" a server operator") {
+                let name = rest[..end].trim();
+                if is_valid_mc_name(name) {
+                    return Some((name.to_string(), true));
+                }
+            }
+        }
+    }
+    if clean.contains("Made ") && clean.contains(" no longer a server operator") {
+        if let Some(start) = clean.find("Made ") {
+            let rest = &clean[start + 5..];
+            if let Some(end) = rest.find(" no longer a server operator") {
+                let name = rest[..end].trim();
+                if is_valid_mc_name(name) {
+                    return Some((name.to_string(), false));
+                }
+            }
+        }
+    }
+    if clean.starts_with("Opped ") {
+        let name = clean.trim_start_matches("Opped ").trim();
+        if is_valid_mc_name(name) {
+            return Some((name.to_string(), true));
+        }
+    }
+    if clean.starts_with("De-opped ") {
+        let name = clean.trim_start_matches("De-opped ").trim();
+        if is_valid_mc_name(name) {
+            return Some((name.to_string(), false));
+        }
+    }
+    None
+}
+
+fn check_is_op(working_dir: Option<&Path>, name: &str, uuid: Option<&str>) -> bool {
+    if let Some(dir) = working_dir {
+        let ops_file = dir.join("ops.json");
+        if let Ok(content) = std::fs::read_to_string(ops_file) {
+            if let Ok(val) = serde_json::from_str::<serde_json::Value>(&content) {
+                if let Some(arr) = val.as_array() {
+                    for item in arr {
+                        if let Some(op_name) = item.get("name").and_then(|n| n.as_str()) {
+                            if op_name.eq_ignore_ascii_case(name) {
+                                return true;
+                            }
+                        }
+                        if let Some(op_uuid) = item.get("uuid").and_then(|u| u.as_str()) {
+                            if let Some(target_uuid) = uuid {
+                                if op_uuid.eq_ignore_ascii_case(target_uuid) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    false
+}
+
+fn generate_offline_uuid(name: &str) -> String {
+    uuid::Uuid::new_v3(
+        &uuid::Uuid::NAMESPACE_DNS,
+        format!("OfflinePlayer:{}", name).as_bytes(),
+    )
+    .to_string()
+}
+
 pub struct ServerProcessSupervisor {
     child: Arc<Mutex<Option<Child>>>,
     stdin: Arc<Mutex<Option<ChildStdin>>>,
@@ -335,6 +561,8 @@ pub struct ServerProcessSupervisor {
     logs: Arc<RwLock<VecDeque<String>>>,
     log_broadcaster: broadcast::Sender<String>,
     start_instant: Arc<RwLock<Option<std::time::Instant>>>,
+    online_players: Arc<RwLock<HashMap<String, TrackedPlayer>>>,
+    working_dir: Arc<RwLock<Option<PathBuf>>>,
 }
 
 impl Default for ServerProcessSupervisor {
@@ -353,6 +581,8 @@ impl ServerProcessSupervisor {
             logs: Arc::new(RwLock::new(VecDeque::with_capacity(1000))),
             log_broadcaster,
             start_instant: Arc::new(RwLock::new(None)),
+            online_players: Arc::new(RwLock::new(HashMap::new())),
+            working_dir: Arc::new(RwLock::new(None)),
         }
     }
 
@@ -410,6 +640,8 @@ impl ServerProcessSupervisor {
 
         // 1. Set status to Preparing
         *self.status.write().await = DedicatedServerStatus::Preparing;
+        *self.working_dir.write().await = Some(working_dir.to_path_buf());
+        self.online_players.write().await.clear();
 
         // 2. Ensure working directory exists
         tokio::fs::create_dir_all(working_dir).await.map_err(|e| {
@@ -474,6 +706,8 @@ impl ServerProcessSupervisor {
         let logs_clone = self.logs.clone();
         let broadcaster = self.log_broadcaster.clone();
         let start_instant_clone = self.start_instant.clone();
+        let online_players_clone = self.online_players.clone();
+        let working_dir_buf = working_dir.to_path_buf();
 
         *self.start_instant.write().await = Some(std::time::Instant::now());
 
@@ -484,6 +718,8 @@ impl ServerProcessSupervisor {
                 let status_inner = status_clone.clone();
                 let logs_inner = logs_clone.clone();
                 let broadcaster_inner = broadcaster.clone();
+                let online_players_inner = online_players_clone.clone();
+                let working_dir_inner = working_dir_buf.clone();
 
                 tasks.push(tokio::spawn(async move {
                     let mut reader = BufReader::new(stdout).lines();
@@ -497,6 +733,72 @@ impl ServerProcessSupervisor {
                             let mut st = status_inner.write().await;
                             if matches!(*st, DedicatedServerStatus::Starting | DedicatedServerStatus::Preparing) {
                                 *st = DedicatedServerStatus::Running { port };
+                            }
+                        }
+
+                        // Player Join Log Parsing
+                        if let Some((name, parsed_uuid, ip)) = parse_player_join_log(&line) {
+                            let is_op = check_is_op(Some(&working_dir_inner), &name, parsed_uuid.as_deref());
+                            let uuid = parsed_uuid.unwrap_or_else(|| generate_offline_uuid(&name));
+                            let now = std::time::SystemTime::now()
+                                .duration_since(std::time::UNIX_EPOCH)
+                                .map(|d| d.as_secs())
+                                .unwrap_or(0);
+                            let mut pl = online_players_inner.write().await;
+                            pl.insert(
+                                name.clone(),
+                                TrackedPlayer {
+                                    name,
+                                    uuid,
+                                    ip,
+                                    joined_at: now,
+                                    is_op,
+                                    ping: Some(15),
+                                    gamemode: Some("Survival".to_string()),
+                                },
+                            );
+                        }
+
+                        // Player UUID Log Parsing
+                        if let Some((name, uuid)) = parse_player_uuid_log(&line) {
+                            let mut pl = online_players_inner.write().await;
+                            if let Some(player) = pl.get_mut(&name) {
+                                player.uuid = uuid.clone();
+                                if !player.is_op {
+                                    player.is_op = check_is_op(Some(&working_dir_inner), &name, Some(&uuid));
+                                }
+                            } else {
+                                let is_op = check_is_op(Some(&working_dir_inner), &name, Some(&uuid));
+                                let now = std::time::SystemTime::now()
+                                    .duration_since(std::time::UNIX_EPOCH)
+                                    .map(|d| d.as_secs())
+                                    .unwrap_or(0);
+                                pl.insert(
+                                    name.clone(),
+                                    TrackedPlayer {
+                                        name,
+                                        uuid,
+                                        ip: None,
+                                        joined_at: now,
+                                        is_op,
+                                        ping: Some(15),
+                                        gamemode: Some("Survival".to_string()),
+                                    },
+                                );
+                            }
+                        }
+
+                        // Player Leave Log Parsing
+                        if let Some(name) = parse_player_leave_log(&line) {
+                            let mut pl = online_players_inner.write().await;
+                            pl.remove(&name);
+                        }
+
+                        // Operator status change Log Parsing
+                        if let Some((name, is_op)) = parse_player_op_log(&line) {
+                            let mut pl = online_players_inner.write().await;
+                            if let Some(player) = pl.get_mut(&name) {
+                                player.is_op = is_op;
                             }
                         }
 
@@ -545,6 +847,7 @@ impl ServerProcessSupervisor {
                 *st = DedicatedServerStatus::Stopped;
             }
             *start_instant_clone.write().await = None;
+            online_players_clone.write().await.clear();
         });
 
         *child_lock = Some(child);
@@ -555,6 +858,7 @@ impl ServerProcessSupervisor {
     pub async fn stop_server(&self) -> Result<(), DomainError> {
         *self.start_instant.write().await = None;
         *self.status.write().await = DedicatedServerStatus::Stopping;
+        self.online_players.write().await.clear();
 
         // Try graceful "stop" command via stdin
         let _ = self.send_console_command("stop").await;
@@ -572,6 +876,7 @@ impl ServerProcessSupervisor {
 
         *self.stdin.lock().await = None;
         *self.status.write().await = DedicatedServerStatus::Stopped;
+        self.online_players.write().await.clear();
         Ok(())
     }
 
@@ -584,6 +889,204 @@ impl ServerProcessSupervisor {
         }
         *self.stdin.lock().await = None;
         *self.status.write().await = DedicatedServerStatus::Stopped;
+        self.online_players.write().await.clear();
+        Ok(())
+    }
+
+    /// Returns list of online players
+    pub async fn get_online_players(&self) -> Vec<TrackedPlayer> {
+        let players = self.online_players.read().await;
+        let mut list: Vec<TrackedPlayer> = players.values().cloned().collect();
+        list.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
+        list
+    }
+
+    /// Returns moderation lists (ops, whitelist, banned players) by reading server files
+    pub async fn get_moderation_lists(&self) -> ModerationLists {
+        let dir_guard = self.working_dir.read().await;
+        let working_dir = dir_guard.as_deref();
+
+        let mut ops = Vec::new();
+        let mut whitelist = Vec::new();
+        let mut whitelist_enabled = false;
+        let mut banned_players = Vec::new();
+
+        if let Some(dir) = working_dir {
+            // 1. ops.json
+            let ops_file = dir.join("ops.json");
+            if let Ok(content) = std::fs::read_to_string(ops_file) {
+                if let Ok(val) = serde_json::from_str::<serde_json::Value>(&content) {
+                    if let Some(arr) = val.as_array() {
+                        for item in arr {
+                            if let Some(name) = item.get("name").and_then(|n| n.as_str()) {
+                                ops.push(name.to_string());
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 2. whitelist.json
+            let wl_file = dir.join("whitelist.json");
+            if let Ok(content) = std::fs::read_to_string(wl_file) {
+                if let Ok(val) = serde_json::from_str::<serde_json::Value>(&content) {
+                    if let Some(arr) = val.as_array() {
+                        for item in arr {
+                            if let Some(name) = item.get("name").and_then(|n| n.as_str()) {
+                                whitelist.push(name.to_string());
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 3. banned-players.json
+            let ban_file = dir.join("banned-players.json");
+            if let Ok(content) = std::fs::read_to_string(ban_file) {
+                if let Ok(val) = serde_json::from_str::<serde_json::Value>(&content) {
+                    if let Some(arr) = val.as_array() {
+                        for item in arr {
+                            if let Some(name) = item.get("name").and_then(|n| n.as_str()) {
+                                let uuid = item.get("uuid").and_then(|u| u.as_str()).map(|s| s.to_string());
+                                let reason = item.get("reason").and_then(|r| r.as_str()).unwrap_or("Banned by operator").to_string();
+                                let source = item.get("source").and_then(|s| s.as_str()).map(|s| s.to_string());
+                                let expires = item.get("expires").and_then(|e| e.as_str()).map(|s| s.to_string());
+                                let date = item.get("created").and_then(|c| c.as_str()).unwrap_or("").to_string();
+                                banned_players.push(BannedPlayerEntry {
+                                    name: name.to_string(),
+                                    uuid,
+                                    reason,
+                                    source,
+                                    expires,
+                                    date,
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 4. server.properties
+            let prop_file = dir.join("server.properties");
+            if let Ok(content) = std::fs::read_to_string(prop_file) {
+                for line in content.lines() {
+                    let trimmed = line.trim();
+                    if trimmed.starts_with("white-list=") {
+                        let val = trimmed.trim_start_matches("white-list=").trim();
+                        whitelist_enabled = val.eq_ignore_ascii_case("true");
+                    }
+                }
+            }
+        }
+
+        ModerationLists {
+            ops,
+            whitelist,
+            whitelist_enabled,
+            banned_players,
+        }
+    }
+
+    /// Executes player moderation actions (op, deop, kick, ban, unban, timeout, gamemode, teleport, heal, kill, clear, msg, whitelist)
+    pub async fn execute_player_action(
+        &self,
+        action: &str,
+        player: &str,
+        param: Option<&str>,
+    ) -> Result<(), DomainError> {
+        let clean_player = player.trim();
+        if clean_player.is_empty() {
+            return Err(DomainError::Internal("Player name cannot be empty".to_string()));
+        }
+
+        match action {
+            "op" => {
+                self.send_console_command(&format!("op {}", clean_player)).await?;
+                let mut pl = self.online_players.write().await;
+                if let Some(p) = pl.get_mut(clean_player) {
+                    p.is_op = true;
+                }
+            }
+            "deop" => {
+                self.send_console_command(&format!("deop {}", clean_player)).await?;
+                let mut pl = self.online_players.write().await;
+                if let Some(p) = pl.get_mut(clean_player) {
+                    p.is_op = false;
+                }
+            }
+            "kick" => {
+                let reason = param.unwrap_or("Kicked by server operator");
+                self.send_console_command(&format!("kick {} {}", clean_player, reason)).await?;
+                let mut pl = self.online_players.write().await;
+                pl.remove(clean_player);
+            }
+            "ban" => {
+                let reason = param.unwrap_or("Banned by server operator");
+                self.send_console_command(&format!("ban {} {}", clean_player, reason)).await?;
+                let mut pl = self.online_players.write().await;
+                pl.remove(clean_player);
+            }
+            "ban_ip" => {
+                let reason = param.unwrap_or("IP Banned by server operator");
+                self.send_console_command(&format!("ban-ip {} {}", clean_player, reason)).await?;
+                let mut pl = self.online_players.write().await;
+                pl.remove(clean_player);
+            }
+            "pardon" | "unban" => {
+                self.send_console_command(&format!("pardon {}", clean_player)).await?;
+            }
+            "pardon_ip" => {
+                self.send_console_command(&format!("pardon-ip {}", clean_player)).await?;
+            }
+            "timeout" | "mute" => {
+                let reason = param.unwrap_or("Timed out by server operator");
+                let _ = self.send_console_command(&format!("mute {} 15m {}", clean_player, reason)).await;
+                self.send_console_command(&format!("kick {} [TIMEOUT] {}", clean_player, reason)).await?;
+                let mut pl = self.online_players.write().await;
+                pl.remove(clean_player);
+            }
+            "gamemode" => {
+                let mode = param.unwrap_or("survival");
+                self.send_console_command(&format!("gamemode {} {}", mode, clean_player)).await?;
+                let mut pl = self.online_players.write().await;
+                if let Some(p) = pl.get_mut(clean_player) {
+                    p.gamemode = Some(mode.to_string());
+                }
+            }
+            "tp" | "teleport" => {
+                let target = param.unwrap_or("0 80 0");
+                self.send_console_command(&format!("tp {} {}", clean_player, target)).await?;
+            }
+            "heal" => {
+                let _ = self.send_console_command(&format!("effect give {} minecraft:instant_health 1 255", clean_player)).await;
+                let _ = self.send_console_command(&format!("effect give {} minecraft:saturation 1 255", clean_player)).await;
+            }
+            "kill" => {
+                self.send_console_command(&format!("kill {}", clean_player)).await?;
+            }
+            "clear" => {
+                self.send_console_command(&format!("clear {}", clean_player)).await?;
+            }
+            "msg" | "tell" => {
+                let msg = param.unwrap_or("Hello!");
+                self.send_console_command(&format!("tell {} {}", clean_player, msg)).await?;
+            }
+            "whitelist_add" => {
+                self.send_console_command(&format!("whitelist add {}", clean_player)).await?;
+            }
+            "whitelist_remove" => {
+                self.send_console_command(&format!("whitelist remove {}", clean_player)).await?;
+            }
+            "whitelist_on" => {
+                self.send_console_command("whitelist on").await?;
+            }
+            "whitelist_off" => {
+                self.send_console_command("whitelist off").await?;
+            }
+            other => {
+                self.send_console_command(&format!("{} {}", other, clean_player)).await?;
+            }
+        }
         Ok(())
     }
 
@@ -2079,6 +2582,45 @@ mod tests {
         assert_eq!(supervisor.get_status().await, PlayitAgentStatus::Stopped);
         assert_eq!(supervisor.get_claim_url().await, None);
         assert_eq!(supervisor.get_public_address().await, None);
+    }
+
+    #[test]
+    fn test_parse_player_join_log() {
+        let line1 = "[12:34:56 INFO]: Gautam joined the game";
+        let res1 = parse_player_join_log(line1);
+        assert_eq!(res1, Some(("Gautam".to_string(), None, None)));
+
+        let line2 = "[12:34:56 INFO]: Gautam[/127.0.0.1:54321] logged in with entity id 123 at ([world]0.0, 80.0, 0.0)";
+        let res2 = parse_player_join_log(line2);
+        assert_eq!(res2, Some(("Gautam".to_string(), None, Some("127.0.0.1".to_string()))));
+    }
+
+    #[test]
+    fn test_parse_player_uuid_log() {
+        let line = "[12:34:56 INFO]: UUID of player Gautam is a01e3843-e521-3998-958a-f459800e4d11";
+        let res = parse_player_uuid_log(line);
+        assert_eq!(res, Some(("Gautam".to_string(), "a01e3843-e521-3998-958a-f459800e4d11".to_string())));
+    }
+
+    #[test]
+    fn test_parse_player_leave_log() {
+        let line1 = "[12:35:00 INFO]: Gautam left the game";
+        assert_eq!(parse_player_leave_log(line1), Some("Gautam".to_string()));
+
+        let line2 = "[12:35:00 INFO]: Gautam lost connection: Disconnected";
+        assert_eq!(parse_player_leave_log(line2), Some("Gautam".to_string()));
+
+        let line3 = "[12:35:00 INFO]: Disconnecting Gautam: Kicked by operator";
+        assert_eq!(parse_player_leave_log(line3), Some("Gautam".to_string()));
+    }
+
+    #[test]
+    fn test_parse_player_op_log() {
+        let line1 = "[12:35:00 INFO]: Made Gautam a server operator";
+        assert_eq!(parse_player_op_log(line1), Some(("Gautam".to_string(), true)));
+
+        let line2 = "[12:35:00 INFO]: Made Gautam no longer a server operator";
+        assert_eq!(parse_player_op_log(line2), Some(("Gautam".to_string(), false)));
     }
 }
 
