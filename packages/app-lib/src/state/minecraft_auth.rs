@@ -596,7 +596,12 @@ impl Credentials {
         }
 
         let all = Self::get_all(exec).await?;
-        if let Some(entry) = all.iter().next() {
+        let target_entry = all
+            .iter()
+            .find(|u| !u.value().offline_profile.name.eq_ignore_ascii_case("player"))
+            .or_else(|| all.iter().next());
+
+        if let Some(entry) = target_entry {
             let mut credentials = Self {
                 offline_profile: MinecraftProfile {
                     id: entry.value().offline_profile.id,
@@ -720,29 +725,42 @@ impl Serialize for Credentials {
         &self,
         serializer: S,
     ) -> Result<S::Ok, S::Error> {
-        // Opportunistically hydrate the profile with its online data if possible for frontend
-        // consumption, transparently handling all the possible Tokio runtime states the current
-        // thread may be in the most efficient way
-        let profile = match Handle::try_current().ok() {
-            Some(runtime)
-                if runtime.runtime_flavor() == RuntimeFlavor::CurrentThread =>
-            {
-                runtime.block_on(self.maybe_online_profile())
+        let is_offline = self.access_token == "0"
+            || self.access_token.is_empty()
+            || self.refresh_token.is_empty();
+
+        let profile: std::borrow::Cow<'_, MinecraftProfile> = if is_offline {
+            std::borrow::Cow::Borrowed(&self.offline_profile)
+        } else {
+            let fetched = match Handle::try_current().ok() {
+                Some(runtime)
+                    if runtime.runtime_flavor() == RuntimeFlavor::CurrentThread =>
+                {
+                    runtime.block_on(self.maybe_online_profile())
+                }
+                Some(runtime) => task::block_in_place(|| {
+                    runtime.block_on(self.maybe_online_profile())
+                }),
+                None => tokio::runtime::Builder::new_current_thread()
+                    .enable_all()
+                    .build()
+                    .map_or_else(
+                        |_| {
+                            MaybeOnlineMinecraftProfile::Offline(
+                                &self.offline_profile,
+                            )
+                        },
+                        |runtime| runtime.block_on(self.maybe_online_profile()),
+                    ),
+            };
+            match fetched {
+                MaybeOnlineMinecraftProfile::Offline(_) => {
+                    std::borrow::Cow::Borrowed(&self.offline_profile)
+                }
+                MaybeOnlineMinecraftProfile::Online(p) => {
+                    std::borrow::Cow::Owned((*p).clone())
+                }
             }
-            Some(runtime) => task::block_in_place(|| {
-                runtime.block_on(self.maybe_online_profile())
-            }),
-            None => tokio::runtime::Builder::new_current_thread()
-                .enable_all()
-                .build()
-                .map_or_else(
-                    |_| {
-                        MaybeOnlineMinecraftProfile::Offline(
-                            &self.offline_profile,
-                        )
-                    },
-                    |runtime| runtime.block_on(self.maybe_online_profile()),
-                ),
         };
 
         let mut ser = serializer.serialize_struct("Credentials", 5)?;

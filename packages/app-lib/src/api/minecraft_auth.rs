@@ -68,25 +68,54 @@ pub async fn get_default_user() -> crate::Result<Option<uuid::Uuid>> {
 
 #[tracing::instrument]
 pub async fn set_default_user(user: uuid::Uuid) -> crate::Result<()> {
+    set_default_user_by_identifier(&user.to_string()).await
+}
+
+#[tracing::instrument]
+pub async fn set_default_user_by_identifier(identifier: &str) -> crate::Result<()> {
     use sqlx::Row;
 
-    let state = State::get().await?;
-    let uuid_hyphenated = user.as_hyphenated().to_string();
-    let uuid_simple = user.simple().to_string();
+    let clean = identifier.trim();
+    if clean.is_empty() {
+        return Ok(());
+    }
 
+    let parsed_uuid = uuid::Uuid::parse_str(clean).ok();
+    let offline_uuid = freeplay_domain::generate_offline_uuid(clean);
+
+    let state = State::get().await?;
     let mut tx = state.pool.begin().await?;
 
-    // 1. Direct check by hyphenated or simple UUID
-    let row = sqlx::query(
-        "SELECT uuid FROM minecraft_users WHERE uuid = ? OR uuid = ?",
-    )
-    .bind(&uuid_hyphenated)
-    .bind(&uuid_simple)
-    .fetch_optional(&mut *tx)
-    .await?;
+    let mut matched_uuid: Option<String> = None;
 
-    if let Some(r) = row {
-        let db_uuid: String = r.get("uuid");
+    if let Some(u) = parsed_uuid {
+        let u_hyphenated = u.as_hyphenated().to_string();
+        let u_simple = u.simple().to_string();
+        let row = sqlx::query("SELECT uuid FROM minecraft_users WHERE uuid = ? OR uuid = ?")
+            .bind(&u_hyphenated)
+            .bind(&u_simple)
+            .fetch_optional(&mut *tx)
+            .await?;
+        if let Some(r) = row {
+            matched_uuid = Some(r.get("uuid"));
+        }
+    }
+
+    if matched_uuid.is_none() {
+        let off_hyphenated = offline_uuid.as_hyphenated().to_string();
+        let off_simple = offline_uuid.simple().to_string();
+        let row = sqlx::query("SELECT uuid FROM minecraft_users WHERE uuid = ? OR uuid = ? OR LOWER(username) = LOWER(?)")
+            .bind(&off_hyphenated)
+            .bind(&off_simple)
+            .bind(clean)
+            .fetch_optional(&mut *tx)
+            .await?;
+        if let Some(r) = row {
+            matched_uuid = Some(r.get("uuid"));
+        }
+    }
+
+    if let Some(db_uuid) = matched_uuid {
         sqlx::query("UPDATE minecraft_users SET active = FALSE")
             .execute(&mut *tx)
             .await?;
@@ -98,55 +127,60 @@ pub async fn set_default_user(user: uuid::Uuid) -> crate::Result<()> {
         return Ok(());
     }
 
-    // 2. Fallback: check if any stored user has a matching calculated offline UUID
-    let rows = sqlx::query("SELECT uuid, username FROM minecraft_users")
-        .fetch_all(&mut *tx)
-        .await?;
-
-    for r in rows {
-        let db_username: String = r.get("username");
-        let db_uuid: String = r.get("uuid");
-        let expected = freeplay_domain::generate_offline_uuid(&db_username);
-        if expected == user {
-            sqlx::query("UPDATE minecraft_users SET active = FALSE")
-                .execute(&mut *tx)
-                .await?;
-            sqlx::query(
-                "UPDATE minecraft_users SET active = TRUE, uuid = ? WHERE uuid = ?",
-            )
-            .bind(&uuid_hyphenated)
-            .bind(&db_uuid)
-            .execute(&mut *tx)
-            .await?;
-            tx.commit().await?;
-            return Ok(());
-        }
-    }
-
-    // 3. Fallback: if username matches directly or user was just created
     tx.commit().await?;
+    crate::state::create_offline_account(clean.to_string(), &state.pool).await?;
     Ok(())
 }
 
 /// Remove a user account from the database
 #[tracing::instrument]
 pub async fn remove_user(uuid: uuid::Uuid) -> crate::Result<()> {
-    let state = State::get().await?;
-    let uuid_hyphenated = uuid.as_hyphenated().to_string();
-    let uuid_simple = uuid.simple().to_string();
+    remove_user_by_identifier(&uuid.to_string()).await
+}
 
-    sqlx::query("DELETE FROM minecraft_users WHERE uuid = ? OR uuid = ?")
-        .bind(&uuid_hyphenated)
-        .bind(&uuid_simple)
-        .execute(&state.pool)
-        .await?;
+#[tracing::instrument]
+pub async fn remove_user_by_identifier(identifier: &str) -> crate::Result<()> {
+    let clean = identifier.trim();
+    if clean.is_empty() {
+        return Ok(());
+    }
+
+    let parsed_uuid = uuid::Uuid::parse_str(clean).ok();
+    let offline_uuid = freeplay_domain::generate_offline_uuid(clean);
+    let state = State::get().await?;
+
+    let mut query = "DELETE FROM minecraft_users WHERE LOWER(username) = LOWER(?)".to_string();
+    let mut args: Vec<String> = vec![clean.to_string()];
+
+    if let Some(u) = parsed_uuid {
+        query.push_str(" OR uuid = ? OR uuid = ?");
+        args.push(u.as_hyphenated().to_string());
+        args.push(u.simple().to_string());
+    }
+    query.push_str(" OR uuid = ? OR uuid = ?");
+    args.push(offline_uuid.as_hyphenated().to_string());
+    args.push(offline_uuid.simple().to_string());
+
+    let mut q = sqlx::query(&query);
+    for arg in args {
+        q = q.bind(arg);
+    }
+    q.execute(&state.pool).await?;
 
     let all = Credentials::get_all(&state.pool).await?;
     let has_active = all.iter().any(|u| u.value().active);
     if !has_active {
-        if let Some((_, mut first)) = all.into_iter().next() {
-            first.active = true;
-            let _ = first.upsert(&state.pool).await;
+        let target = all
+            .iter()
+            .find(|u| !u.value().offline_profile.name.eq_ignore_ascii_case("player"))
+            .map(|u| *u.key())
+            .or_else(|| all.iter().next().map(|u| *u.key()));
+
+        if let Some(key) = target {
+            if let Some((_, mut user)) = all.remove(&key) {
+                user.active = true;
+                let _ = user.upsert(&state.pool).await;
+            }
         }
     }
 

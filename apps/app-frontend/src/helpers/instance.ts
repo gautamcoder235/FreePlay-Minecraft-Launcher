@@ -379,11 +379,17 @@ export async function get_pack_export_candidates(
 export async function run(
 	instanceId: string,
 	serverAddress: string | null = null,
+	account: string | null = null,
 ): Promise<unknown> {
+	let activeAccountNameOrId = account
 	try {
 		const activeSaved = localStorage.getItem('freeplay-active-player')
 		if (activeSaved) {
 			const activeProfile = JSON.parse(activeSaved)
+			if (!activeAccountNameOrId) {
+				activeAccountNameOrId =
+					activeProfile?.name || activeProfile?.username || activeProfile?.id || null
+			}
 			if (activeProfile?.type === 'offline' && activeProfile?.name) {
 				await create_offline_account(activeProfile.name).catch(() => {})
 			} else if (activeProfile?.id) {
@@ -393,7 +399,11 @@ export async function run(
 	} catch {
 		// ignore
 	}
-	return await invoke('plugin:instance|instance_run', { instanceId, serverAddress })
+	return await invoke('plugin:instance|instance_run', {
+		instanceId,
+		serverAddress,
+		account: activeAccountNameOrId,
+	})
 }
 
 export async function kill(instanceId: string): Promise<void> {

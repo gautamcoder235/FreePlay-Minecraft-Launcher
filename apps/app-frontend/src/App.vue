@@ -1828,9 +1828,9 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			<!-- Zone 1: Brand & Navigation Hub -->
 			<div data-tauri-drag-region class="flex items-center gap-3 shrink-0 min-w-0">
 				<!-- Brand Badge -->
-				<div class="flex items-center gap-2 pointer-events-none select-none">
+				<div class="flex items-center gap-2.5 pointer-events-none select-none">
 					<div
-						class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-[#141923] shadow-[0_0_15px_rgba(56,189,248,0.4)] border border-sky-500/40 p-1"
+						class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-[#141923] shadow-[0_0_15px_rgba(168,85,247,0.35),0_0_25px_rgba(6,182,212,0.2)] border border-purple-500/30 p-1"
 					>
 						<svg
 							viewBox="0 0 100 100"
@@ -1840,27 +1840,34 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 						>
 							<defs>
 								<linearGradient id="fp-top-brand-top" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#a5f3fc" />
+									<stop offset="0%" stop-color="#e0f2fe" />
 									<stop offset="100%" stop-color="#38bdf8" />
 								</linearGradient>
 								<linearGradient id="fp-top-brand-left" x1="0%" y1="0%" x2="100%" y2="100%">
+									<stop offset="0%" stop-color="#d8b4fe" />
+									<stop offset="100%" stop-color="#7c3aed" />
+								</linearGradient>
+								<linearGradient id="fp-top-brand-right" x1="0%" y1="0%" x2="100%" y2="100%">
 									<stop offset="0%" stop-color="#38bdf8" />
 									<stop offset="100%" stop-color="#0284c7" />
 								</linearGradient>
-								<linearGradient id="fp-top-brand-right" x1="0%" y1="0%" x2="100%" y2="100%">
+								<linearGradient id="fp-top-brand-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
+									<stop offset="0%" stop-color="#c084fc" />
+									<stop offset="100%" stop-color="#6366f1" />
+								</linearGradient>
+								<linearGradient id="fp-top-brand-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
 									<stop offset="0%" stop-color="#22d3ee" />
 									<stop offset="100%" stop-color="#0891b2" />
 								</linearGradient>
-								<linearGradient id="fp-top-brand-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#0ea5e9" />
-									<stop offset="100%" stop-color="#0369a1" />
-								</linearGradient>
-								<linearGradient id="fp-top-brand-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#06b6d4" />
-									<stop offset="100%" stop-color="#0e7490" />
-								</linearGradient>
+								<filter id="fp-top-brand-aura" x="-40%" y="-40%" width="180%" height="180%">
+									<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+									<feMerge>
+										<feMergeNode in="blur" />
+										<feMergeNode in="SourceGraphic" />
+									</feMerge>
+								</filter>
 							</defs>
-							<g transform="translate(12, 12)">
+							<g transform="translate(12, 12)" filter="url(#fp-top-brand-aura)">
 								<polygon
 									points="38,4 58,22 38,34 18,22"
 									fill="url(#fp-top-brand-top)"
@@ -1886,25 +1893,25 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 									fill="url(#fp-top-brand-front-right)"
 									opacity="0.9"
 								/>
-								<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.45" />
-								<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.25" />
+								<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.5" />
+								<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.35" />
 								<line
 									x1="38"
 									y1="4"
 									x2="38"
 									y2="72"
-									stroke="rgba(255,255,255,0.5)"
-									stroke-width="1.5"
+									stroke="rgba(255,255,255,0.6)"
+									stroke-width="1.2"
 								/>
 							</g>
 						</svg>
 					</div>
 					<span
-						class="font-black tracking-wider text-xs text-white font-sans flex items-center gap-1.5"
+						class="font-black tracking-widest text-xs font-sans flex items-center gap-1.5 bg-gradient-to-r from-white via-purple-300 via-sky-300 to-pink-300 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(168,85,247,0.4)]"
 					>
 						FREEPLAY
 						<span
-							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30"
+							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30"
 						>
 							PRO
 						</span>

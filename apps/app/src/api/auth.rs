@@ -94,8 +94,20 @@ pub async fn login<R: Runtime>(
 }
 
 #[tauri::command]
-pub async fn remove_user(user: uuid::Uuid) -> Result<()> {
-    Ok(minecraft_auth::remove_user(user).await?)
+pub async fn remove_user(user: serde_json::Value) -> Result<()> {
+    let user_str = match user {
+        serde_json::Value::String(s) => s,
+        serde_json::Value::Object(o) => {
+            o.get("id")
+                .or_else(|| o.get("uuid"))
+                .or_else(|| o.get("username"))
+                .and_then(|v| v.as_str())
+                .unwrap_or_default()
+                .to_string()
+        }
+        _ => user.to_string().trim_matches('"').to_string(),
+    };
+    Ok(minecraft_auth::remove_user_by_identifier(&user_str).await?)
 }
 
 #[tauri::command]
@@ -104,8 +116,20 @@ pub async fn get_default_user() -> Result<Option<uuid::Uuid>> {
 }
 
 #[tauri::command]
-pub async fn set_default_user(user: uuid::Uuid) -> Result<()> {
-    Ok(minecraft_auth::set_default_user(user).await?)
+pub async fn set_default_user(user: serde_json::Value) -> Result<()> {
+    let user_str = match user {
+        serde_json::Value::String(s) => s,
+        serde_json::Value::Object(o) => {
+            o.get("id")
+                .or_else(|| o.get("uuid"))
+                .or_else(|| o.get("username"))
+                .and_then(|v| v.as_str())
+                .unwrap_or_default()
+                .to_string()
+        }
+        _ => user.to_string().trim_matches('"').to_string(),
+    };
+    Ok(minecraft_auth::set_default_user_by_identifier(&user_str).await?)
 }
 
 /// Get a copy of the list of all user credentials

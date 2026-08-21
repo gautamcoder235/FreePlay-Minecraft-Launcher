@@ -96,12 +96,14 @@ async function handleStopHero() {
 
 async function handleLaunch(instanceId: string) {
 	try {
-		if (accountStore.activeAccount?.isOffline && accountStore.activeAccount?.name) {
-			await create_offline_account(accountStore.activeAccount.name).catch(() => {})
-		} else if (accountStore.activeAccountId) {
-			await set_default_user(accountStore.activeAccountId).catch(() => {})
+		const activeAcc = accountStore.activeAccount
+		const activeTarget = activeAcc?.name || activeAcc?.id || accountStore.activeAccountId
+		if (activeAcc?.isOffline && activeAcc?.name) {
+			await create_offline_account(activeAcc.name).catch(() => {})
+		} else if (activeAcc?.id) {
+			await set_default_user(activeAcc.id).catch(() => {})
 		}
-		await runInstance(instanceId)
+		await runInstance(instanceId, null, activeTarget || null)
 		await loadData()
 	} catch {
 		// ignore

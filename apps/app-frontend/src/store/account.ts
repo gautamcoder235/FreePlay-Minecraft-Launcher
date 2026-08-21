@@ -356,9 +356,10 @@ export const useAccountStore = defineStore('accountStore', {
 
 			try {
 				if (target.isOffline && target.name) {
-					await create_offline_account(target.name)
+					await create_offline_account(target.name).catch(() => {})
+					await set_default_user(target.name).catch(() => {})
 				} else {
-					await set_default_user(activeId)
+					await set_default_user(activeId).catch(() => {})
 				}
 			} catch (err) {
 				console.warn('setActiveAccount set_default_user fallback notice:', err)
@@ -383,11 +384,16 @@ export const useAccountStore = defineStore('accountStore', {
 		},
 
 		async removeAccount(accountId: string) {
-			const target = this.accounts.find((a) => a.id === accountId)
+			const target = this.accounts.find(
+				(a) => isSameUuid(a.id, accountId) || a.name.toLowerCase() === accountId.toLowerCase(),
+			)
 			const targetName = target?.name?.toLowerCase()
 
 			try {
-				await remove_user(accountId)
+				if (target?.name) {
+					await remove_user(target.name).catch(() => {})
+				}
+				await remove_user(accountId).catch(() => {})
 			} catch {
 				// ignore
 			}
@@ -399,7 +405,7 @@ export const useAccountStore = defineStore('accountStore', {
 					if (Array.isArray(list)) {
 						const filtered = list.filter((a) => {
 							const name = (a.username || a.name)?.toLowerCase()
-							return a.id !== accountId && name !== targetName
+							return !isSameUuid(a.id, accountId) && name !== targetName
 						})
 						localStorage.setItem('freeplay-offline-accounts', JSON.stringify(filtered))
 					}

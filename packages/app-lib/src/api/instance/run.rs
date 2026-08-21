@@ -23,6 +23,15 @@ pub async fn run(
     instance_id: &str,
     quick_play_type: QuickPlayType,
 ) -> crate::Result<ProcessMetadata> {
+    run_with_account(instance_id, quick_play_type, None).await
+}
+
+#[tracing::instrument]
+pub async fn run_with_account(
+    instance_id: &str,
+    quick_play_type: QuickPlayType,
+    preferred_account: Option<String>,
+) -> crate::Result<ProcessMetadata> {
     let state = State::get().await?;
     if crate::state::instances::adapters::sqlite::instance_rows::is_instance_quarantined(
         instance_id,
@@ -41,32 +50,80 @@ pub async fn run(
     )
     .await?;
 
-    let default_account = match Credentials::get_default_credential(&state.pool).await? {
-        Some(acc) => acc,
-        None => {
-            let all = Credentials::get_all(&state.pool).await?;
-            let active_key = all.iter().find(|u| u.value().active).map(|u| *u.key());
-            let non_player_key = all
-                .iter()
-                .find(|u| u.value().offline_profile.name.to_lowercase() != "player")
-                .map(|u| *u.key());
-            let any_key = all.iter().next().map(|u| *u.key());
-            let target_key = active_key.or(non_player_key).or(any_key);
-            if let Some(key) = target_key {
-                if let Some((_, mut user)) = all.remove(&key) {
-                    user.active = true;
-                    let _ = user.upsert(&state.pool).await;
-                    user
-                } else {
-                    crate::state::create_offline_account("Player".to_string(), &state.pool).await?
-                }
+    let account_to_use = if let Some(target) = preferred_account
+        .as_deref()
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+    {
+        let all = Credentials::get_all(&state.pool).await?;
+        let matched = all
+            .iter()
+            .find(|u| {
+                let u_val = u.value();
+                let u_uuid_h = u_val.offline_profile.id.as_hyphenated().to_string();
+                let u_uuid_s = u_val.offline_profile.id.simple().to_string();
+                u_uuid_h.eq_ignore_ascii_case(target)
+                    || u_uuid_s.eq_ignore_ascii_case(target)
+                    || u_val.offline_profile.name.eq_ignore_ascii_case(target)
+            })
+            .map(|u| *u.key());
+
+        if let Some(key) = matched {
+            if let Some((_, mut user)) = all.remove(&key) {
+                user.active = true;
+                let _ = user.upsert(&state.pool).await;
+                user
+            } else {
+                crate::state::create_offline_account(target.to_string(), &state.pool).await?
+            }
+        } else {
+            crate::state::create_offline_account(target.to_string(), &state.pool).await?
+        }
+    } else {
+        let all = Credentials::get_all(&state.pool).await?;
+        let active_non_player_key = all
+            .iter()
+            .find(|u| {
+                u.value().active
+                    && !u
+                        .value()
+                        .offline_profile
+                        .name
+                        .eq_ignore_ascii_case("player")
+            })
+            .map(|u| *u.key());
+        let active_key = all.iter().find(|u| u.value().active).map(|u| *u.key());
+        let any_non_player_key = all
+            .iter()
+            .find(|u| {
+                !u
+                    .value()
+                    .offline_profile
+                    .name
+                    .eq_ignore_ascii_case("player")
+            })
+            .map(|u| *u.key());
+        let any_key = all.iter().next().map(|u| *u.key());
+
+        let target_key = active_non_player_key
+            .or(active_key)
+            .or(any_non_player_key)
+            .or(any_key);
+
+        if let Some(key) = target_key {
+            if let Some((_, mut user)) = all.remove(&key) {
+                user.active = true;
+                let _ = user.upsert(&state.pool).await;
+                user
             } else {
                 crate::state::create_offline_account("Player".to_string(), &state.pool).await?
             }
+        } else {
+            crate::state::create_offline_account("Player".to_string(), &state.pool).await?
         }
     };
 
-    run_credentials(instance_id, &default_account, quick_play_type).await
+    run_credentials(instance_id, &account_to_use, quick_play_type).await
 }
 
 #[tracing::instrument(skip(credentials))]

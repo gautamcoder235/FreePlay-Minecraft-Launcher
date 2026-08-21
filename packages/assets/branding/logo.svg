@@ -1,34 +1,41 @@
 <svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<defs>
 		<linearGradient id="fp-gem-top" x1="0%" y1="0%" x2="100%" y2="100%">
-			<stop offset="0%" stop-color="#a5f3fc" />
+			<stop offset="0%" stop-color="#e0f2fe" />
 			<stop offset="100%" stop-color="#38bdf8" />
 		</linearGradient>
 		<linearGradient id="fp-gem-left" x1="0%" y1="0%" x2="100%" y2="100%">
-			<stop offset="0%" stop-color="#818cf8" />
-			<stop offset="100%" stop-color="#4f46e5" />
+			<stop offset="0%" stop-color="#d8b4fe" />
+			<stop offset="100%" stop-color="#7c3aed" />
 		</linearGradient>
 		<linearGradient id="fp-gem-right" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#38bdf8" />
+			<stop offset="100%" stop-color="#0284c7" />
+		</linearGradient>
+		<linearGradient id="fp-gem-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#c084fc" />
+			<stop offset="100%" stop-color="#6366f1" />
+		</linearGradient>
+		<linearGradient id="fp-gem-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
 			<stop offset="0%" stop-color="#22d3ee" />
 			<stop offset="100%" stop-color="#0891b2" />
 		</linearGradient>
-		<linearGradient id="fp-gem-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
-			<stop offset="0%" stop-color="#6366f1" />
-			<stop offset="100%" stop-color="#3730a3" />
-		</linearGradient>
-		<linearGradient id="fp-gem-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
-			<stop offset="0%" stop-color="#06b6d4" />
-			<stop offset="100%" stop-color="#0e7490" />
-		</linearGradient>
+		<filter id="fp-gem-aura" x="-40%" y="-40%" width="180%" height="180%">
+			<feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur" />
+			<feMerge>
+				<feMergeNode in="blur" />
+				<feMergeNode in="SourceGraphic" />
+			</feMerge>
+		</filter>
 	</defs>
-	<g transform="translate(12, 12)">
+	<g transform="translate(12, 12)" filter="url(#fp-gem-aura)">
 		<polygon points="38,4 58,22 38,34 18,22" fill="url(#fp-gem-top)" opacity="0.95" />
 		<polygon points="18,22 38,34 38,54 8,36" fill="url(#fp-gem-left)" opacity="0.9" />
 		<polygon points="58,22 38,34 38,54 68,36" fill="url(#fp-gem-right)" opacity="0.95" />
 		<polygon points="8,36 38,54 38,72" fill="url(#fp-gem-front-left)" opacity="0.85" />
 		<polygon points="68,36 38,54 38,72" fill="url(#fp-gem-front-right)" opacity="0.9" />
-		<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.45" />
-		<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.25" />
-		<line x1="38" y1="4" x2="38" y2="72" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" />
+		<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.5" />
+		<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.35" />
+		<line x1="38" y1="4" x2="38" y2="72" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" />
 	</g>
 </svg>
