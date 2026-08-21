@@ -349,7 +349,13 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
                         _ => MinecraftSkinVariant::Classic,
                     };
                     let texture_key: Arc<str> = Arc::from(format!("offline-{}", meta.texture_hash));
-                    let texture = png_util::blob_to_data_url(bytes.into()).unwrap_or_default();
+                    let texture_key: Arc<str> = Arc::from(format!("offline-{}", meta.texture_hash));
+                    let texture = png_util::blob_to_data_url(bytes.into())
+                        .or_else(|| {
+                            png_util::blob_to_data_url(include_bytes!(
+                                "minecraft_skins/assets/default/MissingNo.png"
+                            ))
+                        })?;
                     Some((texture_key, variant, texture))
                 } else {
                     None
@@ -638,6 +644,28 @@ async fn add_and_equip_custom_skin_now(
 ) -> crate::Result<()> {
     let state = State::get().await?;
 
+    let is_offline = selected_credentials.access_token == "0"
+        || selected_credentials.access_token.is_empty()
+        || selected_credentials.refresh_token.is_empty();
+
+    if is_offline {
+        let store = crate::state::minecraft_skins::offline::OfflineSkinStore::new(
+            state.directories.config_dir.join("skins"),
+        );
+        let offline_variant = match variant {
+            MinecraftSkinVariant::Slim => {
+                crate::state::minecraft_skins::offline::SkinVariant::Slim
+            }
+            _ => crate::state::minecraft_skins::offline::SkinVariant::Classic,
+        };
+        let _ = store.save_skin(
+            &selected_credentials.offline_profile.name,
+            &texture_blob,
+            offline_variant,
+        );
+        return Ok(());
+    }
+
     let previous_profile = selected_credentials
         .online_profile_fresh()
         .await
@@ -761,6 +789,35 @@ async fn equip_skin_now(
 ) -> crate::Result<()> {
     let state = State::get().await?;
 
+    let is_offline = selected_credentials.access_token == "0"
+        || selected_credentials.access_token.is_empty()
+        || selected_credentials.refresh_token.is_empty();
+
+    if is_offline {
+        let store = crate::state::minecraft_skins::offline::OfflineSkinStore::new(
+            state.directories.config_dir.join("skins"),
+        );
+        let offline_variant = match skin.variant {
+            MinecraftSkinVariant::Slim => {
+                crate::state::minecraft_skins::offline::SkinVariant::Slim
+            }
+            _ => crate::state::minecraft_skins::offline::SkinVariant::Classic,
+        };
+        let texture_blob = png_util::url_to_data_stream(&skin.texture)
+            .await?
+            .try_fold(Vec::new(), |mut texture, chunk| async move {
+                texture.extend_from_slice(&chunk);
+                Ok(texture)
+            })
+            .await?;
+        let _ = store.save_skin(
+            &selected_credentials.offline_profile.name,
+            &texture_blob,
+            offline_variant,
+        );
+        return Ok(());
+    }
+
     let profile = selected_credentials
         .online_profile_fresh()
         .await
@@ -818,9 +875,10 @@ async fn persist_equipped_skin(
     skin: &Skin,
     texture_blob: &[u8],
 ) -> crate::Result<()> {
-    let equipped_skin = profile.current_skin()?;
-    let equipped_skin_texture_key = equipped_skin.texture_key();
-    let equipped_skin_variant = equipped_skin.variant;
+    let (equipped_skin_texture_key, equipped_skin_variant) = match profile.current_skin() {
+        Ok(equipped) => (equipped.texture_key(), equipped.variant),
+        Err(_) => (Arc::clone(&skin.texture_key), skin.variant),
+    };
     let texture_key_changed =
         skin.texture_key.as_ref() != equipped_skin_texture_key.as_ref();
     let insert_position = if texture_key_changed {
@@ -1319,7 +1377,9 @@ async fn preserve_current_profile_skin(
     state: &State,
     profile: &MinecraftProfile,
 ) -> crate::Result<()> {
-    let current_skin = profile.current_skin()?;
+    let Ok(current_skin) = profile.current_skin() else {
+        return Ok(());
+    };
     let current_skin_texture_key = current_skin.texture_key();
     let current_cape_id = profile.current_cape().map(|cape| cape.id);
 

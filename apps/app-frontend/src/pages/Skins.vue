@@ -1006,19 +1006,28 @@ watch(isSkinManagementReadOnly, (readOnly) => {
 	}
 })
 
-onMounted(() => {
+onMounted(async () => {
 	window.addEventListener('offline', onOffline)
 	window.addEventListener('online', onOnline)
-	window.addEventListener('freeplay-account-changed', () => void checkUserChanges())
-	userCheckInterval = window.setInterval(checkUserChanges, 250)
+	window.addEventListener('freeplay-account-changed', async () => {
+		await accountsCard.value?.refreshValues()
+		await loadCurrentUser()
+		await loadCapes()
+		await loadSkins()
+	})
+	userCheckInterval = window.setInterval(checkUserChanges, 1000)
 	void setupAddSkinDragDropListener()
+
+	if (skins.value.length === 0) {
+		await Promise.all([loadCapes(), loadCurrentUser()])
+		await loadSkins()
+	}
 })
 
 onUnmounted(() => {
 	isUnmounted = true
 	window.removeEventListener('offline', onOffline)
 	window.removeEventListener('online', onOnline)
-	window.removeEventListener('freeplay-account-changed', () => void checkUserChanges())
 
 	if (userCheckInterval !== null) {
 		window.clearInterval(userCheckInterval)
