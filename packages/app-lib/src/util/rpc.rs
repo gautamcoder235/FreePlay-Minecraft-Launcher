@@ -57,7 +57,32 @@ impl RpcServerBuilder {
                     waiting_responses: waiting_responses.clone(),
                 };
                 if let Err(e) = server.run(socket).await {
-                    tracing::error!("Failed to run RPC server: {e}");
+                    let is_expected_disconnect = match &*e.raw {
+                        crate::ErrorKind::IOError(io_err) => {
+                            let kind = io_err.kind();
+                            matches!(
+                                kind,
+                                std::io::ErrorKind::ConnectionReset
+                                    | std::io::ErrorKind::BrokenPipe
+                                    | std::io::ErrorKind::UnexpectedEof
+                                    | std::io::ErrorKind::ConnectionAborted
+                            ) || match io_err {
+                                crate::util::io::IOError::IOPathError { source, .. } => {
+                                    source.raw_os_error() == Some(10054)
+                                }
+                                crate::util::io::IOError::IOError(source) => {
+                                    source.raw_os_error() == Some(10054)
+                                }
+                            }
+                        }
+                        _ => false,
+                    };
+
+                    if is_expected_disconnect {
+                        tracing::debug!("RPC client disconnected cleanly: {e}");
+                    } else {
+                        tracing::error!("Failed to run RPC server: {e}");
+                    }
                 }
                 waiting_responses.lock().unwrap().clear();
             })

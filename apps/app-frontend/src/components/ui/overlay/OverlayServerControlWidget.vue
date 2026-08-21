@@ -1,8 +1,24 @@
 <script setup lang="ts">
-import { PlayIcon, TerminalSquareIcon, XIcon } from '@freeplay/assets'
+import {
+	CheckIcon,
+	ClipboardCopyIcon,
+	GripVerticalIcon,
+	PlayIcon,
+	ServerIcon,
+	StopCircleIcon,
+	TerminalSquareIcon,
+	XIcon,
+} from '@freeplay/assets'
 import { Button, StyledInput } from '@freeplay/ui'
 import { invoke } from '@tauri-apps/api/core'
 import { onMounted, onUnmounted, ref } from 'vue'
+
+import { useOverlayStore } from '@/store/overlay'
+
+const overlayStore = useOverlayStore()
+const emit = defineEmits<{
+	(e: 'drag-start', event: PointerEvent): void
+}>()
 
 const isRunning = ref(false)
 const serverStatus = ref('Active')
@@ -12,10 +28,6 @@ const terminalLogs = ref<string[]>([
 	'[Server] Loaded 48 world chunks',
 	'[Server] FreePlay P2P Anycast network connected',
 	'[Server] Dedicated server ready on 0.0.0.0:25565',
-])
-const connectedPlayers = ref([
-	{ name: 'Steve', ping: '18ms' },
-	{ name: 'Alex', ping: '24ms' },
 ])
 const copied = ref(false)
 
@@ -30,7 +42,6 @@ async function fetchStatus() {
 			serverStatus.value = res.status ?? 'Online'
 		}
 	} catch {
-		// Mock fallback for UI
 		isRunning.value = true
 		serverStatus.value = 'Running'
 	}
@@ -95,115 +106,139 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-		<!-- Server Status & Actions -->
+	<div
+		class="w-[460px] rounded-[24px] bg-slate-900/90 backdrop-blur-2xl border border-white/12 p-5 flex flex-col gap-4 shadow-2xl shadow-black/90 select-none transform-gpu contain-paint"
+	>
+		<!-- 1. Draggable Header (Hardware Accelerated Pointer Grab) -->
 		<div
-			class="rounded-2xl bg-surface-2/80 border border-surface-4/70 p-4 backdrop-blur-md flex flex-col gap-4 shadow-sm"
+			class="flex items-center justify-between border-b border-white/10 pb-3 cursor-grab active:cursor-grabbing group/header touch-none"
+			title="Click and drag to move"
+			@pointerdown.stop.prevent="emit('drag-start', $event)"
 		>
-			<div class="flex items-center justify-between">
-				<div class="flex items-center gap-2.5">
-					<span
-						class="w-3 h-3 rounded-full shadow-sm"
-						:class="
-							isRunning ? 'bg-emerald-500 shadow-emerald-500/50' : 'bg-rose-500 shadow-rose-500/50'
-						"
-					></span>
-					<div class="flex flex-col">
-						<span class="text-sm font-bold text-contrast">Local Server Control</span>
-						<span class="text-xs text-secondary font-mono">{{
-							isRunning ? 'Online (Paper 1.21.1)' : 'Offline'
-						}}</span>
-					</div>
+			<div class="flex items-center gap-2.5 min-w-0 pointer-events-none">
+				<GripVerticalIcon
+					class="w-4 h-4 text-slate-500 group-hover/header:text-slate-300 transition-colors shrink-0"
+				/>
+				<div
+					class="w-8 h-8 rounded-xl bg-purple-500/15 border border-purple-500/25 flex items-center justify-center text-purple-400 shrink-0 shadow-sm"
+				>
+					<ServerIcon class="w-4 h-4" />
 				</div>
+				<div class="flex flex-col min-w-0">
+					<span class="text-sm font-semibold text-white/95 tracking-tight truncate"
+						>Server Control Hub</span
+					>
+					<span class="text-[11px] text-slate-400 font-mono truncate">{{
+						isRunning ? 'Paper 1.21.1 • Active' : 'Server Offline'
+					}}</span>
+				</div>
+			</div>
+
+			<div class="flex items-center gap-2 shrink-0" @pointerdown.stop>
 				<span
-					class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full"
+					class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full border transition-all"
 					:class="
 						isRunning
-							? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-							: 'bg-surface-4 text-secondary'
+							? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+							: 'bg-white/5 text-slate-400 border-white/10'
 					"
 				>
-					{{ isRunning ? 'RUNNING' : 'STOPPED' }}
+					{{ isRunning ? 'ONLINE' : 'STOPPED' }}
 				</span>
-			</div>
-
-			<div class="p-3 rounded-xl bg-surface-3/80 border border-surface-4 flex flex-col gap-1">
-				<span class="text-xs font-semibold text-secondary">Connection Address:</span>
-				<div class="flex items-center justify-between gap-2">
-					<span class="text-xs font-mono text-contrast truncate select-all">{{ publicIp }}</span>
-					<button
-						class="text-[11px] px-2 py-1 rounded-md font-bold transition-all shrink-0"
-						:class="
-							copied ? 'bg-emerald-500 text-white' : 'bg-surface-4 text-contrast hover:bg-surface-5'
-						"
-						@click="copyIp"
-					>
-						{{ copied ? 'Copied!' : 'Copy' }}
-					</button>
-				</div>
-			</div>
-
-			<!-- Control Buttons -->
-			<div class="flex items-center gap-2 mt-auto">
-				<Button
-					v-if="!isRunning"
-					type="colored"
-					color="green"
-					class="w-full !font-bold flex items-center justify-center gap-2"
-					@click="startServer"
+				<button
+					class="w-7 h-7 rounded-xl bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white flex items-center justify-center transition-all cursor-pointer border-none shadow-sm"
+					title="Hide widget"
+					@click="overlayStore.showServerWidget = false"
 				>
-					<PlayIcon class="w-4 h-4" />
-					Start Server
-				</Button>
-				<Button
-					v-else
-					type="colored"
-					color="red"
-					class="w-full !font-bold flex items-center justify-center gap-2"
-					@click="stopServer"
-				>
-					<XIcon class="w-4 h-4" />
-					Stop Server
-				</Button>
+					<XIcon class="w-3.5 h-3.5" />
+				</button>
 			</div>
 		</div>
 
-		<!-- In-Game Console Logs & Command Execution -->
+		<!-- 2. Connection Info Card -->
 		<div
-			class="lg:col-span-2 rounded-2xl bg-surface-2/80 border border-surface-4/70 p-4 backdrop-blur-md flex flex-col gap-3 shadow-sm"
+			class="p-3 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between gap-3"
 		>
-			<div class="flex items-center justify-between">
-				<div class="flex items-center gap-2">
-					<TerminalSquareIcon class="w-4 h-4 text-brand" />
-					<span class="text-sm font-bold text-contrast">Live In-Game Console</span>
-				</div>
-				<span class="text-xs text-secondary font-mono"
-					>{{ connectedPlayers.length }} players connected</span
+			<div class="flex flex-col min-w-0">
+				<span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider"
+					>P2P Anycast IP</span
 				>
+				<span class="text-xs font-mono text-white/90 truncate select-all">{{ publicIp }}</span>
 			</div>
-
-			<!-- Terminal Box -->
-			<div
-				class="flex-1 min-h-[140px] max-h-[160px] p-3 rounded-xl bg-black/80 border border-surface-4 font-mono text-xs text-emerald-400 overflow-y-auto space-y-1"
+			<button
+				class="text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all shrink-0 cursor-pointer border flex items-center gap-1.5 shadow-sm"
+				:class="
+					copied
+						? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+						: 'bg-white/10 hover:bg-white/20 text-white border-white/10'
+				"
+				@click="copyIp"
 			>
-				<div v-for="(log, idx) in terminalLogs" :key="idx" class="leading-relaxed">
+				<CheckIcon v-if="copied" class="w-3 h-3 text-emerald-400" />
+				<ClipboardCopyIcon v-else class="w-3 h-3 text-slate-300" />
+				<span>{{ copied ? 'Copied' : 'Copy IP' }}</span>
+			</button>
+		</div>
+
+		<!-- 3. Live Terminal Logs -->
+		<div class="flex flex-col gap-1.5">
+			<div class="flex items-center justify-between text-xs text-slate-400">
+				<span class="font-medium flex items-center gap-1.5 text-slate-300">
+					<TerminalSquareIcon class="w-3.5 h-3.5 text-purple-400" />
+					Live Console
+				</span>
+				<span class="font-mono text-[10px] text-slate-500">Auto-scroll</span>
+			</div>
+			<div
+				class="h-24 p-3 rounded-xl bg-black/60 border border-white/5 font-mono text-[11px] text-emerald-400/90 overflow-y-auto space-y-1 select-text"
+			>
+				<div v-for="(log, idx) in terminalLogs" :key="idx" class="leading-tight">
 					{{ log }}
 				</div>
 			</div>
+		</div>
 
-			<!-- Command Input -->
-			<form class="flex items-center gap-2" @submit.prevent="sendCommand">
-				<StyledInput
-					v-model="commandInput"
-					type="text"
-					placeholder="Type command (e.g. /time set day, /gamemode creative)..."
-					wrapper-class="w-full"
-					autocomplete="off"
-				/>
-				<Button type="colored" color="brand" class="shrink-0 !font-bold" @click="sendCommand">
-					Execute
-				</Button>
-			</form>
+		<!-- 4. Command Input Form -->
+		<form class="flex items-center gap-2" @submit.prevent="sendCommand">
+			<StyledInput
+				v-model="commandInput"
+				type="text"
+				placeholder="Type server command (e.g. /time set day)..."
+				wrapper-class="w-full"
+				autocomplete="off"
+			/>
+			<Button
+				type="colored"
+				color="brand"
+				class="shrink-0 !font-semibold text-xs !py-1.5 !px-3"
+				@click="sendCommand"
+			>
+				Run
+			</Button>
+		</form>
+
+		<!-- 5. Primary Action Button -->
+		<div class="flex items-center gap-2 pt-1 border-t border-white/5">
+			<Button
+				v-if="!isRunning"
+				type="colored"
+				color="green"
+				class="w-full !font-bold flex items-center justify-center gap-2 text-xs !py-2"
+				@click="startServer"
+			>
+				<PlayIcon class="w-3.5 h-3.5" />
+				Start Dedicated Server
+			</Button>
+			<Button
+				v-else
+				type="colored"
+				color="red"
+				class="w-full !font-bold flex items-center justify-center gap-2 text-xs !py-2"
+				@click="stopServer"
+			>
+				<StopCircleIcon class="w-3.5 h-3.5" />
+				Stop Dedicated Server
+			</Button>
 		</div>
 	</div>
 </template>

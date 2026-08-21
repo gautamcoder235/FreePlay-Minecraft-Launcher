@@ -5,7 +5,7 @@ import { defineMessages, GAME_MODES, injectNotificationManager, useVIntl } from 
 import { platform } from '@tauri-apps/plugin-os'
 import type { Dayjs } from 'dayjs'
 import dayjs from 'dayjs'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import InstanceItem from '@/components/ui/world/InstanceItem.vue'
 import WorldItem from '@/components/ui/world/WorldItem.vue'
@@ -259,22 +259,36 @@ type ProcessMetadata = {
 }
 
 const checkProcesses = async () => {
-	const runningProcesses: ProcessMetadata[] = await get_all().catch(handleError)
+	try {
+		const runningProcesses: ProcessMetadata[] = await get_all().catch(() => [])
+		if (!Array.isArray(runningProcesses)) return
 
-	const runningPaths = runningProcesses.map((x) => x.instance_id)
+		const runningPaths = runningProcesses.map((x) => x.instance_id)
 
-	const stoppedInstances = runningInstances.value.filter((x) => !runningPaths.includes(x))
-	if (currentInstance.value && stoppedInstances.includes(currentInstance.value)) {
-		currentInstance.value = undefined
-		currentWorld.value = undefined
+		const stoppedInstances = runningInstances.value.filter((x) => !runningPaths.includes(x))
+		if (currentInstance.value && stoppedInstances.includes(currentInstance.value)) {
+			currentInstance.value = undefined
+			currentWorld.value = undefined
+		}
+
+		runningInstances.value = runningPaths
+	} catch {
+		// ignore
 	}
-
-	runningInstances.value = runningPaths
 }
+
+let pollTimer: ReturnType<typeof setInterval> | null = null
 
 onMounted(() => {
 	checkProcesses()
+	pollTimer = setInterval(checkProcesses, 2000)
+	window.addEventListener('focus', checkProcesses)
 	linuxPopulateCount.value = 0
+})
+
+onUnmounted(() => {
+	if (pollTimer) clearInterval(pollTimer)
+	window.removeEventListener('focus', checkProcesses)
 })
 </script>
 

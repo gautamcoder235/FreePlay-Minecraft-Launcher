@@ -2,6 +2,6 @@
 	"identifier": "updater",
 	"description": "",
 	"local": true,
-	"windows": ["main"],
+	"windows": ["main", "overlay"],
 	"permissions": ["updater:default"]
 }

@@ -837,7 +837,14 @@ pub async fn instance_run(
         Some(addr) => QuickPlayType::Server(ServerAddress::Unresolved(addr)),
         None => QuickPlayType::None,
     };
-    Ok(theseus::instance::run_with_account(instance_id, quick_play, account).await?)
+    let meta = theseus::instance::run_with_account(instance_id, quick_play, account).await?;
+    let _ = crate::api::overlay::overlay_set_active_game(
+        meta.pid,
+        Some(instance_id.to_string()),
+        Some(meta.instance_name.clone()),
+    )
+    .await;
+    Ok(meta)
 }
 
 #[tauri::command]

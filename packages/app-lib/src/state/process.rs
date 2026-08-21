@@ -124,9 +124,11 @@ impl ProcessManager {
         let stdout = mc_proc.stdout.take();
         let stderr = mc_proc.stderr.take();
 
+        let pid = mc_proc.id();
         let mut process = Process {
             metadata: ProcessMetadata {
                 uuid: Uuid::new_v4(),
+                pid,
                 start_time: Utc::now(),
                 instance_id: instance_id.to_string(),
                 instance_path: instance_path.to_string(),
@@ -282,6 +284,8 @@ impl ProcessManager {
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct ProcessMetadata {
     pub uuid: Uuid,
+    #[serde(default)]
+    pub pid: Option<u32>,
     pub instance_id: String,
     pub instance_path: String,
     pub instance_name: String,
@@ -834,8 +838,8 @@ impl Process {
                 )
                 .await
             {
-                tracing::warn!(
-                    "Failed to update playtime for instance {}: {}",
+                tracing::debug!(
+                    "Skipping remote playtime update for instance {}: {}",
                     playtime_instance_id,
                     e
                 );

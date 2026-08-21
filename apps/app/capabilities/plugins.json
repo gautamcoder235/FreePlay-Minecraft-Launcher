@@ -3,7 +3,8 @@
 	"description": "",
 	"local": true,
 	"windows": [
-		"main"
+		"main",
+		"overlay"
 	],
 	"permissions": [
 		"dialog:allow-open",

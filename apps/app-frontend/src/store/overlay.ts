@@ -11,7 +11,11 @@ export interface OverlayState {
 	activeInstanceId: string | null
 	activeInstanceName: string | null
 	hotkey: string
-	hudEnabled: boolean
+	showServerWidget: boolean
+	showAddonsWidget: boolean
+	showTelemetryWidget: boolean
+	showSettingsWidget: boolean
+	sessionStartTime: number
 	systemStats: {
 		fps: number
 		ramUsedMb: number
@@ -29,7 +33,11 @@ export const useOverlayStore = defineStore('overlayStore', {
 		activeInstanceId: null,
 		activeInstanceName: null,
 		hotkey: 'Shift+Tab',
-		hudEnabled: true,
+		showServerWidget: true,
+		showAddonsWidget: true,
+		showTelemetryWidget: true,
+		showSettingsWidget: false,
+		sessionStartTime: Date.now(),
 		systemStats: {
 			fps: 60,
 			ramUsedMb: 2048,
@@ -38,6 +46,19 @@ export const useOverlayStore = defineStore('overlayStore', {
 			pingMs: 24,
 		},
 	}),
+
+	getters: {
+		sessionDurationFormatted: (state) => {
+			const elapsedMs = Date.now() - state.sessionStartTime
+			const totalMinutes = Math.floor(elapsedMs / 60000)
+			const hours = Math.floor(totalMinutes / 60)
+			const minutes = totalMinutes % 60
+			if (hours > 0) {
+				return `${hours}h ${minutes}m`
+			}
+			return `${minutes}m`
+		},
+	},
 
 	actions: {
 		async init() {
@@ -55,7 +76,7 @@ export const useOverlayStore = defineStore('overlayStore', {
 				this.activeInstanceName = state.active_instance_name
 				if (state.hotkey) this.hotkey = state.hotkey
 			} catch {
-				// Running in non-tauri or mock environment
+				// Non-tauri or mock environment
 			}
 
 			try {
@@ -87,32 +108,27 @@ export const useOverlayStore = defineStore('overlayStore', {
 			await this.toggle(true)
 		},
 
-		setTab(tab: OverlayTab) {
-			this.activeTab = tab
+		toggleWidget(widget: 'servers' | 'addons' | 'telemetry' | 'settings') {
+			if (widget === 'servers') this.showServerWidget = !this.showServerWidget
+			else if (widget === 'addons') this.showAddonsWidget = !this.showAddonsWidget
+			else if (widget === 'telemetry') this.showTelemetryWidget = !this.showTelemetryWidget
+			else if (widget === 'settings') this.showSettingsWidget = !this.showSettingsWidget
 		},
 
-		async setGameContext(
-			pid: number | null,
-			instanceId: string | null,
-			instanceName: string | null,
-		) {
+		setGameContext(pid: number | null, instanceId: string | null, instanceName: string | null) {
 			this.activeGamePid = pid
 			this.activeInstanceId = instanceId
 			this.activeInstanceName = instanceName
+			this.sessionStartTime = Date.now()
 
-			try {
-				await invoke('plugin:overlay|overlay_set_active_game', {
-					pid,
-					instanceId,
-					instanceName,
-				})
-			} catch {
-				// ignore
-			}
+			invoke('plugin:overlay|overlay_set_active_game', {
+				pid,
+				instanceId,
+				instanceName,
+			}).catch(() => {})
 		},
 
 		updateMockTelemetry() {
-			// Subtle jitter for realistic real-time telemetry display
 			this.systemStats.fps = Math.floor(58 + Math.random() * 6)
 			this.systemStats.cpuPercent = Math.floor(14 + Math.random() * 12)
 			this.systemStats.pingMs = Math.floor(22 + Math.random() * 8)

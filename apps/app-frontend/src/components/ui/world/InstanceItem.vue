@@ -24,7 +24,7 @@ import {
 } from '@freeplay/ui'
 import { capitalizeString } from '@freeplay/utils'
 import type { Dayjs } from 'dayjs'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useAppEvent } from '@/composables/use-app-event'
@@ -136,13 +136,25 @@ useAppEvent('process', async () => {
 })
 
 const checkProcess = async () => {
-	const runningProcesses = await get_by_instance_id(props.instance.id).catch(handleError)
-
-	playing.value = runningProcesses.length > 0
+	try {
+		const runningProcesses = await get_by_instance_id(props.instance.id).catch(() => [])
+		playing.value = Array.isArray(runningProcesses) && runningProcesses.length > 0
+	} catch {
+		playing.value = false
+	}
 }
+
+let pollTimer: ReturnType<typeof setInterval> | null = null
 
 onMounted(() => {
 	checkProcess()
+	pollTimer = setInterval(checkProcess, 2000)
+	window.addEventListener('focus', checkProcess)
+})
+
+onUnmounted(() => {
+	if (pollTimer) clearInterval(pollTimer)
+	window.removeEventListener('focus', checkProcess)
 })
 </script>
 <template>

@@ -138,6 +138,14 @@ function updateHistoryNavigationState() {
 
 updateHistoryNavigationState()
 
+const isOverlay = computed(() => {
+	try {
+		return route.path === '/overlay' || getCurrentWindow().label === 'overlay'
+	} catch {
+		return route.path === '/overlay'
+	}
+})
+
 const APP_LEFT_NAV_WIDTH = '4rem'
 const APP_SIDEBAR_WIDTH = 300
 const credentials = ref()
@@ -793,6 +801,10 @@ async function performLogOut() {
 }
 
 onMounted(async () => {
+	if (isOverlay.value) {
+		return
+	}
+
 	try {
 		await getCurrentWindow().show()
 	} catch {
@@ -1037,593 +1049,608 @@ const restarting = ref(false)
 </script>
 
 <template>
-	<SplashScreen v-if="!stateFailed" ref="splashScreen" data-tauri-drag-region />
-	<div id="teleports"></div>
-	<div
-		v-if="stateInitialized"
-		class="app-grid-layout relative"
-		:class="{ 'disable-advanced-rendering': !themeStore.advancedRendering }"
-	>
-		<Transition name="fade">
-			<div
-				v-if="restarting"
-				data-tauri-drag-region
-				class="inset-0 fixed bg-black/80 backdrop-blur z-[200] flex items-center justify-center"
-			>
-				<span
+	<div v-if="isOverlay" class="w-screen h-screen overflow-hidden bg-transparent select-none">
+		<RouterView />
+	</div>
+	<template v-else>
+		<SplashScreen v-if="!stateFailed" ref="splashScreen" data-tauri-drag-region />
+		<div id="teleports"></div>
+		<div
+			v-if="stateInitialized"
+			class="app-grid-layout relative"
+			:class="{ 'disable-advanced-rendering': !themeStore.advancedRendering }"
+		>
+			<Transition name="fade">
+				<div
+					v-if="restarting"
 					data-tauri-drag-region
-					class="flex items-center gap-4 text-contrast font-semibold text-xl select-none cursor-default"
+					class="inset-0 fixed bg-black/80 backdrop-blur z-[200] flex items-center justify-center"
 				>
-					<RefreshCwIcon data-tauri-drag-region class="animate-spin w-6 h-6" />
-					{{ formatMessage(messages.restarting) }}
-				</span>
-			</div>
-		</Transition>
-		<Suspense>
-			<AppSettingsModal ref="appSettingsModal" />
-		</Suspense>
-		<Suspense>
-			<FreePlayAccountRequiredModal ref="freeplayLoginModal" :request-auth="requestFreePlayAuth" />
-		</Suspense>
-		<CreationFlowModal
-			ref="installationModal"
-			type="instance"
-			show-snapshot-toggle
-			:fetch-existing-instance-names="fetchExistingInstanceNames"
-			:search-projects="searchProjects"
-			:prepare-project-install="prepareCreationProjectInstall"
-			:create-project-install="handleCreateAndInstall"
-			:get-loader-manifest="getLoaderManifest"
-			:randomize-instance-icon="randomizeCreationIcon"
-			:customize-instance-icon="customizeCreationIcon"
-			@create="handleCreate"
-			@browse-modpacks="handleBrowseModpacks"
-		/>
-		<IconEditorModal
-			ref="creationIconEditorModal"
-			:config="creationGeneratedIcon?.config"
-			@saved="onCreationIconSaved"
-		/>
-		<UnknownPackWarningModal ref="unknownPackWarningModal" />
-		<OfflineAccountModal ref="globalOfflineAccountModal" @created="() => accountStore.refresh()" />
-		<CommandPalette
-			v-model="showCommandPalette"
-			@create-instance="openCreateInstanceModal"
-			@open-settings="openAppSettingsModal"
-			@open-accounts="openAccountsModal"
-			@add-offline-account="openOfflineAccountModal"
-		/>
-		<div
-			class="app-grid-navbar bg-[var(--surface-1)] border-r border-[var(--border-subtle)] flex flex-col items-center py-3 px-2 gap-2 w-[--left-bar-width] select-none"
-		>
-			<!-- Top Primary Navigation Group -->
-			<div class="flex flex-col items-center gap-1.5 w-full">
-				<!-- Library / Home -->
-				<NavButton
-					v-tooltip.right="formatMessage(messages.home)"
-					to="/"
-					:is-primary="(route) => route.path === '/'"
-					:is-subpage="
-						() =>
-							(route.path.startsWith('/browse') || route.path.startsWith('/project')) &&
-							route.query.i
-					"
-				>
-					<PlayIcon class="w-5 h-5" />
-				</NavButton>
-
-				<!-- Discover Content -->
-				<NavButton
-					v-tooltip.right="formatMessage(commonMessages.discoverContentLabel)"
-					to="/browse/modpack"
-					:is-primary="() => route.path.startsWith('/browse') && !route.query.i && !route.query.sid"
-					:is-subpage="
-						(route) => route.path.startsWith('/project') && !route.query.i && !route.query.sid
-					"
-				>
-					<CompassIcon class="w-5 h-5" />
-				</NavButton>
-
-				<!-- 3D Skin Studio -->
-				<NavButton v-tooltip.right="formatMessage(appMessages.skinSelectorLabel)" to="/skins">
-					<ShirtIcon class="w-5 h-5" />
-				</NavButton>
-
-				<!-- Server Control Room & Tunnels -->
-				<NavButton
-					v-tooltip.right="formatMessage(messages.freeplayHosting)"
-					to="/hosting/manage"
-					:is-primary="
-						(r) =>
-							r.path === '/hosting/manage' || r.path === '/hosting/manage/' || r.path === '/servers'
-					"
-					:is-subpage="
-						(r) =>
-							(r.path.startsWith('/hosting/manage/') && r.path !== '/hosting/manage/') ||
-							((r.path.startsWith('/browse') || r.path.startsWith('/project')) && r.query.sid)
-					"
-				>
-					<ServerStackIcon class="w-5 h-5" />
-				</NavButton>
-			</div>
-
-			<!-- Divider -->
-			<div
-				class="w-7 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1"
-			></div>
-
-			<!-- Quick Actions: + Create Instance -->
-			<button
-				v-tooltip.right="formatMessage(messages.createNewInstance)"
-				type="button"
-				class="w-11 h-11 rounded-2xl bg-[var(--color-brand-bg)] hover:opacity-90 text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] flex items-center justify-center cursor-pointer shadow-md hover:scale-105 active:scale-95 transition-all duration-200"
-				:disabled="offline"
-				@click="() => installationModal?.show()"
-			>
-				<PlusIcon class="w-5 h-5" />
-			</button>
-
-			<suspense>
-				<QuickInstanceSwitcher />
-			</suspense>
-
-			<!-- Spacer -->
-			<div class="flex flex-grow"></div>
-
-			<!-- Bottom Station: Settings & Profile -->
-			<div
-				class="w-7 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1"
-			></div>
-
-			<div class="flex flex-col items-center gap-1.5 w-full">
-				<!-- Settings -->
-				<button
-					v-tooltip.right="formatMessage(commonMessages.settingsLabel)"
-					type="button"
-					class="w-11 h-11 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-transparent hover:border-white/10 flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200 group"
-					@click="() => appSettingsModal?.show()"
-				>
-					<SettingsIcon class="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
-				</button>
-
-				<!-- User Account / Profile -->
-				<TeleportOverflowMenu
-					v-if="credentials?.user"
-					v-tooltip.right="formatMessage(messages.freeplayAccount)"
-					type="quiet"
-					size="xl"
-					:label="formatMessage(messages.moreOptions)"
-					:options="[
-						{
-							id: 'view-profile',
-							label: formatMessage(messages.signedInAs, {
-								username: credentials.user.username,
-							}),
-							action: () => router.push(`/user/${encodeURIComponent(credentials.user.username)}`),
-						},
-						{
-							id: 'sign-out',
-							label: formatMessage(commonMessages.signOutButton),
-							tone: 'red',
-							action: () => logOut(),
-						},
-					]"
-					placement="right-end"
-					:distance="4"
-				>
-					<div
-						class="relative w-11 h-11 rounded-2xl p-0.5 border border-[var(--color-brand-shadow)] hover:border-[var(--color-brand)] flex items-center justify-center cursor-pointer transition-all shadow-[var(--accent-glow)]"
-					>
-						<Avatar :src="credentials?.user?.avatar_url" alt="" size="34px" circle />
-						<span
-							class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[var(--color-brand)] border border-zinc-950 shadow-[var(--accent-glow)]"
-						></span>
-					</div>
-					<template #view-profile>
-						<UserIcon />
-						<span class="inline-flex items-center gap-1">
-							<IntlFormatted
-								:message-id="messages.signedInAs"
-								:values="{ username: credentials?.user?.username }"
-							>
-								<template #user="{ children }">
-									<span class="inline-flex items-center gap-1 text-contrast font-semibold">
-										<Avatar :src="credentials?.user?.avatar_url" alt="" size="20px" circle />
-										<component :is="() => children" />
-									</span>
-								</template>
-							</IntlFormatted>
-						</span>
-					</template>
-					<template #sign-out>
-						<LogOutIcon />
-						{{ formatMessage(commonMessages.signOutButton) }}
-					</template>
-				</TeleportOverflowMenu>
-
-				<!-- Offline / Login Trigger -->
-				<button
-					v-else
-					v-tooltip.right="'Player Accounts & Sign In'"
-					type="button"
-					class="w-11 h-11 rounded-2xl bg-[var(--color-brand-bg)] hover:bg-[var(--color-brand-bg)]/80 text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md shadow-[var(--accent-glow)]"
-					@click="() => globalOfflineAccountModal?.show()"
-				>
-					<UserIcon class="w-5 h-5" />
-				</button>
-			</div>
-		</div>
-		<div
-			data-tauri-drag-region
-			class="app-grid-statusbar bg-[var(--surface-1)] border-b border-[var(--border-subtle)] h-[--top-bar-height] flex items-center justify-between px-3 select-none"
-		>
-			<!-- Zone 1: Brand & Navigation Hub -->
-			<div data-tauri-drag-region class="flex items-center gap-3 shrink-0 min-w-0">
-				<!-- Brand Badge -->
-				<div class="flex items-center gap-2.5 pointer-events-none select-none">
-					<div
-						class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-[#141923] shadow-[0_0_15px_rgba(168,85,247,0.35),0_0_25px_rgba(6,182,212,0.2)] border border-purple-500/30 p-1"
-					>
-						<svg
-							viewBox="0 0 100 100"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-full h-full"
-						>
-							<defs>
-								<linearGradient id="fp-top-brand-top" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#e0f2fe" />
-									<stop offset="100%" stop-color="#38bdf8" />
-								</linearGradient>
-								<linearGradient id="fp-top-brand-left" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#d8b4fe" />
-									<stop offset="100%" stop-color="#7c3aed" />
-								</linearGradient>
-								<linearGradient id="fp-top-brand-right" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#38bdf8" />
-									<stop offset="100%" stop-color="#0284c7" />
-								</linearGradient>
-								<linearGradient id="fp-top-brand-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#c084fc" />
-									<stop offset="100%" stop-color="#6366f1" />
-								</linearGradient>
-								<linearGradient id="fp-top-brand-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
-									<stop offset="0%" stop-color="#22d3ee" />
-									<stop offset="100%" stop-color="#0891b2" />
-								</linearGradient>
-								<filter id="fp-top-brand-aura" x="-40%" y="-40%" width="180%" height="180%">
-									<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-									<feMerge>
-										<feMergeNode in="blur" />
-										<feMergeNode in="SourceGraphic" />
-									</feMerge>
-								</filter>
-							</defs>
-							<g transform="translate(12, 12)" filter="url(#fp-top-brand-aura)">
-								<polygon
-									points="38,4 58,22 38,34 18,22"
-									fill="url(#fp-top-brand-top)"
-									opacity="0.95"
-								/>
-								<polygon
-									points="18,22 38,34 38,54 8,36"
-									fill="url(#fp-top-brand-left)"
-									opacity="0.9"
-								/>
-								<polygon
-									points="58,22 38,34 38,54 68,36"
-									fill="url(#fp-top-brand-right)"
-									opacity="0.95"
-								/>
-								<polygon
-									points="8,36 38,54 38,72"
-									fill="url(#fp-top-brand-front-left)"
-									opacity="0.85"
-								/>
-								<polygon
-									points="68,36 38,54 38,72"
-									fill="url(#fp-top-brand-front-right)"
-									opacity="0.9"
-								/>
-								<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.5" />
-								<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.35" />
-								<line
-									x1="38"
-									y1="4"
-									x2="38"
-									y2="72"
-									stroke="rgba(255,255,255,0.6)"
-									stroke-width="1.2"
-								/>
-							</g>
-						</svg>
-					</div>
 					<span
-						class="font-black tracking-widest text-xs font-sans flex items-center gap-1.5 bg-gradient-to-r from-white via-purple-300 via-sky-300 to-pink-300 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(168,85,247,0.4)]"
+						data-tauri-drag-region
+						class="flex items-center gap-4 text-contrast font-semibold text-xl select-none cursor-default"
 					>
-						FREEPLAY
-						<span
-							class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30"
-						>
-							PRO
-						</span>
+						<RefreshCwIcon data-tauri-drag-region class="animate-spin w-6 h-6" />
+						{{ formatMessage(messages.restarting) }}
 					</span>
 				</div>
+			</Transition>
+			<Suspense>
+				<AppSettingsModal ref="appSettingsModal" />
+			</Suspense>
+			<Suspense>
+				<FreePlayAccountRequiredModal
+					ref="freeplayLoginModal"
+					:request-auth="requestFreePlayAuth"
+				/>
+			</Suspense>
+			<CreationFlowModal
+				ref="installationModal"
+				type="instance"
+				show-snapshot-toggle
+				:fetch-existing-instance-names="fetchExistingInstanceNames"
+				:search-projects="searchProjects"
+				:prepare-project-install="prepareCreationProjectInstall"
+				:create-project-install="handleCreateAndInstall"
+				:get-loader-manifest="getLoaderManifest"
+				:randomize-instance-icon="randomizeCreationIcon"
+				:customize-instance-icon="customizeCreationIcon"
+				@create="handleCreate"
+				@browse-modpacks="handleBrowseModpacks"
+			/>
+			<IconEditorModal
+				ref="creationIconEditorModal"
+				:config="creationGeneratedIcon?.config"
+				@saved="onCreationIconSaved"
+			/>
+			<UnknownPackWarningModal ref="unknownPackWarningModal" />
+			<OfflineAccountModal
+				ref="globalOfflineAccountModal"
+				@created="() => accountStore.refresh()"
+			/>
+			<CommandPalette
+				v-model="showCommandPalette"
+				@create-instance="openCreateInstanceModal"
+				@open-settings="openAppSettingsModal"
+				@open-accounts="openAccountsModal"
+				@add-offline-account="openOfflineAccountModal"
+			/>
+			<div
+				class="app-grid-navbar bg-[var(--surface-1)] border-r border-[var(--border-subtle)] flex flex-col items-center py-3 px-2 gap-2 w-[--left-bar-width] select-none"
+			>
+				<!-- Top Primary Navigation Group -->
+				<div class="flex flex-col items-center gap-1.5 w-full">
+					<!-- Library / Home -->
+					<NavButton
+						v-tooltip.right="formatMessage(messages.home)"
+						to="/"
+						:is-primary="(route) => route.path === '/'"
+						:is-subpage="
+							() =>
+								(route.path.startsWith('/browse') || route.path.startsWith('/project')) &&
+								route.query.i
+						"
+					>
+						<PlayIcon class="w-5 h-5" />
+					</NavButton>
 
-				<!-- Connected Navigation Pill (Back & Forward) -->
-				<div
-					data-tauri-drag-region
-					class="flex items-center gap-0.5 bg-white/[0.04] p-0.5 rounded-xl border border-white/10"
-				>
-					<button
-						type="button"
-						class="w-6 h-6 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer border-none transition-all active:scale-95"
-						:disabled="!canNavigateBack"
-						title="Go Back"
-						@click="router.back()"
+					<!-- Discover Content -->
+					<NavButton
+						v-tooltip.right="formatMessage(commonMessages.discoverContentLabel)"
+						to="/browse/modpack"
+						:is-primary="
+							() => route.path.startsWith('/browse') && !route.query.i && !route.query.sid
+						"
+						:is-subpage="
+							(route) => route.path.startsWith('/project') && !route.query.i && !route.query.sid
+						"
 					>
-						<ChevronLeftIcon class="w-3.5 h-3.5" />
-					</button>
-					<button
-						type="button"
-						class="w-6 h-6 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer border-none transition-all active:scale-95"
-						:disabled="!canNavigateForward"
-						title="Go Forward"
-						@click="router.forward()"
+						<CompassIcon class="w-5 h-5" />
+					</NavButton>
+
+					<!-- 3D Skin Studio -->
+					<NavButton v-tooltip.right="formatMessage(appMessages.skinSelectorLabel)" to="/skins">
+						<ShirtIcon class="w-5 h-5" />
+					</NavButton>
+
+					<!-- Server Control Room & Tunnels -->
+					<NavButton
+						v-tooltip.right="formatMessage(messages.freeplayHosting)"
+						to="/hosting/manage"
+						:is-primary="
+							(r) =>
+								r.path === '/hosting/manage' ||
+								r.path === '/hosting/manage/' ||
+								r.path === '/servers'
+						"
+						:is-subpage="
+							(r) =>
+								(r.path.startsWith('/hosting/manage/') && r.path !== '/hosting/manage/') ||
+								((r.path.startsWith('/browse') || r.path.startsWith('/project')) && r.query.sid)
+						"
 					>
-						<ChevronRightIcon class="w-3.5 h-3.5" />
-					</button>
+						<ServerStackIcon class="w-5 h-5" />
+					</NavButton>
 				</div>
-			</div>
 
-			<!-- Zone 2: Centered Global Command & Search Bar -->
-			<div data-tauri-drag-region class="flex items-center justify-center flex-1 min-w-0 px-4">
-				<button
-					type="button"
-					class="w-full max-w-sm sm:max-w-md flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-sky-500/40 text-zinc-400 hover:text-zinc-200 text-xs font-medium transition-all duration-200 cursor-pointer select-none shadow-sm group active:scale-[0.99]"
-					@click="showCommandPalette = true"
-				>
-					<div class="flex items-center gap-2 min-w-0">
-						<SearchIcon
-							class="w-3.5 h-3.5 text-sky-400 group-hover:text-sky-300 transition-colors shrink-0"
-						/>
-						<span class="truncate">Search instances, mods, servers...</span>
-					</div>
-					<kbd
-						class="px-2 py-0.5 rounded-md bg-white/10 text-zinc-300 font-mono text-[10px] font-semibold border border-white/10 shrink-0 ml-2 group-hover:bg-sky-500/20 group-hover:text-sky-300 group-hover:border-sky-500/30 transition-all"
-					>
-						⌘K
-					</kbd>
-				</button>
-			</div>
-
-			<!-- Zone 3: Live Telemetry, Actions & Window Controls -->
-			<div data-tauri-drag-region class="flex shrink-0 items-center gap-2">
-				<!-- Process Telemetry Pill -->
-				<div class="flex items-center">
-					<Suspense>
-						<AppActionBar />
-					</Suspense>
-				</div>
-				<!-- Sidebar HUD Panel Toggle Button -->
-				<button
-					type="button"
-					class="h-7 px-2.5 rounded-xl border flex items-center gap-1.5 cursor-pointer transition-all duration-200 active:scale-95 text-xs font-semibold select-none shadow-sm"
-					:class="
-						sidebarVisible
-							? 'bg-[var(--color-brand-bg)] border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]'
-							: 'bg-white/[0.04] border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.08]'
-					"
-					:title="sidebarVisible ? 'Close HUD Panel (Ctrl+B)' : 'Open HUD Panel (Ctrl+B)'"
-					@click="toggleRightSidebar"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="w-3.5 h-3.5"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-						<line x1="15" y1="3" x2="15" y2="21" />
-					</svg>
-					<span class="hidden sm:inline">HUD</span>
-				</button>
-
-				<!-- Frameless Window Controls -->
-				<WindowControls />
-			</div>
-		</div>
-	</div>
-	<div
-		v-if="stateInitialized"
-		class="app-contents"
-		:class="{
-			'sidebar-enabled': sidebarVisible,
-			'disable-advanced-rendering': !themeStore.advancedRendering,
-		}"
-	>
-		<div class="app-viewport flex-grow router-view">
-			<div
-				class="loading-indicator-container h-8 fixed z-50 pointer-events-none"
-				:style="{
-					top: 'calc(var(--top-bar-height))',
-					left: 'calc(var(--left-bar-width))',
-					width: 'calc(100% - var(--left-bar-width) - var(--right-bar-width))',
-				}"
-			>
-				<LoadingBar position="absolute" />
-			</div>
-			<div
-				v-if="themeStore.featureFlags.page_path"
-				class="absolute bottom-0 left-0 m-2 bg-tooltip-bg text-tooltip-text font-semibold rounded-full px-2 py-1 text-xs z-50"
-			>
-				{{ route.fullPath }}
-			</div>
-			<div
-				id="background-teleport-target"
-				class="absolute h-full -z-10 rounded-tl-[--radius-xl] overflow-hidden"
-				:style="{
-					width: 'calc(100% - var(--right-bar-width))',
-				}"
-			></div>
-			<Admonition
-				v-if="criticalErrorMessage"
-				type="critical"
-				:header="criticalErrorMessage.header"
-				class="m-6 mb-0"
-			>
+				<!-- Divider -->
 				<div
-					class="markdown-body text-primary"
-					v-html="renderString(criticalErrorMessage.body ?? '')"
+					class="w-7 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1"
 				></div>
-			</Admonition>
-			<Admonition
-				v-if="authUnreachable"
-				type="warning"
-				:header="formatMessage(messages.authUnreachableHeader)"
-				class="m-6 mb-0"
+
+				<!-- Quick Actions: + Create Instance -->
+				<button
+					v-tooltip.right="formatMessage(messages.createNewInstance)"
+					type="button"
+					class="w-11 h-11 rounded-2xl bg-[var(--color-brand-bg)] hover:opacity-90 text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] flex items-center justify-center cursor-pointer shadow-md hover:scale-105 active:scale-95 transition-all duration-200"
+					:disabled="offline"
+					@click="() => installationModal?.show()"
+				>
+					<PlusIcon class="w-5 h-5" />
+				</button>
+
+				<suspense>
+					<QuickInstanceSwitcher />
+				</suspense>
+
+				<!-- Spacer -->
+				<div class="flex flex-grow"></div>
+
+				<!-- Bottom Station: Settings & Profile -->
+				<div
+					class="w-7 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1"
+				></div>
+
+				<div class="flex flex-col items-center gap-1.5 w-full">
+					<!-- Settings -->
+					<button
+						v-tooltip.right="formatMessage(commonMessages.settingsLabel)"
+						type="button"
+						class="w-11 h-11 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-transparent hover:border-white/10 flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200 group"
+						@click="() => appSettingsModal?.show()"
+					>
+						<SettingsIcon class="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
+					</button>
+
+					<!-- User Account / Profile -->
+					<TeleportOverflowMenu
+						v-if="credentials?.user"
+						v-tooltip.right="formatMessage(messages.freeplayAccount)"
+						type="quiet"
+						size="xl"
+						:label="formatMessage(messages.moreOptions)"
+						:options="[
+							{
+								id: 'view-profile',
+								label: formatMessage(messages.signedInAs, {
+									username: credentials.user.username,
+								}),
+								action: () => router.push(`/user/${encodeURIComponent(credentials.user.username)}`),
+							},
+							{
+								id: 'sign-out',
+								label: formatMessage(commonMessages.signOutButton),
+								tone: 'red',
+								action: () => logOut(),
+							},
+						]"
+						placement="right-end"
+						:distance="4"
+					>
+						<div
+							class="relative w-11 h-11 rounded-2xl p-0.5 border border-[var(--color-brand-shadow)] hover:border-[var(--color-brand)] flex items-center justify-center cursor-pointer transition-all shadow-[var(--accent-glow)]"
+						>
+							<Avatar :src="credentials?.user?.avatar_url" alt="" size="34px" circle />
+							<span
+								class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[var(--color-brand)] border border-zinc-950 shadow-[var(--accent-glow)]"
+							></span>
+						</div>
+						<template #view-profile>
+							<UserIcon />
+							<span class="inline-flex items-center gap-1">
+								<IntlFormatted
+									:message-id="messages.signedInAs"
+									:values="{ username: credentials?.user?.username }"
+								>
+									<template #user="{ children }">
+										<span class="inline-flex items-center gap-1 text-contrast font-semibold">
+											<Avatar :src="credentials?.user?.avatar_url" alt="" size="20px" circle />
+											<component :is="() => children" />
+										</span>
+									</template>
+								</IntlFormatted>
+							</span>
+						</template>
+						<template #sign-out>
+							<LogOutIcon />
+							{{ formatMessage(commonMessages.signOutButton) }}
+						</template>
+					</TeleportOverflowMenu>
+
+					<!-- Offline / Login Trigger -->
+					<button
+						v-else
+						v-tooltip.right="'Player Accounts & Sign In'"
+						type="button"
+						class="w-11 h-11 rounded-2xl bg-[var(--color-brand-bg)] hover:bg-[var(--color-brand-bg)]/80 text-[var(--color-brand-highlight,var(--color-brand))] border border-[var(--color-brand-shadow)] flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md shadow-[var(--accent-glow)]"
+						@click="() => globalOfflineAccountModal?.show()"
+					>
+						<UserIcon class="w-5 h-5" />
+					</button>
+				</div>
+			</div>
+			<div
+				data-tauri-drag-region
+				class="app-grid-statusbar bg-[var(--surface-1)] border-b border-[var(--border-subtle)] h-[--top-bar-height] flex items-center justify-between px-3 select-none"
 			>
-				{{ formatMessage(messages.authUnreachableBody) }}
-			</Admonition>
-			<RouterView v-slot="{ Component }">
-				<template v-if="Component">
-					<Suspense @pending="onSuspensePending" @resolve="onSuspenseResolve">
-						<KeepAlive include="LibraryPage">
-							<component :is="Component"></component>
-						</KeepAlive>
-					</Suspense>
-				</template>
-			</RouterView>
+				<!-- Zone 1: Brand & Navigation Hub -->
+				<div data-tauri-drag-region class="flex items-center gap-3 shrink-0 min-w-0">
+					<!-- Brand Badge -->
+					<div class="flex items-center gap-2.5 pointer-events-none select-none">
+						<div
+							class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-[#141923] shadow-[0_0_15px_rgba(168,85,247,0.35),0_0_25px_rgba(6,182,212,0.2)] border border-purple-500/30 p-1"
+						>
+							<svg
+								viewBox="0 0 100 100"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-full h-full"
+							>
+								<defs>
+									<linearGradient id="fp-top-brand-top" x1="0%" y1="0%" x2="100%" y2="100%">
+										<stop offset="0%" stop-color="#e0f2fe" />
+										<stop offset="100%" stop-color="#38bdf8" />
+									</linearGradient>
+									<linearGradient id="fp-top-brand-left" x1="0%" y1="0%" x2="100%" y2="100%">
+										<stop offset="0%" stop-color="#d8b4fe" />
+										<stop offset="100%" stop-color="#7c3aed" />
+									</linearGradient>
+									<linearGradient id="fp-top-brand-right" x1="0%" y1="0%" x2="100%" y2="100%">
+										<stop offset="0%" stop-color="#38bdf8" />
+										<stop offset="100%" stop-color="#0284c7" />
+									</linearGradient>
+									<linearGradient id="fp-top-brand-front-left" x1="0%" y1="0%" x2="100%" y2="100%">
+										<stop offset="0%" stop-color="#c084fc" />
+										<stop offset="100%" stop-color="#6366f1" />
+									</linearGradient>
+									<linearGradient id="fp-top-brand-front-right" x1="0%" y1="0%" x2="100%" y2="100%">
+										<stop offset="0%" stop-color="#22d3ee" />
+										<stop offset="100%" stop-color="#0891b2" />
+									</linearGradient>
+									<filter id="fp-top-brand-aura" x="-40%" y="-40%" width="180%" height="180%">
+										<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+										<feMerge>
+											<feMergeNode in="blur" />
+											<feMergeNode in="SourceGraphic" />
+										</feMerge>
+									</filter>
+								</defs>
+								<g transform="translate(12, 12)" filter="url(#fp-top-brand-aura)">
+									<polygon
+										points="38,4 58,22 38,34 18,22"
+										fill="url(#fp-top-brand-top)"
+										opacity="0.95"
+									/>
+									<polygon
+										points="18,22 38,34 38,54 8,36"
+										fill="url(#fp-top-brand-left)"
+										opacity="0.9"
+									/>
+									<polygon
+										points="58,22 38,34 38,54 68,36"
+										fill="url(#fp-top-brand-right)"
+										opacity="0.95"
+									/>
+									<polygon
+										points="8,36 38,54 38,72"
+										fill="url(#fp-top-brand-front-left)"
+										opacity="0.85"
+									/>
+									<polygon
+										points="68,36 38,54 38,72"
+										fill="url(#fp-top-brand-front-right)"
+										opacity="0.9"
+									/>
+									<polygon points="38,4 48,22 38,34" fill="#ffffff" opacity="0.5" />
+									<polygon points="38,34 38,54 28,32" fill="#ffffff" opacity="0.35" />
+									<line
+										x1="38"
+										y1="4"
+										x2="38"
+										y2="72"
+										stroke="rgba(255,255,255,0.6)"
+										stroke-width="1.2"
+									/>
+								</g>
+							</svg>
+						</div>
+						<span
+							class="font-black tracking-widest text-xs font-sans flex items-center gap-1.5 bg-gradient-to-r from-white via-purple-300 via-sky-300 to-pink-300 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(168,85,247,0.4)]"
+						>
+							FREEPLAY
+							<span
+								class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30"
+							>
+								PRO
+							</span>
+						</span>
+					</div>
+
+					<!-- Connected Navigation Pill (Back & Forward) -->
+					<div
+						data-tauri-drag-region
+						class="flex items-center gap-0.5 bg-white/[0.04] p-0.5 rounded-xl border border-white/10"
+					>
+						<button
+							type="button"
+							class="w-6 h-6 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer border-none transition-all active:scale-95"
+							:disabled="!canNavigateBack"
+							title="Go Back"
+							@click="router.back()"
+						>
+							<ChevronLeftIcon class="w-3.5 h-3.5" />
+						</button>
+						<button
+							type="button"
+							class="w-6 h-6 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer border-none transition-all active:scale-95"
+							:disabled="!canNavigateForward"
+							title="Go Forward"
+							@click="router.forward()"
+						>
+							<ChevronRightIcon class="w-3.5 h-3.5" />
+						</button>
+					</div>
+				</div>
+
+				<!-- Zone 2: Centered Global Command & Search Bar -->
+				<div data-tauri-drag-region class="flex items-center justify-center flex-1 min-w-0 px-4">
+					<button
+						type="button"
+						class="w-full max-w-sm sm:max-w-md flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-sky-500/40 text-zinc-400 hover:text-zinc-200 text-xs font-medium transition-all duration-200 cursor-pointer select-none shadow-sm group active:scale-[0.99]"
+						@click="showCommandPalette = true"
+					>
+						<div class="flex items-center gap-2 min-w-0">
+							<SearchIcon
+								class="w-3.5 h-3.5 text-sky-400 group-hover:text-sky-300 transition-colors shrink-0"
+							/>
+							<span class="truncate">Search instances, mods, servers...</span>
+						</div>
+						<kbd
+							class="px-2 py-0.5 rounded-md bg-white/10 text-zinc-300 font-mono text-[10px] font-semibold border border-white/10 shrink-0 ml-2 group-hover:bg-sky-500/20 group-hover:text-sky-300 group-hover:border-sky-500/30 transition-all"
+						>
+							⌘K
+						</kbd>
+					</button>
+				</div>
+
+				<!-- Zone 3: Live Telemetry, Actions & Window Controls -->
+				<div data-tauri-drag-region class="flex shrink-0 items-center gap-2">
+					<!-- Process Telemetry Pill -->
+					<div class="flex items-center">
+						<Suspense>
+							<AppActionBar />
+						</Suspense>
+					</div>
+					<!-- Sidebar HUD Panel Toggle Button -->
+					<button
+						type="button"
+						class="h-7 px-2.5 rounded-xl border flex items-center gap-1.5 cursor-pointer transition-all duration-200 active:scale-95 text-xs font-semibold select-none shadow-sm"
+						:class="
+							sidebarVisible
+								? 'bg-[var(--color-brand-bg)] border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]'
+								: 'bg-white/[0.04] border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.08]'
+						"
+						:title="sidebarVisible ? 'Close HUD Panel (Ctrl+B)' : 'Open HUD Panel (Ctrl+B)'"
+						@click="toggleRightSidebar"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-3.5 h-3.5"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+							<line x1="15" y1="3" x2="15" y2="21" />
+						</svg>
+						<span class="hidden sm:inline">HUD</span>
+					</button>
+
+					<!-- Frameless Window Controls -->
+					<WindowControls />
+				</div>
+			</div>
 		</div>
 		<div
-			v-if="sidebarVisible"
-			class="app-sidebar mt-px shrink-0 flex flex-col border-0 border-l-[1px] border-[--brand-gradient-border] border-solid h-[calc(100vh-var(--top-bar-height))] overflow-hidden"
+			v-if="stateInitialized"
+			class="app-contents"
+			:class="{
+				'sidebar-enabled': sidebarVisible,
+				'disable-advanced-rendering': !themeStore.advancedRendering,
+			}"
 		>
-			<div
-				v-overlay-scrollbars="sidebarOverlayScrollbarsOptions"
-				class="app-sidebar-scrollable flex-1 min-h-0 relative"
-				data-overlayscrollbars-initialize
-			>
-				<!-- ID Login & Player Identity Listing (Prominent Top Card) -->
-				<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
-					<suspense>
-						<AccountsCard ref="accounts" />
-					</suspense>
+			<div class="app-viewport flex-grow router-view">
+				<div
+					class="loading-indicator-container h-8 fixed z-50 pointer-events-none"
+					:style="{
+						top: 'calc(var(--top-bar-height))',
+						left: 'calc(var(--left-bar-width))',
+						width: 'calc(100% - var(--left-bar-width) - var(--right-bar-width))',
+					}"
+				>
+					<LoadingBar position="absolute" />
 				</div>
-				<!-- Quick Actions Deck -->
-				<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
-					<div class="grid grid-cols-2 gap-2">
-						<button
-							type="button"
-							class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-surface-4 text-zinc-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
-							@click="globalOfflineAccountModal?.show()"
-						>
-							<UserIcon
-								class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))]"
-							/>
-							<span class="truncate">+ Offline</span>
-						</button>
-						<button
-							type="button"
-							class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-surface-4 text-zinc-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
-							@click="showCommandPalette = true"
-						>
-							<SearchIcon class="w-3.5 h-3.5 text-zinc-400" />
-							<span class="truncate">⌘K Search</span>
-						</button>
-					</div>
+				<div
+					v-if="themeStore.featureFlags.page_path"
+					class="absolute bottom-0 left-0 m-2 bg-tooltip-bg text-tooltip-text font-semibold rounded-full px-2 py-1 text-xs z-50"
+				>
+					{{ route.fullPath }}
 				</div>
-				<!-- Rich Live HUD & Telemetry Companion -->
-				<SideHudDashboard />
-				<div id="sidebar-teleport-target" class="sidebar-teleport-content"></div>
-				<div class="sidebar-default-content" :class="{ 'sidebar-enabled': sidebarVisible }">
+				<div
+					id="background-teleport-target"
+					class="absolute h-full -z-10 rounded-tl-[--radius-xl] overflow-hidden"
+					:style="{
+						width: 'calc(100% - var(--right-bar-width))',
+					}"
+				></div>
+				<Admonition
+					v-if="criticalErrorMessage"
+					type="critical"
+					:header="criticalErrorMessage.header"
+					class="m-6 mb-0"
+				>
 					<div
-						v-show="showFriendsList"
-						class="p-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid"
-					>
+						class="markdown-body text-primary"
+						v-html="renderString(criticalErrorMessage.body ?? '')"
+					></div>
+				</Admonition>
+				<Admonition
+					v-if="authUnreachable"
+					type="warning"
+					:header="formatMessage(messages.authUnreachableHeader)"
+					class="m-6 mb-0"
+				>
+					{{ formatMessage(messages.authUnreachableBody) }}
+				</Admonition>
+				<RouterView v-slot="{ Component }">
+					<template v-if="Component">
+						<Suspense @pending="onSuspensePending" @resolve="onSuspenseResolve">
+							<KeepAlive include="LibraryPage">
+								<component :is="Component"></component>
+							</KeepAlive>
+						</Suspense>
+					</template>
+				</RouterView>
+			</div>
+			<div
+				v-if="sidebarVisible"
+				class="app-sidebar mt-px shrink-0 flex flex-col border-0 border-l-[1px] border-[--brand-gradient-border] border-solid h-[calc(100vh-var(--top-bar-height))] overflow-hidden"
+			>
+				<div
+					v-overlay-scrollbars="sidebarOverlayScrollbarsOptions"
+					class="app-sidebar-scrollable flex-1 min-h-0 relative"
+					data-overlayscrollbars-initialize
+				>
+					<!-- ID Login & Player Identity Listing (Prominent Top Card) -->
+					<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
 						<suspense>
-							<FriendsList :credentials="credentials" :sign-in="() => requestSignIn()" />
+							<AccountsCard ref="accounts" />
 						</suspense>
 					</div>
+					<!-- Quick Actions Deck -->
+					<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
+						<div class="grid grid-cols-2 gap-2">
+							<button
+								type="button"
+								class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-surface-4 text-zinc-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+								@click="globalOfflineAccountModal?.show()"
+							>
+								<UserIcon
+									class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))]"
+								/>
+								<span class="truncate">+ Offline</span>
+							</button>
+							<button
+								type="button"
+								class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-surface-4 text-zinc-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+								@click="showCommandPalette = true"
+							>
+								<SearchIcon class="w-3.5 h-3.5 text-zinc-400" />
+								<span class="truncate">⌘K Search</span>
+							</button>
+						</div>
+					</div>
+					<!-- Rich Live HUD & Telemetry Companion -->
+					<SideHudDashboard />
+					<div id="sidebar-teleport-target" class="sidebar-teleport-content"></div>
+					<div class="sidebar-default-content" :class="{ 'sidebar-enabled': sidebarVisible }">
+						<div
+							v-show="showFriendsList"
+							class="p-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid"
+						>
+							<suspense>
+								<FriendsList :credentials="credentials" :sign-in="() => requestSignIn()" />
+							</suspense>
+						</div>
+					</div>
+				</div>
+
+				<!-- Fixed Persistent Bottom Line Footer -->
+				<div
+					class="app-sidebar-footer px-4 py-2.5 bg-[var(--surface-1)] border-t border-[var(--border-subtle)] flex items-center justify-between text-[10px] text-zinc-500 font-mono shrink-0 select-none"
+				>
+					<span>FreePlay Pro v1.0</span>
+					<span
+						class="flex items-center gap-1.5 font-bold"
+						:class="isOnline ? 'text-emerald-400' : 'text-amber-400'"
+					>
+						<span
+							class="w-1.5 h-1.5 rounded-full"
+							:class="isOnline ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'"
+						></span>
+						{{ isOnline ? 'Connected' : 'Offline Mode' }}
+					</span>
 				</div>
 			</div>
-
-			<!-- Fixed Persistent Bottom Line Footer -->
-			<div
-				class="app-sidebar-footer px-4 py-2.5 bg-[var(--surface-1)] border-t border-[var(--border-subtle)] flex items-center justify-between text-[10px] text-zinc-500 font-mono shrink-0 select-none"
-			>
-				<span>FreePlay Pro v1.0</span>
-				<span
-					class="flex items-center gap-1.5 font-bold"
-					:class="isOnline ? 'text-emerald-400' : 'text-amber-400'"
-				>
-					<span
-						class="w-1.5 h-1.5 rounded-full"
-						:class="isOnline ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'"
-					></span>
-					{{ isOnline ? 'Connected' : 'Offline Mode' }}
-				</span>
-			</div>
 		</div>
-	</div>
-	<I18nDebugPanel />
-	<NotificationPanel :has-sidebar="sidebarVisible" />
-	<PopupNotificationPanel :has-sidebar="sidebarVisible" />
-	<ErrorModal ref="errorModal" />
-	<MinecraftAuthErrorModal ref="minecraftAuthErrorModal" />
-	<MinecraftRequiredModal ref="minecraftRequiredModal" />
-	<ContentInstallModal
-		ref="modInstallModal"
-		:instances="contentInstallInstances"
-		:compatible-loaders="contentInstallLoaders"
-		:game-versions="contentInstallGameVersions"
-		:loading="contentInstallLoading"
-		:default-tab="contentInstallDefaultTab"
-		:preferred-loader="contentInstallPreferredLoader"
-		:preferred-game-version="contentInstallPreferredGameVersion"
-		:release-game-versions="contentInstallReleaseGameVersions"
-		:project-info="contentInstallProjectInfo"
-		:randomize-icon="randomizeCreationIcon"
-		:customize-icon="customizeContentInstallIcon"
-		@install="handleInstallToInstance"
-		@create-and-install="handleCreateAndInstall"
-		@navigate="handleContentInstallNavigate"
-		@cancel="handleContentInstallCancel"
-	/>
-	<ModpackAlreadyInstalledModal
-		ref="modpackAlreadyInstalledModal"
-		@create-anyway="handleModpackDuplicateCreateAnyway"
-		@go-to-instance="handleModpackDuplicateGoToInstance"
-	/>
-	<AddServerToInstanceModal ref="addServerToInstanceModal" />
-	<ContentUpdaterModal
-		ref="incompatibilityWarningModal"
-		mode="incompatibility-warning"
-		:versions="contentInstallIncompatibilityWarningVersions"
-		:current-game-version="contentInstallIncompatibilityWarningCurrentGameVersion"
-		:current-loader="contentInstallIncompatibilityWarningCurrentLoader"
-		current-version-id=""
-		:is-app="true"
-		:project-type="contentInstallIncompatibilityWarningProjectType"
-		:project-icon-url="contentInstallIncompatibilityWarningProjectIconUrl"
-		:project-name="contentInstallIncompatibilityWarningProjectName"
-		:warning="contentInstallIncompatibilityWarningMessage"
-		:action-loading="contentInstallIncompatibilityWarningInstalling"
-		@update="handleContentInstallIncompatibilityWarningInstall"
-		@cancel="handleContentInstallIncompatibilityWarningCancel"
-	/>
-	<ModpackAlreadyInstalledModal
-		ref="contentInstallModpackAlreadyInstalledModal"
-		@create-anyway="handleContentInstallModpackDuplicateCreateAnyway"
-		@go-to-instance="handleContentInstallModpackDuplicateGoToInstance"
-	/>
-	<SharedInstanceInviteHandler ref="sharedInstanceInviteHandler" />
-	<InstallToPlayModal ref="installToPlayModal" :show-external-warnings="false" />
-	<UpdateToPlayModal ref="updateToPlayModal" :show-external-warnings="false" />
+		<I18nDebugPanel />
+		<NotificationPanel :has-sidebar="sidebarVisible" />
+		<PopupNotificationPanel :has-sidebar="sidebarVisible" />
+		<ErrorModal ref="errorModal" />
+		<MinecraftAuthErrorModal ref="minecraftAuthErrorModal" />
+		<MinecraftRequiredModal ref="minecraftRequiredModal" />
+		<ContentInstallModal
+			ref="modInstallModal"
+			:instances="contentInstallInstances"
+			:compatible-loaders="contentInstallLoaders"
+			:game-versions="contentInstallGameVersions"
+			:loading="contentInstallLoading"
+			:default-tab="contentInstallDefaultTab"
+			:preferred-loader="contentInstallPreferredLoader"
+			:preferred-game-version="contentInstallPreferredGameVersion"
+			:release-game-versions="contentInstallReleaseGameVersions"
+			:project-info="contentInstallProjectInfo"
+			:randomize-icon="randomizeCreationIcon"
+			:customize-icon="customizeContentInstallIcon"
+			@install="handleInstallToInstance"
+			@create-and-install="handleCreateAndInstall"
+			@navigate="handleContentInstallNavigate"
+			@cancel="handleContentInstallCancel"
+		/>
+		<ModpackAlreadyInstalledModal
+			ref="modpackAlreadyInstalledModal"
+			@create-anyway="handleModpackDuplicateCreateAnyway"
+			@go-to-instance="handleModpackDuplicateGoToInstance"
+		/>
+		<AddServerToInstanceModal ref="addServerToInstanceModal" />
+		<ContentUpdaterModal
+			ref="incompatibilityWarningModal"
+			mode="incompatibility-warning"
+			:versions="contentInstallIncompatibilityWarningVersions"
+			:current-game-version="contentInstallIncompatibilityWarningCurrentGameVersion"
+			:current-loader="contentInstallIncompatibilityWarningCurrentLoader"
+			current-version-id=""
+			:is-app="true"
+			:project-type="contentInstallIncompatibilityWarningProjectType"
+			:project-icon-url="contentInstallIncompatibilityWarningProjectIconUrl"
+			:project-name="contentInstallIncompatibilityWarningProjectName"
+			:warning="contentInstallIncompatibilityWarningMessage"
+			:action-loading="contentInstallIncompatibilityWarningInstalling"
+			@update="handleContentInstallIncompatibilityWarningInstall"
+			@cancel="handleContentInstallIncompatibilityWarningCancel"
+		/>
+		<ModpackAlreadyInstalledModal
+			ref="contentInstallModpackAlreadyInstalledModal"
+			@create-anyway="handleContentInstallModpackDuplicateCreateAnyway"
+			@go-to-instance="handleContentInstallModpackDuplicateGoToInstance"
+		/>
+		<SharedInstanceInviteHandler ref="sharedInstanceInviteHandler" />
+		<InstallToPlayModal ref="installToPlayModal" :show-external-warnings="false" />
+		<UpdateToPlayModal ref="updateToPlayModal" :show-external-warnings="false" />
+	</template>
 </template>
 
 <style lang="scss" scoped>

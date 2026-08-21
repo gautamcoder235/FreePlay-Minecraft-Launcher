@@ -20,6 +20,17 @@
 				-webkit-user-select: none;
 			}
 
+			html.is-overlay-mode,
+			html.is-overlay-mode body,
+			html.is-overlay-mode #app {
+				background: transparent !important;
+				background-color: transparent !important;
+			}
+
+			html.is-overlay-mode .initial-splash {
+				display: none !important;
+			}
+
 			.initial-splash {
 				position: fixed;
 				inset: 0;
@@ -278,6 +289,14 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			if (
+				window.location.pathname.includes('overlay') ||
+				window.location.hash.includes('overlay')
+			) {
+				document.documentElement.classList.add('is-overlay-mode')
+			}
+		</script>
 		<script src="https://tally.so/widgets/embed.js" async></script>
 		<script type="module" src="/src/main.js"></script>
 	</body>

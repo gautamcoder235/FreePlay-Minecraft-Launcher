@@ -7,6 +7,8 @@ import type { Labrinth } from '@freeplay/api-client'
 import type { ContentItem, ContentOwner } from '@freeplay/ui'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 
+import { useOverlayStore } from '@/store/overlay'
+
 import { create_offline_account, set_default_user } from './auth.js'
 import type { InstallJobSnapshot, SharedInstanceUpdateDiff } from './install'
 import type {
@@ -399,11 +401,22 @@ export async function run(
 	} catch {
 		// ignore
 	}
-	return await invoke('plugin:instance|instance_run', {
+	const meta = (await invoke('plugin:instance|instance_run', {
 		instanceId,
 		serverAddress,
 		account: activeAccountNameOrId,
-	})
+	})) as { pid?: number; instance_id?: string; instance_name?: string } | null
+
+	try {
+		if (meta && meta.instance_id) {
+			const overlayStore = useOverlayStore()
+			overlayStore.setGameContext(meta.pid || null, meta.instance_id, meta.instance_name || null)
+		}
+	} catch {
+		// ignore
+	}
+
+	return meta
 }
 
 export async function kill(instanceId: string): Promise<void> {

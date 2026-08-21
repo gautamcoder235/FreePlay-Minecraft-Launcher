@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { GaugeIcon, SparklesIcon } from '@freeplay/assets'
+import {
+	CpuIcon,
+	GaugeIcon,
+	GripVerticalIcon,
+	SignalIcon,
+	SparklesIcon,
+	XIcon,
+} from '@freeplay/assets'
 import { onMounted, onUnmounted } from 'vue'
 
 import { useOverlayStore } from '@/store/overlay'
 
 const overlayStore = useOverlayStore()
+const emit = defineEmits<{
+	(e: 'drag-start', event: PointerEvent): void
+}>()
 
 let telemetryInterval: ReturnType<typeof setInterval> | null = null
 
@@ -20,103 +30,114 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-		<!-- FPS Tile -->
+	<div
+		class="rounded-[24px] bg-slate-900/90 backdrop-blur-2xl border border-white/12 px-5 py-3.5 flex items-center justify-between gap-6 shadow-2xl shadow-black/90 select-none transform-gpu contain-paint"
+	>
+		<!-- Drag Handle (Hardware Accelerated Pointer Grab) -->
 		<div
-			class="p-3.5 rounded-2xl bg-surface-2/80 border border-surface-4/70 backdrop-blur-md flex flex-col justify-between shadow-sm"
+			class="flex items-center gap-2 cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-300 transition-colors pr-2 border-r border-white/10 touch-none"
+			title="Click and drag to move HUD"
+			@pointerdown.stop.prevent="emit('drag-start', $event)"
 		>
-			<div class="flex items-center justify-between">
-				<span class="text-xs font-semibold text-secondary uppercase tracking-wider">Framerate</span>
-				<span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-			</div>
-			<div class="mt-2 flex items-baseline gap-1.5">
-				<span class="text-2xl font-black text-contrast font-mono tracking-tight">{{
-					overlayStore.systemStats.fps
-				}}</span>
-				<span class="text-xs text-secondary font-medium">FPS</span>
-			</div>
-			<div class="mt-2 w-full bg-surface-4 rounded-full h-1.5 overflow-hidden">
+			<GripVerticalIcon class="w-4 h-4 shrink-0 pointer-events-none" />
+			<span
+				class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase font-mono pointer-events-none"
+				>HUD</span
+			>
+		</div>
+
+		<!-- Metrics Deck (8-pt Spacing Grid) -->
+		<div class="flex items-center gap-8">
+			<!-- Framerate FPS -->
+			<div class="flex items-center gap-2.5">
 				<div
-					class="bg-brand h-full rounded-full transition-all duration-500"
-					:style="{ width: `${Math.min(100, (overlayStore.systemStats.fps / 144) * 100)}%` }"
-				></div>
+					class="w-7 h-7 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center text-emerald-400"
+				>
+					<SparklesIcon class="w-3.5 h-3.5" />
+				</div>
+				<div class="flex flex-col">
+					<span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider"
+						>Framerate</span
+					>
+					<div class="flex items-baseline gap-1">
+						<span class="text-base font-bold text-white/95 font-mono">{{
+							overlayStore.systemStats.fps
+						}}</span>
+						<span class="text-[10px] text-emerald-400 font-semibold">FPS</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Memory (JVM) -->
+			<div class="flex items-center gap-2.5">
+				<div
+					class="w-7 h-7 rounded-xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center text-sky-400"
+				>
+					<GaugeIcon class="w-3.5 h-3.5" />
+				</div>
+				<div class="flex flex-col">
+					<span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider"
+						>Memory (JVM)</span
+					>
+					<div class="flex items-baseline gap-1">
+						<span class="text-base font-bold text-white/95 font-mono">{{
+							overlayStore.systemStats.ramUsedMb
+						}}</span>
+						<span class="text-[10px] text-slate-400 font-mono"
+							>/ {{ overlayStore.systemStats.ramTotalMb }}MB</span
+						>
+					</div>
+				</div>
+			</div>
+
+			<!-- CPU Load -->
+			<div class="flex items-center gap-2.5">
+				<div
+					class="w-7 h-7 rounded-xl bg-purple-500/15 border border-purple-500/25 flex items-center justify-center text-purple-400"
+				>
+					<CpuIcon class="w-3.5 h-3.5" />
+				</div>
+				<div class="flex flex-col">
+					<span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider"
+						>Core Load</span
+					>
+					<div class="flex items-baseline gap-1">
+						<span class="text-base font-bold text-white/95 font-mono"
+							>{{ overlayStore.systemStats.cpuPercent }}%</span
+						>
+						<span class="text-[10px] text-slate-400">Usage</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Server Ping / Latency -->
+			<div class="flex items-center gap-2.5">
+				<div
+					class="w-7 h-7 rounded-xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-400"
+				>
+					<SignalIcon class="w-3.5 h-3.5" />
+				</div>
+				<div class="flex flex-col">
+					<span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider"
+						>Latency</span
+					>
+					<div class="flex items-baseline gap-1">
+						<span class="text-base font-bold text-white/95 font-mono">{{
+							overlayStore.systemStats.pingMs
+						}}</span>
+						<span class="text-[10px] text-amber-400 font-semibold">ms</span>
+					</div>
+				</div>
 			</div>
 		</div>
 
-		<!-- RAM Tile -->
-		<div
-			class="p-3.5 rounded-2xl bg-surface-2/80 border border-surface-4/70 backdrop-blur-md flex flex-col justify-between shadow-sm"
+		<!-- Hide HUD Button -->
+		<button
+			class="w-7 h-7 rounded-xl bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white flex items-center justify-center transition-all cursor-pointer border-none shadow-sm ml-2"
+			title="Hide HUD"
+			@click="overlayStore.showTelemetryWidget = false"
 		>
-			<div class="flex items-center justify-between">
-				<span class="text-xs font-semibold text-secondary uppercase tracking-wider"
-					>Memory (JVM)</span
-				>
-				<GaugeIcon class="w-3.5 h-3.5 text-secondary" />
-			</div>
-			<div class="mt-2 flex items-baseline gap-1.5">
-				<span class="text-2xl font-black text-contrast font-mono tracking-tight">{{
-					overlayStore.systemStats.ramUsedMb
-				}}</span>
-				<span class="text-xs text-secondary font-medium"
-					>/ {{ overlayStore.systemStats.ramTotalMb }} MB</span
-				>
-			</div>
-			<div class="mt-2 w-full bg-surface-4 rounded-full h-1.5 overflow-hidden">
-				<div
-					class="bg-cyan-500 h-full rounded-full transition-all duration-500"
-					:style="{
-						width: `${(overlayStore.systemStats.ramUsedMb / overlayStore.systemStats.ramTotalMb) * 100}%`,
-					}"
-				></div>
-			</div>
-		</div>
-
-		<!-- CPU Tile -->
-		<div
-			class="p-3.5 rounded-2xl bg-surface-2/80 border border-surface-4/70 backdrop-blur-md flex flex-col justify-between shadow-sm"
-		>
-			<div class="flex items-center justify-between">
-				<span class="text-xs font-semibold text-secondary uppercase tracking-wider">CPU Usage</span>
-				<span class="text-[10px] px-1.5 py-0.5 rounded bg-surface-4 font-mono text-secondary"
-					>Host</span
-				>
-			</div>
-			<div class="mt-2 flex items-baseline gap-1.5">
-				<span class="text-2xl font-black text-contrast font-mono tracking-tight"
-					>{{ overlayStore.systemStats.cpuPercent }}%</span
-				>
-				<span class="text-xs text-secondary font-medium">Core load</span>
-			</div>
-			<div class="mt-2 w-full bg-surface-4 rounded-full h-1.5 overflow-hidden">
-				<div
-					class="bg-purple-500 h-full rounded-full transition-all duration-500"
-					:style="{ width: `${overlayStore.systemStats.cpuPercent}%` }"
-				></div>
-			</div>
-		</div>
-
-		<!-- Latency Tile -->
-		<div
-			class="p-3.5 rounded-2xl bg-surface-2/80 border border-surface-4/70 backdrop-blur-md flex flex-col justify-between shadow-sm"
-		>
-			<div class="flex items-center justify-between">
-				<span class="text-xs font-semibold text-secondary uppercase tracking-wider"
-					>Server Ping</span
-				>
-				<SparklesIcon class="w-3.5 h-3.5 text-amber-400" />
-			</div>
-			<div class="mt-2 flex items-baseline gap-1.5">
-				<span class="text-2xl font-black text-contrast font-mono tracking-tight">{{
-					overlayStore.systemStats.pingMs
-				}}</span>
-				<span class="text-xs text-secondary font-medium">ms latency</span>
-			</div>
-			<div class="mt-2 w-full bg-surface-4 rounded-full h-1.5 overflow-hidden">
-				<div
-					class="bg-emerald-400 h-full rounded-full transition-all duration-500"
-					:style="{ width: `${Math.max(10, 100 - overlayStore.systemStats.pingMs)}%` }"
-				></div>
-			</div>
-		</div>
+			<XIcon class="w-3.5 h-3.5" />
+		</button>
 	</div>
 </template>

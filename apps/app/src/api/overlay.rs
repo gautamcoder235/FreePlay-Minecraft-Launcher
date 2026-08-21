@@ -47,6 +47,11 @@ impl Default for GlobalOverlayState {
 }
 
 static OVERLAY_STATE: std::sync::OnceLock<GlobalOverlayState> = std::sync::OnceLock::new();
+static IS_OVERLAY_RUNNING: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(true);
+
+pub fn stop() {
+	IS_OVERLAY_RUNNING.store(false, std::sync::atomic::Ordering::SeqCst);
+}
 
 fn state() -> &'static GlobalOverlayState {
 	OVERLAY_STATE.get_or_init(GlobalOverlayState::default)
@@ -54,6 +59,54 @@ fn state() -> &'static GlobalOverlayState {
 
 pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 	tauri::plugin::Builder::new("overlay")
+		.setup(|app, _api| {
+			#[cfg(windows)]
+			{
+				let app_handle = app.clone();
+				std::thread::spawn(move || {
+					use windows::Win32::UI::Input::KeyboardAndMouse::{
+						GetAsyncKeyState, VK_F8, VK_LSHIFT, VK_RSHIFT, VK_SHIFT, VK_TAB,
+					};
+
+					let mut was_shift_tab_down = false;
+					let mut was_f8_down = false;
+
+					while IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
+						std::thread::sleep(std::time::Duration::from_millis(35));
+						if !IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
+							break;
+						}
+
+						let is_shift = unsafe {
+							((GetAsyncKeyState(VK_SHIFT.0 as i32) as u16 & 0x8000) != 0)
+								|| ((GetAsyncKeyState(VK_LSHIFT.0 as i32) as u16 & 0x8000) != 0)
+								|| ((GetAsyncKeyState(VK_RSHIFT.0 as i32) as u16 & 0x8000) != 0)
+						};
+						let is_tab = unsafe { (GetAsyncKeyState(VK_TAB.0 as i32) as u16 & 0x8000) != 0 };
+						let is_f8 = unsafe { (GetAsyncKeyState(VK_F8.0 as i32) as u16 & 0x8000) != 0 };
+
+						let shift_tab_pressed = is_shift && is_tab;
+
+						if shift_tab_pressed && !was_shift_tab_down {
+							let app_clone = app_handle.clone();
+							tauri::async_runtime::spawn(async move {
+								let _ = overlay_toggle(app_clone, None).await;
+							});
+						}
+						was_shift_tab_down = shift_tab_pressed;
+
+						if is_f8 && !was_f8_down {
+							let app_clone = app_handle.clone();
+							tauri::async_runtime::spawn(async move {
+								let _ = overlay_toggle(app_clone, None).await;
+							});
+						}
+						was_f8_down = is_f8;
+					}
+				});
+			}
+			Ok(())
+		})
 		.invoke_handler(tauri::generate_handler![
 			overlay_toggle,
 			overlay_set_visible,
@@ -176,9 +229,12 @@ pub async fn overlay_toggle<R: tauri::Runtime>(
 				apply_click_through(raw, false);
 				if let Some(pid) = maybe_pid {
 					sync_bounds_to_game(raw, pid);
+				} else {
+					let _ = overlay_win.center();
 				}
 			}
 
+			let _ = overlay_win.unminimize();
 			let _ = overlay_win.show();
 			let _ = overlay_win.set_focus();
 			let _ = overlay_win.emit("overlay-state-changed", true);
