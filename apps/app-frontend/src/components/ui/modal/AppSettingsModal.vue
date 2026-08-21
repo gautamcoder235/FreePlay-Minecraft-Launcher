@@ -16,7 +16,6 @@ import {
 	commonSettingsMessages,
 	defineMessage,
 	defineMessages,
-	ProgressBar,
 	TabbedModal,
 	UnsavedChangesPopup,
 	useVIntl,
@@ -39,7 +38,6 @@ import {
 	appSettingsModalContextKey,
 	type UnsavedChangesController,
 } from '@/providers/app-settings-modal'
-import { injectAppUpdateDownloadProgress } from '@/providers/download-progress.ts'
 import { useTheming } from '@/store/state'
 
 const themeStore = useTheming()
@@ -226,8 +224,6 @@ function showProfile(): void {
 
 defineExpose({ show, showProfile })
 
-const { progress, version: downloadingVersion } = injectAppUpdateDownloadProgress()
-
 const version = await getVersion()
 const osPlatform = getOsPlatform()
 const osVersion = getOsVersion()
@@ -258,10 +254,6 @@ function devModeCount() {
 }
 
 const messages = defineMessages({
-	downloading: {
-		id: 'app.settings.downloading',
-		defaultMessage: 'Downloading v{version}',
-	},
 	appVersion: {
 		id: 'app.settings.app-version',
 		defaultMessage: 'FreePlay Launcher {version}',
@@ -305,12 +297,6 @@ const messages = defineMessages({
 			<div
 				class="mt-auto p-3 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm flex flex-col gap-2"
 			>
-				<div v-if="progress > 0 && progress < 1" class="flex flex-col gap-1.5">
-					<p class="m-0 text-xs font-semibold text-contrast">
-						{{ formatMessage(messages.downloading, { version: downloadingVersion }) }}
-					</p>
-					<ProgressBar :progress="progress" />
-				</div>
 				<p
 					v-if="themeStore.devMode"
 					class="text-brand text-xs font-bold m-0 flex items-center gap-1.5"

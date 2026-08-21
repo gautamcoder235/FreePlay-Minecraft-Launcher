@@ -368,9 +368,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "Kehittäjätila käytössä."
   },
-  "app.settings.downloading": {
-    "message": "Ladataan v{version}"
-  },
   "app.settings.tabs.appearance": {
     "message": "Ulkonäkö"
   },
@@ -526,36 +523,6 @@
   },
   "app.skins.toggle-ears-features-on": {
     "message": "Ota käyttöön"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher versio {version} on ladattu. Voit käynnistää sovelluksen uudelleen päivittääksesi heti tai antaa päivityksen asentua automaattisesti, kun suljet FreePlay Launcherin."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher versio {version} on saatavilla. Käytä paketinhallintasi ja päivitä käyttääksesi uusimpia ominaisuuksia ja korjauksia!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher versio {version} on nyt saatavilla! Koska käytät käytön mukaan laskutettavaa verkkoa, emme ladannut sitä automaattisesti."
-  },
-  "app.update-popup.changelog": {
-    "message": "Muutosloki"
-  },
-  "app.update-popup.download": {
-    "message": "Lataa ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Lataus valmis"
-  },
-  "app.update-popup.reload": {
-    "message": "Lataa uudelleen päivittääksesi"
-  },
-  "app.update-popup.title": {
-    "message": "Päivitys saatavilla"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Klikkaa tästä nähdäksesi muutoslokin."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Versio {version} asennettiin onnistuneesti!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "example.freeplay.app"

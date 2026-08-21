@@ -42,8 +42,6 @@ import {
 	providePopupNotificationManager,
 	TeleportOverflowMenu,
 	useDebugLogger,
-	useFormatBytes,
-	useHostingIntercom,
 	useVIntl,
 } from '@freeplay/ui'
 import { renderString } from '@freeplay/utils'
@@ -51,10 +49,8 @@ import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { getVersion } from '@tauri-apps/api/app'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { type } from '@tauri-apps/plugin-os'
-import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state'
 import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import { RouterView, useRoute, useRouter } from 'vue-router'
 
@@ -63,7 +59,6 @@ import AppActionBar from '@/components/ui/AppActionBar.vue'
 import CommandPalette from '@/components/ui/command-palette/CommandPalette.vue'
 import ErrorModal from '@/components/ui/ErrorModal.vue'
 import FriendsList from '@/components/ui/friends/FriendsList.vue'
-import HostingUpdateRequired from '@/components/ui/HostingUpdateRequired.vue'
 import AddServerToInstanceModal from '@/components/ui/install_flow/AddServerToInstanceModal.vue'
 import UnknownPackWarningModal from '@/components/ui/install_flow/UnknownPackWarningModal.vue'
 import IconEditorModal from '@/components/ui/instance_settings/icon-editor-modal/index.vue'
@@ -76,62 +71,29 @@ import ModpackAlreadyInstalledModal from '@/components/ui/modal/ModpackAlreadyIn
 import OfflineAccountModal from '@/components/ui/modal/OfflineAccountModal.vue'
 import UpdateToPlayModal from '@/components/ui/modal/UpdateToPlayModal.vue'
 import NavButton from '@/components/ui/NavButton.vue'
-import PromotionWrapper from '@/components/ui/PromotionWrapper.vue'
 import QuickInstanceSwitcher from '@/components/ui/QuickInstanceSwitcher.vue'
 import SharedInstanceInviteHandler from '@/components/ui/shared-instances/shared-instance-invite-handler/index.vue'
 import SideHudDashboard from '@/components/ui/SideHudDashboard.vue'
 import SplashScreen from '@/components/ui/SplashScreen.vue'
-import SurveyPopup from '@/components/ui/SurveyPopup.vue'
 import WindowControls from '@/components/ui/WindowControls.vue'
 import { useCheckDisableMouseover } from '@/composables/macCssFix.js'
 import { useAppEvent } from '@/composables/use-app-event'
 import { config } from '@/config'
-import {
-	hide_ads_window,
-	init_ads_window,
-	release_ads_window_hold,
-	should_show_ads_consent_popup,
-	take_ads_window_hold,
-} from '@/helpers/ads.js'
-import { debugAnalytics, initAnalytics, trackEvent } from '@/helpers/analytics'
 import { check_reachable } from '@/helpers/auth.js'
 import { get_user, get_version } from '@/helpers/cache.js'
 import { install_create_modpack_instance, install_get_modpack_preview } from '@/helpers/install'
 import { can_current_user_use_shared_instances, get as getInstance, run } from '@/helpers/instance'
 import { get as getCreds, login, logout } from '@/helpers/mr_auth.ts'
 import { mergeUrlQuery, parseFreePlayLink } from '@/helpers/project-links.ts'
-import { get as getSettings, set as setSettings } from '@/helpers/settings.ts'
+import { get as getSettings } from '@/helpers/settings.ts'
 import { get_opening_command, initialize_state } from '@/helpers/state'
-import { hasActivePride26Midas, hasMidasBadge } from '@/helpers/user-campaigns.ts'
 import { parse_freeplay_user_link } from '@/helpers/users'
-import {
-	areUpdatesEnabled,
-	enqueueUpdateForInstallation,
-	getOS,
-	getUpdateSize,
-	isDev,
-	isNetworkMetered,
-	setRestartAfterPendingUpdate,
-} from '@/helpers/utils.js'
+import { getOS, isDev } from '@/helpers/utils.js'
 import { start_join_server, start_join_singleplayer_world } from '@/helpers/worlds.ts'
 import i18n from '@/i18n.config'
 import { instanceKeys } from '@/pages/instance/query-options'
-import {
-	appUpdateState,
-	downloadAvailableAppUpdate,
-	getNextAppUpdatePopupTime,
-	installAvailableAppUpdate,
-	markAppUpdateActionable,
-	markAppUpdatePopupShown,
-	openAppUpdateChangelog,
-	setAppUpdateActions,
-} from '@/providers/app-update.ts'
 import { createBreadcrumbManager, provideBreadcrumbManager } from '@/providers/breadcrumbs'
 import { createContentInstall, provideContentInstall } from '@/providers/content-install'
-import {
-	provideAppUpdateDownloadProgress,
-	subscribeToDownloadProgress,
-} from '@/providers/download-progress.ts'
 import { createServerInstall, provideServerInstall } from '@/providers/server-install'
 import { setupProviders } from '@/providers/setup'
 import { setupAppEventsProvider } from '@/providers/setup/app-events'
@@ -171,30 +133,10 @@ function updateHistoryNavigationState() {
 	canNavigateForward.value = historyState?.forward != null
 }
 
-let fullscreenAdsWindowHold = false
-
-async function handleFullscreenChange() {
-	const fullscreen = document.fullscreenElement !== null
-	if (fullscreen === fullscreenAdsWindowHold) return
-
-	fullscreenAdsWindowHold = fullscreen
-	try {
-		if (fullscreen) {
-			await take_ads_window_hold()
-		} else {
-			await release_ads_window_hold()
-		}
-	} catch (error) {
-		fullscreenAdsWindowHold = !fullscreen
-		handleError(error)
-	}
-}
-
 updateHistoryNavigationState()
 
 const APP_LEFT_NAV_WIDTH = '4rem'
 const APP_SIDEBAR_WIDTH = 300
-const INTERCOM_BUBBLE_DEFAULT_PADDING = 20
 const credentials = ref()
 let credentialsRefreshId = 0
 const userSidebarPreference = ref(
@@ -227,32 +169,6 @@ const sidebarVisible = computed(() => {
 	if (forceSidebar.value) return true
 	return userSidebarPreference.value
 })
-const hostingRouteActive = computed(() => route.path.startsWith('/hosting'))
-const hostingUpdateRequired = computed(
-	() =>
-		hostingRouteActive.value &&
-		!!appUpdateState.availableUpdate.value &&
-		appUpdateState.updatesEnabled.value,
-)
-const hostingIntercomIdentityKey = computed(() => {
-	const rawServerId = route.params.id
-	const serverId = Array.isArray(rawServerId) ? rawServerId[0] : rawServerId
-	const userId = credentials.value?.user_id ?? credentials.value?.user?.id ?? 'anonymous'
-	return `${userId}:${serverId ?? 'hosting'}`
-})
-const hostingIntercom = useHostingIntercom({
-	enabled: computed(
-		() => hostingRouteActive.value && !hostingUpdateRequired.value && !!credentials.value?.session,
-	),
-	appId: 'ykeritl9',
-	fetchToken: fetchIntercomToken,
-	identityKey: hostingIntercomIdentityKey,
-	horizontalPadding: computed(() =>
-		sidebarVisible.value
-			? APP_SIDEBAR_WIDTH + INTERCOM_BUBBLE_DEFAULT_PADDING
-			: INTERCOM_BUBBLE_DEFAULT_PADDING,
-	),
-})
 
 const notificationManager = new AppNotificationManager()
 provideNotificationManager(notificationManager)
@@ -272,8 +188,6 @@ useAppEvent(
 const popupNotificationManager = new AppPopupNotificationManager()
 providePopupNotificationManager(popupNotificationManager)
 const { addPopupNotification } = popupNotificationManager
-let adsConsentPopupId = null
-useAppEvent('ads_consent_required', handleAdsConsentRequired, appEvents)
 
 const appVersion = getVersion()
 const tauriApiClient = new TauriFreePlayClient({
@@ -298,7 +212,7 @@ const tauriApiClient = new TauriFreePlayClient({
 	],
 })
 provideFreePlayClient(tauriApiClient)
-const { data: authenticatedFreePlayUser } = useQuery({
+const { data: _authenticatedFreePlayUser } = useQuery({
 	queryKey: computed(() => ['authenticated-user', 'campaigns', credentials.value?.user?.id]),
 	queryFn: () => tauriApiClient.labrinth.users_v3.getAuthenticated(),
 	enabled: () => !!credentials.value?.session,
@@ -314,23 +228,14 @@ useQuery({
 	refetchOnWindowFocus: false,
 	refetchOnReconnect: false,
 })
-const hasPlus = computed(
-	() =>
-		!!credentials.value?.user &&
-		(hasMidasBadge(credentials.value.user) ||
-			hasActivePride26Midas(authenticatedFreePlayUser.value?.campaigns?.pride_26)),
-)
-const showAd = computed(() => false)
-const adConsentAvailable = computed(() => false)
 providePageContext({
 	hierarchicalSidebarAvailable: ref(true),
-	showAds: showAd,
-	adConsentAvailable,
+	showAds: ref(false),
+	adConsentAvailable: ref(false),
 	floatingActionBarOffsets: {
 		left: ref(APP_LEFT_NAV_WIDTH),
 		right: computed(() => (sidebarVisible.value ? `${APP_SIDEBAR_WIDTH}px` : '0px')),
 	},
-	intercomBubble: hostingIntercom.intercomBubble,
 	featureFlags: {
 		serverRamAsBytesAlwaysOn: computed(() =>
 			themeStore.getFeatureFlag('server_ram_as_bytes_always_on'),
@@ -340,8 +245,6 @@ providePageContext({
 })
 provideModalBehavior({
 	noblur: computed(() => !themeStore.advancedRendering),
-	onShow: () => take_ads_window_hold(),
-	onHide: () => release_ads_window_hold(),
 })
 
 const creationIconEditorModal = ref(null)
@@ -462,36 +365,19 @@ function handleSidebarKeydown(e) {
 
 onMounted(async () => {
 	await useCheckDisableMouseover()
-	try {
-		handleAdsConsentRequired(await should_show_ads_consent_popup())
-	} catch (error) {
-		handleError(error)
-	}
 
 	document.querySelector('body').addEventListener('click', handleClick)
 	document.querySelector('body').addEventListener('auxclick', handleAuxClick)
-	document.addEventListener('fullscreenchange', handleFullscreenChange)
 	window.addEventListener('keydown', handleSidebarKeydown)
-
-	checkUpdates()
 })
 
 onUnmounted(async () => {
 	document.querySelector('body').removeEventListener('click', handleClick)
 	document.querySelector('body').removeEventListener('auxclick', handleAuxClick)
 	window.removeEventListener('keydown', handleSidebarKeydown)
-	document.removeEventListener('fullscreenchange', handleFullscreenChange)
-	clearDelayedUpdatePopup()
-
-	if (fullscreenAdsWindowHold) {
-		fullscreenAdsWindowHold = false
-		await release_ads_window_hold().catch(handleError)
-	}
-	await unlistenUpdateDownload?.()
 })
 
 const { formatMessage } = useVIntl()
-const formatBytes = useFormatBytes()
 
 const messages = defineMessages({
 	warning: { id: 'app.notification.warning', defaultMessage: 'Warning' },
@@ -499,18 +385,6 @@ const messages = defineMessages({
 	goBack: { id: 'app.navigation.go-back', defaultMessage: 'Go back' },
 	goForward: { id: 'app.navigation.go-forward', defaultMessage: 'Go forward' },
 	nextImage: { id: 'app.navigation.next-image', defaultMessage: 'Next image' },
-	updateDownloadMissingVersion: {
-		id: 'app.update.download-error.missing-version',
-		defaultMessage: 'Failed to download update: no version available',
-	},
-	updateInstalledToastTitle: {
-		id: 'app.update.complete-toast.title',
-		defaultMessage: 'Version {version} was successfully installed!',
-	},
-	updateInstalledToastText: {
-		id: 'app.update.complete-toast.text',
-		defaultMessage: 'Click here to view the changelog.',
-	},
 	authUnreachableHeader: {
 		id: 'app.auth-servers.unreachable.header',
 		defaultMessage: 'Cannot reach authentication servers',
@@ -520,34 +394,13 @@ const messages = defineMessages({
 		defaultMessage:
 			'Minecraft authentication servers may be down right now. Check your internet connection and try again later.',
 	},
-	adsConsentTitle: {
-		id: 'app.ads-consent.title',
-		defaultMessage: 'Your privacy and how ads support FreePlay',
-	},
-	adsConsentBody: {
-		id: 'app.ads-consent.body',
-		defaultMessage:
-			'Ads make FreePlay possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance.',
-	},
-	adsConsentManage: {
-		id: 'app.ads-consent.manage',
-		defaultMessage: 'Manage preferences',
-	},
-	adsConsentReject: {
-		id: 'app.ads-consent.reject',
-		defaultMessage: 'Reject all',
-	},
-	adsConsentAccept: {
-		id: 'app.ads-consent.accept',
-		defaultMessage: 'Accept all',
-	},
 	home: {
 		id: 'app.nav.home',
 		defaultMessage: 'Home',
 	},
 	freeplayHosting: {
 		id: 'app.nav.freeplay-hosting',
-		defaultMessage: 'FreePlay Server Hosting',
+		defaultMessage: 'Server Control Room',
 	},
 	createNewInstance: {
 		id: 'app.nav.create-new-instance',
@@ -569,10 +422,6 @@ const messages = defineMessages({
 		id: 'app.restarting',
 		defaultMessage: 'Restarting...',
 	},
-	upgradeToFreePlayPlus: {
-		id: 'app.nav.upgrade-to-freeplay-plus',
-		defaultMessage: 'Upgrade to FreePlay+',
-	},
 	news: {
 		id: 'app.news.title',
 		defaultMessage: 'News',
@@ -587,13 +436,6 @@ const messages = defineMessages({
 	},
 })
 
-function handleAdsConsentRequired(_required) {
-	if (adsConsentPopupId !== null) {
-		popupNotificationManager.removeNotification(adsConsentPopupId)
-		adsConsentPopupId = null
-	}
-}
-
 async function setupApp() {
 	await onboardingChecklist.initialize()
 
@@ -607,14 +449,13 @@ async function setupApp() {
 		native_decorations,
 		theme,
 		locale,
-		telemetry,
+		telemetry: _telemetry,
 		collapsed_navigation,
 		hide_nametag_skins_page,
 		advanced_rendering,
 		toggle_sidebar,
 		developer_mode,
 		feature_flags,
-		pending_update_toast_for_version,
 	} = await getSettings()
 
 	// Initialize locale from saved settings
@@ -625,7 +466,6 @@ async function setupApp() {
 	os.value = await getOS()
 	const dev = await isDev()
 	isDevEnvironment.value = dev
-	const version = await getVersion()
 	nativeDecorations.value = native_decorations
 	if (os.value !== 'MacOS') await getCurrentWindow().setDecorations(native_decorations)
 	await getCurrentWindow()
@@ -648,12 +488,6 @@ async function setupApp() {
 		isMaximized.value = await getCurrentWindow().isMaximized()
 	})
 
-	if (telemetry) {
-		initAnalytics()
-		if (dev) debugAnalytics()
-		trackEvent('Launched', { version, dev })
-	}
-
 	if (!dev) document.addEventListener('contextmenu', (event) => event.preventDefault())
 
 	const osType = await type()
@@ -673,12 +507,6 @@ async function setupApp() {
 		generateSkinPreviews(skins, capes)
 	} catch (error) {
 		console.warn('Failed to generate skin previews in app setup.', error)
-	}
-
-	if (pending_update_toast_for_version !== null) {
-		const settings = await getSettings()
-		settings.pending_update_toast_for_version = null
-		await setSettings(settings)
 	}
 }
 
@@ -716,11 +544,6 @@ initialize_state(appEventChannel)
 		}
 	})
 
-const handleClose = async () => {
-	await saveWindowState(StateFlags.ALL)
-	await getCurrentWindow().close()
-}
-
 const sidebarOverlayScrollbarsOptions = Object.freeze({
 	overflow: {
 		x: 'hidden',
@@ -733,13 +556,8 @@ router.beforeEach(() => {
 	if (routerToken) loading.end(routerToken)
 	routerToken = loading.begin()
 })
-router.afterEach((to, from, failure) => {
+router.afterEach(() => {
 	updateHistoryNavigationState()
-	trackEvent('PageView', {
-		path: to.path,
-		fromPath: from.path,
-		failed: failure,
-	})
 	setTimeout(() => {
 		if (!suspensePending) {
 			if (routerToken) {
@@ -768,43 +586,6 @@ function onSuspenseResolve() {
 }
 
 const queryClient = useQueryClient()
-
-watch(stateInitialized, (ready) => {
-	if (ready) {
-		queryClient.prefetchQuery({
-			queryKey: ['servers'],
-			queryFn: async () => {
-				const response = await tauriApiClient.archon.servers_v0.list({ limit: 100 })
-				const hasMedalServers = response.servers.some((s) => s.is_medal)
-				if (hasMedalServers) {
-					const subscriptions = await tauriApiClient.labrinth.billing_internal.getSubscriptions()
-					for (const server of response.servers) {
-						if (server.is_medal) {
-							const sub = subscriptions.find((s) => s.metadata?.id === server.server_id)
-							if (sub) {
-								server.medal_expires = new Date(
-									new Date(sub.created).getTime() + 5 * 86400000,
-								).toISOString()
-							}
-						}
-					}
-				}
-				return response
-			},
-			staleTime: 30_000,
-		})
-		queryClient.prefetchQuery({
-			queryKey: ['billing', 'subscriptions'],
-			queryFn: () => tauriApiClient.labrinth.billing_internal.getSubscriptions(),
-			staleTime: 30_000,
-		})
-		queryClient.prefetchQuery({
-			queryKey: ['billing', 'payments'],
-			queryFn: () => tauriApiClient.labrinth.billing_internal.getPayments(),
-			staleTime: 30_000,
-		})
-	}
-})
 
 const error = useError()
 const errorModal = ref()
@@ -1010,48 +791,6 @@ async function performLogOut() {
 	await fetchCredentials()
 }
 
-async function fetchIntercomToken() {
-	const creds = await getCreds()
-	if (!creds?.session) {
-		throw new Error('Not authenticated')
-	}
-
-	const params = new URLSearchParams()
-	const rawServerId = route.params.id
-	const serverId = Array.isArray(rawServerId) ? rawServerId[0] : rawServerId
-	if (route.path.startsWith('/hosting/manage/') && typeof serverId === 'string') {
-		params.set('server_id', serverId)
-	}
-	const query = params.size > 0 ? `?${params.toString()}` : ''
-
-	const response = await tauriFetch(`${config.siteUrl}/api/intercom/messenger-jwt${query}`, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${creds.session}`,
-		},
-	})
-	if (!response.ok) {
-		throw new Error(`Failed to fetch Intercom token: ${response.status}`)
-	}
-	return await response.json()
-}
-
-watch(
-	[showAd, adConsentAvailable],
-	async ([showAds, canManageConsent]) => {
-		if (showAds) {
-			await init_ads_window(true)
-			return
-		}
-
-		await hide_ads_window(true)
-		if (canManageConsent) {
-			await init_ads_window()
-		}
-	},
-	{ immediate: true },
-)
-
 onMounted(async () => {
 	try {
 		await getCurrentWindow().show()
@@ -1195,9 +934,6 @@ async function handleCommand(e) {
 			} else {
 				await install_create_modpack_instance(location).catch(handleError)
 			}
-			trackEvent('InstanceCreate', {
-				source: 'CreationModalFileDrop',
-			})
 		}
 	} else if (e.event === 'LaunchInstance') {
 		const instance = await getInstance(e.id).catch(handleError)
@@ -1230,314 +966,6 @@ async function handleCommand(e) {
 			.catch(handleError)
 	}
 }
-
-const appUpdateDownload = {
-	progress: appUpdateState.progress,
-	version: ref(),
-}
-let unlistenUpdateDownload
-
-const {
-	metered,
-	finishedDownloading,
-	downloading,
-	restarting,
-	availableUpdate,
-	updateSize,
-	updatesEnabled,
-} = appUpdateState
-let delayedUpdatePopupTimeout = null
-
-const updatePopupMessages = defineMessages({
-	updateAvailable: {
-		id: 'app.update-popup.title',
-		defaultMessage: 'Update available',
-	},
-	downloadComplete: {
-		id: 'app.update-popup.download-complete',
-		defaultMessage: 'Download complete',
-	},
-	meteredBody: {
-		id: 'app.update-popup.body.metered',
-		defaultMessage: `FreePlay Launcher v{version} is available now! Since you're on a metered network, we didn't automatically download it.`,
-	},
-	downloadedBody: {
-		id: 'app.update-popup.body.download-complete',
-		defaultMessage: `FreePlay Launcher v{version} has finished downloading. Reload to update now, or automatically when you close FreePlay Launcher.`,
-	},
-	linuxBody: {
-		id: 'app.update-popup.body.linux',
-		defaultMessage:
-			'FreePlay Launcher v{version} is available. Use your package manager to update for the latest features and fixes!',
-	},
-	reload: {
-		id: 'app.update-popup.reload',
-		defaultMessage: 'Reload to update',
-	},
-	download: {
-		id: 'app.update-popup.download',
-		defaultMessage: 'Download ({size})',
-	},
-	changelog: {
-		id: 'app.update-popup.changelog',
-		defaultMessage: 'Changelog',
-	},
-})
-
-function clearDelayedUpdatePopup() {
-	if (delayedUpdatePopupTimeout !== null) {
-		clearTimeout(delayedUpdatePopupTimeout)
-		delayedUpdatePopupTimeout = null
-	}
-}
-
-function getCurrentUpdatePromptStage() {
-	return finishedDownloading.value ? 'downloaded' : 'available'
-}
-
-function scheduleDelayedUpdatePopup() {
-	clearDelayedUpdatePopup()
-
-	const version = availableUpdate.value?.version
-	if (!version) {
-		return
-	}
-
-	const nextPopupTime = getNextAppUpdatePopupTime(version, getCurrentUpdatePromptStage())
-	if (nextPopupTime === null) {
-		return
-	}
-
-	const delay = nextPopupTime - Date.now()
-	if (delay <= 0) {
-		showDelayedUpdatePopup()
-		return
-	}
-
-	delayedUpdatePopupTimeout = setTimeout(showDelayedUpdatePopup, Math.min(delay, 2_147_483_647))
-}
-
-function showDelayedUpdatePopup() {
-	const update = availableUpdate.value
-	if (!update) {
-		return
-	}
-
-	const stage = getCurrentUpdatePromptStage()
-	const nextPopupTime = getNextAppUpdatePopupTime(update.version, stage)
-	if (nextPopupTime === null) {
-		return
-	}
-
-	if (Date.now() < nextPopupTime) {
-		scheduleDelayedUpdatePopup()
-		return
-	}
-
-	if (metered.value && !finishedDownloading.value) {
-		addPopupNotification({
-			contentType: 'standard',
-			title: formatMessage(updatePopupMessages.updateAvailable),
-			text: formatMessage(updatePopupMessages.meteredBody, { version: update.version }),
-			type: 'info',
-			autoCloseMs: null,
-			buttons: [
-				{
-					label: formatMessage(updatePopupMessages.download, {
-						size: formatBytes(updateSize.value ?? 0),
-					}),
-					action: () => downloadAvailableAppUpdate(),
-					color: 'brand',
-				},
-				{
-					label: formatMessage(updatePopupMessages.changelog),
-					action: () => openAppUpdateChangelog(),
-					keepOpen: true,
-				},
-			],
-		})
-	} else if (finishedDownloading.value) {
-		addPopupNotification({
-			contentType: 'standard',
-			title: formatMessage(updatePopupMessages.downloadComplete),
-			text: formatMessage(updatePopupMessages.downloadedBody, {
-				version: update.version,
-			}),
-			type: 'success',
-			autoCloseMs: null,
-			buttons: [
-				{
-					label: formatMessage(updatePopupMessages.reload),
-					action: () => installAvailableAppUpdate(),
-					color: 'brand',
-				},
-				{
-					label: formatMessage(updatePopupMessages.changelog),
-					action: () => openAppUpdateChangelog(),
-					keepOpen: true,
-				},
-			],
-		})
-	} else {
-		scheduleDelayedUpdatePopup()
-		return
-	}
-
-	markAppUpdatePopupShown(update.version, stage)
-}
-
-async function checkUpdates() {
-	if (!(await areUpdatesEnabled())) {
-		console.log('Skipping update check as updates are disabled in this build or environment')
-		updatesEnabled.value = false
-
-		if (os.value === 'Linux' && !isDevEnvironment.value) {
-			checkLinuxUpdates()
-			setInterval(checkLinuxUpdates, 5 * 60 * 1000)
-		}
-		return
-	}
-
-	async function performCheck() {
-		const update = await invoke('plugin:updater|check')
-		if (!update) {
-			console.log('No update available')
-			return
-		}
-
-		const isExistingUpdate = update.version === availableUpdate.value?.version
-
-		if (isExistingUpdate) {
-			console.log('Update is already known')
-			scheduleDelayedUpdatePopup()
-			return
-		}
-
-		appUpdateDownload.progress.value = 0
-		finishedDownloading.value = false
-		downloading.value = false
-		updateSize.value = null
-		availableUpdate.value = update
-
-		console.log(`Update ${update.version} is available.`)
-
-		metered.value = await isNetworkMetered()
-		if (!metered.value) {
-			console.log('Starting download of update')
-			downloadUpdate(update)
-		} else {
-			console.log(`Metered connection detected, not auto-downloading update.`)
-			markAppUpdateActionable(update.version)
-			scheduleDelayedUpdatePopup()
-		}
-
-		getUpdateSize(update.rid).then((size) => (updateSize.value = size))
-	}
-
-	await performCheck()
-	setTimeout(
-		() => {
-			checkUpdates()
-		},
-		5 /* min */ * 60 /* sec */ * 1000 /* ms */,
-	)
-}
-
-async function checkLinuxUpdates() {
-	try {
-		const [response, currentVersion] = await Promise.all([
-			fetch('https://launcher-files.freeplay.app/updates.json'),
-			getVersion(),
-		])
-		const updates = await response.json()
-		const latestVersion = updates?.version
-
-		if (latestVersion && latestVersion !== currentVersion) {
-			markAppUpdateActionable(latestVersion)
-			const nextPopupTime = getNextAppUpdatePopupTime(latestVersion)
-			if (nextPopupTime !== null && Date.now() >= nextPopupTime) {
-				addPopupNotification({
-					contentType: 'standard',
-					title: formatMessage(updatePopupMessages.updateAvailable),
-					text: formatMessage(updatePopupMessages.linuxBody, { version: latestVersion }),
-					type: 'info',
-					autoCloseMs: null,
-				})
-				markAppUpdatePopupShown(latestVersion)
-			}
-		}
-	} catch (e) {
-		console.error('Failed to check for updates:', e)
-	}
-}
-
-async function downloadAvailableUpdate() {
-	return downloadUpdate(availableUpdate.value)
-}
-
-async function downloadUpdate(versionToDownload) {
-	if (!versionToDownload) {
-		handleError(formatMessage(messages.updateDownloadMissingVersion))
-		return
-	}
-
-	if (downloading.value || appUpdateDownload.progress.value !== 0) {
-		console.error(`Update ${versionToDownload.version} already downloading`)
-		return
-	}
-
-	console.log(`Downloading update ${versionToDownload.version}`)
-	downloading.value = true
-
-	try {
-		enqueueUpdateForInstallation(versionToDownload.rid)
-			.then(() => {
-				downloading.value = false
-				finishedDownloading.value = true
-				unlistenUpdateDownload?.().then(() => {
-					unlistenUpdateDownload = null
-				})
-				console.log('Finished downloading!')
-				markAppUpdateActionable(versionToDownload.version, 'downloaded')
-				scheduleDelayedUpdatePopup()
-			})
-			.catch((e) => {
-				downloading.value = false
-				appUpdateDownload.progress.value = 0
-				handleError(e)
-			})
-		unlistenUpdateDownload = await subscribeToDownloadProgress(
-			appEvents,
-			appUpdateDownload,
-			versionToDownload.version,
-		)
-	} catch (e) {
-		downloading.value = false
-		appUpdateDownload.progress.value = 0
-		handleError(e)
-	}
-}
-
-async function installUpdate() {
-	restarting.value = true
-
-	try {
-		await setRestartAfterPendingUpdate(true)
-	} catch (e) {
-		restarting.value = false
-		handleError(e)
-		return
-	}
-	setTimeout(async () => {
-		await handleClose()
-	}, 250)
-}
-
-setAppUpdateActions({
-	download: downloadAvailableUpdate,
-	install: installUpdate,
-	changelog: () => openUrl('https://freeplay.app/news/changelog?filter=app'),
-})
 
 async function openFreePlayProjectLinkInApp(parsed) {
 	const { slug, pathSuffix, url } = parsed
@@ -1604,7 +1032,7 @@ function handleAuxClick(e) {
 	}
 }
 
-provideAppUpdateDownloadProgress(appUpdateDownload)
+const restarting = ref(false)
 </script>
 
 <template>
@@ -1704,7 +1132,10 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 				<NavButton
 					v-tooltip.right="formatMessage(messages.freeplayHosting)"
 					to="/hosting/manage"
-					:is-primary="(r) => r.path === '/hosting/manage' || r.path === '/hosting/manage/'"
+					:is-primary="
+						(r) =>
+							r.path === '/hosting/manage' || r.path === '/hosting/manage/' || r.path === '/servers'
+					"
 					:is-subpage="
 						(r) =>
 							(r.path.startsWith('/hosting/manage/') && r.path !== '/hosting/manage/') ||
@@ -2016,7 +1447,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 		}"
 	>
 		<div class="app-viewport flex-grow router-view">
-			<SurveyPopup />
 			<div
 				class="loading-indicator-container h-8 fixed z-50 pointer-events-none"
 				:style="{
@@ -2059,8 +1489,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			>
 				{{ formatMessage(messages.authUnreachableBody) }}
 			</Admonition>
-			<HostingUpdateRequired v-if="hostingUpdateRequired" />
-			<RouterView v-else v-slot="{ Component }">
+			<RouterView v-slot="{ Component }">
 				<template v-if="Component">
 					<Suspense @pending="onSuspensePending" @resolve="onSuspenseResolve">
 						<KeepAlive include="LibraryPage">
@@ -2073,7 +1502,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 		<div
 			v-if="sidebarVisible"
 			class="app-sidebar mt-px shrink-0 flex flex-col border-0 border-l-[1px] border-[--brand-gradient-border] border-solid h-[calc(100vh-var(--top-bar-height))] overflow-hidden"
-			:class="{ 'has-plus': hasPlus }"
 		>
 			<div
 				v-overlay-scrollbars="sidebarOverlayScrollbarsOptions"
@@ -2144,9 +1572,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 					</div>
 				</div>
 			</div>
-			<template v-if="showAd">
-				<PromotionWrapper />
-			</template>
 
 			<!-- Fixed Persistent Bottom Line Footer -->
 			<div

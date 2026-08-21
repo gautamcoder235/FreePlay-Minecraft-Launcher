@@ -4,6 +4,7 @@ export * from './settings'
 // Other
 export { default as ArchivedProjectBanner } from './ArchivedProjectBanner.vue'
 export { default as ProjectCard } from './card/ProjectCard.vue'
+export { default as ProjectCardSkeleton } from './card/ProjectCardSkeleton.vue'
 export { default as ProjectBackgroundGradient } from './ProjectBackgroundGradient.vue'
 export { default as ProjectCardList } from './ProjectCardList.vue'
 export { default as ProjectCombobox } from './ProjectCombobox.vue'

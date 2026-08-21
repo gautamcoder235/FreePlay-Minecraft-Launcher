@@ -125,21 +125,6 @@
   "app.action-bar.view-logs": {
     "message": "Visa loggar"
   },
-  "app.ads-consent.accept": {
-    "message": "Godkänn alla"
-  },
-  "app.ads-consent.body": {
-    "message": "Reklam gör FreePlay möjligt och finansierar utbetalningar till skapare. Våra partners kan lagra eller komma åt cookies i appen för att Personalisera reklam och mäta statistik."
-  },
-  "app.ads-consent.manage": {
-    "message": "Hantera inställningar"
-  },
-  "app.ads-consent.reject": {
-    "message": "Neka alla"
-  },
-  "app.ads-consent.title": {
-    "message": "Din integritet och hur reklam stödjer FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "Avancerad rendering"
   },
@@ -746,9 +731,6 @@
   "app.nav.signed-in-as": {
     "message": "Inloggad som <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Upgradera till FreePlay+"
-  },
   "app.news.title": {
     "message": "Nyheter"
   },
@@ -836,20 +818,8 @@
   "app.settings.developer-mode-enabled": {
     "message": "Utvecklarläge aktiverat."
   },
-  "app.settings.downloading": {
-    "message": "Ladda ner v{version}"
-  },
   "app.settings.operating-system.macos": {
     "message": "macOS"
-  },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Reklam gör FreePlay möjligt och finansierar utbetalningar till skapare. Våra partners kan lagra eller komma åt cookies i appen för att Personalisera reklam och mäta statistik."
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay samlar in anonymiserad statistik och användningsdata för att förbättra vår användarupplevelse och anpassa din upplevelse. Genom att inaktivera det här alternativet avanmäler du dig och din data kommer inte längre samlas in."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetri"
   },
   "app.settings.resource-management.app-cache.confirm.description": {
     "message": "Appen kan laddas in långsammare tills cachen är återuppbyggd."
@@ -1045,36 +1015,6 @@
   },
   "app.survey.title": {
     "message": "Hej där FreePlay-användare!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} har laddats ner. Ladda om för att uppdatera nu, eller automatiskt när du stänger FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} är tillgänglig. Använd din pakethanterare för att uppdatera och få tillgång till de senaste funktionerna och buggfixarna!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} är nu tillgänglig! Eftersom du använder ett nätverk med datatrafikbegränsningar har vi inte laddat ner det automatiskt."
-  },
-  "app.update-popup.changelog": {
-    "message": "Ändringslogg"
-  },
-  "app.update-popup.download": {
-    "message": "Ladda ner ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Nedladdning slutförd"
-  },
-  "app.update-popup.reload": {
-    "message": "Ladda om för att uppdatera"
-  },
-  "app.update-popup.title": {
-    "message": "Uppdatering tillgänglig"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Tryck här för att visa ändringsloggen."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Version {version} har installerats!"
   },
   "app.user.project.install-to-instance": {
     "message": "Installera till instans"
@@ -1495,9 +1435,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/sökväg/till/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Dela"
   },
   "instance.settings.tabs.window": {
     "message": "Fönster"

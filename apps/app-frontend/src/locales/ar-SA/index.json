@@ -125,15 +125,6 @@
   "app.action-bar.view-logs": {
     "message": "عرض التسجيل"
   },
-  "app.ads-consent.accept": {
-    "message": "قبول الكل"
-  },
-  "app.ads-consent.manage": {
-    "message": "إدارة التفضيلات"
-  },
-  "app.ads-consent.reject": {
-    "message": "رفض الكل"
-  },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "العرض المتقدم"
   },
@@ -461,9 +452,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "تم تفعيل وضع المطوّر."
   },
-  "app.settings.downloading": {
-    "message": "جار تنزيل الإصدار {version}"
-  },
   "app.settings.tabs.appearance": {
     "message": "المظهر"
   },
@@ -622,36 +610,6 @@
   },
   "app.skins.toggle-ears-features-on": {
     "message": "تشغيل"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "انتهى تنزيل تطبيق FreePlay v{version}. أعد التحميل للتحديث الآن، أو تلقائيًا عند إغلاق تطبيق FreePlay."
-  },
-  "app.update-popup.body.linux": {
-    "message": "تطبيق FreePlay v {version} متاح. استخدم مدير الحزم الخاص بك للتحديث للحصول على أحدث الميزات والإصلاحات!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "تطبيق FreePlay v{version} متاح الآن! وبما أنك متصل بشبكة مقيّدة، لم نقم بتنزيله تلقائيًا."
-  },
-  "app.update-popup.changelog": {
-    "message": "سجل التغيير"
-  },
-  "app.update-popup.download": {
-    "message": "تنزيل ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "اكتمل التنزيل"
-  },
-  "app.update-popup.reload": {
-    "message": "أعد التحميل للتحديث"
-  },
-  "app.update-popup.title": {
-    "message": "تحديث متاح"
-  },
-  "app.update.complete-toast.text": {
-    "message": "انقر هنا لعرض سجلّ التغييرات."
-  },
-  "app.update.complete-toast.title": {
-    "message": "تم تثبيت الإصدار {version} بنجاح!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "مثال (example.freeplay.app)"

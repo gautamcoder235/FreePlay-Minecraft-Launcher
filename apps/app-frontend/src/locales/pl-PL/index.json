@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Pokaż logi"
   },
-  "app.ads-consent.accept": {
-    "message": "Zaakceptuj wszystko"
-  },
-  "app.ads-consent.body": {
-    "message": "Reklamy pozwalają FreePlay oraz fundują wypłaty twórców. Nasi partnerzy mogą zachować lub uzyskać dostęp ciasteczek w aplikacji, żeby spersonalizować reklamy i zmierzyć wydajność."
-  },
-  "app.ads-consent.manage": {
-    "message": "Zarządzaj preferencjami"
-  },
-  "app.ads-consent.reject": {
-    "message": "Odrzuć wszystkie"
-  },
-  "app.ads-consent.title": {
-    "message": "Twoja prywatność i jak reklamy wspierają FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Włącz efekty wizualne, takie jak rozmycie tła. Może to negatywnie wpłynąć na wydajność, jeżeli akceleracja sprzętowa jest wyłączona."
   },
@@ -734,9 +719,6 @@
   "app.nav.signed-in-as": {
     "message": "Zalogowano jako <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Ulepsz do FreePlay+"
-  },
   "app.news.title": {
     "message": "Aktualności"
   },
@@ -830,26 +812,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Tryb dewelopera włączony."
   },
-  "app.settings.downloading": {
-    "message": "Pobieranie v{version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Ścieżka do Java {version, number}"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Reklamy pozwalają na dalsze działanie FreePlay i finansują dochody dla twórców. Nasi partnerzy mogą gromadzić albo uzyskiwać dostęp do plików cookies w celu personalizacji reklam i mierzenia skuteczności."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Pokazuj FreePlay Launcher jako aktywność na Discord. Nie wpływa to na Rich Presence dodane do instancji przez mody. Wymaga ponownego uruchomienia aplikacji."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetria"
   },
   "app.settings.resource-management.maximum-concurrent-downloads.description": {
     "message": "Ilość plików, które aplikacja może pobierać na raz. Zmniejsz tę wartość, jeśli pobieranie jest niestabilne. Wymaga ponownego uruchomienia aplikacji."
@@ -1036,36 +1009,6 @@
   },
   "app.survey.title": {
     "message": "Cześć, użytkowniku FreePlay!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "Wersja FreePlay Launcher v{version} została pobrana. Załaduj ponownie, żeby zaktualizować teraz, albo automatycznie, gdy zamkniesz FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "Wersja FreePlay Launcher v{version} jest dostępna. Pobierz aktualizację poprzez menedżer pakietów, by uzyskać najnowsze funkcje i poprawki!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Wersja FreePlay Launcher v{version} jest dostępna! Skoro korzystasz z sieci taryfowej, nie pobraliśmy jej automatycznie."
-  },
-  "app.update-popup.changelog": {
-    "message": "Dziennik zmian"
-  },
-  "app.update-popup.download": {
-    "message": "Pobierz ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Pobieranie ukończone"
-  },
-  "app.update-popup.reload": {
-    "message": "Załaduj ponownie, by zaktualizować"
-  },
-  "app.update-popup.title": {
-    "message": "Dostępna aktualizacja"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Kliknij, by pokazać dziennik zmian."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Wersja {version} została pomyślnie zainstalowana!"
   },
   "app.user.project.install-to-instance": {
     "message": "Zainstaluj do instancji"
@@ -1444,9 +1387,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/path/to/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Udostępnianie"
   },
   "instance.settings.tabs.window": {
     "message": "Okno"

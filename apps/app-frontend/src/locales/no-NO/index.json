@@ -203,9 +203,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "Utviklermodus aktivert."
   },
-  "app.settings.downloading": {
-    "message": "Laster ned v{version}"
-  },
   "app.settings.tabs.appearance": {
     "message": "Utseende"
   },
@@ -217,12 +214,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Ressursforvaltning"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Klikk her for å se endringsloggen."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Versjon {version} ble installert!"
   },
   "friends.action.add-friend": {
     "message": "Legg til en venn"

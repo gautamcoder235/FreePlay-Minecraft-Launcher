@@ -134,21 +134,6 @@
   "app.action-bar.view-logs": {
     "message": "View logs"
   },
-  "app.ads-consent.accept": {
-    "message": "Accept all"
-  },
-  "app.ads-consent.body": {
-    "message": "Ads make FreePlay possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance."
-  },
-  "app.ads-consent.manage": {
-    "message": "Manage preferences"
-  },
-  "app.ads-consent.reject": {
-    "message": "Reject all"
-  },
-  "app.ads-consent.title": {
-    "message": "Your privacy and how ads support FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Enable visual effects such as background blur. This may reduce performance without hardware acceleration."
   },
@@ -746,9 +731,6 @@
   "app.instance.tab.logs": {
     "message": "Logs"
   },
-  "app.instance.tab.share": {
-    "message": "Share"
-  },
   "app.instance.tab.worlds": {
     "message": "Worlds"
   },
@@ -1218,7 +1200,7 @@
     "message": "FreePlay account"
   },
   "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
+    "message": "Server Control Room"
   },
   "app.nav.home": {
     "message": "FreePlay Home"
@@ -1228,9 +1210,6 @@
   },
   "app.nav.signed-in-as": {
     "message": "Signed in as <user>{username}</user>"
-  },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Upgrade to FreePlay+"
   },
   "app.navigation.go-back": {
     "message": "Go back"
@@ -1406,29 +1385,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Developer mode enabled."
   },
-  "app.settings.downloading": {
-    "message": "Downloading v{version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Java {version, number} location"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Ads make FreePlay possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance. You can opt out or manage your preferences below."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Show FreePlay Launcher as your current activity on Discord. This does not affect Rich Presence added to instances by mods. Requires an app restart."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay collects anonymized analytics and usage data to improve our user experience and customize your experience. By disabling this option, you opt out and your data will no longer be collected."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetry"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Show the Copy details action while an install is queued or running. It is always available for failed or interrupted installs."
@@ -1702,39 +1669,6 @@
   },
   "app.survey.title": {
     "message": "Hey there FreePlay user!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} has finished downloading. Reload to update now, or automatically when you close FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} is available. Use your package manager to update for the latest features and fixes!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} is available now! Since you're on a metered network, we didn't automatically download it."
-  },
-  "app.update-popup.changelog": {
-    "message": "Changelog"
-  },
-  "app.update-popup.download": {
-    "message": "Download ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Download complete"
-  },
-  "app.update-popup.reload": {
-    "message": "Reload to update"
-  },
-  "app.update-popup.title": {
-    "message": "Update available"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Click here to view the changelog."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Version {version} was successfully installed!"
-  },
-  "app.update.download-error.missing-version": {
-    "message": "Failed to download update: no version available"
   },
   "app.user.project.install-to-instance": {
     "message": "Install to instance"
@@ -2407,9 +2341,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/path/to/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Sharing"
   },
   "instance.settings.tabs.window": {
     "message": "Window"

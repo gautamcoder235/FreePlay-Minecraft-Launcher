@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Naplók megtekintése"
   },
-  "app.ads-consent.accept": {
-    "message": "Összes elfogadása"
-  },
-  "app.ads-consent.body": {
-    "message": "A hirdetések teszik lehetővé a FreePlay működését, és biztosítják a tartalomkészítők juttatásait. Partnereink sütiket tárolhatnak vagy érhetnek el az alkalmazásban a hirdetések személyre szabása és a teljesítmény mérése céljából."
-  },
-  "app.ads-consent.manage": {
-    "message": "Beállítások kezelése"
-  },
-  "app.ads-consent.reject": {
-    "message": "Összes elutasítása"
-  },
-  "app.ads-consent.title": {
-    "message": "Adataid védelme és a hirdetések szerepe a FreePlay működésében"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Engedélyezi a vizuális effektusokat, például a háttér elmosását. Hardveres gyorsítás nélkül ez ronthatja a rendszer teljesítményét."
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "Bejelentkezve mint <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Frissíts a FreePlay+-ra"
-  },
   "app.news.title": {
     "message": "Hírek"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Fejlesztői mód bekapcsolva."
   },
-  "app.settings.downloading": {
-    "message": "v{version} letöltése"
-  },
   "app.settings.java-installations.location.title": {
     "message": "A Java {version, number} helye"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "A hirdetések teszik lehetővé a FreePlay működését, és biztosítják a tartalomkészítők juttatásait. Partnereink sütiket tárolhatnak vagy érhetnek el az alkalmazásban a hirdetések személyre szabása és a teljesítmény mérése céljából. Alább leiratkozhatsz erről, illetve beállíthatod a preferenciáidat."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "A FreePlay Launcher megjelenítése aktuális tevékenységként a Discordon. Ez nem érinti a modok által a példányokhoz hozzáadott Rich Presence-t. Az alkalmazás újraindítását igényli."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "A FreePlay névtelen használati és telemetriai adatokat gyűjt a felhasználói élmény javítása és személyre szabása érdekében. Ha kikapcsolod ezt a beállítást, leiratkozol erről, és a rendszer többé nem gyűjti az adataidat."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetria"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "A „Részletek másolása” művelet megjelenítése, amíg a telepítés várólistán van vagy fut. A művelet mindig elérhető a sikertelen vagy megszakított telepítések esetén."
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "Hali, FreePlay-felhasználó!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "A FreePlay Launcher v{version} letöltése befejeződött. Válaszd a Frissítés lehetőséget a frissítéshez, vagy az alkalmazás bezárásakor automatikusan frissül."
-  },
-  "app.update-popup.body.linux": {
-    "message": "A FreePlay Launcher v{version} elérhető. A legújabb funkciókért és javításokért frissíts a csomagkezelőddel!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "A FreePlay Launcher v{version} már elérhető! Mivel korlátozott adatforgalmú hálózaton vagy, nem töltöttük le automatikusan."
-  },
-  "app.update-popup.changelog": {
-    "message": "Változásnapló"
-  },
-  "app.update-popup.download": {
-    "message": "Letöltés ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Letöltés befejezve"
-  },
-  "app.update-popup.reload": {
-    "message": "Frissítés"
-  },
-  "app.update-popup.title": {
-    "message": "Frissítés elérhető"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Kattints ide a változások megtekintéséhez."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Verzió {version} sikeresen telepítve!"
   },
   "app.user.project.install-to-instance": {
     "message": "Telepítés a példányba"
@@ -1630,9 +1570,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/path/to/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Megosztás"
   },
   "instance.settings.tabs.window": {
     "message": "Ablak"

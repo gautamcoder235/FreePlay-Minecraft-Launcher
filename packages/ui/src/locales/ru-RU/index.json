@@ -5888,15 +5888,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Модератор контента"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Этот пользователь активно поддерживает FreePlay и авторов на платформе."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "Нажмите, чтобы узнать, как стать подписчиком."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "Подписчик FreePlay+"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "Этот пользователь поддержал сообщество ЛГБТК+ в благотворительной акции FreePlay."
   },

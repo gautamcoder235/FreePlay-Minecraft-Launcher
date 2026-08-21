@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Посмотреть журнал"
   },
-  "app.ads-consent.accept": {
-    "message": "Принять всё"
-  },
-  "app.ads-consent.body": {
-    "message": "Реклама обеспечивает работу FreePlay и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки."
-  },
-  "app.ads-consent.manage": {
-    "message": "Настроить"
-  },
-  "app.ads-consent.reject": {
-    "message": "Отклонить всё"
-  },
-  "app.ads-consent.title": {
-    "message": "Конфиденциальность и реклама на FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Использовать эффекты вроде размытия фона. Без аппаратного ускорения возможна потеря производительности."
   },
@@ -758,9 +743,6 @@
   "app.nav.signed-in-as": {
     "message": "Текущий аккаунт: <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Перейти на FreePlay+"
-  },
   "app.news.title": {
     "message": "Новости"
   },
@@ -884,29 +866,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Режим разработчика включён."
   },
-  "app.settings.downloading": {
-    "message": "Скачивание версии {version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Расположение Java {version}"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Реклама обеспечивает работу FreePlay и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки. Отказаться и настроить куки можно ниже."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Показывать FreePlay App в текущей активности Discord. Не влияет на Rich Presence модов. Требуется перезапуск."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay собирает анонимные данные об использовании для персонализации и улучшения сервиса. Отключите этот параметр, чтобы отказаться от сбора данных."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Телеметрия"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Показывать кнопку «Получить отчёт» во время установки. Для прерванных установок кнопка видна всегда."
@@ -1147,36 +1117,6 @@
   },
   "app.survey.title": {
     "message": "Привет, пользователь FreePlay!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "Скачивание версии FreePlay App {version} завершено. Перезапустите приложение, чтобы обновить его, или оно обновится автоматически после закрытия."
-  },
-  "app.update-popup.body.linux": {
-    "message": "Доступна версия FreePlay App {version}. Обновите приложение через менеджер пакетов, чтобы получить последние улучшения и исправления!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Версия FreePlay App {version} доступна для скачивания! Используется сеть с лимитным тарифным планом, поэтому скачивание не началось автоматически."
-  },
-  "app.update-popup.changelog": {
-    "message": "Список изменений"
-  },
-  "app.update-popup.download": {
-    "message": "Скачать ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Скачивание завершено"
-  },
-  "app.update-popup.reload": {
-    "message": "Перезапустить"
-  },
-  "app.update-popup.title": {
-    "message": "Доступно обновление"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Нажмите, чтобы посмотреть список изменений."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Версия {version} успешно установлена!"
   },
   "app.user.project.install-to-instance": {
     "message": "Установить в сборку"
@@ -1633,9 +1573,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/путь/к/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Доступ"
   },
   "instance.settings.tabs.window": {
     "message": "Окно"

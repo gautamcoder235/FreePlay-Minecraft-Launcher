@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Ver registros"
   },
-  "app.ads-consent.accept": {
-    "message": "Aceitar tudo"
-  },
-  "app.ads-consent.body": {
-    "message": "Anúncios tornam o FreePlay possível e financiam os pagamentos dos criadores. Nossos parceiros talvez armazenem ou acessem os cookies no aplicativo para personalizar anúncios e medir o desempenho."
-  },
-  "app.ads-consent.manage": {
-    "message": "Gerenciar preferências"
-  },
-  "app.ads-consent.reject": {
-    "message": "Rejeitar tudo"
-  },
-  "app.ads-consent.title": {
-    "message": "Sua privacidade e como anúncios apoiam o FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Ativa os efeitos visuais como o desfoque de fundo. Isso talvez reduza o desempenho sem o aceleramento de hardware."
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "Conectado como <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Assinar o FreePlay+"
-  },
   "app.news.title": {
     "message": "Notícias"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Modo desenvolvedor ativado."
   },
-  "app.settings.downloading": {
-    "message": "Baixando v{version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Localização Java {version, number}"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Anúncios tornam o FreePlay possível e financiam os pagamentos dos criadores. Nossos parceiros talvez armazenem ou acessem os cookies no aplicativo para personalizar anúncios e medir o desempenho. Você pode recusar ou gerenciar suas preferências abaixo."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Exibe o FreePlay Launcher como sua atividade atual no Discord. Isso não afeta a Presença Rica adicionada às instâncias por mods. Exige a reinicialização do aplicativo."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Presença Rica do Discord"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "O FreePlay coleta analíticas anonimizadas e uso de dados para aprimorar nossa experiência de usuário e personalizar sua experiência. Ao desativar esta opção, você negará e seus dados não serão mais coletados."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetria"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Exibe a ação de copiar detalhes caso uma instalação esteja na fila ou em execução. Essa opção está sempre disponível para instalações interrompidas ou falhas."
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "Ei, usuário do FreePlay!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "O FreePlay Launcher v{version} já foi instalado. Recarregue para atualizar agora ou ela será feita automaticamente ao fechar o FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "O FreePlay Launcher v{version} está disponível. Use o gerenciador de pacotes para atualizar para obter novos recursos e correções!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "O FreePlay Launcher v{version} já está disponível! Já que sua rede é limitada, não a instalamos automaticamente."
-  },
-  "app.update-popup.changelog": {
-    "message": "Mudanças"
-  },
-  "app.update-popup.download": {
-    "message": "Instalar ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Instalação concluída"
-  },
-  "app.update-popup.reload": {
-    "message": "Recarregar para atualizar"
-  },
-  "app.update-popup.title": {
-    "message": "Atualização disponível"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Clique aqui para ver as mudanças."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Versão {version} instalada!"
   },
   "app.user.project.install-to-instance": {
     "message": "Instalar para instância"
@@ -1645,9 +1585,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/caminho/ao/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Compartilhamento"
   },
   "instance.settings.tabs.window": {
     "message": "Janela"

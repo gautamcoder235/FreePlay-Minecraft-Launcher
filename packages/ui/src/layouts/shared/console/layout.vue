@@ -1,8 +1,10 @@
 <template>
 	<div
-		class="flex min-h-0 flex-1 flex-col gap-4"
+		class="flex min-h-0 flex-1 flex-col gap-4 transition-all duration-300 ease-out"
 		:class="
-			isFullscreen ? `fixed inset-0 z-[15] bg-surface-1 p-6 py-8 ${isApp ? 'pt-12' : ''}` : ''
+			isFullscreen
+				? `fixed inset-0 z-[50] bg-surface-1/95 backdrop-blur-xl p-6 py-8 ${isApp ? 'pt-12' : ''} console-fullscreen-overlay shadow-2xl`
+				: 'relative'
 		"
 	>
 		<CollapsibleAdmonition
@@ -96,7 +98,7 @@
 <script setup lang="ts">
 import { SearchIcon, TrashIcon, XIcon } from '@freeplay/assets'
 import type { Terminal } from '@xterm/xterm'
-import { computed, isRef, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, isRef, onBeforeUnmount, ref, watch } from 'vue'
 
 import Admonition from '#ui/components/base/Admonition.vue'
 import BaseTerminal from '#ui/components/base/BaseTerminal.vue'
@@ -315,9 +317,17 @@ function toggleFullscreen() {
 		)
 		modalBehavior?.onHide?.()
 	}
-	nextTick(() => {
+	const start = performance.now()
+	const duration = 300
+	function step(now: number) {
 		terminalRef.value?.fit()
-	})
+		if (now - start < duration) {
+			requestAnimationFrame(step)
+		} else {
+			terminalRef.value?.fit()
+		}
+	}
+	requestAnimationFrame(step)
 }
 
 function writeEmptyState() {
@@ -444,16 +454,20 @@ async function handleShare() {
 </script>
 
 <style>
-.freeplay-console-fullscreen-active .intercom-lightweight-app,
-.freeplay-console-fullscreen-active .intercom-lightweight-app-launcher,
-.freeplay-console-fullscreen-active .intercom-lightweight-app-messenger,
-.freeplay-console-fullscreen-active .intercom-launcher-frame,
-.freeplay-console-fullscreen-active .intercom-messenger-frame,
-.freeplay-console-fullscreen-active #intercom-container,
-.freeplay-console-fullscreen-active #intercom-frame,
-.freeplay-console-fullscreen-active iframe[name='intercom-launcher-frame'],
-.freeplay-console-fullscreen-active iframe[name='intercom-messenger-frame'] {
-	z-index: 14 !important;
+@keyframes console-expand {
+	from {
+		opacity: 0.65;
+		transform: scale(0.985);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.console-fullscreen-overlay {
+	animation: console-expand 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	will-change: transform, opacity;
 }
 
 .freeplay-console-fullscreen-active .loading-indicator-container,

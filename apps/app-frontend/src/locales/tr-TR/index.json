@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Günlükleri görüntüle"
   },
-  "app.ads-consent.accept": {
-    "message": "Hepsini kabul et"
-  },
-  "app.ads-consent.body": {
-    "message": "Reklamlar, FreePlay'i mümkün kılıyor ve içerik üreticilerine yapılan ödemeleri finanse ediyor. Partnerlerimiz, reklamları kişiselleştirmek ve performansı ölçmek amacıyla uygulama içinde çerez depolayabilir veya bunlara erişebilir."
-  },
-  "app.ads-consent.manage": {
-    "message": "Tercihleri yönet"
-  },
-  "app.ads-consent.reject": {
-    "message": "Hepsini reddet"
-  },
-  "app.ads-consent.title": {
-    "message": "Sizin mahremiyetiniz ve reklamlar FreePlay'i nasıl destekler"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Arka plan bulanıklığı gibi görsel efektleri etkinleştirin. Bu, donanım ivmelendirme yokken performansı etkileyebilir."
   },
@@ -707,9 +692,6 @@
   "app.nav.signed-in-as": {
     "message": "<user>{username}</user> olarak oturum açıldı"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "FreePlay+'a yükselt"
-  },
   "app.news.title": {
     "message": "Haberler"
   },
@@ -764,17 +746,8 @@
   "app.settings.developer-mode-enabled": {
     "message": "Geliştirici modu açıldı."
   },
-  "app.settings.downloading": {
-    "message": "v{version} indiriliyor"
-  },
   "app.settings.operating-system.macos": {
     "message": "macOS"
-  },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Reklamlar, FreePlay'i mümkün kılıyor ve içerik üreticilerine yapılan ödemeleri finanse ediyor. Partnerlerimiz, reklamları kişiselleştirmek ve performansı ölçmek amacıyla uygulama içinde çerez depolayabilir veya bunlara erişebilir. Aşağıdan tercihinizi yönetebilir veya vazgeçebilirsiniz."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetri"
   },
   "app.settings.tabs.appearance": {
     "message": "Görünüm"
@@ -943,36 +916,6 @@
   },
   "app.survey.no-thanks": {
     "message": "Hayır teşekkürler"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} indirildi. Güncellemek için yeniden başlatın veya FreePlay Launcher’i kapattığınızda otomatik olarak güncellenecektir."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} yayımlandı. En yeni özellikler ve hata düzeltmeleri için paket yöneticin üzerinden güncelle!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} mevcut! Kısıtlı bağlantıda olduğunuzdan otomatik olarak indirmedik."
-  },
-  "app.update-popup.changelog": {
-    "message": "Yama Notları"
-  },
-  "app.update-popup.download": {
-    "message": "İndir ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "İndirme tamamlandı"
-  },
-  "app.update-popup.reload": {
-    "message": "Güncellemek için yeniden yükle"
-  },
-  "app.update-popup.title": {
-    "message": "Güncelleme mevcut"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Yama notlarını görüntülemek için buraya tıklayın."
-  },
-  "app.update.complete-toast.title": {
-    "message": "{version} sürümü başarıyla kuruldu!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "example.freeplay.app"

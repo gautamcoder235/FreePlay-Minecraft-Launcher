@@ -119,21 +119,6 @@
   "app.action-bar.view-logs": {
     "message": "Xem logs"
   },
-  "app.ads-consent.accept": {
-    "message": "Chấp nhận tất cả"
-  },
-  "app.ads-consent.body": {
-    "message": "Quảng cáo giúp FreePlay hoạt động và tài trợ cho việc thanh toán cho người sáng tạo nội dung. Các đối tác của chúng tôi có thể lưu trữ hoặc truy cập cookie trong ứng dụng để cá nhân hóa quảng cáo và đo lường hiệu suất."
-  },
-  "app.ads-consent.manage": {
-    "message": "Quản lý tùy chọn"
-  },
-  "app.ads-consent.reject": {
-    "message": "Từ chối tất cả"
-  },
-  "app.ads-consent.title": {
-    "message": "Quyền riêng tư của bạn và cách quảng cáo hỗ trợ FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "Dựng hình nâng cao"
   },
@@ -413,9 +398,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "Chế độ nhà phát triển đã được bật."
   },
-  "app.settings.downloading": {
-    "message": "Đang tải về v{version}"
-  },
   "app.settings.tabs.appearance": {
     "message": "Giao diện"
   },
@@ -568,36 +550,6 @@
   },
   "app.skins.title": {
     "message": "Đổi skin"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "Phiên bản v{version} của FreePlay đã sẵn sàng để có thể cài đặt. Khởi động lại ứng dụng để cập nhật ngay bây giờ, hoặc tự động cập nhật sau khi bạn tắt FreePlay."
-  },
-  "app.update-popup.body.linux": {
-    "message": "Phiên bản v{version} của FreePlay hiện đang khả dụng. Hãy sử dụng trình quản lý gói của bạn để cập nhật các tính năng và bản vá lỗi mới nhất!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Phiên bản v{version} của FreePlay hiện đang khả dụng ngay bây giờ! Vì bạn đang sử dụng mạng có tính phí theo dung lượng nên chúng tôi không tự động tải xuống."
-  },
-  "app.update-popup.changelog": {
-    "message": "Nhật ký thay đổi"
-  },
-  "app.update-popup.download": {
-    "message": "Tải xuống ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Cài đặt thành công"
-  },
-  "app.update-popup.reload": {
-    "message": "Tải lại để cập nhật"
-  },
-  "app.update-popup.title": {
-    "message": "Cập nhật mới hiện đang khả dụng"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Nhấn vào đây để xem nhật kí thay đổi."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Phiên bản {version} đã được cài đặt thành công!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "example.freeplay.app"

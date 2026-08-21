@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Mostra i log"
   },
-  "app.ads-consent.accept": {
-    "message": "Accetta tutto"
-  },
-  "app.ads-consent.body": {
-    "message": "Le pubblicità aiutano FreePlay a crescere e a finanziare i creatori. I nostri partner potrebbero memorizzare o accedere ai cookie nell'app per personalizzare e misurarne le prestazioni."
-  },
-  "app.ads-consent.manage": {
-    "message": "Gestisci le opzioni"
-  },
-  "app.ads-consent.reject": {
-    "message": "Rifiuta tutto"
-  },
-  "app.ads-consent.title": {
-    "message": "La tua privacy e come le pubblicità supportano FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Abilita effetti come lo sfondo sfocato. Questo potrebbe ridurre le prestazioni senza accelerazione hardware."
   },
@@ -764,9 +749,6 @@
   "app.nav.signed-in-as": {
     "message": "Accesso effettuato come <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Abbonati a FreePlay+"
-  },
   "app.news.title": {
     "message": "Notizie"
   },
@@ -890,29 +872,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Modalità sviluppatore attiva."
   },
-  "app.settings.downloading": {
-    "message": "Scaricando la v{version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Percorso di Java {version, number}"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Le pubblicità aiutano FreePlay a crescere e a finanziare i creatori. I nostri partner potrebbero memorizzare o accedere ai cookie nell'app per personalizzare e misurarne le prestazioni. Di seguito puoi scegliere di disdire o di gestire le opzioni."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Mostra FreePlay Launcher come attività su Discord. Ciò non blocca le mod che mostrano la loro Rich Presence. Richiede un riavvio."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Rich Presence su Discord"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay raccoglie analitiche e dati anonimi per migliorare l'esperienza utente e personalizzarne la tua. Disabilitando questa opzione, i tuoi dati non verranno più raccolti."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetria"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Mostra il pulsante Copia info mentre un'installazione è in coda o in esecuzione. Verrà sempre mostrato dopo un errore o un'interruzione."
@@ -1153,36 +1123,6 @@
   },
   "app.survey.title": {
     "message": "Ciao, utente di FreePlay!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} è stata scaricata. Riavvia per aggiornare ora, o avverrà in automatico alla chiusura dell'app."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} è disponibile. Usa il tuo gestore di pacchetti per aggiornare e ricevere le novità più recenti!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} è ora disponibile! Poiché sei su una rete a consumo, non l'abbiamo scaricata automaticamente."
-  },
-  "app.update-popup.changelog": {
-    "message": "Novità"
-  },
-  "app.update-popup.download": {
-    "message": "Scarica ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Download completato"
-  },
-  "app.update-popup.reload": {
-    "message": "Riavvia"
-  },
-  "app.update-popup.title": {
-    "message": "Aggiornamento disponibile"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Consulta qui le ultime novità in inglese."
-  },
-  "app.update.complete-toast.title": {
-    "message": "La versione {version} è stata installata con successo!"
   },
   "app.user.project.install-to-instance": {
     "message": "Installa nell'istanza"
@@ -1642,9 +1582,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/percorso/di/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Condivisione"
   },
   "instance.settings.tabs.window": {
     "message": "Finestra"

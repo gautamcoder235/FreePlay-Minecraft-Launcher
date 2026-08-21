@@ -18,7 +18,6 @@ import {
 	EarlyServersBadge,
 	EarlyShadersBadge,
 	ModeratorBadge,
-	PlusBadge,
 	PrideBadge,
 	StaffBadge,
 } from '@freeplay/assets'
@@ -174,35 +173,6 @@ const BADGES = [
 			message: defineMessage({
 				id: 'user.profile.badge.beta.link',
 				defaultMessage: `Click to read about the launch of FreePlay Beta.`,
-			}),
-		},
-	},
-	{
-		icon: PlusBadge,
-		name: defineMessage({
-			id: 'user.profile.badge.plus.name',
-			defaultMessage: 'FreePlay+ Member',
-		}),
-		about: [
-			defineMessage({
-				id: 'user.profile.badge.plus.about.1',
-				defaultMessage: `This user is going the extra mile to support FreePlay and the creators on the platform.`,
-			}),
-		],
-		criteria: [
-			{
-				type: 'badge',
-				bitflag: BadgeBitflag.MIDAS,
-			},
-			{
-				type: 'midas',
-			},
-		],
-		link: {
-			href: 'https://freeplay.app/plus',
-			message: defineMessage({
-				id: 'user.profile.badge.plus.link',
-				defaultMessage: `Click to learn more about how you can become a member.`,
 			}),
 		},
 	},

@@ -5969,15 +5969,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Inhoudsmoderator"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Deze gebruiker doet zijn uiterste best om FreePlay en de makers op het platform te steunen."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "Klik hier voor meer informatie over hoe je lid kunt worden."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "FreePlay+ lid"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "Deze gebruiker heeft deelgenomen aan minstens één van de Pride-inzamelingsacties van FreePlay voor de LGBTQ+-gemeenschap."
   },

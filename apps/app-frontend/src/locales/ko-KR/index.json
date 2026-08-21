@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "로그 보기"
   },
-  "app.ads-consent.accept": {
-    "message": "모두 수락"
-  },
-  "app.ads-consent.body": {
-    "message": "광고는 FreePlay가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 우리의 파트너는 앱에서 광고를 개인 맞춤으로 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다."
-  },
-  "app.ads-consent.manage": {
-    "message": "환경 설정 관리"
-  },
-  "app.ads-consent.reject": {
-    "message": "모두 거절"
-  },
-  "app.ads-consent.title": {
-    "message": "개인정보와 광고가 FreePlay를 지원하는 방식"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "배경 흐림 효과와 같은 시각 효과를 활성화합니다. 하드웨어 가속이 지원되지 않는 경우 성능이 저하될 수 있습니다."
   },
@@ -764,9 +749,6 @@
   "app.nav.signed-in-as": {
     "message": "<user>{username}</user> 으로 로그인됨"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "FreePlay+ 로 업그레이드"
-  },
   "app.news.title": {
     "message": "뉴스"
   },
@@ -890,29 +872,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "개발자 모드가 활성화되었습니다."
   },
-  "app.settings.downloading": {
-    "message": "v{version} 다운로드 중"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Java {version, number} 위치"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "광고는 FreePlay가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 우리의 파트너는 앱에서 광고를 개인 맞춤으로 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다. 아래에서 거부하거나 환경 설정을 관리할 수 있습니다."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Discord의 현재 활동 상태에 FreePlay Launcher을 표시합니다. 모드가 인스턴스에 추가한 Rich Presence에는 영향을 미치지 않습니다. 앱 재시작이 필요합니다."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord 활동 상태"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay는 사용자 경험 향상 및 맞춤 설정을 위해 익명화된 분석 데이터와 사용 데이터를 수집합니다. 이 옵션을 비활성화하면 데이터 수집을 거부하게 되며, 더 이상 데이터가 수집되지 않습니다."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "원격 분석"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "설치가 대기 중이거나 진행 중일 때 '상세 정보 복사' 버튼을 표시합니다. 실패했거나 중단된 설치 건에서는 항상 사용할 수 있습니다."
@@ -1153,36 +1123,6 @@
   },
   "app.survey.title": {
     "message": "안녕하세요, FreePlay 사용자님!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} 다운로드가 완료되었습니다. 새로고침하거나 FreePlay Launcher을 종료하면 자동으로 업데이트됩니다."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay 앱 v{version}을 사용할 수 있습니다. 최신 기능과 오류 수정을 적용하려면 패키지 관리자를 통해 업데이트하세요!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay 앱 v{version}을 지금 사용할 수 있습니다! 데이터 통신 연결을 사용 중이므로, 자동으로 다운로드하지 않았습니다."
-  },
-  "app.update-popup.changelog": {
-    "message": "변경 내역"
-  },
-  "app.update-popup.download": {
-    "message": "다운로드 ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "다운로드 완료"
-  },
-  "app.update-popup.reload": {
-    "message": "새로고침하여 업데이트"
-  },
-  "app.update-popup.title": {
-    "message": "업데이트 가능"
-  },
-  "app.update.complete-toast.text": {
-    "message": "변경 내역을 보려면 클릭하세요."
-  },
-  "app.update.complete-toast.title": {
-    "message": "{version} 버전이 성공적으로 설치되었습니다!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "example.freeplay.app"
@@ -1618,9 +1558,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/path/to/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "공유"
   },
   "instance.settings.tabs.window": {
     "message": "창"

@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "查看紀錄"
   },
-  "app.ads-consent.accept": {
-    "message": "全部接受"
-  },
-  "app.ads-consent.body": {
-    "message": "廣告使 FreePlay 得以營運，並為創作者提供收益。我們的合作夥伴可能會在應用程式中儲存或存取 Cookie，以實現個人化廣告並衡量廣告成效。"
-  },
-  "app.ads-consent.manage": {
-    "message": "管理偏好設定"
-  },
-  "app.ads-consent.reject": {
-    "message": "全部拒絕"
-  },
-  "app.ads-consent.title": {
-    "message": "關於你的隱私，以及廣告如何幫助 FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "啟用視覺效果（如背景模糊），若無硬體加速可能會降低效能。"
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "以 <user>{username}</user> 登入"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "升級至 FreePlay+"
-  },
   "app.news.title": {
     "message": "新聞"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "開發人員模式已啟用。"
   },
-  "app.settings.downloading": {
-    "message": "正在下載 v{version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Java {version, number} 安裝位置"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "廣告使 FreePlay 得以營運，並為創作者提供收益。我們的合作夥伴可能會在應用程式中儲存或存取 Cookie，以實現個人化廣告並衡量廣告成效。你可以在下方選擇退出或管理偏好設定。"
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "在 Discord 上將 FreePlay Launcher 顯示為目前活動。這不會影響模組為實例新增的豐富狀態。需要重新啟動應用程式。"
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord 豐富狀態"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay 會收集匿名化的分析與使用資料，以提升使用者體驗並提供客製化服務。若停用此選項，即表示你選擇退出，你的資料將不再被收集。"
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "遙測"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "當安裝已排入佇列或正在執行時，顯示「複製詳細資訊」按鈕。這項設定僅適用於前述安裝情形，安裝失敗或中斷時一律顯示該按鈕。"
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "你好啊，FreePlay 使用者！"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} 已完成下載！立即重新載入以更新，或在關閉 FreePlay Launcher 時自動更新。"
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} 現已推出。請使用軟體包管理員進行更新，以取得最新的功能與修正！"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} 現已推出！由於你目前使用的是計量付費網路，我們並未自動下載更新。"
-  },
-  "app.update-popup.changelog": {
-    "message": "更新日誌"
-  },
-  "app.update-popup.download": {
-    "message": "下載 ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "下載完成"
-  },
-  "app.update-popup.reload": {
-    "message": "重新載入即可更新"
-  },
-  "app.update-popup.title": {
-    "message": "有可用的更新"
-  },
-  "app.update.complete-toast.text": {
-    "message": "按這裡查看更新日誌。"
-  },
-  "app.update.complete-toast.title": {
-    "message": "版本 {version} 已成功安裝！"
   },
   "app.user.project.install-to-instance": {
     "message": "安裝至實例"
@@ -1645,9 +1585,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/path/to/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "共用"
   },
   "instance.settings.tabs.window": {
     "message": "視窗"

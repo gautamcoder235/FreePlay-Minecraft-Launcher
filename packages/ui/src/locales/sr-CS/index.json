@@ -5540,15 +5540,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Moderator sadržaja"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Ovaj korisnik se posebno trudi da podrži FreePlay i kreatore na platformi."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "Klikni da saznaš kako možes postati član."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "Član od FreePlay+"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "Ovaj koristnik je učestvovao u barem jednoj od FreePlayovih akcija prikupljanja sredstava za LGBT+ zajednicu povodom ponosa."
   },

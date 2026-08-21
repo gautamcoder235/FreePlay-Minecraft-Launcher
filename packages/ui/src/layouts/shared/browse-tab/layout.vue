@@ -6,12 +6,12 @@ import { computed, ref, toValue } from 'vue'
 import Admonition from '#ui/components/base/Admonition.vue'
 import { Button, IconButton } from '#ui/components/base/buttons'
 import Combobox, { type ComboboxOption } from '#ui/components/base/Combobox.vue'
-import LoadingIndicator from '#ui/components/base/LoadingIndicator.vue'
 import NavTabs from '#ui/components/base/NavTabs.vue'
 import Pagination from '#ui/components/base/Pagination.vue'
 import StyledInput from '#ui/components/base/StyledInput.vue'
 import Toggle from '#ui/components/base/Toggle.vue'
 import ProjectCard from '#ui/components/project/card/ProjectCard.vue'
+import ProjectCardSkeleton from '#ui/components/project/card/ProjectCardSkeleton.vue'
 import ProjectCardList from '#ui/components/project/ProjectCardList.vue'
 import SearchFilterControl from '#ui/components/search/SearchFilterControl.vue'
 import { defineMessages, useVIntl } from '#ui/composables/i18n'
@@ -460,12 +460,10 @@ function getProjectCardTags(result: Labrinth.Search.v3.ResultSearchProject, disp
 	/>
 
 	<div class="search flex flex-col gap-4">
-		<section
-			v-if="ctx.loading.value"
-			class="flex flex-col items-center justify-center p-16 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm text-center"
-		>
-			<component :is="ctx.loadingComponent ?? LoadingIndicator" />
-		</section>
+		<!-- Ghost Placeholder Skeleton Grid during section switching and loading -->
+		<ProjectCardList v-if="ctx.loading.value" :layout="ctx.effectiveLayout.value">
+			<ProjectCardSkeleton v-for="i in 8" :key="`ghost-${i}`" :layout="ctx.effectiveLayout.value" />
+		</ProjectCardList>
 		<section
 			v-else-if="ctx.offline?.value && ctx.totalHits.value === 0"
 			class="flex flex-col items-center justify-center p-12 rounded-2xl bg-surface-2 border border-surface-4 shadow-sm text-center gap-2"

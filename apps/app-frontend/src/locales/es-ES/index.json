@@ -299,9 +299,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "Modo desarrollador activado."
   },
-  "app.settings.downloading": {
-    "message": "Descargando v{version}"
-  },
   "app.settings.tabs.appearance": {
     "message": "Apariencia"
   },
@@ -451,36 +448,6 @@
   },
   "app.skins.title": {
     "message": "Selector de Skin"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} se ha descargado. Actualiza la página ahora o espera a que se actualice automáticamente al cerrar FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "Ya está disponible FreePlay Launcher v{version}. ¡Utiliza tu gestor de paquetes para actualizarla y disfrutar de las últimas funciones y correcciones!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "¡FreePlay Launcher v{version} ya está disponible! Como estás conectado a una red con tarifa por datos, no la hemos descargado automáticamente."
-  },
-  "app.update-popup.changelog": {
-    "message": "Registro de cambios"
-  },
-  "app.update-popup.download": {
-    "message": "Descarga ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Descarga completada"
-  },
-  "app.update-popup.reload": {
-    "message": "Recargar para actualizar"
-  },
-  "app.update-popup.title": {
-    "message": "Actualización disponible"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Haga clic aquí para ver el registro de cambios."
-  },
-  "app.update.complete-toast.title": {
-    "message": "¡La versión {version} se ha instalado correctamente!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "ejemplo.freeplay.app"

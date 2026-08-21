@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "ログを表示"
   },
-  "app.ads-consent.accept": {
-    "message": "すべて受け入れる"
-  },
-  "app.ads-consent.body": {
-    "message": "FreePlayは広告収益によって運営され、クリエイターへの報酬も広告収益から支払われています。当社のパートナーは、広告のパーソナライズや効果測定のために、アプリ内でCookieを保存・利用する場合があります。"
-  },
-  "app.ads-consent.manage": {
-    "message": "設定の管理"
-  },
-  "app.ads-consent.reject": {
-    "message": "すべて拒否する"
-  },
-  "app.ads-consent.title": {
-    "message": "プライバシーと広告がFreePlayを支える仕組み"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "背景のぼかしなどの視覚効果を有効にします。ハードウェアアクセラレーションが無効の場合、パフォーマンスが低下する可能性があります。"
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "<user>{username}</user>としてサインイン中"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "FreePlay+にアップグレード"
-  },
   "app.news.title": {
     "message": "ニュース"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "開発者モードがオンになっています。"
   },
-  "app.settings.downloading": {
-    "message": "v{version}をダウンロード中"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Java {version, number} の場所"
   },
   "app.settings.operating-system.macos": {
     "message": "MacOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "FreePlayは広告収益によって運営され、クリエイターへの報酬も広告収益から支払われています。当社のパートナーは、広告のパーソナライズや効果測定のために、アプリ内でCookieを保存・利用する場合があります。この機能は下のボタンから個別に拒否や許可または変更することができます。"
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Discordの現在のプレイ中に FreePlay Launcher を表示します。これはModによってインスタンスに追加されるRich Presenceには影響しません。適用にはアプリの再起動が必要です。"
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlayはユーザー体験の向上および最適化のために、匿名化されたアナリティクスと利用データを収集しています。このオプションをオフにすることで無効化（オプトアウト）され、以降データの収集は行われません。"
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "テレメトリ"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "インストールの保留中または実行中に「詳細をコピー」アクションを表示します。失敗または中断されたインストールでは常に利用可能です。"
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "FreePlayユーザーのみなさん、こんにちは！"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} のダウンロードが完了しました。今すぐ更新するには再読み込みするか、FreePlay Launcherを閉じる際に自動更新されます。"
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} が利用可能です。最新の機能と修正プログラムを入手するには、パッケージマネージャーを使用して更新してください！"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} が利用可能になりました！お使いのネットワークが従量制のため、自動ダウンロードは行っておりません。"
-  },
-  "app.update-popup.changelog": {
-    "message": "更新履歴"
-  },
-  "app.update-popup.download": {
-    "message": "ダウンロード ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "ダウンロード完了"
-  },
-  "app.update-popup.reload": {
-    "message": "再度読み込みして更新"
-  },
-  "app.update-popup.title": {
-    "message": "アップデートが利用可能です"
-  },
-  "app.update.complete-toast.text": {
-    "message": "クリックすると更新履歴を表示できます。"
-  },
-  "app.update.complete-toast.title": {
-    "message": "バージョン {version} が正常にインストールされました！"
   },
   "app.user.project.install-to-instance": {
     "message": "インスタンスにインストール"
@@ -1645,9 +1585,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/path/to/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "共有設定"
   },
   "instance.settings.tabs.window": {
     "message": "ウィンドウ"

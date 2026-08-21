@@ -68,29 +68,30 @@ const props = withDefaults(
 	},
 )
 
-const FROG = [
-	'\x1B[32m     _    _ \x1B[37m',
-	'\x1B[32m    (o)--(o)      \x1B[37m',
-	'\x1B[32m   /.______.\\\x1B[37m',
-	'\x1B[32m   \\________/     \x1B[37m',
-	'\x1B[32m  ./        \\.    \x1B[37m',
-	'\x1B[32m ( .        , )\x1B[37m',
-	'\x1B[32m  \\ \\_\\\\ //_/ /\x1B[37m',
-	'\x1B[32m   ~~  ~~  ~~\x1B[37m',
-]
-
-const EMPTY_STATE_BUBBLES: Record<string, string[]> = {
+const EMPTY_STATE_BANNERS: Record<string, string[]> = {
 	server: [
-		'   __________________________________________________',
-		' /  Welcome to your \x1B[32mFreePlay Server\x1B[37m!                  \\',
-		'|   Press the green start button to start your server! |',
-		' \\____________________________________________________/',
+		'',
+		'\x1b[1;32m  ┌─────────────────────────────────────────────────────────────┐\x1b[0m',
+		'\x1b[1;32m  │\x1b[0m   \x1b[1;35m◆ FREEPLAY SERVER CONSOLE\x1b[0m \x1b[90m//\x1b[0m \x1b[32mHOST MANAGER\x1b[0m               \x1b[1;32m│\x1b[0m',
+		'\x1b[1;32m  │\x1b[0m   \x1b[1;33m● Status:\x1b[0m \x1b[37mServer Offline\x1b[0m                                 \x1b[1;32m│\x1b[0m',
+		'\x1b[1;32m  ├─────────────────────────────────────────────────────────────┤\x1b[0m',
+		'\x1b[1;32m  │\x1b[0m   \x1b[97mClick the green Start button to launch your server\x1b[0m        \x1b[1;32m│\x1b[0m',
+		'\x1b[1;32m  │\x1b[0m   \x1b[90mand interact with the live command console.\x1b[0m               \x1b[1;32m│\x1b[0m',
+		'\x1b[1;32m  └─────────────────────────────────────────────────────────────┘\x1b[0m',
+		'',
 	],
 	instance: [
-		'   _____________________________________________________________',
-		' /  Start your instance in the top right to start               \\',
-		'|   receiving live logs!                                        |',
-		' \\_____________________________________________________________/',
+		'',
+		'\x1b[1;36m  ┌─────────────────────────────────────────────────────────────┐\x1b[0m',
+		'\x1b[1;36m  │\x1b[0m   \x1b[1;35m◆ FREEPLAY LAUNCHER\x1b[0m \x1b[90m//\x1b[0m \x1b[36mLIVE LOG STREAM\x1b[0m                    \x1b[1;36m│\x1b[0m',
+		'\x1b[1;36m  │\x1b[0m   \x1b[1;32m● Status:\x1b[0m \x1b[37mStandby (Awaiting Launch)\x1b[0m                       \x1b[1;36m│\x1b[0m',
+		'\x1b[1;36m  ├─────────────────────────────────────────────────────────────┤\x1b[0m',
+		'\x1b[1;36m  │\x1b[0m   \x1b[97mStart this instance in the top right to receive live\x1b[0m      \x1b[1;36m│\x1b[0m',
+		'\x1b[1;36m  │\x1b[0m   \x1b[90mgame output, crash reports, and system diagnostics.\x1b[0m       \x1b[1;36m│\x1b[0m',
+		'\x1b[1;36m  └─────────────────────────────────────────────────────────────┘\x1b[0m',
+		'',
+		'\x1b[90m  [i] Tip: Use the filter buttons above to isolate Errors, Warnings, and Info.\x1b[0m',
+		'',
 	],
 }
 
@@ -132,9 +133,9 @@ const {
 function writeEmptyState() {
 	if (!terminal.value || !props.emptyStateType) return
 	terminal.value.reset()
-	const bubble = EMPTY_STATE_BUBBLES[props.emptyStateType]
-	if (bubble) {
-		for (const line of [...bubble, ...FROG]) {
+	const banner = EMPTY_STATE_BANNERS[props.emptyStateType]
+	if (banner) {
+		for (const line of banner) {
 			terminal.value.writeln(line)
 		}
 	}

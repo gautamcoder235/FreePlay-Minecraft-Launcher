@@ -5978,15 +5978,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "内容审核员"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "该用户尽心尽力支持 FreePlay 平台与站内创作者。"
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "点击了解如何成为会员。"
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "FreePlay+ 会员成员"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "该用户至少参与过一次 FreePlay 为 LGBTQ+ 群体举办的骄傲月公益募捐活动。"
   },

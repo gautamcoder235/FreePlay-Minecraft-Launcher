@@ -125,21 +125,6 @@
   "app.action-bar.view-logs": {
     "message": "Ver logs"
   },
-  "app.ads-consent.accept": {
-    "message": "Aceitar tudo"
-  },
-  "app.ads-consent.body": {
-    "message": "Os anúncios tornam o FreePlay possível e financiam os pagamentos aos criadores. Os nossos parceiros podem armazenar ou aceder a cookies na aplicação para personalizar anúncios e medir o desempenho."
-  },
-  "app.ads-consent.manage": {
-    "message": "Gerir preferências"
-  },
-  "app.ads-consent.reject": {
-    "message": "Rejeitar tudo"
-  },
-  "app.ads-consent.title": {
-    "message": "A sua privacidade e como os anúncios são financiados pela FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "Renderização avançada"
   },
@@ -467,12 +452,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "Modo de desenvolvedor ativado."
   },
-  "app.settings.downloading": {
-    "message": "A transferir v{version}"
-  },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Os anúncios tornam o FreePlay possível e financiam os pagamentos aos criadores. Os nossos parceiros podem armazenar ou aceder a cookies na aplicação para personalizar anúncios e medir o desempenho."
-  },
   "app.settings.tabs.appearance": {
     "message": "Aparência"
   },
@@ -520,33 +499,6 @@
   },
   "app.skins.section.freeplay": {
     "message": "FreePlay"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} acabou de ser transferida. Recarrega para atualizar agora, ou automaticamente quando fechares a FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} está disponível. Usa o teu gestor de pacotes para atualizar e receber as correções e recursos mais recentes!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} está disponível! Como estás numa rede com tráfego limitado, não a transferimos automaticamente."
-  },
-  "app.update-popup.changelog": {
-    "message": "Lista de alterações"
-  },
-  "app.update-popup.download": {
-    "message": "Transferir ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Transferência concluída"
-  },
-  "app.update-popup.title": {
-    "message": "Atualização disponível"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Clica aqui para ver a lista de alterações."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Versão {version} foi instalada com sucesso!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "exemplo.freeplay.app"

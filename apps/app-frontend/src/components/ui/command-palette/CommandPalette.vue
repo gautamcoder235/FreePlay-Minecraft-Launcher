@@ -169,23 +169,26 @@ const navActions = [
 	{
 		id: 'nav-hosting',
 		category: 'Navigation',
-		title: 'Server Hosting & Multiplayer Tunnels',
+		title: 'Server Control Room & Tunnels',
 		keywords: [
 			'server',
+			'servers',
 			'hosting',
-			'playit',
+			'host',
+			'control',
+			'room',
 			'tunnel',
+			'playit',
+			'paper',
+			'purpur',
 			'multiplayer',
-			'cloud',
-			'console',
-			'whitelist',
 		],
 		icon: ServerStackIcon,
 		action: () => {
 			close()
 			router.push('/hosting/manage')
 		},
-		badge: 'Multiplayer',
+		badge: 'Servers',
 	},
 ]
 

@@ -4937,15 +4937,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Thành viên bên kiểm duyệt nội dung"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Người dùng này đang đóng góp và hỗ trợ cho FreePlay và Nhà sáng tạo trên nên tảng."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "Nhấp vào để xem cách làm thành viên."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "Thành viên FreePlay+"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "Người dùng này đã tham gia ít nhất một trong các hoạt động gây quỹ của FreePlay dành cho cộng đồng LGBTQ+."
   },

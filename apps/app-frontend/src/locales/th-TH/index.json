@@ -257,9 +257,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "โหมดนักพัฒนาเปิดอยู่"
   },
-  "app.settings.downloading": {
-    "message": "ดาวน์โหลดเวอร์ชัน {version}"
-  },
   "app.settings.tabs.appearance": {
     "message": "หน้าตา"
   },
@@ -406,33 +403,6 @@
   },
   "app.skins.sign-in.button": {
     "message": "ลงชื่อเข้าใช้"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "ดาวน์โหลด FreePlay v{version} สำเร็จแล้ว เปิดโปรแกรมใหม่อีกครั้งเพื่ออัปเดตตอนนี้ หรือจะรออัปเดตอัตโนมัติ ซึ่งจะเกิดขึ้นเมื่อคุณกดปิดโปรแกรม FreePlay"
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay v{version} พร้อมให้อัปเดตแล้ว โปรดไปที่การจัดการแพ็กเกจของคุณสำหรับการอัปเดตคุณสมบัติใหม่และการแก้ไขต่าง ๆ"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay v{version} พร้อมให้บริการแล้ว! แต่เนื่องจากคุณเปิดโหมดจำกัดปริมาณการใช้ข้อมูลเครือข่าย เราจึงไม่ได้อัปเดตเนื้อหาโดยอัตโนมัติ"
-  },
-  "app.update-popup.changelog": {
-    "message": "บันทึกการเปลี่ยนแปลง"
-  },
-  "app.update-popup.download": {
-    "message": "ดาวโหลด ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "การดาวน์โหลดเสร็จสมบูรณ์"
-  },
-  "app.update-popup.title": {
-    "message": "มีการอัปเดตใหม่"
-  },
-  "app.update.complete-toast.text": {
-    "message": "คลิกที่นี่เพื่อดูบันทึกการเปลี่ยนแปลง"
-  },
-  "app.update.complete-toast.title": {
-    "message": "เวอร์ชั่น {version} ถูกติดตั้งแล้ว"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "example.freeplay.app"

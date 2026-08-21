@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Voir les journaux"
   },
-  "app.ads-consent.accept": {
-    "message": "Tout accepter"
-  },
-  "app.ads-consent.body": {
-    "message": "Les publicités rendent FreePlay possible et financent la rémunération des créateurs. Nos partenaires peuvent stocker des cookies ou y accéder au sein de l'application afin de personnaliser les publicités et de mesurer les performances."
-  },
-  "app.ads-consent.manage": {
-    "message": "Gérer les préférences"
-  },
-  "app.ads-consent.reject": {
-    "message": "Tout refuser"
-  },
-  "app.ads-consent.title": {
-    "message": "Votre vie privée et comment les publicités soutiennent FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Activer les effets visuels tel que le flou d'arrière-plan. Ceci peut réduire les performances sans accélération matérielle."
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "Connecté en tant que <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Passer à FreePlay+"
-  },
   "app.news.title": {
     "message": "Nouveautés"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Mode développeur activé."
   },
-  "app.settings.downloading": {
-    "message": "Téléchargement de la version {version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Emplacement de Java {version, number}"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Les publicités rendent FreePlay possible et financent les rémunérations des créateurs. Nos partenaires peuvent stocker des cookies ou y accéder au sein de l'application afin de personnaliser les publicités et de mesurer les performances. Vous pouvez refuser ou gérer vos préférences ci-dessous."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Affiche FreePlay Launcher en tant que votre activité actuelle sur Discord. Cela n'affecte pas Rich Presence ajouté à l'instance par les mods. Nécessite un redémarrage de l'application."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay collecte des données d'analyse et d'utilisation anonymes afin d'améliorer l'expérience utilisateur et de personnaliser votre expérience. En désactivant cette option, vous choisissez de ne plus participer et vos données ne seront plus collectées."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Télémétrie"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Afficher l’action Copier les détails lorsqu’une installation est en attente ou en cours. Elle est toujours disponible pour les installations échouées ou interrompues."
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "Salut, utilisateur de FreePlay !"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} a finie d'être téléchargée. Rechargez pour mettre à jour maintenant, ou automatiquement quand vous fermez FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} est disponible. Utilisez votre gestionnaire de paquets pour mettre à jour les dernières fonctionnalités et corrections de bogues !"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} est disponible maintenant ! Puisque vous êtes sur un réseau métré, nous ne l'avons pas téléchargé automatiquement."
-  },
-  "app.update-popup.changelog": {
-    "message": "Journal des modifications"
-  },
-  "app.update-popup.download": {
-    "message": "Télécharger ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Téléchargement terminé"
-  },
-  "app.update-popup.reload": {
-    "message": "Recharger pour mettre à jour"
-  },
-  "app.update-popup.title": {
-    "message": "Mise à jour disponible"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Cliquez ici pour voir les changements récents."
-  },
-  "app.update.complete-toast.title": {
-    "message": "La version {version} a été téléchargée avec succès !"
   },
   "app.user.project.install-to-instance": {
     "message": "Installer dans l'instance"
@@ -1645,9 +1585,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/chemin/vers/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Partage"
   },
   "instance.settings.tabs.window": {
     "message": "Fenêtre"

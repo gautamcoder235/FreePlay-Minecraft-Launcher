@@ -5936,15 +5936,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Moderatore dei contenuti"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Quest'utente sta facendo di tutto per sostenere FreePlay e i creatori sulla piattaforma."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "Clicca per scoprire come puoi diventare anche tu un membro."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "Iscritto a FreePlay+"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "Quest'utente ha partecipato a una delle nostre raccolte fondi per la comunità LGBTQ+."
   },

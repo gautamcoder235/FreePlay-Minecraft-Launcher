@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Logs anzeigen"
   },
-  "app.ads-consent.accept": {
-    "message": "Alle akzeptieren"
-  },
-  "app.ads-consent.body": {
-    "message": "Werbung ermöglicht FreePlay und finanziert die Auszahlungen an die Ersteller. Unsere Partner speichern möglicherweise Cookies in der App oder greifen auf diese zu, um Werbung zu personalisieren und die Leistung zu messen."
-  },
-  "app.ads-consent.manage": {
-    "message": "Einstellungen verwalten"
-  },
-  "app.ads-consent.reject": {
-    "message": "Alle ablehnen"
-  },
-  "app.ads-consent.title": {
-    "message": "Deine Privatsphäre und wie Werbung FreePlay unterstützt"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Visuelle Effekte wie Hintergrundunschärfe aktivieren. Ohne Hardwarebeschleunigung kann dies die Leistung beeinträchtigen."
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "Angemeldet als <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Auf FreePlay+ upgraden"
-  },
   "app.news.title": {
     "message": "Neuigkeiten"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Entwicklermodus aktiviert."
   },
-  "app.settings.downloading": {
-    "message": "Lade v{version} herunter"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Java {version, number} Installation"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Werbung ermöglicht FreePlay und finanziert die Auszahlungen an die Ersteller. Unsere Partner speichern möglicherweise Cookies in der App oder greifen auf diese zu, um Werbung zu personalisieren und die Leistung zu messen. Du kannst dies unten deaktivieren oder deine Einstellungen verwalten."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Zeige FreePlay Launcher als deine aktuelle Aktivität auf Discord. Dies betrifft nicht Rich Presence die von Mods zu Instanzen hinzugefügt wird. Benötigt einen Neustart der App."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay sammelt anonymisierte Analyse- und Nutzungsdaten, um unsere Nutzererfahrung zu verbessern und deine Erfahrung anzupassen. Wenn du diese Option deaktivierst, entscheidest du dich dagegen und deine Daten werden nicht mehr gesammelt."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetrie"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Zeigt die Aktion \"Details kopieren\" an, während eine Installation in der Warteschlange steht oder ausgeführt wird. Bei fehlgeschlagenen oder abgebrochenen Installationen ist sie immer verfügbar."
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "Hey, FreePlay Nutzer!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} wurde heruntergeladen. Jetzt neu laden, um sofort zu aktualisieren, oder beim Schließen der FreePlay-App automatisch aktualisieren."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} ist verfügbar. Verwende deinen Paketmanager, um die neuesten Funktionen und Fehlerbehebungen zu installieren!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} ist jetzt verfügbar! Da du ein getaktetes Netzwerk nutzt, haben wir den Download nicht automatisch gestartet."
-  },
-  "app.update-popup.changelog": {
-    "message": "Änderungen"
-  },
-  "app.update-popup.download": {
-    "message": "Herunterladen ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Download abgeschlossen"
-  },
-  "app.update-popup.reload": {
-    "message": "Zum Aktualisieren neu laden"
-  },
-  "app.update-popup.title": {
-    "message": "Aktualisierung verfügbar"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Hier klicken, um das Änderungsprotokoll anzuzeigen."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Version {version} wurde erfolgreich installiert!"
   },
   "app.user.project.install-to-instance": {
     "message": "In Instanz installieren"
@@ -1645,9 +1585,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/pfad/zu/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Teilen"
   },
   "instance.settings.tabs.window": {
     "message": "Fenster"

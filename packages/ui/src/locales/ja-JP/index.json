@@ -5414,15 +5414,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "コンテンツモデレーター"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "FreePlayとクリエイターに特別なサポートを贈っています！"
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "クリックしてFreePlay+のメンバーになる方法を知る"
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "FreePlay+ Member"
-  },
   "user.profile.badge.staff.about.1": {
     "defaultMessage": "FreePlayのスタッフです"
   },

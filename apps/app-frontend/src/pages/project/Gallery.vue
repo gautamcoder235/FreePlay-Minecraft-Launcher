@@ -122,9 +122,6 @@ import {
 import { ButtonLink, IconButton, useFormatDateTime } from '@freeplay/ui'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
-import { release_ads_window_hold, take_ads_window_hold } from '@/helpers/ads.js'
-import { trackEvent } from '@/helpers/analytics'
-
 const MC_SERVER_BANNER_NAME = '__mc_server_banner__'
 
 const formatDate = useFormatDateTime({
@@ -147,14 +144,9 @@ const filteredGallery = computed(
 const expandedGalleryItem = ref(null)
 const expandedGalleryIndex = ref(0)
 const zoomedIn = ref(false)
-let adsWindowHold = false
 
 const hideImage = () => {
 	expandedGalleryItem.value = null
-	if (adsWindowHold) {
-		adsWindowHold = false
-		release_ads_window_hold()
-	}
 }
 
 const nextImage = () => {
@@ -163,10 +155,6 @@ const nextImage = () => {
 		expandedGalleryIndex.value = 0
 	}
 	expandedGalleryItem.value = filteredGallery.value[expandedGalleryIndex.value]
-	trackEvent('GalleryImageNext', {
-		project_id: props.project.id,
-		url: expandedGalleryItem.value.url,
-	})
 }
 
 const previousImage = () => {
@@ -175,25 +163,12 @@ const previousImage = () => {
 		expandedGalleryIndex.value = filteredGallery.value.length - 1
 	}
 	expandedGalleryItem.value = filteredGallery.value[expandedGalleryIndex.value]
-	trackEvent('GalleryImagePrevious', {
-		project_id: props.project.id,
-		url: expandedGalleryItem.value,
-	})
 }
 
 const expandImage = (item, index) => {
-	if (!adsWindowHold) {
-		adsWindowHold = true
-		take_ads_window_hold()
-	}
 	expandedGalleryItem.value = item
 	expandedGalleryIndex.value = index
 	zoomedIn.value = false
-
-	trackEvent('GalleryImageExpand', {
-		project_id: props.project.id,
-		url: item.url,
-	})
 }
 
 function keyListener(e) {
@@ -217,10 +192,6 @@ onMounted(() => {
 
 onUnmounted(() => {
 	document.removeEventListener('keydown', keyListener)
-	if (adsWindowHold) {
-		adsWindowHold = false
-		release_ads_window_hold()
-	}
 })
 </script>
 

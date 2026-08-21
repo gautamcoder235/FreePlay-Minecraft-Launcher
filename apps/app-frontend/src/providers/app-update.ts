@@ -33,7 +33,7 @@ const downloading = ref(false)
 const restarting = ref(false)
 const availableUpdate = ref<AppUpdate | null>(null)
 const updateSize = ref<number | null>(null)
-const updatesEnabled = ref(true)
+const updatesEnabled = ref(false)
 
 let actions: AppUpdateActions = {}
 
@@ -52,7 +52,7 @@ export const appUpdateState = {
 	updatesEnabled,
 	downloadProgress: computed(() => progress.value),
 	downloadPercent: computed(() => Math.trunc(progress.value * 100)),
-	isVisible: computed(() => !!availableUpdate.value && !restarting.value && updatesEnabled.value),
+	isVisible: computed(() => false),
 }
 
 function readPromptState(): UpdatePromptState | null {

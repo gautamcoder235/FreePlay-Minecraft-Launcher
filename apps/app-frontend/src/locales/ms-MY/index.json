@@ -299,9 +299,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "Mod pembangun didayakan."
   },
-  "app.settings.downloading": {
-    "message": "Sedang memuat turun v{version}"
-  },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
@@ -412,33 +409,6 @@
   },
   "app.skins.title": {
     "message": "Pemilih kekulit"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} sudah selesai dimuat turun! Muat semula untuk kemas kini sekarang, atau kemas kini secara automatik apabila anda menutup FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} tersedia. Gunakan pengurus pakej anda untuk mengemas kini dan mendapatkan ciri-ciri dan pembetulan terkini!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} kini tersedia! Memandangkan anda sedang menggunakan rangkaian bermeter, kami tidak memuat turunnya secara automatik."
-  },
-  "app.update-popup.changelog": {
-    "message": "Log perubahan"
-  },
-  "app.update-popup.download": {
-    "message": "Muat turun ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Muat turun selesai"
-  },
-  "app.update-popup.title": {
-    "message": "Kemas kini tersedia"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Klik di sini untuk melihat log perubahan."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Versi {version} telah berjaya dipasang!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "example.freeplay.app"

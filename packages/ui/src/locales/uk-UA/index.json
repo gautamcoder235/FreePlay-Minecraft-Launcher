@@ -5957,15 +5957,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Модератор умісту"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "Цей користувач активно підтримує FreePlay та творців на платформі."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "Натисніть, аби дізнатися, як стати нашим підписником."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "Підписник FreePlay+"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "Цей користувач брав участь у принаймні одній благодійній акції FreePlay на підтримку спільноти ЛҐБТК+."
   },

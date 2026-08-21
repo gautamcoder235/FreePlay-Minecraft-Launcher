@@ -125,18 +125,6 @@
   "app.action-bar.view-logs": {
     "message": "Vis logs"
   },
-  "app.ads-consent.accept": {
-    "message": "Tillad alle"
-  },
-  "app.ads-consent.body": {
-    "message": "Reklamer gør FreePlay muligt og finansiere skaber udbetalinger. Vores partnere må gemme og tilgå cookies i appen for at personliggøre reklamer og måle effektivitet."
-  },
-  "app.ads-consent.reject": {
-    "message": "Afvis alle"
-  },
-  "app.ads-consent.title": {
-    "message": "Dit privatliv og hvordan reklamer hjælper FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.title": {
     "message": "Avanceret rendering"
   },
@@ -506,9 +494,6 @@
   "app.settings.developer-mode-enabled": {
     "message": "Udvikler-tilstand aktiveret."
   },
-  "app.settings.downloading": {
-    "message": "Downloader v{version}"
-  },
   "app.settings.tabs.appearance": {
     "message": "Udseende"
   },
@@ -655,36 +640,6 @@
   },
   "app.skins.toggle-ears-features-on": {
     "message": "Slå til"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} er færdig med at download. Genindlæs for at opdatere nu, eller automatisk når du lukker FreePlay Launcher."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} er nu tilgængelig. Brug din pakke-manager til at opdatere for de nyeste features og fejlrettelser!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} er nu tilgængelig! Siden du er på et begrænset netværk, vi downloadede den ikke automatisk."
-  },
-  "app.update-popup.changelog": {
-    "message": "Ændringslog"
-  },
-  "app.update-popup.download": {
-    "message": "Download ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Download færdiggjort"
-  },
-  "app.update-popup.reload": {
-    "message": "Genindlæs for at opdater"
-  },
-  "app.update-popup.title": {
-    "message": "Opdatering tilgængelig"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Klik her for at vise ændringslog."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Version {version} var installeret med succes!"
   },
   "app.world.server-modal.placeholder-address": {
     "message": "eksemple.freeplay.app"

@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Bekijk logs"
   },
-  "app.ads-consent.accept": {
-    "message": "Alles accepteren"
-  },
-  "app.ads-consent.body": {
-    "message": "Advertenties maken FreePlay mogelijk en financieren de uitbetalingen aan makers. Onze partners kunnen cookies in de app opslaan of gebruiken om advertenties te personaliseren en de prestaties te meten."
-  },
-  "app.ads-consent.manage": {
-    "message": "Voorkeuren beheren"
-  },
-  "app.ads-consent.reject": {
-    "message": "Alles afwijzen"
-  },
-  "app.ads-consent.title": {
-    "message": "Je privacy en hoe advertenties FreePlay ondersteunen"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Schakel visuele effecten zoals achtergrondvervaging in. Zonder hardwareversnelling kan dit ten koste gaan van de prestaties."
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "Aangemeld als <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Upgrade naar FreePlay+"
-  },
   "app.news.title": {
     "message": "Nieuws"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Ontwikkelaarsmodus ingeschakeld."
   },
-  "app.settings.downloading": {
-    "message": "v{version} wordt gedownload"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Java {version, number} locatie"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Advertenties maken FreePlay mogelijk en financieren de uitbetalingen aan makers. Onze partners kunnen cookies in de app opslaan of gebruiken om advertenties te personaliseren en de prestaties te meten. Je kunt je hieronder afmelden of je voorkeuren beheren."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Laat FreePlay als jouw activiteit op Discord. Dit verandert niet activiteiten toegevoegd door mods."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay verzamelt geanonimiseerde analyse- en gebruiksgegevens om de gebruikerservaring te verbeteren en uw ervaring te personaliseren. Door deze optie uit te schakelen, meldt u zich af en worden uw gegevens niet langer verzameld."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Telemetrie"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Geef de knop 'Details kopiëren' weer terwijl een installatie in de wachtrij staat of wordt uitgevoerd. Deze actie is altijd beschikbaar voor mislukte of onderbroken installaties."
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "Hoi, FreePlay-gebruiker!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} is klaar met downloaden. Herlaad om nu te updaten, of automatisch wanneer je de FreePlay Launcher afsluit."
-  },
-  "app.update-popup.body.linux": {
-    "message": "De FreePlay-app v{version} is beschikbaar. Gebruik je pakketbeheerder om bij te werken en zo de nieuwste functies en verbeteringen te krijgen!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} is nu beschikbaar! Omdat je nu op een netwerk met datalimiet zit, is de download niet automatisch gestart."
-  },
-  "app.update-popup.changelog": {
-    "message": "Wijzigingen"
-  },
-  "app.update-popup.download": {
-    "message": "Download ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Downloaden voltooid"
-  },
-  "app.update-popup.reload": {
-    "message": "Herladen om te updaten"
-  },
-  "app.update-popup.title": {
-    "message": "Update beschikbaar"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Klik hier om het wijzigingenlogboek te bekijken."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Versie {version} is succesvol geïnstalleerd!"
   },
   "app.user.project.install-to-instance": {
     "message": "Op instantie installeren"
@@ -1645,9 +1585,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "//pad/naar/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Delen"
   },
   "instance.settings.tabs.window": {
     "message": "Venster"

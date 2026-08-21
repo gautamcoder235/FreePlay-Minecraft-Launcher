@@ -117,8 +117,7 @@ export default new createRouter({
 				},
 				{
 					path: 'share',
-					name: 'InstanceShare',
-					component: Instance.Share,
+					redirect: (to) => `/instance/${to.params.id}`,
 				},
 				{
 					path: '',

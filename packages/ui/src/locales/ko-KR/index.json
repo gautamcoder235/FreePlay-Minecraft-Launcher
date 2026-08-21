@@ -5960,15 +5960,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "콘텐츠 중재자"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "이 사용자는 FreePlay와 플랫폼의 크리에이터들을 지원하기 위해 아낌없는 노력을 기울이고 있습니다."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "멤버가 되는 방법에 대해 자세히 알아보려면 클릭하세요."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "FreePlay+ 유저"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "이 사용자는 LGBTQ+ 커뮤니티를 위한 FreePlay의 프라이드 모금 행사에 최소 한 번 이상 참여했습니다."
   },

@@ -32,11 +32,14 @@
 			<ShirtIcon />
 		</NavButton>
 
-		<!-- FreePlay Server Hosting -->
+		<!-- Server Control Room & Tunnels -->
 		<NavButton
-			v-tooltip.right="formatMessage(messages.hosting)"
+			v-tooltip.right="formatMessage(messages.freeplayHosting)"
 			to="/hosting/manage"
-			:is-primary="(r) => r.path === '/hosting/manage' || r.path === '/hosting/manage/'"
+			:is-primary="
+				(r) =>
+					r.path === '/hosting/manage' || r.path === '/hosting/manage/' || r.path === '/servers'
+			"
 			:is-subpage="
 				(r) =>
 					(r.path.startsWith('/hosting/manage/') && r.path !== '/hosting/manage/') ||
@@ -165,7 +168,7 @@ const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
 	home: { id: 'app.nav.home', defaultMessage: 'FreePlay Home' },
-	hosting: { id: 'app.nav.freeplay-hosting', defaultMessage: 'FreePlay Server Hosting' },
+	freeplayHosting: { id: 'app.nav.freeplay-hosting', defaultMessage: 'Server Control Room' },
 	createNewInstance: { id: 'app.nav.create-new-instance', defaultMessage: 'Create new instance' },
 	account: { id: 'app.nav.freeplay-account', defaultMessage: 'FreePlay account' },
 	signedInAs: {

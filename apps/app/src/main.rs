@@ -17,10 +17,8 @@ mod error;
 #[cfg(target_os = "macos")]
 mod macos;
 
-#[cfg(feature = "updater")]
-mod updater_impl;
-#[cfg(not(feature = "updater"))]
 mod updater_impl_noop;
+pub use updater_impl_noop::*;
 
 // Should be called in launcher initialization
 #[tracing::instrument(skip_all)]
@@ -74,15 +72,8 @@ fn is_dev() -> bool {
 
 #[tauri::command]
 fn are_updates_enabled() -> bool {
-    cfg!(feature = "updater")
-        && env::var("MODRINTH_EXTERNAL_UPDATE_PROVIDER").is_err()
+    false
 }
-
-#[cfg(feature = "updater")]
-pub use updater_impl::*;
-
-#[cfg(not(feature = "updater"))]
-pub use updater_impl_noop::*;
 
 // Toggles decorations
 #[tauri::command]
@@ -156,21 +147,6 @@ fn main() {
     tracing::info!("Initialized tracing subscriber. Loading FreePlay!");
 
     let mut builder = tauri::Builder::default();
-
-    #[cfg(feature = "updater")]
-    {
-        use tauri_plugin_http::reqwest::header::{HeaderValue, USER_AGENT};
-        use theseus::launcher_user_agent;
-        builder = builder.plugin(
-            tauri_plugin_updater::Builder::new()
-                .header(
-                    USER_AGENT,
-                    HeaderValue::from_str(&launcher_user_agent()).unwrap(),
-                )
-                .unwrap()
-                .build(),
-        );
-    }
 
     builder = builder
         .plugin(tauri_plugin_single_instance::init(|app, args, _cwd| {
@@ -274,7 +250,6 @@ fn main() {
         .plugin(api::utils::init())
         .plugin(api::cache::init())
         .plugin(api::files::init())
-        .plugin(api::ads::init())
         .plugin(api::friends::init())
         .plugin(api::worlds::init())
         .manage(PendingUpdateData::default())
@@ -333,69 +308,6 @@ fn main() {
                     );
                 }
 
-                #[cfg(feature = "updater")]
-                if matches!(&event, tauri::RunEvent::Exit) {
-                    let update_data = app.state::<PendingUpdateData>().inner();
-                    let should_restart = State::get_if_initialized()
-                        .map(|s| {
-                            s.restart_after_pending_update.load(Ordering::Relaxed)
-                        })
-                        .unwrap_or(false);
-                    if let Some((update, data)) = &*update_data.0.lock().unwrap()
-                    {
-                        fn set_changelog_toast(version: Option<String>) {
-                            let toast_result: theseus::Result<()> = tauri::async_runtime::block_on(async move {
-                                let mut settings = settings::get().await?;
-                                settings.pending_update_toast_for_version = version;
-                                settings::set(settings).await?;
-                                Ok(())
-                            });
-                            if let Err(e) = toast_result {
-                                tracing::warn!(
-                                    "Failed to set pending_update_toast: {e}"
-                                )
-                            }
-                        }
-
-                        set_changelog_toast(Some(update.version.clone()));
-                        let update = if should_restart {
-                            (**update).clone()
-                        } else {
-                            (**update).clone().restart_after_install(false)
-                        };
-                        match update.install(data) {
-                            Ok(()) => {
-                                if should_restart {
-                                    tracing::info!(
-                                        "Pending update installed successfully (version {}); restarting because user requested reload",
-                                        update.version
-                                    );
-                                    app.restart();
-                                } else {
-                                    tracing::info!(
-                                        "Pending update installed successfully (version {}); exiting without relaunch (user did not request reload)",
-                                        update.version
-                                    );
-                                }
-                            }
-                            Err(e) => {
-                                tracing::error!(
-                                    "Pending update install failed (version {}): {e}",
-                                    update.version
-                                );
-                                set_changelog_toast(None);
-
-                                DialogBuilder::message()
-                                    .set_level(MessageLevel::Error)
-                                    .set_title("Update error")
-                                    .set_text(format!("Failed to install update due to an error:\n{e}"))
-                                    .alert()
-                                    .show()
-                                    .unwrap();
-                            }
-                        }
-                    }
-                }
                 #[cfg(target_os = "macos")]
                 if let tauri::RunEvent::Opened { urls } = event {
                     tracing::info!("Handling webview open {urls:?}");

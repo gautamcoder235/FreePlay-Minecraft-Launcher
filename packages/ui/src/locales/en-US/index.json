@@ -6533,15 +6533,6 @@
   "user.profile.badge.moderator.name": {
     "defaultMessage": "Content Moderator"
   },
-  "user.profile.badge.plus.about.1": {
-    "defaultMessage": "This user is going the extra mile to support FreePlay and the creators on the platform."
-  },
-  "user.profile.badge.plus.link": {
-    "defaultMessage": "Click to learn more about how you can become a member."
-  },
-  "user.profile.badge.plus.name": {
-    "defaultMessage": "FreePlay+ Member"
-  },
   "user.profile.badge.pride.about.1": {
     "defaultMessage": "This user participated in at least one of FreePlay's Pride fundraisers for the LGBTQ+ community."
   },

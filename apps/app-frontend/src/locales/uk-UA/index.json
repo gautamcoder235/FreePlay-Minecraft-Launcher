@@ -128,21 +128,6 @@
   "app.action-bar.view-logs": {
     "message": "Переглянути журнали"
   },
-  "app.ads-consent.accept": {
-    "message": "Прийняти всі"
-  },
-  "app.ads-consent.body": {
-    "message": "Реклама підтримує існування FreePlay та фінансує виплати творцям. Наші партнери можуть зберігати та отримувати доступ до cookie в застосунку, аби персоналізувати рекламу та збирати метрики."
-  },
-  "app.ads-consent.manage": {
-    "message": "Налаштувати"
-  },
-  "app.ads-consent.reject": {
-    "message": "Відхилити всі"
-  },
-  "app.ads-consent.title": {
-    "message": "Ваша приватність та як реклама підтримує FreePlay"
-  },
   "app.appearance-settings.advanced-rendering.description": {
     "message": "Умикає візуальні ефекти, як-от розмиття фону. Це може знизити продуктивність без апаратного прискорення."
   },
@@ -767,9 +752,6 @@
   "app.nav.signed-in-as": {
     "message": "Вхід виконано як <user>{username}</user>"
   },
-  "app.nav.upgrade-to-freeplay-plus": {
-    "message": "Оновити до FreePlay+"
-  },
   "app.news.title": {
     "message": "Новини"
   },
@@ -893,29 +875,17 @@
   "app.settings.developer-mode-enabled": {
     "message": "Увімкнено режим розробника."
   },
-  "app.settings.downloading": {
-    "message": "Завантаження v{version}"
-  },
   "app.settings.java-installations.location.title": {
     "message": "Розташування Java {version, number}"
   },
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Реклама підтримує існування FreePlay та фінансує виплати творцям. Наші партнери можуть зберігати та отримувати доступ до cookie в застосунку, аби персоналізувати рекламу та збирати метрики. Ви можете відмовитися від них або керувати налаштуваннями нижче."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Показувати FreePlay Launcher як вашу поточну активність у Discord. Це не впливає на Rich Presence, доданий до збірок модами. Потребує перезапуску застосунку."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
-  },
-  "app.settings.privacy.telemetry.description": {
-    "message": "FreePlay збирає анонімізовану аналітику та дані про використання для покращення зручності та адаптації сервісу. Вимкнувши цю опцію, ви відмовляєтеся від збору, і ваші дані більше не збиратимуться."
-  },
-  "app.settings.privacy.telemetry.title": {
-    "message": "Телеметрія"
   },
   "app.settings.resource-management.always-show-copy-details.description": {
     "message": "Показувати кнопку «Копіювати деталі», коли встановлення перебуває в черзі або виконується. Вона завжди доступна для невдалих або перерваних встановлень."
@@ -1156,36 +1126,6 @@
   },
   "app.survey.title": {
     "message": "Привіт, користувачу FreePlay!"
-  },
-  "app.update-popup.body.download-complete": {
-    "message": "FreePlay Launcher v{version} завантажено. Перезапустіть, щоб оновити зараз, або це відбудеться автоматично після закриття застосунку."
-  },
-  "app.update-popup.body.linux": {
-    "message": "FreePlay Launcher v{version} вже доступно. Скористайтеся менеджером пакетів, щоб отримати найновіші функції та виправлення!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "FreePlay Launcher v{version} вже доступно! Оскільки ви використовуєте лімітне підключення, ми не завантажили його автоматично."
-  },
-  "app.update-popup.changelog": {
-    "message": "Журнал змін"
-  },
-  "app.update-popup.download": {
-    "message": "Завантажити ({size})"
-  },
-  "app.update-popup.download-complete": {
-    "message": "Завантаження завершено"
-  },
-  "app.update-popup.reload": {
-    "message": "Перезавантаження для оновлення"
-  },
-  "app.update-popup.title": {
-    "message": "Доступне оновлення"
-  },
-  "app.update.complete-toast.text": {
-    "message": "Натисніть тут, щоб переглянути журнал змін."
-  },
-  "app.update.complete-toast.title": {
-    "message": "Версію {version} успішно встановлено!"
   },
   "app.user.project.install-to-instance": {
     "message": "Установити в профіль"
@@ -1645,9 +1585,6 @@
   },
   "instance.settings.tabs.java.java-path-placeholder": {
     "message": "/шлях/до/java"
-  },
-  "instance.settings.tabs.sharing": {
-    "message": "Спільний доступ"
   },
   "instance.settings.tabs.window": {
     "message": "Вікно"
