@@ -399,10 +399,19 @@ export function useBrowseSearch(options: UseBrowseSearchOptions): BrowseSearchSt
 		router.replace({ path: route.path, query: params })
 	}
 
+	function scrollToTop() {
+		const viewport = document.querySelector('.app-viewport')
+		if (viewport && viewport.scrollTop > 0) {
+			viewport.scrollTo({ top: 0, behavior: 'smooth' })
+		} else if (typeof window !== 'undefined' && window.scrollY > 0) {
+			window.scrollTo({ top: 0, behavior: 'smooth' })
+		}
+	}
+
 	async function setPage(newPageNumber: number) {
 		currentPage.value = newPageNumber
 		await nextTick()
-		window.scrollTo({ top: 0, behavior: 'smooth' })
+		scrollToTop()
 	}
 
 	function clearSearch() {
@@ -411,7 +420,7 @@ export function useBrowseSearch(options: UseBrowseSearchOptions): BrowseSearchSt
 	}
 
 	function onFilterChange() {
-		// Keep scroll position stable when changing filters/sections
+		scrollToTop()
 	}
 
 	watch(
@@ -425,6 +434,7 @@ export function useBrowseSearch(options: UseBrowseSearchOptions): BrowseSearchSt
 
 			void nextTick(() => {
 				initAdvancedPrefs()
+				scrollToTop()
 			})
 		},
 	)

@@ -3449,7 +3449,7 @@ const serverState = ref<ServerState>({
 	version: '1.21.4',
 	engine: 'PaperMC',
 	ram_gb: 4,
-	tunnel_enabled: localStorage.getItem('freeplay-tunnel-enabled') !== 'false',
+	tunnel_enabled: false,
 	public_ip: 'Not Active',
 	local_port: 25565,
 	motd: 'A FreePlay Minecraft Server',
@@ -3999,25 +3999,23 @@ async function fetchStatus() {
 			if (ts) {
 				if (typeof ts === 'string') {
 					tunnelStatusLabel = ts
-					const activeStates = ['starting', 'downloading', 'connected']
-					if (activeStates.includes(ts)) {
-						serverState.value.tunnel_enabled = true
-					}
 				} else if (typeof ts === 'object') {
 					if ('connected' in ts) {
 						tunnelStatusLabel = 'connected'
 						const connectedAddr = ts.connected?.public_address
-						if (connectedAddr) {
+						if (connectedAddr && serverState.value.tunnel_enabled) {
 							serverState.value.public_ip = connectedAddr
 							isTunnelLoading.value = false
 						}
-						serverState.value.tunnel_enabled = true
-						serverState.value.claim_url = null
+						if (serverState.value.tunnel_enabled) {
+							serverState.value.claim_url = null
+						}
 					} else if ('claiming' in ts) {
 						tunnelStatusLabel = 'claiming'
-						serverState.value.claim_url = ts.claiming?.claim_url || null
-						serverState.value.tunnel_enabled = true
-						isTunnelLoading.value = false
+						if (serverState.value.tunnel_enabled) {
+							serverState.value.claim_url = ts.claiming?.claim_url || null
+							isTunnelLoading.value = false
+						}
 					} else if ('error' in ts) {
 						tunnelStatusLabel = `error: ${ts.error?.message || 'unknown'}`
 						tunnelDebug.value.lastError = ts.error?.message || 'unknown'
@@ -4028,15 +4026,14 @@ async function fetchStatus() {
 
 			// Also check top-level public_address / public_ip / claim_url fields
 			const addr = res.public_address || res.public_ip
-			if (addr && addr !== 'Not Active') {
+			if (addr && addr !== 'Not Active' && serverState.value.tunnel_enabled) {
 				serverState.value.public_ip = addr
-				serverState.value.tunnel_enabled = true
 				isTunnelLoading.value = false
-			} else if (!serverState.value.tunnel_enabled && !isTunnelLoading.value) {
+			} else if (!serverState.value.tunnel_enabled) {
 				serverState.value.public_ip = 'Not Active'
 			}
 
-			if (res.claim_url) {
+			if (res.claim_url && serverState.value.tunnel_enabled) {
 				serverState.value.claim_url = res.claim_url
 				isTunnelLoading.value = false
 			}
@@ -4214,9 +4211,6 @@ async function copyPublicIp() {
 	) {
 		ip = serverState.value.public_ip
 	} else {
-		if (!serverState.value.tunnel_enabled) {
-			toggleTunnel()
-		}
 		ip = `127.0.0.1:${serverState.value.local_port || 25565}`
 	}
 	try {
@@ -4912,6 +4906,7 @@ async function fastStatusLoop() {
 }
 
 onMounted(async () => {
+	localStorage.setItem('freeplay-tunnel-enabled', 'false')
 	await loadGameVersions()
 	await loadServerList()
 	await fetchStatus()

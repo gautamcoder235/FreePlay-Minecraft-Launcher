@@ -70,6 +70,15 @@ function isOptionSelected(filterId: string, optionId: string): boolean {
 	return current.some((f) => f.type === filterId && f.option === optionId)
 }
 
+function scrollToTop() {
+	const viewport = document.querySelector('.app-viewport')
+	if (viewport && viewport.scrollTop > 0) {
+		viewport.scrollTo({ top: 0, behavior: 'smooth' })
+	} else if (typeof window !== 'undefined' && window.scrollY > 0) {
+		window.scrollTo({ top: 0, behavior: 'smooth' })
+	}
+}
+
 function toggleOption(filterId: string, optionId: string) {
 	const current = ctx.isServerType.value ? ctx.serverCurrentFilters.value : ctx.currentFilters.value
 	const idx = current.findIndex((f) => f.type === filterId && f.option === optionId)
@@ -78,6 +87,7 @@ function toggleOption(filterId: string, optionId: string) {
 	} else {
 		current.push({ type: filterId, option: optionId })
 	}
+	scrollToTop()
 }
 
 function selectSingleOption(filterId: string, optionId: string | null) {
@@ -90,6 +100,7 @@ function selectSingleOption(filterId: string, optionId: string | null) {
 	if (optionId) {
 		current.push({ type: filterId, option: optionId })
 	}
+	scrollToTop()
 }
 
 const selectedLoader = computed(() => {
