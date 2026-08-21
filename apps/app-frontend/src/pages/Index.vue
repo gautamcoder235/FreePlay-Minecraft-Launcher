@@ -322,31 +322,17 @@ function handlePageOption({ option }: { option: string }) {
 					</button>
 				</div>
 
-				<!-- Center Telemetry Chips -->
-				<div class="flex flex-wrap items-center gap-2.5 my-4 z-10">
-					<div
-						class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300 font-medium"
+				<!-- Clean Supporting Metadata Line -->
+				<div class="flex items-center gap-2 text-xs text-zinc-400 font-medium my-3 z-10">
+					<span class="flex items-center gap-1.5 text-zinc-300">
+						<ClockIcon class="w-3.5 h-3.5 text-zinc-500" />
+						Last played
+						{{ heroInstance?.last_played ? dayjs(heroInstance.last_played).fromNow() : 'Never' }}
+					</span>
+					<span class="text-zinc-600">·</span>
+					<span class="font-mono text-zinc-300"
+						>{{ heroInstance?.loader || 'Vanilla' }} {{ heroInstance?.game_version || '' }}</span
 					>
-						<ClockIcon class="w-3.5 h-3.5 text-amber-400" />
-						<span
-							>Last played
-							{{
-								heroInstance?.last_played ? dayjs(heroInstance.last_played).fromNow() : 'Never'
-							}}</span
-						>
-					</div>
-					<div
-						class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300 font-medium"
-					>
-						<LayersIcon class="w-3.5 h-3.5 text-[var(--color-brand)]" />
-						<span>High-Speed Native Engine</span>
-					</div>
-					<div
-						class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300 font-medium"
-					>
-						<SparklesIcon class="w-3.5 h-3.5 text-indigo-400" />
-						<span>Shaders & Performance Ready</span>
-					</div>
 				</div>
 
 				<!-- Bottom Action Row: Launch & Tools -->

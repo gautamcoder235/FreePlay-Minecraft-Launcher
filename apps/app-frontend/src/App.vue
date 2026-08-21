@@ -1516,22 +1516,24 @@ const restarting = ref(false)
 				</div>
 				<!-- Quick Actions Deck -->
 				<div class="p-3 border-b border-white/10 flex flex-col gap-2 select-none">
-					<div class="grid grid-cols-2 gap-1.5">
+					<div class="grid grid-cols-2 gap-2">
 						<button
 							type="button"
-							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[var(--surface-2)] hover:bg-[var(--color-brand-bg)] border border-white/10 hover:border-[var(--color-brand-shadow)] text-zinc-300 hover:text-[var(--color-brand-highlight,var(--color-brand))] text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+							class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-surface-4 text-zinc-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
 							@click="globalOfflineAccountModal?.show()"
 						>
-							<UserIcon class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]" />
-							<span class="truncate w-full">+ Offline</span>
+							<UserIcon
+								class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))]"
+							/>
+							<span class="truncate">+ Offline</span>
 						</button>
 						<button
 							type="button"
-							class="flex flex-col items-center justify-center gap-1 p-2 rounded-xl bg-[var(--surface-2)] hover:bg-white/10 border border-white/10 hover:border-white/20 text-zinc-300 hover:text-white text-[11px] font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
+							class="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-surface-4 text-zinc-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 text-center"
 							@click="showCommandPalette = true"
 						>
-							<SearchIcon class="w-4 h-4 text-zinc-400" />
-							<span class="truncate w-full">⌘K Search</span>
+							<SearchIcon class="w-3.5 h-3.5 text-zinc-400" />
+							<span class="truncate">⌘K Search</span>
 						</button>
 					</div>
 				</div>
