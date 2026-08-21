@@ -94,7 +94,8 @@
 				"visible": false,
 				"zoomHotkeysEnabled": false,
 				"decorations": false,
-				"shadow": true
+				"shadow": true,
+				"backgroundColor": [5, 2, 10, 255]
 			}
 		],
 		"security": {

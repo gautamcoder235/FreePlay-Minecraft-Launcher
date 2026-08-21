@@ -107,8 +107,14 @@ async fn set_restart_after_pending_update(
 fn main() {
     #[cfg(target_os = "windows")]
     {
-        if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
-            unsafe {
+        unsafe {
+            if std::env::var_os("WEBVIEW2_DEFAULT_BACKGROUND_COLOR").is_none() {
+                std::env::set_var(
+                    "WEBVIEW2_DEFAULT_BACKGROUND_COLOR",
+                    "FF05020A",
+                );
+            }
+            if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
                 std::env::set_var(
                     "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
                     [
@@ -238,10 +244,19 @@ fn main() {
         .on_window_event(|window, event| {
             #[cfg(target_os = "windows")]
             if let tauri::WindowEvent::Focused(true) = event {
+                use tauri::Emitter;
+                let _ = window.emit("window-restored", ());
+
                 let win = window.clone();
                 std::thread::spawn(move || {
-                    std::thread::sleep(std::time::Duration::from_millis(50));
+                    std::thread::sleep(std::time::Duration::from_millis(30));
                     if let Ok(size) = win.inner_size() {
+                        let nudged = tauri::PhysicalSize {
+                            width: size.width + 1,
+                            height: size.height,
+                        };
+                        let _ = win.set_size(tauri::Size::Physical(nudged));
+                        std::thread::sleep(std::time::Duration::from_millis(16));
                         let _ = win.set_size(tauri::Size::Physical(size));
                     }
                 });

@@ -6,6 +6,7 @@ import {
 	getLatestMatchingInstallVersion,
 	useVIntl,
 } from '@freeplay/ui'
+import { invoke } from '@tauri-apps/api/core'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import dayjs from 'dayjs'
 import { nextTick, type Ref, ref } from 'vue'
@@ -125,7 +126,10 @@ function sortLoaders(loaders: string[]): string[] {
 type InstallTargetInstance = Pick<
 	GameInstance,
 	'id' | 'name' | 'icon_path' | 'game_version' | 'loader'
->
+> & {
+	isServer?: boolean
+	serverId?: string
+}
 
 export interface ContentInstallContext {
 	instances: Ref<ContentInstallInstance[]>
@@ -557,6 +561,62 @@ export function createContentInstall(opts: {
 				}
 			})
 
+			// Integrate local dedicated servers as installation targets for plugins, mods, and datapacks
+			if (['mod', 'plugin', 'datapack'].includes(project.project_type ?? 'mod')) {
+				try {
+					const servers = await invoke<
+						Array<{
+							id: string
+							name: string
+							engine: string
+							version: string
+						}>
+					>('host_list_servers')
+
+					if (servers && servers.length > 0) {
+						for (const s of servers) {
+							const targetId = `server:${s.id}`
+							const engineLower = (s.engine || '').toLowerCase()
+							const isServerCompatible = versions.some((v) => {
+								const verMatch = v.game_versions?.includes(s.version)
+								if (!verMatch) return false
+								if (project.project_type === 'plugin') {
+									return v.loaders?.some((l) => ['paper', 'spigot', 'purpur', 'bukkit'].includes(l))
+								}
+								if (engineLower.includes('fabric')) return v.loaders?.includes('fabric')
+								if (engineLower.includes('forge')) return v.loaders?.includes('forge')
+								return true
+							})
+
+							newInstanceMap[targetId] = {
+								id: targetId,
+								name: `[Server] ${s.name} (${s.engine} ${s.version})`,
+								icon_path: null,
+								game_version: s.version,
+								loader: (engineLower.includes('fabric')
+									? 'fabric'
+									: engineLower.includes('forge')
+										? 'forge'
+										: 'paper') as InstanceLoader,
+								isServer: true,
+								serverId: s.id,
+							}
+
+							newInstances.push({
+								id: targetId,
+								name: `[Server] ${s.name} (${s.engine})`,
+								iconUrl: null,
+								installed: false,
+								compatible: isServerCompatible,
+								installing: false,
+							})
+						}
+					}
+				} catch {
+					// local server candidate query fallback
+				}
+			}
+
 			instanceMap = newInstanceMap
 			instances.value = newInstances
 
@@ -612,6 +672,49 @@ export function createContentInstall(opts: {
 		if (!currentProject || !selectedInstance) {
 			opts.handleError('No project or instance found')
 			return
+		}
+
+		if (selectedInstance.isServer) {
+			if (storeInstance) storeInstance.installing = true
+			try {
+				let targetVersion = currentVersions.find((v) =>
+					v.game_versions?.includes(selectedInstance.game_version),
+				)
+				if (!targetVersion && currentVersions.length > 0) {
+					targetVersion = currentVersions[0]
+				}
+				if (!targetVersion) throw new Error('No compatible version found')
+				const primaryFile = targetVersion.files?.find((f) => f.primary) || targetVersion.files?.[0]
+				if (!primaryFile) throw new Error('No downloadable file found in version')
+
+				await invoke('host_install_addon', {
+					serverId: selectedInstance.serverId,
+					name: currentProject.title,
+					projectId: currentProject.id,
+					versionId: targetVersion.id,
+					versionNumber: targetVersion.version_number,
+					filename: primaryFile.filename,
+					downloadUrl: primaryFile.url,
+					addonType: currentProject.project_type === 'mod' ? 'mod' : 'plugin',
+					gameVersion: selectedInstance.game_version,
+					dependencies:
+						targetVersion.dependencies?.map(
+							(d: Record<string, unknown>) => d.project_id || d.version_id,
+						) || [],
+				})
+
+				if (storeInstance) {
+					storeInstance.installed = true
+					storeInstance.installing = false
+				}
+				currentCallback(targetVersion.id, [currentProject.id])
+				modalRef?.hide()
+				return
+			} catch (e) {
+				if (storeInstance) storeInstance.installing = false
+				opts.handleError(e)
+				return
+			}
 		}
 
 		const version = findPreferredVersion(currentVersions, currentProject, selectedInstance)

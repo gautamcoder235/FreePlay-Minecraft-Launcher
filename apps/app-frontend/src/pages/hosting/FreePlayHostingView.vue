@@ -1500,12 +1500,21 @@
 			<div
 				class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4"
 			>
-				<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+				<div
+					class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4"
+				>
 					<div class="flex items-center gap-3">
 						<div
 							class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.2)]"
 						>
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-5 h-5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
 								<rect width="8" height="8" x="2" y="2" rx="2" />
 								<path d="M14 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
 								<path d="M20 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
@@ -1516,12 +1525,15 @@
 						<div>
 							<div class="flex items-center gap-2">
 								<h2 class="text-base font-extrabold text-white m-0">Plugins & Server Mods</h2>
-								<span class="text-xs font-mono px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
+								<span
+									class="text-xs font-mono px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30"
+								>
 									{{ serverState.engine }} {{ serverState.version }}
 								</span>
 							</div>
 							<p class="text-xs text-zinc-400 m-0">
-								Manage and install plugins, mods, and datapacks with atomic downloads and compatibility validation.
+								Manage and install plugins, mods, and datapacks with atomic downloads and
+								compatibility validation.
 							</p>
 						</div>
 					</div>
@@ -1530,9 +1542,19 @@
 						<button
 							type="button"
 							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md shadow-purple-950/40 cursor-pointer transition-all active:scale-95"
-							@click="showAddonCatalog = true; searchModrinthAddons()"
+							@click="
+								showAddonCatalog = true
+								searchModrinthAddons()
+							"
 						>
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-4 h-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2.2"
+							>
 								<circle cx="11" cy="11" r="8" />
 								<line x1="21" y1="21" x2="16.65" y2="16.65" />
 							</svg>
@@ -1544,7 +1566,14 @@
 							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 cursor-pointer transition-colors"
 							@click="importLocalAddon"
 						>
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-4 h-4 text-cyan-400"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
 								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
 								<polyline points="17 8 12 3 7 8" />
 								<line x1="12" y1="3" x2="12" y2="15" />
@@ -1557,7 +1586,14 @@
 							class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 cursor-pointer transition-colors"
 							@click="fetchServerAddons"
 						>
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-3.5 h-3.5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
 								<path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
 								<path d="M3 3v5h5" />
 								<path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
@@ -1575,10 +1611,15 @@
 				>
 					<div class="flex items-center gap-2.5">
 						<span class="relative flex h-2.5 w-2.5">
-							<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+							<span
+								class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"
+							></span>
 							<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
 						</span>
-						<span class="font-semibold">Addon modifications made while server is live. Restart server to apply all changes.</span>
+						<span class="font-semibold"
+							>Addon modifications made while server is live. Restart server to apply all
+							changes.</span
+						>
 					</div>
 					<button
 						type="button"
@@ -1595,15 +1636,31 @@
 						<button
 							v-for="filter in [
 								{ id: 'all', label: `All (${serverAddons.length})` },
-								{ id: 'plugin', label: `Plugins (${serverAddons.filter(a => a.addon_type === 'plugin').length})` },
-								{ id: 'mod', label: `Mods (${serverAddons.filter(a => a.addon_type === 'mod').length})` },
-								{ id: 'datapack', label: `Datapacks (${serverAddons.filter(a => a.addon_type === 'datapack').length})` },
-								{ id: 'local', label: `Local (${serverAddons.filter(a => a.source === 'local').length})` },
+								{
+									id: 'plugin',
+									label: `Plugins (${serverAddons.filter((a) => a.addon_type === 'plugin').length})`,
+								},
+								{
+									id: 'mod',
+									label: `Mods (${serverAddons.filter((a) => a.addon_type === 'mod').length})`,
+								},
+								{
+									id: 'datapack',
+									label: `Datapacks (${serverAddons.filter((a) => a.addon_type === 'datapack').length})`,
+								},
+								{
+									id: 'local',
+									label: `Local (${serverAddons.filter((a) => a.source === 'local').length})`,
+								},
 							]"
 							:key="filter.id"
 							type="button"
 							class="px-3 py-1 rounded-lg text-xs font-semibold cursor-pointer transition-colors border"
-							:class="addonTypeFilter === filter.id ? 'bg-purple-500/20 text-purple-300 border-purple-500/40' : 'bg-zinc-800/60 text-zinc-400 border-white/5 hover:bg-zinc-800 hover:text-zinc-200'"
+							:class="
+								addonTypeFilter === filter.id
+									? 'bg-purple-500/20 text-purple-300 border-purple-500/40'
+									: 'bg-zinc-800/60 text-zinc-400 border-white/5 hover:bg-zinc-800 hover:text-zinc-200'
+							"
 							@click="addonTypeFilter = filter.id"
 						>
 							{{ filter.label }}
@@ -1622,10 +1679,24 @@
 			</div>
 
 			<!-- Installed Addons Table -->
-			<div class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4">
-				<div v-if="filteredAddons.length === 0" class="flex flex-col items-center justify-center py-16 text-center gap-3">
-					<div class="w-12 h-12 rounded-2xl bg-zinc-800/80 border border-white/10 flex items-center justify-center text-zinc-500">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+			<div
+				class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4"
+			>
+				<div
+					v-if="filteredAddons.length === 0"
+					class="flex flex-col items-center justify-center py-16 text-center gap-3"
+				>
+					<div
+						class="w-12 h-12 rounded-2xl bg-zinc-800/80 border border-white/10 flex items-center justify-center text-zinc-500"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-6 h-6"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+						>
 							<rect width="8" height="8" x="2" y="2" rx="2" />
 							<path d="M14 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
 							<path d="M20 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
@@ -1636,13 +1707,17 @@
 					<div class="flex flex-col gap-1 max-w-sm">
 						<h3 class="text-sm font-bold text-white m-0">No Addons Installed</h3>
 						<p class="text-xs text-zinc-400 m-0">
-							Click "Browse Modrinth Addons" to search and 1-click install plugins or server mods, or drop existing .jar files here.
+							Click "Browse Modrinth Addons" to search and 1-click install plugins or server mods,
+							or drop existing .jar files here.
 						</p>
 					</div>
 					<button
 						type="button"
 						class="mt-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md cursor-pointer transition-all active:scale-95"
-						@click="showAddonCatalog = true; searchModrinthAddons()"
+						@click="
+							showAddonCatalog = true
+							searchModrinthAddons()
+						"
 					>
 						Browse Addons Catalog
 					</button>
@@ -1670,7 +1745,9 @@
 							>
 								<td class="py-3 px-3">
 									<div class="flex items-center gap-2.5">
-										<div class="w-7 h-7 rounded-lg bg-zinc-800/80 border border-white/10 flex items-center justify-center text-purple-400 font-bold shrink-0">
+										<div
+											class="w-7 h-7 rounded-lg bg-zinc-800/80 border border-white/10 flex items-center justify-center text-purple-400 font-bold shrink-0"
+										>
 											{{ addon.name.charAt(0).toUpperCase() }}
 										</div>
 										<div class="flex flex-col">
@@ -1682,7 +1759,13 @@
 								<td class="py-3 px-3">
 									<span
 										class="px-2 py-0.5 rounded text-[10px] font-bold uppercase"
-										:class="addon.addon_type === 'plugin' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : addon.addon_type === 'mod' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'"
+										:class="
+											addon.addon_type === 'plugin'
+												? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
+												: addon.addon_type === 'mod'
+													? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+													: 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+										"
 									>
 										{{ addon.addon_type }}
 									</span>
@@ -1693,7 +1776,11 @@
 								<td class="py-3 px-3">
 									<span
 										class="px-2 py-0.5 rounded text-[10px] font-semibold"
-										:class="addon.source === 'modrinth' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-zinc-800 text-zinc-400 border border-white/5'"
+										:class="
+											addon.source === 'modrinth'
+												? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+												: 'bg-zinc-800 text-zinc-400 border border-white/5'
+										"
 									>
 										{{ addon.source === 'modrinth' ? 'Modrinth' : 'Local File' }}
 									</span>
@@ -1704,9 +1791,16 @@
 								<td class="py-3 px-3">
 									<span
 										class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold"
-										:class="addon.enabled ? 'bg-emerald-500/15 text-emerald-300' : 'bg-rose-500/15 text-rose-300'"
+										:class="
+											addon.enabled
+												? 'bg-emerald-500/15 text-emerald-300'
+												: 'bg-rose-500/15 text-rose-300'
+										"
 									>
-										<span class="w-1.5 h-1.5 rounded-full" :class="addon.enabled ? 'bg-emerald-400' : 'bg-rose-400'"></span>
+										<span
+											class="w-1.5 h-1.5 rounded-full"
+											:class="addon.enabled ? 'bg-emerald-400' : 'bg-rose-400'"
+										></span>
 										{{ addon.enabled ? 'Active' : 'Disabled' }}
 									</span>
 								</td>
@@ -1715,7 +1809,11 @@
 										<button
 											type="button"
 											class="px-2 py-1 rounded-lg text-xs font-semibold cursor-pointer transition-colors border"
-											:class="addon.enabled ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 border-white/10' : 'bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border-emerald-500/40'"
+											:class="
+												addon.enabled
+													? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 border-white/10'
+													: 'bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border-emerald-500/40'
+											"
 											:title="addon.enabled ? 'Disable addon' : 'Enable addon'"
 											@click="toggleAddon(addon)"
 										>
@@ -1727,9 +1825,18 @@
 											title="Delete addon"
 											@click="deleteAddon(addon)"
 										>
-											<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="w-3.5 h-3.5"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+											>
 												<polyline points="3 6 5 6 21 6" />
-												<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+												<path
+													d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												/>
 											</svg>
 										</button>
 									</div>
@@ -3063,10 +3170,21 @@
 						class="w-full max-w-4xl max-h-[85vh] flex flex-col rounded-2xl bg-[#141923] border border-white/10 shadow-2xl overflow-hidden font-sans text-zinc-100"
 					>
 						<!-- Modal Header -->
-						<div class="flex items-center justify-between p-5 border-b border-white/10 bg-[#090B0F]/80">
+						<div
+							class="flex items-center justify-between p-5 border-b border-white/10 bg-[#090B0F]/80"
+						>
 							<div class="flex items-center gap-3">
-								<div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
-									<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<div
+									class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="w-5 h-5"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									>
 										<rect width="8" height="8" x="2" y="2" rx="2" />
 										<path d="M14 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
 										<path d="M20 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
@@ -3077,7 +3195,10 @@
 								<div>
 									<h3 class="text-lg font-bold text-white m-0">Modrinth Addon Catalog</h3>
 									<p class="text-xs text-zinc-400 m-0">
-										Compatible with <span class="text-purple-300 font-semibold">{{ serverState.engine }} {{ serverState.version }}</span>
+										Compatible with
+										<span class="text-purple-300 font-semibold"
+											>{{ serverState.engine }} {{ serverState.version }}</span
+										>
 									</p>
 								</div>
 							</div>
@@ -3087,7 +3208,14 @@
 								class="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white cursor-pointer transition-colors border-none"
 								@click="showAddonCatalog = false"
 							>
-								<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-4 h-4"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2.5"
+								>
 									<line x1="18" y1="6" x2="6" y2="18" />
 									<line x1="6" y1="6" x2="18" y2="18" />
 								</svg>
@@ -3116,17 +3244,42 @@
 
 						<!-- Catalog Items List -->
 						<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-[350px]">
-							<div v-if="searchingCatalog" class="flex flex-col items-center justify-center py-20 gap-3 text-zinc-400">
-								<svg class="animate-spin w-8 h-8 text-purple-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-									<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+							<div
+								v-if="searchingCatalog"
+								class="flex flex-col items-center justify-center py-20 gap-3 text-zinc-400"
+							>
+								<svg
+									class="animate-spin w-8 h-8 text-purple-400"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+								>
+									<circle
+										class="opacity-25"
+										cx="12"
+										cy="12"
+										r="10"
+										stroke="currentColor"
+										stroke-width="4"
+									></circle>
+									<path
+										class="opacity-75"
+										fill="currentColor"
+										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+									></path>
 								</svg>
 								<span class="text-sm">Fetching compatible addons from Modrinth...</span>
 							</div>
 
-							<div v-else-if="catalogResults.length === 0" class="flex flex-col items-center justify-center py-20 text-zinc-400 text-center">
+							<div
+								v-else-if="catalogResults.length === 0"
+								class="flex flex-col items-center justify-center py-20 text-zinc-400 text-center"
+							>
 								<p class="text-sm font-semibold">No addons found for query.</p>
-								<p class="text-xs text-zinc-500">Try searching for generic terms like "essentials", "permissions", "performance", or "protection".</p>
+								<p class="text-xs text-zinc-500">
+									Try searching for generic terms like "essentials", "permissions", "performance",
+									or "protection".
+								</p>
 							</div>
 
 							<div
@@ -3152,14 +3305,19 @@
 										<div class="flex items-center gap-2 flex-wrap">
 											<h4 class="text-sm font-bold text-white m-0 truncate">{{ item.title }}</h4>
 											<span class="text-[10px] text-zinc-400">by {{ item.author }}</span>
-											<span class="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-white/5">
+											<span
+												class="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-white/5"
+											>
 												📥 {{ (item.downloads || 0).toLocaleString() }}
 											</span>
 										</div>
 										<p class="text-xs text-zinc-400 m-0 line-clamp-2">{{ item.description }}</p>
 										<div class="flex items-center gap-1.5 flex-wrap mt-1">
 											<span
-												v-for="cat in (item.display_categories || item.categories || []).slice(0, 4)"
+												v-for="cat in (item.display_categories || item.categories || []).slice(
+													0,
+													4,
+												)"
 												:key="cat"
 												class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 uppercase font-mono"
 											>
@@ -3177,17 +3335,42 @@
 											isAddonInstalled(item.project_id)
 												? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 pointer-events-none'
 												: installingAddonId === item.project_id
-												? 'bg-purple-700 text-white cursor-wait'
-												: 'bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/40'
+													? 'bg-purple-700 text-white cursor-wait'
+													: 'bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/40'
 										"
-										:disabled="isAddonInstalled(item.project_id) || installingAddonId === item.project_id"
+										:disabled="
+											isAddonInstalled(item.project_id) || installingAddonId === item.project_id
+										"
 										@click="installModrinthAddon(item)"
 									>
-										<svg v-if="installingAddonId === item.project_id" class="animate-spin w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-											<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+										<svg
+											v-if="installingAddonId === item.project_id"
+											class="animate-spin w-3.5 h-3.5"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+										>
+											<circle
+												class="opacity-25"
+												cx="12"
+												cy="12"
+												r="10"
+												stroke="currentColor"
+												stroke-width="4"
+											></circle>
+											<path
+												class="opacity-75"
+												fill="currentColor"
+												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+											></path>
 										</svg>
-										<span>{{ isAddonInstalled(item.project_id) ? 'Installed' : installingAddonId === item.project_id ? 'Installing...' : 'Install' }}</span>
+										<span>{{
+											isAddonInstalled(item.project_id)
+												? 'Installed'
+												: installingAddonId === item.project_id
+													? 'Installing...'
+													: 'Install'
+										}}</span>
 									</button>
 								</div>
 							</div>
@@ -3653,6 +3836,27 @@ const propertiesIcon = () =>
 		],
 	)
 
+const addonsIcon = () =>
+	h(
+		'svg',
+		{
+			xmlns: 'http://www.w3.org/2000/svg',
+			viewBox: '0 0 24 24',
+			fill: 'none',
+			stroke: 'currentColor',
+			strokeWidth: '2',
+			strokeLinecap: 'round',
+			strokeLinejoin: 'round',
+		},
+		[
+			h('rect', { width: '8', height: '8', x: '2', y: '2', rx: '2' }),
+			h('path', { d: 'M14 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2' }),
+			h('path', { d: 'M20 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2' }),
+			h('rect', { width: '8', height: '8', x: '2', y: '14', rx: '2' }),
+			h('rect', { width: '8', height: '8', x: '14', y: '14', rx: '2' }),
+		],
+	)
+
 const showInviteShareModal = ref(false)
 
 const tabs = computed(() => [
@@ -3662,6 +3866,11 @@ const tabs = computed(() => [
 		id: 'players' as const,
 		label: `Players (${serverState.value.players?.length ?? 0})`,
 		icon: playersIcon,
+	},
+	{
+		id: 'addons' as const,
+		label: `Plugins & Mods (${serverAddons.value.length})`,
+		icon: addonsIcon,
 	},
 	{ id: 'properties' as const, label: 'Server Properties', icon: propertiesIcon },
 	{ id: 'servers' as const, label: 'Server Instances', icon: serversIcon },
@@ -4122,6 +4331,7 @@ async function killServer() {
 }
 
 async function restartServer() {
+	restartRequired.value = false
 	actionLoading.value = true
 	serverState.value.status = 'starting'
 	try {
@@ -4464,8 +4674,212 @@ async function restoreBackup(backup: BackupEntry) {
 	}
 }
 
+const serverAddons = ref<ServerAddonEntry[]>([])
+const loadingAddons = ref(false)
+const addonSearchQuery = ref('')
+const addonTypeFilter = ref<'all' | 'plugin' | 'mod' | 'datapack' | 'local'>('all')
+const restartRequired = ref(false)
+const showAddonCatalog = ref(false)
+const browseCatalogQuery = ref('')
+const catalogResults = ref<Record<string, unknown>[]>([])
+const searchingCatalog = ref(false)
+const installingAddonId = ref<string | null>(null)
+
+const filteredAddons = computed(() => {
+	let list = serverAddons.value
+	if (addonTypeFilter.value !== 'all') {
+		if (addonTypeFilter.value === 'local') {
+			list = list.filter((a) => a.source === 'local')
+		} else {
+			list = list.filter((a) => a.addon_type === addonTypeFilter.value)
+		}
+	}
+	const q = addonSearchQuery.value.trim().toLowerCase()
+	if (q) {
+		list = list.filter(
+			(a) =>
+				a.name.toLowerCase().includes(q) ||
+				a.filename.toLowerCase().includes(q) ||
+				(a.version_number && a.version_number.toLowerCase().includes(q)),
+		)
+	}
+	return list
+})
+
+function isAddonInstalled(projectId?: string | null): boolean {
+	if (!projectId) return false
+	return serverAddons.value.some((a) => a.project_id === projectId || a.id === projectId)
+}
+
+async function fetchServerAddons() {
+	loadingAddons.value = true
+	try {
+		const res = await invoke<ServerAddonEntry[]>('host_list_installed_addons', {
+			serverId: activeServer.value?.id,
+		})
+		if (res) serverAddons.value = res
+	} catch (e) {
+		console.error('Failed to fetch server addons:', e)
+	} finally {
+		loadingAddons.value = false
+	}
+}
+
+async function toggleAddon(addon: ServerAddonEntry) {
+	try {
+		await invoke('host_toggle_addon', {
+			serverId: activeServer.value?.id,
+			addonId: addon.id,
+			filename: addon.filename,
+			enabled: !addon.enabled,
+		})
+		if (serverState.value.status === 'online') {
+			restartRequired.value = true
+		}
+		await fetchServerAddons()
+	} catch (e) {
+		console.error('Failed to toggle addon:', e)
+	}
+}
+
+async function deleteAddon(addon: ServerAddonEntry) {
+	if (
+		!confirm(`Are you sure you want to delete "${addon.name}" (${addon.filename}) from the server?`)
+	)
+		return
+	try {
+		await invoke('host_delete_addon', {
+			serverId: activeServer.value?.id,
+			addonId: addon.id,
+			filename: addon.filename,
+		})
+		if (serverState.value.status === 'online') {
+			restartRequired.value = true
+		}
+		await fetchServerAddons()
+	} catch (e) {
+		console.error('Failed to delete addon:', e)
+	}
+}
+
+async function importLocalAddon() {
+	try {
+		const selected = await open({
+			multiple: false,
+			filters: [{ name: 'Minecraft Addons (*.jar, *.zip)', extensions: ['jar', 'zip'] }],
+		})
+		if (!selected) return
+		const pathStr = typeof selected === 'string' ? selected : (selected as { path: string }).path
+		await invoke('host_import_addon', {
+			serverId: activeServer.value?.id,
+			filePath: pathStr,
+		})
+		if (serverState.value.status === 'online') {
+			restartRequired.value = true
+		}
+		await fetchServerAddons()
+	} catch (e) {
+		console.error('Failed to import local addon:', e)
+	}
+}
+
+async function searchModrinthAddons() {
+	searchingCatalog.value = true
+	try {
+		const engine = (serverState.value.engine || 'PaperMC').toLowerCase()
+		const isModEngine =
+			engine.includes('fabric') ||
+			engine.includes('forge') ||
+			engine.includes('neoforge') ||
+			engine.includes('quilt')
+		const projectType = isModEngine ? 'mod' : 'plugin'
+
+		const facets: string[][] = [[`project_type:${projectType}`]]
+		if (engine.includes('paper')) {
+			facets.push([
+				'categories:paper',
+				'categories:spigot',
+				'categories:purpur',
+				'categories:bukkit',
+			])
+		} else if (engine.includes('purpur')) {
+			facets.push(['categories:purpur', 'categories:paper', 'categories:spigot'])
+		} else if (engine.includes('fabric')) {
+			facets.push(['categories:fabric'])
+		} else if (engine.includes('forge')) {
+			facets.push(['categories:forge'])
+		}
+
+		const queryParam = browseCatalogQuery.value.trim()
+		const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(queryParam)}&facets=${encodeURIComponent(JSON.stringify(facets))}&limit=24`
+		const res = await fetch(url)
+		if (res.ok) {
+			const data = await res.json()
+			catalogResults.value = data.hits || []
+		}
+	} catch (e) {
+		console.error('Failed to search Modrinth addons:', e)
+	} finally {
+		searchingCatalog.value = false
+	}
+}
+
+async function installModrinthAddon(project: Record<string, unknown>) {
+	installingAddonId.value = project.project_id
+	try {
+		const versionsRes = await fetch(
+			`https://api.modrinth.com/v2/project/${project.project_id}/version`,
+		)
+		if (!versionsRes.ok) throw new Error('Failed to fetch project versions')
+		const versions = await versionsRes.json()
+		if (!Array.isArray(versions) || versions.length === 0)
+			throw new Error('No versions available for project')
+
+		const serverVer = serverState.value.version
+		let targetVersion = versions.find((v: Record<string, unknown>) =>
+			(v.game_versions as string[])?.includes(serverVer),
+		)
+		if (!targetVersion) {
+			targetVersion = versions[0]
+		}
+
+		const primaryFile =
+			targetVersion.files?.find((f: Record<string, unknown>) => f.primary) ||
+			targetVersion.files?.[0]
+		if (!primaryFile) throw new Error('No downloadable file found in version')
+
+		const isMod = project.project_type === 'mod'
+		await invoke('host_install_addon', {
+			serverId: activeServer.value?.id,
+			name: project.title,
+			projectId: project.project_id,
+			versionId: targetVersion.id,
+			versionNumber: targetVersion.version_number,
+			filename: primaryFile.filename,
+			downloadUrl: primaryFile.url,
+			addonType: isMod ? 'mod' : 'plugin',
+			gameVersion: serverVer,
+			dependencies:
+				targetVersion.dependencies?.map(
+					(d: Record<string, unknown>) => d.project_id || d.version_id,
+				) || [],
+		})
+
+		if (serverState.value.status === 'online') {
+			restartRequired.value = true
+		}
+		await fetchServerAddons()
+	} catch (e) {
+		console.error('Failed to install addon from Modrinth:', e)
+		alert(`Failed to install ${project.title}: ${e instanceof Error ? e.message : String(e)}`)
+	} finally {
+		installingAddonId.value = null
+	}
+}
+
 function switchTab(tabId: typeof activeTab.value) {
 	activeTab.value = tabId
+	if (tabId === 'addons') fetchServerAddons()
 	if (tabId === 'files') fetchServerFiles()
 	if (tabId === 'backups') fetchBackups()
 	if (tabId === 'servers') loadServerList()
@@ -4502,6 +4916,7 @@ onMounted(async () => {
 	await loadGameVersions()
 	await loadServerList()
 	await fetchStatus()
+	await fetchServerAddons()
 	pollLoopRunning = true
 	void fastStatusLoop()
 })
