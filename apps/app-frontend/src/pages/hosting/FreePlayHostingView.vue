@@ -1371,7 +1371,7 @@
 					<div
 						v-for="(log, idx) in filteredLogs"
 						:key="idx"
-						class="whitespace-pre-wrap break-all transition-colors duration-150"
+						class="whitespace-pre-wrap break-all leading-relaxed"
 					>
 						<span
 							v-if="log.includes('[INFO]') || log.includes('INFO')"
@@ -3277,7 +3277,7 @@ const formattedUptime = computed(() => {
 	return `${hours}:${minutes}:${seconds}`
 })
 
-let statusPollInterval: ReturnType<typeof setInterval> | null = null
+const statusPollInterval: ReturnType<typeof setInterval> | null = null
 
 interface HostStatusIpc {
 	server_running?: boolean
@@ -3417,13 +3417,23 @@ async function fetchStatus() {
 			const combinedLogs: string[] = []
 			if (Array.isArray(res.tunnel_logs)) combinedLogs.push(...res.tunnel_logs)
 			if (Array.isArray(res.server_logs)) combinedLogs.push(...res.server_logs)
-			if (combinedLogs.length > 0) {
-				serverState.value.logs = combinedLogs
-			} else if (Array.isArray(res.logs) && res.logs.length > 0) {
-				serverState.value.logs = res.logs
-			}
+			const incomingLogs =
+				combinedLogs.length > 0
+					? combinedLogs
+					: Array.isArray(res.logs) && res.logs.length > 0
+						? res.logs
+						: []
 
-			scrollToBottom()
+			if (incomingLogs.length > 0) {
+				const currentLogs = serverState.value.logs
+				if (
+					incomingLogs.length !== currentLogs.length ||
+					incomingLogs[incomingLogs.length - 1] !== currentLogs[currentLogs.length - 1]
+				) {
+					serverState.value.logs = incomingLogs
+					scrollToBottom()
+				}
+			}
 		}
 	} catch (e) {
 		console.debug('Failed to get host status from IPC', e)
@@ -4035,19 +4045,36 @@ function formatFileSize(bytes: number): string {
 	return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
+let pollLoopRunning = true
+
+async function fastStatusLoop() {
+	while (pollLoopRunning) {
+		const isRunning =
+			serverState.value.status === 'online' ||
+			serverState.value.status === 'starting' ||
+			isTunnelLoading.value
+		const delay = isRunning || activeTab.value === 'console' ? 250 : 1500
+
+		try {
+			await fetchStatus()
+		} catch (err) {
+			console.debug('Status loop poll error', err)
+		}
+
+		await new Promise((resolve) => setTimeout(resolve, delay))
+	}
+}
+
 onMounted(async () => {
 	await loadGameVersions()
 	await loadServerList()
 	await fetchStatus()
-	statusPollInterval = setInterval(async () => {
-		await fetchStatus()
-		if (serverState.value.status === 'online') {
-			serverState.value.uptime_seconds++
-		}
-	}, 2000)
+	pollLoopRunning = true
+	void fastStatusLoop()
 })
 
 onUnmounted(() => {
+	pollLoopRunning = false
 	if (statusPollInterval) clearInterval(statusPollInterval)
 })
 </script>
