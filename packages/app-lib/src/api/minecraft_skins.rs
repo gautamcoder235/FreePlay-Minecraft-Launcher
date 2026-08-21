@@ -349,14 +349,13 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
                         _ => MinecraftSkinVariant::Classic,
                     };
                     let texture_key: Arc<str> = Arc::from(format!("offline-{}", meta.texture_hash));
-                    let texture_key: Arc<str> = Arc::from(format!("offline-{}", meta.texture_hash));
-                    let texture = png_util::blob_to_data_url(bytes.into())
+                    let texture = png_util::blob_to_data_url(&bytes)
                         .or_else(|| {
                             png_util::blob_to_data_url(include_bytes!(
                                 "minecraft_skins/assets/default/MissingNo.png"
                             ))
-                        })?;
-                    Some((texture_key, variant, texture))
+                        });
+                    texture.map(|tex| (texture_key, variant, tex))
                 } else {
                     None
                 }
@@ -567,7 +566,7 @@ pub async fn get_available_skins() -> crate::Result<Vec<Skin>> {
                 section: None,
                 variant,
                 cape_id: None,
-                texture: Arc::from(texture),
+                texture,
                 source: SkinSource::Custom,
                 is_equipped: true,
             });
