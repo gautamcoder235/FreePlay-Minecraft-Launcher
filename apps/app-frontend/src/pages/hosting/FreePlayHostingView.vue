@@ -1494,6 +1494,253 @@
 			<ServerPropertiesEditor :server-status="serverState.status" />
 		</div>
 
+		<!-- TAB: ADDONS (PLUGINS & MODS) -->
+		<div v-if="activeTab === 'addons'" class="flex flex-col gap-6">
+			<!-- Header Banner with Engine, Version, Counts, and Restart Alert -->
+			<div
+				class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4"
+			>
+				<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+					<div class="flex items-center gap-3">
+						<div
+							class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.2)]"
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<rect width="8" height="8" x="2" y="2" rx="2" />
+								<path d="M14 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
+								<path d="M20 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
+								<rect width="8" height="8" x="2" y="14" rx="2" />
+								<rect width="8" height="8" x="14" y="14" rx="2" />
+							</svg>
+						</div>
+						<div>
+							<div class="flex items-center gap-2">
+								<h2 class="text-base font-extrabold text-white m-0">Plugins & Server Mods</h2>
+								<span class="text-xs font-mono px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
+									{{ serverState.engine }} {{ serverState.version }}
+								</span>
+							</div>
+							<p class="text-xs text-zinc-400 m-0">
+								Manage and install plugins, mods, and datapacks with atomic downloads and compatibility validation.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex items-center flex-wrap gap-2">
+						<button
+							type="button"
+							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md shadow-purple-950/40 cursor-pointer transition-all active:scale-95"
+							@click="showAddonCatalog = true; searchModrinthAddons()"
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+								<circle cx="11" cy="11" r="8" />
+								<line x1="21" y1="21" x2="16.65" y2="16.65" />
+							</svg>
+							<span>Browse Modrinth Addons</span>
+						</button>
+
+						<button
+							type="button"
+							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 cursor-pointer transition-colors"
+							@click="importLocalAddon"
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+								<polyline points="17 8 12 3 7 8" />
+								<line x1="12" y1="3" x2="12" y2="15" />
+							</svg>
+							<span>Import .jar / .zip</span>
+						</button>
+
+						<button
+							type="button"
+							class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 cursor-pointer transition-colors"
+							@click="fetchServerAddons"
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+								<path d="M3 3v5h5" />
+								<path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+								<path d="M16 21h5v-5" />
+							</svg>
+							<span>Refresh</span>
+						</button>
+					</div>
+				</div>
+
+				<!-- Restart Required Banner -->
+				<div
+					v-if="restartRequired && serverState.status === 'online'"
+					class="flex items-center justify-between gap-4 p-3.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-200 text-xs"
+				>
+					<div class="flex items-center gap-2.5">
+						<span class="relative flex h-2.5 w-2.5">
+							<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+							<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+						</span>
+						<span class="font-semibold">Addon modifications made while server is live. Restart server to apply all changes.</span>
+					</div>
+					<button
+						type="button"
+						class="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs cursor-pointer transition-colors"
+						@click="restartServer"
+					>
+						Restart Server Now
+					</button>
+				</div>
+
+				<!-- Filter & Search Controls -->
+				<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+					<div class="flex items-center gap-1.5 flex-wrap">
+						<button
+							v-for="filter in [
+								{ id: 'all', label: `All (${serverAddons.length})` },
+								{ id: 'plugin', label: `Plugins (${serverAddons.filter(a => a.addon_type === 'plugin').length})` },
+								{ id: 'mod', label: `Mods (${serverAddons.filter(a => a.addon_type === 'mod').length})` },
+								{ id: 'datapack', label: `Datapacks (${serverAddons.filter(a => a.addon_type === 'datapack').length})` },
+								{ id: 'local', label: `Local (${serverAddons.filter(a => a.source === 'local').length})` },
+							]"
+							:key="filter.id"
+							type="button"
+							class="px-3 py-1 rounded-lg text-xs font-semibold cursor-pointer transition-colors border"
+							:class="addonTypeFilter === filter.id ? 'bg-purple-500/20 text-purple-300 border-purple-500/40' : 'bg-zinc-800/60 text-zinc-400 border-white/5 hover:bg-zinc-800 hover:text-zinc-200'"
+							@click="addonTypeFilter = filter.id"
+						>
+							{{ filter.label }}
+						</button>
+					</div>
+
+					<div class="w-full sm:w-64">
+						<input
+							v-model="addonSearchQuery"
+							type="text"
+							placeholder="Filter installed addons..."
+							class="w-full px-3 py-1.5 rounded-xl bg-zinc-900/90 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50 font-mono"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<!-- Installed Addons Table -->
+			<div class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4">
+				<div v-if="filteredAddons.length === 0" class="flex flex-col items-center justify-center py-16 text-center gap-3">
+					<div class="w-12 h-12 rounded-2xl bg-zinc-800/80 border border-white/10 flex items-center justify-center text-zinc-500">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+							<rect width="8" height="8" x="2" y="2" rx="2" />
+							<path d="M14 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
+							<path d="M20 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
+							<rect width="8" height="8" x="2" y="14" rx="2" />
+							<rect width="8" height="8" x="14" y="14" rx="2" />
+						</svg>
+					</div>
+					<div class="flex flex-col gap-1 max-w-sm">
+						<h3 class="text-sm font-bold text-white m-0">No Addons Installed</h3>
+						<p class="text-xs text-zinc-400 m-0">
+							Click "Browse Modrinth Addons" to search and 1-click install plugins or server mods, or drop existing .jar files here.
+						</p>
+					</div>
+					<button
+						type="button"
+						class="mt-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md cursor-pointer transition-all active:scale-95"
+						@click="showAddonCatalog = true; searchModrinthAddons()"
+					>
+						Browse Addons Catalog
+					</button>
+				</div>
+
+				<div v-else class="overflow-x-auto">
+					<table class="w-full text-left text-xs font-mono">
+						<thead>
+							<tr class="border-b border-white/10 text-zinc-400 uppercase text-[10px]">
+								<th class="py-2.5 px-3">Addon / File</th>
+								<th class="py-2.5 px-3">Type</th>
+								<th class="py-2.5 px-3">Version</th>
+								<th class="py-2.5 px-3">Source</th>
+								<th class="py-2.5 px-3">Size</th>
+								<th class="py-2.5 px-3">State</th>
+								<th class="py-2.5 px-3 text-right">Actions</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-white/5">
+							<tr
+								v-for="addon in filteredAddons"
+								:key="addon.id"
+								class="hover:bg-white/5 transition-colors"
+								:class="!addon.enabled ? 'opacity-60 bg-zinc-950/20' : ''"
+							>
+								<td class="py-3 px-3">
+									<div class="flex items-center gap-2.5">
+										<div class="w-7 h-7 rounded-lg bg-zinc-800/80 border border-white/10 flex items-center justify-center text-purple-400 font-bold shrink-0">
+											{{ addon.name.charAt(0).toUpperCase() }}
+										</div>
+										<div class="flex flex-col">
+											<span class="text-white font-bold">{{ addon.name }}</span>
+											<span class="text-[11px] text-zinc-400">{{ addon.filename }}</span>
+										</div>
+									</div>
+								</td>
+								<td class="py-3 px-3">
+									<span
+										class="px-2 py-0.5 rounded text-[10px] font-bold uppercase"
+										:class="addon.addon_type === 'plugin' ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30' : addon.addon_type === 'mod' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'"
+									>
+										{{ addon.addon_type }}
+									</span>
+								</td>
+								<td class="py-3 px-3 text-zinc-300">
+									{{ addon.version_number || addon.game_version || 'Latest' }}
+								</td>
+								<td class="py-3 px-3">
+									<span
+										class="px-2 py-0.5 rounded text-[10px] font-semibold"
+										:class="addon.source === 'modrinth' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-zinc-800 text-zinc-400 border border-white/5'"
+									>
+										{{ addon.source === 'modrinth' ? 'Modrinth' : 'Local File' }}
+									</span>
+								</td>
+								<td class="py-3 px-3 text-zinc-400">
+									{{ formatFileSize(addon.file_size) }}
+								</td>
+								<td class="py-3 px-3">
+									<span
+										class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold"
+										:class="addon.enabled ? 'bg-emerald-500/15 text-emerald-300' : 'bg-rose-500/15 text-rose-300'"
+									>
+										<span class="w-1.5 h-1.5 rounded-full" :class="addon.enabled ? 'bg-emerald-400' : 'bg-rose-400'"></span>
+										{{ addon.enabled ? 'Active' : 'Disabled' }}
+									</span>
+								</td>
+								<td class="py-3 px-3 text-right">
+									<div class="flex items-center justify-end gap-1.5">
+										<button
+											type="button"
+											class="px-2 py-1 rounded-lg text-xs font-semibold cursor-pointer transition-colors border"
+											:class="addon.enabled ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 border-white/10' : 'bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border-emerald-500/40'"
+											:title="addon.enabled ? 'Disable addon' : 'Enable addon'"
+											@click="toggleAddon(addon)"
+										>
+											{{ addon.enabled ? 'Disable' : 'Enable' }}
+										</button>
+										<button
+											type="button"
+											class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/25 text-rose-400 hover:text-rose-300 border border-rose-500/30 cursor-pointer transition-colors"
+											title="Delete addon"
+											@click="deleteAddon(addon)"
+										>
+											<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<polyline points="3 6 5 6 21 6" />
+												<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+											</svg>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
 		<!-- TAB 3: SERVERS & INSTANCES -->
 		<div v-if="activeTab === 'servers'" class="flex flex-col gap-5">
 			<div
@@ -2804,6 +3051,151 @@
 				</div>
 			</transition>
 		</teleport>
+
+		<!-- MODAL: BROWSE MODRINTH ADDONS -->
+		<teleport to="body">
+			<transition name="fade">
+				<div
+					v-if="showAddonCatalog"
+					class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+				>
+					<div
+						class="w-full max-w-4xl max-h-[85vh] flex flex-col rounded-2xl bg-[#141923] border border-white/10 shadow-2xl overflow-hidden font-sans text-zinc-100"
+					>
+						<!-- Modal Header -->
+						<div class="flex items-center justify-between p-5 border-b border-white/10 bg-[#090B0F]/80">
+							<div class="flex items-center gap-3">
+								<div class="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+									<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<rect width="8" height="8" x="2" y="2" rx="2" />
+										<path d="M14 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
+										<path d="M20 2c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2" />
+										<rect width="8" height="8" x="2" y="14" rx="2" />
+										<rect width="8" height="8" x="14" y="14" rx="2" />
+									</svg>
+								</div>
+								<div>
+									<h3 class="text-lg font-bold text-white m-0">Modrinth Addon Catalog</h3>
+									<p class="text-xs text-zinc-400 m-0">
+										Compatible with <span class="text-purple-300 font-semibold">{{ serverState.engine }} {{ serverState.version }}</span>
+									</p>
+								</div>
+							</div>
+
+							<button
+								type="button"
+								class="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white cursor-pointer transition-colors border-none"
+								@click="showAddonCatalog = false"
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+									<line x1="18" y1="6" x2="6" y2="18" />
+									<line x1="6" y1="6" x2="18" y2="18" />
+								</svg>
+							</button>
+						</div>
+
+						<!-- Search & Category Filters -->
+						<div class="p-4 border-b border-white/10 bg-[#090B0F]/40 flex flex-col gap-3">
+							<div class="flex items-center gap-2">
+								<input
+									v-model="browseCatalogQuery"
+									type="text"
+									placeholder="Search plugins & mods (e.g. LuckPerms, EssentialsX, WorldEdit, Geyser)..."
+									class="flex-1 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50"
+									@keyup.enter="searchModrinthAddons"
+								/>
+								<button
+									type="button"
+									class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-sm font-bold text-white cursor-pointer transition-colors"
+									@click="searchModrinthAddons"
+								>
+									Search
+								</button>
+							</div>
+						</div>
+
+						<!-- Catalog Items List -->
+						<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-[350px]">
+							<div v-if="searchingCatalog" class="flex flex-col items-center justify-center py-20 gap-3 text-zinc-400">
+								<svg class="animate-spin w-8 h-8 text-purple-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+									<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+								</svg>
+								<span class="text-sm">Fetching compatible addons from Modrinth...</span>
+							</div>
+
+							<div v-else-if="catalogResults.length === 0" class="flex flex-col items-center justify-center py-20 text-zinc-400 text-center">
+								<p class="text-sm font-semibold">No addons found for query.</p>
+								<p class="text-xs text-zinc-500">Try searching for generic terms like "essentials", "permissions", "performance", or "protection".</p>
+							</div>
+
+							<div
+								v-for="item in catalogResults"
+								:key="item.project_id"
+								class="p-4 rounded-xl bg-[#181E2B] border border-white/5 hover:border-purple-500/30 flex items-start justify-between gap-4 transition-all"
+							>
+								<div class="flex items-start gap-3.5 flex-1 min-w-0">
+									<img
+										v-if="item.icon_url"
+										:src="item.icon_url"
+										:alt="item.title"
+										class="w-12 h-12 rounded-xl object-cover bg-zinc-800 shrink-0 border border-white/10"
+									/>
+									<div
+										v-else
+										class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-300 font-bold flex items-center justify-center shrink-0 border border-purple-500/30 text-lg"
+									>
+										{{ item.title.charAt(0) }}
+									</div>
+
+									<div class="flex flex-col gap-1 min-w-0 flex-1">
+										<div class="flex items-center gap-2 flex-wrap">
+											<h4 class="text-sm font-bold text-white m-0 truncate">{{ item.title }}</h4>
+											<span class="text-[10px] text-zinc-400">by {{ item.author }}</span>
+											<span class="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-white/5">
+												📥 {{ (item.downloads || 0).toLocaleString() }}
+											</span>
+										</div>
+										<p class="text-xs text-zinc-400 m-0 line-clamp-2">{{ item.description }}</p>
+										<div class="flex items-center gap-1.5 flex-wrap mt-1">
+											<span
+												v-for="cat in (item.display_categories || item.categories || []).slice(0, 4)"
+												:key="cat"
+												class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 uppercase font-mono"
+											>
+												{{ cat }}
+											</span>
+										</div>
+									</div>
+								</div>
+
+								<div class="flex flex-col items-end gap-2 shrink-0">
+									<button
+										type="button"
+										class="px-4 py-2 rounded-xl font-bold text-xs cursor-pointer transition-all active:scale-95 flex items-center gap-1.5"
+										:class="
+											isAddonInstalled(item.project_id)
+												? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 pointer-events-none'
+												: installingAddonId === item.project_id
+												? 'bg-purple-700 text-white cursor-wait'
+												: 'bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/40'
+										"
+										:disabled="isAddonInstalled(item.project_id) || installingAddonId === item.project_id"
+										@click="installModrinthAddon(item)"
+									>
+										<svg v-if="installingAddonId === item.project_id" class="animate-spin w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+											<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+										</svg>
+										<span>{{ isAddonInstalled(item.project_id) ? 'Installed' : installingAddonId === item.project_id ? 'Installing...' : 'Install' }}</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</transition>
+		</teleport>
 	</div>
 </template>
 
@@ -2859,6 +3251,22 @@ interface BackupEntry {
 	size: string
 }
 
+interface ServerAddonEntry {
+	id: string
+	name: string
+	source: string
+	project_id?: string | null
+	version_id?: string | null
+	version_number?: string | null
+	filename: string
+	addon_type: string
+	game_version?: string | null
+	file_size: number
+	installed_at: string
+	enabled: boolean
+	dependencies: string[]
+}
+
 const serverState = ref<ServerState>({
 	status: 'offline',
 	version: '1.21.4',
@@ -2876,9 +3284,17 @@ const serverState = ref<ServerState>({
 	claim_url: null,
 })
 
-const activeTab = ref<'overview' | 'console' | 'servers' | 'files' | 'backups' | 'settings'>(
-	'overview',
-)
+const activeTab = ref<
+	| 'overview'
+	| 'console'
+	| 'players'
+	| 'properties'
+	| 'addons'
+	| 'servers'
+	| 'files'
+	| 'backups'
+	| 'settings'
+>('overview')
 const copied = ref(false)
 const copiedTunnelAddr = ref<string | null>(null)
 const activeTunnels = ref<Array<{ domain: string; target: string; tunnel_type: string }>>([])

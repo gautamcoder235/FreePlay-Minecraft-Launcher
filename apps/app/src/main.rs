@@ -107,12 +107,18 @@ async fn set_restart_after_pending_update(
 fn main() {
     #[cfg(target_os = "windows")]
     {
-        // Prevent WebView2 from destroying its DWM swapchain/compositor when minimized, eliminating the black flash on unminimize/fullscreen
         if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
             unsafe {
                 std::env::set_var(
                     "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
-                    "--disable-features=CalculateNativeWinOcclusion --disable-backgrounding-occluded-windows",
+                    [
+                        "--disable-features=CalculateNativeWinOcclusion,msWebOOUI",
+                        "--disable-backgrounding-occluded-windows",
+                        "--disable-renderer-backgrounding",
+                        "--disable-background-timer-throttling",
+                        "--force-dark-mode",
+                    ]
+                    .join(" "),
                 );
             }
         }
@@ -228,6 +234,18 @@ fn main() {
             }
 
             Ok(())
+        })
+        .on_window_event(|window, event| {
+            #[cfg(target_os = "windows")]
+            if let tauri::WindowEvent::Focused(true) = event {
+                let win = window.clone();
+                std::thread::spawn(move || {
+                    std::thread::sleep(std::time::Duration::from_millis(50));
+                    if let Ok(size) = win.inner_size() {
+                        let _ = win.set_size(tauri::Size::Physical(size));
+                    }
+                });
+            }
         });
 
     builder = builder
@@ -287,6 +305,11 @@ fn main() {
             theseus::server_address::host_create_server,
             theseus::server_address::host_delete_server,
             theseus::server_address::host_select_server,
+            theseus::server_addons::host_list_installed_addons,
+            theseus::server_addons::host_install_addon,
+            theseus::server_addons::host_import_addon,
+            theseus::server_addons::host_delete_addon,
+            theseus::server_addons::host_toggle_addon,
         ]);
 
     tracing::info!("Initializing app...");
