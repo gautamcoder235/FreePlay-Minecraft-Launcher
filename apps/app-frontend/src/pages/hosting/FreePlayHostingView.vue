@@ -21,12 +21,12 @@
 					}"
 				/>
 
-				<!-- Server Title & Live Status Pills -->
-				<div class="flex flex-col gap-3.5 z-10 max-w-2xl">
+				<!-- Server Title & Live Status -->
+				<div class="flex flex-col gap-2 z-10 max-w-2xl min-w-0">
 					<div class="flex flex-wrap items-center gap-3">
-						<div class="flex items-center gap-2.5">
+						<div class="flex items-center gap-2.5 min-w-0">
 							<div
-								class="w-9 h-9 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)]"
+								class="w-9 h-9 rounded-xl bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] shadow-[var(--accent-glow)] shrink-0"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -45,59 +45,57 @@
 								</svg>
 							</div>
 							<h1
-								class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white m-0"
+								class="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-white m-0 truncate"
 							>
 								{{ activeServer?.name || 'Server Control Room' }}
 							</h1>
 						</div>
 
 						<!-- Server Switcher / Quick Dropdown -->
-						<div class="relative">
-							<button
-								type="button"
-								class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-zinc-800/80 hover:bg-zinc-700/80 border border-white/10 text-xs font-semibold text-zinc-300 transition-colors cursor-pointer"
-								@click="showServerListModal = true"
+						<button
+							type="button"
+							class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-zinc-800/80 hover:bg-zinc-700/80 border border-white/10 text-xs font-semibold text-zinc-300 transition-colors cursor-pointer shrink-0"
+							@click="showServerListModal = true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))]"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
 							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))]"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<rect width="7" height="7" x="3" y="3" rx="1" />
-									<rect width="7" height="7" x="14" y="3" rx="1" />
-									<rect width="7" height="7" x="14" y="14" rx="1" />
-									<rect width="7" height="7" x="3" y="14" rx="1" />
-								</svg>
-								<span>Servers ({{ serverList.length }})</span>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="w-3 h-3 text-zinc-400"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<polyline points="6 9 12 15 18 9" />
-								</svg>
-							</button>
-						</div>
+								<rect width="7" height="7" x="3" y="3" rx="1" />
+								<rect width="7" height="7" x="14" y="3" rx="1" />
+								<rect width="7" height="7" x="14" y="14" rx="1" />
+								<rect width="7" height="7" x="3" y="14" rx="1" />
+							</svg>
+							<span>Switch ({{ serverList.length }})</span>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-3 h-3 text-zinc-400"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<polyline points="6 9 12 15 18 9" />
+							</svg>
+						</button>
 
-						<!-- Glowing Status Pill -->
+						<!-- Glowing Semantic Status Pill -->
 						<div
-							class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 border backdrop-blur-md shadow-sm"
+							class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 border backdrop-blur-md shadow-sm shrink-0"
 							:class="{
-								'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))] border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]':
+								'bg-emerald-500/15 text-emerald-300 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.2)]':
 									serverState.status === 'online',
-								'bg-amber-500/15 text-amber-300 border-amber-500/40 animate-pulse shadow-[0_0_16px_rgba(245,158,11,0.25)]':
+								'bg-amber-500/15 text-amber-300 border-amber-500/40 animate-pulse shadow-[0_0_12px_rgba(245,158,11,0.2)]':
 									serverState.status === 'starting',
-								'bg-indigo-500/15 text-indigo-300 border-indigo-500/40 shadow-[0_0_16px_rgba(99,102,241,0.25)]':
+								'bg-indigo-500/15 text-indigo-300 border-indigo-500/40 shadow-[0_0_12px_rgba(99,102,241,0.2)]':
 									serverState.status === 'tunneling',
 								'bg-zinc-800/80 text-zinc-400 border-zinc-700/80': serverState.status === 'offline',
 							}"
@@ -105,12 +103,12 @@
 							<span class="relative flex h-2 w-2">
 								<span
 									v-if="serverState.status === 'online'"
-									class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand)] opacity-75"
+									class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
 								/>
 								<span
 									class="relative inline-flex rounded-full h-2 w-2"
 									:class="{
-										'bg-[var(--color-brand)]': serverState.status === 'online',
+										'bg-emerald-400': serverState.status === 'online',
 										'bg-amber-400 animate-spin': serverState.status === 'starting',
 										'bg-indigo-400 animate-bounce': serverState.status === 'tunneling',
 										'bg-zinc-500': serverState.status === 'offline',
@@ -119,74 +117,30 @@
 							</span>
 							<span>{{ serverState.status }}</span>
 						</div>
-
-						<!-- Engine & Version Badge -->
-						<span
-							class="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-zinc-800/90 text-zinc-300 border border-white/5"
-						>
-							{{ serverState.engine }} {{ serverState.version }}
-						</span>
 					</div>
 
-					<!-- Connection Pill, Ping Counter, & Active Players Preview -->
-					<div class="flex flex-wrap items-center gap-2.5 text-xs">
-						<!-- 1-Click IP Address Copy Pill -->
-						<div
-							class="flex items-center gap-2 bg-[var(--surface-1)]/90 border border-white/10 rounded-xl px-3 py-1.5 shadow-inner hover:border-[var(--color-brand-shadow)] transition-colors duration-200"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="w-3.5 h-3.5 text-[var(--color-brand-highlight,var(--color-brand))] shrink-0"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<circle cx="12" cy="12" r="10" />
-								<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-								<path d="M2 12h20" />
-							</svg>
-							<span class="text-zinc-400 font-mono">
-								HOST:
-								<strong class="text-white select-all">{{
-									serverState.public_ip || '127.0.0.1:' + serverState.local_port
-								}}</strong>
-							</span>
-							<a
-								v-if="serverState.claim_url"
-								:href="serverState.claim_url"
-								target="_blank"
-								rel="noreferrer"
-								class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-400 hover:bg-amber-300 text-zinc-950 font-bold text-[10px] no-underline shadow-sm transition-all cursor-pointer"
-								title="Click to claim agent on Playit.gg"
-							>
-								<span>Claim</span>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="w-2.5 h-2.5"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2.5"
-								>
-									<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-									<polyline points="15 3 21 3 21 9" />
-									<line x1="10" y1="14" x2="21" y2="3" />
-								</svg>
-							</a>
+					<!-- Clean Metadata & Host Connection Line -->
+					<div class="flex flex-wrap items-center gap-3 text-xs text-zinc-400 font-mono mt-0.5">
+						<span class="font-semibold text-zinc-200 font-sans">
+							{{ serverState.engine }} {{ serverState.version }}
+						</span>
+						<span class="text-zinc-600">·</span>
+						<div class="flex items-center gap-1.5">
+							<span class="text-zinc-400">Host:</span>
+							<strong class="text-white select-all">{{
+								serverState.public_ip || '127.0.0.1:' + serverState.local_port
+							}}</strong>
 							<button
-								v-else
+								v-if="!serverState.claim_url"
 								type="button"
-								class="inline-flex items-center justify-center p-1 rounded-md bg-zinc-800 hover:bg-[var(--color-brand)] text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none"
-								title="1-Click Copy Public IP for Friends"
+								class="inline-flex items-center justify-center p-1 rounded-md bg-zinc-800 hover:bg-[var(--color-brand)] text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none active:scale-95 ml-0.5"
+								title="Copy Host IP"
 								@click="copyPublicIp"
 							>
 								<svg
 									v-if="!copied"
 									xmlns="http://www.w3.org/2000/svg"
-									class="w-3.5 h-3.5"
+									class="w-3 h-3"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
@@ -200,7 +154,7 @@
 								<svg
 									v-else
 									xmlns="http://www.w3.org/2000/svg"
-									class="w-3.5 h-3.5 text-zinc-950"
+									class="w-3 h-3 text-emerald-400"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
@@ -212,53 +166,22 @@
 								</svg>
 							</button>
 						</div>
-
+						<span class="text-zinc-600">·</span>
+						<div class="flex items-center gap-1.5">
+							<span
+								class="w-1.5 h-1.5 rounded-full"
+								:class="serverState.status === 'online' ? 'bg-emerald-400' : 'bg-zinc-600'"
+							/>
+							<span>{{ onlinePlayers.length }} Players</span>
+						</div>
 						<transition name="fade">
 							<span
 								v-if="copied"
-								class="font-bold text-[var(--color-brand-highlight,var(--color-brand))] bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] px-2.5 py-1 rounded-lg flex items-center gap-1.5"
+								class="font-bold text-[var(--color-brand-highlight,var(--color-brand))] bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] px-2 py-0.5 rounded-md text-[10px]"
 							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="w-3.5 h-3.5"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2.5"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<polyline points="20 6 9 17 4 12" />
-								</svg>
-								Copied to clipboard!
+								Copied!
 							</span>
 						</transition>
-
-						<!-- Port Counter -->
-						<div
-							class="flex items-center gap-1.5 bg-[var(--surface-1)]/70 px-2.5 py-1.5 rounded-xl border border-white/5 text-zinc-400"
-						>
-							<span
-								class="w-2 h-2 rounded-full"
-								:class="
-									serverState.status === 'online'
-										? 'bg-[var(--color-brand)] animate-pulse'
-										: 'bg-zinc-600'
-								"
-							/>
-							<span
-								>Local Port:
-								<strong class="text-white font-mono">{{ serverState.local_port }}</strong></span
-							>
-						</div>
-
-						<!-- Online Player Head Avatars Preview -->
-						<div
-							class="flex items-center gap-2 bg-[var(--surface-1)]/70 px-2.5 py-1.5 rounded-xl border border-white/5"
-						>
-							<span class="text-zinc-400">Players:</span>
-							<strong class="text-white font-mono">{{ onlinePlayers.length }}</strong>
-						</div>
 					</div>
 				</div>
 
@@ -625,12 +548,6 @@
 							class="text-xs font-semibold text-[var(--color-brand-highlight,var(--color-brand))]"
 							>Standard</span
 						>
-					</div>
-					<div class="text-[11px] text-zinc-400 truncate">
-						Tunnel:
-						<strong class="text-zinc-200">{{
-							serverState.tunnel_enabled ? 'Enabled' : 'Disabled'
-						}}</strong>
 					</div>
 				</div>
 
