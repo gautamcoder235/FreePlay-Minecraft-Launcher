@@ -83,11 +83,10 @@ async function copyToClipboard(text: string, isDiscord = false) {
 							<line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
 						</svg>
 					</div>
-					<div class="flex flex-col">
-						<h3 class="text-base font-bold text-contrast m-0">Share & Invite Friends</h3>
-						<span class="text-xs text-secondary"
-							>Zero-configuration LAN and Anycast join parameters</span
-						>
+					<div class="flex items-center">
+						<h3 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
+							Share &amp; Invite Friends
+						</h3>
 					</div>
 				</div>
 

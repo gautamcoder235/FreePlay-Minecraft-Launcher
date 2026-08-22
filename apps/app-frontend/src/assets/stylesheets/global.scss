@@ -40,6 +40,41 @@
 	font-family: 'bundled-minecraft-font-mrapp', monospace;
 }
 
+@font-face {
+	font-family: 'Lemon Milk';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src:
+		url('https://cdn-raw.freeplay.app/fonts/lemon-milk/lemon-milk-bold.woff2') format('woff2'),
+		url('https://fonts.cdnfonts.com/s/14878/LEMONMILK-Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Lemon Milk';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src:
+		url('https://cdn-raw.freeplay.app/fonts/lemon-milk/lemon-milk-medium.woff2') format('woff2'),
+		url('https://fonts.cdnfonts.com/s/14878/LEMONMILK-Medium.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Lemon Milk';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src:
+		url('https://cdn-raw.freeplay.app/fonts/lemon-milk/lemon-milk-regular.woff2') format('woff2'),
+		url('https://fonts.cdnfonts.com/s/14878/LEMONMILK-Regular.woff') format('woff');
+}
+
+.font-lemon-milk {
+	font-family: 'Lemon Milk', 'LEMON MILK', sans-serif;
+	letter-spacing: 0.04em;
+}
+
 :root {
 	font-family: var(--font-standard, sans-serif), sans-serif;
 	color-scheme: dark;
