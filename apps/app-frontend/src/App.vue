@@ -497,6 +497,22 @@ async function setupApp() {
 		isMaximized.value = await getCurrentWindow().isMaximized()
 	})
 
+	await getCurrentWindow().onFocusChanged(({ payload: focused }) => {
+		if (focused) {
+			requestAnimationFrame(() => {
+				window.dispatchEvent(new Event('resize'))
+			})
+		}
+	})
+
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'visible') {
+			requestAnimationFrame(() => {
+				window.dispatchEvent(new Event('resize'))
+			})
+		}
+	})
+
 	if (!dev) document.addEventListener('contextmenu', (event) => event.preventDefault())
 
 	const osType = await type()
