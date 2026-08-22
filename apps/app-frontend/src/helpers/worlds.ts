@@ -239,7 +239,7 @@ function parseServerPort(port: string): number | null {
 	return Number.isInteger(parsed) && parsed > 0 && parsed <= 65535 ? parsed : null
 }
 
-function parseServerHost(address: string): string {
+export function parseServerHost(address: string): string {
 	const trimmedAddress = address.trim()
 	if (!trimmedAddress) return ''
 
@@ -258,6 +258,69 @@ function parseServerHost(address: string): string {
 	}
 
 	return trimmedAddress.toLowerCase()
+}
+
+export function isLocalHost(host: string): boolean {
+	const trimmed = host.trim().toLowerCase()
+	return (
+		trimmed === 'localhost' ||
+		trimmed === '127.0.0.1' ||
+		trimmed === '::1' ||
+		trimmed === '0.0.0.0' ||
+		trimmed.startsWith('192.168.') ||
+		trimmed.startsWith('10.') ||
+		trimmed.startsWith('172.16.') ||
+		trimmed.endsWith('.local') ||
+		trimmed.endsWith('.internal') ||
+		trimmed.endsWith('.lan')
+	)
+}
+
+export function getServerFaviconUrl(world: World, serverStatus?: ServerStatus): string | null {
+	if (world.type !== 'server') {
+		return world.icon ?? null
+	}
+
+	// 1. Prioritize live server status favicon from ping
+	if (serverStatus?.favicon) {
+		const favicon = serverStatus.favicon.trim()
+		if (
+			favicon.startsWith('data:image/') ||
+			favicon.startsWith('http://') ||
+			favicon.startsWith('https://')
+		) {
+			return favicon
+		}
+		const cleaned = favicon.replace(/\s+/g, '')
+		return `data:image/png;base64,${cleaned}`
+	}
+
+	// 2. Saved icon from servers.dat (world.icon)
+	if (world.icon) {
+		const icon = world.icon.trim()
+		if (
+			icon.startsWith('data:image/') ||
+			icon.startsWith('http://') ||
+			icon.startsWith('https://') ||
+			icon.startsWith('asset://') ||
+			icon.startsWith('tauri://')
+		) {
+			return icon
+		}
+		const cleaned = icon.replace(/\s+/g, '')
+		return `data:image/png;base64,${cleaned}`
+	}
+
+	// 3. Fallback to public server favicon resolver for remote hostnames
+	const address = (world as ServerWorld).address?.trim()
+	if (address) {
+		const host = parseServerHost(address)
+		if (host && !isLocalHost(host)) {
+			return `https://api.mcsrvstat.us/icon/${encodeURIComponent(host)}`
+		}
+	}
+
+	return null
 }
 
 function isIPv4Host(host: string): boolean {

@@ -478,7 +478,14 @@ async fn get_server_worlds_in_instance(
             icon: server
                 .icon
                 .and_then(|icon| {
-                    Url::parse(&format!("data:image/png;base64,{icon}")).ok()
+                    let trimmed = icon.trim();
+                    let data_url = if trimmed.starts_with("data:image/") {
+                        trimmed.to_string()
+                    } else {
+                        let cleaned = trimmed.replace(['\r', '\n', ' '], "");
+                        format!("data:image/png;base64,{cleaned}")
+                    };
+                    Url::parse(&data_url).ok()
                 })
                 .map(Either::Right),
             display_status: DisplayStatus::Normal,

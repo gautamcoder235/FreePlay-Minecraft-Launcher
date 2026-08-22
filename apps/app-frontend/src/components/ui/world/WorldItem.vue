@@ -47,7 +47,11 @@ import type {
 	SingleplayerWorld,
 	World,
 } from '@/helpers/worlds.ts'
-import { getWorldIdentifier, set_world_display_status } from '@/helpers/worlds.ts'
+import {
+	getServerFaviconUrl,
+	getWorldIdentifier,
+	set_world_display_status,
+} from '@/helpers/worlds.ts'
 
 import { LockIcon } from '../../../../../../packages/assets/generated-icons'
 
@@ -133,6 +137,7 @@ const serverIncompatible = computed(
 const locked = computed(() => props.world.type === 'singleplayer' && props.world.locked)
 const managed = computed(() => props.managed)
 const shortcutInstanceId = computed(() => props.shortcutInstanceId ?? props.instanceId)
+const computedWorldIcon = computed(() => getServerFaviconUrl(props.world, props.serverStatus))
 
 async function createShortcut() {
 	if (!shortcutInstanceId.value || props.quarantined) return
@@ -262,16 +267,7 @@ const messages = defineMessages({
 				'world-item-highlighted': highlighted,
 			}"
 		>
-			<Avatar
-				:src="
-					world.type === 'server' && serverStatus
-						? (serverStatus.favicon ?? world.icon)
-						: world.icon
-				"
-				size="48px"
-				no-shadow
-				class="!rounded-[14px]"
-			/>
+			<Avatar :src="computedWorldIcon" size="48px" no-shadow class="!rounded-[14px]" />
 			<div class="flex flex-col justify-center gap-0.5 h-full">
 				<div class="flex items-center gap-1.5">
 					<div class="text-base text-contrast font-semibold truncate">
