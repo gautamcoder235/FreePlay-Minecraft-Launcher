@@ -476,7 +476,7 @@ async function setupApp() {
 	const dev = await isDev()
 	isDevEnvironment.value = dev
 	nativeDecorations.value = native_decorations
-	if (os.value !== 'MacOS' && native_decorations) await getCurrentWindow().setDecorations(true)
+	if (os.value !== 'MacOS') await getCurrentWindow().setDecorations(native_decorations)
 	await getCurrentWindow()
 		.setTitle('FreePlay Launcher')
 		.catch(() => {})
@@ -495,30 +495,6 @@ async function setupApp() {
 
 	await getCurrentWindow().onResized(async () => {
 		isMaximized.value = await getCurrentWindow().isMaximized()
-	})
-
-	const triggerViewportSync = () => {
-		for (const delay of [0, 30, 80, 150, 300]) {
-			if (delay === 0) {
-				window.dispatchEvent(new Event('resize'))
-			} else {
-				setTimeout(() => {
-					window.dispatchEvent(new Event('resize'))
-				}, delay)
-			}
-		}
-	}
-
-	await getCurrentWindow().onFocusChanged(({ payload: focused }) => {
-		if (focused) {
-			triggerViewportSync()
-		}
-	})
-
-	document.addEventListener('visibilitychange', () => {
-		if (document.visibilityState === 'visible') {
-			triggerViewportSync()
-		}
 	})
 
 	if (!dev) document.addEventListener('contextmenu', (event) => event.preventDefault())

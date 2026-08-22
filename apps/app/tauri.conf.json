@@ -81,6 +81,7 @@
 		"macOSPrivateApi": true,
 		"windows": [
 			{
+				"titleBarStyle": "Overlay",
 				"hiddenTitle": true,
 				"fullscreen": false,
 				"height": 800,
@@ -94,8 +95,6 @@
 				"zoomHotkeysEnabled": false,
 				"decorations": false,
 				"shadow": true,
-				"transparent": true,
-				"backgroundThrottling": "disabled",
 				"backgroundColor": "#090b0f"
 			},
 			{

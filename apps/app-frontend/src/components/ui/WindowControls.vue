@@ -63,8 +63,8 @@ onMounted(async () => {
 	const settings = await getSettings()
 	nativeDecorations.value = settings.native_decorations
 
-	if (os.value !== 'MacOS' && nativeDecorations.value) {
-		await getCurrentWindow().setDecorations(true)
+	if (os.value !== 'MacOS') {
+		await getCurrentWindow().setDecorations(nativeDecorations.value)
 	}
 
 	isMaximized.value = await getCurrentWindow().isMaximized()

@@ -260,6 +260,10 @@ fn sync_webview_visibility_for_main_window<R: Runtime>(
     }
 
     for webview in webviews {
+        if webview.label() == "main" {
+            continue;
+        }
+
         let visible =
             !is_minimized && (webview.label() != "ads-window" || ads_visible);
 

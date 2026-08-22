@@ -117,7 +117,7 @@ fn main() {
             if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
                 std::env::set_var(
                     "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
-                    "--force-dark-mode --disable-backgrounding-occluded-windows --disable-renderer-backgrounding --disable-background-timer-throttling --disable-features=CalculateNativeWinOcclusion,IntensiveWakeUpThrottling",
+                    "--force-dark-mode --disable-features=CalculateNativeWinOcclusion",
                 );
             }
         }
@@ -230,54 +230,6 @@ fn main() {
                 && let Err(e) = window.set_shadow(true)
             {
                 tracing::warn!("Failed to set window shadow: {e}");
-            }
-
-            #[cfg(target_os = "windows")]
-            if let Some(main_window) = app.get_window("main") {
-                let win = main_window.clone();
-                let app_handle = app.handle().clone();
-                main_window.on_window_event(move |event| {
-                    match event {
-                        tauri::WindowEvent::Focused(true)
-                        | tauri::WindowEvent::Resized(_)
-                        | tauri::WindowEvent::Moved(_) => {
-                            let win_clone = win.clone();
-                            let app_clone = app_handle.clone();
-                            tauri::async_runtime::spawn(async move {
-                                for delay_ms in [0, 20, 50, 100, 200, 400] {
-                                    if delay_ms > 0 {
-                                        tokio::time::sleep(std::time::Duration::from_millis(delay_ms)).await;
-                                    }
-                                    let is_minimized = win_clone.is_minimized().unwrap_or(false);
-                                    if is_minimized {
-                                        continue;
-                                    }
-                                    if let Ok(size) = win_clone.inner_size() {
-                                        if size.width > 200 && size.height > 100 {
-                                            if let Some(webview) = app_clone.get_webview("main") {
-                                                let _ = webview.with_webview(move |wv| {
-                                                    use windows::Win32::Foundation::RECT;
-                                                    let controller = wv.controller();
-                                                    let bounds = RECT {
-                                                        left: 0,
-                                                        top: 0,
-                                                        right: size.width as i32,
-                                                        bottom: size.height as i32,
-                                                    };
-                                                    unsafe {
-                                                        let _ = controller.SetBounds(bounds);
-                                                        let _ = controller.NotifyParentWindowPositionChanged();
-                                                    };
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                        _ => {}
-                    }
-                });
             }
 
             Ok(())
