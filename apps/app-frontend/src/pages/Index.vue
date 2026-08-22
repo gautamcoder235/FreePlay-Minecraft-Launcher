@@ -314,7 +314,7 @@ function handlePageOption({ option }: { option: string }) {
 					<!-- Quick Action Configure Button -->
 					<button
 						v-if="heroInstance"
-						class="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-[var(--border-default)] text-zinc-300 hover:text-white transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+						class="w-9 h-9 rounded-xl flex items-center justify-center bg-white/[0.04] hover:bg-white/[0.08] border border-[var(--border-default)] text-zinc-300 hover:text-white transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
 						title="Instance Configuration"
 						@click="router.push(`/instance/${heroInstance.id}`)"
 					>
@@ -438,7 +438,9 @@ function handlePageOption({ option }: { option: string }) {
 				<!-- Header -->
 				<div class="flex items-center justify-between z-20 relative">
 					<div class="flex items-center gap-2.5">
-						<div class="p-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+						<div
+							class="w-8 h-8 rounded-xl flex items-center justify-center bg-amber-500/15 border border-amber-500/30 text-amber-400 shrink-0"
+						>
 							<ShirtIcon class="w-4 h-4" />
 						</div>
 						<div class="flex flex-col">
@@ -626,7 +628,7 @@ function handlePageOption({ option }: { option: string }) {
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
 						<div
-							class="p-2 rounded-xl bg-indigo-500/10 border border-indigo-400/20 text-indigo-400"
+							class="w-8 h-8 rounded-xl flex items-center justify-center bg-indigo-500/10 border border-indigo-400/20 text-indigo-400 shrink-0"
 						>
 							<ServerStackIcon class="w-4 h-4" />
 						</div>
@@ -657,7 +659,7 @@ function handlePageOption({ option }: { option: string }) {
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
 						<div
-							class="p-2 rounded-xl bg-[var(--color-brand)]/10 border border-[var(--color-brand)]/25 text-[var(--color-brand)]"
+							class="w-8 h-8 rounded-xl flex items-center justify-center bg-[var(--color-brand)]/10 border border-[var(--color-brand)]/25 text-[var(--color-brand)] shrink-0"
 						>
 							<CompassIcon class="w-4 h-4" />
 						</div>
@@ -684,7 +686,9 @@ function handlePageOption({ option }: { option: string }) {
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
-						<div class="p-2 rounded-xl bg-amber-500/10 border border-amber-400/20 text-amber-400">
+						<div
+							class="w-8 h-8 rounded-xl flex items-center justify-center bg-amber-500/10 border border-amber-400/20 text-amber-400 shrink-0"
+						>
 							<CpuIcon class="w-4 h-4" />
 						</div>
 						<span class="text-xs font-bold text-white uppercase tracking-wider"
@@ -729,7 +733,7 @@ function handlePageOption({ option }: { option: string }) {
 				<div class="flex items-center justify-between">
 					<div class="flex items-center gap-2.5">
 						<div
-							class="p-2 rounded-xl bg-[var(--color-brand)]/20 border border-[var(--color-brand)]/40 text-[var(--color-brand)]"
+							class="w-8 h-8 rounded-xl flex items-center justify-center bg-[var(--color-brand)]/20 border border-[var(--color-brand)]/40 text-[var(--color-brand)] shrink-0"
 						>
 							<PlusIcon class="w-4 h-4" />
 						</div>
