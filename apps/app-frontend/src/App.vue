@@ -497,19 +497,27 @@ async function setupApp() {
 		isMaximized.value = await getCurrentWindow().isMaximized()
 	})
 
+	const triggerViewportSync = () => {
+		for (const delay of [0, 30, 80, 150, 300]) {
+			if (delay === 0) {
+				window.dispatchEvent(new Event('resize'))
+			} else {
+				setTimeout(() => {
+					window.dispatchEvent(new Event('resize'))
+				}, delay)
+			}
+		}
+	}
+
 	await getCurrentWindow().onFocusChanged(({ payload: focused }) => {
 		if (focused) {
-			requestAnimationFrame(() => {
-				window.dispatchEvent(new Event('resize'))
-			})
+			triggerViewportSync()
 		}
 	})
 
 	document.addEventListener('visibilitychange', () => {
 		if (document.visibilityState === 'visible') {
-			requestAnimationFrame(() => {
-				window.dispatchEvent(new Event('resize'))
-			})
+			triggerViewportSync()
 		}
 	})
 
