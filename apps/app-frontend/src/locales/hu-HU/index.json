@@ -1097,21 +1097,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "Bekapcsolás"
   },
-  "app.survey.body": {
-    "message": "Megosztanád velünk a tapasztalataidat a FreePlay Launcher használatáról néhány kérdés megválaszolásával?"
-  },
-  "app.survey.footer": {
-    "message": "A visszajelzésed közvetlenül a FreePlay csapatához kerül, és segít a jövőbeli frissítések alakításában!"
-  },
-  "app.survey.no-thanks": {
-    "message": "Nem, köszönöm"
-  },
-  "app.survey.take-survey": {
-    "message": "Kérdőív kitöltése"
-  },
-  "app.survey.title": {
-    "message": "Hali, FreePlay-felhasználó!"
-  },
   "app.user.project.install-to-instance": {
     "message": "Telepítés a példányba"
   },

@@ -1097,21 +1097,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "Activer"
   },
-  "app.survey.body": {
-    "message": "Cela vous dérangerait-il de répondre à quelques questions sur votre expérience avec l'application FreePlay ?"
-  },
-  "app.survey.footer": {
-    "message": "Ces retours seront transmis directement à l'équipe de FreePlay et aideront à orienter les futures mises à jour !"
-  },
-  "app.survey.no-thanks": {
-    "message": "Non merci"
-  },
-  "app.survey.take-survey": {
-    "message": "Répondre au sondage"
-  },
-  "app.survey.title": {
-    "message": "Salut, utilisateur de FreePlay !"
-  },
   "app.user.project.install-to-instance": {
     "message": "Installer dans l'instance"
   },

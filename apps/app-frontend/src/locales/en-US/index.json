@@ -329,18 +329,6 @@
   "app.home.jump-back-in.view-instance": {
     "message": "View instance"
   },
-  "app.hosting.update-required.description": {
-    "message": "You need to update to use FreePlay Server Hosting through the FreePlay Launcher"
-  },
-  "app.hosting.update-required.download": {
-    "message": "Download to update"
-  },
-  "app.hosting.update-required.rinthbot-alt": {
-    "message": "Excited FreePlay Bot"
-  },
-  "app.hosting.update-required.title": {
-    "message": "FreePlay Launcher update required"
-  },
   "app.icon-editor.apply-icons-modal.apply-error": {
     "message": "Failed to apply random icons to instances."
   },
@@ -505,30 +493,6 @@
   },
   "app.instance.admonitions.shared-instance.reviewing-button": {
     "message": "Reviewing..."
-  },
-  "app.instance.card.icon-alt": {
-    "message": "Instance icon"
-  },
-  "app.instance.card.installing": {
-    "message": "Installing..."
-  },
-  "app.instance.card.loading": {
-    "message": "Instance is loading..."
-  },
-  "app.instance.card.never-played": {
-    "message": "Never played"
-  },
-  "app.instance.card.play": {
-    "message": "Play"
-  },
-  "app.instance.card.played": {
-    "message": "Played {relativeTime}"
-  },
-  "app.instance.card.repair": {
-    "message": "Repair"
-  },
-  "app.instance.card.stop": {
-    "message": "Stop"
   },
   "app.instance.confirm-delete.admonition-body": {
     "message": "All data for your instance will be permanently deleted, including your worlds, configs, and all installed content."
@@ -1203,7 +1167,7 @@
     "message": "Server Control Room"
   },
   "app.nav.home": {
-    "message": "FreePlay Home"
+    "message": "Home"
   },
   "app.nav.sign-in-to-freeplay-account": {
     "message": "Sign in to a FreePlay account"
@@ -1645,21 +1609,6 @@
   },
   "app.skins.toggle-ears-features-on": {
     "message": "Toggle on"
-  },
-  "app.survey.body": {
-    "message": "Would you mind answering a few questions about your experience with FreePlay Launcher?"
-  },
-  "app.survey.footer": {
-    "message": "This feedback will go directly to the FreePlay team and help guide future updates!"
-  },
-  "app.survey.no-thanks": {
-    "message": "No thanks"
-  },
-  "app.survey.take-survey": {
-    "message": "Take survey"
-  },
-  "app.survey.title": {
-    "message": "Hey there FreePlay user!"
   },
   "app.user.project.install-to-instance": {
     "message": "Install to instance"

@@ -1097,21 +1097,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "Inschakelen"
   },
-  "app.survey.body": {
-    "message": "Zou je een paar vragen willen beantwoorden over je ervaringen met de FreePlay-app?"
-  },
-  "app.survey.footer": {
-    "message": "Deze feedback wordt rechtstreeks doorgestuurd naar het FreePlay-team en zal als leidraad dienen voor toekomstige updates!"
-  },
-  "app.survey.no-thanks": {
-    "message": "Nee, bedankt"
-  },
-  "app.survey.take-survey": {
-    "message": "Aan enquête meedoen"
-  },
-  "app.survey.title": {
-    "message": "Hoi, FreePlay-gebruiker!"
-  },
   "app.user.project.install-to-instance": {
     "message": "Op instantie installeren"
   },

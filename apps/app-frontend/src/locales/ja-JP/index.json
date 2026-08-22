@@ -1097,21 +1097,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "オンに切り替え"
   },
-  "app.survey.body": {
-    "message": "FreePlay Launcher の使用感についての簡単なアンケートにご協力いただけますか？"
-  },
-  "app.survey.footer": {
-    "message": "このフィードバックはFreePlayチームに直接届けられ、今後のアップデートの改善に役立てられます！"
-  },
-  "app.survey.no-thanks": {
-    "message": "結構です"
-  },
-  "app.survey.take-survey": {
-    "message": "アンケートに回答"
-  },
-  "app.survey.title": {
-    "message": "FreePlayユーザーのみなさん、こんにちは！"
-  },
   "app.user.project.install-to-instance": {
     "message": "インスタンスにインストール"
   },

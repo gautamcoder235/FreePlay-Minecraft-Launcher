@@ -992,15 +992,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "Växla på"
   },
-  "app.survey.footer": {
-    "message": "Den här återkopplingen kommer gå direkt till FreePlay-teamet och hjälper till att vägleda framtida uppdateringar!"
-  },
-  "app.survey.no-thanks": {
-    "message": "Nej tack"
-  },
-  "app.survey.title": {
-    "message": "Hej där FreePlay-användare!"
-  },
   "app.user.project.install-to-instance": {
     "message": "Installera till instans"
   },

@@ -1097,21 +1097,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "Увімкнути"
   },
-  "app.survey.body": {
-    "message": "Не бажаєте відповісти на кілька запитань про ваш досвід користування FreePlay Launcher?"
-  },
-  "app.survey.footer": {
-    "message": "Цей відгук надійде безпосередньо команді FreePlay і допоможе у створенні майбутніх оновлень!"
-  },
-  "app.survey.no-thanks": {
-    "message": "Ні, дякую"
-  },
-  "app.survey.take-survey": {
-    "message": "Пройти опитування"
-  },
-  "app.survey.title": {
-    "message": "Привіт, користувачу FreePlay!"
-  },
   "app.user.project.install-to-instance": {
     "message": "Установити в профіль"
   },

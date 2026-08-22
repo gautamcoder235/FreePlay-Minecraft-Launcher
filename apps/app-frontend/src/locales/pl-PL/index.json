@@ -986,15 +986,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "Włącz"
   },
-  "app.survey.no-thanks": {
-    "message": "Nie, dziękuję"
-  },
-  "app.survey.take-survey": {
-    "message": "Weź udział w ankiecie"
-  },
-  "app.survey.title": {
-    "message": "Cześć, użytkowniku FreePlay!"
-  },
   "app.user.project.install-to-instance": {
     "message": "Zainstaluj do instancji"
   },

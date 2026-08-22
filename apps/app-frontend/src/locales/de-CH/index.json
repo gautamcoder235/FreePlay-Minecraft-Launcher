@@ -1097,21 +1097,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "Aktivieren"
   },
-  "app.survey.body": {
-    "message": "Könntest du ein paar Fragen über deine Erfahrung mit FreePlay Launcher beantworten?"
-  },
-  "app.survey.footer": {
-    "message": "Das Feedback geht direkt an das FreePlay-Team und wird helfen, zukünftige Updates zu gestalten!"
-  },
-  "app.survey.no-thanks": {
-    "message": "Nein danke"
-  },
-  "app.survey.take-survey": {
-    "message": "An Umfrage teilnehmen"
-  },
-  "app.survey.title": {
-    "message": "Hey, FreePlay Nutzer!"
-  },
   "app.user.project.install-to-instance": {
     "message": "In Instanz installieren"
   },

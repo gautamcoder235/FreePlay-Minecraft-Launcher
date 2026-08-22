@@ -1097,21 +1097,6 @@
   "app.skins.toggle-ears-features-on": {
     "message": "開啟"
   },
-  "app.survey.body": {
-    "message": "你方便回答幾個關於 FreePlay Launcher 使用體驗的問題嗎？"
-  },
-  "app.survey.footer": {
-    "message": "你的回覆將直接傳送給 FreePlay 團隊，作為未來更新方向的指引！"
-  },
-  "app.survey.no-thanks": {
-    "message": "不用了，謝謝"
-  },
-  "app.survey.take-survey": {
-    "message": "填寫問卷調查"
-  },
-  "app.survey.title": {
-    "message": "你好啊，FreePlay 使用者！"
-  },
   "app.user.project.install-to-instance": {
     "message": "安裝至實例"
   },
