@@ -1005,7 +1005,6 @@ onMounted(() => {
 								>Gameplay &amp; Core Rules</span
 							>
 						</div>
-						<span class="text-[10px] text-zinc-500 font-mono">6 settings</span>
 					</div>
 
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1044,12 +1043,7 @@ onMounted(() => {
 										"
 										@click="selectDifficulty(opt.id)"
 									>
-										<div class="flex flex-col">
-											<span class="text-xs">{{ opt.label }}</span>
-											<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
-												opt.desc
-											}}</span>
-										</div>
+										<span class="text-xs">{{ opt.label }}</span>
 										<span
 											v-if="form.difficulty === opt.id"
 											class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
@@ -1094,12 +1088,7 @@ onMounted(() => {
 										"
 										@click="selectGamemode(opt.id)"
 									>
-										<div class="flex flex-col">
-											<span class="text-xs">{{ opt.label }}</span>
-											<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
-												opt.desc
-											}}</span>
-										</div>
+										<span class="text-xs">{{ opt.label }}</span>
 										<span
 											v-if="form.gamemode === opt.id"
 											class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
@@ -1118,12 +1107,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.pvp = !form.pvp"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Player vs Player (PvP)</span>
-								<span class="text-[10px] text-secondary"
-									>Allow players to attack and harm each other</span
-								>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Player vs Player (PvP)</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1142,12 +1126,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.hardcore = !form.hardcore"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Hardcore Mode</span>
-								<span class="text-[10px] text-secondary"
-									>Players are permanently banned upon death</span
-								>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Hardcore Mode</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="form.hardcore ? 'bg-rose-500' : 'bg-zinc-700'"
@@ -1164,12 +1143,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.allow_flight = !form.allow_flight"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Allow Survival Flight</span>
-								<span class="text-[10px] text-secondary"
-									>Prevents automatic kicking for modded or Elytra flight</span
-								>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Allow Survival Flight</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1190,12 +1164,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.enable_command_block = !form.enable_command_block"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Enable Command Blocks</span>
-								<span class="text-[10px] text-secondary"
-									>Allows execution of automated command block redstone logic</span
-								>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Enable Command Blocks</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1247,7 +1216,6 @@ onMounted(() => {
 								>World &amp; Generation</span
 							>
 						</div>
-						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
 					</div>
 
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1308,12 +1276,7 @@ onMounted(() => {
 									"
 									@click="selectLevelType(opt.id)"
 								>
-									<div class="flex flex-col">
-										<span class="text-xs">{{ opt.label }}</span>
-										<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
-											opt.desc
-										}}</span>
-									</div>
+									<span class="text-xs">{{ opt.label }}</span>
 									<span
 										v-if="form.level_type === opt.id"
 										class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
@@ -1330,12 +1293,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.allow_nether = !form.allow_nether"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Allow Nether Dimension</span>
-								<span class="text-[10px] text-secondary"
-									>Allows portals to transport players to the Nether</span
-								>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Allow Nether Dimension</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1354,12 +1312,7 @@ onMounted(() => {
 						<!-- Spawn Protection Radius Slider -->
 						<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
 							<div class="flex items-center justify-between">
-								<div class="flex flex-col">
-									<span class="text-xs font-semibold text-contrast">Spawn Protection Radius</span>
-									<span class="text-[10px] text-secondary"
-										>Prevents non-OP players from editing spawn area</span
-									>
-								</div>
+								<span class="text-xs font-semibold text-contrast">Spawn Protection Radius</span>
 								<span
 									class="text-xs font-bold text-[var(--color-brand-highlight,var(--color-brand))] font-mono"
 									>{{ form.spawn_protection }} blocks</span
@@ -1418,16 +1371,12 @@ onMounted(() => {
 								>Access, Security &amp; Slots</span
 							>
 						</div>
-						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
 					</div>
 
 					<!-- Max Players Slider -->
 					<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
 						<div class="flex items-center justify-between">
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Max Player Slots</span>
-								<span class="text-[10px] text-secondary">Maximum concurrent players allowed</span>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Max Player Slots</span>
 							<span
 								class="text-sm font-black text-[var(--color-brand-highlight,var(--color-brand))] font-mono"
 								>{{ form.max_players }} players</span
@@ -1448,23 +1397,18 @@ onMounted(() => {
 						class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 						@click="form.online_mode = !form.online_mode"
 					>
-						<div class="flex flex-col">
-							<div class="flex items-center gap-2">
-								<span class="text-xs font-semibold text-contrast">Online Mode (Mojang Auth)</span>
-								<span
-									class="px-1.5 py-0.2 rounded text-[9px] font-bold"
-									:class="
-										form.online_mode
-											? 'bg-emerald-500/20 text-emerald-300'
-											: 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))]'
-									"
-								>
-									{{ form.online_mode ? 'Official Only' : 'Offline / Cracked Enabled' }}
-								</span>
-							</div>
-							<span class="text-[10px] text-secondary"
-								>Turn OFF to allow offline / local FreePlay accounts to join</span
+						<div class="flex items-center gap-2">
+							<span class="text-xs font-semibold text-contrast">Online Mode (Mojang Auth)</span>
+							<span
+								class="px-1.5 py-0.2 rounded text-[9px] font-bold"
+								:class="
+									form.online_mode
+										? 'bg-emerald-500/20 text-emerald-300'
+										: 'bg-[var(--color-brand-bg)] text-[var(--color-brand-highlight,var(--color-brand))]'
+								"
 							>
+								{{ form.online_mode ? 'Official Only' : 'Offline / Cracked Enabled' }}
+							</span>
 						</div>
 						<div
 							class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
@@ -1487,10 +1431,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.white_list = !form.white_list"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Server Whitelist</span>
-								<span class="text-[10px] text-secondary">Only listed players</span>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Server Whitelist</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1510,10 +1451,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.enforce_whitelist = !form.enforce_whitelist"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Enforce Whitelist</span>
-								<span class="text-[10px] text-secondary">Kick non-whitelisted</span>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Enforce Whitelist</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1564,12 +1502,7 @@ onMounted(() => {
 									"
 									@click="selectOpLevel(opt.id)"
 								>
-									<div class="flex flex-col">
-										<span class="text-xs">{{ opt.label }}</span>
-										<span class="text-[10px] text-zinc-400 font-normal leading-tight">{{
-											opt.desc
-										}}</span>
-									</div>
+									<span class="text-xs">{{ opt.label }}</span>
 									<span
 										v-if="form.op_permission_level === opt.id"
 										class="text-[var(--color-brand-highlight,var(--color-brand))] text-xs font-bold"
@@ -1620,16 +1553,12 @@ onMounted(() => {
 								>Performance &amp; Chunk Limits</span
 							>
 						</div>
-						<span class="text-[10px] text-zinc-500 font-mono">4 settings</span>
 					</div>
 
 					<!-- View Distance -->
 					<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
 						<div class="flex items-center justify-between">
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">View Distance</span>
-								<span class="text-[10px] text-secondary">Radius of chunks sent to client</span>
-							</div>
+							<span class="text-xs font-semibold text-contrast">View Distance</span>
 							<span class="text-xs font-bold text-emerald-400 font-mono"
 								>{{ form.view_distance }} chunks</span
 							>
@@ -1647,10 +1576,7 @@ onMounted(() => {
 					<!-- Simulation Distance -->
 					<div class="p-3 rounded-xl bg-surface-3 border border-surface-4 flex flex-col gap-2">
 						<div class="flex items-center justify-between">
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Simulation Distance</span>
-								<span class="text-[10px] text-secondary">Radius of active entity ticking</span>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Simulation Distance</span>
 							<span class="text-xs font-bold text-emerald-400 font-mono"
 								>{{ form.simulation_distance }} chunks</span
 							>
@@ -1728,7 +1654,6 @@ onMounted(() => {
 								>Entity &amp; Mob Spawning</span
 							>
 						</div>
-						<span class="text-[10px] text-zinc-500 font-mono">3 settings</span>
 					</div>
 
 					<div class="flex flex-col gap-2.5">
@@ -1737,12 +1662,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.spawn_monsters = !form.spawn_monsters"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Spawn Hostile Monsters</span>
-								<span class="text-[10px] text-secondary"
-									>Zombies, Skeletons, Creepers, Endermen</span
-								>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Spawn Hostile Monsters</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1763,10 +1683,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.spawn_animals = !form.spawn_animals"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Spawn Passive Animals</span>
-								<span class="text-[10px] text-secondary">Cows, Pigs, Sheep, Chickens, Horses</span>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Spawn Passive Animals</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1787,12 +1704,7 @@ onMounted(() => {
 							class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 							@click="form.spawn_npcs = !form.spawn_npcs"
 						>
-							<div class="flex flex-col">
-								<span class="text-xs font-semibold text-contrast">Spawn Villagers & NPCs</span>
-								<span class="text-[10px] text-secondary"
-									>Trading villagers and wandering traders</span
-								>
-							</div>
+							<span class="text-xs font-semibold text-contrast">Spawn Villagers & NPCs</span>
 							<div
 								class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 								:class="
@@ -1844,7 +1756,6 @@ onMounted(() => {
 								>Network, Ports &amp; Resources</span
 							>
 						</div>
-						<span class="text-[10px] text-zinc-500 font-mono">5 settings</span>
 					</div>
 
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1891,12 +1802,7 @@ onMounted(() => {
 						class="flex items-center justify-between p-3 rounded-xl bg-surface-3 border border-surface-4 cursor-pointer hover:border-surface-5 transition-all select-none"
 						@click="form.enable_rcon = !form.enable_rcon"
 					>
-						<div class="flex flex-col">
-							<span class="text-xs font-semibold text-contrast">Enable Remote RCON Console</span>
-							<span class="text-[10px] text-secondary"
-								>Allows external server administration tools to connect</span
-							>
-						</div>
+						<span class="text-xs font-semibold text-contrast">Enable Remote RCON Console</span>
 						<div
 							class="w-10 h-5.5 rounded-full p-0.5 transition-colors duration-200"
 							:class="
