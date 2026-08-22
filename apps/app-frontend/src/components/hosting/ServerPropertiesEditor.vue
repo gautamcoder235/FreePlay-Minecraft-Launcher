@@ -548,7 +548,7 @@ onMounted(() => {
 		>
 			<div class="flex flex-col gap-1">
 				<div class="flex items-center gap-2.5">
-					<h3 class="text-base font-black text-contrast m-0 tracking-tight">
+					<h3 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
 						Server Properties & Engine Configuration
 					</h3>
 					<span

@@ -616,7 +616,7 @@
 						</div>
 						<div>
 							<div class="flex items-center gap-2">
-								<h2 class="text-lg font-extrabold text-white m-0">
+								<h2 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
 									FreePlay LAN &amp; Anycast P2P Tunnel
 								</h2>
 								<span
@@ -1449,7 +1449,9 @@
 						</div>
 						<div>
 							<div class="flex items-center gap-2">
-								<h2 class="text-base font-extrabold text-white m-0">Plugins &amp; Server Mods</h2>
+								<h2 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
+									Plugins &amp; Server Mods
+								</h2>
 								<span
 									class="text-xs font-mono px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30"
 								>
@@ -1799,7 +1801,9 @@
 						</svg>
 					</div>
 					<div>
-						<h2 class="text-base font-extrabold text-white m-0">Server Instances</h2>
+						<h2 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
+							Server Instances
+						</h2>
 					</div>
 				</div>
 
@@ -1926,7 +1930,9 @@
 						</svg>
 					</div>
 					<div>
-						<h2 class="text-base font-extrabold text-white m-0">Server File System</h2>
+						<h2 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
+							Server File System
+						</h2>
 						<p class="text-xs text-zinc-400 m-0">
 							Live files located in:
 							<span class="font-mono text-zinc-200">{{ activeServer?.path || 'servers' }}</span>
@@ -2224,7 +2230,9 @@
 						</svg>
 					</div>
 					<div>
-						<h2 class="text-base font-extrabold text-white m-0">World Snapshot Backups</h2>
+						<h2 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
+							World Snapshot Backups
+						</h2>
 					</div>
 				</div>
 
@@ -2327,7 +2335,7 @@
 						</svg>
 					</div>
 					<div>
-						<h2 class="text-base font-extrabold text-white m-0">
+						<h2 class="text-base font-bold font-lemon-milk tracking-wide text-contrast m-0">
 							Server Engine &amp; Performance Settings
 						</h2>
 					</div>
