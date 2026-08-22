@@ -232,6 +232,36 @@ fn main() {
                 tracing::warn!("Failed to set window shadow: {e}");
             }
 
+            #[cfg(target_os = "windows")]
+            if let Some(main_window) = app.get_window("main") {
+                let win = main_window.clone();
+                let app_handle = app.handle().clone();
+                main_window.on_window_event(move |event| {
+                    if let tauri::WindowEvent::Focused(true) | tauri::WindowEvent::Resized(_) = event {
+                        if let Ok(size) = win.inner_size() {
+                            if size.width > 200 && size.height > 100 {
+                                if let Some(webview) = app_handle.get_webview("main") {
+                                    let _ = webview.with_webview(move |wv| {
+                                        use windows::Win32::Foundation::RECT;
+                                        let controller = wv.controller();
+                                        let bounds = RECT {
+                                            left: 0,
+                                            top: 0,
+                                            right: size.width as i32,
+                                            bottom: size.height as i32,
+                                        };
+                                        unsafe {
+                                            let _ = controller.SetBounds(bounds);
+                                            let _ = controller.NotifyParentWindowPositionChanged();
+                                        };
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
             Ok(())
         });
 

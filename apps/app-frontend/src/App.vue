@@ -476,7 +476,7 @@ async function setupApp() {
 	const dev = await isDev()
 	isDevEnvironment.value = dev
 	nativeDecorations.value = native_decorations
-	if (os.value !== 'MacOS') await getCurrentWindow().setDecorations(native_decorations)
+	if (os.value !== 'MacOS' && native_decorations) await getCurrentWindow().setDecorations(true)
 	await getCurrentWindow()
 		.setTitle('FreePlay Launcher')
 		.catch(() => {})
