@@ -1,14 +1,14 @@
 <template>
 	<div
-		class="server-control-room min-h-full flex flex-col gap-6 p-4 sm:p-6 max-w-7xl mx-auto select-none text-zinc-100 font-sans"
+		class="server-control-room min-h-full flex flex-col gap-5 p-4 sm:p-6 max-w-7xl mx-auto select-none text-zinc-100 font-sans"
 	>
 		<!-- Sticky Top Header & Navigation Hub (Stays pinned at the top on scroll) -->
 		<header
-			class="sticky top-0 z-40 flex flex-col gap-3 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-[var(--surface-1)]/95 backdrop-blur-2xl border-b border-white/5"
+			class="sticky top-0 z-40 flex flex-col gap-3 -mt-2 -mx-2 px-2 pt-2 pb-2 bg-[var(--surface-1)]/95 backdrop-blur-2xl border-b border-surface-4/30"
 		>
 			<!-- Top Server HUD Header Bar -->
 			<div
-				class="relative overflow-hidden rounded-2xl bg-[#141923]/95 border border-white/10 shadow-2xl backdrop-blur-2xl p-5 sm:p-6 lg:p-7 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 transition-all duration-300"
+				class="relative overflow-hidden rounded-2xl bg-surface-2 border border-surface-4 shadow-xl backdrop-blur-2xl p-5 sm:p-6 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 transition-all duration-300"
 			>
 				<!-- Ambient Glow Backdrop -->
 				<div
@@ -54,7 +54,7 @@
 						<!-- Server Switcher / Quick Dropdown -->
 						<button
 							type="button"
-							class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-zinc-800/80 hover:bg-zinc-700/80 border border-white/10 text-xs font-semibold text-zinc-300 transition-colors cursor-pointer shrink-0"
+							class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-surface-3 hover:bg-surface-4 border border-surface-4 text-xs font-semibold text-zinc-300 transition-colors cursor-pointer shrink-0"
 							@click="showServerListModal = true"
 						>
 							<svg
@@ -97,7 +97,7 @@
 									serverState.status === 'starting',
 								'bg-indigo-500/15 text-indigo-300 border-indigo-500/40 shadow-[0_0_12px_rgba(99,102,241,0.2)]':
 									serverState.status === 'tunneling',
-								'bg-zinc-800/80 text-zinc-400 border-zinc-700/80': serverState.status === 'offline',
+								'bg-surface-3 text-zinc-400 border-surface-4': serverState.status === 'offline',
 							}"
 						>
 							<span class="relative flex h-2 w-2">
@@ -133,7 +133,7 @@
 							<button
 								v-if="!serverState.claim_url"
 								type="button"
-								class="inline-flex items-center justify-center p-1 rounded-md bg-zinc-800 hover:bg-[var(--color-brand)] text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none active:scale-95 ml-0.5"
+								class="inline-flex items-center justify-center p-1 rounded-md bg-surface-3 hover:bg-[var(--color-brand)] text-zinc-300 hover:text-zinc-950 transition-all duration-200 cursor-pointer border-none active:scale-95 ml-0.5"
 								title="Copy Host IP"
 								@click="copyPublicIp"
 							>
@@ -185,13 +185,13 @@
 					</div>
 				</div>
 
-				<!-- Power Controls Bar -->
+				<!-- Power & Management Controls Bar -->
 				<div class="flex flex-wrap items-center gap-2.5 z-10 w-full lg:w-auto shrink-0">
 					<!-- Start Button -->
 					<button
 						v-if="serverState.status === 'offline'"
 						type="button"
-						class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-black text-xs uppercase tracking-wider active:scale-[0.98] transition-all duration-200 cursor-pointer border-none focus-visible:outline-none"
+						class="h-10 px-5 rounded-xl btn-accent-primary font-black text-xs uppercase tracking-wider inline-flex items-center justify-center gap-2 active:scale-[0.98] transition-all duration-200 cursor-pointer border-none focus-visible:outline-none shadow-sm"
 						:disabled="actionLoading"
 						@click="startServer"
 					>
@@ -210,7 +210,7 @@
 					<button
 						v-else
 						type="button"
-						class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 font-bold text-xs uppercase tracking-wider border border-rose-500/40 shadow-[0_0_15px_rgba(244,63,94,0.2)] active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
+						class="h-10 px-5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 font-bold text-xs uppercase tracking-wider border border-rose-500/40 shadow-[0_0_15px_rgba(244,63,94,0.2)] inline-flex items-center justify-center gap-2 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
 						:disabled="actionLoading"
 						@click="stopServer"
 					>
@@ -228,13 +228,13 @@
 					<!-- Restart Button -->
 					<button
 						type="button"
-						class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 font-bold text-xs uppercase tracking-wider border border-amber-500/30 hover:border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.15)] active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none"
+						class="h-10 px-4 rounded-xl bg-surface-3/80 hover:bg-surface-4 text-zinc-200 hover:text-white border border-surface-4 hover:border-surface-5 font-bold text-xs inline-flex items-center justify-center gap-2 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none shadow-sm disabled:opacity-50 disabled:pointer-events-none"
 						:disabled="serverState.status === 'offline' || actionLoading"
 						@click="restartServer"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="w-3.5 h-3.5"
+							class="w-4 h-4 text-amber-400"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -250,11 +250,11 @@
 						<span>Restart</span>
 					</button>
 
-					<!-- Force Kill Dropdown Option -->
+					<!-- Force Kill Button -->
 					<button
 						v-if="serverState.status !== 'offline'"
 						type="button"
-						class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-zinc-800/80 hover:bg-rose-500/20 text-zinc-400 hover:text-rose-300 font-bold text-xs border border-white/5 hover:border-rose-500/30 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
+						class="h-10 px-3.5 rounded-xl bg-surface-3/80 hover:bg-rose-500/20 text-zinc-300 hover:text-rose-300 font-bold text-xs border border-surface-4 hover:border-rose-500/30 inline-flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none shadow-sm"
 						title="Force Kill Server Process"
 						@click="killServer"
 					>
@@ -277,13 +277,13 @@
 					<!-- Open Folder in File Explorer Button -->
 					<button
 						type="button"
-						class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white font-bold text-xs border border-white/5 hover:border-white/10 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none shadow-sm"
+						class="h-10 px-4 rounded-xl bg-surface-3/80 hover:bg-surface-4 text-zinc-200 hover:text-white font-bold text-xs border border-surface-4 hover:border-surface-5 inline-flex items-center justify-center gap-2 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none shadow-sm"
 						title="Open Server Directory in OS File Manager"
 						@click="openServerFolder"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="w-3.5 h-3.5 text-indigo-400"
+							class="w-4 h-4 text-indigo-400"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -301,13 +301,13 @@
 					<!-- Share & Invite Modal Trigger -->
 					<button
 						type="button"
-						class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 font-bold text-xs active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none shadow-sm"
+						class="h-10 px-4 rounded-xl bg-surface-3/80 hover:bg-surface-4 text-zinc-200 hover:text-white font-bold text-xs border border-surface-4 hover:border-surface-5 inline-flex items-center justify-center gap-2 active:scale-[0.98] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none shadow-sm"
 						title="Share invite and LAN connection details"
 						@click="showInviteShareModal = true"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="w-3.5 h-3.5 text-emerald-400"
+							class="w-4 h-4 text-[var(--color-brand-highlight,var(--color-brand))]"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -379,7 +379,7 @@
 
 			<!-- Tabbed Navigation Bar -->
 			<div
-				class="flex items-center overflow-x-auto gap-2 p-1.5 rounded-2xl bg-[#141923]/80 border border-white/10 backdrop-blur-md scrollbar-none"
+				class="flex items-center overflow-x-auto gap-1.5 p-1.5 rounded-2xl bg-surface-2 border border-surface-4 backdrop-blur-md scrollbar-none"
 			>
 				<button
 					v-for="tab in tabs"
@@ -389,7 +389,7 @@
 					:class="
 						activeTab === tab.id
 							? 'bg-[var(--color-brand-bg)] text-white border border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)]'
-							: 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 border border-transparent'
+							: 'text-zinc-400 hover:text-zinc-200 hover:bg-surface-3/60 border border-transparent'
 					"
 					@click="switchTab(tab.id)"
 				>
@@ -408,12 +408,12 @@
 		</header>
 
 		<!-- TAB 1: OVERVIEW -->
-		<div v-if="activeTab === 'overview'" class="flex flex-col gap-6">
+		<div v-if="activeTab === 'overview'" class="flex flex-col gap-5">
 			<!-- Bento Telemetry Cards Grid -->
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 				<!-- Server Status Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -460,7 +460,7 @@
 
 				<!-- RAM Allocation Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -499,7 +499,7 @@
 						</span>
 					</div>
 					<div
-						class="w-full bg-zinc-950 rounded-full h-2 overflow-hidden p-0.5 border border-white/5"
+						class="w-full bg-zinc-950 rounded-full h-2 overflow-hidden p-0.5 border border-surface-4"
 					>
 						<div
 							class="h-full rounded-full transition-all duration-500 ease-out"
@@ -513,7 +513,7 @@
 
 				<!-- Port & Network Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -553,7 +553,7 @@
 
 				<!-- Session Uptime Clock Card -->
 				<div
-					class="p-5 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-lg backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
+					class="p-5 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-3 hover:border-[var(--color-brand-shadow)] transition-all duration-200"
 				>
 					<div class="flex items-center justify-between">
 						<span
@@ -589,10 +589,10 @@
 
 			<!-- FreePlay LAN & P2P Tunnel Hub Card -->
 			<div
-				class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-5"
+				class="p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-5"
 			>
 				<div
-					class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5"
+					class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-4 pb-5"
 				>
 					<div class="flex items-center gap-3">
 						<div
@@ -1118,9 +1118,9 @@
 
 			<!-- Live Log Stream Preview -->
 			<div
-				class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-3"
+				class="p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-3"
 			>
-				<div class="flex items-center justify-between border-b border-white/10 pb-3">
+				<div class="flex items-center justify-between border-b border-surface-4 pb-3">
 					<h3 class="text-sm font-extrabold text-white m-0 flex items-center gap-2">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -1147,7 +1147,7 @@
 				</div>
 
 				<div
-					class="p-3.5 rounded-xl bg-[var(--surface-1)] border border-white/5 font-mono text-xs space-y-1 overflow-y-auto max-h-48 scrollbar-thin"
+					class="p-3.5 rounded-xl bg-[var(--surface-1)] border border-surface-4/40 font-mono text-xs space-y-1 overflow-y-auto max-h-48 scrollbar-thin"
 				>
 					<div
 						v-for="(log, idx) in serverState.logs.slice(-8)"
@@ -1177,11 +1177,11 @@
 		<!-- TAB 2: INTERACTIVE LIVE CONSOLE -->
 		<div v-if="activeTab === 'console'" class="flex flex-col gap-4">
 			<div
-				class="rounded-2xl bg-[#141923]/90 border border-white/10 overflow-hidden shadow-2xl backdrop-blur-md flex flex-col h-[740px]"
+				class="rounded-2xl bg-surface-2 border border-surface-4 overflow-hidden shadow-2xl backdrop-blur-md flex flex-col h-[740px]"
 			>
 				<!-- Terminal Top Header Bar -->
 				<div
-					class="bg-[var(--surface-1)] px-4 py-3.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3 shrink-0"
+					class="bg-[var(--surface-1)] px-4 py-3.5 border-b border-surface-4 flex flex-wrap items-center justify-between gap-3 shrink-0"
 				>
 					<div class="flex items-center gap-3">
 						<div class="flex items-center gap-1.5">
@@ -1420,13 +1420,13 @@
 		</div>
 
 		<!-- TAB: ADDONS (PLUGINS & MODS) -->
-		<div v-if="activeTab === 'addons'" class="flex flex-col gap-6">
+		<div v-if="activeTab === 'addons'" class="flex flex-col gap-5">
 			<!-- Header Banner with Engine, Version, Counts, and Restart Alert -->
 			<div
-				class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4"
+				class="p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-4"
 			>
 				<div
-					class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4"
+					class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-4 pb-4"
 				>
 					<div class="flex items-center gap-3">
 						<div
@@ -1449,7 +1449,7 @@
 						</div>
 						<div>
 							<div class="flex items-center gap-2">
-								<h2 class="text-base font-extrabold text-white m-0">Plugins & Server Mods</h2>
+								<h2 class="text-base font-extrabold text-white m-0">Plugins &amp; Server Mods</h2>
 								<span
 									class="text-xs font-mono px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30"
 								>
@@ -1481,7 +1481,7 @@
 
 						<button
 							type="button"
-							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 cursor-pointer transition-colors"
+							class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-surface-3 hover:bg-surface-4 text-xs font-bold text-zinc-300 hover:text-white border border-surface-4 cursor-pointer transition-colors"
 							@click="importLocalAddon"
 						>
 							<svg
@@ -1501,7 +1501,7 @@
 
 						<button
 							type="button"
-							class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 hover:text-white border border-white/10 cursor-pointer transition-colors"
+							class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-3 hover:bg-surface-4 text-xs font-bold text-zinc-300 hover:text-white border border-surface-4 cursor-pointer transition-colors"
 							@click="fetchServerAddons"
 						>
 							<svg
@@ -1577,7 +1577,7 @@
 							:class="
 								addonTypeFilter === filter.id
 									? 'bg-purple-500/20 text-purple-300 border-purple-500/40'
-									: 'bg-zinc-800/60 text-zinc-400 border-white/5 hover:bg-zinc-800 hover:text-zinc-200'
+									: 'bg-surface-3 text-zinc-400 border-surface-4 hover:bg-surface-4 hover:text-zinc-200'
 							"
 							@click="addonTypeFilter = filter.id"
 						>
@@ -1590,7 +1590,7 @@
 							v-model="addonSearchQuery"
 							type="text"
 							placeholder="Filter installed addons..."
-							class="w-full px-3 py-1.5 rounded-xl bg-zinc-900/90 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50 font-mono"
+							class="w-full px-3 py-1.5 rounded-xl bg-surface-1 border border-surface-4 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50 font-mono"
 						/>
 					</div>
 				</div>
@@ -1598,14 +1598,14 @@
 
 			<!-- Installed Addons Table -->
 			<div
-				class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4"
+				class="p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-4"
 			>
 				<div
 					v-if="filteredAddons.length === 0"
 					class="flex flex-col items-center justify-center py-16 text-center gap-3"
 				>
 					<div
-						class="w-12 h-12 rounded-2xl bg-zinc-800/80 border border-white/10 flex items-center justify-center text-zinc-500"
+						class="w-12 h-12 rounded-2xl bg-surface-3 border border-surface-4 flex items-center justify-center text-zinc-500"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -1622,16 +1622,14 @@
 							<rect width="8" height="8" x="14" y="14" rx="2" />
 						</svg>
 					</div>
-					<div class="flex flex-col gap-1 max-w-sm">
-						<h3 class="text-sm font-bold text-white m-0">No Addons Installed</h3>
-						<p class="text-xs text-zinc-400 m-0">
-							Click "Browse Modrinth Addons" to search and 1-click install plugins or server mods,
-							or drop existing .jar files here.
-						</p>
-					</div>
+					<div class="text-sm font-semibold text-zinc-400">No Addons Found</div>
+					<p class="text-xs text-zinc-500 max-w-sm m-0">
+						Browse the Modrinth Catalog or click "Import .jar / .zip" to add custom plugins &amp;
+						mods.
+					</p>
 					<button
 						type="button"
-						class="mt-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md cursor-pointer transition-all active:scale-95"
+						class="mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white shadow-md cursor-pointer transition-all active:scale-95"
 						@click="openAddonCatalog"
 					>
 						Browse Addons Catalog
@@ -1780,7 +1778,7 @@
 		<!-- TAB 3: SERVERS & INSTANCES -->
 		<div v-if="activeTab === 'servers'" class="flex flex-col gap-5">
 			<div
-				class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md"
+				class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md"
 			>
 				<div class="flex items-center gap-3">
 					<div
@@ -1807,7 +1805,7 @@
 
 				<button
 					type="button"
-					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-[0.98] transition-all cursor-pointer border-none"
+					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-[0.98] transition-all cursor-pointer border-none shadow-sm"
 					@click="showCreateModal = true"
 				>
 					<svg
@@ -1829,17 +1827,17 @@
 				<div
 					v-for="server in serverList"
 					:key="server.id"
-					class="p-5 rounded-2xl bg-[#141923]/90 border transition-all duration-200 flex flex-col justify-between gap-4"
+					class="p-5 rounded-2xl bg-surface-2 border transition-all duration-200 flex flex-col justify-between gap-4"
 					:class="
 						activeServer?.id === server.id
-							? 'border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)] bg-[#141923]'
-							: 'border-white/10 hover:border-white/20'
+							? 'border-[var(--color-brand-shadow)] shadow-[var(--accent-glow)] bg-surface-2'
+							: 'border-surface-4 hover:border-surface-5'
 					"
 				>
 					<div class="flex items-start justify-between gap-3">
 						<div class="flex items-center gap-3">
 							<div
-								class="w-10 h-10 rounded-xl bg-zinc-800 border border-white/10 flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] font-black text-sm"
+								class="w-10 h-10 rounded-xl bg-surface-3 border border-surface-4 flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))] font-black text-sm"
 							>
 								MC
 							</div>
@@ -1870,7 +1868,7 @@
 							</button>
 							<button
 								type="button"
-								class="p-1.5 rounded-lg bg-zinc-800 hover:bg-rose-500/20 text-zinc-400 hover:text-rose-300 border border-white/5 cursor-pointer"
+								class="p-1.5 rounded-lg bg-surface-3 hover:bg-rose-500/20 text-zinc-400 hover:text-rose-300 border border-surface-4 cursor-pointer"
 								title="Delete Server"
 								@click="deleteServer(server.id)"
 							>
@@ -1892,7 +1890,7 @@
 					</div>
 
 					<div
-						class="flex items-center justify-between text-[11px] font-mono text-zinc-400 bg-[var(--surface-1)] px-3 py-2 rounded-xl border border-white/5"
+						class="flex items-center justify-between text-[11px] font-mono text-zinc-400 bg-[var(--surface-1)] px-3 py-2 rounded-xl border border-surface-4/40"
 					>
 						<span class="truncate">Path: {{ server.path }}</span>
 					</div>
@@ -1903,10 +1901,10 @@
 		<!-- TAB 4: FILE MANAGER -->
 		<div
 			v-if="activeTab === 'files'"
-			class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-4"
+			class="p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-4"
 		>
 			<div
-				class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4"
+				class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-surface-4 pb-4"
 			>
 				<div class="flex items-center gap-2.5">
 					<div
@@ -2201,10 +2199,10 @@
 		<!-- TAB 5: BACKUPS -->
 		<div
 			v-if="activeTab === 'backups'"
-			class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-5"
+			class="p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-5"
 		>
 			<div
-				class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5"
+				class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-4 pb-5"
 			>
 				<div class="flex items-center gap-3">
 					<div
@@ -2232,7 +2230,7 @@
 
 				<button
 					type="button"
-					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-[0.98] transition-all cursor-pointer border-none"
+					class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-[0.98] transition-all cursor-pointer border-none shadow-sm"
 					@click="createBackup"
 				>
 					<svg
@@ -2256,11 +2254,11 @@
 				<div
 					v-for="backup in backupsList"
 					:key="backup.id"
-					class="flex items-center justify-between p-4 rounded-xl bg-[var(--surface-1)]/80 border border-white/5 hover:border-white/15 transition-all duration-200"
+					class="flex items-center justify-between p-4 rounded-xl bg-[var(--surface-1)]/80 border border-surface-4/40 hover:border-surface-4 transition-all duration-200"
 				>
 					<div class="flex items-center gap-3.5">
 						<div
-							class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
+							class="w-9 h-9 rounded-xl bg-surface-3 flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -2305,9 +2303,9 @@
 		<!-- TAB 6: SETTINGS & PORTS -->
 		<div
 			v-if="activeTab === 'settings'"
-			class="p-6 rounded-2xl bg-[#141923]/90 border border-white/10 shadow-xl backdrop-blur-md flex flex-col gap-6"
+			class="p-6 rounded-2xl bg-surface-2 border border-surface-4 shadow-md backdrop-blur-md flex flex-col gap-6"
 		>
-			<div class="flex items-center justify-between border-b border-white/10 pb-4">
+			<div class="flex items-center justify-between border-b border-surface-4 pb-4">
 				<div class="flex items-center gap-2.5">
 					<div
 						class="w-8 h-8 rounded-lg bg-[var(--color-brand-bg)] border border-[var(--color-brand-shadow)] flex items-center justify-center text-[var(--color-brand-highlight,var(--color-brand))]"
@@ -2577,9 +2575,9 @@
 			class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
 		>
 			<div
-				class="w-full max-w-lg rounded-2xl bg-[#141923] border border-white/15 shadow-2xl p-6 flex flex-col gap-5"
+				class="w-full max-w-lg rounded-2xl bg-surface-2 border border-surface-4 shadow-2xl p-6 flex flex-col gap-5"
 			>
-				<div class="flex items-center justify-between border-b border-white/10 pb-4">
+				<div class="flex items-center justify-between border-b border-surface-4 pb-4">
 					<h3 class="text-base font-extrabold text-white m-0">Create New Minecraft Server</h3>
 					<button
 						type="button"
@@ -2873,9 +2871,9 @@
 			class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
 		>
 			<div
-				class="w-full max-w-md rounded-2xl bg-[#141923] border border-white/15 shadow-2xl p-6 flex flex-col gap-4"
+				class="w-full max-w-md rounded-2xl bg-surface-2 border border-surface-4 shadow-2xl p-6 flex flex-col gap-4"
 			>
-				<div class="flex items-center justify-between border-b border-white/10 pb-3">
+				<div class="flex items-center justify-between border-b border-surface-4 pb-3">
 					<h3 class="text-base font-extrabold text-white m-0">Your Minecraft Servers</h3>
 					<button
 						type="button"
@@ -2904,7 +2902,7 @@
 						:class="
 							activeServer?.id === s.id
 								? 'bg-[var(--color-brand-bg)] border-[var(--color-brand-shadow)] text-[var(--color-brand-highlight,var(--color-brand))]'
-								: 'bg-zinc-900/80 border-white/5 text-zinc-300 hover:border-white/20'
+								: 'bg-surface-3 border-surface-4 text-zinc-300 hover:border-surface-5'
 						"
 						@click="handleSelectServerModal(s)"
 					>
@@ -2922,17 +2920,17 @@
 					</div>
 				</div>
 
-				<div class="flex items-center justify-between border-t border-white/10 pt-3">
+				<div class="flex items-center justify-between border-t border-surface-4 pt-3">
 					<button
 						type="button"
-						class="px-4 py-2 rounded-xl btn-accent-primary font-bold text-xs cursor-pointer border-none"
+						class="px-4 py-2 rounded-xl btn-accent-primary font-bold text-xs cursor-pointer border-none shadow-sm"
 						@click="handleOpenCreateModalFromServerList"
 					>
 						+ Create New
 					</button>
 					<button
 						type="button"
-						class="px-4 py-2 rounded-xl bg-zinc-800 text-zinc-300 text-xs font-bold cursor-pointer border-none"
+						class="px-4 py-2 rounded-xl bg-surface-3 hover:bg-surface-4 text-zinc-300 text-xs font-bold cursor-pointer border border-surface-4"
 						@click="showServerListModal = false"
 					>
 						Close
@@ -2961,11 +2959,11 @@
 					@click.self="closeFileEditor"
 				>
 					<div
-						class="w-full max-w-4xl max-h-[88vh] bg-[#0d121c] border border-cyan-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn"
+						class="w-full max-w-4xl max-h-[88vh] bg-surface-2 border border-surface-4 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn"
 					>
 						<!-- Modal Header -->
 						<div
-							class="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#131a27]"
+							class="flex items-center justify-between px-5 py-3.5 border-b border-surface-4 bg-surface-1"
 						>
 							<div class="flex items-center gap-3 min-w-0">
 								<div
@@ -3018,7 +3016,7 @@
 
 								<button
 									type="button"
-									class="w-8 h-8 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center cursor-pointer border border-white/5 transition-colors"
+									class="w-8 h-8 rounded-xl bg-surface-3 hover:bg-surface-4 text-zinc-400 hover:text-white flex items-center justify-center cursor-pointer border border-surface-4 transition-colors"
 									@click="closeFileEditor"
 								>
 									<svg
@@ -3039,11 +3037,11 @@
 						</div>
 
 						<!-- Editor Body -->
-						<div class="p-4 flex-1 overflow-hidden flex flex-col bg-[#080b11]">
+						<div class="p-4 flex-1 overflow-hidden flex flex-col bg-surface-1">
 							<textarea
 								v-model="fileEditorContent"
 								rows="18"
-								class="w-full flex-1 bg-transparent p-4 rounded-xl border border-white/10 font-mono text-xs text-zinc-200 outline-none focus:border-cyan-500/60 leading-relaxed resize-none overflow-y-auto scrollbar-thin"
+								class="w-full flex-1 bg-transparent p-4 rounded-xl border border-surface-4 font-mono text-xs text-zinc-200 outline-none focus:border-cyan-500/60 leading-relaxed resize-none overflow-y-auto scrollbar-thin"
 								placeholder="File content..."
 								spellcheck="false"
 							/>
@@ -3051,7 +3049,7 @@
 
 						<!-- Modal Footer Info -->
 						<div
-							class="flex items-center justify-between px-5 py-3 border-t border-white/10 bg-[#0f1420] text-xs text-zinc-400 font-mono"
+							class="flex items-center justify-between px-5 py-3 border-t border-surface-4 bg-surface-1 text-xs text-zinc-400 font-mono"
 						>
 							<div class="flex items-center gap-4 text-[11px]">
 								<span
@@ -3068,7 +3066,7 @@
 							<div class="flex items-center gap-2">
 								<button
 									type="button"
-									class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white text-xs cursor-pointer border border-white/5 transition-colors"
+									class="px-3 py-1.5 rounded-lg bg-surface-3 hover:bg-surface-4 text-zinc-300 hover:text-white text-xs cursor-pointer border border-surface-4 transition-colors"
 									@click="closeFileEditor"
 								>
 									Cancel
@@ -3096,11 +3094,11 @@
 					class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
 				>
 					<div
-						class="w-full max-w-4xl max-h-[85vh] flex flex-col rounded-2xl bg-[#141923] border border-white/10 shadow-2xl overflow-hidden font-sans text-zinc-100"
+						class="w-full max-w-4xl max-h-[85vh] flex flex-col rounded-2xl bg-surface-2 border border-surface-4 shadow-2xl overflow-hidden font-sans text-zinc-100"
 					>
 						<!-- Modal Header -->
 						<div
-							class="flex items-center justify-between p-5 border-b border-white/10 bg-[var(--surface-1)]/80"
+							class="flex items-center justify-between p-5 border-b border-surface-4 bg-surface-1"
 						>
 							<div class="flex items-center gap-3">
 								<div
