@@ -7,14 +7,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>FreePlay Minecraft Launcher</title>
 		<script>
-			if (
-				window.location.pathname.includes('overlay') ||
-				window.location.hash.includes('overlay') ||
-				window.location.search.includes('overlay') ||
-				window.location.href.includes('overlay')
-			) {
-				document.documentElement.classList.add('is-overlay-mode')
-			}
+			;(function () {
+				try {
+					var href = window.location.href || ''
+					var isOverlay =
+						href.indexOf('overlay') !== -1 ||
+						window.location.pathname.indexOf('overlay') !== -1 ||
+						window.location.hash.indexOf('overlay') !== -1 ||
+						window.location.search.indexOf('overlay') !== -1 ||
+						(window.__TAURI_INTERNALS__ &&
+							window.__TAURI_INTERNALS__.metadata &&
+							window.__TAURI_INTERNALS__.metadata.currentWindow &&
+							window.__TAURI_INTERNALS__.metadata.currentWindow.label === 'overlay')
+					if (isOverlay) {
+						document.documentElement.classList.add('is-overlay-mode')
+					}
+				} catch (e) {}
+			})()
 		</script>
 
 		<style>

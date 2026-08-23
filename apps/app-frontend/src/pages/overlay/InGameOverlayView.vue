@@ -277,6 +277,7 @@ let clockTimer: ReturnType<typeof setInterval> | null = null
 onMounted(() => {
 	document.documentElement.classList.add('is-overlay-mode')
 	if (document.body) {
+		document.body.style.background = 'transparent'
 		document.body.style.backgroundColor = 'transparent'
 	}
 	loadSavedLayout()
@@ -532,7 +533,9 @@ onUnmounted(() => {
 			>
 				<div class="flex flex-col">
 					<span class="text-xs font-semibold text-white/90">Window Background</span>
-					<span class="text-[11px] text-slate-400">Transparent with modular glass capsules</span>
+					<span class="text-[11px] text-slate-400"
+						>Opaque dark surface for reliable in-game input</span
+					>
 				</div>
 				<span class="text-xs font-semibold text-emerald-400 flex items-center gap-1">
 					<CheckIcon class="w-3 h-3" />

@@ -138,26 +138,34 @@ function updateHistoryNavigationState() {
 
 updateHistoryNavigationState()
 
-const isOverlay = computed(() => {
-	if (typeof window !== 'undefined') {
+function detectOverlayMode() {
+	if (typeof window === 'undefined') return false
+	try {
+		const href = window.location.href || ''
 		if (
-			window.location.pathname.includes('overlay') ||
-			window.location.hash.includes('overlay') ||
-			window.location.search.includes('overlay')
+			href.indexOf('overlay') !== -1 ||
+			window.location.pathname.indexOf('overlay') !== -1 ||
+			window.location.hash.indexOf('overlay') !== -1 ||
+			window.location.search.indexOf('overlay') !== -1
 		) {
 			return true
 		}
+		const win = getCurrentWindow()
+		if (win && win.label === 'overlay') {
+			return true
+		}
+	} catch (e) {
+		void e
 	}
-	try {
-		return route.path.includes('/overlay') || getCurrentWindow()?.label === 'overlay'
-	} catch {
-		return route.path.includes('/overlay')
-	}
-})
+	return false
+}
+
+const isOverlay = ref(detectOverlayMode())
 
 if (typeof window !== 'undefined' && isOverlay.value) {
 	document.documentElement.classList.add('is-overlay-mode')
 	if (document.body) {
+		document.body.style.background = 'transparent'
 		document.body.style.backgroundColor = 'transparent'
 	}
 }
@@ -542,30 +550,41 @@ let suspenseToken = null
 let suspensePending = false
 
 const stateFailed = ref(false)
-initialize_state(appEventChannel)
-	.then(async () => {
-		try {
-			await setupApp()
-		} catch (err) {
+if (!isOverlay.value) {
+	initialize_state(appEventChannel)
+		.then(async () => {
+			try {
+				await setupApp()
+			} catch (err) {
+				stateFailed.value = true
+				console.error(err)
+				error.showError(err, null, false, 'state_init')
+			} finally {
+				if (initialLoadToken) {
+					loading.end(initialLoadToken)
+					initialLoadToken = null
+				}
+			}
+		})
+		.catch((err) => {
 			stateFailed.value = true
-			console.error(err)
+			console.error('Failed to initialize app', err)
 			error.showError(err, null, false, 'state_init')
-		} finally {
 			if (initialLoadToken) {
 				loading.end(initialLoadToken)
 				initialLoadToken = null
 			}
-		}
-	})
-	.catch((err) => {
-		stateFailed.value = true
-		console.error('Failed to initialize app', err)
-		error.showError(err, null, false, 'state_init')
-		if (initialLoadToken) {
-			loading.end(initialLoadToken)
-			initialLoadToken = null
-		}
-	})
+		})
+} else {
+	stateInitialized.value = true
+	if (initialLoadToken) {
+		loading.end(initialLoadToken)
+		initialLoadToken = null
+	}
+	if (router.currentRoute.value.path !== '/overlay') {
+		router.replace('/overlay').catch(() => {})
+	}
+}
 
 const sidebarOverlayScrollbarsOptions = Object.freeze({
 	overflow: {

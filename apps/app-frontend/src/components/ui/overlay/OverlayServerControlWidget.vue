@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-	AlertTriangleIcon,
 	CheckIcon,
 	ClipboardCopyIcon,
 	GlobeIcon,
@@ -12,6 +11,7 @@ import {
 	StopCircleIcon,
 	SunIcon,
 	TerminalSquareIcon,
+	TriangleAlertIcon,
 	XIcon,
 } from '@freeplay/assets'
 import { Button, StyledInput } from '@freeplay/ui'
@@ -201,7 +201,7 @@ onUnmounted(() => {
 			v-if="overlayStore.lastError"
 			class="p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2"
 		>
-			<AlertTriangleIcon class="w-4 h-4 shrink-0 text-rose-400" />
+			<TriangleAlertIcon class="w-4 h-4 shrink-0 text-rose-400" />
 			<span class="truncate flex-1">{{ overlayStore.lastError }}</span>
 			<button
 				class="text-[10px] text-rose-300 underline cursor-pointer bg-transparent border-none"

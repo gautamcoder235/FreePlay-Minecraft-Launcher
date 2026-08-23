@@ -5,8 +5,8 @@ import {
 	HeartIcon,
 	ShieldAlertIcon,
 	ShieldIcon,
-	UserMinusIcon,
 	UsersIcon,
+	UserXIcon,
 	XIcon,
 } from '@freeplay/assets'
 import { Button } from '@freeplay/ui'
@@ -165,7 +165,7 @@ async function toggleOp(player: TrackedPlayer) {
 						title="Kick Player"
 						@click="openConfirmDialog('kick', player)"
 					>
-						<UserMinusIcon class="w-3.5 h-3.5" />
+						<UserXIcon class="w-3.5 h-3.5" />
 					</button>
 
 					<!-- Ban Modal Trigger -->
