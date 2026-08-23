@@ -1338,7 +1338,7 @@
 					class="px-4 py-2 bg-[var(--surface-1)] border-t border-white/10 flex flex-wrap items-center gap-2 shrink-0"
 				>
 					<span
-						class="text-xs font-bold text-zinc-400 uppercase tracking-wide mr-1 flex items-center gap-1"
+						class="text-xs font-bold text-zinc-400 uppercase tracking-wide mr-1 flex items-center gap-1 shrink-0 select-none"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -1355,13 +1355,34 @@
 						Quick:
 					</span>
 					<button
-						v-for="cmd in quickCommands"
-						:key="cmd"
+						v-for="preset in presetCommands"
+						:key="preset.id"
 						type="button"
-						class="text-xs font-mono px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-[var(--color-brand)] hover:text-[var(--color-accent-contrast,#ffffff)] text-zinc-300 font-semibold transition-all duration-150 cursor-pointer border border-white/5 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none"
-						@click="sendQuickCommand(cmd)"
+						:title="`Run command: /${preset.command}`"
+						class="text-xs font-mono px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-[var(--color-brand)] hover:text-[var(--color-accent-contrast,#ffffff)] text-zinc-300 font-semibold transition-all duration-150 cursor-pointer border border-white/5 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none shrink-0"
+						@click="sendQuickCommand(preset.command)"
 					>
-						{{ cmd }}
+						{{ preset.title }}
+					</button>
+					<button
+						type="button"
+						class="text-xs px-2.5 py-1 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-all cursor-pointer border border-white/10 hover:border-purple-500/40 flex items-center gap-1.5 shrink-0"
+						title="Configure custom command presets"
+						@click="showPresetManagerModal = true"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-3.5 h-3.5 text-purple-400"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M12 5v14M5 12h14" />
+						</svg>
+						<span class="text-[11px] font-semibold">Presets</span>
 					</button>
 				</div>
 
@@ -2586,7 +2607,9 @@
 				class="w-full max-w-lg rounded-2xl bg-surface-2 border border-surface-4 shadow-2xl p-6 flex flex-col gap-5"
 			>
 				<div class="flex items-center justify-between border-b border-surface-4 pb-4">
-					<h3 class="text-base font-extrabold text-white m-0">Create New Minecraft Server</h3>
+					<h3 class="text-base font-bold font-lemon-milk tracking-wide text-white m-0">
+						Create New Minecraft Server
+					</h3>
 					<button
 						type="button"
 						class="p-1 rounded-lg text-zinc-400 hover:text-white bg-transparent border-none cursor-pointer"
@@ -2882,7 +2905,9 @@
 				class="w-full max-w-md rounded-2xl bg-surface-2 border border-surface-4 shadow-2xl p-6 flex flex-col gap-4"
 			>
 				<div class="flex items-center justify-between border-b border-surface-4 pb-3">
-					<h3 class="text-base font-extrabold text-white m-0">Your Minecraft Servers</h3>
+					<h3 class="text-base font-bold font-lemon-milk tracking-wide text-white m-0">
+						Your Minecraft Servers
+					</h3>
 					<button
 						type="button"
 						class="p-1 rounded-lg text-zinc-400 hover:text-white bg-transparent border-none cursor-pointer"
@@ -3465,6 +3490,192 @@
 				</div>
 			</transition>
 		</teleport>
+
+		<!-- Preset Commands Manager Modal -->
+		<teleport to="body">
+			<transition name="fade">
+				<div
+					v-if="showPresetManagerModal"
+					class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
+					@click.self="showPresetManagerModal = false"
+				>
+					<div
+						class="bg-[#121622] border border-white/10 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden max-h-[85vh] animate-in fade-in zoom-in-95 duration-150"
+					>
+						<!-- Header -->
+						<div
+							class="px-5 py-4 border-b border-white/10 flex items-center justify-between bg-zinc-900/60"
+						>
+							<div class="flex items-center gap-2.5">
+								<div
+									class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="w-4 h-4"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+									</svg>
+								</div>
+								<div>
+									<h3 class="text-base font-bold font-lemon-milk tracking-wide text-white m-0">
+										Console Quick Presets
+									</h3>
+									<p class="text-xs text-zinc-400 m-0">
+										Configure quick buttons for frequent console commands
+									</p>
+								</div>
+							</div>
+							<button
+								type="button"
+								class="p-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white cursor-pointer border-none transition-colors"
+								@click="showPresetManagerModal = false"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-4 h-4"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<line x1="18" y1="6" x2="6" y2="18" />
+									<line x1="6" y1="6" x2="18" y2="18" />
+								</svg>
+							</button>
+						</div>
+
+						<!-- Body -->
+						<div class="p-5 flex flex-col gap-4 overflow-y-auto flex-1">
+							<!-- Add New Preset Form -->
+							<div class="p-4 rounded-xl bg-zinc-900/80 border border-white/10 flex flex-col gap-3">
+								<span class="text-xs font-bold uppercase tracking-wider text-purple-300"
+									>Add New Command Preset</span
+								>
+								<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+									<div class="flex flex-col gap-1">
+										<label class="text-[11px] font-semibold text-zinc-400">Button Title</label>
+										<input
+											v-model="newPresetTitle"
+											type="text"
+											placeholder="e.g. Day, Kill Mobs, TPS"
+											class="px-3 py-2 rounded-xl bg-zinc-950 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500"
+										/>
+									</div>
+									<div class="flex flex-col gap-1">
+										<label class="text-[11px] font-semibold text-zinc-400">Console Command</label>
+										<input
+											v-model="newPresetCommand"
+											type="text"
+											placeholder="e.g. time set day, save-all"
+											class="px-3 py-2 rounded-xl bg-zinc-950 border border-white/10 text-xs text-white font-mono placeholder-zinc-500 focus:outline-none focus:border-purple-500"
+											@keyup.enter="addNewPreset"
+										/>
+									</div>
+								</div>
+								<button
+									type="button"
+									class="self-end px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 border-none"
+									:disabled="!newPresetTitle.trim() || !newPresetCommand.trim()"
+									@click="addNewPreset"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="w-3.5 h-3.5"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2.5"
+									>
+										<path d="M12 5v14M5 12h14" />
+									</svg>
+									<span>Add Preset</span>
+								</button>
+							</div>
+
+							<!-- Current Presets List -->
+							<div class="flex flex-col gap-2">
+								<div class="flex items-center justify-between">
+									<span class="text-xs font-bold uppercase tracking-wider text-zinc-400"
+										>Current Presets ({{ presetCommands.length }})</span
+									>
+									<button
+										type="button"
+										class="text-[11px] text-zinc-400 hover:text-amber-300 transition-colors cursor-pointer bg-transparent border-none"
+										@click="resetPresetsToDefault"
+									>
+										Reset to Defaults
+									</button>
+								</div>
+
+								<div class="flex flex-col gap-2">
+									<div
+										v-for="(preset, index) in presetCommands"
+										:key="preset.id"
+										class="flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl bg-zinc-900/60 border border-white/5 hover:border-white/10 transition-colors"
+									>
+										<div class="flex items-center gap-2.5 min-w-0 flex-1">
+											<span
+												class="w-5 h-5 rounded-lg bg-zinc-800 text-[10px] font-bold text-zinc-400 flex items-center justify-center shrink-0"
+											>
+												{{ index + 1 }}
+											</span>
+											<span class="font-bold text-xs text-white truncate max-w-[120px]">{{
+												preset.title
+											}}</span>
+											<span class="text-zinc-600">→</span>
+											<code
+												class="text-[11px] font-mono text-purple-300 bg-purple-950/40 px-2 py-0.5 rounded border border-purple-800/30 truncate flex-1"
+												>{{ preset.command }}</code
+											>
+										</div>
+
+										<button
+											type="button"
+											class="p-1.5 rounded-lg bg-zinc-800/60 hover:bg-rose-500/20 hover:text-rose-400 text-zinc-500 transition-colors cursor-pointer border-none shrink-0"
+											title="Remove Preset"
+											@click="removePreset(preset.id)"
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="w-3.5 h-3.5"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+											>
+												<path
+													d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+												/>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer -->
+						<div
+							class="px-5 py-3 border-t border-white/10 flex items-center justify-end bg-zinc-900/60"
+						>
+							<button
+								type="button"
+								class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-white cursor-pointer transition-colors border-none"
+								@click="showPresetManagerModal = false"
+							>
+								Done
+							</button>
+						</div>
+					</div>
+				</div>
+			</transition>
+		</teleport>
 	</div>
 </template>
 
@@ -3755,18 +3966,76 @@ const breadcrumbs = computed(() => {
 
 const backupsList = ref<BackupEntry[]>([])
 
-const quickCommands = [
-	'help',
-	'list',
-	'tps',
-	'gamemode creative',
-	'gamemode survival',
-	'time set day',
-	'weather clear',
-	'save-all',
-	'whitelist on',
-	'whitelist off',
+interface ConsolePresetCommand {
+	id: string
+	title: string
+	command: string
+}
+
+const DEFAULT_PRESET_COMMANDS: ConsolePresetCommand[] = [
+	{ id: '1', title: 'help', command: 'help' },
+	{ id: '2', title: 'list', command: 'list' },
+	{ id: '3', title: 'tps', command: 'tps' },
+	{ id: '4', title: 'gamemode creative', command: 'gamemode creative' },
+	{ id: '5', title: 'gamemode survival', command: 'gamemode survival' },
+	{ id: '6', title: 'time set day', command: 'time set day' },
+	{ id: '7', title: 'weather clear', command: 'weather clear' },
+	{ id: '8', title: 'save-all', command: 'save-all' },
+	{ id: '9', title: 'whitelist on', command: 'whitelist on' },
+	{ id: '10', title: 'whitelist off', command: 'whitelist off' },
 ]
+
+function loadPresetCommands(): ConsolePresetCommand[] {
+	try {
+		const raw = localStorage.getItem('freeplay-console-presets')
+		if (raw) {
+			const parsed = JSON.parse(raw)
+			if (Array.isArray(parsed) && parsed.length > 0) {
+				return parsed
+			}
+		}
+	} catch (e) {
+		console.debug('Failed to load custom console presets:', e)
+	}
+	return [...DEFAULT_PRESET_COMMANDS]
+}
+
+const presetCommands = ref<ConsolePresetCommand[]>(loadPresetCommands())
+const showPresetManagerModal = ref(false)
+const newPresetTitle = ref('')
+const newPresetCommand = ref('')
+
+function savePresetCommands() {
+	try {
+		localStorage.setItem('freeplay-console-presets', JSON.stringify(presetCommands.value))
+	} catch (e) {
+		console.debug('Failed to save custom console presets:', e)
+	}
+}
+
+function addNewPreset() {
+	const title = newPresetTitle.value.trim()
+	const command = newPresetCommand.value.trim()
+	if (!title || !command) return
+	presetCommands.value.push({
+		id: `preset_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+		title,
+		command,
+	})
+	savePresetCommands()
+	newPresetTitle.value = ''
+	newPresetCommand.value = ''
+}
+
+function removePreset(id: string) {
+	presetCommands.value = presetCommands.value.filter((p) => p.id !== id)
+	savePresetCommands()
+}
+
+function resetPresetsToDefault() {
+	presetCommands.value = [...DEFAULT_PRESET_COMMANDS]
+	savePresetCommands()
+}
 
 const overviewIcon = () =>
 	h(
