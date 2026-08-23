@@ -3132,7 +3132,12 @@
 									<p class="text-xs text-zinc-400 m-0">
 										Compatible with
 										<span class="text-purple-300 font-semibold"
-											>{{ serverState.engine }} {{ serverState.version }}</span
+											>{{ serverState.engine }}
+											{{
+												catalogVersionFilter === 'server'
+													? serverState.version || 'Current'
+													: '(All Versions)'
+											}}</span
 										>
 									</p>
 								</div>
@@ -3167,6 +3172,128 @@
 									class="flex-1 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50"
 									@keyup.enter="searchModrinthAddons"
 								/>
+
+								<!-- Custom Version Filter Dropdown -->
+								<div class="relative">
+									<button
+										type="button"
+										class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-purple-500/40 text-xs font-semibold text-zinc-200 transition-all cursor-pointer select-none"
+										:class="{
+											'!border-purple-500 bg-zinc-800 ring-2 ring-purple-500/20':
+												catalogVersionDropdownOpen,
+										}"
+										@click.stop="catalogVersionDropdownOpen = !catalogVersionDropdownOpen"
+									>
+										<span
+											class="w-2 h-2 rounded-full shrink-0"
+											:class="
+												catalogVersionFilter === 'server'
+													? 'bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.6)]'
+													: 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]'
+											"
+										></span>
+										<span class="truncate max-w-[140px]">
+											{{
+												catalogVersionFilter === 'server'
+													? serverState.version || 'Server Version'
+													: 'All Versions'
+											}}
+										</span>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="w-3.5 h-3.5 text-zinc-400 transition-transform duration-200"
+											:class="{ 'rotate-180 text-purple-400': catalogVersionDropdownOpen }"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<path d="m6 9 6 6 6-6" />
+										</svg>
+									</button>
+
+									<!-- Dropdown Menu -->
+									<div
+										v-if="catalogVersionDropdownOpen"
+										class="absolute right-0 top-full mt-1.5 w-60 p-1.5 rounded-2xl bg-[#141824] border border-white/15 shadow-2xl shadow-black/90 z-50 flex flex-col gap-1"
+										@click.stop
+									>
+										<div
+											class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-400"
+										>
+											Target Version Filter
+										</div>
+
+										<!-- Option 1: Server Version -->
+										<button
+											type="button"
+											class="flex items-center justify-between gap-2 px-3 py-2 rounded-xl text-left text-xs font-semibold cursor-pointer transition-all border"
+											:class="
+												catalogVersionFilter === 'server'
+													? 'bg-purple-600/20 text-purple-200 border-purple-500/40'
+													: 'text-zinc-300 hover:bg-white/5 hover:text-white border-transparent'
+											"
+											@click="setCatalogVersionFilter('server')"
+										>
+											<div class="flex flex-col min-w-0">
+												<div class="flex items-center gap-1.5">
+													<span class="w-2 h-2 rounded-full bg-purple-400"></span>
+													<span class="truncate font-bold text-white">{{
+														serverState.version || 'Server Version'
+													}}</span>
+												</div>
+												<span class="text-[10px] text-zinc-400 ml-3.5"
+													>Compatible with current server</span
+												>
+											</div>
+											<svg
+												v-if="catalogVersionFilter === 'server'"
+												xmlns="http://www.w3.org/2000/svg"
+												class="w-4 h-4 text-purple-400 shrink-0"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2.5"
+											>
+												<polyline points="20 6 9 17 4 12" />
+											</svg>
+										</button>
+
+										<!-- Option 2: All Versions -->
+										<button
+											type="button"
+											class="flex items-center justify-between gap-2 px-3 py-2 rounded-xl text-left text-xs font-semibold cursor-pointer transition-all border"
+											:class="
+												catalogVersionFilter === 'all'
+													? 'bg-purple-600/20 text-purple-200 border-purple-500/40'
+													: 'text-zinc-300 hover:bg-white/5 hover:text-white border-transparent'
+											"
+											@click="setCatalogVersionFilter('all')"
+										>
+											<div class="flex flex-col min-w-0">
+												<div class="flex items-center gap-1.5">
+													<span class="w-2 h-2 rounded-full bg-blue-400"></span>
+													<span class="truncate font-bold text-white">All Versions</span>
+												</div>
+												<span class="text-[10px] text-zinc-400 ml-3.5"
+													>Show addons for different versions</span
+												>
+											</div>
+											<svg
+												v-if="catalogVersionFilter === 'all'"
+												xmlns="http://www.w3.org/2000/svg"
+												class="w-4 h-4 text-purple-400 shrink-0"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2.5"
+											>
+												<polyline points="20 6 9 17 4 12" />
+											</svg>
+										</button>
+									</div>
+								</div>
+
 								<button
 									type="button"
 									class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-sm font-bold text-white cursor-pointer transition-colors"
@@ -4611,10 +4738,18 @@ const addonSearchQuery = ref('')
 const addonTypeFilter = ref<'all' | 'plugin' | 'mod' | 'datapack' | 'local'>('all')
 const restartRequired = ref(false)
 const showAddonCatalog = ref(false)
+const catalogVersionFilter = ref<'server' | 'all'>('server')
+const catalogVersionDropdownOpen = ref(false)
 const browseCatalogQuery = ref('')
 const catalogResults = ref<Record<string, unknown>[]>([])
 const searchingCatalog = ref(false)
 const installingAddonId = ref<string | null>(null)
+
+function setCatalogVersionFilter(filter: 'server' | 'all') {
+	catalogVersionFilter.value = filter
+	catalogVersionDropdownOpen.value = false
+	void searchModrinthAddons()
+}
 
 const filteredAddons = computed(() => {
 	let list = serverAddons.value
@@ -4805,6 +4940,10 @@ async function searchModrinthAddons() {
 			facets.push(['categories:forge'])
 		}
 
+		if (catalogVersionFilter.value === 'server' && serverState.value.version) {
+			facets.push([`versions:${serverState.value.version}`])
+		}
+
 		const queryParam = browseCatalogQuery.value.trim()
 		const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(queryParam)}&facets=${encodeURIComponent(JSON.stringify(facets))}&limit=24`
 		const res = await fetch(url)
@@ -4908,7 +5047,14 @@ async function fastStatusLoop() {
 	}
 }
 
+function handleWindowClick() {
+	if (catalogVersionDropdownOpen.value) {
+		catalogVersionDropdownOpen.value = false
+	}
+}
+
 onMounted(async () => {
+	window.addEventListener('click', handleWindowClick)
 	localStorage.setItem('freeplay-tunnel-enabled', 'false')
 	await loadGameVersions()
 	await loadServerList()
@@ -4919,6 +5065,7 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
+	window.removeEventListener('click', handleWindowClick)
 	pollLoopRunning = false
 	if (statusPollInterval) clearInterval(statusPollInterval)
 })
