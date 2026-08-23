@@ -698,6 +698,11 @@ const selectableProjectTypes = computed(() => {
 	if (route.query.sid) params.sid = route.query.sid
 	if (effectiveServerWorldId.value) params.wid = effectiveServerWorldId.value
 
+	const currentSearchQuery = searchState?.query?.value || (route.query.q as string)
+	if (currentSearchQuery) {
+		params.q = currentSearchQuery
+	}
+
 	const queryString = new URLSearchParams(params as Record<string, string>).toString()
 	const suffix = queryString ? `?${queryString}` : ''
 

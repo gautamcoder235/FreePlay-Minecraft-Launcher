@@ -430,7 +430,9 @@ export function useBrowseSearch(options: UseBrowseSearchOptions): BrowseSearchSt
 			effectiveCurrentSortType.value =
 				effectiveSortTypes.value.find((sortType) => sortType.name === 'relevance') ??
 				effectiveSortTypes.value[0]
-			query.value = ''
+			if (route.query.q != null && route.query.q !== '') {
+				query.value = String(route.query.q)
+			}
 
 			void nextTick(() => {
 				initAdvancedPrefs()
