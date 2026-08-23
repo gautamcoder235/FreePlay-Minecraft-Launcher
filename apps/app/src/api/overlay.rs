@@ -12,7 +12,7 @@ use windows::Win32::Foundation::{HWND, LPARAM, RECT};
 #[cfg(windows)]
 use windows::Win32::UI::WindowsAndMessaging::{
 	EnumWindows, GetClientRect, GetForegroundWindow, GetWindowLongPtrW, GetWindowRect,
-	GetWindowTextW, GetWindowThreadProcessId, IsWindowVisible, SetForegroundWindow,
+	GetWindowTextW, GetWindowThreadProcessId, IsIconic, IsWindowVisible, SetForegroundWindow,
 	SetWindowLongPtrW, SetWindowPos, GWL_EXSTYLE, HWND_TOPMOST, SWP_FRAMECHANGED,
 	SWP_NOACTIVATE, SWP_NOMOVE, SWP_NOSIZE, SWP_SHOWWINDOW, WS_EX_LAYERED,
 	WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW, WS_EX_TOPMOST, WS_EX_TRANSPARENT,
@@ -29,7 +29,7 @@ pub struct OverlayStateDto {
 
 struct GlobalOverlayState {
 	is_open: AtomicBool,
-	active_game_pid: Arc<RwLock<Option<u32>>>,
+	active_game_pid: std::sync::atomic::AtomicU32,
 	active_instance_id: Arc<RwLock<Option<String>>>,
 	active_instance_name: Arc<RwLock<Option<String>>>,
 	hotkey: Arc<RwLock<String>>,
@@ -39,7 +39,7 @@ impl Default for GlobalOverlayState {
 	fn default() -> Self {
 		Self {
 			is_open: AtomicBool::new(false),
-			active_game_pid: Arc::new(RwLock::new(None)),
+			active_game_pid: std::sync::atomic::AtomicU32::new(0),
 			active_instance_id: Arc::new(RwLock::new(None)),
 			active_instance_name: Arc::new(RwLock::new(None)),
 			hotkey: Arc::new(RwLock::new("Shift+Tab".to_string())),
@@ -71,6 +71,7 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 
 					let mut was_shift_tab_down = false;
 					let mut was_f8_down = false;
+					let mut last_fg_check = std::time::Instant::now();
 
 					while IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
 						std::thread::sleep(std::time::Duration::from_millis(35));
@@ -103,6 +104,36 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 							});
 						}
 						was_f8_down = is_f8;
+
+						// Monitor window focus: if overlay is active but user switches to another app or minimizes Minecraft, auto-hide overlay
+						if last_fg_check.elapsed() >= std::time::Duration::from_millis(80) {
+							last_fg_check = std::time::Instant::now();
+							if state().is_open.load(std::sync::atomic::Ordering::Relaxed) {
+								let pid = state().active_game_pid.load(std::sync::atomic::Ordering::Relaxed);
+								if let Some(overlay_win) = app_handle.get_webview_window("overlay") {
+									if let Ok(overlay_hwnd_res) = overlay_win.hwnd() {
+										let overlay_hwnd = HWND(overlay_hwnd_res.0 as _);
+										let fg = unsafe { GetForegroundWindow() };
+										let game_hwnd = find_game_hwnd(pid);
+
+										let is_game_or_overlay_focused = fg == overlay_hwnd
+											|| (game_hwnd.is_some() && Some(fg) == game_hwnd);
+										let is_game_minimized =
+											game_hwnd.map_or(false, |gh| unsafe { IsIconic(gh).as_bool() });
+
+										if (!is_game_or_overlay_focused || is_game_minimized) && fg.0 != 0 as _ {
+											let app_clone = app_handle.clone();
+											tauri::async_runtime::spawn(async move {
+												let _ = overlay_toggle(app_clone, Some(false)).await;
+											});
+										} else if let Some(gh) = game_hwnd {
+											let _ = gh;
+											sync_bounds_to_game(overlay_hwnd.0 as isize, pid);
+										}
+									}
+								}
+							}
+						}
 					}
 				});
 			}
@@ -244,7 +275,8 @@ pub async fn overlay_toggle<R: tauri::Runtime>(
 	let current = state().is_open.load(Ordering::SeqCst);
 	let next = force_state.unwrap_or(!current);
 	state().is_open.store(next, Ordering::SeqCst);
-	let maybe_pid = *state().active_game_pid.read().await;
+	let pid_val = state().active_game_pid.load(Ordering::SeqCst);
+	let maybe_pid = if pid_val > 0 { Some(pid_val) } else { None };
 
 	if let Some(overlay_win) = app.get_webview_window("overlay") {
 		#[cfg(windows)]
@@ -298,9 +330,10 @@ pub async fn overlay_set_visible<R: tauri::Runtime>(
 
 #[tauri::command]
 pub async fn overlay_get_state() -> Result<OverlayStateDto> {
+	let pid_val = state().active_game_pid.load(Ordering::SeqCst);
 	Ok(OverlayStateDto {
 		is_open: state().is_open.load(Ordering::SeqCst),
-		active_game_pid: *state().active_game_pid.read().await,
+		active_game_pid: if pid_val > 0 { Some(pid_val) } else { None },
 		active_instance_id: state().active_instance_id.read().await.clone(),
 		active_instance_name: state().active_instance_name.read().await.clone(),
 		hotkey: state().hotkey.read().await.clone(),
@@ -313,7 +346,7 @@ pub async fn overlay_set_active_game(
 	instance_id: Option<String>,
 	instance_name: Option<String>,
 ) -> Result<()> {
-	*state().active_game_pid.write().await = pid;
+	state().active_game_pid.store(pid.unwrap_or(0), Ordering::SeqCst);
 	*state().active_instance_id.write().await = instance_id;
 	*state().active_instance_name.write().await = instance_name;
 	Ok(())
@@ -321,7 +354,8 @@ pub async fn overlay_set_active_game(
 
 #[tauri::command]
 pub async fn overlay_sync_geometry<R: tauri::Runtime>(app: tauri::AppHandle<R>) -> Result<()> {
-	let maybe_pid = *state().active_game_pid.read().await;
+	let pid_val = state().active_game_pid.load(Ordering::SeqCst);
+	let maybe_pid = if pid_val > 0 { Some(pid_val) } else { None };
 	if let Some(overlay_win) = app.get_webview_window("overlay") {
 		#[cfg(windows)]
 		if let Ok(hwnd) = overlay_win.hwnd() {
@@ -335,7 +369,8 @@ pub async fn overlay_sync_geometry<R: tauri::Runtime>(app: tauri::AppHandle<R>) 
 
 #[tauri::command]
 pub async fn overlay_focus_game<R: tauri::Runtime>(_app: tauri::AppHandle<R>) -> Result<()> {
-	let maybe_pid = *state().active_game_pid.read().await;
+	let pid_val = state().active_game_pid.load(Ordering::SeqCst);
+	let maybe_pid = if pid_val > 0 { Some(pid_val) } else { None };
 	#[cfg(windows)]
 	if let Some(pid) = maybe_pid {
 		if let Some(game_hwnd) = find_game_hwnd(pid) {
