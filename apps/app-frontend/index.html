@@ -296,6 +296,23 @@
 			) {
 				document.documentElement.classList.add('is-overlay-mode')
 			}
+
+			// Early boot protections
+			window.addEventListener('contextmenu', (e) => e.preventDefault(), { capture: true })
+			window.addEventListener(
+				'keydown',
+				(e) => {
+					if (
+						e.key === 'F5' ||
+						((e.ctrlKey || e.metaKey) && (e.key === 'r' || e.key === 'R')) ||
+						e.key === 'F7'
+					) {
+						e.preventDefault()
+						e.stopPropagation()
+					}
+				},
+				{ capture: true },
+			)
 		</script>
 		<script src="https://tally.so/widgets/embed.js" async></script>
 		<script type="module" src="/src/main.js"></script>

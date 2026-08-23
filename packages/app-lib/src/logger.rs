@@ -23,7 +23,7 @@ pub fn start_logger(_app_identifier: &str) -> Option<()> {
 
     let filter = tracing_subscriber::EnvFilter::try_from_default_env()
         .unwrap_or_else(|_| {
-            tracing_subscriber::EnvFilter::new("theseus=info,theseus_gui=info")
+            tracing_subscriber::EnvFilter::new("theseus=info,freeplay_launcher=info")
         });
     tracing_subscriber::registry()
         .with(tracing_subscriber::fmt::layer())

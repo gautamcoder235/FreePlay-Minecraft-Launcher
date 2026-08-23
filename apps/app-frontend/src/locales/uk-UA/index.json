@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Попереджати мене перед установленням невідомих збірок"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Сервери автентифікації Minecraft можуть зараз не працювати. Перевірте з’єднання з інтернетом та спробуйте пізніше."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Не вдається зв’язатися із серверами автентифікації"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Підтвердження"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Для гри в {name} потрібне оновлення. Будь ласка, оновіть до найновішої версії, щоб запустити гру."
   },
-  "app.nav.create-new-instance": {
-    "message": "Створити новий профіль"
-  },
-  "app.nav.home": {
-    "message": "Головна"
-  },
-  "app.nav.freeplay-account": {
-    "message": "Обліковий запис FreePlay"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "Хостинг FreePlay"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Увійти в обліковий запис FreePlay"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Вхід виконано як <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Новини"
-  },
-  "app.news.view-all": {
-    "message": "Переглянути всі новини"
-  },
   "app.project.install-button.already-installed": {
     "message": "Проєкт уже встановлено"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Перетягніть, щоб змінити розмір"
-  },
-  "app.restarting": {
-    "message": "Перезапуск..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Керування ресурсами"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Грає як"
   },
   "app.skins.add-button": {
     "message": "Додати скін"

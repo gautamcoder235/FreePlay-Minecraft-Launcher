@@ -170,12 +170,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Avise-me antes de instalar pacotes de mods desconhecidos."
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Os servidores de autenticação do Minecraft poderão estar em baixo de momento. Verifica a tua ligação à internet e tenta novamente mais tarde."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Não foi possível alcançar os servidores de autenticação"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "Adicionar servidor à instância"
   },

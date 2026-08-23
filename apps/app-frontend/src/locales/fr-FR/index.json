@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "M'avertir avant d'installer des modpacks inconnus"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Les serveurs d'authentification de Minecraft sont peut-être actuellement hors ligne. Vérifiez votre connexion Internet et essayez à nouveau dans quelques instants."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Impossible de contacter les serveurs d'authentification"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Confirmations"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Une mise à jour est requise pour jouer à {name}. Veuillez mettre à jour vers la dernière version pour lancer le jeu."
   },
-  "app.nav.create-new-instance": {
-    "message": "Créer une nouvelle instance"
-  },
-  "app.nav.home": {
-    "message": "Accueil"
-  },
-  "app.nav.freeplay-account": {
-    "message": "Compte FreePlay"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Se connecter à un compte FreePlay"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Connecté en tant que <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Nouveautés"
-  },
-  "app.news.view-all": {
-    "message": "Voir toutes les nouveautés"
-  },
   "app.project.install-button.already-installed": {
     "message": "Ce projet a déjà été installé"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Faire glisser pour redimensionner"
-  },
-  "app.restarting": {
-    "message": "Redémarrage..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Gestion des ressources"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Joue en tant que"
   },
   "app.skins.add-button": {
     "message": "Ajouter un skin"

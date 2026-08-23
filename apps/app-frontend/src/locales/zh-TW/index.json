@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "在安裝未知模組包前發出警告"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraft 驗證伺服器現在可能無法使用。請檢查網際網路連線，然後再試一次。"
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "無法連線到驗證伺服器"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "確認提示"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "需要更新才能遊玩「{name}」。請更新至最新版本以啟動遊戲。"
   },
-  "app.nav.create-new-instance": {
-    "message": "建立新實例"
-  },
-  "app.nav.home": {
-    "message": "首頁"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay 帳號"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "登入 FreePlay 帳號"
-  },
-  "app.nav.signed-in-as": {
-    "message": "以 <user>{username}</user> 登入"
-  },
-  "app.news.title": {
-    "message": "新聞"
-  },
-  "app.news.view-all": {
-    "message": "查看所有新聞"
-  },
   "app.project.install-button.already-installed": {
     "message": "這個專案已安裝"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "拖曳調整大小"
-  },
-  "app.restarting": {
-    "message": "正在重新啟動..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "資源管理"
-  },
-  "app.sidebar.playing-as": {
-    "message": "目前遊玩帳號"
   },
   "app.skins.add-button": {
     "message": "新增外觀"

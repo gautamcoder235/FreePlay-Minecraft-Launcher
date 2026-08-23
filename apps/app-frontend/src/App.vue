@@ -497,8 +497,6 @@ async function setupApp() {
 		isMaximized.value = await getCurrentWindow().isMaximized()
 	})
 
-	if (!dev) document.addEventListener('contextmenu', (event) => event.preventDefault())
-
 	const osType = await type()
 	if (osType === 'macos') {
 		document.getElementsByTagName('html')[0].classList.add('mac')

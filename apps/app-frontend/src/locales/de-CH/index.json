@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Warne mich, bevor unbekannte Modpacks installiert werden"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Die Authentifizierungsserver von Minecraft sind eventuell momentan nicht erreichbar. Überprüfe deine Internetverbindung und versuche es später erneut."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Authentifizierungsserver sind nicht erreichbar"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Bestätigungen"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Zum Spielen von {name} ist eine Aktualisierung erforderlich. Bitte aktualisiere auf die neueste Version, um das Spiel zu starten."
   },
-  "app.nav.create-new-instance": {
-    "message": "Neue Instanz erstellen"
-  },
-  "app.nav.home": {
-    "message": "Startseite"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay-Konto"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Bei einem FreePlay-Konto anmelden"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Angemeldet als <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Neuigkeiten"
-  },
-  "app.news.view-all": {
-    "message": "Alle Neuigkeiten anzeigen"
-  },
   "app.project.install-button.already-installed": {
     "message": "Dieses Projekt ist bereits installiert"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Ziehen zur Größenänderung"
-  },
-  "app.restarting": {
-    "message": "Wird neu gestartet..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Ressourcenmanagement"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Wird gespielt als"
   },
   "app.skins.add-button": {
     "message": "Skin hinzufügen"

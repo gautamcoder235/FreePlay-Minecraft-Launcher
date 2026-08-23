@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Предупреждение о сторонних сборках"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Серверы аутентификации Minecraft сейчас могут быть недоступны. Проверьте подключение к интернету и повторите попытку позже."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Нет связи с серверами аутентификации"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Подтверждения"
   },
@@ -713,30 +707,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Обновите {name} до последней версии, чтобы запустить игру."
   },
-  "app.nav.create-new-instance": {
-    "message": "Создать новую сборку"
-  },
-  "app.nav.home": {
-    "message": "Главная"
-  },
-  "app.nav.freeplay-account": {
-    "message": "Аккаунт FreePlay"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Войти в аккаунт FreePlay"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Текущий аккаунт: <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Новости"
-  },
-  "app.news.view-all": {
-    "message": "Посмотреть все новости"
-  },
   "app.project.install-button.already-installed": {
     "message": "Этот проект уже установлен"
   },
@@ -766,9 +736,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Потяните для изменения размера"
-  },
-  "app.restarting": {
-    "message": "Перезапуск..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -934,9 +901,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Управление ресурсами"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Текущий аккаунт"
   },
   "app.skins.add-button": {
     "message": "Добавить скин"

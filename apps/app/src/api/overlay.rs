@@ -67,14 +67,42 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 					use windows::Win32::UI::Input::KeyboardAndMouse::{
 						GetAsyncKeyState, VK_F8, VK_LSHIFT, VK_RSHIFT, VK_SHIFT, VK_TAB,
 					};
+					use windows::Win32::UI::WindowsAndMessaging::{
+						GetForegroundWindow, GetWindowThreadProcessId,
+					};
 
 					let mut was_shift_tab_down = false;
 					let mut was_f8_down = false;
 
 					while IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
-						std::thread::sleep(std::time::Duration::from_millis(35));
+						std::thread::sleep(std::time::Duration::from_millis(25));
 						if !IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
 							break;
+						}
+
+						let maybe_game_pid = *state().active_game_pid.blocking_read();
+
+						// Validate that the foreground window belongs to the target game or the overlay
+						let fg_hwnd = unsafe { GetForegroundWindow() };
+						let mut fg_pid = 0u32;
+						unsafe {
+							GetWindowThreadProcessId(fg_hwnd, Some(&mut fg_pid));
+						}
+
+						let is_game_foreground = maybe_game_pid.map_or(false, |pid| pid == fg_pid);
+						let is_overlay_foreground = {
+							if let Some(win) = app_handle.get_webview_window("overlay") {
+								win.hwnd().ok().map_or(false, |h| h.0 as isize == fg_hwnd.0 as isize)
+							} else {
+								false
+							}
+						};
+
+						// Only process hotkeys when either the game client or overlay is active
+						if !is_game_foreground && !is_overlay_foreground && maybe_game_pid.is_some() {
+							was_shift_tab_down = false;
+							was_f8_down = false;
+							continue;
 						}
 
 						let is_shift = unsafe {

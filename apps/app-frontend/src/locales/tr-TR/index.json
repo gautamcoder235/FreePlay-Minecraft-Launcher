@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Bilinmeyen mod paketlerini indirmeden önce beni uyar"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraft doğrulama sunucuları kapalı olabilir. İnternet bağlantını kontrol et ve daha sonra tekrar dene."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Doğrulama sunucularına erişilemedi"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Onaylamalar"
   },
@@ -665,27 +659,6 @@
   "app.modal.update-to-play.update-required": {
     "message": "Güncelleme gerekiyor"
   },
-  "app.nav.home": {
-    "message": "Ana Sayfa"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay hesabı"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Bir FreePlay hesabıyla oturum açın"
-  },
-  "app.nav.signed-in-as": {
-    "message": "<user>{username}</user> olarak oturum açıldı"
-  },
-  "app.news.title": {
-    "message": "Haberler"
-  },
-  "app.news.view-all": {
-    "message": "Tüm haberleri göster"
-  },
   "app.project.install-button.already-installed": {
     "message": "Bu proje zaten kurulu"
   },
@@ -709,9 +682,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Yeniden boyutlandırmak için kaydırın"
-  },
-  "app.restarting": {
-    "message": "Yeniden Başlatılıyor..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Uygulaması {version}"

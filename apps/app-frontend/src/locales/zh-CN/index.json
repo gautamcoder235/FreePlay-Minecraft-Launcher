@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "安装未知整合包前提醒我"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraft 身份验证服务器现在可能无法使用。请检查你的网络连接，并稍后再试。"
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "无法连接到身份验证服务器"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "安全确认"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "为了玩{name}你需要更新。"
   },
-  "app.nav.create-new-instance": {
-    "message": "创建实例"
-  },
-  "app.nav.home": {
-    "message": "首页"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay账户"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "登录FreePlay账户"
-  },
-  "app.nav.signed-in-as": {
-    "message": "以<user>{username}</user>身份登录"
-  },
-  "app.news.title": {
-    "message": "新闻"
-  },
-  "app.news.view-all": {
-    "message": "查看所有新闻"
-  },
   "app.project.install-button.already-installed": {
     "message": "此项目已安装"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "拖拽以调整大小"
-  },
-  "app.restarting": {
-    "message": "正在重启…"
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "资源管理"
-  },
-  "app.sidebar.playing-as": {
-    "message": "游玩账户"
   },
   "app.skins.add-button": {
     "message": "添加皮肤"

@@ -125,7 +125,6 @@ pub enum AppEvent {
         #[cfg_attr(feature = "export-ts", ts(type = "unknown"))] String,
     ),
     Log(LogPayload),
-    AdsConsentRequired(bool),
 }
 
 #[cfg(feature = "export-ts")]

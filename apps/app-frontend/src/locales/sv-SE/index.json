@@ -179,12 +179,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Varna mig innan jag installerar okända modpaket"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecrafts autentiseringsservrar kan vara nere just nu. Kontrollera din internetanslutning och försök igen senare."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Kan ej nå autentiseringsservrarna"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Bekräftelser"
   },
@@ -704,27 +698,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "En uppdatering krävs för att spela {name}. Vänligen uppdatera till den senaste verisoner för att köra spelet."
   },
-  "app.nav.create-new-instance": {
-    "message": "Skapa ny instans"
-  },
-  "app.nav.home": {
-    "message": "Hem"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay-konto"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Logga in till ett FreePlay-konto"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Inloggad som <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Nyheter"
-  },
-  "app.news.view-all": {
-    "message": "Se alla nyheter"
-  },
   "app.project.install-button.already-installed": {
     "message": "Detta projekt är redan installerat"
   },
@@ -748,9 +721,6 @@
   },
   "app.project.versions.already-installed": {
     "message": "Redan installerat"
-  },
-  "app.restarting": {
-    "message": "Startar om..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -838,9 +808,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Resurshantering"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Spelar som"
   },
   "app.skins.add-button": {
     "message": "Lägg till utseende"

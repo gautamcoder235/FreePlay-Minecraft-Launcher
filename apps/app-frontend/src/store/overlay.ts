@@ -2,10 +2,27 @@ import { invoke } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 import { defineStore } from 'pinia'
 
+import {
+	hostingApi,
+	type HostStatus,
+	type PlayitTunnelEntry,
+	type ServerTelemetry,
+	type StartServerPayload,
+	type TrackedPlayer,
+} from '@/helpers/hosting'
+
+export type OverlayMode = 'hidden' | 'passive_hud' | 'quick_panel' | 'full_operator'
 export type OverlayTab = 'servers' | 'addons' | 'telemetry' | 'settings'
+
+export type TelemetryState =
+	| { status: 'unavailable' }
+	| { status: 'loading' }
+	| { status: 'live'; data: ServerTelemetry }
+	| { status: 'error'; message: string }
 
 export interface OverlayState {
 	isOpen: boolean
+	mode: OverlayMode
 	activeTab: OverlayTab
 	activeGamePid: number | null
 	activeInstanceId: string | null
@@ -15,19 +32,38 @@ export interface OverlayState {
 	showAddonsWidget: boolean
 	showTelemetryWidget: boolean
 	showSettingsWidget: boolean
+	showPlayerWidget: boolean
 	sessionStartTime: number
-	systemStats: {
-		fps: number
-		ramUsedMb: number
-		ramTotalMb: number
-		cpuPercent: number
-		pingMs: number
+
+	// Authoritative Server State
+	server: {
+		running: boolean
+		status: HostStatus['serverStatus']
+		version: string
+		serverType: string
+		ramMb: number
+		port: number
+		publicAddress: string | null
+		claimUrl: string | null
+		uptimeSeconds: number
+		players: TrackedPlayer[]
+		logs: string[]
+		tunnels: PlayitTunnelEntry[]
 	}
+
+	// Real Telemetry State Machine
+	telemetry: TelemetryState
+
+	// Operator Controls
+	commandHistory: string[]
+	lastError: string | null
+	isActionPending: boolean
 }
 
 export const useOverlayStore = defineStore('overlayStore', {
 	state: (): OverlayState => ({
 		isOpen: false,
+		mode: 'hidden',
 		activeTab: 'servers',
 		activeGamePid: null,
 		activeInstanceId: null,
@@ -37,14 +73,28 @@ export const useOverlayStore = defineStore('overlayStore', {
 		showAddonsWidget: true,
 		showTelemetryWidget: true,
 		showSettingsWidget: false,
+		showPlayerWidget: true,
 		sessionStartTime: Date.now(),
-		systemStats: {
-			fps: 60,
-			ramUsedMb: 2048,
-			ramTotalMb: 4096,
-			cpuPercent: 18,
-			pingMs: 24,
+
+		server: {
+			running: false,
+			status: 'stopped',
+			version: '1.21.1',
+			serverType: 'Paper',
+			ramMb: 4096,
+			port: 25565,
+			publicAddress: null,
+			claimUrl: null,
+			uptimeSeconds: 0,
+			players: [],
+			logs: [],
+			tunnels: [],
 		},
+
+		telemetry: { status: 'unavailable' },
+		commandHistory: [],
+		lastError: null,
+		isActionPending: false,
 	}),
 
 	getters: {
@@ -58,6 +108,9 @@ export const useOverlayStore = defineStore('overlayStore', {
 			}
 			return `${minutes}m`
 		},
+
+		isServerOnline: (state) => state.server.running || state.server.status === 'running',
+		onlinePlayerCount: (state) => state.server.players.length,
 	},
 
 	actions: {
@@ -71,6 +124,7 @@ export const useOverlayStore = defineStore('overlayStore', {
 					hotkey: string
 				}
 				this.isOpen = state.is_open
+				this.mode = state.is_open ? 'full_operator' : 'hidden'
 				this.activeGamePid = state.active_game_pid
 				this.activeInstanceId = state.active_instance_id
 				this.activeInstanceName = state.active_instance_name
@@ -82,10 +136,14 @@ export const useOverlayStore = defineStore('overlayStore', {
 			try {
 				await listen<boolean>('overlay-state-changed', (event) => {
 					this.isOpen = event.payload
+					this.mode = event.payload ? 'full_operator' : 'hidden'
 				})
 			} catch {
 				// ignore
 			}
+
+			await this.refreshHostStatus()
+			await this.refreshTelemetry()
 		},
 
 		async toggle(forceState?: boolean) {
@@ -94,8 +152,10 @@ export const useOverlayStore = defineStore('overlayStore', {
 					forceState,
 				})) as boolean
 				this.isOpen = newState
+				this.mode = newState ? 'full_operator' : 'hidden'
 			} catch {
 				this.isOpen = forceState ?? !this.isOpen
+				this.mode = this.isOpen ? 'full_operator' : 'hidden'
 			}
 		},
 
@@ -108,11 +168,21 @@ export const useOverlayStore = defineStore('overlayStore', {
 			await this.toggle(true)
 		},
 
-		toggleWidget(widget: 'servers' | 'addons' | 'telemetry' | 'settings') {
+		setMode(newMode: OverlayMode) {
+			this.mode = newMode
+			if (newMode === 'hidden') {
+				this.close()
+			} else {
+				this.isOpen = true
+			}
+		},
+
+		toggleWidget(widget: 'servers' | 'addons' | 'telemetry' | 'settings' | 'players') {
 			if (widget === 'servers') this.showServerWidget = !this.showServerWidget
 			else if (widget === 'addons') this.showAddonsWidget = !this.showAddonsWidget
 			else if (widget === 'telemetry') this.showTelemetryWidget = !this.showTelemetryWidget
 			else if (widget === 'settings') this.showSettingsWidget = !this.showSettingsWidget
+			else if (widget === 'players') this.showPlayerWidget = !this.showPlayerWidget
 		},
 
 		setGameContext(pid: number | null, instanceId: string | null, instanceName: string | null) {
@@ -128,10 +198,103 @@ export const useOverlayStore = defineStore('overlayStore', {
 			}).catch(() => {})
 		},
 
-		updateMockTelemetry() {
-			this.systemStats.fps = Math.floor(58 + Math.random() * 6)
-			this.systemStats.cpuPercent = Math.floor(14 + Math.random() * 12)
-			this.systemStats.pingMs = Math.floor(22 + Math.random() * 8)
+		async refreshHostStatus() {
+			try {
+				const status = await hostingApi.getStatus()
+				this.server.running = status.serverRunning
+				this.server.status = status.serverStatus
+				this.server.serverVersion = status.serverVersion || this.server.version
+				this.server.serverType = status.serverType || this.server.serverType
+				this.server.ramMb = status.serverRamMb || this.server.ramMb
+				this.server.port = status.serverPort || this.server.port
+				this.server.publicAddress = status.publicAddress ?? null
+				this.server.claimUrl = status.claimUrl ?? null
+				this.server.uptimeSeconds = status.uptimeSeconds
+				this.server.players = status.players
+				this.server.tunnels = status.tunnels
+
+				if (status.serverLogs.length > 0) {
+					this.server.logs = status.serverLogs
+				}
+				this.lastError = null
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.lastError = message || 'Failed to communicate with host supervisor'
+			}
+		},
+
+		async refreshTelemetry() {
+			if (!this.server.running && this.server.status !== 'running') {
+				this.telemetry = { status: 'unavailable' }
+				return
+			}
+
+			try {
+				const data = await hostingApi.getTelemetry()
+				this.telemetry = { status: 'live', data }
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.telemetry = { status: 'error', message: message || 'Telemetry unreachable' }
+			}
+		},
+
+		async startDedicatedServer(customPayload?: Partial<StartServerPayload>) {
+			this.isActionPending = true
+			this.lastError = null
+			try {
+				await hostingApi.startServer({
+					version: customPayload?.version || this.server.version,
+					serverType: customPayload?.serverType || this.server.serverType,
+					ramMb: customPayload?.ramMb || this.server.ramMb,
+					port: customPayload?.port || this.server.port,
+				})
+				await this.refreshHostStatus()
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.lastError = `Server start failed: ${message}`
+				await this.refreshHostStatus()
+			} finally {
+				this.isActionPending = false
+			}
+		},
+
+		async stopDedicatedServer() {
+			this.isActionPending = true
+			this.lastError = null
+			try {
+				await hostingApi.stopServer()
+				await this.refreshHostStatus()
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.lastError = `Server stop failed: ${message}`
+				await this.refreshHostStatus()
+			} finally {
+				this.isActionPending = false
+			}
+		},
+
+		async sendConsoleCommand(cmd: string) {
+			const clean = cmd.trim()
+			if (!clean) return
+			this.commandHistory.push(clean)
+
+			try {
+				await hostingApi.sendCommand(clean)
+				this.server.logs.push(`> ${clean}`)
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.server.logs.push(`[Console Error] ${message}`)
+			}
+		},
+
+		async performPlayerAction(action: string, player: string, param?: string) {
+			try {
+				await hostingApi.executePlayerAction(action, player, param)
+				await this.refreshHostStatus()
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.lastError = `Player action failed: ${message}`
+			}
 		},
 	},
 })

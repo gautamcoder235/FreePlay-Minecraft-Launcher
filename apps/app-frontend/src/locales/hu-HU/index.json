@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Figyelmeztetés ismeretlen modcsomagok telepítése előtt"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "A Minecraft hitelesítő szerverek lehet, hogy nem üzemelnek. Bizonyosodj meg róla, hogy van internetkapcsolatod és próbáld meg újra."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Nem lehet elérni a hitelesítési kiszolgálókat"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Megerősítések"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Egy frssítés szükséges a(z) {name} játékprofilhoz. Kérjük, frissítsd a játékot a legújabb verzióra az indításhoz."
   },
-  "app.nav.create-new-instance": {
-    "message": "Új példány létrehozása"
-  },
-  "app.nav.home": {
-    "message": "Kezdőlap"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay fiók"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Bejelentkezés egy FreePlay-fiókba"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Bejelentkezve mint <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Hírek"
-  },
-  "app.news.view-all": {
-    "message": "Összes hír"
-  },
   "app.project.install-button.already-installed": {
     "message": "Ez a projekt már telepítve van"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Átméretezés húzással"
-  },
-  "app.restarting": {
-    "message": "Újraindítás..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Erőforráskezelés"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Játékfiók"
   },
   "app.skins.add-button": {
     "message": "Kinézet hozzáadása"

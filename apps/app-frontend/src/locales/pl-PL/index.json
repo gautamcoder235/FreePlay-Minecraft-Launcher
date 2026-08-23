@@ -185,12 +185,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Ostrzegaj mnie przed instalowaniem nieznanych paczek modów"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Serwery uwierzytelniania Minecraft mogą aktualnie nie działać. Sprawdź swoje połączenie z internetem i spróbuj ponownie później."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Nie udało się połączyć się z serwerami uwierzytelniania"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Potwierdzenia"
   },
@@ -689,30 +683,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Aktualizacja jest wymagana, by grać w {name}. Zaktualizuj do najnowszej wersji, aby uruchomić grę."
   },
-  "app.nav.create-new-instance": {
-    "message": "Utwórz instancję"
-  },
-  "app.nav.home": {
-    "message": "Strona główna"
-  },
-  "app.nav.freeplay-account": {
-    "message": "Konto FreePlay"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Zaloguj się na konto FreePlay"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Zalogowano jako <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Aktualności"
-  },
-  "app.news.view-all": {
-    "message": "Zobacz wszystkie aktualności"
-  },
   "app.project.install-button.already-installed": {
     "message": "Ten projekt jest już zainstalowany"
   },
@@ -736,9 +706,6 @@
   },
   "app.project.versions.already-installed": {
     "message": "Już zainstalowano"
-  },
-  "app.restarting": {
-    "message": "Uruchamianie ponowne..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -832,9 +799,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Zarządzanie zasobami"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Graj jako"
   },
   "app.skins.add-button": {
     "message": "Dodaj skórkę"

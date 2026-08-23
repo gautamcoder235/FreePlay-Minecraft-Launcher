@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Advertir antes de instalar modpacks desconocidos"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Los servidores de autenticación de Minecraft pueden no estar funcionando en este momento. Verifica tu conexión a internet e inténtalo de nuevo más tarde."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "No se puede acceder a los servidores de autenticación"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Confirmaciones"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Se necesita una actualización para jugar en {name}. Por favor actualiza a a la versión más reciente para iniciar el juego."
   },
-  "app.nav.create-new-instance": {
-    "message": "Crear una instancia nueva"
-  },
-  "app.nav.home": {
-    "message": "Inicio"
-  },
-  "app.nav.freeplay-account": {
-    "message": "Cuenta FreePlay"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Inicia sesión con una cuenta FreePlay"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Sesión iniciada como <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Noticias"
-  },
-  "app.news.view-all": {
-    "message": "Ver todas las noticias"
-  },
   "app.project.install-button.already-installed": {
     "message": "Este proyecto ya está instalado"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Arrastra para cambiar el tamaño"
-  },
-  "app.restarting": {
-    "message": "Reiniciando..."
   },
   "app.settings.app-version": {
     "message": "App de FreePlay {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Gestión de recursos"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Jugando como"
   },
   "app.skins.add-button": {
     "message": "Añadir skin"

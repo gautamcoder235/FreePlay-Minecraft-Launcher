@@ -2779,6 +2779,47 @@ dependencies = [
 ]
 
 [[package]]
+name = "freeplay_launcher"
+version = "1.0.0-local"
+dependencies = [
+ "async_zip",
+ "chrono",
+ "daedalus",
+ "dashmap",
+ "either",
+ "enumset",
+ "hyper",
+ "hyper-util",
+ "native-dialog",
+ "paste",
+ "path-util",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-deep-link",
+ "tauri-plugin-dialog",
+ "tauri-plugin-fs",
+ "tauri-plugin-http",
+ "tauri-plugin-opener",
+ "tauri-plugin-os",
+ "tauri-plugin-single-instance",
+ "tauri-plugin-updater",
+ "tauri-plugin-window-state",
+ "theseus",
+ "thiserror 2.0.17",
+ "tokio",
+ "tracing",
+ "tracing-error",
+ "url",
+ "urlencoding",
+ "uuid 1.23.3",
+ "windows",
+ "windows-core 0.61.2",
+]
+
+[[package]]
 name = "fs4"
 version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8799,51 +8840,6 @@ dependencies = [
  "winreg 0.55.0",
  "zbus",
  "zip 6.0.0",
-]
-
-[[package]]
-name = "theseus_gui"
-version = "1.0.0-local"
-dependencies = [
- "async_zip",
- "chrono",
- "core-foundation 0.10.1",
- "core-graphics",
- "daedalus",
- "dashmap",
- "either",
- "enumset",
- "hyper",
- "hyper-util",
- "native-dialog",
- "objc2-app-kit",
- "paste",
- "path-util",
- "serde",
- "serde_json",
- "serde_with",
- "tauri",
- "tauri-build",
- "tauri-plugin-deep-link",
- "tauri-plugin-dialog",
- "tauri-plugin-fs",
- "tauri-plugin-http",
- "tauri-plugin-opener",
- "tauri-plugin-os",
- "tauri-plugin-single-instance",
- "tauri-plugin-updater",
- "tauri-plugin-window-state",
- "theseus",
- "thiserror 2.0.17",
- "tokio",
- "tracing",
- "tracing-error",
- "url",
- "urlencoding",
- "uuid 1.23.3",
- "webview2-com",
- "windows",
- "windows-core 0.61.2",
 ]
 
 [[package]]

@@ -89,12 +89,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Advar meg før jeg installerer ukjente modpakker"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraft-autentiseringsservere kan være nede for øyeblikket. Kontroller internettforbindelsen din og prøv igjen senere."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Kan ikke nå autentiseringsservere"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "Legger til server til tilfelle"
   },

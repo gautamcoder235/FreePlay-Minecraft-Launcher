@@ -62,9 +62,9 @@
 			}
 		]
 	},
-	"productName": "FreePlay Launcher",
+	"productName": "FreePlay launcher",
 	"version": "../app-frontend/package.json",
-	"mainBinaryName": "FreePlay Launcher",
+	"mainBinaryName": "FreePlay launcher",
 	"identifier": "FreePlayLauncher",
 	"plugins": {
 		"deep-link": {
@@ -126,7 +126,6 @@
 				"enable": true
 			},
 			"capabilities": [
-				"ads",
 				"core",
 				"plugins"
 			],

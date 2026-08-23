@@ -116,12 +116,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Upozorni mě před instalací neznámých modpacků"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Ověřovací Minecraft servery mohou být právě teď nedostupné. Zkontroluj si své připojení k internetu a zkus to znovu později."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Nelze se připojit k ověřovacím serverům"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "Přidání serveru do instance"
   },

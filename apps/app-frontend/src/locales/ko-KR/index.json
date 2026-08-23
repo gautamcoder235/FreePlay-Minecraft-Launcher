@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "출처를 알 수 없는 모드팩 설치 전 경고"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraft 인증 서버가 일시적으로 중단되었을 수 있습니다. 인터넷 연결을 확인한 후 나중에 다시 시도하세요."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "인증 서버에 연결할 수 없습니다"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "확인 알림"
   },
@@ -719,30 +713,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "{name} 플레이를 진행하려면 업데이트가 필요합니다. 게임을 실행하려면 최신 버전 업데이트를 진행하세요."
   },
-  "app.nav.create-new-instance": {
-    "message": "새 인스턴스 만들기"
-  },
-  "app.nav.home": {
-    "message": "홈"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay 계정"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay 호스팅"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "FreePlay 계정으로 로그인"
-  },
-  "app.nav.signed-in-as": {
-    "message": "<user>{username}</user> 으로 로그인됨"
-  },
-  "app.news.title": {
-    "message": "뉴스"
-  },
-  "app.news.view-all": {
-    "message": "모든 뉴스 보기"
-  },
   "app.project.install-button.already-installed": {
     "message": "이미 설치되어 있음"
   },
@@ -772,9 +742,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "드래그하여 크기 조절"
-  },
-  "app.restarting": {
-    "message": "재시작 중..."
   },
   "app.settings.app-version": {
     "message": "FreePlay 앱 {version}"
@@ -940,9 +907,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "리소스 관리"
-  },
-  "app.sidebar.playing-as": {
-    "message": "플레이 중인 계정은"
   },
   "app.skins.add-button": {
     "message": "스킨 추가"

@@ -101,12 +101,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "เตือนฉันก่อนติดตั้งแพ็กม็อดที่ไม่รู้จัก"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "เซิร์ฟเวอร์ตรวจสอบสิทธิ์ของ Minecraft อาจใช้งานไม่ได้ในขณะนี้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณและลองใหม่อีกครั้งในภายหลัง"
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "ไม่สามารถเชื่อมต่อถึงเซิร์ฟเวอร์ได้"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "เพิ่มเซิร์ฟเวอร์ลงในอินสแตนซ์"
   },

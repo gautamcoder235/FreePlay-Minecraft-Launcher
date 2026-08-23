@@ -113,20 +113,30 @@ async function handleLaunch(instanceId: string) {
 useAppEvent('process', loadData)
 useAppEvent('instance', loadData)
 
+let pendingLoadData = false
+function debouncedLoadData() {
+	if (document.hidden || pendingLoadData) return
+	pendingLoadData = true
+	requestAnimationFrame(() => {
+		pendingLoadData = false
+		loadData()
+	})
+}
+
 onMounted(() => {
 	accountStore.init()
 	loadData()
 	window.addEventListener('online', updateOnlineStatus)
 	window.addEventListener('offline', updateOnlineStatus)
-	window.addEventListener('focus', loadData)
-	window.addEventListener('visibilitychange', loadData)
+	window.addEventListener('focus', debouncedLoadData)
+	window.addEventListener('visibilitychange', debouncedLoadData)
 })
 
 onUnmounted(() => {
 	window.removeEventListener('online', updateOnlineStatus)
 	window.removeEventListener('offline', updateOnlineStatus)
-	window.removeEventListener('focus', loadData)
-	window.removeEventListener('visibilitychange', loadData)
+	window.removeEventListener('focus', debouncedLoadData)
+	window.removeEventListener('visibilitychange', debouncedLoadData)
 })
 </script>
 

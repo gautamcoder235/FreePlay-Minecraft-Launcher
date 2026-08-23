@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "不明なModパックのインストール前に警告する"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraftの認証サーバーは現在停止している可能性があります。インターネット接続を確認し、しばらくしてからもう一度お試しください。"
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "認証サーバーにアクセスできません"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "操作の確認"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "{name}をプレイするにはアップデートが必要です。ゲームを起動するには最新バージョンにアップデートしてください。"
   },
-  "app.nav.create-new-instance": {
-    "message": "新しいインスタンスを作成"
-  },
-  "app.nav.home": {
-    "message": "ホーム"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlayアカウント"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "FreePlayアカウントにサインイン"
-  },
-  "app.nav.signed-in-as": {
-    "message": "<user>{username}</user>としてサインイン中"
-  },
-  "app.news.title": {
-    "message": "ニュース"
-  },
-  "app.news.view-all": {
-    "message": "全てのニュースを見る"
-  },
   "app.project.install-button.already-installed": {
     "message": "このプロジェクトは既にインストールされています"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "ドラッグしてサイズ変更"
-  },
-  "app.restarting": {
-    "message": "再起動中..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "リソース管理"
-  },
-  "app.sidebar.playing-as": {
-    "message": "プレイ中のアカウント"
   },
   "app.skins.add-button": {
     "message": "スキンを追加"

@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Waarschuw mij voordat ik onbekende modpacks installeer"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraft authenticatie servers zijn mogelijk offline. Controleer je internetverbinding en probeer opnieuw later."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Authenticatieservers kunnen niet worden bereikt"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Bevestigingen"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Er is een update nodig om {name} te spelen. Werk het spel bij naar de nieuwste versie om het te kunnen starten."
   },
-  "app.nav.create-new-instance": {
-    "message": "Nieuwe instantie aanmaken"
-  },
-  "app.nav.home": {
-    "message": "Start"
-  },
-  "app.nav.freeplay-account": {
-    "message": "FreePlay-account"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Meld je aan bij een FreePlay-account"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Aangemeld als <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Nieuws"
-  },
-  "app.news.view-all": {
-    "message": "Al het nieuws bekijken"
-  },
   "app.project.install-button.already-installed": {
     "message": "Dit project is al geïnstalleerd"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Sleep om formaat aan te passen"
-  },
-  "app.restarting": {
-    "message": "Opnieuw opstarten..."
   },
   "app.settings.app-version": {
     "message": "FreePlay-app {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Bronnenbeheer"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Spelen als"
   },
   "app.skins.add-button": {
     "message": "Skin toevoegen"

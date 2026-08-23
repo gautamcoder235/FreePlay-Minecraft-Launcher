@@ -95,12 +95,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Beri saya amaran sebelum memasang pek mod yang tidak diketahui"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Pelayan pengesahan Minecraft mungkin sedang tergendala sekarang. Periksa sambungan internet anda dan cuba lagi kemudian."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Tidak dapat mencapai pelayan pengesahan"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "Menambah pelayan ke dalam pemasangan"
   },
@@ -268,12 +262,6 @@
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Ditambah"
-  },
-  "app.nav.home": {
-    "message": "Laman utama"
-  },
-  "app.news.title": {
-    "message": "Berita"
   },
   "app.project.install-button.already-installed": {
     "message": "Projek ini sudah dipasang"

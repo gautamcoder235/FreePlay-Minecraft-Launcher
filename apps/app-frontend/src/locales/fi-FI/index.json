@@ -116,12 +116,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Varoita minua ennen tuntemattomien modipakettien asentamista"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Minecraftin todennuspalvelimet eivät ehkä ole tällä hetkellä tavoitettavissa. Tarkista internetyhteytesi ja yritä myöhemmin uudelleen."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Todennuspalvelimiin ei saada yhteyttä"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "Lisää palvelin instanssiin"
   },

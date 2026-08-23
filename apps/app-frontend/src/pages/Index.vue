@@ -173,14 +173,24 @@ useAppEvent('instance', fetchInstances)
 useAppEvent('instance_groups_changed', fetchInstances)
 useAppEvent('process', fetchProcesses)
 
+let pendingFetchProcesses = false
+function debouncedFetchProcesses() {
+	if (document.hidden || pendingFetchProcesses) return
+	pendingFetchProcesses = true
+	requestAnimationFrame(() => {
+		pendingFetchProcesses = false
+		fetchProcesses()
+	})
+}
+
 onMounted(() => {
-	window.addEventListener('focus', fetchProcesses)
-	window.addEventListener('visibilitychange', fetchProcesses)
+	window.addEventListener('focus', debouncedFetchProcesses)
+	window.addEventListener('visibilitychange', debouncedFetchProcesses)
 })
 
 onUnmounted(() => {
-	window.removeEventListener('focus', fetchProcesses)
-	window.removeEventListener('visibilitychange', fetchProcesses)
+	window.removeEventListener('focus', debouncedFetchProcesses)
+	window.removeEventListener('visibilitychange', debouncedFetchProcesses)
 })
 
 async function handleLaunchHero() {

@@ -44,12 +44,6 @@
   "app.action-bar.view-logs": {
     "message": "Vezi jurnalele"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Serverele de autentificare Minecraft pot fi indisponibile în acest moment. Verificați conexiunea la internet și încercați din nou mai târziu."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Nu se pot accesa serverele de autentificare"
-  },
   "app.browse.added": {
     "message": "Adăugat"
   },

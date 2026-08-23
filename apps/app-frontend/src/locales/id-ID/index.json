@@ -86,12 +86,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Peringatkan saya sebelum memasang paket mod tidak dikenal"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Server autentikasi Minecraft mungkin sedang tidak tersedia saat ini. Periksa koneksi internet Anda dan coba lagi nanti."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Tidak dapat terhubung ke server autentikasi"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "Menambah server ke instans"
   },

@@ -23,12 +23,6 @@
   "app.appearance-settings.jump-back-into-worlds.title": {
     "message": "חזרה לעולמות"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "ייתכן ששרתי האימות של Minecraft מושבתים כרגע. יש לבדוק את חיבור האינטרנט שלך ולנסות שוב מאוחר יותר."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "לא ניתן לגשת לשרתי האימות"
-  },
   "app.browse.add-to-instance": {
     "message": "הוספה להתקנה"
   },

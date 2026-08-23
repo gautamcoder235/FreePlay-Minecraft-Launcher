@@ -89,12 +89,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Pakipaalala bago ko ma-install ang mga di-kilalang modpack"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Maaaring hindi maaabot ang mga authentication server ng Minecraft sa ngayon. Tingnan mo ang iyong internet connection at muling subukan mamaya."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Hindi maabot ang mga authentication server"
-  },
   "app.browse.add-servers-to-instance": {
     "message": "Idinaragdag ang server sa instansiya"
   },

@@ -188,12 +188,6 @@
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Avise-me antes de instalar pacotes de mods desconhecidos"
   },
-  "app.auth-servers.unreachable.body": {
-    "message": "Os servidores de autenticação do Minecraft talvez estejam indisponíveis no momento. Verifique sua conexão com a internet e tente novamente mais tarde."
-  },
-  "app.auth-servers.unreachable.header": {
-    "message": "Não foi possível acessar os servidores de autenticação"
-  },
   "app.behavior-settings.confirmations.title": {
     "message": "Confirmações"
   },
@@ -722,30 +716,6 @@
   "app.modal.update-to-play.update-required-description": {
     "message": "Uma atualização é necessária para jogar {name}. Atualize para a versão mais recente para iniciar o jogo."
   },
-  "app.nav.create-new-instance": {
-    "message": "Criar instância nova"
-  },
-  "app.nav.home": {
-    "message": "Início"
-  },
-  "app.nav.freeplay-account": {
-    "message": "Conta FreePlay"
-  },
-  "app.nav.freeplay-hosting": {
-    "message": "FreePlay Server Hosting"
-  },
-  "app.nav.sign-in-to-freeplay-account": {
-    "message": "Iniciar sessão em uma conta FreePlay"
-  },
-  "app.nav.signed-in-as": {
-    "message": "Conectado como <user>{username}</user>"
-  },
-  "app.news.title": {
-    "message": "Notícias"
-  },
-  "app.news.view-all": {
-    "message": "Ver todas as notícias"
-  },
   "app.project.install-button.already-installed": {
     "message": "Este projeto já foi instalado"
   },
@@ -775,9 +745,6 @@
   },
   "app.quick-instance-switcher.drag-tooltip": {
     "message": "Arraste para redimensionar"
-  },
-  "app.restarting": {
-    "message": "Reiniciando..."
   },
   "app.settings.app-version": {
     "message": "FreePlay Launcher {version}"
@@ -943,9 +910,6 @@
   },
   "app.settings.tabs.resource-management": {
     "message": "Gerenciamento de recursos"
-  },
-  "app.sidebar.playing-as": {
-    "message": "Jogando como"
   },
   "app.skins.add-button": {
     "message": "Adicionar skin"
