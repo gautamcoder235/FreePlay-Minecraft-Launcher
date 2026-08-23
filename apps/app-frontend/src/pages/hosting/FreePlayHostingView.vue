@@ -3128,7 +3128,9 @@
 									</svg>
 								</div>
 								<div>
-									<h3 class="text-lg font-bold text-white m-0">Modrinth Addon Catalog</h3>
+									<h3 class="text-base font-bold font-lemon-milk tracking-wide text-white m-0">
+										Modrinth Addon Catalog
+									</h3>
 									<p class="text-xs text-zinc-400 m-0">
 										Compatible with
 										<span class="text-purple-300 font-semibold"
@@ -3305,7 +3307,9 @@
 						</div>
 
 						<!-- Catalog Items List -->
-						<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-[350px]">
+						<div
+							class="addon-catalog-scroll flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-[350px]"
+						>
 							<div
 								v-if="searchingCatalog"
 								class="flex flex-col items-center justify-center py-20 gap-3 text-zinc-400"
@@ -3437,6 +3441,26 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- Catalog Pagination Footer -->
+						<div
+							v-if="catalogTotalHits > catalogLimit"
+							class="p-4 border-t border-white/10 bg-[var(--surface-1)]/50 flex items-center justify-between gap-4 flex-wrap"
+						>
+							<div class="text-xs text-zinc-400">
+								Showing page <span class="font-bold text-white">{{ catalogCurrentPage }}</span> of
+								<span class="font-bold text-white">{{ catalogPageCount }}</span>
+								<span class="text-zinc-500 ml-1"
+									>({{ catalogTotalHits.toLocaleString() }} total addons)</span
+								>
+							</div>
+
+							<Pagination
+								:page="catalogCurrentPage"
+								:count="catalogPageCount"
+								@switch-page="handleCatalogPageChange"
+							/>
+						</div>
 					</div>
 				</div>
 			</transition>
@@ -3445,6 +3469,7 @@
 </template>
 
 <script setup lang="ts">
+import { Pagination } from '@freeplay/ui'
 import { invoke } from '@tauri-apps/api/core'
 import { open } from '@tauri-apps/plugin-dialog'
 import { computed, h, nextTick, onMounted, onUnmounted, ref } from 'vue'
@@ -4744,11 +4769,26 @@ const browseCatalogQuery = ref('')
 const catalogResults = ref<Record<string, unknown>[]>([])
 const searchingCatalog = ref(false)
 const installingAddonId = ref<string | null>(null)
+const catalogCurrentPage = ref(1)
+const catalogTotalHits = ref(0)
+const catalogLimit = 20
+const catalogPageCount = computed(() =>
+	Math.max(1, Math.ceil(catalogTotalHits.value / catalogLimit)),
+)
 
 function setCatalogVersionFilter(filter: 'server' | 'all') {
 	catalogVersionFilter.value = filter
 	catalogVersionDropdownOpen.value = false
-	void searchModrinthAddons()
+	void searchModrinthAddons(true)
+}
+
+function handleCatalogPageChange(newPage: number) {
+	catalogCurrentPage.value = newPage
+	void searchModrinthAddons(false)
+	const container = document.querySelector('.addon-catalog-scroll')
+	if (container) {
+		container.scrollTop = 0
+	}
 }
 
 const filteredAddons = computed(() => {
@@ -4913,7 +4953,10 @@ function openAddonCatalog() {
 	searchModrinthAddons()
 }
 
-async function searchModrinthAddons() {
+async function searchModrinthAddons(resetPage = true) {
+	if (resetPage) {
+		catalogCurrentPage.value = 1
+	}
 	searchingCatalog.value = true
 	try {
 		const engine = (serverState.value.engine || 'PaperMC').toLowerCase()
@@ -4944,12 +4987,14 @@ async function searchModrinthAddons() {
 			facets.push([`versions:${serverState.value.version}`])
 		}
 
+		const offset = (catalogCurrentPage.value - 1) * catalogLimit
 		const queryParam = browseCatalogQuery.value.trim()
-		const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(queryParam)}&facets=${encodeURIComponent(JSON.stringify(facets))}&limit=24`
+		const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(queryParam)}&facets=${encodeURIComponent(JSON.stringify(facets))}&limit=${catalogLimit}&offset=${offset}`
 		const res = await fetch(url)
 		if (res.ok) {
 			const data = await res.json()
 			catalogResults.value = data.hits || []
+			catalogTotalHits.value = data.total_hits || 0
 		}
 	} catch (e) {
 		console.error('Failed to search Modrinth addons:', e)
