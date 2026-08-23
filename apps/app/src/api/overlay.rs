@@ -303,10 +303,20 @@ pub async fn overlay_toggle<R: tauri::Runtime>(
 			#[cfg(windows)]
 			if let Some(raw) = hwnd_raw {
 				apply_click_through(raw, true);
-				if let Some(pid) = maybe_pid {
-					if let Some(game_hwnd) = find_game_hwnd(pid) {
-						unsafe {
-							let _ = SetForegroundWindow(game_hwnd);
+
+				// Only restore foreground focus to the game if the overlay itself was focused
+				// (i.e. intentional in-game dismissal via hotkey, ESC, or dock button).
+				// If the user Alt+Tabbed or clicked another application, do NOT steal focus back!
+				let fg = unsafe { GetForegroundWindow() };
+				let overlay_hwnd = HWND(raw as _);
+				let is_explicit_dismissal = fg == overlay_hwnd || fg.0 == 0 as _;
+
+				if is_explicit_dismissal {
+					if let Some(pid) = maybe_pid {
+						if let Some(game_hwnd) = find_game_hwnd(pid) {
+							unsafe {
+								let _ = SetForegroundWindow(game_hwnd);
+							}
 						}
 					}
 				}
