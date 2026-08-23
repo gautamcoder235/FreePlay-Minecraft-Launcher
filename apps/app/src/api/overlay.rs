@@ -11,10 +11,11 @@ use windows::core::BOOL;
 use windows::Win32::Foundation::{HWND, LPARAM, RECT};
 #[cfg(windows)]
 use windows::Win32::UI::WindowsAndMessaging::{
-	EnumWindows, GetClientRect, GetWindowLongPtrW, GetWindowRect, GetWindowThreadProcessId,
-	IsWindowVisible, SetForegroundWindow, SetWindowLongPtrW, SetWindowPos, GWL_EXSTYLE,
-	HWND_TOPMOST, SWP_FRAMECHANGED, SWP_NOACTIVATE, SWP_NOMOVE, SWP_NOSIZE, SWP_SHOWWINDOW,
-	WS_EX_LAYERED, WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW, WS_EX_TOPMOST, WS_EX_TRANSPARENT,
+	EnumWindows, GetClientRect, GetForegroundWindow, GetWindowLongPtrW, GetWindowRect,
+	GetWindowTextW, GetWindowThreadProcessId, IsWindowVisible, SetForegroundWindow,
+	SetWindowLongPtrW, SetWindowPos, GWL_EXSTYLE, HWND_TOPMOST, SWP_FRAMECHANGED,
+	SWP_NOACTIVATE, SWP_NOMOVE, SWP_NOSIZE, SWP_SHOWWINDOW, WS_EX_LAYERED,
+	WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW, WS_EX_TOPMOST, WS_EX_TRANSPARENT,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
@@ -67,42 +68,14 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 					use windows::Win32::UI::Input::KeyboardAndMouse::{
 						GetAsyncKeyState, VK_F8, VK_LSHIFT, VK_RSHIFT, VK_SHIFT, VK_TAB,
 					};
-					use windows::Win32::UI::WindowsAndMessaging::{
-						GetForegroundWindow, GetWindowThreadProcessId,
-					};
 
 					let mut was_shift_tab_down = false;
 					let mut was_f8_down = false;
 
 					while IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
-						std::thread::sleep(std::time::Duration::from_millis(25));
+						std::thread::sleep(std::time::Duration::from_millis(35));
 						if !IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
 							break;
-						}
-
-						let maybe_game_pid = *state().active_game_pid.blocking_read();
-
-						// Validate that the foreground window belongs to the target game or the overlay
-						let fg_hwnd = unsafe { GetForegroundWindow() };
-						let mut fg_pid = 0u32;
-						unsafe {
-							GetWindowThreadProcessId(fg_hwnd, Some(&mut fg_pid));
-						}
-
-						let is_game_foreground = maybe_game_pid.map_or(false, |pid| pid == fg_pid);
-						let is_overlay_foreground = {
-							if let Some(win) = app_handle.get_webview_window("overlay") {
-								win.hwnd().ok().map_or(false, |h| h.0 as isize == fg_hwnd.0 as isize)
-							} else {
-								false
-							}
-						};
-
-						// Only process hotkeys when either the game client or overlay is active
-						if !is_game_foreground && !is_overlay_foreground && maybe_game_pid.is_some() {
-							was_shift_tab_down = false;
-							was_f8_down = false;
-							continue;
 						}
 
 						let is_shift = unsafe {
@@ -170,14 +143,40 @@ unsafe extern "system" fn enum_windows_callback(hwnd: HWND, lparam: LPARAM) -> B
 
 #[cfg(windows)]
 fn find_game_hwnd(pid: u32) -> Option<HWND> {
-	let mut payload = (pid, None::<isize>);
-	unsafe {
-		let _ = EnumWindows(
-			Some(enum_windows_callback),
-			LPARAM(&mut payload as *mut _ as isize),
-		);
+	if pid > 0 {
+		let mut payload = (pid, None::<isize>);
+		unsafe {
+			let _ = EnumWindows(
+				Some(enum_windows_callback),
+				LPARAM(&mut payload as *mut _ as isize),
+			);
+		}
+		if let Some(raw) = payload.1 {
+			return Some(HWND(raw as _));
+		}
 	}
-	payload.1.map(|raw| HWND(raw as _))
+
+	// Fallback: Check if the active foreground window is Minecraft
+	unsafe {
+		let fg = GetForegroundWindow();
+		if fg.0 != 0 as _ {
+			let mut title_buf = [0u16; 512];
+			let len = GetWindowTextW(fg, &mut title_buf);
+			if len > 0 {
+				let title = String::from_utf16_lossy(&title_buf[..len as usize]);
+				if title.contains("Minecraft")
+					|| title.contains("FreePlay")
+					|| title.contains("Fabric")
+					|| title.contains("Forge")
+					|| title.contains("Paper")
+				{
+					return Some(fg);
+				}
+			}
+		}
+	}
+
+	None
 }
 
 #[cfg(windows)]

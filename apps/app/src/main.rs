@@ -111,13 +111,13 @@ fn main() {
             if std::env::var_os("WEBVIEW2_DEFAULT_BACKGROUND_COLOR").is_none() {
                 std::env::set_var(
                     "WEBVIEW2_DEFAULT_BACKGROUND_COLOR",
-                    "FF090B0F",
+                    "00000000",
                 );
             }
             if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
                 std::env::set_var(
                     "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
-                    "--force-dark-mode --disable-features=CalculateNativeWinOcclusion",
+                    "--disable-features=CalculateNativeWinOcclusion",
                 );
             }
         }

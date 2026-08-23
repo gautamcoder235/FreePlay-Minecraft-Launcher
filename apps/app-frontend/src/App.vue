@@ -139,12 +139,28 @@ function updateHistoryNavigationState() {
 updateHistoryNavigationState()
 
 const isOverlay = computed(() => {
+	if (typeof window !== 'undefined') {
+		if (
+			window.location.pathname.includes('overlay') ||
+			window.location.hash.includes('overlay') ||
+			window.location.search.includes('overlay')
+		) {
+			return true
+		}
+	}
 	try {
-		return route.path === '/overlay' || getCurrentWindow().label === 'overlay'
+		return route.path.includes('/overlay') || getCurrentWindow()?.label === 'overlay'
 	} catch {
-		return route.path === '/overlay'
+		return route.path.includes('/overlay')
 	}
 })
+
+if (typeof window !== 'undefined' && isOverlay.value) {
+	document.documentElement.classList.add('is-overlay-mode')
+	if (document.body) {
+		document.body.style.backgroundColor = 'transparent'
+	}
+}
 
 const APP_LEFT_NAV_WIDTH = '4rem'
 const APP_SIDEBAR_WIDTH = 300

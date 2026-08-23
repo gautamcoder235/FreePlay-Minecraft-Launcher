@@ -6,6 +6,16 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>FreePlay Minecraft Launcher</title>
+		<script>
+			if (
+				window.location.pathname.includes('overlay') ||
+				window.location.hash.includes('overlay') ||
+				window.location.search.includes('overlay') ||
+				window.location.href.includes('overlay')
+			) {
+				document.documentElement.classList.add('is-overlay-mode')
+			}
+		</script>
 
 		<style>
 			html,
@@ -22,7 +32,8 @@
 
 			html.is-overlay-mode,
 			html.is-overlay-mode body,
-			html.is-overlay-mode #app {
+			html.is-overlay-mode #app,
+			html.is-overlay-mode #teleports {
 				background: transparent !important;
 				background-color: transparent !important;
 			}

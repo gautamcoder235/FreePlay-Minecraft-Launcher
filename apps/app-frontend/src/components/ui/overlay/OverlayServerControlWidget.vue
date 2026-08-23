@@ -3,6 +3,7 @@ import {
 	AlertTriangleIcon,
 	CheckIcon,
 	ClipboardCopyIcon,
+	GlobeIcon,
 	GripVerticalIcon,
 	PlayIcon,
 	RefreshCwIcon,
@@ -210,31 +211,60 @@ onUnmounted(() => {
 			</button>
 		</div>
 
-		<!-- 2. Connection Info Card -->
+		<!-- 2. Connection Info Card with Tunnel Toggle -->
 		<div
 			class="p-3 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between gap-3"
 		>
-			<div class="flex flex-col min-w-0">
-				<span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider"
-					>P2P Anycast IP</span
-				>
+			<div class="flex flex-col min-w-0 flex-1">
+				<div class="flex items-center gap-1.5">
+					<span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+						{{ overlayStore.server.publicAddress ? 'Online Anycast Tunnel' : 'Local Host Address' }}
+					</span>
+					<span
+						v-if="overlayStore.server.publicAddress"
+						class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+					></span>
+				</div>
 				<span class="text-xs font-mono text-white/90 truncate select-all">{{
 					connectionAddress
 				}}</span>
 			</div>
-			<button
-				class="text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all shrink-0 cursor-pointer border flex items-center gap-1.5 shadow-sm"
-				:class="
-					copied
-						? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
-						: 'bg-white/10 hover:bg-white/20 text-white border-white/10'
-				"
-				@click="copyIp"
-			>
-				<CheckIcon v-if="copied" class="w-3 h-3 text-emerald-400" />
-				<ClipboardCopyIcon v-else class="w-3 h-3 text-slate-300" />
-				<span>{{ copied ? 'Copied' : 'Copy IP' }}</span>
-			</button>
+			<div class="flex items-center gap-1.5 shrink-0">
+				<button
+					class="text-[11px] px-2.5 py-1.5 rounded-lg font-semibold transition-all cursor-pointer border flex items-center gap-1 shadow-sm"
+					:class="
+						copied
+							? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+							: 'bg-white/10 hover:bg-white/20 text-white border-white/10'
+					"
+					@click="copyIp"
+				>
+					<CheckIcon v-if="copied" class="w-3 h-3 text-emerald-400" />
+					<ClipboardCopyIcon v-else class="w-3 h-3 text-slate-300" />
+					<span>{{ copied ? 'Copied' : 'Copy' }}</span>
+				</button>
+
+				<button
+					v-if="overlayStore.server.publicAddress"
+					class="text-[11px] px-2.5 py-1.5 rounded-lg font-semibold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+					title="Disconnect Playit online IP (Send terminal q -> y)"
+					:disabled="overlayStore.isActionPending"
+					@click="overlayStore.stopTunnel()"
+				>
+					<GlobeIcon class="w-3 h-3 text-rose-400" />
+					<span>Close Online IP</span>
+				</button>
+				<button
+					v-else
+					class="text-[11px] px-2.5 py-1.5 rounded-lg font-semibold bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/30 transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+					title="Start Playit online Anycast tunnel"
+					:disabled="overlayStore.isActionPending"
+					@click="overlayStore.startTunnel()"
+				>
+					<GlobeIcon class="w-3 h-3 text-indigo-400" />
+					<span>Go Online</span>
+				</button>
+			</div>
 		</div>
 
 		<!-- Quick Server Macro Presets -->

@@ -287,6 +287,40 @@ export const useOverlayStore = defineStore('overlayStore', {
 			}
 		},
 
+		async startTunnel(port?: number) {
+			this.isActionPending = true
+			this.lastError = null
+			try {
+				const status = await hostingApi.startTunnel(port || this.server.port)
+				this.server.publicAddress = status.publicAddress
+				this.server.claimUrl = status.claimUrl
+				this.server.tunnels = status.tunnels
+				await this.refreshHostStatus()
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.lastError = `Failed to start tunnel: ${message}`
+			} finally {
+				this.isActionPending = false
+			}
+		},
+
+		async stopTunnel() {
+			this.isActionPending = true
+			this.lastError = null
+			try {
+				await hostingApi.stopTunnel()
+				this.server.publicAddress = null
+				this.server.claimUrl = null
+				this.server.tunnels = []
+				await this.refreshHostStatus()
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.lastError = `Failed to stop tunnel: ${message}`
+			} finally {
+				this.isActionPending = false
+			}
+		},
+
 		async performPlayerAction(action: string, player: string, param?: string) {
 			try {
 				await hostingApi.executePlayerAction(action, player, param)

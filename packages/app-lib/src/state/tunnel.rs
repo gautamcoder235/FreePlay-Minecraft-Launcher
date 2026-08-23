@@ -110,6 +110,7 @@ pub struct ServerHostingState {
     pub current_ram_mb: Arc<RwLock<u32>>,
     pub current_port: Arc<RwLock<u16>>,
     pub current_working_dir: Arc<RwLock<Option<PathBuf>>>,
+    pub sys_monitor: Arc<tokio::sync::Mutex<sysinfo::System>>,
 }
 
 impl Default for ServerHostingState {
@@ -128,6 +129,12 @@ impl ServerHostingState {
             current_ram_mb: Arc::new(RwLock::new(2048)),
             current_port: Arc::new(RwLock::new(25565)),
             current_working_dir: Arc::new(RwLock::new(None)),
+            sys_monitor: Arc::new(tokio::sync::Mutex::new(
+                sysinfo::System::new_with_specifics(
+                    sysinfo::RefreshKind::nothing()
+                        .with_processes(sysinfo::ProcessRefreshKind::everything()),
+                ),
+            )),
         }
     }
 
@@ -211,15 +218,68 @@ impl ServerHostingState {
 
         if is_running {
             if let Some(pid_u32) = self.server_supervisor.get_child_pid().await {
-                use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate, RefreshKind, System};
-                let mut sys = System::new_with_specifics(
-                    RefreshKind::nothing().with_processes(ProcessRefreshKind::everything()),
+                use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate};
+                let target_pid = Pid::from_u32(pid_u32);
+                let mut sys = self.sys_monitor.lock().await;
+
+                // Refresh all processes so parent/child relationships and global CPU ticks are updated
+                sys.refresh_processes_specifics(
+                    ProcessesToUpdate::All,
+                    true,
+                    ProcessRefreshKind::everything(),
                 );
-                let pid = Pid::from_u32(pid_u32);
-                sys.refresh_processes(ProcessesToUpdate::Some(&[pid]), true);
-                if let Some(proc) = sys.process(pid) {
-                    memory_rss_bytes = proc.memory();
-                    cpu_percent = proc.cpu_usage() as f64;
+
+                let mut total_mem = 0u64;
+                let mut total_cpu = 0.0f64;
+                let mut found = false;
+
+                // 1. Check the target PID directly
+                if let Some(proc) = sys.process(target_pid) {
+                    total_mem += proc.memory();
+                    total_cpu += proc.cpu_usage() as f64;
+                    found = true;
+                }
+
+                // 2. Aggregate any child processes spawned by target PID (e.g. Java worker processes)
+                for (_pid, proc) in sys.processes() {
+                    if proc.parent() == Some(target_pid) {
+                        total_mem += proc.memory();
+                        total_cpu += proc.cpu_usage() as f64;
+                        found = true;
+                    }
+                }
+
+                // 3. Fallback: If target PID has minimal memory (< 30 MB), locate the real Java server process by working directory
+                if !found || total_mem < 30 * 1024 * 1024 {
+                    let maybe_dir = self.current_working_dir.read().await.clone();
+                    if let Some(dir) = maybe_dir {
+                        let dir_str = dir.to_string_lossy().to_lowercase();
+                        for (_pid, proc) in sys.processes() {
+                            let name_lower = proc.name().to_string_lossy().to_lowercase();
+                            if name_lower.contains("java") {
+                                let cmd_joined = proc
+                                    .cmd()
+                                    .iter()
+                                    .map(|s| s.to_string_lossy().to_lowercase())
+                                    .collect::<Vec<_>>()
+                                    .join(" ");
+
+                                if cmd_joined.contains(&dir_str)
+                                    || cmd_joined.contains("paper")
+                                    || cmd_joined.contains("server.jar")
+                                {
+                                    total_mem = proc.memory();
+                                    total_cpu = proc.cpu_usage() as f64;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if total_mem > 0 {
+                    memory_rss_bytes = total_mem;
+                    cpu_percent = total_cpu.max(0.0).min(100.0);
                 }
             }
         }

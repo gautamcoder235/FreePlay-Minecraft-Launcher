@@ -1164,6 +1164,7 @@ pub struct PlayitTunnelEntry {
 
 pub struct PlayitTunnelSupervisor {
     child: Arc<Mutex<Option<Child>>>,
+    stdin: Arc<Mutex<Option<ChildStdin>>>,
     status: Arc<RwLock<PlayitAgentStatus>>,
     claim_url: Arc<RwLock<Option<String>>>,
     public_address: Arc<RwLock<Option<String>>>,
@@ -1184,6 +1185,7 @@ impl PlayitTunnelSupervisor {
         let (log_broadcaster, _) = broadcast::channel(500);
         Self {
             child: Arc::new(Mutex::new(None)),
+            stdin: Arc::new(Mutex::new(None)),
             status: Arc::new(RwLock::new(PlayitAgentStatus::Stopped)),
             claim_url: Arc::new(RwLock::new(None)),
             public_address: Arc::new(RwLock::new(None)),
@@ -1380,7 +1382,9 @@ impl PlayitTunnelSupervisor {
             }
         }
 
-        cmd.stdout(Stdio::piped()).stderr(Stdio::piped());
+        cmd.stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped());
 
         let mut child = cmd.spawn().map_err(|e| {
             DomainError::Internal(format!(
@@ -1389,8 +1393,11 @@ impl PlayitTunnelSupervisor {
             ))
         })?;
 
+        let stdin = child.stdin.take();
         let stdout = child.stdout.take();
         let stderr = child.stderr.take();
+
+        *self.stdin.lock().await = stdin;
 
         let status_clone = self.status.clone();
         let claim_clone = self.claim_url.clone();
@@ -1592,15 +1599,63 @@ impl PlayitTunnelSupervisor {
         Ok(())
     }
 
-    /// Stops the playit tunnel process
+    /// Stops the playit tunnel process gracefully by sending terminal 'q' followed by 'y',
+    /// closing the online IP and clearing active tunnels.
     pub async fn stop_playit_tunnel(&self) -> Result<(), DomainError> {
+        // 1. Send preset terminal input: 'q\n' then 'y\n' via stdin
+        let mut stdin_lock = self.stdin.lock().await;
+        if let Some(mut stdin) = stdin_lock.take() {
+            use tokio::io::AsyncWriteExt;
+            let _ = stdin.write_all(b"q\n").await;
+            let _ = stdin.flush().await;
+
+            // Brief delay to allow playit interactive confirmation prompt
+            tokio::time::sleep(tokio::time::Duration::from_millis(300)).await;
+
+            let _ = stdin.write_all(b"y\n").await;
+            let _ = stdin.flush().await;
+        }
+
+        // 2. Wait up to 2 seconds for graceful process shutdown
         let mut proc_lock = self.child.lock().await;
         if let Some(mut child) = proc_lock.take() {
-            let _ = child.kill().await;
+            let wait_res = tokio::time::timeout(
+                tokio::time::Duration::from_millis(2000),
+                child.wait(),
+            )
+            .await;
+
+            if wait_res.is_err() {
+                let _ = child.kill().await;
+            }
         }
+
+        // 3. On Windows, ensure any detached playit.exe daemon processes are terminated
+        #[cfg(windows)]
+        {
+            let _ = tokio::process::Command::new("taskkill")
+                .args(["/F", "/IM", "playit.exe", "/T"])
+                .creation_flags(0x08000000)
+                .output()
+                .await;
+        }
+
+        // 4. Immediately clear online IP, active tunnels, and claim URL
         *self.status.write().await = PlayitAgentStatus::Stopped;
         *self.claim_url.write().await = None;
         *self.public_address.write().await = None;
+        self.tunnels.write().await.clear();
+
+        let stop_log = "[playit.gg] Tunnel disconnected. Online IP closed.".to_string();
+        {
+            let mut lg = self.logs.write().await;
+            if lg.len() >= 1000 {
+                lg.pop_front();
+            }
+            lg.push_back(stop_log.clone());
+        }
+        let _ = self.log_broadcaster.send(stop_log);
+
         Ok(())
     }
 
