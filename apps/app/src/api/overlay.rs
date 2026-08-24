@@ -91,17 +91,18 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 
 						let is_overlay_open = state().is_open.load(std::sync::atomic::Ordering::Relaxed);
 						let pid = state().active_game_pid.load(std::sync::atomic::Ordering::Relaxed);
+						let fg = unsafe { GetForegroundWindow() };
+
 						let is_game_active_foreground = if is_overlay_open {
 							true
 						} else if pid > 0 {
-							let fg = unsafe { GetForegroundWindow() };
 							if let Some(gh) = find_game_hwnd(pid) {
 								fg == gh && !unsafe { IsIconic(gh).as_bool() }
 							} else {
-								false
+								is_minecraft_foreground(fg)
 							}
 						} else {
-							false
+							is_minecraft_foreground(fg)
 						};
 
 						if shift_tab_pressed && !was_shift_tab_down && is_game_active_foreground {
@@ -112,7 +113,8 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 						}
 						was_shift_tab_down = shift_tab_pressed;
 
-						if is_f8 && !was_f8_down && is_game_active_foreground {
+						// F8 is the universal global hotkey toggle
+						if is_f8 && !was_f8_down {
 							let app_clone = app_handle.clone();
 							tauri::async_runtime::spawn(async move {
 								let _ = overlay_toggle(app_clone, None).await;
@@ -121,29 +123,29 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 						was_f8_down = is_f8;
 
 						// Monitor window focus: if overlay is active but user switches to another app or minimizes Minecraft, auto-hide overlay
-						if last_fg_check.elapsed() >= std::time::Duration::from_millis(80) {
+						if last_fg_check.elapsed() >= std::time::Duration::from_millis(100) {
 							last_fg_check = std::time::Instant::now();
-							if state().is_open.load(std::sync::atomic::Ordering::Relaxed) {
-								let pid = state().active_game_pid.load(std::sync::atomic::Ordering::Relaxed);
+							if state().is_open.load(std::sync::atomic::Ordering::Relaxed) && pid > 0 {
 								if let Some(overlay_win) = app_handle.get_webview_window("overlay") {
 									if let Ok(overlay_hwnd_res) = overlay_win.hwnd() {
 										let overlay_hwnd = HWND(overlay_hwnd_res.0 as _);
-										let fg = unsafe { GetForegroundWindow() };
+										let current_fg = unsafe { GetForegroundWindow() };
 										let game_hwnd = find_game_hwnd(pid);
 
-										let is_game_or_overlay_focused = fg == overlay_hwnd
-											|| (game_hwnd.is_some() && Some(fg) == game_hwnd);
-										let is_game_minimized =
-											game_hwnd.map_or(false, |gh| unsafe { IsIconic(gh).as_bool() });
+										if let Some(gh) = game_hwnd {
+											let is_game_minimized = unsafe { IsIconic(gh).as_bool() };
+											let is_game_or_overlay_focused = current_fg == overlay_hwnd
+												|| current_fg == gh
+												|| is_minecraft_foreground(current_fg);
 
-										if (!is_game_or_overlay_focused || is_game_minimized) && fg.0 != 0 as _ {
-											let app_clone = app_handle.clone();
-											tauri::async_runtime::spawn(async move {
-												let _ = overlay_toggle(app_clone, Some(false)).await;
-											});
-										} else if let Some(gh) = game_hwnd {
-											let _ = gh;
-											sync_bounds_to_game(overlay_hwnd.0 as isize, pid);
+											if is_game_minimized || (!is_game_or_overlay_focused && current_fg.0 != 0 as _) {
+												let app_clone = app_handle.clone();
+												tauri::async_runtime::spawn(async move {
+													let _ = overlay_toggle(app_clone, Some(false)).await;
+												});
+											} else {
+												sync_bounds_to_game(overlay_hwnd.0 as isize, pid, false);
+											}
 										}
 									}
 								}
@@ -163,6 +165,31 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 			overlay_focus_game,
 		])
 		.build()
+}
+
+#[cfg(windows)]
+fn is_minecraft_foreground(fg: HWND) -> bool {
+	if fg.0 == 0 as _ {
+		return false;
+	}
+	unsafe {
+		let mut title_buf = [0u16; 512];
+		let len = GetWindowTextW(fg, &mut title_buf);
+		if len > 0 {
+			let title = String::from_utf16_lossy(&title_buf[..len as usize]);
+			if title.contains("Minecraft")
+				|| title.contains("FreePlay")
+				|| title.contains("Fabric")
+				|| title.contains("Forge")
+				|| title.contains("Paper")
+				|| title.contains("Purpur")
+				|| title.contains("Spigot")
+			{
+				return true;
+			}
+		}
+	}
+	false
 }
 
 #[cfg(windows)]
@@ -205,20 +232,8 @@ fn find_game_hwnd(pid: u32) -> Option<HWND> {
 	// Fallback: Check if the active foreground window is Minecraft
 	unsafe {
 		let fg = GetForegroundWindow();
-		if fg.0 != 0 as _ {
-			let mut title_buf = [0u16; 512];
-			let len = GetWindowTextW(fg, &mut title_buf);
-			if len > 0 {
-				let title = String::from_utf16_lossy(&title_buf[..len as usize]);
-				if title.contains("Minecraft")
-					|| title.contains("FreePlay")
-					|| title.contains("Fabric")
-					|| title.contains("Forge")
-					|| title.contains("Paper")
-				{
-					return Some(fg);
-				}
-			}
+		if is_minecraft_foreground(fg) {
+			return Some(fg);
 		}
 	}
 
@@ -258,7 +273,7 @@ fn apply_click_through(hwnd_raw: isize, enable: bool) {
 }
 
 #[cfg(windows)]
-fn sync_bounds_to_game(overlay_raw: isize, game_pid: u32) {
+fn sync_bounds_to_game(overlay_raw: isize, game_pid: u32, force_apply: bool) {
 	if let Some(game_hwnd) = find_game_hwnd(game_pid) {
 		unsafe {
 			let overlay_hwnd = HWND(overlay_raw as _);
@@ -277,7 +292,7 @@ fn sync_bounds_to_game(overlay_raw: isize, game_pid: u32) {
 					|| current_width != target_width
 					|| current_height != target_height;
 
-				if target_width > 50 && target_height > 50 && bounds_changed {
+				if target_width > 50 && target_height > 50 && (bounds_changed || force_apply) {
 					let _ = SetWindowPos(
 						overlay_hwnd,
 						Some(HWND_TOPMOST),
@@ -313,7 +328,11 @@ pub async fn overlay_toggle<R: tauri::Runtime>(
 			if let Some(raw) = hwnd_raw {
 				apply_click_through(raw, false);
 				if let Some(pid) = maybe_pid {
-					sync_bounds_to_game(raw, pid);
+					if find_game_hwnd(pid).is_some() {
+						sync_bounds_to_game(raw, pid, true);
+					} else {
+						let _ = overlay_win.center();
+					}
 				} else {
 					let _ = overlay_win.center();
 				}
