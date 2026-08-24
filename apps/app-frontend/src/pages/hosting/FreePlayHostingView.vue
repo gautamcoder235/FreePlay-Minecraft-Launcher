@@ -1358,7 +1358,7 @@
 						v-for="preset in presetCommands"
 						:key="preset.id"
 						type="button"
-						:title="`Run command: /${preset.command}`"
+						:title="`Run command: ${preset.command}`"
 						class="text-xs font-mono px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-[var(--color-brand)] hover:text-[var(--color-accent-contrast,#ffffff)] text-zinc-300 font-semibold transition-all duration-150 cursor-pointer border border-white/5 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:outline-none shrink-0"
 						@click="sendQuickCommand(preset.command)"
 					>
@@ -1452,7 +1452,7 @@
 						<input
 							v-model="commandInput"
 							type="text"
-							placeholder="Type a server command... (e.g. /gamemode, /time, /op, /whitelist, /save-all)"
+							placeholder="Type a server command... (e.g. gamemode, time set day, op, whitelist, save-all)"
 							class="console-cmd-input flex-1 bg-zinc-900 border border-white/10 focus:border-[var(--color-brand)]/80 rounded-xl px-4 py-2.5 text-sm text-white font-mono outline-none shadow-inner transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/40"
 							@focus="onConsoleInput"
 							@input="onConsoleInput"
@@ -5239,7 +5239,7 @@ const activeSuggestions = computed<AutocompleteItem[]>(() => {
 			if (cmd.insert.toLowerCase().startsWith(base)) {
 				list.push({
 					label: cmd.insert,
-					syntax: `/${cmd.syntax}`,
+					syntax: cmd.syntax,
 					description: cmd.description,
 					completion: cmd.insert + ' ',
 					category: 'command',
@@ -5262,7 +5262,7 @@ const activeSuggestions = computed<AutocompleteItem[]>(() => {
 					const before = tokens.slice(0, tokenCount - (hasTrailingSpace ? 0 : 1)).join(' ')
 					list.push({
 						label: sub,
-						syntax: `/${matchedCmd.syntax}`,
+						syntax: matchedCmd.syntax,
 						description: `${matchedCmd.description} (${sub})`,
 						completion: (before ? `${before} ` : '') + sub + ' ',
 						category: 'subcommand',
@@ -5278,7 +5278,7 @@ const activeSuggestions = computed<AutocompleteItem[]>(() => {
 					const before = tokens.slice(0, tokenCount - (hasTrailingSpace ? 0 : 1)).join(' ')
 					list.push({
 						label: player,
-						syntax: `/${matchedCmd.syntax}`,
+						syntax: matchedCmd.syntax,
 						description: `Online player: ${player}`,
 						completion: (before ? `${before} ` : '') + player + ' ',
 						category: 'player',
@@ -5366,7 +5366,11 @@ async function updateConfig() {
 }
 
 async function submitCommand() {
-	const cmd = commandInput.value.trim()
+	let cmd = commandInput.value.trim()
+	if (!cmd) return
+	if (cmd.startsWith('/')) {
+		cmd = cmd.slice(1).trim()
+	}
 	if (!cmd) return
 	isAutocompleteOpen.value = false
 	commandHistory.value.push(cmd)
@@ -5380,10 +5384,16 @@ async function sendQuickCommand(cmd: string) {
 }
 
 async function executeCommand(cmd: string) {
+	let clean = cmd.trim()
+	if (!clean) return
+	if (clean.startsWith('/')) {
+		clean = clean.slice(1).trim()
+	}
+	if (!clean) return
 	const time = new Date().toLocaleTimeString()
-	serverState.value.logs.push(`[${time}] [Console]: > ${cmd}`)
+	serverState.value.logs.push(`[${time}] [Console]: > ${clean}`)
 	try {
-		await invoke('host_send_command', { command: cmd })
+		await invoke('host_send_command', { command: clean })
 		await fetchStatus()
 	} catch (e: unknown) {
 		serverState.value.logs.push(`[${time}] [Server thread/WARN]: Command dispatch: ${String(e)}`)

@@ -1113,12 +1113,14 @@ impl ServerProcessSupervisor {
         Ok(())
     }
 
-    /// Sends a console command to the dedicated server process
+    /// Sends a console command to the dedicated server process (automatically stripping leading '/' if present)
     pub async fn send_console_command(&self, cmd: &str) -> Result<(), DomainError> {
+        let clean = cmd.trim();
+        let stripped = clean.strip_prefix('/').unwrap_or(clean).trim();
         let mut stdin_lock = self.stdin.lock().await;
         if let Some(ref mut stdin) = *stdin_lock {
             stdin
-                .write_all(format!("{}\n", cmd.trim()).as_bytes())
+                .write_all(format!("{}\n", stripped).as_bytes())
                 .await
                 .map_err(|e| DomainError::Internal(format!("Failed to write command to server stdin: {e}")))?;
             stdin

@@ -72,7 +72,11 @@ async function handleStop() {
 }
 
 async function handleSendCommand() {
-	const cmd = commandInput.value.trim()
+	let cmd = commandInput.value.trim()
+	if (!cmd) return
+	if (cmd.startsWith('/')) {
+		cmd = cmd.slice(1).trim()
+	}
 	if (!cmd) return
 	commandInput.value = ''
 	historyIndex.value = -1
@@ -272,7 +276,7 @@ onUnmounted(() => {
 			<button
 				class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
 				title="Set time to day"
-				@click="runMacro('/time set day')"
+				@click="runMacro('time set day')"
 			>
 				<SunIcon class="w-3 h-3 text-amber-400" />
 				Day
@@ -280,7 +284,7 @@ onUnmounted(() => {
 			<button
 				class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
 				title="Clear bad weather"
-				@click="runMacro('/weather clear')"
+				@click="runMacro('weather clear')"
 			>
 				<SparklesIcon class="w-3 h-3 text-sky-400" />
 				Clear Weather
@@ -288,14 +292,14 @@ onUnmounted(() => {
 			<button
 				class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
 				title="Save all chunks"
-				@click="runMacro('/save-all')"
+				@click="runMacro('save-all')"
 			>
 				Save World
 			</button>
 			<button
 				class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
 				title="Reload datapacks and permissions"
-				@click="runMacro('/reload')"
+				@click="runMacro('reload')"
 			>
 				<RefreshCwIcon class="w-3 h-3 text-purple-400" />
 				Reload
@@ -347,7 +351,7 @@ onUnmounted(() => {
 			<StyledInput
 				v-model="commandInput"
 				type="text"
-				placeholder="Type command (/say, /tp, /gamemode)... [Up/Down for history]"
+				placeholder="Type command (say, tp, gamemode)... [Up/Down for history]"
 				wrapper-class="w-full"
 				autocomplete="off"
 				@keydown="handleKeyDown"

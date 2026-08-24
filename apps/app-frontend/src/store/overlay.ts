@@ -274,7 +274,11 @@ export const useOverlayStore = defineStore('overlayStore', {
 		},
 
 		async sendConsoleCommand(cmd: string) {
-			const clean = cmd.trim()
+			let clean = cmd.trim()
+			if (!clean) return
+			if (clean.startsWith('/')) {
+				clean = clean.slice(1).trim()
+			}
 			if (!clean) return
 			this.commandHistory.push(clean)
 
