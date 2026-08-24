@@ -89,7 +89,22 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 
 						let shift_tab_pressed = is_shift && is_tab;
 
-						if shift_tab_pressed && !was_shift_tab_down {
+						let is_overlay_open = state().is_open.load(std::sync::atomic::Ordering::Relaxed);
+						let pid = state().active_game_pid.load(std::sync::atomic::Ordering::Relaxed);
+						let is_game_active_foreground = if is_overlay_open {
+							true
+						} else if pid > 0 {
+							let fg = unsafe { GetForegroundWindow() };
+							if let Some(gh) = find_game_hwnd(pid) {
+								fg == gh && !unsafe { IsIconic(gh).as_bool() }
+							} else {
+								false
+							}
+						} else {
+							false
+						};
+
+						if shift_tab_pressed && !was_shift_tab_down && is_game_active_foreground {
 							let app_clone = app_handle.clone();
 							tauri::async_runtime::spawn(async move {
 								let _ = overlay_toggle(app_clone, None).await;
@@ -97,7 +112,7 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 						}
 						was_shift_tab_down = shift_tab_pressed;
 
-						if is_f8 && !was_f8_down {
+						if is_f8 && !was_f8_down && is_game_active_foreground {
 							let app_clone = app_handle.clone();
 							tauri::async_runtime::spawn(async move {
 								let _ = overlay_toggle(app_clone, None).await;

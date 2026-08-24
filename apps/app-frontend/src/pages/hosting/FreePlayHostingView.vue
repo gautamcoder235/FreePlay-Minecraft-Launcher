@@ -1386,43 +1386,99 @@
 					</button>
 				</div>
 
-				<!-- Command Input Bar -->
-				<form
-					class="p-3.5 bg-[var(--surface-1)] border-t border-white/10 flex items-center gap-3 shrink-0"
-					@submit.prevent="submitCommand"
-				>
-					<span
-						class="text-[var(--color-brand-highlight,var(--color-brand))] font-mono font-black text-base pl-2 select-none"
-						>&gt;</span
+				<!-- Command Input Bar with Interactive Autocomplete Engine -->
+				<div class="relative bg-[var(--surface-1)] border-t border-white/10 shrink-0">
+					<!-- Autocomplete Popup -->
+					<div
+						v-if="activeSuggestions.length > 0 && isAutocompleteOpen"
+						class="absolute bottom-full left-3 right-3 mb-2 rounded-2xl bg-[#0f131d]/95 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/90 p-1.5 flex flex-col gap-1 z-40 animate-in fade-in zoom-in-95 duration-100 max-h-64 overflow-y-auto scrollbar-thin"
 					>
-					<input
-						v-model="commandInput"
-						type="text"
-						placeholder="Type a server command... (e.g. help, list, save-all, whitelist add Player)"
-						class="flex-1 bg-zinc-900 border border-white/10 focus:border-[var(--color-brand)]/80 rounded-xl px-4 py-2.5 text-sm text-white font-mono outline-none shadow-inner transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/40"
-						@keydown.up="navigateHistory(-1)"
-						@keydown.down="navigateHistory(1)"
-					/>
-					<button
-						type="submit"
-						class="px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-95 transition-all duration-200 cursor-pointer border-none flex items-center gap-2 focus-visible:outline-none"
-					>
-						<span>Send</span>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-3.5 h-3.5"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2.5"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+						<div
+							class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-400 flex items-center justify-between border-b border-white/5"
 						>
-							<line x1="22" y1="2" x2="11" y2="13" />
-							<polygon points="22 2 15 22 11 13 2 9 22 2" />
-						</svg>
-					</button>
-				</form>
+							<span>Command Suggestions ({{ activeSuggestions.length }})</span>
+							<span class="text-[9px] text-zinc-500 font-mono"
+								>Tab / Enter to select • Esc to dismiss</span
+							>
+						</div>
+
+						<button
+							v-for="(item, idx) in activeSuggestions"
+							:key="idx"
+							type="button"
+							class="flex items-center justify-between gap-3 px-3 py-2 rounded-xl text-left cursor-pointer transition-all border text-xs"
+							:class="
+								autocompleteIndex === idx
+									? 'bg-purple-600/25 border-purple-500/50 text-white ring-1 ring-purple-500/30'
+									: 'hover:bg-white/5 text-zinc-300 hover:text-white border-transparent'
+							"
+							@mousedown.prevent="applyAutocomplete(item)"
+						>
+							<div class="flex items-center gap-2.5 min-w-0 flex-1">
+								<span
+									class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase shrink-0"
+									:class="
+										item.category === 'player'
+											? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+											: item.category === 'subcommand'
+												? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+												: 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+									"
+								>
+									{{ item.category }}
+								</span>
+								<code class="font-mono font-bold text-white text-xs truncate">{{
+									item.label
+								}}</code>
+								<span class="text-zinc-500 text-[11px] truncate max-w-md">{{
+									item.description
+								}}</span>
+							</div>
+
+							<span class="text-[10px] font-mono text-zinc-500 shrink-0 hidden sm:inline">{{
+								item.syntax
+							}}</span>
+						</button>
+					</div>
+
+					<form
+						class="p-3.5 flex items-center gap-3"
+						@submit.prevent="submitCommand"
+					>
+						<span
+							class="text-[var(--color-brand-highlight,var(--color-brand))] font-mono font-black text-base pl-2 select-none"
+							>&gt;</span
+						>
+						<input
+							v-model="commandInput"
+							type="text"
+							placeholder="Type a server command... (e.g. /gamemode, /time, /op, /whitelist, /save-all)"
+							class="console-cmd-input flex-1 bg-zinc-900 border border-white/10 focus:border-[var(--color-brand)]/80 rounded-xl px-4 py-2.5 text-sm text-white font-mono outline-none shadow-inner transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/40"
+							@focus="onConsoleInput"
+							@input="onConsoleInput"
+							@keydown="handleConsoleInputKeydown"
+						/>
+						<button
+							type="submit"
+							class="px-5 py-2.5 rounded-xl btn-accent-primary font-extrabold text-xs active:scale-95 transition-all duration-200 cursor-pointer border-none flex items-center gap-2 focus-visible:outline-none"
+						>
+							<span>Send</span>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-3.5 h-3.5"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2.5"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<line x1="22" y1="2" x2="11" y2="13" />
+								<polygon points="22 2 15 22 11 13 2 9 22 2" />
+							</svg>
+						</button>
+					</form>
+				</div>
 			</div>
 		</div>
 
@@ -2574,6 +2630,84 @@
 					/>
 				</div>
 
+				<!-- JVM Performance Optimizer Settings -->
+				<div
+					class="flex flex-col gap-2.5 md:col-span-2 p-4 rounded-xl bg-zinc-900/60 border border-white/10"
+				>
+					<div class="flex items-center justify-between">
+						<div class="flex items-center gap-2">
+							<span class="text-xs font-bold text-zinc-300 uppercase tracking-wider"
+								>JVM Performance &amp; Garbage Collection</span
+							>
+							<span
+								class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+								>Auto TPS Boost</span
+							>
+						</div>
+						<span class="text-[11px] text-zinc-400">Optimizes tick rates &amp; memory pauses</span>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+						<div class="flex flex-col gap-1.5 md:col-span-2">
+							<label class="text-[11px] font-semibold text-zinc-400">GC Tuning Preset</label>
+							<select
+								v-model="serverState.jvm_preset"
+								class="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white font-mono outline-none focus:border-[var(--color-brand)] cursor-pointer"
+								@change="updateConfig"
+							>
+								<option value="aikar">
+									Aikar's Flags (G1GC - Recommended for Paper/Purpur/Spigot)
+								</option>
+								<option value="zgc">Generational ZGC (Java 21+ Ultra-Low Latency)</option>
+								<option value="shenandoah">Shenandoah GC (Concurrent Low Pause)</option>
+								<option value="balanced">Standard / Balanced Default</option>
+								<option value="custom">Custom JVM Arguments</option>
+							</select>
+						</div>
+
+						<div class="flex flex-col gap-1.5">
+							<label class="text-[11px] font-semibold text-zinc-400">Optimization Profile</label>
+							<div
+								class="px-3 py-2 rounded-xl bg-zinc-800/80 border border-white/5 text-[11px] text-zinc-300 flex items-center gap-2 min-h-[38px]"
+							>
+								<span
+									class="w-2 h-2 rounded-full shrink-0"
+									:class="
+										serverState.jvm_preset === 'aikar'
+											? 'bg-emerald-400'
+											: serverState.jvm_preset === 'zgc'
+												? 'bg-cyan-400'
+												: 'bg-purple-400'
+									"
+								></span>
+								<span class="truncate">{{
+									serverState.jvm_preset === 'aikar'
+										? 'Fine-tuned G1GC'
+										: serverState.jvm_preset === 'zgc'
+											? 'Sub-ms Pauses'
+											: serverState.jvm_preset === 'shenandoah'
+												? 'Concurrent GC'
+												: serverState.jvm_preset === 'custom'
+													? 'Custom Flags'
+													: 'Standard Default'
+								}}</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Custom JVM arguments input when preset === 'custom' -->
+					<div v-if="serverState.jvm_preset === 'custom'" class="flex flex-col gap-1.5 pt-1">
+						<label class="text-[11px] font-semibold text-zinc-400">Custom JVM Arguments</label>
+						<input
+							v-model="serverState.custom_jvm_args"
+							type="text"
+							placeholder="e.g. -XX:+UseG1GC -XX:+AlwaysPreTouch -Dfile.encoding=UTF-8"
+							class="w-full bg-zinc-950 border border-white/10 rounded-xl px-4 py-2 text-xs text-white font-mono outline-none focus:border-[var(--color-brand)]"
+							@change="updateConfig"
+						/>
+					</div>
+				</div>
+
 				<!-- Storage Path Option -->
 				<div class="flex flex-col gap-2.5 md:col-span-2">
 					<label class="text-xs font-bold text-zinc-300 uppercase tracking-wider"
@@ -2855,6 +2989,32 @@
 								class="bg-zinc-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white font-mono outline-none focus:border-cyan-500"
 							/>
 						</div>
+					</div>
+
+					<div class="flex flex-col gap-1.5">
+						<div class="flex items-center justify-between">
+							<label class="font-bold text-zinc-300">JVM Performance Optimizer</label>
+							<span class="text-[10px] font-semibold text-emerald-400">TPS Boost</span>
+						</div>
+						<select
+							v-model="newServerForm.jvm_preset"
+							class="bg-zinc-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white font-mono outline-none focus:border-cyan-500 text-xs cursor-pointer"
+						>
+							<option value="aikar">
+								Aikar's Flags (G1GC - Recommended for Paper/Purpur/Spigot)
+							</option>
+							<option value="zgc">Generational ZGC (Java 21+ Ultra-Low Latency)</option>
+							<option value="shenandoah">Shenandoah GC (Concurrent Low Pause)</option>
+							<option value="balanced">Standard / Balanced Default</option>
+							<option value="custom">Custom JVM Arguments</option>
+						</select>
+						<input
+							v-if="newServerForm.jvm_preset === 'custom'"
+							v-model="newServerForm.custom_jvm_args"
+							type="text"
+							placeholder="e.g. -XX:+UseG1GC -XX:+AlwaysPreTouch"
+							class="bg-zinc-950 border border-white/10 rounded-xl px-3.5 py-2 text-white font-mono outline-none focus:border-cyan-500 text-xs mt-1"
+						/>
 					</div>
 
 					<div class="flex flex-col gap-1.5">
@@ -3707,6 +3867,8 @@ interface ServerState {
 	players: Array<{ name: string; latency?: number; online?: boolean }>
 	logs: string[]
 	claim_url?: string | null
+	jvm_preset?: string
+	custom_jvm_args?: string
 }
 
 interface ServerEntry {
@@ -3717,6 +3879,8 @@ interface ServerEntry {
 	version: string
 	port: number
 	ram_gb: number
+	jvm_preset?: string
+	custom_jvm_args?: string
 }
 
 interface ServerFileEntry {
@@ -3765,6 +3929,8 @@ const serverState = ref<ServerState>({
 	players: [],
 	logs: [],
 	claim_url: null,
+	jvm_preset: 'aikar',
+	custom_jvm_args: '',
 })
 
 const activeTab = ref<
@@ -3936,6 +4102,8 @@ const newServerForm = ref({
 	ram_gb: 4,
 	port: 25565,
 	custom_path: '',
+	jvm_preset: 'aikar',
+	custom_jvm_args: '',
 })
 
 const serverFiles = ref<ServerFileEntry[]>([])
@@ -4485,6 +4653,8 @@ async function selectServer(server: ServerEntry) {
 	serverState.value.version = server.version || '1.21.4'
 	serverState.value.engine = server.engine || 'PaperMC'
 	serverState.value.local_port = server.port || 25565
+	serverState.value.jvm_preset = server.jvm_preset || 'aikar'
+	serverState.value.custom_jvm_args = server.custom_jvm_args || ''
 	try {
 		await invoke('host_select_server', { serverId: server.id, server_id: server.id })
 		await fetchServerFiles()
@@ -4507,6 +4677,10 @@ async function submitCreateServer() {
 			ram_gb: Number(newServerForm.value.ram_gb) || 4,
 			customPath: newServerForm.value.custom_path ? newServerForm.value.custom_path.trim() : null,
 			custom_path: newServerForm.value.custom_path ? newServerForm.value.custom_path.trim() : null,
+			jvmPreset: newServerForm.value.jvm_preset || 'aikar',
+			jvm_preset: newServerForm.value.jvm_preset || 'aikar',
+			customJvmArgs: newServerForm.value.custom_jvm_args?.trim() || null,
+			custom_jvm_args: newServerForm.value.custom_jvm_args?.trim() || null,
 		})
 		if (res) {
 			serverList.value.push(res)
@@ -4515,6 +4689,8 @@ async function submitCreateServer() {
 		showCreateModal.value = false
 		newServerForm.value.name = ''
 		newServerForm.value.custom_path = ''
+		newServerForm.value.jvm_preset = 'aikar'
+		newServerForm.value.custom_jvm_args = ''
 	} catch (e) {
 		console.error('Failed to create server', e)
 	}
@@ -4834,6 +5010,340 @@ async function onRamChange(e: Event) {
 	await setRamGb(val)
 }
 
+interface CommandSuggestion {
+	syntax: string
+	description: string
+	insert: string
+	subcommands?: string[]
+	needsPlayer?: boolean
+}
+
+const MINECRAFT_COMMANDS_CATALOG: CommandSuggestion[] = [
+	{
+		syntax: 'gamemode <adventure|creative|spectator|survival> [player]',
+		description: "Sets a player's game mode",
+		insert: 'gamemode',
+		subcommands: ['creative', 'survival', 'adventure', 'spectator'],
+		needsPlayer: true,
+	},
+	{
+		syntax: 'time <set|add|query> <day|night|noon|midnight|value>',
+		description: 'Changes or queries the in-game world time',
+		insert: 'time',
+		subcommands: ['set day', 'set night', 'set noon', 'set midnight', 'query daytime', 'add 1000'],
+	},
+	{
+		syntax: 'weather <clear|rain|thunder> [duration]',
+		description: 'Sets the current weather state',
+		insert: 'weather',
+		subcommands: ['clear', 'rain', 'thunder'],
+	},
+	{
+		syntax: 'whitelist <add|remove|list|on|off|reload> [player]',
+		description: 'Manages the server player whitelist',
+		insert: 'whitelist',
+		subcommands: ['add', 'remove', 'list', 'on', 'off', 'reload'],
+		needsPlayer: true,
+	},
+	{
+		syntax: 'op <player>',
+		description: 'Grants operator status to a player',
+		insert: 'op',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'deop <player>',
+		description: 'Revokes operator status from a player',
+		insert: 'deop',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'kick <player> [reason]',
+		description: 'Kicks a player off the server',
+		insert: 'kick',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'ban <player> [reason]',
+		description: 'Adds a player to the server banlist',
+		insert: 'ban',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'pardon <player>',
+		description: 'Removes a player from the banlist',
+		insert: 'pardon',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'tp <target> [destination]',
+		description: 'Teleports entities or players',
+		insert: 'tp',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'difficulty <peaceful|easy|normal|hard>',
+		description: 'Sets the gameplay difficulty level',
+		insert: 'difficulty',
+		subcommands: ['peaceful', 'easy', 'normal', 'hard'],
+	},
+	{
+		syntax: 'gamerule <rule> [value]',
+		description: 'Sets or queries a game rule value',
+		insert: 'gamerule',
+		subcommands: [
+			'keepInventory true',
+			'keepInventory false',
+			'doDaylightCycle true',
+			'doDaylightCycle false',
+			'doMobSpawning true',
+			'doMobSpawning false',
+			'mobGriefing true',
+			'mobGriefing false',
+			'doFireTick true',
+			'doFireTick false',
+			'showDeathMessages true',
+		],
+	},
+	{
+		syntax: 'give <player> <item> [amount]',
+		description: 'Gives an item to a player',
+		insert: 'give',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'effect <give|clear> <player> [effect]',
+		description: 'Applies or clears status effects on a player',
+		insert: 'effect',
+		subcommands: ['give', 'clear'],
+		needsPlayer: true,
+	},
+	{
+		syntax: 'clear <player> [item]',
+		description: 'Clears items from player inventory',
+		insert: 'clear',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'kill [target]',
+		description: 'Kills entities or players',
+		insert: 'kill',
+		subcommands: ['@e[type=!player]', '@e[type=item]', '@a'],
+		needsPlayer: true,
+	},
+	{
+		syntax: 'say <message>',
+		description: 'Broadcasts a message in server chat',
+		insert: 'say',
+	},
+	{
+		syntax: 'save-all [flush]',
+		description: 'Saves the server world chunks and player data to disk',
+		insert: 'save-all',
+		subcommands: ['flush'],
+	},
+	{
+		syntax: 'save-on',
+		description: 'Enables automatic world saving',
+		insert: 'save-on',
+	},
+	{
+		syntax: 'save-off',
+		description: 'Disables automatic world saving',
+		insert: 'save-off',
+	},
+	{
+		syntax: 'stop',
+		description: 'Safely shuts down the server',
+		insert: 'stop',
+	},
+	{
+		syntax: 'reload [confirm]',
+		description: 'Reloads server plugins, datapacks, and configs',
+		insert: 'reload',
+		subcommands: ['confirm'],
+	},
+	{
+		syntax: 'tps',
+		description: 'Displays current server ticks-per-second performance',
+		insert: 'tps',
+	},
+	{
+		syntax: 'list [uuids]',
+		description: 'Lists all connected players',
+		insert: 'list',
+		subcommands: ['uuids'],
+	},
+	{
+		syntax: 'plugins',
+		description: 'Lists all loaded server plugins',
+		insert: 'plugins',
+	},
+	{
+		syntax: 'version [plugin]',
+		description: 'Displays server engine and Minecraft version',
+		insert: 'version',
+	},
+	{
+		syntax: 'seed',
+		description: 'Displays the world generation seed',
+		insert: 'seed',
+	},
+	{
+		syntax: 'setworldspawn [x y z]',
+		description: 'Sets the global spawn point for the world',
+		insert: 'setworldspawn',
+	},
+	{
+		syntax: 'spawnpoint [player] [x y z]',
+		description: "Sets a player's individual respawn point",
+		insert: 'spawnpoint',
+		needsPlayer: true,
+	},
+	{
+		syntax: 'experience <add|set|query> <player> <amount>',
+		description: 'Adds or sets player experience points or levels',
+		insert: 'experience',
+		subcommands: ['add', 'set', 'query'],
+		needsPlayer: true,
+	},
+]
+
+interface AutocompleteItem {
+	label: string
+	syntax: string
+	description: string
+	completion: string
+	category: 'command' | 'subcommand' | 'player'
+}
+
+const autocompleteIndex = ref(0)
+const isAutocompleteOpen = ref(false)
+
+const activeSuggestions = computed<AutocompleteItem[]>(() => {
+	const raw = commandInput.value.trimStart()
+	if (!raw) return []
+
+	const clean = raw.startsWith('/') ? raw.slice(1) : raw
+	const tokens = clean.split(/\s+/)
+	const base = tokens[0]?.toLowerCase() || ''
+	const hasTrailingSpace = raw.endsWith(' ')
+	const tokenCount = tokens.length
+
+	const list: AutocompleteItem[] = []
+	const onlineList = (serverState.value.players || []).map((p) => p.name).filter(Boolean)
+
+	// Case 1: User is typing the base command name (e.g. "game", "ti", "wh")
+	if (tokenCount === 1 && !hasTrailingSpace) {
+		for (const cmd of MINECRAFT_COMMANDS_CATALOG) {
+			if (cmd.insert.toLowerCase().startsWith(base)) {
+				list.push({
+					label: cmd.insert,
+					syntax: `/${cmd.syntax}`,
+					description: cmd.description,
+					completion: cmd.insert + ' ',
+					category: 'command',
+				})
+			}
+		}
+		return list.slice(0, 8)
+	}
+
+	// Case 2: User has typed a base command and is typing arguments/subcommands
+	const matchedCmd = MINECRAFT_COMMANDS_CATALOG.find((c) => c.insert.toLowerCase() === base)
+	if (matchedCmd) {
+		const argIndex = hasTrailingSpace ? tokenCount : tokenCount - 1
+		const currentArg = hasTrailingSpace ? '' : (tokens[tokenCount - 1]?.toLowerCase() || '')
+
+		// Subcommands
+		if (matchedCmd.subcommands && argIndex === 1) {
+			for (const sub of matchedCmd.subcommands) {
+				if (sub.toLowerCase().startsWith(currentArg)) {
+					const before = tokens.slice(0, tokenCount - (hasTrailingSpace ? 0 : 1)).join(' ')
+					list.push({
+						label: sub,
+						syntax: `/${matchedCmd.syntax}`,
+						description: `${matchedCmd.description} (${sub})`,
+						completion: (before ? `${before} ` : '') + sub + ' ',
+						category: 'subcommand',
+					})
+				}
+			}
+		}
+
+		// Player Suggestions
+		if (matchedCmd.needsPlayer) {
+			for (const player of onlineList) {
+				if (player.toLowerCase().startsWith(currentArg)) {
+					const before = tokens.slice(0, tokenCount - (hasTrailingSpace ? 0 : 1)).join(' ')
+					list.push({
+						label: player,
+						syntax: `/${matchedCmd.syntax}`,
+						description: `Online player: ${player}`,
+						completion: (before ? `${before} ` : '') + player + ' ',
+						category: 'player',
+					})
+				}
+			}
+		}
+	}
+
+	return list.slice(0, 8)
+})
+
+function handleConsoleInputKeydown(e: KeyboardEvent) {
+	const suggestions = activeSuggestions.value
+	if (suggestions.length > 0 && isAutocompleteOpen.value) {
+		if (e.key === 'ArrowDown') {
+			e.preventDefault()
+			autocompleteIndex.value = (autocompleteIndex.value + 1) % suggestions.length
+			return
+		}
+		if (e.key === 'ArrowUp') {
+			e.preventDefault()
+			autocompleteIndex.value =
+				(autocompleteIndex.value - 1 + suggestions.length) % suggestions.length
+			return
+		}
+		if (e.key === 'Tab') {
+			e.preventDefault()
+			const selected = suggestions[autocompleteIndex.value] || suggestions[0]
+			if (selected) {
+				applyAutocomplete(selected)
+			}
+			return
+		}
+		if (e.key === 'Escape') {
+			e.preventDefault()
+			isAutocompleteOpen.value = false
+			return
+		}
+	}
+
+	if (e.key === 'ArrowUp') {
+		navigateHistory(-1)
+	} else if (e.key === 'ArrowDown') {
+		navigateHistory(1)
+	}
+}
+
+function onConsoleInput() {
+	isAutocompleteOpen.value = true
+	autocompleteIndex.value = 0
+}
+
+function applyAutocomplete(item: AutocompleteItem) {
+	commandInput.value = item.completion
+	autocompleteIndex.value = 0
+	isAutocompleteOpen.value = true
+	nextTick(() => {
+		const inputEl = document.querySelector<HTMLInputElement>('.console-cmd-input')
+		if (inputEl) {
+			inputEl.focus()
+		}
+	})
+}
+
 async function updateConfig() {
 	try {
 		await invoke('host_update_config', {
@@ -4845,6 +5355,10 @@ async function updateConfig() {
 			ram_gb: serverState.value.ram_gb,
 			motd: serverState.value.motd,
 			port: serverState.value.local_port,
+			jvmPreset: serverState.value.jvm_preset || 'aikar',
+			jvm_preset: serverState.value.jvm_preset || 'aikar',
+			customJvmArgs: serverState.value.custom_jvm_args?.trim() || null,
+			custom_jvm_args: serverState.value.custom_jvm_args?.trim() || null,
 		})
 	} catch (e) {
 		console.debug(e)
@@ -4854,6 +5368,7 @@ async function updateConfig() {
 async function submitCommand() {
 	const cmd = commandInput.value.trim()
 	if (!cmd) return
+	isAutocompleteOpen.value = false
 	commandHistory.value.push(cmd)
 	historyIndex.value = commandHistory.value.length
 	commandInput.value = ''

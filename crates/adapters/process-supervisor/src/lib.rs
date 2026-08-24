@@ -669,7 +669,29 @@ impl ServerProcessSupervisor {
         // 7. Update status to Starting
         *self.status.write().await = DedicatedServerStatus::Starting;
 
-        // 8. Prepare and spawn process
+        // 8. Load JVM optimization preset & custom arguments from .freeplay-server.json
+        let (jvm_preset, custom_jvm_args) = if let Ok(meta_content) =
+            tokio::fs::read_to_string(working_dir.join(".freeplay-server.json")).await
+        {
+            if let Ok(json) = serde_json::from_str::<serde_json::Value>(&meta_content) {
+                let preset = json
+                    .get("jvm_preset")
+                    .and_then(|v| v.as_str())
+                    .unwrap_or("aikar")
+                    .to_string();
+                let custom = json
+                    .get("custom_jvm_args")
+                    .and_then(|v| v.as_str())
+                    .map(|s| s.to_string());
+                (preset, custom)
+            } else {
+                ("aikar".to_string(), None)
+            }
+        } else {
+            ("aikar".to_string(), None)
+        };
+
+        // 9. Prepare and spawn process
         let mut cmd = Command::new(&java_binary);
 
         #[cfg(windows)]
@@ -678,9 +700,10 @@ impl ServerProcessSupervisor {
             cmd.creation_flags(0x08000000);
         }
 
-        let ram = if ram_mb < 512 { 2048 } else { ram_mb };
-        cmd.arg(format!("-Xms{}M", ram));
-        cmd.arg(format!("-Xmx{}M", ram));
+        let jvm_args = build_server_jvm_args(ram_mb, &jvm_preset, custom_jvm_args.as_deref());
+        for arg in jvm_args {
+            cmd.arg(arg);
+        }
         cmd.arg("-jar").arg(&jar_path);
         cmd.arg("nogui");
 
@@ -2210,6 +2233,83 @@ pub async fn spawn_playit_setup_helper(
             let _ = child.wait().await;
         }
     }
+}
+
+/// Builds optimized JVM arguments for the Minecraft server process based on selected preset and memory allocation
+pub fn build_server_jvm_args(
+    ram_mb: u32,
+    preset: &str,
+    custom_args: Option<&str>,
+) -> Vec<String> {
+    let ram = if ram_mb < 512 { 2048 } else { ram_mb };
+    let mut args = Vec::new();
+
+    // Memory Heap Allocation
+    args.push(format!("-Xms{}M", ram));
+    args.push(format!("-Xmx{}M", ram));
+
+    match preset.to_lowercase().as_str() {
+        "aikar" | "aikars" => {
+            // Aikar's High-Performance Flags (Gold standard for Minecraft servers)
+            args.extend([
+                "-XX:+UseG1GC".to_string(),
+                "-XX:+ParallelRefProcEnabled".to_string(),
+                "-XX:MaxGCPauseMillis=200".to_string(),
+                "-XX:+UnlockExperimentalVMOptions".to_string(),
+                "-XX:+DisableExplicitGC".to_string(),
+                "-XX:+AlwaysPreTouch".to_string(),
+                "-XX:G1NewSizePercent=30".to_string(),
+                "-XX:G1MaxNewSizePercent=40".to_string(),
+                "-XX:G1ReservePercent=20".to_string(),
+                "-XX:G1HeapWastePercent=5".to_string(),
+                "-XX:G1MixedGCCountTarget=4".to_string(),
+                "-XX:InitiatingHeapOccupancyPercent=15".to_string(),
+                "-XX:G1MixedGCLiveThresholdPercent=90".to_string(),
+                "-XX:G1RSetUpdatingPauseTimePercent=5".to_string(),
+                "-XX:SurvivorRatio=32".to_string(),
+                "-XX:+PerfDisableSharedMem".to_string(),
+                "-XX:MaxTenuringThreshold=1".to_string(),
+                "-Dusing.aikars.flags=https://mcflags.emc.gs".to_string(),
+                "-Daikars.new.flags=true".to_string(),
+            ]);
+        }
+        "zgc" => {
+            // Generational ZGC (Ultra-Low Latency for Java 21+)
+            args.extend([
+                "-XX:+UseZGC".to_string(),
+                "-XX:+ZGenerational".to_string(),
+                "-XX:+AlwaysPreTouch".to_string(),
+                "-XX:+DisableExplicitGC".to_string(),
+            ]);
+        }
+        "shenandoah" => {
+            // Shenandoah Ultra-Low Pause Concurrent GC
+            args.extend([
+                "-XX:+UseShenandoahGC".to_string(),
+                "-XX:ShenandoahGCMode=iu".to_string(),
+                "-XX:+AlwaysPreTouch".to_string(),
+                "-XX:+DisableExplicitGC".to_string(),
+            ]);
+        }
+        "custom" => {
+            if let Some(custom) = custom_args {
+                for token in custom.split_whitespace() {
+                    if !token.is_empty() {
+                        args.push(token.to_string());
+                    }
+                }
+            }
+        }
+        _ => {
+            // Balanced / Standard Default
+            args.extend([
+                "-XX:+UseG1GC".to_string(),
+                "-XX:+AlwaysPreTouch".to_string(),
+            ]);
+        }
+    }
+
+    args
 }
 
 /// Finds an installed Java binary on the system

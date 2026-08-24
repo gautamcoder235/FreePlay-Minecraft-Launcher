@@ -331,6 +331,8 @@ pub async fn host_update_config(
     ram_gb: Option<u32>,
     motd: Option<String>,
     port: Option<u16>,
+    jvm_preset: Option<String>,
+    custom_jvm_args: Option<String>,
 ) -> Result<()> {
     let state = crate::State::get().await?;
     state
@@ -375,6 +377,12 @@ pub async fn host_update_config(
     }
     if let Some(p) = port {
         meta["port"] = serde_json::Value::Number(p.into());
+    }
+    if let Some(jp) = jvm_preset {
+        meta["jvm_preset"] = serde_json::Value::String(jp);
+    }
+    if let Some(cja) = custom_jvm_args {
+        meta["custom_jvm_args"] = serde_json::Value::String(cja);
     }
     let _ = tokio::fs::write(
         &meta_path,
@@ -764,6 +772,8 @@ pub struct ServerEntry {
     pub version: String,
     pub port: u16,
     pub ram_gb: u32,
+    pub jvm_preset: Option<String>,
+    pub custom_jvm_args: Option<String>,
 }
 
 #[cfg_attr(feature = "tauri", tauri::command)]
@@ -808,6 +818,8 @@ pub async fn host_list_servers() -> Result<Vec<ServerEntry>> {
                         .to_string(),
                     port: meta["port"].as_u64().unwrap_or(25565) as u16,
                     ram_gb: meta["ram_gb"].as_u64().unwrap_or(4) as u32,
+                    jvm_preset: meta["jvm_preset"].as_str().map(|s| s.to_string()),
+                    custom_jvm_args: meta["custom_jvm_args"].as_str().map(|s| s.to_string()),
                 });
                 continue;
             }
@@ -820,6 +832,8 @@ pub async fn host_list_servers() -> Result<Vec<ServerEntry>> {
             version: "1.21.4".to_string(),
             port: 25565,
             ram_gb: 4,
+            jvm_preset: Some("aikar".to_string()),
+            custom_jvm_args: None,
         });
     }
 
@@ -834,6 +848,8 @@ pub async fn host_create_server(
     port: u16,
     ram_gb: u32,
     custom_path: Option<String>,
+    jvm_preset: Option<String>,
+    custom_jvm_args: Option<String>,
 ) -> Result<ServerEntry> {
     let state = crate::State::get().await?;
 
@@ -857,13 +873,18 @@ pub async fn host_create_server(
         ))
     })?;
 
-    let meta = serde_json::json!({
+    let mut meta = serde_json::json!({
         "name": name,
         "engine": engine,
         "version": version,
         "port": port,
         "ram_gb": ram_gb,
+        "jvm_preset": jvm_preset.as_deref().unwrap_or("aikar"),
     });
+    if let Some(ref cja) = custom_jvm_args {
+        meta["custom_jvm_args"] = serde_json::Value::String(cja.clone());
+    }
+
     let meta_path = server_dir.join(".freeplay-server.json");
     tokio::fs::write(&meta_path, serde_json::to_string_pretty(&meta).unwrap())
         .await
@@ -886,6 +907,8 @@ pub async fn host_create_server(
         version,
         port,
         ram_gb,
+        jvm_preset: Some(jvm_preset.unwrap_or_else(|| "aikar".to_string())),
+        custom_jvm_args,
     })
 }
 

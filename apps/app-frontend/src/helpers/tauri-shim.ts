@@ -655,6 +655,8 @@ if (typeof window !== 'undefined') {
 						version: args.version || '1.21.4',
 						port: args.port || 25565,
 						ram_gb: args.ram_gb || 4,
+						jvm_preset: args.jvm_preset || 'aikar',
+						custom_jvm_args: args.custom_jvm_args || '',
 					}
 					mockServers.push(newServer)
 					try {
@@ -726,6 +728,9 @@ if (typeof window !== 'undefined') {
 							if (args.version) s.version = args.version
 							if (args.engine) s.engine = args.engine
 							if (args.port) s.port = args.port
+							if (args.jvm_preset || args.jvmPreset) s.jvm_preset = args.jvm_preset || args.jvmPreset
+							if (args.custom_jvm_args || args.customJvmArgs)
+								s.custom_jvm_args = args.custom_jvm_args || args.customJvmArgs
 							try {
 								localStorage.setItem('freeplay-servers-list', JSON.stringify(mockServers))
 							} catch {
