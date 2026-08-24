@@ -13,6 +13,7 @@ import {
 	XIcon,
 } from '@freeplay/assets'
 import { Button, StyledInput } from '@freeplay/ui'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 
 import OverlayPlayerRosterWidget from '@/components/ui/overlay/OverlayPlayerRosterWidget.vue'
@@ -231,6 +232,11 @@ function installAddon(addon: QuickAddon) {
 
 function closeOverlay() {
 	overlayStore.close()
+	try {
+		getCurrentWindow().hide()
+	} catch {
+		// ignore
+	}
 }
 
 function handleKeydown(e: KeyboardEvent) {
@@ -606,7 +612,8 @@ onUnmounted(() => {
 			<button
 				class="whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-lemon-milk tracking-wide bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/30 transition-all cursor-pointer shadow-sm shrink-0 active:scale-95"
 				title="Close overlay and return to Minecraft"
-				@click="closeOverlay"
+				@pointerdown.stop
+				@click.stop.prevent="closeOverlay"
 			>
 				<XIcon class="w-3.5 h-3.5 shrink-0" />
 				<span>Return to Game</span>

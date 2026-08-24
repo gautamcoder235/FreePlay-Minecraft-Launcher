@@ -180,6 +180,18 @@ export const useOverlayStore = defineStore('overlayStore', {
 					}
 				}
 			}
+
+			if (!targetState) {
+				try {
+					await invoke('plugin:overlay|overlay_focus_game')
+				} catch {
+					try {
+						await invoke('overlay_focus_game')
+					} catch {
+						// ignore
+					}
+				}
+			}
 		},
 
 		async close() {

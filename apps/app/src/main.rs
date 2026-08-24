@@ -302,6 +302,12 @@ fn main() {
             theseus::server_addons::host_delete_addon,
             theseus::server_addons::host_toggle_addon,
             theseus::server_addons::host_update_addon_entry,
+            api::overlay::overlay_toggle,
+            api::overlay::overlay_set_visible,
+            api::overlay::overlay_get_state,
+            api::overlay::overlay_set_active_game,
+            api::overlay::overlay_sync_geometry,
+            api::overlay::overlay_focus_game,
         ]);
 
     tracing::info!("Initializing app...");

@@ -87,6 +87,8 @@ Each project may have its own file with detailed instructions:
 - For Frontend, when doing lint checks, only use the `prepr` commands, do not use `typecheck` or `tsc` etc.
 - Types in `@modrinth/utils` are considered highly outdated, if a component needs them, check if you can switch said component to use types from `packages/api-client`
 - When provided problems, do not say "I didn't introduce these problems" (shifting the blame/effort) - just fix them.
+- **NEVER `git push` autonomously:** Do not run `git push` until changes have been verified and tested by the user, and the user explicitly requests or confirms the push.
+- **Always Ask in Question Format:** After making changes to fix an error or bug, always ask the user in question format whether the issue got fixed, remains the same, or if new behavior occurs.
 
 ## Standards
 

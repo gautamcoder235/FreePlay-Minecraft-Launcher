@@ -30,6 +30,7 @@ pub struct OverlayStateDto {
 struct GlobalOverlayState {
 	is_open: AtomicBool,
 	active_game_pid: std::sync::atomic::AtomicU32,
+	last_known_game_hwnd: std::sync::atomic::AtomicIsize,
 	active_instance_id: Arc<RwLock<Option<String>>>,
 	active_instance_name: Arc<RwLock<Option<String>>>,
 	hotkey: Arc<RwLock<String>>,
@@ -40,6 +41,7 @@ impl Default for GlobalOverlayState {
 		Self {
 			is_open: AtomicBool::new(false),
 			active_game_pid: std::sync::atomic::AtomicU32::new(0),
+			last_known_game_hwnd: std::sync::atomic::AtomicIsize::new(0),
 			active_instance_id: Arc::new(RwLock::new(None)),
 			active_instance_name: Arc::new(RwLock::new(None)),
 			hotkey: Arc::new(RwLock::new("Shift+Tab".to_string())),
@@ -225,19 +227,48 @@ fn find_game_hwnd(pid: u32) -> Option<HWND> {
 			);
 		}
 		if let Some(raw) = payload.1 {
+			state().last_known_game_hwnd.store(raw, Ordering::Relaxed);
 			return Some(HWND(raw as _));
 		}
 	}
 
-	// Fallback: Check if the active foreground window is Minecraft
+	// Fallback 1: Check if the active foreground window is Minecraft
 	unsafe {
 		let fg = GetForegroundWindow();
 		if is_minecraft_foreground(fg) {
+			state().last_known_game_hwnd.store(fg.0 as isize, Ordering::Relaxed);
 			return Some(fg);
 		}
 	}
 
+	// Fallback 2: Check last known game HWND
+	let last_raw = state().last_known_game_hwnd.load(Ordering::Relaxed);
+	if last_raw != 0 {
+		let last_hwnd = HWND(last_raw as _);
+		if unsafe { IsWindowVisible(last_hwnd).as_bool() } {
+			return Some(last_hwnd);
+		}
+	}
+
 	None
+}
+
+#[cfg(windows)]
+fn restore_game_focus(target_hwnd_raw: isize) {
+	if target_hwnd_raw == 0 {
+		return;
+	}
+	unsafe {
+		let target_hwnd = HWND(target_hwnd_raw as _);
+		if windows::Win32::UI::WindowsAndMessaging::IsWindow(Some(target_hwnd)).as_bool() {
+			let _ = windows::Win32::UI::WindowsAndMessaging::ShowWindow(
+				target_hwnd,
+				windows::Win32::UI::WindowsAndMessaging::SW_SHOW,
+			);
+			let _ = windows::Win32::UI::WindowsAndMessaging::BringWindowToTop(target_hwnd);
+			let _ = SetForegroundWindow(target_hwnd);
+		}
+	}
 }
 
 #[cfg(windows)]
@@ -358,21 +389,18 @@ pub async fn overlay_toggle<R: tauri::Runtime>(
 			if let Some(raw) = hwnd_raw {
 				apply_click_through(raw, true);
 
-				// Only restore foreground focus to the game if the overlay itself was focused
-				// (i.e. intentional in-game dismissal via hotkey, ESC, or dock button).
-				// If the user Alt+Tabbed or clicked another application, do NOT steal focus back!
-				let fg = unsafe { GetForegroundWindow() };
-				let overlay_hwnd = HWND(raw as _);
-				let is_explicit_dismissal = fg == overlay_hwnd || fg.0 == 0 as _;
-
-				if is_explicit_dismissal {
-					if let Some(pid) = maybe_pid {
-						if let Some(game_hwnd) = find_game_hwnd(pid) {
-							unsafe {
-								let _ = SetForegroundWindow(game_hwnd);
-							}
-						}
+				let mut target_hwnd = 0isize;
+				if let Some(pid) = maybe_pid {
+					if let Some(game_hwnd) = find_game_hwnd(pid) {
+						target_hwnd = game_hwnd.0 as isize;
 					}
+				}
+				if target_hwnd == 0 {
+					target_hwnd = state().last_known_game_hwnd.load(Ordering::Relaxed);
+				}
+
+				if target_hwnd != 0 {
+					restore_game_focus(target_hwnd);
 				}
 			}
 
@@ -436,11 +464,18 @@ pub async fn overlay_focus_game<R: tauri::Runtime>(_app: tauri::AppHandle<R>) ->
 	let pid_val = state().active_game_pid.load(Ordering::SeqCst);
 	let maybe_pid = if pid_val > 0 { Some(pid_val) } else { None };
 	#[cfg(windows)]
-	if let Some(pid) = maybe_pid {
-		if let Some(game_hwnd) = find_game_hwnd(pid) {
-			unsafe {
-				let _ = SetForegroundWindow(game_hwnd);
+	{
+		let mut target_hwnd = 0isize;
+		if let Some(pid) = maybe_pid {
+			if let Some(game_hwnd) = find_game_hwnd(pid) {
+				target_hwnd = game_hwnd.0 as isize;
 			}
+		}
+		if target_hwnd == 0 {
+			target_hwnd = state().last_known_game_hwnd.load(Ordering::Relaxed);
+		}
+		if target_hwnd != 0 {
+			restore_game_focus(target_hwnd);
 		}
 	}
 	Ok(())
