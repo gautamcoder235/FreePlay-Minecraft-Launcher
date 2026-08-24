@@ -415,7 +415,7 @@ pub async fn overlay_sync_geometry<R: tauri::Runtime>(app: tauri::AppHandle<R>) 
 		#[cfg(windows)]
 		if let Ok(hwnd) = overlay_win.hwnd() {
 			if let Some(pid) = maybe_pid {
-				sync_bounds_to_game(hwnd.0 as isize, pid);
+				sync_bounds_to_game(hwnd.0 as isize, pid, true);
 			}
 		}
 	}
