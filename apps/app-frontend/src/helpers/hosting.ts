@@ -264,4 +264,25 @@ export const hostingApi = {
 	async openServerDir(): Promise<void> {
 		await invoke('host_open_server_dir')
 	},
+
+	async listServers(): Promise<ServerEntry[]> {
+		const raw = await invoke<ServerEntry[]>('host_list_servers')
+		return Array.isArray(raw) ? raw : []
+	},
+
+	async selectServer(serverId: string): Promise<void> {
+		await invoke('host_select_server', { serverId, server_id: serverId })
+	},
+}
+
+export interface ServerEntry {
+	id: string
+	name: string
+	path: string
+	engine: string
+	version: string
+	port: number
+	ram_gb: number
+	jvm_preset?: string
+	custom_jvm_args?: string
 }

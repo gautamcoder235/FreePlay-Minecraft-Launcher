@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
 	CheckIcon,
+	ChevronDownIcon,
 	ClipboardCopyIcon,
 	GlobeIcon,
 	GripVerticalIcon,
@@ -28,6 +29,7 @@ const commandInput = ref('')
 const copied = ref(false)
 const terminalContainer = ref<HTMLElement | null>(null)
 const autoScroll = ref(true)
+const isServerSwitchOpen = ref(false)
 
 // Command History (Up/Down Arrow Navigation)
 const historyIndex = ref(-1)
@@ -36,12 +38,24 @@ const savedCurrentDraft = ref('')
 const isRunning = computed(() => overlayStore.isServerOnline)
 const serverStatusText = computed(() => {
 	const status = overlayStore.server.status
-	if (status === 'running') return 'Paper 1.21.1 • Active'
+	if (status === 'running') return `${overlayStore.server.serverType || 'Paper'} ${overlayStore.server.version || '1.21.1'} • Active`
 	if (status === 'starting' || status === 'preparing') return 'Booting Core Engine...'
 	if (status === 'stopping') return 'Stopping Server...'
 	if (status === 'crashed') return 'Server Crashed'
 	return 'Server Offline'
 })
+
+const activeServerDisplayName = computed(() => {
+	const active = overlayStore.serverList.find((s) => s.id === overlayStore.activeServerId)
+	if (active) return active.name
+	return 'Minecraft Localhost Server'
+})
+
+async function handleSelectServer(serverId: string) {
+	isServerSwitchOpen.value = false
+	if (overlayStore.activeServerId === serverId) return
+	await overlayStore.switchServer(serverId)
+}
 
 const connectionAddress = computed(() => {
 	return overlayStore.server.publicAddress || `127.0.0.1:${overlayStore.server.port || 25565}`
@@ -134,6 +148,7 @@ function copyIp() {
 let pollTimer: ReturnType<typeof setInterval> | null = null
 
 onMounted(() => {
+	overlayStore.refreshServerList()
 	overlayStore.refreshHostStatus()
 	scrollToBottom()
 	pollTimer = setInterval(() => {
@@ -213,6 +228,103 @@ onUnmounted(() => {
 			>
 				Dismiss
 			</button>
+		</div>
+
+		<!-- Localhost Server Switcher Dropdown -->
+		<div class="relative">
+			<button
+				type="button"
+				class="w-full px-3.5 py-2.5 rounded-xl bg-black/40 hover:bg-black/60 border border-white/10 hover:border-purple-500/40 text-left flex items-center justify-between gap-3 transition-all cursor-pointer group shadow-inner"
+				title="Switch active localhost server"
+				@click="isServerSwitchOpen = !isServerSwitchOpen"
+			>
+				<div class="flex items-center gap-2.5 min-w-0 flex-1">
+					<div
+						class="w-2.5 h-2.5 rounded-full shrink-0"
+						:class="isRunning ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'"
+					/>
+					<div class="flex items-center gap-2 min-w-0 flex-1">
+						<span class="text-xs font-bold text-white truncate">{{ activeServerDisplayName }}</span>
+						<span
+							class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/25 shrink-0"
+						>
+							{{ overlayStore.server.serverType || 'Paper' }} {{ overlayStore.server.version || '1.21.1' }}
+						</span>
+					</div>
+				</div>
+
+				<div class="flex items-center gap-1 text-slate-400 group-hover:text-purple-300 shrink-0">
+					<span class="text-[10px] font-semibold text-slate-400 group-hover:text-purple-300">Switch</span>
+					<ChevronDownIcon
+						class="w-3.5 h-3.5 transition-transform duration-200"
+						:class="{ 'rotate-180 text-purple-400': isServerSwitchOpen }"
+					/>
+				</div>
+			</button>
+
+			<!-- Dropdown Menu -->
+			<transition
+				enter-active-class="transition duration-150 ease-out"
+				enter-from-class="transform scale-95 opacity-0"
+				enter-to-class="transform scale-100 opacity-100"
+				leave-active-class="transition duration-100 ease-in"
+				leave-from-class="transform scale-100 opacity-100"
+				leave-to-class="transform scale-95 opacity-0"
+			>
+				<div
+					v-if="isServerSwitchOpen"
+					class="absolute top-[calc(100%+6px)] left-0 right-0 z-50 p-2 rounded-2xl bg-slate-900/98 border border-white/15 shadow-2xl backdrop-blur-2xl flex flex-col gap-1.5 max-h-56 overflow-y-auto"
+				>
+					<div
+						class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-400 flex items-center justify-between border-b border-white/5"
+					>
+						<span>Local Servers ({{ overlayStore.serverList.length }})</span>
+						<span class="text-[9px] text-slate-500">Click to switch</span>
+					</div>
+
+					<div
+						v-for="s in overlayStore.serverList"
+						:key="s.id"
+						class="p-2.5 rounded-xl flex items-center justify-between gap-2.5 transition-all cursor-pointer select-none text-xs border"
+						:class="
+							overlayStore.activeServerId === s.id
+								? 'bg-purple-500/20 text-purple-200 border-purple-500/40 ring-1 ring-purple-500/30'
+								: 'hover:bg-white/5 text-slate-300 hover:text-white border-transparent'
+						"
+						@click="handleSelectServer(s.id)"
+					>
+						<div class="flex flex-col min-w-0 flex-1">
+							<div class="flex items-center gap-2">
+								<span class="font-bold text-xs truncate">{{ s.name }}</span>
+								<span
+									class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold bg-white/5 text-slate-400 border border-white/5"
+								>
+									{{ s.engine }} {{ s.version }}
+								</span>
+							</div>
+							<div class="flex items-center gap-2 text-[10px] text-slate-400 font-mono mt-0.5">
+								<span>Port: :{{ s.port }}</span>
+								<span>•</span>
+								<span>{{ s.ram_gb }} GB RAM</span>
+							</div>
+						</div>
+
+						<div
+							v-if="overlayStore.activeServerId === s.id"
+							class="w-5 h-5 rounded-full bg-purple-500/30 text-purple-300 flex items-center justify-center shrink-0 border border-purple-400/40"
+						>
+							<CheckIcon class="w-3 h-3 text-purple-300" />
+						</div>
+					</div>
+
+					<div
+						v-if="overlayStore.serverList.length === 0"
+						class="text-slate-500 text-xs text-center py-3"
+					>
+						No localhost servers found
+					</div>
+				</div>
+			</transition>
 		</div>
 
 		<!-- 2. Connection Info Card with Tunnel Toggle -->

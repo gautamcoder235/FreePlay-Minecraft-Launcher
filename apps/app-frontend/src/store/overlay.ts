@@ -6,6 +6,7 @@ import {
 	hostingApi,
 	type HostStatus,
 	type PlayitTunnelEntry,
+	type ServerEntry,
 	type ServerTelemetry,
 	type StartServerPayload,
 	type TrackedPlayer,
@@ -51,6 +52,10 @@ export interface OverlayState {
 		tunnels: PlayitTunnelEntry[]
 	}
 
+	// Local Server Switcher
+	serverList: ServerEntry[]
+	activeServerId: string | null
+
 	// Real Telemetry State Machine
 	telemetry: TelemetryState
 
@@ -75,6 +80,9 @@ export const useOverlayStore = defineStore('overlayStore', {
 		showSettingsWidget: false,
 		showPlayerWidget: true,
 		sessionStartTime: Date.now(),
+
+		serverList: [],
+		activeServerId: null,
 
 		server: {
 			running: false,
@@ -220,6 +228,47 @@ export const useOverlayStore = defineStore('overlayStore', {
 			} catch (err: unknown) {
 				const message = err instanceof Error ? err.message : String(err)
 				this.lastError = message || 'Failed to communicate with host supervisor'
+			}
+		},
+
+		async refreshServerList() {
+			try {
+				const list = await hostingApi.listServers()
+				this.serverList = list
+				if (list.length > 0) {
+					const savedId = typeof window !== 'undefined' ? localStorage.getItem('freeplay-active-server-id') : null
+					const matching = list.find((s) => s.id === savedId) || list[0]
+					if (matching && (!this.activeServerId || !list.some((s) => s.id === this.activeServerId))) {
+						this.activeServerId = matching.id
+					}
+				}
+			} catch (err) {
+				console.debug('Failed to load server list in overlay', err)
+			}
+		},
+
+		async switchServer(serverId: string) {
+			this.isActionPending = true
+			this.lastError = null
+			try {
+				await hostingApi.selectServer(serverId)
+				this.activeServerId = serverId
+				if (typeof window !== 'undefined') {
+					localStorage.setItem('freeplay-active-server-id', serverId)
+				}
+				const s = this.serverList.find((srv) => srv.id === serverId)
+				if (s) {
+					this.server.version = s.version
+					this.server.serverType = s.engine
+					this.server.ramMb = (s.ram_gb || 4) * 1024
+					this.server.port = s.port || 25565
+				}
+				await this.refreshHostStatus()
+			} catch (err: unknown) {
+				const message = err instanceof Error ? err.message : String(err)
+				this.lastError = `Failed to switch server: ${message}`
+			} finally {
+				this.isActionPending = false
 			}
 		},
 
