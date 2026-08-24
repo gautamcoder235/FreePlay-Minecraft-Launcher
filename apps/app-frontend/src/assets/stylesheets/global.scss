@@ -441,3 +441,14 @@ textarea {
 		opacity: 0.6;
 	}
 }
+
+html.is-overlay-mode,
+html.is-overlay-mode body,
+html.is-overlay-mode #app {
+	background: transparent !important;
+	background-color: transparent !important;
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
+	overflow: hidden !important;
+}

@@ -49,6 +49,7 @@ const STORAGE_KEY = 'freeplay_overlay_layout_ratios'
 const defaultRatios: Record<string, NormalizedPosition> = {
 	topPill: { xRatio: 0.28, yRatio: 0.02, z: 20 },
 	servers: { xRatio: 0.03, yRatio: 0.1, z: 10 },
+	serverControl: { xRatio: 0.03, yRatio: 0.1, z: 10 },
 	players: { xRatio: 0.38, yRatio: 0.1, z: 10 },
 	addons: { xRatio: 0.68, yRatio: 0.1, z: 10 },
 	settings: { xRatio: 0.35, yRatio: 0.2, z: 15 },
@@ -58,6 +59,7 @@ const defaultRatios: Record<string, NormalizedPosition> = {
 const positions = reactive<Record<string, PixelPosition>>({
 	topPill: { x: 0, y: 20, z: 20 },
 	servers: { x: 40, y: 100, z: 10 },
+	serverControl: { x: 40, y: 100, z: 10 },
 	players: { x: 550, y: 100, z: 10 },
 	addons: { x: 990, y: 100, z: 10 },
 	settings: { x: 400, y: 180, z: 15 },
@@ -66,8 +68,8 @@ const positions = reactive<Record<string, PixelPosition>>({
 
 function loadSavedLayout() {
 	if (typeof window === 'undefined') return
-	const vw = window.innerWidth
-	const vh = window.innerHeight
+	const vw = window.innerWidth || 1400
+	const vh = window.innerHeight || 900
 
 	let saved: Record<string, NormalizedPosition> | null = null
 	try {
@@ -80,7 +82,7 @@ function loadSavedLayout() {
 	const ratios = saved || defaultRatios
 	for (const key of Object.keys(positions)) {
 		const ratio = ratios[key] || defaultRatios[key]
-		if (ratio) {
+		if (ratio && positions[key]) {
 			positions[key].x = Math.max(8, Math.min(vw - 120, Math.round(ratio.xRatio * vw)))
 			positions[key].y = Math.max(8, Math.min(vh - 60, Math.round(ratio.yRatio * vh)))
 			positions[key].z = ratio.z || 10
@@ -90,8 +92,8 @@ function loadSavedLayout() {
 
 function saveCurrentLayout() {
 	if (typeof window === 'undefined') return
-	const vw = window.innerWidth
-	const vh = window.innerHeight
+	const vw = window.innerWidth || 1400
+	const vh = window.innerHeight || 900
 
 	const ratiosToSave: Record<string, NormalizedPosition> = {}
 	for (const [key, pos] of Object.entries(positions)) {
@@ -119,13 +121,16 @@ let highestZ = 30
 
 function startDrag(e: PointerEvent, key: string) {
 	if (e.button !== 0) return
+	const resolvedKey = key === 'serverControl' ? 'servers' : key
+	if (!positions[resolvedKey]) return
+
 	isDragging.value = true
-	currentDragKey = key
+	currentDragKey = resolvedKey
 	dragStartX = e.clientX
 	dragStartY = e.clientY
-	initialPosX = positions[key].x
-	initialPosY = positions[key].y
-	positions[key].z = ++highestZ
+	initialPosX = positions[resolvedKey].x
+	initialPosY = positions[resolvedKey].y
+	positions[resolvedKey].z = ++highestZ
 
 	window.addEventListener('pointermove', onPointerMove, { passive: true })
 	window.addEventListener('pointerup', onPointerUp)
@@ -137,8 +142,8 @@ function onPointerMove(e: PointerEvent) {
 
 	const dx = e.clientX - dragStartX
 	const dy = e.clientY - dragStartY
-	const vw = window.innerWidth
-	const vh = window.innerHeight
+	const vw = window.innerWidth || 1400
+	const vh = window.innerHeight || 900
 
 	let targetX = initialPosX + dx
 	let targetY = initialPosY + dy
@@ -150,8 +155,16 @@ function onPointerMove(e: PointerEvent) {
 	if (targetY < 16) targetY = 16
 	else if (targetY > vh - 60) targetY = vh - 60
 
-	positions[currentDragKey].x = Math.max(8, Math.min(vw - 80, targetX))
-	positions[currentDragKey].y = Math.max(8, Math.min(vh - 40, targetY))
+	const newX = Math.max(8, Math.min(vw - 80, targetX))
+	const newY = Math.max(8, Math.min(vh - 40, targetY))
+
+	positions[currentDragKey].x = newX
+	positions[currentDragKey].y = newY
+
+	if (currentDragKey === 'servers') {
+		positions.serverControl.x = newX
+		positions.serverControl.y = newY
+	}
 }
 
 function onPointerUp(_e?: PointerEvent) {

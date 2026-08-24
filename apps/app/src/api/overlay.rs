@@ -293,6 +293,11 @@ fn sync_bounds_to_game(overlay_raw: isize, game_pid: u32, force_apply: bool) {
 					|| current_height != target_height;
 
 				if target_width > 50 && target_height > 50 && (bounds_changed || force_apply) {
+					let flags = if force_apply {
+						SWP_SHOWWINDOW
+					} else {
+						SWP_NOACTIVATE | SWP_SHOWWINDOW
+					};
 					let _ = SetWindowPos(
 						overlay_hwnd,
 						Some(HWND_TOPMOST),
@@ -300,7 +305,7 @@ fn sync_bounds_to_game(overlay_raw: isize, game_pid: u32, force_apply: bool) {
 						game_rect.top,
 						target_width,
 						target_height,
-						SWP_NOACTIVATE | SWP_SHOWWINDOW,
+						flags,
 					);
 				}
 			}
@@ -331,10 +336,14 @@ pub async fn overlay_toggle<R: tauri::Runtime>(
 					if find_game_hwnd(pid).is_some() {
 						sync_bounds_to_game(raw, pid, true);
 					} else {
-						let _ = overlay_win.center();
+						let _ = overlay_win.maximize();
 					}
 				} else {
-					let _ = overlay_win.center();
+					let _ = overlay_win.maximize();
+				}
+				let overlay_hwnd = HWND(raw as _);
+				unsafe {
+					let _ = SetForegroundWindow(overlay_hwnd);
 				}
 			}
 
