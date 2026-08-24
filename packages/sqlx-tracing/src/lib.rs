@@ -1,4 +1,4 @@
-#![doc = include_str!("../README.md")]
+//! SQLx query tracing and OpenTelemetry span instrumentations.
 
 use std::sync::Arc;
 

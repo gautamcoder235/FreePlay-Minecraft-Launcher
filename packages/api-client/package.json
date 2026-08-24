@@ -16,7 +16,6 @@
 	},
 	"files": [
 		"dist",
-		"README.md",
 		"LICENSE"
 	],
 	"sideEffects": false,

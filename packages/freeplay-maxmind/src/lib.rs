@@ -1,4 +1,4 @@
-#![doc = include_str!("../README.md")]
+//! MaxMind GeoIP integration and database loading for FreePlay services.
 
 use std::{
     io::{Cursor, Read},

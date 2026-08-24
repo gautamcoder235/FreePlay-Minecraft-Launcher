@@ -1,4 +1,4 @@
-#![doc = include_str!("../README.md")]
+//! Logging utilities and formatting for FreePlay services.
 
 use std::str::FromStr;
 

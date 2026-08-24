@@ -1,4 +1,4 @@
-#![doc = include_str!("../README.md")]
+//! MuralPay payment processing client and webhook handler.
 
 #[cfg(feature = "client")]
 macro_rules! maybe_mock {

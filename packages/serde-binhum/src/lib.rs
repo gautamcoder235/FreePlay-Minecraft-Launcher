@@ -1,4 +1,4 @@
-#![doc = include_str!("../README.md")]
+//! Serde serialization and deserialization utilities for binary and human-readable formats.
 
 use darling::{FromMeta, ast::NestedMeta};
 use proc_macro::TokenStream;

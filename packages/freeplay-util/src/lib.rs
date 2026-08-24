@@ -1,4 +1,4 @@
-#![doc = include_str!("../README.md")]
+//! Shared utilities and helper functions for FreePlay services.
 
 mod error;
 
