@@ -91,7 +91,7 @@ onUnmounted(() => {
 		>
 			<GripVerticalIcon class="w-4 h-4 shrink-0 pointer-events-none" />
 			<span
-				class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase font-mono pointer-events-none"
+				class="text-[11px] font-bold font-lemon-milk tracking-wider text-slate-400 uppercase pointer-events-none"
 				>HUD</span
 			>
 		</div>
@@ -106,7 +106,7 @@ onUnmounted(() => {
 					<SparklesIcon class="w-3.5 h-3.5" />
 				</div>
 				<div class="flex flex-col">
-					<span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider"
+					<span class="text-[10px] font-bold font-lemon-milk text-slate-400 uppercase tracking-wider"
 						>Server TPS</span
 					>
 					<div class="flex items-baseline gap-1">
@@ -140,7 +140,7 @@ onUnmounted(() => {
 					<GaugeIcon class="w-3.5 h-3.5" />
 				</div>
 				<div class="flex flex-col">
-					<span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider"
+					<span class="text-[10px] font-bold font-lemon-milk text-slate-400 uppercase tracking-wider"
 						>Server RAM</span
 					>
 					<div class="flex items-baseline gap-1">
@@ -160,7 +160,7 @@ onUnmounted(() => {
 					<CpuIcon class="w-3.5 h-3.5" />
 				</div>
 				<div class="flex flex-col">
-					<span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider"
+					<span class="text-[10px] font-bold font-lemon-milk text-slate-400 uppercase tracking-wider"
 						>CPU Load</span
 					>
 					<div class="flex items-baseline gap-1">

@@ -321,7 +321,7 @@ onUnmounted(() => {
 				>
 					<div class="w-2 h-2 rounded-full bg-white shadow-xs"></div>
 				</div>
-				<div class="flex items-center gap-1.5 font-bold text-xs tracking-tight text-white">
+				<div class="flex items-center gap-1.5 font-bold font-lemon-milk tracking-wide text-xs text-white">
 					<span>FREEPLAY</span>
 					<span
 						class="text-[10px] text-purple-400 font-semibold px-1.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30"
@@ -335,7 +335,7 @@ onUnmounted(() => {
 
 			<!-- Instance & Game Status -->
 			<div class="flex items-center gap-2 text-xs">
-				<span class="font-medium text-slate-300">
+				<span class="font-bold font-lemon-milk tracking-wide text-slate-300">
 					{{ overlayStore.activeInstanceName || 'Minecraft Dedicated Session' }}
 				</span>
 				<div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
@@ -402,7 +402,7 @@ onUnmounted(() => {
 						<LayersIcon class="w-4 h-4" />
 					</div>
 					<div class="flex flex-col min-w-0">
-						<span class="text-sm font-semibold text-white/95 tracking-tight truncate">
+						<span class="text-sm font-bold font-lemon-milk tracking-wide text-white/95 truncate">
 							Live Addons Installer
 						</span>
 						<span class="text-[11px] text-slate-400 truncate">
@@ -497,7 +497,7 @@ onUnmounted(() => {
 						<Settings2Icon class="w-4 h-4" />
 					</div>
 					<div class="flex flex-col min-w-0">
-						<span class="text-sm font-semibold text-white/95 tracking-tight truncate">
+						<span class="text-sm font-bold font-lemon-milk tracking-wide text-white/95 truncate">
 							Overlay Settings
 						</span>
 						<span class="text-[11px] text-slate-400 truncate">Shortcut & HUD preferences</span>
@@ -572,7 +572,7 @@ onUnmounted(() => {
 				@click="overlayStore.toggleWidget('servers')"
 			>
 				<ServerIcon class="w-3.5 h-3.5" />
-				<span>Server</span>
+				<span class="font-bold font-lemon-milk tracking-wide">Server</span>
 			</button>
 
 			<!-- Players Toggle -->
@@ -586,7 +586,7 @@ onUnmounted(() => {
 				@click="overlayStore.toggleWidget('players')"
 			>
 				<UsersIcon class="w-3.5 h-3.5" />
-				<span>Players</span>
+				<span class="font-bold font-lemon-milk tracking-wide">Players</span>
 			</button>
 
 			<!-- Addons Toggle -->
@@ -600,7 +600,7 @@ onUnmounted(() => {
 				@click="overlayStore.toggleWidget('addons')"
 			>
 				<LayersIcon class="w-3.5 h-3.5" />
-				<span>Addons</span>
+				<span class="font-bold font-lemon-milk tracking-wide">Addons</span>
 			</button>
 
 			<!-- Telemetry Toggle -->
@@ -614,7 +614,7 @@ onUnmounted(() => {
 				@click="overlayStore.toggleWidget('telemetry')"
 			>
 				<GaugeIcon class="w-3.5 h-3.5" />
-				<span>Telemetry</span>
+				<span class="font-bold font-lemon-milk tracking-wide">Telemetry</span>
 			</button>
 
 			<!-- Settings Toggle -->
@@ -628,7 +628,7 @@ onUnmounted(() => {
 				@click="overlayStore.toggleWidget('settings')"
 			>
 				<Settings2Icon class="w-3.5 h-3.5" />
-				<span>Settings</span>
+				<span class="font-bold font-lemon-milk tracking-wide">Settings</span>
 			</button>
 
 			<div class="w-px h-5 bg-white/15 mx-1"></div>
@@ -639,7 +639,7 @@ onUnmounted(() => {
 				@click="overlayStore.close"
 			>
 				<XIcon class="w-3.5 h-3.5" />
-				<span>Return to Game</span>
+				<span class="font-bold font-lemon-milk tracking-wide">Return to Game</span>
 			</button>
 		</div>
 	</div>

@@ -78,7 +78,7 @@ async function toggleOp(player: TrackedPlayer) {
 					<UsersIcon class="w-4 h-4" />
 				</div>
 				<div class="flex flex-col min-w-0">
-					<span class="text-sm font-semibold text-white/95 tracking-tight truncate"
+					<span class="text-sm font-bold font-lemon-milk tracking-wide text-white/95 truncate"
 						>Live Players & Roster</span
 					>
 					<span class="text-[11px] text-slate-400 font-mono truncate">

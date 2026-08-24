@@ -63,6 +63,7 @@ export interface OverlayState {
 	commandHistory: string[]
 	lastError: string | null
 	isActionPending: boolean
+	isTunnelConnecting: boolean
 }
 
 export const useOverlayStore = defineStore('overlayStore', {
@@ -103,6 +104,7 @@ export const useOverlayStore = defineStore('overlayStore', {
 		commandHistory: [],
 		lastError: null,
 		isActionPending: false,
+		isTunnelConnecting: false,
 	}),
 
 	getters: {
@@ -341,6 +343,7 @@ export const useOverlayStore = defineStore('overlayStore', {
 		},
 
 		async startTunnel(port?: number) {
+			this.isTunnelConnecting = true
 			this.isActionPending = true
 			this.lastError = null
 			try {
@@ -348,12 +351,21 @@ export const useOverlayStore = defineStore('overlayStore', {
 				this.server.publicAddress = status.publicAddress
 				this.server.claimUrl = status.claimUrl
 				this.server.tunnels = status.tunnels
+
+				// Poll until publicAddress or claimUrl is established (or up to 15 seconds)
+				let retries = 0
+				while (!this.server.publicAddress && !this.server.claimUrl && retries < 15) {
+					await new Promise((resolve) => setTimeout(resolve, 1000))
+					await this.refreshHostStatus()
+					retries++
+				}
 				await this.refreshHostStatus()
 			} catch (err: unknown) {
 				const message = err instanceof Error ? err.message : String(err)
 				this.lastError = `Failed to start tunnel: ${message}`
 			} finally {
 				this.isActionPending = false
+				this.isTunnelConnecting = false
 			}
 		},
 
