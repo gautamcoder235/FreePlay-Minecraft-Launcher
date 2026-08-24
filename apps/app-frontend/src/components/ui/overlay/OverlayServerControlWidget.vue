@@ -163,7 +163,7 @@ onUnmounted(() => {
 
 <template>
 	<div
-		class="w-[490px] rounded-[24px] bg-slate-900/90 backdrop-blur-2xl border border-white/12 p-5 flex flex-col gap-3.5 shadow-2xl shadow-black/90 select-none transform-gpu contain-paint"
+		class="w-[490px] rounded-[24px] bg-slate-900/90 backdrop-blur-md border border-white/12 p-5 flex flex-col gap-3.5 shadow-2xl shadow-black/90 select-none transform-gpu"
 	>
 		<!-- 1. Draggable Header -->
 		<div

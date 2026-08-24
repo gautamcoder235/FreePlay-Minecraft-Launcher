@@ -262,18 +262,29 @@ fn sync_bounds_to_game(overlay_raw: isize, game_pid: u32) {
 	if let Some(game_hwnd) = find_game_hwnd(game_pid) {
 		unsafe {
 			let overlay_hwnd = HWND(overlay_raw as _);
-			let mut rect = RECT::default();
-			if GetWindowRect(game_hwnd, &mut rect).is_ok() {
-				let width = rect.right - rect.left;
-				let height = rect.bottom - rect.top;
-				if width > 50 && height > 50 {
+			let mut game_rect = RECT::default();
+			let mut overlay_rect = RECT::default();
+			if GetWindowRect(game_hwnd, &mut game_rect).is_ok()
+				&& GetWindowRect(overlay_hwnd, &mut overlay_rect).is_ok()
+			{
+				let target_width = game_rect.right - game_rect.left;
+				let target_height = game_rect.bottom - game_rect.top;
+				let current_width = overlay_rect.right - overlay_rect.left;
+				let current_height = overlay_rect.bottom - overlay_rect.top;
+
+				let bounds_changed = overlay_rect.left != game_rect.left
+					|| overlay_rect.top != game_rect.top
+					|| current_width != target_width
+					|| current_height != target_height;
+
+				if target_width > 50 && target_height > 50 && bounds_changed {
 					let _ = SetWindowPos(
 						overlay_hwnd,
 						Some(HWND_TOPMOST),
-						rect.left,
-						rect.top,
-						width,
-						height,
+						game_rect.left,
+						game_rect.top,
+						target_width,
+						target_height,
 						SWP_NOACTIVATE | SWP_SHOWWINDOW,
 					);
 				}

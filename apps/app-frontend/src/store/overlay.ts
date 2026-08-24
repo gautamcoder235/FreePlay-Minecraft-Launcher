@@ -157,15 +157,28 @@ export const useOverlayStore = defineStore('overlayStore', {
 		},
 
 		async toggle(forceState?: boolean) {
+			const targetState = forceState !== undefined ? forceState : !this.isOpen
+			this.isOpen = targetState
+			this.mode = targetState ? 'full_operator' : 'hidden'
+
 			try {
-				const newState = (await invoke('plugin:overlay|overlay_toggle', {
-					forceState,
-				})) as boolean
-				this.isOpen = newState
-				this.mode = newState ? 'full_operator' : 'hidden'
+				await invoke('plugin:overlay|overlay_toggle', {
+					forceState: targetState,
+					force_state: targetState,
+				})
 			} catch {
-				this.isOpen = forceState ?? !this.isOpen
-				this.mode = this.isOpen ? 'full_operator' : 'hidden'
+				try {
+					await invoke('overlay_toggle', {
+						forceState: targetState,
+						force_state: targetState,
+					})
+				} catch {
+					try {
+						await invoke('overlay_set_visible', { visible: targetState })
+					} catch {
+						// ignore
+					}
+				}
 			}
 		},
 

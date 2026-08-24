@@ -115,12 +115,7 @@ let dragStartX = 0
 let dragStartY = 0
 let initialPosX = 0
 let initialPosY = 0
-let pendingX = 0
-let pendingY = 0
-let rafId: number | null = null
 let highestZ = 30
-let activePointerTarget: HTMLElement | null = null
-let activePointerId = -1
 
 function startDrag(e: PointerEvent, key: string) {
 	if (e.button !== 0) return
@@ -130,17 +125,7 @@ function startDrag(e: PointerEvent, key: string) {
 	dragStartY = e.clientY
 	initialPosX = positions[key].x
 	initialPosY = positions[key].y
-	pendingX = initialPosX
-	pendingY = initialPosY
 	positions[key].z = ++highestZ
-
-	activePointerId = e.pointerId
-	activePointerTarget = (e.currentTarget || e.target) as HTMLElement
-	try {
-		activePointerTarget?.setPointerCapture(e.pointerId)
-	} catch {
-		// fallback
-	}
 
 	window.addEventListener('pointermove', onPointerMove, { passive: true })
 	window.addEventListener('pointerup', onPointerUp)
@@ -148,7 +133,7 @@ function startDrag(e: PointerEvent, key: string) {
 }
 
 function onPointerMove(e: PointerEvent) {
-	if (!isDragging.value || !currentDragKey) return
+	if (!isDragging.value || !currentDragKey || !positions[currentDragKey]) return
 
 	const dx = e.clientX - dragStartX
 	const dy = e.clientY - dragStartY
@@ -158,51 +143,20 @@ function onPointerMove(e: PointerEvent) {
 	let targetX = initialPosX + dx
 	let targetY = initialPosY + dy
 
-	// 16px Magnetic Screen Edge Snapping
+	// Smooth Magnetic Screen Edge Snapping
 	if (targetX < 16) targetX = 16
-	else if (targetX > vw - 400 && targetX > vw - 300) targetX = vw - 280
+	else if (targetX > vw - 300) targetX = vw - 280
 
 	if (targetY < 16) targetY = 16
-	else if (targetY > vh - 100) targetY = vh - 80
+	else if (targetY > vh - 60) targetY = vh - 60
 
-	pendingX = Math.max(8, Math.min(vw - 120, targetX))
-	pendingY = Math.max(8, Math.min(vh - 60, targetY))
-
-	if (rafId === null) {
-		rafId = requestAnimationFrame(updateFrame)
-	}
-}
-
-function updateFrame() {
-	rafId = null
-	if (currentDragKey && positions[currentDragKey]) {
-		positions[currentDragKey].x = pendingX
-		positions[currentDragKey].y = pendingY
-	}
+	positions[currentDragKey].x = Math.max(8, Math.min(vw - 80, targetX))
+	positions[currentDragKey].y = Math.max(8, Math.min(vh - 40, targetY))
 }
 
 function onPointerUp(_e?: PointerEvent) {
-	if (rafId !== null) {
-		cancelAnimationFrame(rafId)
-		rafId = null
-	}
-	if (currentDragKey && positions[currentDragKey]) {
-		positions[currentDragKey].x = pendingX
-		positions[currentDragKey].y = pendingY
-	}
-
-	if (activePointerTarget && activePointerId !== -1) {
-		try {
-			activePointerTarget.releasePointerCapture(activePointerId)
-		} catch {
-			// ignore
-		}
-	}
-
 	isDragging.value = false
 	currentDragKey = null
-	activePointerTarget = null
-	activePointerId = -1
 
 	window.removeEventListener('pointermove', onPointerMove)
 	window.removeEventListener('pointerup', onPointerUp)
@@ -262,13 +216,17 @@ function installAddon(addon: QuickAddon) {
 	addon.installed = true
 }
 
+function closeOverlay() {
+	overlayStore.close()
+}
+
 function handleKeydown(e: KeyboardEvent) {
 	if (e.key === 'Escape') {
 		e.preventDefault()
-		overlayStore.close()
+		closeOverlay()
 	} else if (e.key === 'Tab' && e.shiftKey) {
 		e.preventDefault()
-		overlayStore.close()
+		closeOverlay()
 	}
 }
 
@@ -290,7 +248,6 @@ onMounted(() => {
 
 onUnmounted(() => {
 	if (clockTimer) clearInterval(clockTimer)
-	if (rafId !== null) cancelAnimationFrame(rafId)
 	window.removeEventListener('keydown', handleKeydown)
 	window.removeEventListener('resize', loadSavedLayout)
 	window.removeEventListener('pointermove', onPointerMove)
@@ -303,7 +260,7 @@ onUnmounted(() => {
 	<div class="fixed inset-0 z-50 bg-transparent text-contrast select-none overflow-hidden">
 		<!-- 1. Floating Top Status Pill -->
 		<div
-			class="fixed top-0 left-0 flex items-center justify-between gap-3 px-4 py-2 rounded-full bg-slate-900/90 backdrop-blur-2xl border border-white/12 shadow-2xl shadow-black/90 cursor-grab active:cursor-grabbing group/top transition-shadow hover:border-white/20 transform-gpu contain-paint touch-none"
+			class="fixed top-0 left-0 flex items-center justify-between gap-3 px-4 py-2 rounded-full bg-slate-900/90 backdrop-blur-md border border-white/12 shadow-2xl shadow-black/90 cursor-grab active:cursor-grabbing group/top transition-shadow hover:border-white/20 transform-gpu touch-none"
 			:style="{
 				transform: `translate3d(${positions.topPill.x}px, ${positions.topPill.y}px, 0)`,
 				zIndex: positions.topPill.z,
@@ -343,30 +300,29 @@ onUnmounted(() => {
 
 			<div class="w-[1px] h-3.5 bg-white/15 mx-0.5"></div>
 
-			<!-- Real-time Clock -->
-			<div class="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
-				<ClockIcon class="w-3.5 h-3.5 text-slate-500" />
+			<!-- Live Clock -->
+			<div class="flex items-center gap-1.5 text-xs text-slate-300 font-mono">
 				<span>{{ currentTime }}</span>
 			</div>
 		</div>
 
-		<!-- 2. Floating Server Control Hub (Authoritative Supervisor) -->
+		<!-- 2. Floating Server Control Hub -->
 		<div
 			v-if="overlayStore.showServerWidget"
-			class="fixed top-0 left-0 transform-gpu contain-paint"
+			class="fixed top-0 left-0 transform-gpu"
 			:style="{
-				transform: `translate3d(${positions.servers.x}px, ${positions.servers.y}px, 0)`,
-				zIndex: positions.servers.z,
+				transform: `translate3d(${positions.serverControl.x}px, ${positions.serverControl.y}px, 0)`,
+				zIndex: positions.serverControl.z,
 				willChange: isDragging ? 'transform' : 'auto',
 			}"
 		>
-			<OverlayServerControlWidget @drag-start="startDrag($event, 'servers')" />
+			<OverlayServerControlWidget @drag-start="startDrag($event, 'serverControl')" />
 		</div>
 
-		<!-- 3. Floating Player Roster Hub -->
+		<!-- 3. Floating Player Roster Card -->
 		<div
 			v-if="overlayStore.showPlayerWidget"
-			class="fixed top-0 left-0 transform-gpu contain-paint"
+			class="fixed top-0 left-0 transform-gpu"
 			:style="{
 				transform: `translate3d(${positions.players.x}px, ${positions.players.y}px, 0)`,
 				zIndex: positions.players.z,
@@ -376,10 +332,10 @@ onUnmounted(() => {
 			<OverlayPlayerRosterWidget @drag-start="startDrag($event, 'players')" />
 		</div>
 
-		<!-- 4. Floating Live Addons Card -->
+		<!-- 4. Floating Quick Addons Card -->
 		<div
 			v-if="overlayStore.showAddonsWidget"
-			class="fixed top-0 left-0 w-[420px] rounded-[24px] bg-slate-900/90 backdrop-blur-2xl border border-white/12 p-5 flex flex-col gap-4 shadow-2xl shadow-black/90 select-none transition-shadow duration-200 hover:border-white/20 transform-gpu contain-paint"
+			class="fixed top-0 left-0 w-[420px] rounded-[24px] bg-slate-900/90 backdrop-blur-md border border-white/12 p-5 flex flex-col gap-4 shadow-2xl shadow-black/90 select-none transition-shadow duration-200 hover:border-white/20 transform-gpu"
 			:style="{
 				transform: `translate3d(${positions.addons.x}px, ${positions.addons.y}px, 0)`,
 				zIndex: positions.addons.z,
@@ -474,7 +430,7 @@ onUnmounted(() => {
 		<!-- 5. Floating Settings Card -->
 		<div
 			v-if="overlayStore.showSettingsWidget"
-			class="fixed top-0 left-0 w-[400px] rounded-[24px] bg-slate-900/90 backdrop-blur-2xl border border-white/12 p-5 flex flex-col gap-4 shadow-2xl shadow-black/90 select-none transition-shadow duration-200 hover:border-white/20 transform-gpu contain-paint"
+			class="fixed top-0 left-0 w-[400px] rounded-[24px] bg-slate-900/90 backdrop-blur-md border border-white/12 p-5 flex flex-col gap-4 shadow-2xl shadow-black/90 select-none transition-shadow duration-200 hover:border-white/20 transform-gpu"
 			:style="{
 				transform: `translate3d(${positions.settings.x}px, ${positions.settings.y}px, 0)`,
 				zIndex: positions.settings.z,
@@ -547,7 +503,7 @@ onUnmounted(() => {
 		<!-- 6. Floating Telemetry Bar -->
 		<div
 			v-if="overlayStore.showTelemetryWidget"
-			class="fixed top-0 left-0 transform-gpu contain-paint"
+			class="fixed top-0 left-0 transform-gpu"
 			:style="{
 				transform: `translate3d(${positions.telemetry.x}px, ${positions.telemetry.y}px, 0)`,
 				zIndex: positions.telemetry.z,
@@ -559,11 +515,11 @@ onUnmounted(() => {
 
 		<!-- 7. Bottom Floating Dock -->
 		<div
-			class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 p-1.5 rounded-full bg-slate-900/90 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/90 transform-gpu"
+			class="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center flex-nowrap gap-1.5 p-1.5 rounded-full bg-slate-900/95 backdrop-blur-md border border-white/15 shadow-2xl shadow-black/90 transform-gpu select-none max-w-max shrink-0"
 		>
 			<!-- Servers Toggle -->
 			<button
-				class="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border-none shadow-sm"
+				class="whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-lemon-milk tracking-wide transition-all cursor-pointer border-none shadow-sm shrink-0 active:scale-95"
 				:class="
 					overlayStore.showServerWidget
 						? 'bg-purple-600 text-white shadow-purple-600/30'
@@ -571,13 +527,13 @@ onUnmounted(() => {
 				"
 				@click="overlayStore.toggleWidget('servers')"
 			>
-				<ServerIcon class="w-3.5 h-3.5" />
-				<span class="font-bold font-lemon-milk tracking-wide">Server</span>
+				<ServerIcon class="w-3.5 h-3.5 shrink-0" />
+				<span>Server</span>
 			</button>
 
 			<!-- Players Toggle -->
 			<button
-				class="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border-none shadow-sm"
+				class="whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-lemon-milk tracking-wide transition-all cursor-pointer border-none shadow-sm shrink-0 active:scale-95"
 				:class="
 					overlayStore.showPlayerWidget
 						? 'bg-indigo-600 text-white shadow-indigo-600/30'
@@ -585,13 +541,13 @@ onUnmounted(() => {
 				"
 				@click="overlayStore.toggleWidget('players')"
 			>
-				<UsersIcon class="w-3.5 h-3.5" />
-				<span class="font-bold font-lemon-milk tracking-wide">Players</span>
+				<UsersIcon class="w-3.5 h-3.5 shrink-0" />
+				<span>Players</span>
 			</button>
 
 			<!-- Addons Toggle -->
 			<button
-				class="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border-none shadow-sm"
+				class="whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-lemon-milk tracking-wide transition-all cursor-pointer border-none shadow-sm shrink-0 active:scale-95"
 				:class="
 					overlayStore.showAddonsWidget
 						? 'bg-sky-600 text-white shadow-sky-600/30'
@@ -599,13 +555,13 @@ onUnmounted(() => {
 				"
 				@click="overlayStore.toggleWidget('addons')"
 			>
-				<LayersIcon class="w-3.5 h-3.5" />
-				<span class="font-bold font-lemon-milk tracking-wide">Addons</span>
+				<LayersIcon class="w-3.5 h-3.5 shrink-0" />
+				<span>Addons</span>
 			</button>
 
 			<!-- Telemetry Toggle -->
 			<button
-				class="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border-none shadow-sm"
+				class="whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-lemon-milk tracking-wide transition-all cursor-pointer border-none shadow-sm shrink-0 active:scale-95"
 				:class="
 					overlayStore.showTelemetryWidget
 						? 'bg-emerald-600 text-white shadow-emerald-600/30'
@@ -613,13 +569,13 @@ onUnmounted(() => {
 				"
 				@click="overlayStore.toggleWidget('telemetry')"
 			>
-				<GaugeIcon class="w-3.5 h-3.5" />
-				<span class="font-bold font-lemon-milk tracking-wide">Telemetry</span>
+				<GaugeIcon class="w-3.5 h-3.5 shrink-0" />
+				<span>Telemetry</span>
 			</button>
 
 			<!-- Settings Toggle -->
 			<button
-				class="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border-none shadow-sm"
+				class="whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-lemon-milk tracking-wide transition-all cursor-pointer border-none shadow-sm shrink-0 active:scale-95"
 				:class="
 					overlayStore.showSettingsWidget
 						? 'bg-amber-600 text-white shadow-amber-600/30'
@@ -627,19 +583,20 @@ onUnmounted(() => {
 				"
 				@click="overlayStore.toggleWidget('settings')"
 			>
-				<Settings2Icon class="w-3.5 h-3.5" />
-				<span class="font-bold font-lemon-milk tracking-wide">Settings</span>
+				<Settings2Icon class="w-3.5 h-3.5 shrink-0" />
+				<span>Settings</span>
 			</button>
 
-			<div class="w-px h-5 bg-white/15 mx-1"></div>
+			<div class="w-px h-4 bg-white/20 mx-1 shrink-0"></div>
 
 			<!-- Return to Game Button -->
 			<button
-				class="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white/10 hover:bg-rose-500/80 text-slate-300 hover:text-white transition-all cursor-pointer border-none"
-				@click="overlayStore.close"
+				class="whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-lemon-milk tracking-wide bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/30 transition-all cursor-pointer shadow-sm shrink-0 active:scale-95"
+				title="Close overlay and return to Minecraft"
+				@click="closeOverlay"
 			>
-				<XIcon class="w-3.5 h-3.5" />
-				<span class="font-bold font-lemon-milk tracking-wide">Return to Game</span>
+				<XIcon class="w-3.5 h-3.5 shrink-0" />
+				<span>Return to Game</span>
 			</button>
 		</div>
 	</div>
