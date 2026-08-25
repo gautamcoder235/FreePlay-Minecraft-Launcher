@@ -37,13 +37,14 @@ import { MaximizeIcon, MinimizeIcon, RestoreIcon, XIcon } from '@freeplay/assets
 import { IconButton } from '@freeplay/ui'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
 
 import { get as getSettings } from '@/helpers/settings.ts'
 import { getOS } from '@/helpers/utils.js'
 import { useTheming } from '@/store/state'
 
 const themeStore = useTheming()
+const requestQuitApp = inject('requestQuitApp', null)
 
 const nativeDecorations = ref(true)
 const isMaximized = ref(false)
@@ -84,8 +85,12 @@ onMounted(async () => {
 })
 
 const handleClose = async () => {
-	await saveWindowState(StateFlags.ALL)
-	await getCurrentWindow().close()
+	if (requestQuitApp) {
+		requestQuitApp()
+	} else {
+		await saveWindowState(StateFlags.ALL)
+		await getCurrentWindow().close()
+	}
 }
 </script>
 <style scoped>

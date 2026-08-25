@@ -48,6 +48,7 @@ import { renderString } from '@freeplay/utils'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { getVersion } from '@tauri-apps/api/app'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
+import { listen } from '@tauri-apps/api/event'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { type } from '@tauri-apps/plugin-os'
@@ -65,6 +66,7 @@ import IconEditorModal from '@/components/ui/instance_settings/icon-editor-modal
 import MinecraftAuthErrorModal from '@/components/ui/minecraft-auth-error-modal/MinecraftAuthErrorModal.vue'
 import MinecraftRequiredModal from '@/components/ui/minecraft-required-modal/MinecraftRequiredModal.vue'
 import AppSettingsModal from '@/components/ui/modal/AppSettingsModal.vue'
+import ConfirmQuitModal from '@/components/ui/modal/ConfirmQuitModal.vue'
 import FreePlayAccountRequiredModal from '@/components/ui/modal/FreePlayAccountRequiredModal.vue'
 import InstallToPlayModal from '@/components/ui/modal/InstallToPlayModal.vue'
 import ModpackAlreadyInstalledModal from '@/components/ui/modal/ModpackAlreadyInstalledModal.vue'
@@ -715,7 +717,13 @@ const updateToPlayModal = ref()
 
 const freeplayLoginModal = ref()
 const appSettingsModal = ref()
+const confirmQuitModal = ref()
 provide(appSettingsModalOpenProfileKey, () => appSettingsModal.value?.showProfile())
+
+function requestQuitApp() {
+	confirmQuitModal.value?.show()
+}
+provide('requestQuitApp', requestQuitApp)
 
 function openCreateInstanceModal() {
 	installationModal.value?.show()
@@ -851,6 +859,28 @@ onMounted(async () => {
 	setServerUpdateToPlayModal(updateToPlayModal.value)
 
 	accountStore.init()
+
+	const handleAltF4 = (e) => {
+		if (e.altKey && (e.key === 'F4' || e.code === 'F4' || e.keyCode === 115)) {
+			e.preventDefault()
+			e.stopPropagation()
+			requestQuitApp()
+		}
+	}
+	window.addEventListener('keydown', handleAltF4, true)
+
+	const unlistenClose = await getCurrentWindow().onCloseRequested((event) => {
+		event.preventDefault()
+		requestQuitApp()
+	})
+	const unlistenQuitEvent = await listen('request-quit-app', () => {
+		requestQuitApp()
+	})
+	onUnmounted(() => {
+		window.removeEventListener('keydown', handleAltF4, true)
+		unlistenClose()
+		unlistenQuitEvent()
+	})
 })
 
 const accounts = ref(null)
@@ -1134,6 +1164,7 @@ const restarting = ref(false)
 				ref="globalOfflineAccountModal"
 				@created="() => accountStore.refresh()"
 			/>
+			<ConfirmQuitModal ref="confirmQuitModal" />
 			<CommandPalette
 				v-model="showCommandPalette"
 				@create-instance="openCreateInstanceModal"

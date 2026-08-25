@@ -7,7 +7,7 @@
 use native_dialog::{DialogBuilder, MessageLevel};
 use std::env;
 use std::sync::atomic::Ordering;
-use tauri::{Listener, Manager};
+use tauri::{Emitter, Listener, Manager};
 use tauri_plugin_fs::FsExt;
 use theseus::prelude::*;
 
@@ -319,15 +319,24 @@ fn main() {
                 let _ = app;
 
                 if let tauri::RunEvent::WindowEvent { label, event, .. } = &event {
-                    if label == "main"
-                        && matches!(
-                            event,
-                            tauri::WindowEvent::Destroyed
-                                | tauri::WindowEvent::CloseRequested { .. }
-                        )
-                    {
-                        api::overlay::stop();
-                        app.exit(0);
+                    if label == "main" {
+                        match event {
+                            tauri::WindowEvent::CloseRequested { api, .. } => {
+                                api.prevent_close();
+                                if let Some(win) = app.get_webview_window("main") {
+                                    let _ = win.unminimize();
+                                    let _ = win.show();
+                                    let _ = win.set_focus();
+                                    let _ = win.emit("request-quit-app", true);
+                                }
+                                let _ = app.emit("request-quit-app", true);
+                            }
+                            tauri::WindowEvent::Destroyed => {
+                                api::overlay::stop();
+                                app.exit(0);
+                            }
+                            _ => {}
+                        }
                     }
                 }
 
