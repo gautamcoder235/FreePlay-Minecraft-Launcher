@@ -499,8 +499,7 @@ async function setupApp() {
 	os.value = await getOS()
 	const dev = await isDev()
 	isDevEnvironment.value = dev
-	nativeDecorations.value = native_decorations
-	if (os.value !== 'MacOS') await getCurrentWindow().setDecorations(native_decorations)
+	if (os.value !== 'MacOS' && native_decorations) await getCurrentWindow().setDecorations(true)
 	await getCurrentWindow()
 		.setTitle('FreePlay Launcher')
 		.catch(() => {})
@@ -514,12 +513,6 @@ async function setupApp() {
 	themeStore.featureFlags = feature_flags
 
 	stateInitialized.value = true
-
-	isMaximized.value = await getCurrentWindow().isMaximized()
-
-	await getCurrentWindow().onResized(async () => {
-		isMaximized.value = await getCurrentWindow().isMaximized()
-	})
 
 	const osType = await type()
 	if (osType === 'macos') {

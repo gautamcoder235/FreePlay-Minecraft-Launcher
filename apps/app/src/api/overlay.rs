@@ -76,7 +76,10 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 					let mut last_fg_check = std::time::Instant::now();
 
 					while IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
-						std::thread::sleep(std::time::Duration::from_millis(35));
+						let is_overlay_open_pre = state().is_open.load(std::sync::atomic::Ordering::Relaxed);
+						let pid_pre = state().active_game_pid.load(std::sync::atomic::Ordering::Relaxed);
+						let sleep_ms = if is_overlay_open_pre || pid_pre > 0 { 35 } else { 100 };
+						std::thread::sleep(std::time::Duration::from_millis(sleep_ms));
 						if !IS_OVERLAY_RUNNING.load(std::sync::atomic::Ordering::Relaxed) {
 							break;
 						}
@@ -355,7 +358,32 @@ pub async fn overlay_toggle<R: tauri::Runtime>(
 	let pid_val = state().active_game_pid.load(Ordering::SeqCst);
 	let maybe_pid = if pid_val > 0 { Some(pid_val) } else { None };
 
-	if let Some(overlay_win) = app.get_webview_window("overlay") {
+	let overlay_win = match app.get_webview_window("overlay") {
+		Some(w) => Some(w),
+		None if next => {
+			let win = tauri::WebviewWindowBuilder::new(
+				&app,
+				"overlay",
+				tauri::WebviewUrl::App("overlay".into()),
+			)
+			.title("FreePlay Overlay")
+			.inner_size(1400.0, 900.0)
+			.resizable(true)
+			.visible(false)
+			.decorations(false)
+			.shadow(false)
+			.transparent(true)
+			.always_on_top(true)
+			.skip_taskbar(true)
+			.zoom_hotkeys_enabled(false)
+			.build()
+			.ok();
+			win
+		}
+		None => None,
+	};
+
+	if let Some(overlay_win) = overlay_win {
 		#[cfg(windows)]
 		let hwnd_raw = overlay_win.hwnd().ok().map(|h| h.0 as isize);
 

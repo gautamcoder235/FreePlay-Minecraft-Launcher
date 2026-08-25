@@ -63,17 +63,22 @@ onMounted(async () => {
 	const settings = await getSettings()
 	nativeDecorations.value = settings.native_decorations
 
-	if (os.value !== 'MacOS') {
-		await getCurrentWindow().setDecorations(nativeDecorations.value)
+	if (os.value !== 'MacOS' && nativeDecorations.value) {
+		await getCurrentWindow().setDecorations(true)
 	}
 
 	isMaximized.value = await getCurrentWindow().isMaximized()
 
-	const unlisten = await getCurrentWindow().onResized(async () => {
-		isMaximized.value = await getCurrentWindow().isMaximized()
+	let resizeRaf = null
+	const unlisten = await getCurrentWindow().onResized(() => {
+		if (resizeRaf) cancelAnimationFrame(resizeRaf)
+		resizeRaf = requestAnimationFrame(async () => {
+			isMaximized.value = await getCurrentWindow().isMaximized()
+		})
 	})
 
 	onUnmounted(() => {
+		if (resizeRaf) cancelAnimationFrame(resizeRaf)
 		unlisten()
 	})
 })

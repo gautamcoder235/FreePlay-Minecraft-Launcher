@@ -265,6 +265,13 @@
 	-webkit-text-fill-color: transparent !important;
 }
 
+html,
+body,
+#app {
+	background-color: var(--color-bg, #090b0f);
+	color: var(--color-contrast, #ffffff);
+}
+
 body {
 	position: fixed;
 	width: 100%;

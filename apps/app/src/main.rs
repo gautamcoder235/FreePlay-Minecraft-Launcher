@@ -108,17 +108,16 @@ fn main() {
     #[cfg(target_os = "windows")]
     {
         unsafe {
-            if std::env::var_os("WEBVIEW2_DEFAULT_BACKGROUND_COLOR").is_none() {
-                std::env::set_var(
-                    "WEBVIEW2_DEFAULT_BACKGROUND_COLOR",
-                    "00000000",
-                );
-            }
-            if std::env::var_os("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").is_none() {
-                std::env::set_var(
-                    "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
-                    "--disable-features=CalculateNativeWinOcclusion",
-                );
+            std::env::set_var("WEBVIEW2_DEFAULT_BACKGROUND_COLOR", "FF090B0F");
+            let existing = std::env::var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS").unwrap_or_default();
+            let flags = "--disable-renderer-backgrounding --disable-backgrounding-occluded-windows --disable-background-timer-throttling --disable-features=CalculateNativeWinOcclusion,IntensiveWakeUpThrottling,ThrottleDisplayNoneAndVisibilityHiddenCrossOriginIframes,RenderWidgetHostViewAuraCopyOutputRequests --enable-features=SharedArrayBuffer --force-color-profile=srgb --enable-gpu-rasterization --enable-zero-copy --enable-native-gpu-memory-buffers --ignore-gpu-blocklist --disable-gpu-watchdog --autoplay-policy=no-user-gesture-required";
+            if !existing.contains("--disable-renderer-backgrounding") {
+                let combined = if existing.is_empty() {
+                    flags.to_string()
+                } else {
+                    format!("{existing} {flags}")
+                };
+                std::env::set_var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", combined);
             }
         }
     }
