@@ -2780,7 +2780,7 @@ dependencies = [
 
 [[package]]
 name = "freeplay_launcher"
-version = "1.0.0-local"
+version = "1.0.1"
 dependencies = [
  "async_zip",
  "chrono",
@@ -8753,7 +8753,7 @@ dependencies = [
 
 [[package]]
 name = "theseus"
-version = "1.0.0-local"
+version = "1.0.1"
 dependencies = [
  "ariadne",
  "async-minecraft-ping",
