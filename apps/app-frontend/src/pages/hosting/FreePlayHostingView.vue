@@ -3842,6 +3842,7 @@
 <script setup lang="ts">
 import { Pagination } from '@freeplay/ui'
 import { invoke } from '@tauri-apps/api/core'
+import { listen } from '@tauri-apps/api/event'
 import { open } from '@tauri-apps/plugin-dialog'
 import { computed, h, nextTick, onMounted, onUnmounted, ref } from 'vue'
 
@@ -5892,6 +5893,9 @@ function handleWindowClick() {
 	}
 }
 
+let unlistenServerSwitched: (() => void) | null = null
+let unlistenServerStopped: (() => void) | null = null
+
 onMounted(async () => {
 	window.addEventListener('click', handleWindowClick)
 	localStorage.setItem('freeplay-tunnel-enabled', 'false')
@@ -5901,12 +5905,25 @@ onMounted(async () => {
 	await fetchServerAddons()
 	pollLoopRunning = true
 	void fastStatusLoop()
+
+	unlistenServerSwitched = await listen<string>('server-switched', async (event) => {
+		await loadServerList()
+		const found = serverList.value.find((s) => s.id === event.payload)
+		if (found) {
+			await selectServer(found)
+		}
+	})
+	unlistenServerStopped = await listen('server-stopped', async () => {
+		await fetchStatus()
+	})
 })
 
 onUnmounted(() => {
 	window.removeEventListener('click', handleWindowClick)
 	pollLoopRunning = false
 	if (statusPollInterval) clearInterval(statusPollInterval)
+	if (unlistenServerSwitched) unlistenServerSwitched()
+	if (unlistenServerStopped) unlistenServerStopped()
 })
 </script>
 

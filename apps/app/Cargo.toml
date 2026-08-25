@@ -42,7 +42,7 @@ uuid = { workspace = true, features = ["serde", "v4"] }
 
 [dependencies.tauri]
 workspace = true
-features = ["devtools", "macos-private-api", "protocol-asset"]
+features = ["devtools", "macos-private-api", "protocol-asset", "tray-icon", "image-ico", "image-png"]
 
 [build-dependencies]
 tauri-build = { workspace = true, features = ["codegen"] }

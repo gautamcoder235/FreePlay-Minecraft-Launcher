@@ -13,6 +13,7 @@ use theseus::prelude::*;
 
 mod api;
 mod error;
+mod tray;
 
 #[cfg(target_os = "macos")]
 mod macos;
@@ -40,6 +41,8 @@ async fn initialize_state(
         .allow_directory(state.directories.caches_dir().join("icons"), true)?;
     app.fs_scope()
         .allow_directory(state.directories.instances_dir(), true)?;
+
+    let _ = tray::refresh_tray_menu(app.clone()).await;
 
     Ok(())
 }
@@ -89,6 +92,16 @@ async fn toggle_decorations(b: bool, window: tauri::Window) -> api::Result<()> {
 #[tauri::command]
 fn restart_app(app: tauri::AppHandle) {
     app.restart();
+}
+
+#[tauri::command]
+async fn exit_app(app: tauri::AppHandle) {
+    tracing::info!("Exiting application by user request");
+    api::overlay::stop();
+    if let Err(error) = theseus::minecraft_skins::flush_pending_skin_change().await {
+        tracing::warn!("Failed to flush pending Minecraft skin change before exit: {error}");
+    }
+    app.exit(0);
 }
 
 #[tauri::command]
@@ -231,6 +244,10 @@ fn main() {
                 tracing::warn!("Failed to set window shadow: {e}");
             }
 
+            if let Err(e) = tray::setup_tray(app.handle()) {
+                tracing::warn!("Failed to setup system tray: {e}");
+            }
+
             Ok(())
         });
 
@@ -269,6 +286,8 @@ fn main() {
             toggle_decorations,
             show_window,
             restart_app,
+            exit_app,
+            tray::refresh_tray_menu,
             theseus::server_address::host_start_server,
             theseus::server_address::host_stop_server,
             theseus::server_address::host_kill_server,

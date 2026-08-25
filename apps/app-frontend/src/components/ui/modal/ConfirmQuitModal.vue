@@ -52,6 +52,7 @@
 <script setup lang="ts">
 import { LogOutIcon, XIcon } from '@freeplay/assets'
 import { Button, NewModal } from '@freeplay/ui'
+import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state'
 import { ref } from 'vue'
@@ -76,9 +77,13 @@ async function confirmQuit() {
 		// ignore
 	}
 	try {
-		await getCurrentWindow().destroy()
+		await invoke('exit_app')
 	} catch {
-		await getCurrentWindow().close().catch(() => {})
+		try {
+			await getCurrentWindow().destroy()
+		} catch {
+			await getCurrentWindow().close().catch(() => {})
+		}
 	}
 }
 

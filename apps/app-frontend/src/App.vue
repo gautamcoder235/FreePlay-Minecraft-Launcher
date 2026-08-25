@@ -845,6 +845,7 @@ onMounted(async () => {
 		// ignore
 	}
 	invoke('show_window')
+	invoke('refresh_tray_menu').catch(() => {})
 
 	error.setErrorModal(errorModal.value)
 	error.setMinecraftAuthErrorModal(minecraftAuthErrorModal.value)
