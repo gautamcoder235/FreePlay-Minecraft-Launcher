@@ -144,16 +144,27 @@ function detectOverlayMode() {
 	if (typeof window === 'undefined') return false
 	try {
 		const href = window.location.href || ''
+		const pathname = window.location.pathname || ''
+		const hash = window.location.hash || ''
+		const search = window.location.search || ''
+
 		if (
-			href.indexOf('overlay') !== -1 ||
-			window.location.pathname.indexOf('overlay') !== -1 ||
-			window.location.hash.indexOf('overlay') !== -1 ||
-			window.location.search.indexOf('overlay') !== -1
+			href.includes('overlay') ||
+			pathname.includes('overlay') ||
+			hash.includes('overlay') ||
+			search.includes('overlay')
+		) {
+			return true
+		}
+		const internals = window.__TAURI_INTERNALS__
+		if (
+			internals?.metadata?.currentWindow?.label === 'overlay' ||
+			internals?.metadata?.currentWebview?.label === 'overlay'
 		) {
 			return true
 		}
 		const win = getCurrentWindow()
-		if (win && win.label === 'overlay') {
+		if (win && (win.label === 'overlay' || win.name === 'overlay')) {
 			return true
 		}
 	} catch (e) {
@@ -162,15 +173,38 @@ function detectOverlayMode() {
 	return false
 }
 
-const isOverlay = ref(detectOverlayMode())
+const isOverlayDetected = detectOverlayMode()
+const isOverlay = computed(() => {
+	return (
+		isOverlayDetected ||
+		route.path === '/overlay' ||
+		route.path.startsWith('/overlay') ||
+		route.name === 'InGameOverlay' ||
+		detectOverlayMode()
+	)
+})
 
-if (typeof window !== 'undefined' && isOverlay.value) {
+if (typeof window !== 'undefined' && (isOverlayDetected || detectOverlayMode())) {
 	document.documentElement.classList.add('is-overlay-mode')
 	if (document.body) {
 		document.body.style.background = 'transparent'
 		document.body.style.backgroundColor = 'transparent'
 	}
 }
+
+watch(
+	() => route.path,
+	(path) => {
+		if (path === '/overlay' || path.startsWith('/overlay') || isOverlay.value) {
+			document.documentElement.classList.add('is-overlay-mode')
+			if (document.body) {
+				document.body.style.background = 'transparent'
+				document.body.style.backgroundColor = 'transparent'
+			}
+		}
+	},
+	{ immediate: true },
+)
 
 const APP_LEFT_NAV_WIDTH = '4rem'
 const APP_SIDEBAR_WIDTH = 300
@@ -1110,7 +1144,7 @@ const restarting = ref(false)
 		<RouterView />
 	</div>
 	<template v-else>
-		<SplashScreen v-if="!stateFailed" ref="splashScreen" data-tauri-drag-region />
+		<SplashScreen v-if="!stateFailed && !isOverlay" ref="splashScreen" data-tauri-drag-region />
 		<div id="teleports"></div>
 		<div
 			v-if="stateInitialized"

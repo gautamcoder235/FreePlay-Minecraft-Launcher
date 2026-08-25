@@ -65,6 +65,26 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
 		.setup(|app, _api| {
 			#[cfg(windows)]
 			{
+				let app_preload = app.clone();
+				tauri::async_runtime::spawn(async move {
+					let _ = tauri::WebviewWindowBuilder::new(
+						&app_preload,
+						"overlay",
+						tauri::WebviewUrl::App("overlay".into()),
+					)
+					.title("FreePlay Overlay")
+					.inner_size(1400.0, 900.0)
+					.resizable(true)
+					.visible(false)
+					.decorations(false)
+					.shadow(false)
+					.transparent(true)
+					.always_on_top(true)
+					.skip_taskbar(true)
+					.zoom_hotkeys_enabled(false)
+					.build();
+				});
+
 				let app_handle = app.clone();
 				std::thread::spawn(move || {
 					use windows::Win32::UI::Input::KeyboardAndMouse::{
