@@ -42,18 +42,22 @@ Whether you're playing single-player modpacks, hosting multiplayer dedicated ser
 - **Zero-Config Multiplayer Tunnels**: Integrated tunneling allows friends to join your local server anywhere in the world without opening router ports.
 - **Visual Properties Editor & Backups**: Edit `server.properties` with an intuitive graphical form and manage automated world backups with single-click restore.
 
-### 🪟 3. Windows System Tray Quick Switcher
+### 🥋 3. 3D Wardrobe & Interactive Skin Studio
+- **3D Skin Visualizer**: Real-time 3D interactive viewport with drag-to-rotate preview.
+- **Custom Skin Management**: Single-click PNG uploads, saved skins library, and instant profile switching.
+
+### 🪟 4. Windows System Tray Quick Switcher
 - **Dynamic Context Menu**: Access all your created instances and servers directly from the Windows taskbar overflow area.
 - **Real-Time Status Indicators**: View running state (`⏹ Stop (Running)` vs `▶ Start` / `⚡ Start`) in real-time.
 - **Automated Multi-Server Switching**: Starting a server from the tray gracefully shuts down any existing server, switches the active view in the UI, and boots the chosen server.
 - **Instant Restore**: Left-click the tray icon to bring FreePlay immediately into focus.
 
-### 🕹️ 4. In-Game HUD Overlay (`Shift+Tab` / `F8`)
+### 🕹️ 5. In-Game HUD Overlay (`Shift+Tab` / `F8`)
 - **Zero-Latency Transparent HUD**: Opens right inside your Minecraft game without switching windows.
 - **Live Telemetry & Controls**: Monitor server health, player roster, addon browser, and time while actively playing.
 - **Background Pre-Warming**: Pre-cached on app startup for instantaneous activation.
 
-### 🛡️ 5. Safe Quit Confirmation
+### 🛡️ 6. Safe Quit Protection
 - **Accidental Close Protection**: Intercepts titlebar close, taskbar close, Alt+F4, and system tray exit to show a clean confirmation dialog.
 - **Safe Shutdown**: Automatically flushes skin changes, closes server tunnels, and stops child processes cleanly.
 
@@ -61,45 +65,31 @@ Whether you're playing single-player modpacks, hosting multiplayer dedicated ser
 
 ## 📸 Panels & UI Showcase
 
-### 🖥️ 1. Server Control Room & Hosting Dashboard
-The primary command center for launching, configuring, and monitoring Minecraft dedicated servers with real-time statistics and multi-server tabs.
+### 🎮 1. Main Launcher Dashboard
+The primary launchpad for managing instances, accounts, skins, RAM allocation, and quick jumping into game sessions.
+
+![Main Launcher Dashboard](assets/screenshots/launcher-dashboard.png)
+
+---
+
+### 📦 2. Modpack & Content Browser
+Explore, filter, and install thousands of modpacks, mods, resource packs, shaders, and data packs with a single click.
+
+![Modpack & Content Browser](assets/screenshots/modpack-browser.png)
+
+---
+
+### ⚡ 3. Server Control Room & Hosting Dashboard
+The primary command center for launching, configuring, and monitoring Minecraft dedicated servers with real-time statistics, network ports, and instant tunnel sharing.
 
 ![Server Control Room](assets/screenshots/server-control-room.png)
 
 ---
 
-### 📊 2. Live Telemetry & Player Management
-Monitor live server performance graphs (TPS, MSPT, Memory, CPU) and manage connected players in real-time.
+### 🥋 4. 3D Interactive Skin Selector & Wardrobe Studio
+View, rotate, and manage your Minecraft skins with real-time 3D models and instant skin application.
 
-![Player Manager](assets/screenshots/player-manager.png)
-
----
-
-### ⚙️ 3. Graphical Server Properties Editor
-Tweak game rules, ports, max players, difficulty, spawn protection, and server settings without touching raw text files.
-
-![Server Properties](assets/screenshots/server-properties.png)
-
----
-
-### 💾 4. Automated Server Backups & File Explorer
-Create full server backups, restore previous game worlds, and inspect server configuration files with ease.
-
-![Server Backups](assets/screenshots/server-backups.png)
-
----
-
-### 📌 5. Windows Taskbar System Tray Menu
-Quickly launch or stop individual instances and dedicated servers from anywhere on Windows.
-
-![System Tray Menu](assets/screenshots/system-tray-menu.png)
-
----
-
-### 🚪 6. Quit Confirmation Modal
-Prevents accidental interruptions by asking for confirmation before shutting down the launcher and active background tasks.
-
-![Quit Confirmation](assets/screenshots/quit-modal.png)
+![Skin Selector & Wardrobe](assets/screenshots/skin-wardrobe.png)
 
 ---
 
@@ -109,8 +99,9 @@ Get the latest release from the [**Releases Page**](https://github.com/gautamcod
 
 | Package Type | File | Description |
 | :--- | :--- | :--- |
-| **Windows Installer** | `FreePlay launcher_1.0.1_x64_en-US.msi` | Standard 64-bit Windows MSI Installer |
-| **Portable Package** | `FreePlay-Launcher-v1.0.1-windows-x64.zip` | Standalone portable executable (No installation required) |
+| **Windows Installer (MSI)** | `FreePlay launcher_1.0.1_x64_en-US.msi` | Standard 64-bit Windows MSI Installer |
+| **Windows Installer (NSIS)** | `FreePlay-Launcher_1.0.1_x64-setup.exe` | Lightweight NSIS Executable Installer |
+| **Portable Package (ZIP)** | `FreePlay-Launcher-v1.0.1-windows-x64.zip` | Standalone portable executable (No installation required) |
 
 ---
 
@@ -141,10 +132,10 @@ pnpm app:dev
 
 ### 4. Build Production Packages
 ```bash
-# Builds the Tauri executable and Windows MSI installer bundle
+# Builds the Tauri executable and installer bundles
 pnpm app:build
 ```
-Built binaries and installer bundles will be available in `target/release/` and `target/release/bundle/msi/`.
+Built binaries and installer bundles will be available in `target/release/` and `target/release/bundle/`.
 
 ---
 
