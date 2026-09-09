@@ -1,6 +1,16 @@
 {
   "name": "@freeplay/monorepo",
-  "version": "0.0.0",
+  "version": "1.0.1",
+  "description": "FreePlay Next-Gen Minecraft Launcher & Server Hub",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher/issues"
+  },
+  "homepage": "https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher#readme",
   "private": true,
   "scripts": {
     "web:dev": "turbo run dev --filter=@freeplay/frontend",

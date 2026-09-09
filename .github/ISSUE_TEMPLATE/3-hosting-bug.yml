@@ -1,63 +1,48 @@
-name: 👥 Bug with Modrinth Hosting
-description: For issues with a Modrinth Hosting product.
-labels: [hosting]
+name: 👥 Bug with FreePlay Server Hosting
+description: For issues with the FreePlay Server Control Room, local hosting, or tunnels.
+labels: [hosting, bug]
 type: 'bug'
 body:
   - type: checkboxes
     attributes:
-      label: Please confirm the following.
+      label: Please confirm the following
       options:
-        - label: I checked the [existing issues](https://github.com/modrinth/code/issues?q=is%3Aissue) for duplicate problems
+        - label: I checked the [existing issues](https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher/issues?q=is%3Aissue) for duplicate problems
           required: true
-        - label: I have tried resolving the issue using the [support portal](https://support.modrinth.com)
+        - label: I have verified my server jar and settings
           required: true
   - type: dropdown
-    id: issue-location
+    id: server-engine
     attributes:
-      label: Is this an issue in the control panel or with the Minecraft server itself?
+      label: Server Engine
       options:
-        - Control panel (on Modrinth.com)
-        - Minecraft server
+        - PaperMC
+        - Purpur
+        - Fabric
+        - Spigot
+        - Vanilla
+        - Other
     validations:
       required: true
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: What browsers are you seeing the problem on? (if a panel issue)
-      multiple: true
-      options:
-        - N/A
-        - Chrome (including Arc, Brave, Opera, Vivaldi)
-        - Microsoft Edge
-        - Firefox
-        - Safari
-        - Other (please specify)
   - type: textarea
     attributes:
       label: Describe the bug
-      description: A clear and concise description of what the bug is. Include screenshots if applicable.
+      description: A clear and concise description of what the server or hosting issue is.
     validations:
-      required: false
+      required: true
   - type: textarea
     attributes:
       label: Steps to reproduce
       description: Steps to reproduce the behavior.
       placeholder: |
-        1. Go to '...'
-        2. Click on '...'
-        3. Scroll down to '...'
-        4. See error
+        1. Open Server Control Room
+        2. Click 'Start Server'
+        3. See error
     validations:
-      required: false
+      required: true
   - type: textarea
     attributes:
-      label: Expected behavior
-      description: A clear and concise description of what you expected to happen.
-    validations:
-      required: false
-  - type: textarea
-    attributes:
-      label: Additional context
-      description: Add any other context about the problem here.
+      label: Server Logs / Console Output
+      description: Provide relevant server console logs.
     validations:
       required: false

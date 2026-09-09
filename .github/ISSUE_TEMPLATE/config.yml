@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions / Questions
+    url: https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher/discussions
+    about: Ask questions and discuss ideas with the community.
+  - name: 📦 Releases & Downloads
+    url: https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher/releases
+    about: Download official Windows installers, standalone zip, and release notes.
+  - name: 🛡️ Security Vulnerability Report
+    url: https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher/security/advisories/new
+    about: Report security issues privately.

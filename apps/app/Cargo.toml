@@ -4,7 +4,7 @@ name = "freeplay_launcher"
 version = "1.0.1"
 edition.workspace = true
 description = "FreePlay is a desktop application for managing your Minecraft mods"
-repository = "https://github.com/modrinth/code/apps/app/"
+repository = "https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher"
 license = "GPL-3.0-only"
 
 [dependencies]

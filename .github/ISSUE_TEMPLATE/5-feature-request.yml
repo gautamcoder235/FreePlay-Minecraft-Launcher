@@ -1,45 +1,49 @@
-name: 💡 Feature request
-description: Suggest an idea
+name: 💡 Feature Request
+description: Suggest an idea, enhancement, or new feature for FreePlay.
+labels: [enhancement]
 type: 'feature'
-
 body:
   - type: checkboxes
     attributes:
-      label: Please confirm the following.
+      label: Please confirm the following
       options:
-        - label: I checked the [existing issues](https://github.com/modrinth/code/issues?q=is%3Aissue) for duplicate feature requests
+        - label: I checked the [existing issues](https://github.com/gautamcoder235/FreePlay-Minecraft-Launcher/issues?q=is%3Aissue) for duplicate feature requests
           required: true
   - type: dropdown
-    id: projects
+    id: category
     attributes:
-      label: What parts of Modrinth is your feature request related too?
+      label: Feature Category
       multiple: true
       options:
-        - Modrinth App
-        - Modrinth.com website
-        - Modrinth Hosting
-        - Modrinth API for developers
+        - Launcher Core & Instance Management
+        - Dedicated Server Hosting & Control Room
+        - In-Game Overlay
+        - UI / UX & 3D Skin Wardrobe
+        - System Tray Integration
+        - Other
+    validations:
+      required: true
   - type: textarea
     attributes:
-      label: Is your suggested feature related to a problem? Please describe.
-      description: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+      label: Problem Description / Motivation
+      description: A clear and concise explanation of what problem this feature solves or why it would be beneficial.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed Solution & Design
+      description: Detailed description of how you envision this feature working.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative designs or workarounds you have considered.
     validations:
       required: false
   - type: textarea
     attributes:
-      label: Describe the solution you'd like
-      description: A clear and concise description of what you want to happen.
-    validations:
-      required: false
-  - type: textarea
-    attributes:
-      label: Describe alternatives you've considered
-      description: A clear and concise description of any alternative solutions or features you've considered.
-    validations:
-      required: false
-  - type: textarea
-    attributes:
-      label: Additional context
-      description: Add any other context or screenshots about the suggested enhancement here.
+      label: Additional Context
+      description: Mockups, screenshots, or extra context.
     validations:
       required: false
